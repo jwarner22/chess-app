@@ -14,9 +14,9 @@ import PasswordReset from "./components/PasswordReset/PasswordReset"
 const App = () => {
   const user = null;
   return (
-    user ? 
-    <ProfilePage />
-    :
+    // user ? 
+    // <ProfilePage />
+    // :
     <AuthProvider>
       <Router>
         <Switch>

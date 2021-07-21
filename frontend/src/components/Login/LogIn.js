@@ -90,6 +90,7 @@ const LogIn = () => {
           </Link>{" "}
           <br />{" "}
           </Text>
+          <Link to="/dashboard"> Dashboard </Link>
             </FormContent>
           </FormWrap>
     </Container>
