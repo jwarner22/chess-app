@@ -10,22 +10,20 @@ const Body = (
 
     console.log(Modules);
     return (
-        <Link to={{pathname: '/dashboard/module', state: {text: 'passed props'}}}>
-        <button>
         <CoursesWrapper>
             <ModuleWrapper>
                 <ModuleGrid>
                     {Modules.map(module => {
                         return(
-                        <Link to={{pathname: '/dashboard/module', state: {type: module.type}}}>
+                        <button>
+                        <Link style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {type: module.type}}}>
                         <CourseTile {...module} />
                         </Link>
+                        </button>
                     )})}
                 </ModuleGrid>
             </ModuleWrapper>
         </CoursesWrapper>
-        </button>
-        </Link>
     )
 }
 

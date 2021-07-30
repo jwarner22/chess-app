@@ -15,7 +15,7 @@ export const Modules = [
         category: 'puzzle',
         type: 'pin',
         headline: 'Pins',
-        subheding: 'Pin me up by my (pin)is',
+        subheading: 'Pin me up by my (pin)is',
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
@@ -23,7 +23,7 @@ export const Modules = [
         category: 'puzzle',
         type: 'promotion',
         headline: 'Promotion',
-        subheding: 'I deserve a promotion',
+        subheading: 'I deserve a promotion',
         description: 'Lorem ipsum mah brudda',
         img: ''
     }
