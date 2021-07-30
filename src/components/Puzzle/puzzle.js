@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-//import "./style.css";
+import "./style.css";
 // import Demo from "./Demo";
 // import registerServiceWorker from "./registerServiceWorker";
 import PuzzlePage from "./PuzzleComponents/PuzzlePage";
