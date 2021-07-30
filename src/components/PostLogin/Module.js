@@ -1,12 +1,13 @@
 import Puzzle from '../Puzzle/puzzle.js';
 
 export default function Module(props) {
-    const text = props.location.state.text;
-    console.log(text)
+    //const text = props.location.state.text;
+    const theme = props.location.state.type;
+    //console.log(text)
+    console.log(theme)
     return(
         <>
-        <div>{text}</div>
-        <Puzzle rating={1200} theme = 'fork'/>
+        <Puzzle rating={1200} theme = {theme} />
         </>
     )
 }
