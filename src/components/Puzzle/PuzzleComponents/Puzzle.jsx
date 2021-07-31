@@ -10,7 +10,6 @@ import {Howl} from 'howler';
 
 // BackgroundEvaluation();
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
-const outcomes = [];
 
 
 // const Chess = require("chess.js");
@@ -153,7 +152,6 @@ export default class Puzzle extends React.Component {
       this.unlockNext();
       if (this.isCorrect === true) {
         this.displayOutcome(true);
-        outcomes.push("correct");
       }
     }
   };
@@ -166,18 +164,14 @@ export default class Puzzle extends React.Component {
 
     // check correct move
     if ((to !== correctTarget) | (from !== correctSource)) {
-      console.log("Incorrect!");
-      outcomes.push("incorrect");
       this.unlockNext();
       this.displayOutcome(false); // success is false
       this.isCorrect = false;
       this.isFinished = true;
     } else {
-      console.log("Correct!");
       this.isCorrect = true;
       this.isFinished = false;
     }
-    console.log({ outcomes: outcomes });
   };
 
   playSound = (moveType) => {

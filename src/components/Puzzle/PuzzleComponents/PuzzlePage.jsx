@@ -1,25 +1,13 @@
 import React, { useState, useEffect} from "react";
+// import {Link} from 'react-router-dom';
 import PuzzleBoard from "./PuzzleBoard";
-// import ProgressLine from "./ProgressLine";
 import ProgressBar from "../Utilities/Progress";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 //import { wait } from "./helpers";
-import swal from "sweetalert";
+// import Swal from "sweetalert2";
 import {getMoves} from '../Utilities/helpers.js';
 
 // import Stockfish from "./Stockfish";
 // move functions to utils file
-
-/*
-const notify = (success) => {
-  if (success) {
-    toast.success(`🚀 Correct! Nice job.`);
-  } else {
-    toast.error(`😲 Incorrect.`);
-  }
-};
-*/
 
 // template for swal page exit
 //function ExitPuzzle() {
@@ -36,9 +24,12 @@ const notify = (success) => {
 //});
 // }
 
-function EndPuzzle() {
+function EndPuzzle(outcomes) {
+// route to splash screen and post results to database
+console.log('working')
+
   // need to post results to database
-  swal({
+  /*swal({
     title: "Nice Job!",
     button: {
       text: "Return to Homepage",
@@ -48,7 +39,19 @@ function EndPuzzle() {
   }).then((name) => {
     console.log(name);
   });
+  */
+/*
+// post results to database here
+
+  Swal.fire({
+    title: 'Nice Job!',
+    icon: 'success',
+    text: `Congrats, you scored ${outcomes.filter(outcome=>outcome===true).length}/${outcomes.length}`,
+    // html: <Link to="/dashboard">Back to Dashboard</Link>
+  })
 }
+*/
+/*
 
 function NextButton(props) {
   const handleClick = props.onClick;
@@ -66,20 +69,20 @@ function NextButton(props) {
     </div>
   )
 }
-
+*/
 
 
 export default function PuzzlePage(props) {
-  console.log(props.puzzles)
   const puzzleData = props.puzzles;
   const [count, setCount] = useState(0);
   const [fen, setFen] = useState(puzzleData[0].fen);
   const [progress, setProgress] = useState(count);
   const [outcome, setOutcome] = useState(null)
+  const [outcomes,setOutcomes] = useState([]);
   const [correctMoves, setCorrectMoves] = useState(
     getMoves(puzzleData[0].moves)
   );
-  const [locked, setLocked] = useState(true);
+  //const [locked, setLocked] = useState(true);
   const numPuzzles = puzzleData.length;
 
   useEffect(() => {
@@ -87,22 +90,23 @@ export default function PuzzlePage(props) {
       setFen(puzzleData[count].fen);
       setCorrectMoves(getMoves(puzzleData[count].moves));
     } else if (progress >= 100 | count > numPuzzles) {
-      EndPuzzle();
+      EndPuzzle(outcomes);
     }
+    console.log(outcomes)
   }, [progress, count, outcome]);
 
   const unlockNext = () => {
-    setLocked(false);
+    /*
     if (progress >= 100 | count > numPuzzles) {
       EndPuzzle();
-    }
+    } 
+    */
   };
 
   const displayOutcome = (success) => {
-    // notify(success);
     setOutcome(success);
+    setOutcomes(prevOutcomes => [...prevOutcomes, success]);
     incrementCount();
-    // setOutcome(success);
   };
 
   const incrementCount = () => {
@@ -113,14 +117,15 @@ export default function PuzzlePage(props) {
     setProgress(percent)
   }
 
+  /*
   const handleClick = () => {
     if (progress < 100) {
       if (!locked) {
-        //incrementCount();
         setLocked(true);
       }
     }
   };
+  */
 
   return (
     <div>
@@ -148,6 +153,3 @@ const progressContainer = {
   marginTop: 30,
   marginBottom: 40
 };
-
-//       <NextButton onClick={handleClick} />
-
