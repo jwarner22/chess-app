@@ -16,7 +16,7 @@ const Body = (
                     {Modules.map(module => {
                         return(
                         <button>
-                        <Link style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {type: module.type}}}>
+                        <Link style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
                         <CourseTile {...module} />
                         </Link>
                         </button>

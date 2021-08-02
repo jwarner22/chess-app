@@ -12,9 +12,18 @@ export default function Puzzle(props) {
   const [isFinished,setIsFinished] = useState(false);
   const [outcomes, setOutcomes] = useState([]);
   // const puzzles = puzzleData;
-  useEffect(()=>fetchPuzzles(rating,theme),[])
+  useEffect(()=>{
+    fetchPuzzles(rating,theme);
+  },[rating,theme]);
+
   useEffect(() => {
     console.log('save data when finished')
+    // test of getting user ID (works)
+    const userID = sessionStorage.getItem('userID');
+    console.log(userID)
+    const moduleID = props.id;
+    console.log(moduleID);
+    // first post results to local storage and change relevant context
     // post results to database
     // add 'isSaved' state and conditionally render link to dashboard
 

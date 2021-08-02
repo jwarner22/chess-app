@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     firebaseConfig.auth().onAuthStateChanged((user) => {
       setCurrentUser(user);
+      console.log(user.additionalUserInfo)// .profile.id})
       setLoading(false);
     });
   }, []);

@@ -23,6 +23,7 @@ import { withRouter } from 'react-router-dom'
 import firebase from "firebase/app";
 require("firebase/auth");
 
+
 //history = push to dashboard
 const Login = ({history}) => {
   const [email, setEmail] = useState("");
@@ -30,7 +31,7 @@ const Login = ({history}) => {
   const [error, setErrors] = useState("");
 
   const Auth = useContext(AuthContext);
-  
+
   //login with email
   const handleForm = e => {
 
@@ -66,6 +67,7 @@ const Login = ({history}) => {
       .then(result => {
         console.log(result)
         Auth.setLoggedIn(true)
+        sessionStorage.setItem('userID', result.additionalUserInfo.profile.id)
         history.push('/dashboard')
       })
       .catch(e => setErrors(e.message))
