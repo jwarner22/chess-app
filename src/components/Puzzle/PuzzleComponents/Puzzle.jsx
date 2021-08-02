@@ -77,7 +77,7 @@ export default class Puzzle extends React.Component {
   };
 
   makeMove = async (from, to) => {
-    await wait(300);
+    await wait(150);
     this.game.move({
       from: from,
       to: to

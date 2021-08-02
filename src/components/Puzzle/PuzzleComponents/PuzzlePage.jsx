@@ -51,8 +51,9 @@ console.log('working')
   })
 }
 */
-/*
 
+};
+/*
 function NextButton(props) {
   const handleClick = props.onClick;
 
@@ -90,7 +91,8 @@ export default function PuzzlePage(props) {
       setFen(puzzleData[count].fen);
       setCorrectMoves(getMoves(puzzleData[count].moves));
     } else if (progress >= 100 | count > numPuzzles) {
-      EndPuzzle(outcomes);
+      //EndPuzzle(outcomes)
+      props.puzzleIsFinished(outcomes);
     }
     console.log(outcomes)
   }, [progress, count, outcome]);
