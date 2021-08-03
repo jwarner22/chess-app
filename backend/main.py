@@ -11,6 +11,8 @@ import models
 from database import engine, SessionLocal
 from read_puzzles import get_puzzle, get_puzzles
 from database import engine
+import schemas
+import crud
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -67,6 +69,21 @@ def read_puzzles(rating: int, theme: str, db: Session = Depends(get_db)): # chan
        raise HTTPException(status_code=404, detail='puzzle not found')
    return puzzle
 
+# create user
+@app.post('/users/', response_model=schemas.User)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_id(db, user_id=user.user_id)
+    if db_user:
+        raise HTTPException(status_code=400, detail="User already registered")
+    return crud.create_user(db=db, user=user)
+
+# get user
+@app.get('/users/{user_id}', response_model=schemas.User)
+def read_user(user_id: int, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_id(db, user_id=user_id)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return db_user
 
 if __name__ == '__main__':
     uvicorn.run('main:app', host='127.0.0.1', port=8000)
