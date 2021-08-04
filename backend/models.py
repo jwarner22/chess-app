@@ -1,5 +1,6 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql.expression import column
 from database import Base
 
 class User(Base):
@@ -7,11 +8,27 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer,unique=True, index=True)
+    overall_rating = Column(Integer,unique=False, index=True)
+    themes = relationship("Themes", back_populates='owner')
 
     class Congif:
         orm_mode = True
     #user_profile = relationship("UserProfile", back_populates="owner")
 
+class Theme:
+    __tablename__ = "themes"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, unique = True, index=True)
+    category = Column(String, index=True)
+    completed = Column(Integer, index=True)
+    rating = Column(Integer, index=True)
+    high_score = Column(Integer, index=True)
+
+    owner_id = Column(Integer, ForeignKey("user.id"))
+    owner = relationship("User", back_populates="themes")
+
+# can repeat this structure for openings and endgames
 
 #class UserProfile(Base):
 #    __tablename__ = "user_profile"

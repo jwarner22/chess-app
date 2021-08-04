@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 
 
 #class UserInfo(BaseModel):
@@ -9,6 +9,20 @@ from typing import Optional
 #
 #class UserCreate(BaseModel):
 
+class ThemeBase(BaseModel):
+    title: str
+    description: Optional[str] = None
+
+class ThemeCreate(ThemeBase):
+    pass
+
+class Theme(ThemeBase):
+    id: int
+    user_id: int
+
+    class Config:
+        orm_mode = True
+
 class Puzzle(BaseModel):
     puzzle_id: str
     fen: str
@@ -17,11 +31,17 @@ class Puzzle(BaseModel):
     class Config:
         orm_mode = True
 
-class UserCreate(BaseModel):
+class UserBase(BaseModel):
     user_id: int
 
-class User(BaseModel):
+class UserCreate(UserBase):
+    pass
+
+class User(UserBase):
     id: int
     user_id: int
+    overall_rating: int
+    themes: List[Theme] = []
+
     class Config:
         orm_mode=True
