@@ -25,6 +25,7 @@ import Header from "./Header";
 import protectedRoutes from './components/protectedRoutes'
 import ProtectedRouteHoc from './components/protectedRoutesHoc'
 import firebaseConfig from "./config"
+import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from "firebase/app";
 require("firebase/auth");
 

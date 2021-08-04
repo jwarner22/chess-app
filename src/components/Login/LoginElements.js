@@ -104,14 +104,55 @@ export const FormInput = styled.input`
   border-radius: 4px;
 `;
 
+export const GoogleButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4285f4;
+  border-radius: 10px;
+  box-shadow: 0 3px 4px 0 rgba(0,0,0,.25);
+  width: auto;
+  height: 42px;
+  cursor: pointer;
+
+
+`
+export const GoogleIconWrapper = styled.div`
+
+    margin-top: 1px;
+    margin-left: 1px;
+    width: 40px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: #fff;
+
+`
+export const GoogleIcon = styled.img` 
+    position: absolute;
+    margin-top: 11px;
+    margin-left: 11px;
+    width: 18px;
+    height: 18px;
+`
+
+export const GoogleButtonText = styled.p`
+    justify-self: center;
+    margin-left: 10px;
+    color: gray;
+    font-size: 16px;
+    letter-spacing: 0.2px;
+    font-family: "Roboto";
+`
+
 export const FormButton = styled.button`
   background: #247cf1;
-  padding: 16px 0;
+  padding: 12px 0;
   border: none;
-  border-radius: 50px;
+  border-radius:10px;
   color: #fff;
-  font-size: 20px;
+  font-size: 16px;
   cursor: pointer;
+  margin-top: 12px;
 
   &:hover {
         transition: all 0.2s ease-in-out;
@@ -127,7 +168,7 @@ export const LinkP = styled(Link)`
   text-decoration: none;
 `
 
-export const Text = styled.span`
+export const FormText = styled.span`
   text-align: center;
   margin-top: 12px;
   margin-bottom: 12px;

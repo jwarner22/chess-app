@@ -49,7 +49,8 @@ const DashNavbar = ({ toggle }) => {
     const handleLogout = () => {
         firebase.auth().signOut()
   .then(res => {
-    Auth.setLoggedIn(false)
+      Auth.setLoggedIn(false)
+
 
     // Sign-out successful.
   })

@@ -28,7 +28,7 @@ const HeroSection = () => {
                 </HeroP>
                 <HeroBtnWrapper>
                     <Button 
-                    to ="welcome" 
+                    to="/survey" 
                     onMouseEnter={onHover} 
                     onMouseLeave={onHover}
                     primary='true'

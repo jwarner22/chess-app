@@ -1,6 +1,6 @@
 
 import React, {useState, useContext } from "react";
-import {Link} from "react-router-dom";
+import {Link, withRouter } from 'react-router-dom'
 import { AuthContext } from "../../index";
 import firebaseConfig from "../../config.js";
 import logo from '../../Images/EloElevation-2.png'
@@ -14,12 +14,14 @@ import {FormH1,
   FormLabel, 
   FormInput, 
   FormButton,
-  Text,
+  FormText,
   NavLogo,
   Img,
-  LinkP
-} from './LoginElements'
-import { withRouter } from 'react-router-dom'
+  LinkP,
+  GoogleButton,
+  GoogleIconWrapper,
+  GoogleButtonText
+} from './LoginElements';
 import firebase from "firebase/app";
 require("firebase/auth");
 
@@ -28,14 +30,15 @@ require("firebase/auth");
 const Login = ({history}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, passwordIsConfirmed] = useState("");
   const [error, setErrors] = useState("");
 
   const Auth = useContext(AuthContext);
 
   //login with email
   const handleForm = e => {
-
     e.preventDefault();
+    
     firebase
     .auth()
     .setPersistence(firebase.auth.Auth.Persistence.SESSION)
@@ -75,35 +78,48 @@ const Login = ({history}) => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={e => handleForm(e)}>
-        <input
+    <>
+    <Container>
+      <FormWrap>
+        <FormContent>
+          <Form onSubmit={e => handleForm(e)}>
+            <FormH1>Login</FormH1>
+            <FormLabel>Email</FormLabel>
+        <FormInput
           value={email}
           onChange={e => setEmail(e.target.value)}
           name="email"
           type="email"
           placeholder="email"
         />
-        <input
+        <FormLabel>Password</FormLabel>
+        <FormInput
           onChange={e => setPassword(e.target.value)}
           name="password"
           value={password}
           type="password"
           placeholder="password"
         />
-        <hr />
-        <button onClick={() => signInWithGoogle()} className="googleBtn" type="button">
+        <GoogleButton onClick={() => signInWithGoogle()} className="googleBtn" type="button">
+
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
             alt="logo"
           />
+          <GoogleButtonText>
           Login With Google
-        </button>
-        <button type="submit">Login</button>
+          </GoogleButtonText>
+        </GoogleButton>
+        <FormButton type="submit">Login</FormButton>
+        <FormText>Don't have an account?<br/>
+        Sign up <Link to='/signup'>here</Link>
+        </FormText>
         <span>{error}</span>
-      </form>
-    </div>
+            </Form>
+          </FormContent>
+        </FormWrap>
+      </Container>
+    </>
   );
 };
 

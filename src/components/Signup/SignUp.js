@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../../index";
 import { Link, Redirect } from "react-router-dom";
 import firebaseConfig from "../../config"
-import { Container, FormWrap, Icon, FormContent, Form, FormH1, FormLabel, FormInput, FormButton, Text, GoogleLoginButton} from "./SignupElements";
+import { Container, FormWrap, Icon, FormContent, Form, FormH1, FormLabel, FormInput, Text, GoogleLoginButton} from "./SignupElements";
 import logo from '../../Images/EloElevation-2.png'
-import {NavLogo, Img} from "../Login/LoginElements"
+import {NavLogo, Img, GoogleButton, GoogleButtonText, FormButton, FormText} from "../Login/LoginElements"
 import "./Signup.css"
 import {auth} from "../../config"
 import { withRouter } from 'react-router-dom';
@@ -16,11 +16,15 @@ const SignUp = ({history}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setErrors] = useState("");
+  const [confirmPassword, passwordIsConfirmed] = useState("");
 
   const Auth = useContext(AuthContext);
+
+
+
   const handleForm = e => {
     e.preventDefault();
-    
+
     firebase
     .auth()
     .setPersistence(firebase.auth.Auth.Persistence.SESSION)
@@ -62,37 +66,54 @@ const SignUp = ({history}) => {
 
 
   return (
-    <div>
-      <h1>Join</h1>
-      <form onSubmit={e => handleForm(e)}>
-        <input
+    <>
+    <Container>
+      <FormWrap>
+      <FormContent>
+      <Form onSubmit={e => handleForm(e)}>
+      <FormH1>Join</FormH1>
+      <FormLabel>Email</FormLabel>
+        <FormInput
           value={email}
           onChange={e => setEmail(e.target.value)}
           name="email"
           type="email"
           placeholder="email"
         />
-        <input
+        <FormLabel>Create Your Password</FormLabel>
+        <FormInput
           onChange={e => setPassword(e.target.value)}
           name="password"
           value={password}
           type="password"
           placeholder="password"
         />
-        <hr />
-        <button onClick={() => handleGoogleLogin()} class="googleBtn" type="button">
+        <FormLabel>Confirm Your Password</FormLabel>
+        <FormInput
+          name="confirmPassword"
+          type="password"
+          placeholder="re-enter password"
+        />
+        <GoogleButton onClick={() => handleGoogleLogin()} class="googleBtn" type="button">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
             alt="logo"
           />
+          <GoogleButtonText>
           Join With Google
-        </button>
-
-        <button type="submit">Login</button>
-
+          </GoogleButtonText>
+          </GoogleButton>
+        
+        <FormButton type="submit">Join</FormButton>
+        <FormText>Already have an account?<br/>
+        Login <Link to='/login'>here</Link>
+        </FormText>
         <span>{error}</span>
-      </form>
-    </div>
+            </Form>
+          </FormContent>
+        </FormWrap>
+      </Container>
+    </>
   );
 };
 

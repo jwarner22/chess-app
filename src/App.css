@@ -11,17 +11,24 @@
   font-family: 'Encode Sans Expanded', sans-serif;
 }
 
+a {
+  color: #fff;
+}
+a:hover{
+  color: #00f
+}
+
 h1 {
   margin: 0 0 25px 0;
   text-align: left;
 }
 
-form {
+/* form {
   display: flex;
   flex-direction: column;
-}
+} */
 
-input {
+/* input {
   max-width: 450px;
   width: auto;
   border: none;
@@ -29,4 +36,4 @@ input {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   padding: 10px;
-}
+} */
