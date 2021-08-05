@@ -137,7 +137,9 @@ export const GoogleIcon = styled.img`
 
 export const GoogleButtonText = styled.p`
     justify-self: center;
+    align-self: center;
     margin-left: 10px;
+    margin-bottom: 0px;
     color: gray;
     font-size: 16px;
     letter-spacing: 0.2px;

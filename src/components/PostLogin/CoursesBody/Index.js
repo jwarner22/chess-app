@@ -1,29 +1,42 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {CoursesWrapper, ModuleWrapper, ModuleGrid, Course, CourseHeadline} from './CoursesElements'
+import {CoursesWrapper, 
+    ModuleWrapper, 
+    ModuleGrid, 
+    Course, 
+    CourseHeadline, 
+    CategoryLabel,
+    CategoryLabelWrapper
+} from './CoursesElements'
 import { Module1, Module2 } from './CourseTile/Data'
 import CourseTile from './CourseTile/Index'
 import {Modules} from './CourseTile/Data';
+import { AnnouncementContainer } from '../Announcements/AnnouncementsElements'
 
 const Body = (
 ) => {
 
     console.log(Modules);
     return (
+        <>
+        <CategoryLabelWrapper>
+            <CategoryLabel>
+                Openings
+            </CategoryLabel>
+        </CategoryLabelWrapper>
         <CoursesWrapper>
             <ModuleWrapper>
                 <ModuleGrid>
                     {Modules.map(module => {
                         return(
-                        <button>
                         <Link style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
                         <CourseTile {...module} />
                         </Link>
-                        </button>
                     )})}
                 </ModuleGrid>
             </ModuleWrapper>
         </CoursesWrapper>
+        </>
     )
 }
 

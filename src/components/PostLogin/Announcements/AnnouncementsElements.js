@@ -2,20 +2,23 @@ import styled from 'styled-components'
 
 export const AnnouncementWrapper = styled.div` 
     display: flex;
-    width: 100%;
-    border-bottom: .125rem solid #e1e5e7;
     justify-content: center;
-    margin: 0 auto;
-    padding-top: 80px;
+`
+
+export const AnnouncementContainerWrapper = styled.div`
+    display: flex;
+    max-width: 1170px;
+    /* border: 1px solid red; */
+    margin: 10px;
     height: auto;
-    position: relative;
+    width: 100%;
+    padding-top: 60px;
 `
 
 export const AnnouncementContainer = styled.div`
     display: grid;
     height: 200px;
     align-content: center;
-    max-width: 1100px;
     grid-gap: 16px;
     position: relative;
 `
@@ -32,7 +35,7 @@ export const AnnouncementTitleH1 = styled.h1`
 
 export const AnnouncementP = styled.p`
     font-size: 1rem;
-    text-align: center; 
+    text-align: left; 
 `
 
 export const CoursesWrapper = styled.div`

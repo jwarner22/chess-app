@@ -13,14 +13,15 @@ import {TileWrapper,
 const CourseTile = ({
     headline,
     subheading,
-    description
+    description,
+    img
 }) => {
     return (
         <>
         <TileWrapper>
             <TileHeader>
                 <TileIconWrap>
-                    <TileIcon />    
+                    <TileIcon src={img}/>
                 </TileIconWrap>
                 <TileHeadline>
                     {headline}
@@ -29,11 +30,11 @@ const CourseTile = ({
                     {subheading}
                 </TileSubheadline>
             </TileHeader>
-            <TileDescriptionWrapper>
+            {/* <TileDescriptionWrapper>
                 <TileDescription>
                     {description}
                 </TileDescription>
-            </TileDescriptionWrapper>
+            </TileDescriptionWrapper> */}
         </TileWrapper>
         </>
     )

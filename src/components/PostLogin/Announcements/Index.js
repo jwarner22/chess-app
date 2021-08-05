@@ -1,4 +1,5 @@
-import {MainDiv,  
+import {MainDiv, 
+    AnnouncementContainerWrapper, 
     AnnouncementContainer, 
     CourseContent, 
     AnnouncementTitleH1, 
@@ -30,7 +31,8 @@ const Announcements = ({headline, subheadline}) => {
     return (
         <>
             <AnnouncementWrapper>
-                <AnnouncementContainer>  
+                <AnnouncementContainerWrapper>
+                    <AnnouncementContainer>  
                         <AnnouncementTitleH1> 
                             {headline}
                         </AnnouncementTitleH1>
@@ -38,7 +40,8 @@ const Announcements = ({headline, subheadline}) => {
                             {subheadline}
                         </AnnouncementP>
                         {/* <button onClick={() => firebaseConfig.auth().signOut()}>Sign out</button> */}
-                </AnnouncementContainer>
+                    </AnnouncementContainer>
+                </AnnouncementContainerWrapper>
             </AnnouncementWrapper>
         </>
     )
