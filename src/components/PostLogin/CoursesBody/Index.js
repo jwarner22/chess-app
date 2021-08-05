@@ -27,10 +27,10 @@ const Body = (
         <CoursesWrapper>
             <ModuleWrapper>
                 <ModuleGrid>
-                    {Modules.map(module => {
+                    {Modules.map((module, index) => {
                         return(
-                        <Link style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
-                        <CourseTile {...module} />
+                        <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                        <CourseTile key={index} {...module} />
                         </Link>
                     )})}
                 </ModuleGrid>

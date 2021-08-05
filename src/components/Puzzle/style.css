@@ -105,7 +105,7 @@ cg-board square.premove-dest:hover {
   background: rgba(20, 30, 85, 0.2);
 }
 cg-board square.last-move {
-  will-change: transform;
+  will-change: transform !important;
   background-color: rgba(155, 199, 0, 0.41);
 }
 cg-board square.selected {
@@ -131,7 +131,7 @@ cg-board square.current-premove {
   height: 12.5%;
   background-size: cover;
   z-index: 2;
-  will-change: transform;
+  will-change: transform !important; 
   pointer-events: none;
 }
 cg-board piece.dragging {
