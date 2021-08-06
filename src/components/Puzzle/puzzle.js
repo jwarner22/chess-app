@@ -8,7 +8,7 @@ import PuzzlePage from "./PuzzleComponents/PuzzlePage";
 
 export default function Puzzle(props) {
   const {rating,theme} = props;
-  const [puzzles,setPuzzles] = useState();
+  const [puzzles,setPuzzles] = useState([]);
   const [isFinished,setIsFinished] = useState(false);
   const [outcomes, setOutcomes] = useState([]);
   // const puzzles = puzzleData;
@@ -59,7 +59,8 @@ export default function Puzzle(props) {
  // render puzzle module
   return (
     <div>
-      {puzzles && <PuzzlePage puzzles={puzzles} puzzleIsFinished={puzzleIsFinished} />}
+      {console.log(puzzles.length)}
+      {(puzzles.length > 0) && <PuzzlePage puzzles={puzzles} puzzleIsFinished={puzzleIsFinished} />}
     </div>
   );
 }

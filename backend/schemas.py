@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from typing import Optional, List
 
+from sqlalchemy.engine import interfaces
+
 
 #class UserInfo(BaseModel):
 #    email: 'str'
@@ -9,19 +11,49 @@ from typing import Optional, List
 #
 #class UserCreate(BaseModel):
 
-class ThemeBase(BaseModel):
-    title: str
-    description: Optional[str] = None
-
-class ThemeCreate(ThemeBase):
-    pass
-
-class Theme(ThemeBase):
+class Theme(BaseModel):
     id: int
-    user_id: int
+    owner_id: int
+    title: str
+    category: str
+    rating: Optional[int] = 1500
+    completed: Optional[int] = 0
+    high_score: Optional[int] = 0
 
     class Config:
-        orm_mode = True
+        orm_mode=True
+
+class CreateTheme(BaseModel):
+    title: str
+    category: str
+    rating: Optional[int] = 1500
+    completed: Optional[int] = 0
+    high_score: Optional[int] = 0
+
+
+# class ThemeBase(BaseModel):
+#     title: str
+#     category: str
+#     rating: Optional[int] = 1500
+
+# class ThemeCreate(ThemeBase):
+#     pass
+
+# class Theme(ThemeBase):
+#     id: int
+#     owner_id: int
+#     completed: Optional[int] = 0
+#     high_score: Optional[int] = 0
+
+#     class Config:
+#         orm_mode = True
+
+# class UpdateTheme(ThemeBase):
+#     title: str
+#     category: str
+#     rating: Optional[int]
+#     completed: Optional[int]
+#     high_score: Optional[int]
 
 class Puzzle(BaseModel):
     puzzle_id: str
@@ -32,16 +64,17 @@ class Puzzle(BaseModel):
         orm_mode = True
 
 class UserBase(BaseModel):
-    user_id: int
-
-class UserCreate(UserBase):
     pass
+    
+class UserCreate(UserBase):
+    user_id: int
+    overall_rating: int
 
 class User(UserBase):
     id: int
-    user_id: int
-    overall_rating: int
-    themes: List[Theme] = []
+    overall_rating: Optional[int] = 1200
+    themes: Optional[List[Theme]] = []
 
     class Config:
         orm_mode=True
+

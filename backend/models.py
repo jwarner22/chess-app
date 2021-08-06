@@ -3,30 +3,46 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import column
 from database import Base
 
+class Puzzles(Base):
+    __tablename__ = "labels_raw"
+    puzzle_id = Column(String, primary_key=True, index=True)
+    fen = Column(String, unique=False, index=True)
+    moves = Column(String, unique=False, index=True)
+    rating = Column(Integer, unique=False, index=True)
+    rating_dev = Column(Integer, unique=False, index=True)
+    rating_dev2 = Column(Integer, unique=False, index=True)
+    nb_plays = Column(Integer, unique=False, index=True)
+    themes = Column(String, unique=False, index=True)
+    game_url = Column(String, unique=False, index=True)
+
+
+class Theme(Base):
+    __tablename__ = "themes"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, unique = False, index=True)
+    category = Column(String, index=True)
+    completed = Column(Integer, index=True)
+    rating = Column(Integer, index=True)
+    high_score = Column(Integer, index=True)
+    owner_id = Column(Integer, ForeignKey("user.user_id"))
+    
+    #owner = relationship("User", back_populates="themes")
+
+
+
 class User(Base):
     __tablename__ = "user"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer,unique=True, index=True)
     overall_rating = Column(Integer,unique=False, index=True)
-    themes = relationship("Themes", back_populates='owner')
+
+    themes =  relationship("Theme", backref="user")
+    #themes = relationship("Theme", back_populates='owner')
 
     class Congif:
         orm_mode = True
-    #user_profile = relationship("UserProfile", back_populates="owner")
-
-class Theme:
-    __tablename__ = "themes"
-
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, unique = True, index=True)
-    category = Column(String, index=True)
-    completed = Column(Integer, index=True)
-    rating = Column(Integer, index=True)
-    high_score = Column(Integer, index=True)
-
-    owner_id = Column(Integer, ForeignKey("user.id"))
-    owner = relationship("User", back_populates="themes")
 
 # can repeat this structure for openings and endgames
 
@@ -53,20 +69,6 @@ class Theme:
 
 # block comment with ctr+K+C
 # un-block comment with ctrl+K+U
-
-class Puzzles(Base):
-    __tablename__ = "labels_raw"
-    puzzle_id = Column(String, primary_key=True, index=True)
-    fen = Column(String, unique=False, index=True)
-    moves = Column(String, unique=False, index=True)
-    rating = Column(Integer, unique=False, index=True)
-    rating_dev = Column(Integer, unique=False, index=True)
-    rating_dev2 = Column(Integer, unique=False, index=True)
-    nb_plays = Column(Integer, unique=False, index=True)
-    themes = Column(String, unique=False, index=True)
-    game_url = Column(String, unique=False, index=True)
-
-
 
 #class Item(Base):
  #   __tablename__ = "items"

@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 
 import uvicorn
-from typing import Optional
+from typing import Optional, List
 
 # import models
 from sqlalchemy.orm import Session
@@ -55,6 +55,7 @@ def read_root():
 
 # fetch via /puzzles/?puzzle_id=...
 
+# get a puzzle
 @app.get('/puzzle/')
 def read_puzzle(puzzle_id: str, db: Session = Depends(get_db)): #, elo: Optional[str]=None):
    puzzle = get_puzzle(db,puzzle_id)
@@ -62,6 +63,7 @@ def read_puzzle(puzzle_id: str, db: Session = Depends(get_db)): #, elo: Optional
        raise HTTPException(status_code=404, detail='puzzle not found')
    return puzzle
 
+# get puzzles
 @app.get('/puzzles/')
 def read_puzzles(rating: int, theme: str, db: Session = Depends(get_db)): # changed from read puzzle to read puzzles
    puzzle = get_puzzles(db,rating, theme)
@@ -84,6 +86,25 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
+
+# initialize theme ratings
+@app.post('/users/{user_id}/themes/', response_model=schemas.Theme)
+def define_theme_ratings(user_id: int, theme: schemas.CreateTheme, db: Session = Depends(get_db)):
+    theme_ratings = crud.add_theme(db, theme = theme, user_id = user_id)#title = theme.title, category = theme.category)
+    return theme_ratings
+
+# # get a users theme ratings
+# @app.get('/users/{user_id}/themes/', response_model= schemas.Theme)
+# def get_theme_ratings(user_id: int, db: Session = Depends(get_db)):
+#     # user_ratings = crud.get_user_ratings(db, user_id = user_id)
+#     db_user = crud.get_user_by_id(db, user_id=user_id)
+#     return db_user.themes # user_ratings
+
+# get 100 ratings (testing)
+@app.get('/users/themes/', response_model=List[schemas.Theme])
+def read_ratings(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
+    ratings = crud.get_all_ratings(db, skip=skip, limit=limit)
+    return ratings
 
 if __name__ == '__main__':
     uvicorn.run('main:app', host='127.0.0.1', port=8000)

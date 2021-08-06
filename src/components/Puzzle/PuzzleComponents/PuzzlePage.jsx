@@ -128,9 +128,9 @@ export default function PuzzlePage(props) {
     }
   };
   */
-
   return (
     <div>
+      {console.log(fen)}
       <div style={progressContainer}>
         <ProgressBar outcome={outcome} returnPercent={returnPercent} count={count}/>
       </div>

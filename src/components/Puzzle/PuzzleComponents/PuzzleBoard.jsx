@@ -22,6 +22,7 @@ export default class PuzzleBoard extends React.Component {
 
   render() {
     console.log("rendered puzzleboard");
+    console.log({boardfen: this.props.fen})
     return (
       <div style={boardsContainer}>
         <div className="box">
