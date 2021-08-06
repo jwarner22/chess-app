@@ -39,8 +39,8 @@ export const TileIconWrap = styled.div`
 export const TileIcon = styled.img`
     display: block;
     margin: auto;
-    width: 60px;
-    height: 60px;
+    width: 90px;
+    height: 90px;
 `
 
 
@@ -51,8 +51,8 @@ export const TileHeadline = styled.h3`
     font-weight: 600;
     color: white;
     text-align: center;
-    padding: 5px;
-    margin-top: 10px;
+    /* padding: 5px; */
+    /* margin-top: 5px; */
 
 `
 

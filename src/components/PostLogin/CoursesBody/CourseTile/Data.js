@@ -17,23 +17,23 @@ export const Modules = [
         headline: 'Pins',
         subheading: 'Pin me up by my (pin)is',
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/Pins.svg").default
     },{
         id: 3,
         category: 'puzzle',
-        type: 'promotion',
-        headline: 'Promotion',
-        subheading: 'I deserve a promotion',
+        type: 'Skewer',
+        headline: 'Skewer',
+        subheading: `Oof, I'm skewed`,
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/Skewer90px.svg").default
     },{
         id: 4,
         category: 'puzzle',
-        type: 'promotion',
-        headline: 'Promotion',
-        subheading: 'I deserve a promotion',
+        type: 'Checkmate',
+        headline: 'Checkmate',
+        subheading: 'Game Over',
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/Checkmate.svg").default
     },{
         id: 4,
         category: 'puzzle',
