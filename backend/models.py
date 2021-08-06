@@ -16,6 +16,21 @@ class Puzzles(Base):
     game_url = Column(String, unique=False, index=True)
 
 
+class Theme(Base):
+    __tablename__ = "themes"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, unique = False, index=True)
+    category = Column(String, index=True)
+    completed = Column(Integer, index=True)
+    rating = Column(Integer, index=True)
+    high_score = Column(Integer, index=True)
+    owner_id = Column(Integer, ForeignKey("user.user_id"))
+    
+    #owner = relationship("User", back_populates="themes")
+
+
+
 class User(Base):
     __tablename__ = "user"
 
@@ -28,20 +43,6 @@ class User(Base):
 
     class Congif:
         orm_mode = True
-    #user_profile = relationship("UserProfile", back_populates="owner")
-
-class Theme:
-    __tablename__ = "themes"
-
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, unique = True, index=True)
-    category = Column(String, index=True)
-    completed = Column(Integer, index=True)
-    rating = Column(Integer, index=True)
-    high_score = Column(Integer, index=True)
-    owner_id = Column(Integer, ForeignKey("user.id"))
-    
-    #owner = relationship("User", back_populates="themes")
 
 # can repeat this structure for openings and endgames
 

@@ -6,9 +6,14 @@ import json
 def get_user_by_id(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.user_id == user_id).first()
 
-#def get_user_by_email(db: Session, email: str):
-#    return db.query(models.User).filter(models.User.email == email).first()
+# def get_user_ratings(db: Session, user_id: int):
+#     # need to find specific attribute user.themes
+#     return db.query(models.Theme).filter(models.Theme.owner_id == user_id).all()
+# #def get_user_by_email(db: Session, email: str):
+# #    return db.query(models.User).filter(models.User.email == email).first()
 
+def get_all_ratings(db: Session, skip:int = 0, limit: int = 100):
+    return db.query(models.Theme).offset(skip).limit(limit).all()
 
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.User).offset(skip).limit(limit).all()
@@ -23,6 +28,12 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.refresh(db_user)
     return db_user
 
+def add_theme(db: Session, theme: schemas.CreateTheme, user_id: int):
+    db_theme = models.Theme(**theme.dict(), owner_id = user_id)
+    db.add(db_theme)
+    db.commit()
+    db.refresh(db_theme)
+    return db_theme
 
 #def get_items(db: Session, skip: int = 0, limit: int = 100):
 #    return db.query(models.Item).offset(skip).limit(limit).all()
