@@ -1,5 +1,13 @@
 import styled from 'styled-components'
 
+export const CategoryLabelContainerTop = styled.div`
+    background-color: #f3f3f3;
+`
+
+export const CategoryLabelContainer = styled.div`
+    padding-top: 40px;
+    background-color: #f3f3f3;
+`
 
 export const CategoryLabelWrapper = styled.div`
     display: flex;
@@ -18,14 +26,14 @@ export const CoursesWrapper = styled.div`
     display: flex;
     justify-content: center;
     background-color: #f3f3f3;
-    padding-top: 30px;
+    padding-top: 40px;
 `
 
 export const ModuleWrapper = styled.div `
 display: flex;
 max-width: 1170px;
 /* border: 1px solid red; */
-margin: 10px;
+margin-bottom: 30px;
 height: auto;
 width: 100%;
 padding-top: 10px;

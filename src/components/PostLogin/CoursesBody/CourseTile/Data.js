@@ -350,7 +350,7 @@ export const Modules = [
         headline: 'Skewer',
         subheading: `Line em' up, and knock em' down.`,
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/Skewer90px.svg").default
+        img: require("../../../../Images/Skewer.svg").default
     },{
         id: 4,
         category: 'puzzle',
