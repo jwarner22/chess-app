@@ -21,7 +21,7 @@ const Body = (
         <>
         <CategoryLabelWrapper>
             <CategoryLabel>
-                Openings
+                Endgames
             </CategoryLabel>
         </CategoryLabelWrapper>
         <CoursesWrapper>
