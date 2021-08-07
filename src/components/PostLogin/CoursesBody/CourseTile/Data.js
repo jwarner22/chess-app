@@ -1,5 +1,18 @@
 
 
+
+export const AllEndgames = [
+    {
+        id: 4,
+        category: 'puzzle',
+        type: 'endgame',
+        headline: 'Endgame Shuffle',
+        subheading: 'A mixture of all endgame strategies.',
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../Images/Endgame_shuffle.svg").default 
+    }
+]
+
 export const Modules = [
     {
         id: 4,

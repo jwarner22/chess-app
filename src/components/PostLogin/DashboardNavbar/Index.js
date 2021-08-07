@@ -75,16 +75,16 @@ const DashNavbar = ({ toggle }) => {
                             <FaBars />
                         </MobileIcons>
                         <NavMenu>
-                            {/* <NavItem>
+                            {/* {/* <NavItem>
                                 <NavLinks>
                                     About
                                 </NavLinks>
-                            </NavItem>
-                            <NavItem>
-                                <NavLinks>
-                                    Option 2
-                                </NavLinks>
                             </NavItem> */}
+                            <NavItem>
+                                <NavLinks to="/dailyPuzzle">
+                                    Daily Puzzle
+                                </NavLinks>
+                            </NavItem> 
                             {/* <NavItem>
                                 <NavLinks> 
                                     Option 3
