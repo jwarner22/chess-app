@@ -7,15 +7,14 @@ export const TileWrapper = styled.li`
     /* border: 1px solid orange; */
     list-style-type: none;
     background: linear-gradient(
-    108deg,
-    rgba(22, 159, 219, 1) 0%,
-    rgba(36, 124, 241, 1) 100%
-  );
+320deg
+, rgb(32, 131, 255), rgba(92, 235, 52, 0)), linear-gradient(rgb(76, 204, 255) 0%, rgb(24, 142, 189) 100%);
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     flex-shrink: 1;
     flex-grow: 1;
     height: 200px;
+    transition: all 0.2s ease-in-out;
 
     &:hover {
         box-shadow: 0.2s ease-in-out;
