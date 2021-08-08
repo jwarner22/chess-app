@@ -5,6 +5,7 @@ from typing import Optional, List
 
 # import models
 from sqlalchemy.orm import Session
+from sqlalchemy import update
 
 # from .schemas import UserInfo, Puzzle
 import models
@@ -92,6 +93,31 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
 def define_theme_ratings(user_id: int, theme: schemas.CreateTheme, db: Session = Depends(get_db)):
     theme_ratings = crud.add_theme(db, theme = theme, user_id = user_id)#title = theme.title, category = theme.category)
     return theme_ratings
+
+# update user theme rating
+@app.put("/users/themes/{theme_id}", response_model = schemas.User)
+async def update_theme_rating(user_id: int, theme: schemas.Theme, db: Session = Depends(get_db)):
+
+    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+    #db_theme = db_user.themes.filter(db_user.themes.title == theme.title)
+    #db_theme = [entry for entry in db_user.themes if entry.title == theme.title]
+    if db_user is None:
+         return None
+    #db_user.themes.update(theme.dict())
+    # for var, value in vars(schemas.Theme).items():
+    #for var, value in vars(theme).items():
+    #    setattr(db_theme, var, value) if value else None
+    #     setattr(db_user.themes, var, value) if value else None
+    # setattr(db_user, 'themes', db_theme)
+    # db_user.themes = db_theme
+    # #db_user.modified = modified_now
+    db.add(db_user)
+    stmt = (update(models.Theme).where(models.Theme.owner_id == user_id).where(models.Theme.title == theme.title).values(rating=theme.rating, completed=theme.completed, high_score=theme.high_score))
+    db.execute(stmt)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
 
 # # get a users theme ratings
 # @app.get('/users/{user_id}/themes/', response_model= schemas.Theme)

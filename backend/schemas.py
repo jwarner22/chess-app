@@ -30,6 +30,11 @@ class CreateTheme(BaseModel):
     completed: Optional[int] = 0
     high_score: Optional[int] = 0
 
+# class UpdateTheme(BaseModel):
+#     title: str
+#     rating: int
+#     completed: int
+#     high_score: int
 
 # class ThemeBase(BaseModel):
 #     title: str
