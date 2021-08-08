@@ -12,14 +12,15 @@ export const CategoryLabelContainer = styled.div`
 export const CategoryLabelWrapper = styled.div`
     display: flex;
     height: 65px; 
-    background: linear-gradient(to left, #ffb347, #ffcc33);
-    justify-content: center;
+    background-image: linear-gradient(to right, rgba(255,179,71,1), rgba(255,179,71,0));
+    justify-content: flex-start;
 `
 
 export const CategoryLabel = styled.h2`
     color: white;
     margin-top: auto;
     margin-bottom: auto;
+    margin-left: 30px;
 `
 
 export const CoursesWrapper = styled.div`

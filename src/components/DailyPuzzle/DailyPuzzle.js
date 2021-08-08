@@ -1,10 +1,12 @@
 import React from "react";
+import { DailyPuzzleContainer, DailyPuzzleTitle, DailyPuzzleWrapper } from "./DailyPuzzleElements";
 import PopUp from "./Modal"; 
 
 
 export default class DailyPuzzle extends React.Component {
   state = {
-   seen: true
+    //change this to true when the Puzzle Page is done.
+   seen: false
    };
   togglePop = () => {
    this.setState({
@@ -13,12 +15,18 @@ export default class DailyPuzzle extends React.Component {
   };
 render() {
   return (
+    <>
    <div>
-    {/* <div className="btn" onClick={this.togglePop}>
-      <button>New User?</button>
-    </div> */}
     {this.state.seen ? <PopUp toggle={this.togglePop} /> : null}
    </div>
+   <DailyPuzzleWrapper>
+      <DailyPuzzleContainer>
+        <DailyPuzzleTitle>
+          Daily Puzzles
+        </DailyPuzzleTitle>
+      </DailyPuzzleContainer>
+   </DailyPuzzleWrapper>
+   </>
   );
  }
 }
