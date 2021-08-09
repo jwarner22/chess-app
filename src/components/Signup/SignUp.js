@@ -35,7 +35,9 @@ const SignUp = ({history}) => {
         .then(res => {
           console.log(res)
           history.push('/dashboard')
-          if (res.user) Auth.setLoggedIn(true);
+          if (res.user) {
+            Auth.setLoggedIn(true)
+          };
         })
         .catch(e => {
           setErrors(e.message);

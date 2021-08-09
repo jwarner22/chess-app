@@ -25,7 +25,7 @@ class Theme(Base):
     completed = Column(Integer, index=True)
     rating = Column(Integer, index=True)
     high_score = Column(Integer, index=True)
-    owner_id = Column(Integer, ForeignKey("user.user_id"))
+    owner_id = Column(String, ForeignKey("user.user_id"))
     
     #owner = relationship("User", back_populates="themes")
 
@@ -35,7 +35,7 @@ class User(Base):
     __tablename__ = "user"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer,unique=True, index=True)
+    user_id = Column(String,unique=True, index=True)
     overall_rating = Column(Integer,unique=False, index=True)
 
     themes =  relationship("Theme", backref="user")

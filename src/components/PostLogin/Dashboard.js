@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "../Auth";
 import firebaseConfig from "../../config.js";
@@ -18,6 +18,10 @@ const Dashboard = () => {
   const toggle = () => {
     setIsOpen(!isOpen)
   }
+
+  //placeholder for testing
+  useEffect(() => console.log(JSON.parse(sessionStorage.getItem('userPublicData'))),[])
+
   // const { currentUser } = useContext(AuthContext);
   // if (!currentUser) {
   //   return <Redirect to="/login" />;

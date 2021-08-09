@@ -82,7 +82,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 # get user
 @app.get('/users/{user_id}', response_model=schemas.User)
-def read_user(user_id: int, db: Session = Depends(get_db)):
+def read_user(user_id: str, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -90,13 +90,13 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
 
 # initialize theme ratings
 @app.post('/users/{user_id}/themes/', response_model=schemas.Theme)
-def define_theme_ratings(user_id: int, theme: schemas.CreateTheme, db: Session = Depends(get_db)):
+def define_theme_ratings(user_id: str, theme: schemas.CreateTheme, db: Session = Depends(get_db)):
     theme_ratings = crud.add_theme(db, theme = theme, user_id = user_id)#title = theme.title, category = theme.category)
     return theme_ratings
 
 # update user theme rating
 @app.put("/users/themes/{theme_id}", response_model = schemas.User)
-async def update_theme_rating(user_id: int, theme: schemas.Theme, db: Session = Depends(get_db)):
+async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = Depends(get_db)):
 
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
     #db_theme = db_user.themes.filter(db_user.themes.title == theme.title)

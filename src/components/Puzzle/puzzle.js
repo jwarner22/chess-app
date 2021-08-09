@@ -14,7 +14,15 @@ export default function Puzzle(props) {
   // const puzzles = puzzleData;
   useEffect(()=>{
     fetchPuzzles(rating,theme);
-  },[rating,theme]);
+    let baseUrl = 'http://127.0.0.1:8000/users/'
+    const userID = sessionStorage.getItem('userID');
+    let queryParams = `${userID}`
+    fetch(baseUrl + queryParams).then(response => response.json()).then(data => {
+      console.log(data)
+    })
+  },[]);
+
+  
 
   useEffect(() => {
     console.log('save data when finished')
@@ -23,6 +31,12 @@ export default function Puzzle(props) {
     console.log(userID)
     const moduleID = props.id;
     console.log(moduleID);
+
+    let baseUrl = 'http://127.0.0.1:8000/users/'
+    let queryParams = `${userID}`
+    fetch(baseUrl + queryParams).then(response => response.json()).then(data => {
+      console.log(data)
+    })
     // first post results to local storage and change relevant context
     // post results to database
     // add 'isSaved' state and conditionally render link to dashboard
@@ -30,8 +44,8 @@ export default function Puzzle(props) {
   },[isFinished])
   
   function fetchPuzzles(rating, theme) {
-    const baseUrl = 'http://127.0.0.1:8000/puzzles/'
-    const queryParams = `?rating=${rating}&theme=${theme}`
+    let baseUrl = 'http://127.0.0.1:8000/puzzles/'
+    let queryParams = `?rating=${rating}&theme=${theme}`
     fetch(baseUrl + queryParams).then(response => response.json()).then(data => {
       setPuzzles(data);
     })

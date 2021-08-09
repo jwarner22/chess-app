@@ -72,7 +72,7 @@ class UserBase(BaseModel):
     pass
     
 class UserCreate(UserBase):
-    user_id: int
+    user_id: str
     overall_rating: int
 
 class User(UserBase):

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 import models, schemas
 import json
 
-def get_user_by_id(db: Session, user_id: int):
+def get_user_by_id(db: Session, user_id: str):
     return db.query(models.User).filter(models.User.user_id == user_id).first()
 
 # def get_user_ratings(db: Session, user_id: int):
@@ -28,7 +28,7 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.refresh(db_user)
     return db_user
 
-def add_theme(db: Session, theme: schemas.CreateTheme, user_id: int):
+def add_theme(db: Session, theme: schemas.CreateTheme, user_id: str):
     db_theme = models.Theme(**theme.dict(), owner_id = user_id)
     db.add(db_theme)
     db.commit()

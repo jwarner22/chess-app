@@ -23,6 +23,9 @@ import {FormH1,
   GoogleButtonText
 } from './LoginElements';
 import firebase from "firebase/app";
+import FetchWrapper from "../api/FetchWrapper";
+import {baseURL} from '../api/apiConfig';
+
 require("firebase/auth");
 
 
@@ -68,14 +71,37 @@ const Login = ({history}) => {
       .auth()
       .signInWithPopup(provider)
       .then(result => {
-        console.log(result)
         Auth.setLoggedIn(true)
-        sessionStorage.setItem('userID', result.additionalUserInfo.profile.id)
+        setUserData(result)
         history.push('/dashboard')
       })
       .catch(e => setErrors(e.message))
     })
   };
+
+  // fetches backend and persists user data across app
+  const setUserData = (response) => {
+    console.log(response)
+    let userID = response.additionalUserInfo.profile.id;
+    sessionStorage.setItem('userID', userID)
+    const API = new FetchWrapper(baseURL)
+    if (response.additionalUserInfo.isNewUser) {
+      console.log('post new user to API')
+      API.post('/users/', {
+        user_id: userID,
+        rating: 1200
+      }).then(data => {
+        console.log(data);
+        sessionStorage.setItem('userPublicData', JSON.stringify(data))
+      })
+    } else {
+    API.get(`/users/${userID}`)
+    .then(data => {sessionStorage.setItem('userPublicData', JSON.stringify(data))})
+    .catch(error => {
+      console.log(error)
+    })
+  }
+  }
 
   return (
     <>
