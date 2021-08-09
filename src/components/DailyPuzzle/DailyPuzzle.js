@@ -1,12 +1,17 @@
-import React from "react";
-import { DailyPuzzleContainer, DailyPuzzleTitle, DailyPuzzleWrapper } from "./DailyPuzzleElements";
-import PopUp from "./Modal"; 
-
+import React, {Link} from "react";
+import { DailyPuzzleContainer, 
+  DailyPuzzleTitle, 
+  DailyPuzzleWrapper, 
+  DailyPuzzleHeaderImg} from "./DailyPuzzleElements";
+import Modal from "./Modal"; 
+import headerImg from "./../../Images/DailyPuzzleHeaderImg.svg"
+import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
+import {DailyPuzzleModules} from "./DailyPuzzleData"
 
 export default class DailyPuzzle extends React.Component {
   state = {
     //change this to true when the Puzzle Page is done.
-   seen: false
+   seen: true
    };
   togglePop = () => {
    this.setState({
@@ -14,16 +19,19 @@ export default class DailyPuzzle extends React.Component {
    });
   };
 render() {
+  console.log(this.state.seen)
   return (
     <>
-   <div>
-    {this.state.seen ? <PopUp toggle={this.togglePop} /> : null}
+   <div> 
+    {this.state.seen ? <Modal toggle={this.togglePop} /> : null}
    </div>
    <DailyPuzzleWrapper>
       <DailyPuzzleContainer>
+        <DailyPuzzleHeaderImg src={headerImg}/>
         <DailyPuzzleTitle>
           Daily Puzzles
         </DailyPuzzleTitle>
+            <DailyPuzzleModuleContainer/>
       </DailyPuzzleContainer>
    </DailyPuzzleWrapper>
    </>
