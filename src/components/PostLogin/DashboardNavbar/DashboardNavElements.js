@@ -6,7 +6,7 @@ import firebase from 'firebase'
 require('firebase/auth')
 
 export const Nav = styled.nav`
-    background: ${({ scrollNav }) => (scrollNav ? '#000' : 'black')};
+    background: #fff;
     height: 80px;
     margin-top: -80px;
     display: flex;
@@ -16,6 +16,7 @@ export const Nav = styled.nav`
     position: sticky;
     top: 0;
     z-index: 10;
+    box-shadow: rgba(36, 124, 241, 0.2) 0px 3px 8px;
 
     @media screen and (max-width: 960px) {
         transition: 0.8s all ease;
@@ -80,7 +81,7 @@ export const NavItem = styled.li `
 `;
 
 export const NavLinks = styled(LinkR)`
-    color: #fff;
+    color: #54606c;
     display: flex;
     align-items: center;
     text-decoration: none;
