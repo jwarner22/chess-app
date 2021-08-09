@@ -73,8 +73,7 @@ const Login = ({history}) => {
       .then(result => {
         Auth.setLoggedIn(true)
         setUserData(result)
-        history.push('/dashboard')
-      })
+      }).then(() => history.push('/dashboard'))
       .catch(e => setErrors(e.message))
     })
   };
