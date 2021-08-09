@@ -6,13 +6,13 @@ export const CategoryLabelContainerTop = styled.div`
 
 export const CategoryLabelContainer = styled.div`
     padding-top: 40px;
-    background-color: #f3f3f3;
+
 `
 
 export const CategoryLabelWrapper = styled.div`
     display: flex;
     height: 65px; 
-    background-image: linear-gradient(to right, rgba(255,179,71,1), rgba(255,179,71,0));
+    background: #24F299;
     justify-content: flex-start;
 `
 
@@ -26,7 +26,6 @@ export const CategoryLabel = styled.h2`
 export const CoursesWrapper = styled.div`
     display: flex;
     justify-content: center;
-    background-color: #f3f3f3;
     padding-top: 40px;
 `
 

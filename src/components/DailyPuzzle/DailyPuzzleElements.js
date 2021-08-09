@@ -41,7 +41,7 @@ export const DailyPuzzleModuleStyle = styled.div`
     display: grid;
     grid-template-columns: 30% 1fr;
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: rgba(36, 124, 241, 0.3) 0px 3px 8px;
     transition: all 0.2s ease-in-out;
 
     &:hover {

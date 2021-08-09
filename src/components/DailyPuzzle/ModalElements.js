@@ -23,7 +23,7 @@ export const ModalHeader = styled.div`
   margin: 0 auto;
   padding: 10px 22px;
   border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  box-shadow: rgba(36, 124, 241, 0.3) 0px 3px 8px;
   transition: all 0.3s ease-in-out;
 
 
@@ -105,6 +105,7 @@ export const ModalStartButton = styled.button`
     transition: all 0.2s ease-in-out;
     text-decoration: none;
     grid-column: 1 / span 2;
+    box-shadow: rgba(36, 124, 241, 0.3) 0px 3px 8px;
 
     &:hover {
         transition: all 0.2s ease-in-out;

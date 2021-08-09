@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const AnnouncementWrapper = styled.div` 
     display: flex;
     justify-content: center;
+    background-color: #f6f9fc;
 `
 
 export const AnnouncementContainerWrapper = styled.div`

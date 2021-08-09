@@ -6,11 +6,13 @@ import styled from 'styled-components'
 export const TileWrapper = styled.li`
     /* border: 1px solid orange; */
     list-style-type: none;
-    background: linear-gradient(
+    background: #247cf1;
+    /* background: #247fc1; */
+    /* background: linear-gradient(
 320deg
-, rgb(32, 131, 255), rgba(92, 235, 52, 0)), linear-gradient(rgb(76, 204, 255) 0%, rgb(24, 142, 189) 100%);
+, rgb(32, 131, 255), rgba(92, 235, 52, 0)), linear-gradient(rgb(76, 204, 255) 0%, rgb(24, 142, 189) 100%); */
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: rgba(36, 124, 241, 0.2) 0px 3px 8px;
     flex-shrink: 1;
     flex-grow: 1;
     height: 200px;
