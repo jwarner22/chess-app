@@ -4,69 +4,79 @@ import "./style.css";
 // import Demo from "./Demo";
 // import registerServiceWorker from "./registerServiceWorker";
 import PuzzlePage from "./PuzzleComponents/PuzzlePage";
-// import {puzzleData} from './data.js'
+import {baseURL} from "../api/apiConfig";
+import FetchWrapper from "../api/FetchWrapper";
+
+const API = new FetchWrapper(baseURL)
 
 export default function Puzzle(props) {
   const {rating,theme} = props;
   const [puzzles,setPuzzles] = useState([]);
   const [isFinished,setIsFinished] = useState(false);
   const [outcomes, setOutcomes] = useState([]);
-  // const puzzles = puzzleData;
+  const [savingResults, setSavingResults] = useState(false);
+  const [failure, setFailure] = useState(false);
+  // called on component mount
   useEffect(()=>{
     fetchPuzzles(rating,theme);
-    let baseUrl = 'http://127.0.0.1:8000/users/'
-    const userID = sessionStorage.getItem('userID');
-    let queryParams = `${userID}`
-    fetch(baseUrl + queryParams).then(response => response.json()).then(data => {
-      console.log(data)
-    })
   },[]);
-
   
-
-  useEffect(() => {
-    console.log('save data when finished')
-    // test of getting user ID (works)
-    const userID = sessionStorage.getItem('userID');
-    console.log(userID)
-    const moduleID = props.id;
-    console.log(moduleID);
-
-    let baseUrl = 'http://127.0.0.1:8000/users/'
-    let queryParams = `${userID}`
-    fetch(baseUrl + queryParams).then(response => response.json()).then(data => {
-      console.log(data)
-    })
-    // first post results to local storage and change relevant context
-    // post results to database
-    // add 'isSaved' state and conditionally render link to dashboard
-
-  },[isFinished])
-  
+  // fetches puzzles from api
   function fetchPuzzles(rating, theme) {
-    let baseUrl = 'http://127.0.0.1:8000/puzzles/'
+    let endpoint = '/puzzles/'
     let queryParams = `?rating=${rating}&theme=${theme}`
-    fetch(baseUrl + queryParams).then(response => response.json()).then(data => {
-      setPuzzles(data);
-    })
+    API.get(endpoint+queryParams).then(data => setPuzzles(data))
   }
   
- const puzzleIsFinished = (outcomes) => {
-   console.log({finished: 'isFinished', outcomes: outcomes})
-   setOutcomes(prevOutcomes => [...prevOutcomes,outcomes])
+  // saves results to api and sessionstorage
+  function saveResults() {
+    setSavingResults(true)
+    let oldData = JSON.parse(sessionStorage.getItem('userPublicData'))
+    let userID = sessionStorage.getItem('userID')
+    //let moduleID = props.id;
+    let themeData = oldData.themes.find(element => element.title === theme);
+    themeData.rating += 25; // adds 25 to theme rating (needs improvement)
+    themeData.completed += 1; // adds 1 to number of puzzles completed
+
+    //need to switch to localstorage and refactor to prevent data loss if api fails    
+    let endpoint = `/users/themes/${userID}`
+    API.put(endpoint, themeData)
+    .then(data => {
+      console.log(data)
+      sessionStorage.setItem('userPublicData',JSON.stringify(data))
+    }).then(() => setSavingResults(false))
+    .catch(e => console.log(e))
+  }
+
+  // callback function when puzzle is finished (currently only success)
+ const puzzleIsFinished = (Results, result) => {
+   console.log({finished: 'isFinished', outcomes: Results})
+   if (result === 'succeed') {
+   setOutcomes(prevOutcomes => [...prevOutcomes,Results])
    setIsFinished(true)
+   saveResults();
+   } else if (result === 'fail') {
+    setOutcomes(prevOutcomes => [...prevOutcomes,Results])
+    setFailure(prevFailure => !prevFailure)
+    setIsFinished(true)
+   }   
  }
  
+ // style this u lil biiitch
  // render if the puzzle module is finished
  if (isFinished) {
    return(
      <>
     <strong>Nice Job!</strong>
     <p>Congrats, you scored {outcomes.filter(outcome=>outcome===true).length}/{outcomes.length}</p>
+    <p>Failure? {failure}</p>
+    { savingResults && <p>Saving Results...</p>}
+    {(savingResults === false) &&
     <button>
     <Link to="/dashboard">Back to Dashboard</Link>
     </button>
-     </>
+    }
+    </>
    )
  }
 

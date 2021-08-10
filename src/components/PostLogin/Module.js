@@ -15,10 +15,10 @@ export default function Module(props) {
     useEffect(() => {
         let data = JSON.parse(sessionStorage.getItem('userPublicData'));
         console.log(data)
-        let oldThemeRecord = data.themes.filter(themeItem => themeItem.title === theme)
-        console.log({oldrecord: oldThemeRecord})
-        if (oldThemeRecord.length > 0) {
-            setRating(oldThemeRecord[0].rating)
+        let themeRecord = data.themes.find(element=> element.title === theme)
+        console.log({oldrecord: themeRecord})
+        if (typeof themeRecord !== 'undefined') {
+            setRating(() => themeRecord.rating)
             setLoading(prev => !prev)
         } else {
             const API = new FetchWrapper(baseURL)

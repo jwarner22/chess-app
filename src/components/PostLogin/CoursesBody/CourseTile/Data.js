@@ -236,7 +236,7 @@ export const Modules = [
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'discoveredAttack',
-        headline: 'Discoverd Attack',
+        headline: 'Discovered Attack',
         subheading: 'Surprise!',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/DiscoveredAttack.svg").default

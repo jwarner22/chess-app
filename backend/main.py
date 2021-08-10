@@ -95,7 +95,7 @@ def define_theme_ratings(user_id: str, theme: schemas.CreateTheme, db: Session =
     return theme_ratings
 
 # update user theme rating
-@app.put("/users/themes/{theme_id}", response_model = schemas.User)
+@app.put("/users/themes/{user_id}", response_model = schemas.User)
 async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = Depends(get_db)):
 
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
