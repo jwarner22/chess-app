@@ -23,7 +23,7 @@ class FetchWrapper {
         return fetch(this.baseURL + endpoint, {
             method,
             headers: {
-                "Conent-Type": "application/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(body)
         }).then(response => response.json());

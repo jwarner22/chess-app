@@ -30,6 +30,8 @@ class CreateTheme(BaseModel):
     completed: Optional[int] = 0
     high_score: Optional[int] = 0
 
+    class Config:
+        orm_mode=True
 # class UpdateTheme(BaseModel):
 #     title: str
 #     rating: int

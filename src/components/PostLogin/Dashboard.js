@@ -20,7 +20,7 @@ const Dashboard = () => {
   }
 
   //placeholder for testing
-  useEffect(() => console.log(JSON.parse(sessionStorage.getItem('userPublicData'))),[])
+  // useEffect(() => console.log(JSON.parse(sessionStorage.getItem('userPublicData'))),[])
 
   // const { currentUser } = useContext(AuthContext);
   // if (!currentUser) {
