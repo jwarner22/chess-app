@@ -1,23 +1,30 @@
 import styled from "styled-components"
 
-export const DailyPuzzleWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  background-color: #f3f3f3;
-  flex-wrap: wrap;
+export const Container = styled.div`
+    min-height: 100vh;
+    min-width: 100vw;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: #f6f9fc;
 `
+
+export const DailyPuzzleWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    flex: 1;
+`
+
 export const DailyPuzzleContainer = styled.div`
     max-width: 800px;
     height: auto;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    margin: 0 auto;
     padding: 10px 22px;
 `
 
@@ -36,7 +43,7 @@ export const DailyPuzzleTitle = styled.h1`
 `
 
 export const DailyPuzzleModuleStyle = styled.div`
-    margin: 10px;
+    margin: 10px auto;
     background-color: white;
     padding: 10px;
     display: grid;

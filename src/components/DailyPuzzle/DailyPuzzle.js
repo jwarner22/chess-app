@@ -3,7 +3,8 @@ import { DailyPuzzleContainer,
   DailyPuzzleTitle, 
   DailyPuzzleWrapper, 
   DailyPuzzleHeaderImg,
-  PuzzleWrapper} from "./DailyPuzzleElements";
+  PuzzleWrapper,
+  Container} from "./DailyPuzzleElements";
 import Modal from "./Modal"; 
 import headerImg from "./../../Images/DailyPuzzleHeaderImg.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
@@ -26,6 +27,7 @@ render() {
    <div> 
     {this.state.seen ? <Modal toggle={this.togglePop} /> : null}
    </div>
+   <Container>
    <DailyPuzzleWrapper>
       <DailyPuzzleContainer>
         <DailyPuzzleHeaderImg src={headerImg}/>
@@ -36,8 +38,10 @@ render() {
         <PuzzleWrapper>
         <DailyPuzzleModuleContainer/>
         <DailyPuzzleModuleContainer/>
+        <DailyPuzzleModuleContainer/>
         </PuzzleWrapper>
    </DailyPuzzleWrapper>
+   </Container>
    </>
   );
  }
