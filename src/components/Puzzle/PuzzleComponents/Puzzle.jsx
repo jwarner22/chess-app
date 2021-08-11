@@ -7,6 +7,7 @@ import { wait } from "../Utilities/helpers.js";
 import moveSound from "../../../assets/public_sound_standard_Move.mp3";
 import captureSound from "../../../assets/public_sound_standard_Capture.mp3";
 import {Howl} from 'howler';
+import { useMemo } from "react";
 
 // BackgroundEvaluation();
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
@@ -39,7 +40,8 @@ export default class Puzzle extends React.Component {
     correctSource: "",
     puzzleFinished: false,
     moveIndex: 0,
-    check: false
+    check: false,
+    prevMoveIndex: 0
   };
 
   componentDidMount() {
@@ -76,7 +78,7 @@ export default class Puzzle extends React.Component {
   };
 
   makeMove = async (from, to) => {
-    await wait(200);
+    await wait(350);
     this.game.move({
       from: from,
       to: to
@@ -87,9 +89,9 @@ export default class Puzzle extends React.Component {
   onMove = async (from, to) => {
     // check if puzzle is finished
     if (this.game.move({to:to, from:from, verbose: true}).flags === 'c') {
-      await this.playSound('c')
+      this.playSound('c')
     } else {
-      await this.playSound('n')
+      this.playSound('n')
     }
     // || this.isFinished === true (removed for auto next puzzle (not needed))
     if (
@@ -114,7 +116,7 @@ export default class Puzzle extends React.Component {
     }
 
     // make move on board before proceeding
-    await this.makeMove(from, to);
+    // await this.makeMove(from, to);
     // set new game state
     const lastMove = from + to;
 
@@ -190,7 +192,9 @@ export default class Puzzle extends React.Component {
 
   // calcs legal moves and returns chessground compatible object
   calcMovable = () => {
-    this.game = new Chess(this.state.fen);
+    if (this.state.moveIndex !== this.state.prevMoveIndex | this.state.prevMoveIndex === 0) {
+      console.log('calced movable')
+      this.game = new Chess(this.state.fen);
     const dests = new Map();
     this.game.SQUARES.forEach((s) => {
       const ms = this.game.moves({ square: s, verbose: true });
@@ -200,12 +204,21 @@ export default class Puzzle extends React.Component {
           ms.map((m) => m.to)
         );
     });
+    this.setState({...this.state, prevMoveIndex: this.state.moveIndex, dests: dests})
     return {
       free: false,
       dests,
       color: this.turnColor() // "white"
     };
+  } else {
+    return  {
+      free: false,
+      dests: this.state.dests,
+      color: this.turnColor()
+    }
+  }
   };
+
 
   // returns color of current turn
   turnColor = () => {

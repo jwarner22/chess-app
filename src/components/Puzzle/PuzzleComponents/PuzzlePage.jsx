@@ -2,9 +2,9 @@ import React, { useState, useEffect} from "react";
 // import {Link} from 'react-router-dom';
 import PuzzleBoard from "./PuzzleBoard";
 import ProgressBar from "../Utilities/Progress";
-//import { wait } from "./helpers";
+
 // import Swal from "sweetalert2";
-import {getMoves} from '../Utilities/helpers.js';
+import {getMoves, wait} from '../Utilities/helpers.js';
 
 // import Stockfish from "./Stockfish";
 // move functions to utils file
@@ -43,18 +43,27 @@ export default function PuzzlePage(props) {
   const numPuzzles = puzzleData.length;
 
   useEffect(() => {
-    if (progress < 100 && count <= numPuzzles) {
-      setFen(puzzleData[count].fen);
-      setCorrectMoves(getMoves(puzzleData[count].moves));
-    } else if (progress >= 100 | count > numPuzzles) {
-      props.puzzleIsFinished(outcomes, 'succeed');
-    } 
-    
+    // checks if user has missed 4 puzzles - if so route to fialure screen
     if (outcomes.filter(entry => entry === false).length > 3) {
       props.puzzleIsFinished(outcomes, 'fail')
     }
     console.log(outcomes)
-  }, [progress, count, outcomes]);
+  }, [outcomes]);
+
+  useEffect(() => {
+    if (progress < 100) {
+      nextPuzzle();
+    }
+    if (progress >= 100) {
+      wait(500)
+      props.puzzleIsFinished(outcomes, 'succeed');
+    }
+  }, [progress, count])
+
+  const nextPuzzle = () => {
+    setFen(() => puzzleData[count].fen);
+    setCorrectMoves(() => getMoves(puzzleData[count].moves));
+  }
 
   const unlockNext = () => {
     // used to unlock button. Saving for now just 
@@ -71,7 +80,7 @@ export default function PuzzlePage(props) {
   };
   
   const returnPercent = (percent) => {
-    setProgress(percent)
+    setProgress(() => percent)
   }
 
   return (

@@ -7,12 +7,14 @@ import { Line, ProgressProps } from "rc-progress";
 function ProgressBar(props) {
     const [percent,setPercent] = useState(0);
     const [color,setColor] = useState('#247CF1')
+    const [results, setResults] = useState([]);
     const baseColor = '#247CF1';
     const incorrectColor = '#F24F3D';
     const correctColor = '#30F218';
+    const perfectColor = '#FFF90C';
     const outcome = props.outcome;
     const returnPercent = props.returnPercent;
-
+    
     useEffect(() => {
         if (props.percent === undefined) {
             setDisplay(outcome)
@@ -22,18 +24,23 @@ function ProgressBar(props) {
     },[props.count])
 
     const setDisplay = result => {
-        if (result === true && percent <= 85) {
+        console.log(percent)
+        if (result === true && percent < 100) {
             setColor(correctColor)
-            setPercent(percent + 15)
+            setPercent(prevPercent => prevPercent + 15)
         } else if (result === false && percent > 0) {
             setColor(incorrectColor)
-            setPercent(percent - 5)
-        } else if (percent > 85){
+            setPercent(prevPercent => prevPercent - 5)
+        } else if (percent > 100 && result === true){
             setColor(correctColor)
             setPercent(100)
+            if (results.every(outcome => outcome === true)) {
+                setColor(perfectColor)
+            }
         } else {
             setColor(baseColor)
         }
+        setResults(prevResults => [...prevResults, result])
         returnPercent(percent)
     }
 

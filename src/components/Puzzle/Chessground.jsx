@@ -43,7 +43,7 @@ export default class Chessground extends React.Component {
     disableContextMenu: false,
     animation: {
       enabled: true,
-      duration: 1000
+      duration: 350
     }
   };
 

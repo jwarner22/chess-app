@@ -16,6 +16,7 @@ export default function Puzzle(props) {
   const [outcomes, setOutcomes] = useState([]);
   const [savingResults, setSavingResults] = useState(false);
   const [failure, setFailure] = useState(false);
+  const [perfect, setPerfect] = useState(true);
   // called on component mount
   useEffect(()=>{
     fetchPuzzles(rating,theme);
@@ -29,13 +30,24 @@ export default function Puzzle(props) {
   }
   
   // saves results to api and sessionstorage
-  function saveResults() {
+  function saveResults(results) {
     setSavingResults(true)
     let oldData = JSON.parse(sessionStorage.getItem('userPublicData'))
     let userID = sessionStorage.getItem('userID')
     //let moduleID = props.id;
     let themeData = oldData.themes.find(element => element.title === theme);
-    themeData.rating += 25; // adds 25 to theme rating (needs improvement)
+  
+    // score change
+    let tried = results.length;
+    let succeeded = results.filter(result => result === true).length;
+    console.log({tried: tried, succeeded: succeeded})
+    if (succeeded === tried) {
+      themeData.rating += 100
+      setPerfect(true)
+    } else {
+      themeData.rating += 50
+    }
+
     themeData.completed += 1; // adds 1 to number of puzzles completed
 
     //need to switch to localstorage and refactor to prevent data loss if api fails    
@@ -49,15 +61,15 @@ export default function Puzzle(props) {
   }
 
   // callback function when puzzle is finished (currently only success)
- const puzzleIsFinished = (Results, result) => {
-   console.log({finished: 'isFinished', outcomes: Results})
+ const puzzleIsFinished = (results, result) => {
+   console.log({finished: 'isFinished', outcomes: results})
    if (result === 'succeed') {
-   setOutcomes(prevOutcomes => [...prevOutcomes,Results])
+   setOutcomes(prevOutcomes => [...prevOutcomes,results])
    setIsFinished(true)
-   saveResults();
+   saveResults(results);
    } else if (result === 'fail') {
-    setOutcomes(prevOutcomes => [...prevOutcomes,Results])
-    setFailure(prevFailure => !prevFailure)
+    setOutcomes(prevOutcomes => [...prevOutcomes,results])
+    setFailure(true)
     setIsFinished(true)
    }   
  }
@@ -67,11 +79,11 @@ export default function Puzzle(props) {
  if (isFinished) {
    return(
      <>
-    <strong>Nice Job!</strong>
-    <p>Congrats, you scored {outcomes.filter(outcome=>outcome===true).length}/{outcomes.length}</p>
-    <p>Failure? {failure}</p>
-    { savingResults && <p>Saving Results...</p>}
-    {(savingResults === false) &&
+    {!failure && <strong>Nice Job!</strong>}
+    {perfect && <strong>Congrats, Perfect Score!</strong>}
+    {failure && <strong>Module Failed</strong>}
+    {savingResults && <p>Saving Results...</p>}
+    {!savingResults &&
     <button>
     <Link to="/dashboard">Back to Dashboard</Link>
     </button>
@@ -83,7 +95,6 @@ export default function Puzzle(props) {
  // render puzzle module
   return (
     <div>
-      {console.log(puzzles.length)}
       {(puzzles.length > 0) && <PuzzlePage puzzles={puzzles} puzzleIsFinished={puzzleIsFinished} />}
     </div>
   );
