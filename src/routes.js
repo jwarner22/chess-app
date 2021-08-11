@@ -10,8 +10,7 @@ const routes = [
   {name: "Home", path: "/", exact: true, main: () => <Home />},
   { name: "SignUp", path: "/signup", exact: true, main: () => <SignUp /> },
   { name: "LogIn", path: "/login", exact: true, main: () => <LogIn /> },
-  { name: "Survey", path: "/survey", exact: true, main: () => <IntakeSurvey />},
-  { name: "DailyPuzzle", path: "/dailyPuzzle", exact: true, main: () => <DailyPuzzle />}
+  { name: "Survey", path: "/survey", exact: true, main: () => <IntakeSurvey />}
 ];
 
 export default routes;

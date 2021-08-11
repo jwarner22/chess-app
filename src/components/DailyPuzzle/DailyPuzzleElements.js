@@ -9,6 +9,7 @@ export const DailyPuzzleWrapper = styled.div`
   justify-content: center;
   align-items: center; 
   background-color: #f3f3f3;
+  flex-wrap: wrap;
 `
 export const DailyPuzzleContainer = styled.div`
     max-width: 800px;
@@ -43,6 +44,8 @@ export const DailyPuzzleModuleStyle = styled.div`
     border-radius: 10px;
     box-shadow: rgba(36, 124, 241, 0.3) 0px 3px 8px;
     transition: all 0.2s ease-in-out;
+    max-width: 800px;
+
 
     &:hover {
         box-shadow: 0.2s ease-in-out;
@@ -83,4 +86,9 @@ export const PuzzleDescripton = styled.p`
     grid-column: 2;
     margin-bottom: 15px;
     margin-left: 15px;
+`
+export const PuzzleWrapper = styled.div`
+    display: block; 
+    max-width: 800px;
+    flex-wrap: flex;
 `

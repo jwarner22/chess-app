@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom"
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "../Auth";
 import firebaseConfig from "../../config.js";
@@ -33,6 +34,7 @@ const Dashboard = () => {
     <DashNavbar toggle={toggle}/>
     <DashSidebar isOpen={isOpen} toggle={toggle} />
       <Announcements {...AnnouncementOne}/>
+      <Link to="PuzzleComplete" >To Puzzle</Link>
       <Body/>
     </>
   );

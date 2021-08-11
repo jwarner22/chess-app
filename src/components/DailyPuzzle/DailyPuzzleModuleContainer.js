@@ -3,7 +3,9 @@ import {DailyPuzzleModuleStyle,
 DailyPuzzleIconWrapper,
 DailyPuzzleIcon,
 PuzzleModuleTitle,
-PuzzleDescripton
+PuzzleDescripton,
+PuzzleWrapper,
+
 } from "./DailyPuzzleElements"
 
 const DailyPuzzleModuleContainer = ({
@@ -11,6 +13,7 @@ const DailyPuzzleModuleContainer = ({
 }) => {
     return (
         <>
+        {/* <PuzzleWrapper> */}
             <DailyPuzzleModuleStyle>
             <DailyPuzzleIconWrapper>
                 <DailyPuzzleIcon src={img}/>
@@ -22,6 +25,7 @@ const DailyPuzzleModuleContainer = ({
                 Lorum Ipsum Lorum Ipsum Lorum Ipsum Lorum Ipsum Lorum Ipsum
             </PuzzleDescripton>
             </DailyPuzzleModuleStyle>
+        {/* </PuzzleWrapper> */}
         </>
     )
 }

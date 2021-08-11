@@ -2,7 +2,8 @@ import React, {Link} from "react";
 import { DailyPuzzleContainer, 
   DailyPuzzleTitle, 
   DailyPuzzleWrapper, 
-  DailyPuzzleHeaderImg} from "./DailyPuzzleElements";
+  DailyPuzzleHeaderImg,
+  PuzzleWrapper} from "./DailyPuzzleElements";
 import Modal from "./Modal"; 
 import headerImg from "./../../Images/DailyPuzzleHeaderImg.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
@@ -31,8 +32,11 @@ render() {
         <DailyPuzzleTitle>
           Daily Puzzles
         </DailyPuzzleTitle>
-            <DailyPuzzleModuleContainer/>
-      </DailyPuzzleContainer>
+        </DailyPuzzleContainer>
+        <PuzzleWrapper>
+        <DailyPuzzleModuleContainer/>
+        <DailyPuzzleModuleContainer/>
+        </PuzzleWrapper>
    </DailyPuzzleWrapper>
    </>
   );
