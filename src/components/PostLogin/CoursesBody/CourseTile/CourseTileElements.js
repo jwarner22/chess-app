@@ -17,12 +17,14 @@ export const TileWrapper = styled.li`
     flex-grow: 1;
     height: 200px;
     transition: all 0.2s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
     &:hover {
         box-shadow: 0.2s ease-in-out;
         transform: scale(1.02);
         transition: all 0.2 ease-in-out;
         cursor: pointer;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
     }
 `
 

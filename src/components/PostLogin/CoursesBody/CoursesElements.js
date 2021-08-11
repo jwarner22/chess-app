@@ -14,6 +14,8 @@ export const CategoryLabelWrapper = styled.div`
     height: 65px; 
     background: #24F299;
     justify-content: flex-start;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    justify-content: center;
 `
 
 export const CategoryLabel = styled.h2`
@@ -21,6 +23,7 @@ export const CategoryLabel = styled.h2`
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 30px;
+
 `
 
 export const CoursesWrapper = styled.div`

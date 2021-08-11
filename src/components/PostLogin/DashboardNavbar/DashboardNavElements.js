@@ -106,20 +106,18 @@ export const NavBtn = styled.nav `
 export const NavBtnLink = styled(LinkR)`
     border-radius: 50px;
     background: #247cf1;
-    white-space: nowrap;
     padding: 10px 22px;
     color: #fff;
     font-size: 16px;
-    outline: none;
-    border: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        background: #fff;
-        color: #010606;
+        background: #0e65d8;
+        color: #fff;
     }
 `;
 
@@ -136,6 +134,7 @@ export const NavBtnLink2 = styled(LinkR)`
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
 
     &:hover {
         transition: all 0.2s ease-in-out;

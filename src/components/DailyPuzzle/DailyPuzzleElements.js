@@ -43,22 +43,23 @@ export const DailyPuzzleTitle = styled.h1`
 `
 
 export const DailyPuzzleModuleStyle = styled.div`
-    margin: 10px auto;
+    margin: 20px auto;
     background-color: white;
     padding: 10px;
     display: grid;
     grid-template-columns: 30% 1fr;
     border-radius: 10px;
-    box-shadow: rgba(36, 124, 241, 0.3) 0px 3px 8px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     transition: all 0.2s ease-in-out;
     max-width: 800px;
 
 
     &:hover {
         box-shadow: 0.2s ease-in-out;
-        transform: scale(1.02);
+        transform: scale(1.01);
         transition: all 0.2 ease-in-out;
         cursor: pointer;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
     }
 `
 

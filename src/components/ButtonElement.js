@@ -17,10 +17,11 @@ export const Button = styled(Link)`
     align-items: center;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        background: ${({primary}) => (primary ? '#fff' : '#247cf1' )};
-        color: ${({dark}) => (dark ? '#247cf1' : '#fff')}
+        background: ${({primary}) => (primary ? '#0e65d8' : '#247cf1' )};
+        color: ${({dark}) => (dark ? '#fff' : '#fff')}
     }
 `;
