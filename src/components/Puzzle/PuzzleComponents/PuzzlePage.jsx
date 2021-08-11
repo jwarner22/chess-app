@@ -43,17 +43,14 @@ export default function PuzzlePage(props) {
   const numPuzzles = puzzleData.length;
 
   useEffect(() => {
-    console.log('effect')
     if (progress < 100 && count <= numPuzzles) {
       setFen(puzzleData[count].fen);
       setCorrectMoves(getMoves(puzzleData[count].moves));
     } else if (progress >= 100 | count > numPuzzles) {
-      console.log(outcomes)
       props.puzzleIsFinished(outcomes, 'succeed');
     } 
     
     if (outcomes.filter(entry => entry === false).length > 3) {
-      console.log('why u no work bby')
       props.puzzleIsFinished(outcomes, 'fail')
     }
     console.log(outcomes)

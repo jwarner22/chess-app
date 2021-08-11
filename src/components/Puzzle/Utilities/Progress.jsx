@@ -7,28 +7,21 @@ import { Line, ProgressProps } from "rc-progress";
 function ProgressBar(props) {
     const [percent,setPercent] = useState(0);
     const [color,setColor] = useState('#247CF1')
-    // const [lastOutcome, setLastOutcome] = useState('incorrect') use to stop multiple incorrects in a row
     const baseColor = '#247CF1';
     const incorrectColor = '#F24F3D';
     const correctColor = '#30F218';
     const outcome = props.outcome;
     const returnPercent = props.returnPercent;
-    console.log(percent)
+
     useEffect(() => {
-        console.log({percent: props.percent})
-        console.log({outcome: outcome});
-        
         if (props.percent === undefined) {
             setDisplay(outcome)
-            console.log('checking')
         } else{
             setPercent(props.percent)
         }
-
     },[props.count])
 
     const setDisplay = result => {
-        console.log({progress: result})
         if (result === true && percent <= 85) {
             setColor(correctColor)
             setPercent(percent + 15)
@@ -41,7 +34,6 @@ function ProgressBar(props) {
         } else {
             setColor(baseColor)
         }
-        console.log(percent)
         returnPercent(percent)
     }
 

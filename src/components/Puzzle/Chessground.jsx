@@ -42,7 +42,8 @@ export default class Chessground extends React.Component {
     },
     disableContextMenu: false,
     animation: {
-      enabled: true
+      enabled: true,
+      duration: 1000
     }
   };
 
@@ -59,17 +60,12 @@ export default class Chessground extends React.Component {
         }
       }
     });
-    // console.log(config);
     return config;
   }
 
   componentDidMount() {
-    // console.log(this.buildConfigFromProps(this.props));
     NativeChessground(this.el, this.buildConfigFromProps(this.props));
   }
-  //componentDidUpdate(props) {
-  //NativeChessground(this.el, this.buildConfigFromProps(props));
-  //}
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
@@ -79,7 +75,6 @@ export default class Chessground extends React.Component {
 
   render() {
     console.log("rendered chessground");
-    console.log(this.props.fen)
     const props = { style: { ...this.props.style } };
     if (this.props.width) {
       props.style.width = this.props.width;

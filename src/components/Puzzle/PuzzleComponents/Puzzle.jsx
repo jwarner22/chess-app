@@ -56,11 +56,9 @@ export default class Puzzle extends React.Component {
 
   newPuzzle = async () => {
     // refactor to show opposing move by setting state, waiting, making opposing move, and then resetting state (previously introduced some issues)
-    console.log(this.count)
     if (this.count){
       await wait(500);
     }
-    console.log("puzzle rendering")
     this.game.load(this.props.fen);
     this.game.move({
       from: this.props.correctMoves[0],
@@ -78,7 +76,7 @@ export default class Puzzle extends React.Component {
   };
 
   makeMove = async (from, to) => {
-    await wait(300);
+    await wait(200);
     this.game.move({
       from: from,
       to: to
@@ -88,7 +86,6 @@ export default class Puzzle extends React.Component {
   // runs on player move
   onMove = async (from, to) => {
     // check if puzzle is finished
-    // await this.playSound();
     if (this.game.move({to:to, from:from, verbose: true}).flags === 'c') {
       await this.playSound('c')
     } else {
@@ -123,8 +120,9 @@ export default class Puzzle extends React.Component {
 
     // checks move for correctness and displays splash screen.
     this.verifyMove(from, to);
+
+    // set game state
     let moveIndex = this.state.moveIndex;
-    
     this.setState({
       fen: this.game.fen(),
       lastMove: [lastMove],
@@ -177,7 +175,6 @@ export default class Puzzle extends React.Component {
 
   playSound = (moveType) => {
     // Howler.volume(1.0)
-    console.log('sound played')
     if (moveType === 'c') {
       this.captureSound.play()
 

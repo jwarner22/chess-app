@@ -8,21 +8,20 @@ PuzzleWrapper,
 
 } from "./DailyPuzzleElements"
 
-const DailyPuzzleModuleContainer = ({
-    img
-}) => {
+const DailyPuzzleModuleContainer = (props) => {
+    
     return (
         <>
         {/* <PuzzleWrapper> */}
             <DailyPuzzleModuleStyle>
             <DailyPuzzleIconWrapper>
-                <DailyPuzzleIcon src={img}/>
+                <DailyPuzzleIcon src={props.img}/>
             </DailyPuzzleIconWrapper>
             <PuzzleModuleTitle>
-                Test Module
+                {props.headline}
             </PuzzleModuleTitle>
             <PuzzleDescripton>
-                Lorum Ipsum Lorum Ipsum Lorum Ipsum Lorum Ipsum Lorum Ipsum
+                {props.description}
             </PuzzleDescripton>
             </DailyPuzzleModuleStyle>
         {/* </PuzzleWrapper> */}

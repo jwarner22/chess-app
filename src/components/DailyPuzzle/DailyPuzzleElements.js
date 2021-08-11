@@ -15,7 +15,6 @@ export const DailyPuzzleWrapper = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
     flex: 1;
 `
 
