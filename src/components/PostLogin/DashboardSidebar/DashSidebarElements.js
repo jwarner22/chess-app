@@ -19,7 +19,7 @@ export const SidebarContainer = styled.aside`
    
 `
 export const CloseIcon = styled(FaTimes) `
-    color: #fff;
+    color: #247cf1;
 `
 
 export const Icon = styled.div `
@@ -30,6 +30,7 @@ export const Icon = styled.div `
     font-size: 2rem;
     cursor: pointer;
     outline: none;
+    color: #247cf1;
 `
 
 export const SidebarWapper = styled.div `

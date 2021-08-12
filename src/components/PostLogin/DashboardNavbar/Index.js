@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
-import { FaBars, FaSignOutAlt } from 'react-icons/fa'
 import {IconContext} from 'react-icons/lib'
+import {Bars} from "@styled-icons/fa-solid/Bars"
 import {
      Nav, 
      NavbarContainer, 
@@ -12,7 +12,8 @@ import {
      NavLinks, 
      NavBtn, 
      NavBtnLink, 
-     NavBtnLink2
+     NavBtnLink2,
+     BlueBars
     } from './DashboardNavElements'
 import {animateScroll as scroll} from 'react-scroll'
 import firebaseConfig from "../../../config";
@@ -21,6 +22,10 @@ import { AuthContext } from "../../../index";
 import logo from "../../../Images/EloElevation-2.png"
 import firebase from 'firebase'
 require('firebase/auth')
+
+
+
+
 
 const DashNavbar = ({ toggle }) => {
     
@@ -72,7 +77,7 @@ const DashNavbar = ({ toggle }) => {
                             <Img src={logo}></Img> 
                         </NavLogo>
                         <MobileIcons onClick={toggle}>
-                            <FaBars />
+                            <BlueBars />
                         </MobileIcons>
                         <NavMenu>
                             {/* {/* <NavItem>

@@ -16,6 +16,7 @@ import {
     } from './NavbarElements'
 import {animateScroll as scroll} from 'react-scroll'
 import logo from "../../Images/EloElevation-2.png"
+import {BlueBars} from "../PostLogin/DashboardNavbar/DashboardNavElements"
 
 const Navbar = ({ toggle }) => {
     const [scrollNav, setScrollNav] = useState(false)
@@ -45,7 +46,7 @@ const Navbar = ({ toggle }) => {
                             <Img src={logo}></Img> 
                         </NavLogo>
                         <MobileIcons onClick={toggle}>
-                            <FaBars />
+                            <BlueBars />
                         </MobileIcons>
                         <NavMenu>
                             <NavItem>

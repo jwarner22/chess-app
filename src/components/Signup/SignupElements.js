@@ -59,7 +59,7 @@ export const Form = styled.form`
   margin: 0 auto;
   padding: 50px 32px;
   border-radius: 4px;
-  box-shadow: rgba(36, 124, 241, 0.3) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   @media screen and (max-width: 400px) {
     padding: 32px 32px;
@@ -85,22 +85,22 @@ export const FormInput = styled.input`
   border: none;
   border-radius: 4px;
   box-shadow: rgba(36, 124, 241, 0.3) 0px 3px 8px;
+  background-color: #e9f1fc;
 `;
 
 export const FormButton = styled.button`
   background: #247cf1;
   padding: 16px 0;
-  border: none;
   border-radius: 50px;
   color: #fff;
   font-size: 20px;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
   &:hover {
         transition: all 0.2s ease-in-out;
-        background: #fff;
-        color: #247cf1;
+        background: #0e65d8;
+        color: #fff;
   }
 `;
 export const Text = styled.span`

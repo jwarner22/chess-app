@@ -24,4 +24,8 @@ export const Button = styled(Link)`
         background: ${({primary}) => (primary ? '#0e65d8' : '#247cf1' )};
         color: ${({dark}) => (dark ? '#fff' : '#fff')}
     }
+
+    &:active {
+        box-shadow: none;
+    }
 `;

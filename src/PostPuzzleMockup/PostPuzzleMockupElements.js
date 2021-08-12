@@ -58,11 +58,15 @@ export const FinishButton = styled.button`
     transition: all 0.2s ease-in-out;
     text-decoration: none;
     grid-column: 1 / span 2;
-    box-shadow: rgba(36, 124, 241, 0.3) 0px 3px 8px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
     &:hover {
         transition: all 0.2s ease-in-out;
         background: #fff;
         color: #010606;
+    }
+
+    &:active {
+      box-shadow: none;
     }
 `

@@ -30,6 +30,7 @@ export const CoursesWrapper = styled.div`
     display: flex;
     justify-content: center;
     padding-top: 40px;
+    background-color: #f6f8f9;
 `
 
 export const ModuleWrapper = styled.div `

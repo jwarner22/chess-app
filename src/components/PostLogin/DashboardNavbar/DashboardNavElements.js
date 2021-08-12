@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Link as LinkR, withRouter} from "react-router-dom"
 import { Link as LinkS } from "react-scroll"
+import { FaBars, FaSignOutAlt } from 'react-icons/fa'
 import React, {Component} from "react"
 import firebase from 'firebase'
 require('firebase/auth')
@@ -63,6 +64,10 @@ export const MobileIcons = styled.div `
         cursor: pointer;
     }
 `;
+
+export const BlueBars = styled(FaBars)`
+    color: #247cf1 !important;
+`
 
 export const NavMenu = styled.ul`
     display: flex;
