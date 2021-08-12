@@ -9,6 +9,8 @@ import "./Signup.css"
 import {auth} from "../../config"
 import { withRouter } from 'react-router-dom';
 import firebase from "firebase/app";
+import FetchWrapper from '../api/FetchWrapper'
+import {baseURL} from '../api/apiConfig'
 require("firebase/auth");
 
 
@@ -37,6 +39,7 @@ const SignUp = ({history}) => {
           history.push('/dashboard')
           if (res.user) {
             Auth.setLoggedIn(true)
+            setUserData(res)
           };
         })
         .catch(e => {
@@ -60,11 +63,36 @@ const SignUp = ({history}) => {
           console.log(result)
           history.push('/dashboard')
           Auth.setLoggedIn(true)
+          setUserData(result)
         })
         .catch(e => setErrors(e.message))
       })
  
   }
+
+    // fetches backend and persists user data across app
+    const setUserData = (response) => {
+      console.log(response)
+      let userID = response.additionalUserInfo.profile.id;
+      localStorage.setItem('userID', userID)
+      const API = new FetchWrapper(baseURL)
+      if (response.additionalUserInfo.isNewUser) {
+        console.log('post new user to API')
+        API.post('/users/', {
+          user_id: userID,
+          rating: 1200
+        }).then(data => {
+          console.log(data);
+          localStorage.setItem('userPublicData', JSON.stringify(data))
+        })
+      } else {
+      API.get(`/users/${userID}`)
+      .then(data => {localStorage.setItem('userPublicData', JSON.stringify(data))})
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    }
 
 
   return (

@@ -51,7 +51,10 @@ const Login = ({history}) => {
         .signInWithEmailAndPassword(email, password)
         .then(res => {
 //if user is logged in, push to the app dashboard
-          if (res.user) Auth.setLoggedIn(true);
+          if (res.user) {
+            Auth.setLoggedIn(true);
+            setUserData(res)
+          }
           history.push('/dashboard')
         })
         .catch(e => {
