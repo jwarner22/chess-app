@@ -6,6 +6,7 @@ export const AllEndgames = [
         id: 0,
         category: 'puzzle',
         type: 'endgame',
+        type_ref: 'endgame',
         headline: 'Endgame Shuffle',
         subheading: 'A mixture of all endgame strategies.',
         description: 'Lorem ipsum mah brudda',
@@ -21,7 +22,7 @@ export const Modules = [
         type_ref: 'endgame',
         headline: 'Endgame Shuffle',
         subheading: 'A mixture of all endgame strategies.',
-        description: 'Lorem ipsum mah brudda',
+        description: 'A mixture of all endgame strategies',
         img: require("../../../../Images/Endgame_shuffle.svg").default
     },{
         id: 2, // `eventually use random str as modules will be dynamic for each user and may change over time

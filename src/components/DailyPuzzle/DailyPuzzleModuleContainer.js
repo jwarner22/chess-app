@@ -21,7 +21,7 @@ const DailyPuzzleModuleContainer = (props) => {
                 {props.headline}
             </PuzzleModuleTitle>
             <PuzzleDescripton>
-                {props.description}
+                {props.subheading}
             </PuzzleDescripton>
             </DailyPuzzleModuleStyle>
         {/* </PuzzleWrapper> */}

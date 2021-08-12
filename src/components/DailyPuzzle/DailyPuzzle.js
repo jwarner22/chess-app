@@ -9,7 +9,7 @@ import { DailyPuzzleContainer,
 import Modal from "./Modal"; 
 import headerImg from "./../../Images/DailyPuzzleHeaderImg.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
-import {DailyPuzzleModules} from "./DailyPuzzleData"
+import {Modules} from "../../components/PostLogin/CoursesBody/CourseTile/Data.js"
 import FetchWrapper from "../api/FetchWrapper";
 import { baseURL } from "../api/apiConfig";
 
@@ -36,7 +36,7 @@ export default class DailyPuzzle extends React.Component {
 
   setPicks = (selections) => {
     console.log('picks')
-    let picks = DailyPuzzleModules.filter(element => {
+    let picks = Modules.filter(element => {
       return selections.some(entry => entry === element.id)
       })
     this.setState({...this.state, dailyPicks: picks, loaded: true})
