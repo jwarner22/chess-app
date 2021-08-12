@@ -37,7 +37,7 @@ function App() {
   const [loaded, setLoaded] = useState(false);
 
   function readSession() {
-    const user = window.sessionStorage.getItem(
+    const user = window.localStorage.getItem(
 			`firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
 		);
 		if (user) setLoggedIn(true)

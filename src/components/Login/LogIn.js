@@ -82,7 +82,7 @@ const Login = ({history}) => {
   const setUserData = (response) => {
     console.log(response)
     let userID = response.additionalUserInfo.profile.id;
-    sessionStorage.setItem('userID', userID)
+    localStorage.setItem('userID', userID)
     const API = new FetchWrapper(baseURL)
     if (response.additionalUserInfo.isNewUser) {
       console.log('post new user to API')
@@ -91,11 +91,11 @@ const Login = ({history}) => {
         rating: 1200
       }).then(data => {
         console.log(data);
-        sessionStorage.setItem('userPublicData', JSON.stringify(data))
+        localStorage.setItem('userPublicData', JSON.stringify(data))
       })
     } else {
     API.get(`/users/${userID}`)
-    .then(data => {sessionStorage.setItem('userPublicData', JSON.stringify(data))})
+    .then(data => {localStorage.setItem('userPublicData', JSON.stringify(data))})
     .catch(error => {
       console.log(error)
     })

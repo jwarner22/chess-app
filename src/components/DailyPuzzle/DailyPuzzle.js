@@ -29,7 +29,7 @@ export default class DailyPuzzle extends React.Component {
 
   componentDidMount() {
     const API = new FetchWrapper(baseURL)
-    let user_id = sessionStorage.getItem('userID')
+    let user_id = localStorage.getItem('userID')
     let endpoint = `/users/${user_id}/daily_puzzles`
     API.get(endpoint).then(data => this.setPicks(data)).catch(e => console.log(e));
   }

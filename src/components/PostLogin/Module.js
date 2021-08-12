@@ -13,7 +13,7 @@ export default function Module(props) {
     
     //load user data
     useEffect(() => {
-        let data = JSON.parse(sessionStorage.getItem('userPublicData'));
+        let data = JSON.parse(localStorage.getItem('userPublicData'));
         console.log(data)
         let themeRecord = data.themes.find(element=> element.title === theme)
         console.log({oldrecord: themeRecord})
@@ -24,7 +24,7 @@ export default function Module(props) {
             const API = new FetchWrapper(baseURL)
             console.log(theme)
             console.log(category)
-            let userID = sessionStorage.getItem('userID');
+            let userID = localStorage.getItem('userID');
             const endpoint = `/users/${userID}/themes/`
             API.post(endpoint,{
                 title: theme,
@@ -37,7 +37,7 @@ export default function Module(props) {
                 setRating(data.rating)
             }).then(() => {
                 API.get(`/users/${userID}`).then(data => {
-                    sessionStorage.setItem('userPublicData', JSON.stringify(data))
+                    localStorage.setItem('userPublicData', JSON.stringify(data))
                 })
             })
             .catch(e => console.log(e))

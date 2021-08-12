@@ -29,11 +29,11 @@ export default function Puzzle(props) {
     API.get(endpoint+queryParams).then(data => setPuzzles(data))
   }
   
-  // saves results to api and sessionstorage
+  // saves results to api and localStorage
   function saveResults(results) {
     setSavingResults(true)
-    let oldData = JSON.parse(sessionStorage.getItem('userPublicData'))
-    let userID = sessionStorage.getItem('userID')
+    let oldData = JSON.parse(localStorage.getItem('userPublicData'))
+    let userID = localStorage.getItem('userID')
     //let moduleID = props.id;
     let themeData = oldData.themes.find(element => element.title === theme);
   
@@ -55,7 +55,7 @@ export default function Puzzle(props) {
     API.put(endpoint, themeData)
     .then(data => {
       console.log(data)
-      sessionStorage.setItem('userPublicData',JSON.stringify(data))
+      localStorage.setItem('userPublicData',JSON.stringify(data))
     }).then(() => setSavingResults(false))
     .catch(e => console.log(e))
   }
