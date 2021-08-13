@@ -6,6 +6,7 @@ import "./style.css";
 import PuzzlePage from "./PuzzleComponents/PuzzlePage";
 import {baseURL} from "../api/apiConfig";
 import FetchWrapper from "../api/FetchWrapper";
+import PostPuzzle from '../../PostPuzzleMockup/PostPuzzleMockup'
 
 const API = new FetchWrapper(baseURL)
 
@@ -14,9 +15,11 @@ export default function Puzzle(props) {
   const [puzzles,setPuzzles] = useState([]);
   const [isFinished,setIsFinished] = useState(false);
   const [outcomes, setOutcomes] = useState([]);
-  const [savingResults, setSavingResults] = useState(false);
+  const [savingResults, setSavingResults] = useState(true);
   const [failure, setFailure] = useState(false);
-  const [perfect, setPerfect] = useState(true);
+  const [perfect, setPerfect] = useState(false);
+  const [userData, setUserData] = useState();
+
   // called on component mount
   useEffect(()=>{
     fetchPuzzles(rating,theme);
@@ -38,11 +41,12 @@ export default function Puzzle(props) {
     let themeData = oldData.themes.find(element => element.title === theme);
   
     // score change
-    let tried = results.length;
-    let succeeded = results.filter(result => result === true).length;
-    console.log({tried: tried, succeeded: succeeded})
-    if (succeeded === tried) {
+    //let tried = results.length;
+    //let succeeded = results.filter(result => result === true).length;
+    //console.log({tried: tried, succeeded: succeeded})
+    if (results.every(result => result === true)) {
       themeData.rating += 100
+      console.log('perfect')
       setPerfect(true)
     } else {
       themeData.rating += 50
@@ -50,7 +54,8 @@ export default function Puzzle(props) {
 
     themeData.completed += 1; // adds 1 to number of puzzles completed
 
-    //need to switch to localstorage and refactor to prevent data loss if api fails    
+    setUserData(themeData)
+
     let endpoint = `/users/themes/${userID}`
     API.put(endpoint, themeData)
     .then(data => {
@@ -74,22 +79,25 @@ export default function Puzzle(props) {
    }   
  }
  
- // style this u lil biiitch
+//  <>
+//  {!failure && <strong>Nice Job!</strong>}
+//  {perfect && <strong>Congrats, Perfect Score!</strong>}
+//  {failure && <strong>Module Failed</strong>}
+//  {savingResults && <p>Saving Results...</p>}
+//  {!savingResults &&
+//  <button>
+//  <Link to="/dashboard">Back to Dashboard</Link>
+//  </button>
+//  }
+//  </>
+// )
+
  // render if the puzzle module is finished
  if (isFinished) {
    return(
-     <>
-    {!failure && <strong>Nice Job!</strong>}
-    {perfect && <strong>Congrats, Perfect Score!</strong>}
-    {failure && <strong>Module Failed</strong>}
-    {savingResults && <p>Saving Results...</p>}
-    {!savingResults &&
-    <button>
-    <Link to="/dashboard">Back to Dashboard</Link>
-    </button>
-    }
-    </>
+     <PostPuzzle perfect={perfect} failure ={failure} outcomes={outcomes} savingResults={savingResults} userData={userData}/>
    )
+
  }
 
  // render puzzle module
