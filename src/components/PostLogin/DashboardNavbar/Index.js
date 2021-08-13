@@ -80,21 +80,6 @@ const DashNavbar = ({ toggle }) => {
                             <BlueBars />
                         </MobileIcons>
                         <NavMenu>
-                            {/* {/* <NavItem>
-                                <NavLinks>
-                                    About
-                                </NavLinks>
-                            </NavItem> */}
-                            <NavItem>
-                                <NavLinks to="/dailyPuzzle">
-                                    Daily Puzzle
-                                </NavLinks>
-                            </NavItem> 
-                            {/* <NavItem>
-                                <NavLinks> 
-                                    Option 3
-                                </NavLinks>
-                            </NavItem> */}
                         </NavMenu>
                         <NavBtn>
                             <NavBtnLink onClick={() => handleLogout()}>

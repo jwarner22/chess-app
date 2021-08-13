@@ -12,54 +12,45 @@ export const AnnouncementContainerWrapper = styled.div`
     /* border: 1px solid red; */
     margin: 10px;
     height: auto;
-    width: 100%;
     padding-top: 60px;
 `
 
 export const AnnouncementContainer = styled.div`
     display: grid;
+    grid-template-columns: 1fr 1fr;
     height: 200px;
     align-content: center;
     grid-gap: 16px;
-    position: relative;
 `
 
 export const AnnouncementTitleH1 = styled.h1`
     margin-top: 24px;
-    margin-bottom: 24px;
-    font-size: 48px;
+    margin-bottom: 5px;
+    font-size: 32px;
     line-height: 1.1;
-    font-weight: 600;
+    font-weight: 400;
     color: #394149;
-    text-align: center;
+    text-align: left;
 `
 
 export const AnnouncementP = styled.p`
     font-size: 1rem;
     text-align: left; 
+    grid-column: 1;
 `
-
-export const CoursesWrapper = styled.div`
+export const ButtonWrapper = styled.div`
     display: flex;
-    border: 1px solid green;
-    justify-content: center;
+    justify-content: flex-end;
+    align-content: flex-end;
+    grid-row: 1;
+    grid-column: 2;
+    padding-top: 15px;
 `
 
-export const ModuleWrapper = styled.div `
-    display: flex;
-    max-width: 1100px;
-    border: 1px solid red;
-    margin: 20px;
-    height: auto;
-    width: 100%;
-    justify-content: center;
+export const ProgressBarWrapper = styled.div`
+    grid-column: span 2;
+    grid-row: 3;
+    background-color: grey;
+    color: white;
+    text-align: center;
 `
-
-export const ModuleGrid = styled.ul`
-    display: grid;
-    grid-template-rows: repeat(5, 200px);
-    grid-template-columns: 1fr;
-    border: 1px dotted blue;
-    width: 100%;
-    grid-gap: 20px;
-    `

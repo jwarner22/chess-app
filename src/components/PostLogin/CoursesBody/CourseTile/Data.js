@@ -42,7 +42,7 @@ export const Modules = [
         headline: 'Knight Endgame',
         subheading: 'Practice the endgame with a knight.',
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/Pins.svg").default
+        img: require("../../../../Images/Pin.svg").default
     },{
         id: 4,
         category: 'puzzle',
@@ -150,7 +150,7 @@ export const Modules = [
         headline: 'Checkmate Shuffle',
         subheading: 'A mixture of checkmate strategies',
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/Endgame_shuffle.svg").default
+        img: require("../../../../Images/Checkmate.svg").default
     },{
         id: 16,
         category: 'puzzle',
@@ -177,7 +177,7 @@ export const Modules = [
         headline: 'Attack f2f7',
         subheading: 'Capitalize on the weakness.',
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/f2f7.svg").default
+        img: require("../../../../Images/AttackingF2F7.svg").default
     },{
         id: 19,
         category: 'puzzle',
@@ -195,7 +195,7 @@ export const Modules = [
         headline: 'Back Rank Mate',
         subheading: 'Watch out behind you!',
         description: 'Lorem ipsum mah brudda',
-        img:require("../../../../Images/BackRank.svg").default
+        img:require("../../../../Images/BackRankMate.svg").default
     },{
         id: 21,
         category: 'puzzle',
@@ -231,7 +231,7 @@ export const Modules = [
         headline: 'Defensive Move',
         subheading: `You're under attack, protect yourself.`,
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/DefensiveMoves.svg").default
     },{
         id: 25,
         category: 'puzzle',
@@ -258,7 +258,7 @@ export const Modules = [
         headline: 'Double Check',
         subheading: 'Check x2',
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/DoubleCheck.svg").default
     },{
         id: 28,
         category: 'puzzle',
@@ -285,7 +285,7 @@ export const Modules = [
         headline: 'Fork',
         subheading: `It's one or the other.`,
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/Fork.svg").default
     },{
         id: 31,
         category: 'puzzle',
@@ -294,7 +294,7 @@ export const Modules = [
         headline: 'Hanging Piece',
         subheading: 'Find and capture the free material.',
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/HangingPiece.svg").default
     },{
         id: 32,
         category: 'puzzle',
@@ -330,7 +330,7 @@ export const Modules = [
         headline: 'Overloading',
         subheading: `Your opponent can only do so many things at once.`,
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/Overloading.svg").default
     },{
         id: 36,
         category: 'puzzle',
@@ -339,7 +339,7 @@ export const Modules = [
         headline: 'Pin',
         subheading: `I'm pinned!`,
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/Pins.svg").default
+        img: require("../../../../Images/Pin.svg").default
     },{
         id: 37,
         category: 'puzzle',
@@ -375,7 +375,7 @@ export const Modules = [
         headline: 'Sacrifice',
         subheading: `RIP`,
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/Sacrifice.svg").default
     },{
         id: 41,
         category: 'puzzle',
@@ -402,7 +402,7 @@ export const Modules = [
         headline: 'Trapped Piece',
         subheading: `There is no escape.`,
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/TrappedPiece.svg").default
     },{
         id: 43,
         category: 'puzzle',
@@ -420,7 +420,7 @@ export const Modules = [
         headline: 'X-Ray Attack',
         subheading: `A level 2 skewer.`,
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/XrayAttack.svg").default
     },{
         id: 45,
         category: 'puzzle',

@@ -7,17 +7,20 @@ import {MainDiv,
     AnnouncementP,
     CoursesWrapper,
     ModuleWrapper,
-    ModuleGrid
+    ModuleGrid,
+    ButtonWrapper,
+    ProgressBarWrapper
 } from "./AnnouncementsElements"
 // import firebaseConfig from "../../../config";
 import React, {useContext} from 'react'
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../Auth";
 import CourseList from '../CoursesBody/Index'
 import {Module1} from "../CoursesBody/CourseTile/Data"
+import {Button} from "../../ButtonElement"
 
 
-const Announcements = ({headline, subheadline}) => {
+const Announcements = ({username, subheadline}) => {
 
 
 //Backup Firebase login auth
@@ -34,12 +37,20 @@ const Announcements = ({headline, subheadline}) => {
                 <AnnouncementContainerWrapper>
                     <AnnouncementContainer>  
                         <AnnouncementTitleH1> 
-                            {headline}
+                            {username}
                         </AnnouncementTitleH1>
                         <AnnouncementP>
                             {subheadline}
                         </AnnouncementP>
-                        {/* <button onClick={() => firebaseConfig.auth().signOut()}>Sign out</button> */}
+                        <ButtonWrapper>
+                        <Button
+                        primary="true"
+                        to="dailyPuzzle"
+                        >Daily Puzzles</Button>
+                        </ButtonWrapper>
+                        <ProgressBarWrapper>
+                            Progress Bar Here
+                        </ProgressBarWrapper>
                     </AnnouncementContainer>
                 </AnnouncementContainerWrapper>
             </AnnouncementWrapper>
