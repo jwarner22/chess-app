@@ -76,6 +76,7 @@ const Login = ({history}) => {
       .then(result => {
         Auth.setLoggedIn(true)
         setUserData(result)
+        console.log("Penis")
       }).then(() => history.push('/dashboard'))
       .catch(e => setErrors(e.message))
     })
