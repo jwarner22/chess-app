@@ -53,7 +53,8 @@ const Login = ({history}) => {
 //if user is logged in, push to the app dashboard
           if (res.user) {
             Auth.setLoggedIn(true);
-            setUserData(res)
+            let userID = res.user.uid;
+            setUserData(res, userID)
           }
           history.push('/dashboard')
         })
@@ -75,18 +76,18 @@ const Login = ({history}) => {
       .signInWithPopup(provider)
       .then(result => {
         Auth.setLoggedIn(true)
-        setUserData(result)
-        console.log("Penis")
+        let userID = result.additionalUserInfo.profile.id;
+        setUserData(result, userID)
       }).then(() => history.push('/dashboard'))
       .catch(e => setErrors(e.message))
     })
   };
 
   // fetches backend and persists user data across app
-  const setUserData = (response) => {
-    console.log(response)
-    let userID = response.additionalUserInfo.profile.id;
+  const setUserData = (response, userID) => {
+    // store in localStorage 
     localStorage.setItem('userID', userID)
+
     const API = new FetchWrapper(baseURL)
     if (response.additionalUserInfo.isNewUser) {
       console.log('post new user to API')
