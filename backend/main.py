@@ -109,10 +109,10 @@ def read_ratings(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
 # get user's daily puzzles
 @app.get('/users/{user_id}/daily_puzzles')
 def get_daily_puzzles():
-    daily_puzzles = [];
-    for i in range(0,4):
-        rand_i = randint(0,45)
-        daily_puzzles.append(rand_i)
+    daily_puzzles = [randint(0,45),randint(0,45),randint(0,45)];
+    # for i in range(0,4):
+    #     rand_i = randint(0,45)
+    #     daily_puzzles.append(rand_i)
     return daily_puzzles
 
 if __name__ == '__main__':
