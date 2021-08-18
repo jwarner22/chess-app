@@ -13,7 +13,7 @@ const DailyPuzzleModuleContainer = (props) => {
     return (
         <>
         {/* <PuzzleWrapper> */}
-            <DailyPuzzleModuleStyle>
+            <DailyPuzzleModuleStyle props={props}>
             <DailyPuzzleIconWrapper>
                 <DailyPuzzleIcon src={props.img}/>
             </DailyPuzzleIconWrapper>

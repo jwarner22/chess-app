@@ -102,7 +102,7 @@ export default function DailyPuzzzle() {
         <PuzzleWrapper>
          {dailyPicks.map((module, index) => {
             return (
-              <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/dashboard/module', state: {module: module}}}>
                 <DailyPuzzleModuleContainer key={index} {...module} />
               </Link>
             )

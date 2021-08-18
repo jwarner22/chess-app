@@ -43,7 +43,7 @@ export const DailyPuzzleTitle = styled.h1`
 
 export const DailyPuzzleModuleStyle = styled.div`
     margin: 20px auto;
-    background-color: white;
+    background-color: ${({props}) => (props.locked ? 'gray' : 'white')};
     padding: 10px;
     display: grid;
     grid-template-columns: 30% 1fr;
