@@ -71,7 +71,7 @@ export default function Puzzle(props) {
     const storedDailyPuzzles = JSON.parse(localStorage.getItem('dailyPuzzles'));
     const mutatedPuzzles = storedDailyPuzzles.map(puzzle => {
       if (puzzle.id === id) {
-        return {...puzzle, completed: true}
+        return {...puzzle, completed: true, locked: true}
       }
       return puzzle
     })
@@ -87,6 +87,7 @@ export default function Puzzle(props) {
    setOutcomes(prevOutcomes => [...prevOutcomes,results])
    setIsFinished(true)
    saveResults(results);
+   // needs to be conditional on if it's a daily puzzle
    updateDailyPuzzles();
    } else if (result === 'fail') {
     setOutcomes(prevOutcomes => [...prevOutcomes,results])

@@ -81,7 +81,8 @@ export default class Puzzle extends React.Component {
     await wait(350);
     this.game.move({
       from: from,
-      to: to
+      to: to,
+      promotion: 'q'
     });
   };
 
@@ -103,9 +104,10 @@ export default class Puzzle extends React.Component {
     // extracts legal moves
     const moves = this.game.moves({ verbose: true });
 
+    /*
     // loops through each square
     for (let i = 0, len = moves.length; i < len; i++) {
-      /* eslint-disable-line */
+      // eslint-disable-line 
       if (moves[i].flags.indexOf("p") !== -1 && moves[i].from === from) {
         this.setState({
           pendingMove: [from, to],
@@ -114,7 +116,8 @@ export default class Puzzle extends React.Component {
         return;
       }
     }
-
+    */
+    
     // make move on board before proceeding
     // await this.makeMove(from, to);
     // set new game state
