@@ -48,7 +48,7 @@ export const DailyPuzzleModuleStyle = styled.div`
     display: grid;
     grid-template-columns: 30% 1fr;
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    box-shadow: ${({props}) => (props.completed ? 'rgba(0, 255, 0, 0.4) 0px 2px 4px, rgba(0, 255, 0, 0.3) 0px 7px 13px -3px, rgba(0, 255, 0, 0.2) 0px -3px 0px inset;' : 'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;')};
     transition: all 0.2s ease-in-out;
     max-width: 800px;
     min-width: 800px;

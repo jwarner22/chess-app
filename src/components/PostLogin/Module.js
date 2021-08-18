@@ -9,7 +9,7 @@ export default function Module(props) {
     const [loading, setLoading] = useState(true);
     const theme = props.location.state.module.type_ref;
     const category = props.location.state.module.category;
-    const id = props.location.state.module.type.id;
+    const id = props.location.state.module.id;
     
     //load user data
     useEffect(() => {

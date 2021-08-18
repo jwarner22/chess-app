@@ -11,7 +11,7 @@ import PostPuzzle from '../../PostPuzzleMockup/PostPuzzleMockup'
 const API = new FetchWrapper(baseURL)
 
 export default function Puzzle(props) {
-  const {rating,theme} = props;
+  const {rating,theme,id} = props;
   const [puzzles,setPuzzles] = useState([]);
   const [isFinished,setIsFinished] = useState(false);
   const [outcomes, setOutcomes] = useState([]);
@@ -63,6 +63,21 @@ export default function Puzzle(props) {
       localStorage.setItem('userPublicData',JSON.stringify(data))
     }).then(() => setSavingResults(false))
     .catch(e => console.log(e))
+
+  }
+
+  const updateDailyPuzzles = () => {
+    // updates daily puzzles using localStorage (need to add API)
+    const storedDailyPuzzles = JSON.parse(localStorage.getItem('dailyPuzzles'));
+    const mutatedPuzzles = storedDailyPuzzles.map(puzzle => {
+      if (puzzle.id === id) {
+        return {...puzzle, completed: true}
+      }
+      return puzzle
+    })
+    const thisIndex = mutatedPuzzles.findIndex(puzzle => puzzle.id === id)
+    mutatedPuzzles[thisIndex+1].locked = false;
+    localStorage.setItem('dailyPuzzles',JSON.stringify(mutatedPuzzles));
   }
 
   // callback function when puzzle is finished (currently only success)
@@ -72,6 +87,7 @@ export default function Puzzle(props) {
    setOutcomes(prevOutcomes => [...prevOutcomes,results])
    setIsFinished(true)
    saveResults(results);
+   updateDailyPuzzles();
    } else if (result === 'fail') {
     setOutcomes(prevOutcomes => [...prevOutcomes,results])
     setFailure(true)
