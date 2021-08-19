@@ -13,7 +13,7 @@ from sqlalchemy.engine import interfaces
 
 class Theme(BaseModel):
     id: int
-    owner_id: int
+    owner_id: str
     title: str
     category: str
     rating: Optional[int] = 1500
