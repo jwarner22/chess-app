@@ -13,7 +13,7 @@ export default function Module(props) {
     
     //load user data
     useEffect(() => {
-        let data = JSON.parse(localStorage.getItem('userPublicData'));
+        let data = JSON.parse(localStorage.getItem('userID'));
         console.log(data)
         let themeRecord = data.themes.find(element=> element.title === theme)
         console.log({oldrecord: themeRecord})
