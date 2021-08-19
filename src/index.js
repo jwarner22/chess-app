@@ -37,12 +37,22 @@ function App() {
   const [loaded, setLoaded] = useState(false);
 
   function readSession() {
-    const user = window.localStorage.getItem(
-			`firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
-		);
-		if (user) setLoggedIn(true)
+     //const user = localStorage.getItem(
+			//`firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
+		//);
+    
+    const userLoggedIn = localStorage.getItem('isLoggedIn')
+
+		//const user = firebase.auth().currentUser;
+    //console.log({localStorageUser: user})
+    if (userLoggedIn === 'true') {
+      console.log('isLoggedIn set to true')
+      setLoggedIn(true)
+    }
+    //if (user) setLoggedIn(true)
     setLoaded(!loaded)
   }
+
   useEffect(() => {
     readSession()
   }, [])
@@ -50,6 +60,7 @@ function App() {
   return (loaded &&
     <AuthContext.Provider value={{ isLoggedIn, setLoggedIn }}>
       {/*Is logged in? {JSON.stringify(isLoggedIn)}*/}
+      {/*console.log({isloggedin: JSON.stringify(isLoggedIn)})*/}
       <div className="App">
         <Router>
           <Switch>

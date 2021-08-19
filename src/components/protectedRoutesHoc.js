@@ -8,6 +8,7 @@ const ProtectedRouteHoc = ({ component: Component, isLoggedIn, ...rest }) => {
 	//If the user is authenticated, let them pass. If not, redirect them. 
 	if (isLoggedIn || rest.public) {
 		console.log('reports')
+		console.log({isLoggedIn: isLoggedIn})
 		return (
 			<Route
 				{...rest}

@@ -35,7 +35,7 @@ const Login = ({history}) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, passwordIsConfirmed] = useState("");
   const [error, setErrors] = useState("");
-
+  
   const Auth = useContext(AuthContext);
 
   //login with email
@@ -53,8 +53,7 @@ const Login = ({history}) => {
 //if user is logged in, push to the app dashboard
           if (res.user) {
             Auth.setLoggedIn(true);
-            let userID = res.user.uid;
-            setUserData(res, userID)
+            setUserData(res, res.user.uid);
           }
           history.push('/dashboard')
         })
@@ -65,6 +64,7 @@ const Login = ({history}) => {
   
   };
 //Sign in with Google Popup
+// needs to be set to local
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
@@ -74,10 +74,9 @@ const Login = ({history}) => {
       firebase
       .auth()
       .signInWithPopup(provider)
-      .then(result => {
-        Auth.setLoggedIn(true)
-        let userID = result.additionalUserInfo.profile.id;
-        setUserData(result, userID)
+      .then(res => {
+        Auth.setLoggedIn(true);
+        setUserData(res, res.user.uid);
       }).then(() => history.push('/dashboard'))
       .catch(e => setErrors(e.message))
     })
@@ -87,7 +86,8 @@ const Login = ({history}) => {
   const setUserData = (response, userID) => {
     // store in localStorage 
     localStorage.setItem('userID', userID)
-
+    localStorage.setItem('isLoggedIn','true')
+    
     const API = new FetchWrapper(baseURL)
     if (response.additionalUserInfo.isNewUser) {
       console.log('post new user to API')
