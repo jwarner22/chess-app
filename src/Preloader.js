@@ -38,4 +38,15 @@ const Preloader = () => {
     );
   }
 
-export default Preloader
+
+const Loader = () => {
+  return(
+    <ReactLoading
+    type={"cylon"}
+    color={"#247cf1"}
+    height={100}
+    width={100}
+  />
+  )
+}
+export default Loader

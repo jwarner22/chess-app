@@ -54,7 +54,7 @@ const Login = ({history}) => {
           if (res.user) {
             Auth.setLoggedIn(true);
             setUserData(res, res.user.uid);
-          }
+          } 
           history.push('/dashboard')
         })
         .catch(e => {
@@ -75,6 +75,7 @@ const Login = ({history}) => {
       .auth()
       .signInWithPopup(provider)
       .then(res => {
+        console.log(res)
         Auth.setLoggedIn(true);
         setUserData(res, res.user.uid);
       }).then(() => history.push('/dashboard'))
@@ -90,21 +91,29 @@ const Login = ({history}) => {
     
     const API = new FetchWrapper(baseURL)
     if (response.additionalUserInfo.isNewUser) {
-      console.log('post new user to API')
-      API.post('/users/', {
-        user_id: userID,
-        rating: 1200
-      }).then(data => {
-        console.log(data);
-        localStorage.setItem('userPublicData', JSON.stringify(data))
-      })
+      createNewUser(userID)
     } else {
     API.get(`/users/${userID}`)
-    .then(data => {localStorage.setItem('userPublicData', JSON.stringify(data))})
+    .then(data => {
+      if (data.details === 'User not found') {
+        createNewUser(userID)
+      }
+      localStorage.setItem('userPublicData', JSON.stringify(data))
+    })
     .catch(error => {
       console.log(error)
     })
   }
+  }
+
+  const createNewUser = (userID) => {
+    const API = new FetchWrapper(baseURL)
+    API.post('/users/', {
+      user_id: userID,
+      rating: 1200
+    }).then(data => {
+      localStorage.setItem('userPublicData', JSON.stringify(data))
+    })
   }
 
   return (
