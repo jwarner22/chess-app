@@ -1,48 +1,53 @@
-// import React, { useEffect, useState, createContext } from "react";
-// import firebaseConfig from "../config.js";
-// import {firebaseAPI} from '../config.js';
-// import auth from "../config.js"
-// require('@firebase/auth')
+import React, { useEffect, useState, createContext } from "react";
+//import firebaseConfig from "../config.js";
+//import {firebaseAPI} from '../config.js';
+import firebase from 'firebase/app';
+import auth from "../config.js"
+import Loader from '../Preloader.js';
 
-// export const AuthContext = React.createContext();
+require('@firebase/auth')
 
-// export const AuthProvider = ({ children }) => {
-//   const [loading, setLoading] = useState(true);
+const AuthContext = createContext();
 
-//   const [currentUser, setCurrentUser] = useState(null);
+const AuthProvider = ({ children }) => {
+  const [loading, setLoading] = useState(true);
 
-//   const signup = (email, password) => {
-// 		return	auth.createUserWithEmailAndPassword(email, password)
-// 	}
+  const [currentUser, setCurrentUser] = useState(null);
 
-// 	const login = (email, password) => {
-// 		return	auth.signInWithEmailAndPassword(email, password)
-// 	}
+  const signup = (email, password) => {
+		return	auth.createUserWithEmailAndPassword(email, password)
+	}
 
-// 	const logout = () => {
-// 		return auth.signOut()
-// 	}
+	const login = (email, password) => {
+		return	auth.signInWithEmailAndPassword(email, password)
+	}
 
-// 	const resetPassword = (email) => {
-// 		return auth.sendPasswordResetEmail(email)
-// 	}
+	const logout = () => {
+		return auth.signOut()
+	}
+
+	const resetPassword = (email) => {
+		return auth.sendPasswordResetEmail(email)
+	}
 
 
-//   useEffect(() => {
-//     firebaseConfig.auth().onAuthStateChanged((user) => {
-//       setCurrentUser(user);
-//       console.log({authstatechanged: user.additionalUserInfo})// .profile.id})
-//       setLoading(false);
-//     });
-//   }, []);
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      setCurrentUser(() => !!user);
+      console.log('auth state changed')
+      console.log({user: user})
+      setLoading(false);
+    });
+  }, []);
 
-//   if (loading) {
-//     return <p>Loading...</p>;
-//   }
-//   return (
-//     <AuthContext.Provider value={{signup, login, logout, resetPassword, currentUser }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
+   if (loading) {
+     return <Loader />
+   }
+  return (
+    <AuthContext.Provider value={{signup, login, logout, resetPassword, currentUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
+export {AuthContext, AuthProvider}

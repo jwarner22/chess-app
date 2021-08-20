@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
-import { AuthContext } from "../../index";
-import { Link } from "react-router-dom";
-import { Container, FormWrap, FormContent, Form, FormH1, FormLabel, FormInput } from "./SignupElements";
-import {GoogleButton, GoogleButtonText, FormButton, FormText} from "../Login/LoginElements"
+//import { AuthContext } from "../../index";
+import { Link, Redirect } from "react-router-dom";
+import firebaseConfig from "../../config"
+import { Container, FormWrap, Icon, FormContent, Form, FormH1, FormLabel, FormInput, Text, GoogleLoginButton} from "./SignupElements";
+import logo from '../../Images/EloElevation-2.png'
+import {NavLogo, Img, GoogleButton, GoogleButtonText, FormButton, FormText} from "../Login/LoginElements"
 import "./Signup.css"
 import { withRouter } from 'react-router-dom';
 import firebase from "firebase/app";
@@ -16,7 +18,7 @@ const SignUp = ({history}) => {
   const [password, setPassword] = useState("");
   const [error, setErrors] = useState("");
 
-  const Auth = useContext(AuthContext);
+  //const Auth = useContext(AuthContext);
 
 
 
@@ -34,7 +36,7 @@ const SignUp = ({history}) => {
           console.log(res)
           history.push('/dashboard')
           if (res.user) {
-            Auth.setLoggedIn(true)
+            //Auth.setLoggedIn(true)
             setUserData(res)
           };
         })
@@ -58,7 +60,7 @@ const SignUp = ({history}) => {
         .then(result => {
           console.log(result)
           history.push('/dashboard')
-          Auth.setLoggedIn(true)
+          //Auth.setLoggedIn(true)
           setUserData(result)
         })
         .catch(e => setErrors(e.message))

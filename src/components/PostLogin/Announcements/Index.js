@@ -8,7 +8,11 @@ import {
     CalendarWrapper
 } from "./AnnouncementsElements"
 // import firebaseConfig from "../../../config";
-import React from 'react'
+import React, {useContext} from 'react'
+import { Link } from "react-router-dom";
+//import { AuthContext } from "../../Auth";
+import CourseList from '../CoursesBody/Index'
+import {Module1} from "../CoursesBody/CourseTile/Data"
 import {Button} from "../../ButtonElement"
 import Calendar from "./Calendar"
 import { CalendarData } from "./Data"

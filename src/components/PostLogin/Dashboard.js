@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"
+import { Redirect } from "react-router-dom";
+//import { AuthContext } from "../Auth";
+import firebaseConfig from "../../config.js";
 import DashNavbar from './DashboardNavbar/Index'
 import DashSidebar from './DashboardSidebar/Index'
 import Announcements from "./Announcements/Index";

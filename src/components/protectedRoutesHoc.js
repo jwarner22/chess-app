@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import { bool, any, object } from 'prop-types';
-
+import {AuthContext} from './Auth.js';
 
 //This component checks to see if the user is logged in or not. 
-const ProtectedRouteHoc = ({ component: Component, isLoggedIn, ...rest }) => {
+const ProtectedRouteHoc = ({ component: Component, ...rest }) => {
 	//If the user is authenticated, let them pass. If not, redirect them. 
-	if (isLoggedIn || rest.public) {
+	const {currentUser} = useContext(AuthContext)
+
+
+	console.log({currentUser: currentUser})
+	if (currentUser || rest.public) {
 		console.log('reports')
-		console.log({isLoggedIn: isLoggedIn})
+		console.log({isLoggedIn: currentUser})
 		return (
 			<Route
 				{...rest}
@@ -26,7 +30,7 @@ const ProtectedRouteHoc = ({ component: Component, isLoggedIn, ...rest }) => {
 
 ProtectedRouteHoc.propTypes = {
 	component: any,
-	isLoggedIn: bool,
+	currentUser: bool,
 	rest: object,
 	props: object,
 };

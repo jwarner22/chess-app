@@ -1,7 +1,10 @@
 
-import React, {useState, useContext } from "react";
+import React, {useState, useContext, useEffect } from "react";
 import {Link, withRouter } from 'react-router-dom'
-import { AuthContext } from "../../index";
+//import { AuthContext } from "../../index";
+import firebaseConfig from "../../config.js";
+import logo from '../../Images/EloElevation-2.png'
+import {GoogleLoginButton} from "./../Signup/SignupElements"
 import {FormH1, 
   Container, 
   FormWrap, 
@@ -17,6 +20,7 @@ import {FormH1,
 import firebase from "firebase/app";
 import FetchWrapper from "../api/FetchWrapper";
 import {baseURL} from '../api/apiConfig';
+import {AuthContext} from '../Auth.js';
 
 require("firebase/auth");
 
@@ -26,9 +30,14 @@ const Login = ({history}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setErrors] = useState("");
-  
-  const Auth = useContext(AuthContext);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {currentUser} = useContext(AuthContext)
+  //const Auth = useContext(AuthContext);
+  useEffect(() => {
+    if (currentUser && isLoggedIn) {
+      history.push('/dashboard')
+    }
+  }, [currentUser, isLoggedIn])
   //login with email
   const handleForm = e => {
     e.preventDefault();
@@ -43,10 +52,10 @@ const Login = ({history}) => {
         .then(res => {
 //if user is logged in, push to the app dashboard
           if (res.user) {
-            Auth.setLoggedIn(true);
+            //Auth.setLoggedIn(true);
             setUserData(res, res.user.uid);
+            setIsLoggedIn(true)
           } 
-          history.push('/dashboard')
         })
         .catch(e => {
           setErrors(e.message);
@@ -66,10 +75,12 @@ const Login = ({history}) => {
       .auth()
       .signInWithPopup(provider)
       .then(res => {
-        console.log(res)
-        Auth.setLoggedIn(true);
-        setUserData(res, res.user.uid);
-      }).then(() => history.push('/dashboard'))
+        //Auth.setLoggedIn(true);
+        if (res.user) {
+          setUserData(res, res.user.uid);
+          setIsLoggedIn(true)
+        }
+      })
       .catch(e => setErrors(e.message))
     })
   };
@@ -86,10 +97,14 @@ const Login = ({history}) => {
     } else {
     API.get(`/users/${userID}`)
     .then(data => {
-      if (data.details === 'User not found') {
+      console.log({response: data})
+      if (data.detail === 'User not found') {
+        console.log('new user')
         createNewUser(userID)
+      } else {
+        localStorage.setItem('userPublicData', JSON.stringify(data))
       }
-      localStorage.setItem('userPublicData', JSON.stringify(data))
+      
     })
     .catch(error => {
       console.log(error)
