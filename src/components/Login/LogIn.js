@@ -96,7 +96,7 @@ const Login = ({history}) => {
     // store in localStorage 
     localStorage.setItem('userID', userID)
     localStorage.setItem('isLoggedIn','true')
-    
+    console.log({userID:userID})
     const API = new FetchWrapper(baseURL)
     if (response.additionalUserInfo.isNewUser) {
       createNewUser(userID)
@@ -121,8 +121,8 @@ const Login = ({history}) => {
   const createNewUser = (userID) => {
     const API = new FetchWrapper(baseURL)
     API.post('/users/', {
-      user_id: userID,
-      rating: 1200
+      user_id: `${userID}`,
+      overall_rating: 1200
     }).then(data => {
       localStorage.setItem('userPublicData', JSON.stringify(data))
     })
