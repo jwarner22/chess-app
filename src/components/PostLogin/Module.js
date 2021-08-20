@@ -1,6 +1,6 @@
 import Puzzle from '../Puzzle/puzzle.js';
 import React, {useEffect, useState} from 'react';
-import FetchWrapper from '../api/FetchWrapper.js';
+//import FetchWrapper from '../api/FetchWrapper.js';
 import {baseURL} from '../api/apiConfig';
 import useFetch from '../api/useFetch.js';
 import Loader from '../../Preloader.js';

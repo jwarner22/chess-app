@@ -9,8 +9,9 @@ import "./Signup.css"
 import {auth} from "../../config"
 import { withRouter } from 'react-router-dom';
 import firebase from "firebase/app";
-import FetchWrapper from '../api/FetchWrapper'
+//import FetchWrapper from '../api/FetchWrapper'
 import {baseURL} from '../api/apiConfig'
+import useFetch from '../api/useFetch';
 require("firebase/auth");
 
 
@@ -19,10 +20,8 @@ const SignUp = ({history}) => {
   const [password, setPassword] = useState("");
   const [error, setErrors] = useState("");
   const [confirmPassword, passwordIsConfirmed] = useState("");
-
+  const {get,post} = useFetch(baseURL);
   //const Auth = useContext(AuthContext);
-
-
 
   const handleForm = e => {
     e.preventDefault();
@@ -75,18 +74,17 @@ const SignUp = ({history}) => {
       console.log(response)
       let userID = response.additionalUserInfo.profile.id;
       localStorage.setItem('userID', userID)
-      const API = new FetchWrapper(baseURL)
       if (response.additionalUserInfo.isNewUser) {
         console.log('post new user to API')
-        API.post('/users/', {
+        post('/users/', {
           user_id: userID,
-          rating: 1200
+          overall_rating: 1200
         }).then(data => {
           console.log(data);
           localStorage.setItem('userPublicData', JSON.stringify(data))
         })
       } else {
-      API.get(`/users/${userID}`)
+      get(`/users/${userID}`)
       .then(data => {localStorage.setItem('userPublicData', JSON.stringify(data))})
       .catch(error => {
         console.log(error)

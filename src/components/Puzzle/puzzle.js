@@ -5,10 +5,9 @@ import "./style.css";
 // import registerServiceWorker from "./registerServiceWorker";
 import PuzzlePage from "./PuzzleComponents/PuzzlePage";
 import {baseURL} from "../api/apiConfig";
-import FetchWrapper from "../api/FetchWrapper";
+//import FetchWrapper from "../api/FetchWrapper";
 import PostPuzzle from '../../PostPuzzleMockup/PostPuzzleMockup'
-
-const API = new FetchWrapper(baseURL)
+import useFetch from '../api/useFetch';
 
 export default function Puzzle(props) {
   const {rating,theme,id} = props;
@@ -19,6 +18,7 @@ export default function Puzzle(props) {
   const [failure, setFailure] = useState(false);
   const [perfect, setPerfect] = useState(false);
   const [userData, setUserData] = useState();
+  const {get,put} = useFetch(baseURL);
 
   // called on component mount
   useEffect(()=>{
@@ -29,7 +29,7 @@ export default function Puzzle(props) {
   function fetchPuzzles(rating, theme) {
     let endpoint = '/puzzles/'
     let queryParams = `?rating=${rating}&theme=${theme}`
-    API.get(endpoint+queryParams).then(data => setPuzzles(data))
+    get(endpoint+queryParams).then(data => setPuzzles(data))
   }
   
   // saves results to api and localStorage
@@ -57,7 +57,7 @@ export default function Puzzle(props) {
     setUserData(themeData)
 
     let endpoint = `/users/themes/${userID}`
-    API.put(endpoint, themeData)
+    put(endpoint, themeData)
     .then(data => {
       console.log(data)
       localStorage.setItem('userPublicData',JSON.stringify(data))
