@@ -1,8 +1,5 @@
-import {HeroContainer, HeroBg, VideoBg, HeroContent, HeroP, HeroH1, HeroBtnWrapper, ArrowForward, ArrowRight} from './HeroElements';
-import Video from '../../Videos/Video.mp4';
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../Auth";
+import {HeroContainer, HeroBg, HeroContent, HeroP, HeroH1, HeroBtnWrapper, ArrowForward, ArrowRight} from './HeroElements';
+import React, { useState } from "react";
 import {Button} from '../ButtonElement'
 
 

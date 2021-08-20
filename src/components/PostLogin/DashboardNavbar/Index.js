@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {IconContext} from 'react-icons/lib'
-import {Bars} from "@styled-icons/fa-solid/Bars"
 import {
      Nav, 
      NavbarContainer, 
@@ -8,16 +7,11 @@ import {
      Img, 
      MobileIcons, 
      NavMenu,  
-     NavItem, 
-     NavLinks, 
      NavBtn, 
      NavBtnLink, 
-     NavBtnLink2,
      BlueBars
     } from './DashboardNavElements'
 import {animateScroll as scroll} from 'react-scroll'
-import firebaseConfig from "../../../config";
-import { Redirect } from "react-router-dom";
 import { AuthContext } from "../../../index";
 import logo from "../../../Images/EloElevation-2.png"
 import firebase from 'firebase'

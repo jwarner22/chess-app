@@ -1,12 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom"
-import { Redirect } from "react-router-dom";
-import { AuthContext } from "../Auth";
-import firebaseConfig from "../../config.js";
 import DashNavbar from './DashboardNavbar/Index'
-import MainPage from './Announcements/Index'
 import DashSidebar from './DashboardSidebar/Index'
-import {Module1} from "./CoursesBody/CourseTile/Data"
 import Announcements from "./Announcements/Index";
 import Body from "./CoursesBody/Index";
 import {AnnouncementOne} from "./Announcements/Data";

@@ -1,9 +1,6 @@
 import styled from 'styled-components'
-import { Link as LinkR, withRouter} from "react-router-dom"
-import { Link as LinkS } from "react-scroll"
-import { FaBars, FaSignOutAlt } from 'react-icons/fa'
-import React, {Component} from "react"
-import firebase from 'firebase'
+import { Link as LinkR } from "react-router-dom"
+import { FaBars } from 'react-icons/fa'
 require('firebase/auth')
 
 export const Nav = styled.nav`

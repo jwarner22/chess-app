@@ -1,5 +1,5 @@
 import React from 'react'
-import {ModalContentGrid, ModalBodyImg, ModalBodyH3, ModalBodyP} from "./ModalElements"
+import { ModalBodyImg, ModalBodyH3, ModalBodyP} from "./ModalElements"
 
 
 //content is being passed from the ModelData array of objects

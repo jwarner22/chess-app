@@ -3,17 +3,13 @@ import {Link} from 'react-router-dom'
 import {CoursesWrapper, 
     ModuleWrapper, 
     ModuleGrid, 
-    Course, 
-    CourseHeadline, 
     CategoryLabel,
     CategoryLabelWrapper,
     CategoryLabelContainer,
     CategoryLabelContainerTop
 } from './CoursesElements'
-import { Module1, Module2 } from './CourseTile/Data'
 import CourseTile from './CourseTile/Index'
 import {Modules} from './CourseTile/Data';
-import { AnnouncementContainer } from '../Announcements/AnnouncementsElements'
 
 const Body = (
 ) => {

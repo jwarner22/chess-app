@@ -1,23 +1,17 @@
-import {MainDiv, 
+import {
     AnnouncementContainerWrapper, 
     AnnouncementContainer, 
-    CourseContent, 
     AnnouncementTitleH1, 
     AnnouncementWrapper, 
     AnnouncementP,
-    CoursesWrapper,
-    ModuleWrapper,
-    ModuleGrid,
     ButtonWrapper,
-    ProgressBarWrapper
+    CalendarWrapper
 } from "./AnnouncementsElements"
 // import firebaseConfig from "../../../config";
-import React, {useContext} from 'react'
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../Auth";
-import CourseList from '../CoursesBody/Index'
-import {Module1} from "../CoursesBody/CourseTile/Data"
+import React from 'react'
 import {Button} from "../../ButtonElement"
+import Calendar from "./Calendar"
+import { CalendarData } from "./Data"
 
 
 const Announcements = ({username, subheadline}) => {
@@ -48,9 +42,12 @@ const Announcements = ({username, subheadline}) => {
                         to="dailyPuzzle"
                         >Daily Puzzles</Button>
                         </ButtonWrapper>
-                        <ProgressBarWrapper>
-                            Progress Bar Here
-                        </ProgressBarWrapper>
+                        <CalendarWrapper>
+                        {CalendarData.map((module, index) => {
+            return (
+                        <Calendar key={index} {...module}/>
+            )})};
+                        </CalendarWrapper>
                     </AnnouncementContainer>
                 </AnnouncementContainerWrapper>
             </AnnouncementWrapper>

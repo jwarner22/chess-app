@@ -2,24 +2,16 @@
 import React, {useState, useContext } from "react";
 import {Link, withRouter } from 'react-router-dom'
 import { AuthContext } from "../../index";
-import firebaseConfig from "../../config.js";
-import logo from '../../Images/EloElevation-2.png'
-import {GoogleLoginButton} from "./../Signup/SignupElements"
 import {FormH1, 
   Container, 
   FormWrap, 
-  Icon, 
   FormContent, 
   Form, 
   FormLabel, 
   FormInput, 
   FormButton,
   FormText,
-  NavLogo,
-  Img,
-  LinkP,
   GoogleButton,
-  GoogleIconWrapper,
   GoogleButtonText
 } from './LoginElements';
 import firebase from "firebase/app";
@@ -33,7 +25,6 @@ require("firebase/auth");
 const Login = ({history}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, passwordIsConfirmed] = useState("");
   const [error, setErrors] = useState("");
   
   const Auth = useContext(AuthContext);

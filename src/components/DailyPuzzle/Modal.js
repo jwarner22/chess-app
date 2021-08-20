@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {ModalContainer, ModalWrapper, ModalHeader, ModalClose, ModalTitle, ModalImg, ModalSubheading, ModalStartButton} from "./ModalElements"
+import { ModalWrapper, ModalHeader, ModalClose, ModalTitle, ModalImg, ModalSubheading, ModalStartButton} from "./ModalElements"
 import {ModalData} from "./ModalData"
 import {ModalContent} from "./ModalContent"
 import headerImg from "./../../Images/ModalHeaderImg.svg"

@@ -3,9 +3,7 @@ import {DailyPuzzleModuleStyle,
 DailyPuzzleIconWrapper,
 DailyPuzzleIcon,
 PuzzleModuleTitle,
-PuzzleDescripton,
-PuzzleWrapper,
-
+PuzzleDescripton
 } from "./DailyPuzzleElements"
 
 const DailyPuzzleModuleContainer = (props) => {

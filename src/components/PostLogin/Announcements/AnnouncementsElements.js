@@ -12,7 +12,7 @@ export const AnnouncementContainerWrapper = styled.div`
     /* border: 1px solid red; */
     margin: 10px;
     height: auto;
-    padding-top: 60px;
+    padding-top: 120px;
 `
 
 export const AnnouncementContainer = styled.div`
@@ -47,10 +47,31 @@ export const ButtonWrapper = styled.div`
     padding-top: 15px;
 `
 
-export const ProgressBarWrapper = styled.div`
+export const CalendarWrapper = styled.div`
     grid-column: span 2;
-    grid-row: 3;
-    background-color: grey;
-    color: white;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: center;
+    margin-top: 20px;
+`
+export const CalendarDaysWrapper = styled.div`
+    display: flex;
+    max-width: 90px;
+    max-height: 90px;
+    height: 70px;
+    width: 70px;
+    margin-bottom: 10px;
+    background-color: #247cf1;
+    border-radius: 10px;
+`
+export const DaysSpanWrapper = styled.div`
+    line-height:90px;
+    width:100%;
+    height:100%;
     text-align: center;
+`
+
+
+export const CalendarDays = styled.h1`
+    color: #fff;
 `

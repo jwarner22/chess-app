@@ -4,9 +4,7 @@ import {TileWrapper,
     TileIcon, 
     TileIconWrap, 
     TileHeader, 
-    TileSubheadline, 
-    TileDescriptionWrapper,
-    TileDescription
+    TileSubheadline
 } from "./CourseTileElements"
 
 
@@ -15,7 +13,6 @@ import {TileWrapper,
 const CourseTile = ({
     headline,
     subheading,
-    description,
     img
 }) => {
     return (

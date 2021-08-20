@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link, BrowserRouter as Router, Swtich, Route } from "react-router-dom";
-import { AuthContext } from "../Auth";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import HeroSection from "../Hero Section/Index";
 import Navbar from '../NavBar.js/Index'
 import Sidebar from '../Sidebar/index'

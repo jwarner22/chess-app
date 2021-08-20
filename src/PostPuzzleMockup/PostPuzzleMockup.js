@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {Link} from "react-router-dom"
 import { PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from './PostPuzzleMockupElements'
 import headerImg from "../Images/RewardHeaderImg.svg"

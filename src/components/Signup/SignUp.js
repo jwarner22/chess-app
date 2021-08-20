@@ -1,12 +1,9 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../index";
-import { Link, Redirect } from "react-router-dom";
-import firebaseConfig from "../../config"
-import { Container, FormWrap, Icon, FormContent, Form, FormH1, FormLabel, FormInput, Text, GoogleLoginButton} from "./SignupElements";
-import logo from '../../Images/EloElevation-2.png'
-import {NavLogo, Img, GoogleButton, GoogleButtonText, FormButton, FormText} from "../Login/LoginElements"
+import { Link } from "react-router-dom";
+import { Container, FormWrap, FormContent, Form, FormH1, FormLabel, FormInput } from "./SignupElements";
+import {GoogleButton, GoogleButtonText, FormButton, FormText} from "../Login/LoginElements"
 import "./Signup.css"
-import {auth} from "../../config"
 import { withRouter } from 'react-router-dom';
 import firebase from "firebase/app";
 import FetchWrapper from '../api/FetchWrapper'
@@ -18,7 +15,6 @@ const SignUp = ({history}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setErrors] = useState("");
-  const [confirmPassword, passwordIsConfirmed] = useState("");
 
   const Auth = useContext(AuthContext);
 

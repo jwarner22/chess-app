@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import { FaBars } from 'react-icons/fa'
 import {IconContext} from 'react-icons/lib'
 import {
      Nav, 
