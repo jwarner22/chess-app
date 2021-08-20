@@ -2,7 +2,7 @@ import {HeroContainer, HeroBg, VideoBg, HeroContent, HeroP, HeroH1, HeroBtnWrapp
 import Video from '../../Videos/Video.mp4';
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../Auth";
+//import { AuthContext } from "../Auth";
 import {Button} from '../ButtonElement'
 
 

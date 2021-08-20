@@ -1,12 +1,15 @@
 import React, { useEffect, useState, createContext } from "react";
-import firebaseConfig from "../config.js";
-import {firebaseAPI} from '../config.js';
+//import firebaseConfig from "../config.js";
+//import {firebaseAPI} from '../config.js';
+import firebase from 'firebase/app';
 import auth from "../config.js"
+import Loader from '../Preloader.js';
+
 require('@firebase/auth')
 
-export const AuthContext = React.createContext();
+const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const [currentUser, setCurrentUser] = useState(null);
@@ -29,16 +32,17 @@ export const AuthProvider = ({ children }) => {
 
 
   useEffect(() => {
-    firebaseConfig.auth().onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      console.log({authstatechanged: user.additionalUserInfo})// .profile.id})
+    firebase.auth().onAuthStateChanged((user) => {
+      setCurrentUser(() => !!user);
+      console.log('auth state changed')
+      console.log({user: user})
       setLoading(false);
     });
   }, []);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+   if (loading) {
+     return <Loader />
+   }
   return (
     <AuthContext.Provider value={{signup, login, logout, resetPassword, currentUser }}>
       {children}
@@ -46,3 +50,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+export {AuthContext, AuthProvider}

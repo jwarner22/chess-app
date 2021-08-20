@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, BrowserRouter as Router, Swtich, Route } from "react-router-dom";
-import { AuthContext } from "../Auth";
+//import { AuthContext } from "../Auth";
 import HeroSection from "../Hero Section/Index";
 import Navbar from '../NavBar.js/Index'
 import Sidebar from '../Sidebar/index'

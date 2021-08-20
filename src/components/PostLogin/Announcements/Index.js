@@ -14,7 +14,7 @@ import {MainDiv,
 // import firebaseConfig from "../../../config";
 import React, {useContext} from 'react'
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../Auth";
+//import { AuthContext } from "../../Auth";
 import CourseList from '../CoursesBody/Index'
 import {Module1} from "../CoursesBody/CourseTile/Data"
 import {Button} from "../../ButtonElement"

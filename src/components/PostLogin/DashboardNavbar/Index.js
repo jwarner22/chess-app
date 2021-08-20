@@ -18,7 +18,7 @@ import {
 import {animateScroll as scroll} from 'react-scroll'
 import firebaseConfig from "../../../config";
 import { Redirect } from "react-router-dom";
-import { AuthContext } from "../../../index";
+//import { AuthContext } from "../../../index";
 import logo from "../../../Images/EloElevation-2.png"
 import firebase from 'firebase'
 require('firebase/auth')
@@ -49,13 +49,13 @@ const DashNavbar = ({ toggle }) => {
         scroll.scrollToTop();
     }
 
-    const Auth = useContext(AuthContext)
+    //const Auth = useContext(AuthContext)
 
     const handleLogout = () => {
         firebase.auth().signOut()
   .then(res => {
       localStorage.setItem('isLoggedIn','false')
-      Auth.setLoggedIn(false)
+      //Auth.setLoggedIn(false)
     // Sign-out successful.
   })
   .catch(function(error) {

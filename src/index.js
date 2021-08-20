@@ -27,38 +27,39 @@ import ProtectedRouteHoc from './components/protectedRoutesHoc'
 import firebaseConfig from "./config"
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from "firebase/app";
+import {AuthProvider} from './components/Auth.js';
 require("firebase/auth");
 
-
-export const AuthContext = React.createContext(null);
+//export const AuthContext = React.createContext(null);
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [loaded, setLoaded] = useState(false);
+  //const [isLoggedIn, setLoggedIn] = useState(false);
+  // const [loaded, setLoaded] = useState(false);
 
-  function readSession() {
-     //const user = localStorage.getItem(
-			//`firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
-		//);
+  // function readSession() {
+  //    //const user = localStorage.getItem(
+	// 		//`firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
+	// 	//);
     
-    const userLoggedIn = localStorage.getItem('isLoggedIn')
+  //   const userLoggedIn = localStorage.getItem('isLoggedIn')
+    
+	// 	//const user = firebase.auth().currentUser;
+  //   //console.log({localStorageUser: user})
+  //   if (userLoggedIn === 'true') {
+  //     console.log('isLoggedIn set to true')
+  //     //setLoggedIn(true)
+  //   }
+  //   //if (user) setLoggedIn(true)
+  //   setLoaded(!loaded)
+  // }
 
-		//const user = firebase.auth().currentUser;
-    //console.log({localStorageUser: user})
-    if (userLoggedIn === 'true') {
-      console.log('isLoggedIn set to true')
-      setLoggedIn(true)
-    }
-    //if (user) setLoggedIn(true)
-    setLoaded(!loaded)
-  }
+  // useEffect(() => {
+  //   readSession()
+  // }, [])
 
-  useEffect(() => {
-    readSession()
-  }, [])
-
-  return (loaded &&
-    <AuthContext.Provider value={{ isLoggedIn, setLoggedIn }}>
+  return(
+    <>
+    <AuthProvider>
       {/*Is logged in? {JSON.stringify(isLoggedIn)}*/}
       {/*console.log({isloggedin: JSON.stringify(isLoggedIn)})*/}
       <div className="App">
@@ -67,7 +68,6 @@ function App() {
             {protectedRoutes.map(route => (
               <ProtectedRouteHoc
                 key={route.path}
-                isLoggedIn={isLoggedIn}
                 path={route.path}
                 component={route.main}
                 exact={route.exact}
@@ -85,7 +85,8 @@ function App() {
           </Switch>
         </Router>
       </div>
-    </AuthContext.Provider>
+    </AuthProvider>
+    </>
   );
 }
 

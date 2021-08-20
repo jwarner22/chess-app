@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { AuthContext } from "../../index";
+//import { AuthContext } from "../../index";
 import { Link, Redirect } from "react-router-dom";
 import firebaseConfig from "../../config"
 import { Container, FormWrap, Icon, FormContent, Form, FormH1, FormLabel, FormInput, Text, GoogleLoginButton} from "./SignupElements";
@@ -20,7 +20,7 @@ const SignUp = ({history}) => {
   const [error, setErrors] = useState("");
   const [confirmPassword, passwordIsConfirmed] = useState("");
 
-  const Auth = useContext(AuthContext);
+  //const Auth = useContext(AuthContext);
 
 
 
@@ -38,7 +38,7 @@ const SignUp = ({history}) => {
           console.log(res)
           history.push('/dashboard')
           if (res.user) {
-            Auth.setLoggedIn(true)
+            //Auth.setLoggedIn(true)
             setUserData(res)
           };
         })
@@ -62,7 +62,7 @@ const SignUp = ({history}) => {
         .then(result => {
           console.log(result)
           history.push('/dashboard')
-          Auth.setLoggedIn(true)
+          //Auth.setLoggedIn(true)
           setUserData(result)
         })
         .catch(e => setErrors(e.message))
