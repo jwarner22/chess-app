@@ -18,12 +18,8 @@ const SignUp = ({history}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setErrors] = useState("");
-<<<<<<< HEAD
-
-=======
   const [confirmPassword, passwordIsConfirmed] = useState("");
   const {get,post} = useFetch(baseURL);
->>>>>>> 180676ba6a254308f8ec16784b41bbd25e6840f9
   //const Auth = useContext(AuthContext);
 
   const handleForm = e => {
