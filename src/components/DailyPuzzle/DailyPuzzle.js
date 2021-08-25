@@ -10,14 +10,15 @@ import Modal from "./Modal";
 import headerImg from "./../../Images/DailyPuzzleHeaderImg.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
 import {Modules} from "../../components/PostLogin/CoursesBody/CourseTile/Data.js"
-import FetchWrapper from "../api/FetchWrapper";
+//import FetchWrapper from "../api/FetchWrapper";
 import { baseURL } from "../api/apiConfig";
-
+import useFetch from '../api/useFetch';
 
 export default function DailyPuzzzle() {
   const [seen, setSeen] = useState(false); // set to true to display modal on load
   const [loaded,setLoaded] = useState(false);
   const [dailyPicks, setDailyPicks] = useState([]);
+  const {get} = useFetch(baseURL);
 
   const togglePop = () => {
     setSeen(prevSeen => !prevSeen)
@@ -56,10 +57,9 @@ export default function DailyPuzzzle() {
   }
 
   const fetchDailyPuzzles = () => {
-    const API = new FetchWrapper(baseURL)
     let user_id = localStorage.getItem('userID')
     let endpoint = `/users/${user_id}/daily_puzzles`
-    API.get(endpoint).then(data => setPicks(data)).catch(e => console.log(e));
+    get(endpoint).then(data => setPicks(data)).catch(e => console.log(e));
   }
 
 
@@ -78,15 +78,12 @@ export default function DailyPuzzzle() {
     // need to save to API
     // const API = new FetchWrapper(baseURL)
     
-    
-
     setDailyPicks(mutatedPicks);
     setLoaded(true);
   }
 
   return (
     <>
-    {console.log(dailyPicks)}
    <div> 
     {seen ? <Modal toggle={togglePop} /> : null}
    </div>

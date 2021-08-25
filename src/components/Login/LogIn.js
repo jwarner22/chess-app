@@ -18,9 +18,10 @@ import {FormH1,
   GoogleButtonText
 } from './LoginElements';
 import firebase from "firebase/app";
-import FetchWrapper from "../api/FetchWrapper";
+// import FetchWrapper from "../api/FetchWrapper";
 import {baseURL} from '../api/apiConfig';
 import {AuthContext} from '../Auth.js';
+import useFetch from "../api/useFetch";
 
 require("firebase/auth");
 
@@ -32,6 +33,7 @@ const Login = ({history}) => {
   const [error, setErrors] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const {currentUser} = useContext(AuthContext)
+  const {get, post} = useFetch(baseURL)
   //const Auth = useContext(AuthContext);
   useEffect(() => {
     if (currentUser && isLoggedIn) {
@@ -90,12 +92,11 @@ const Login = ({history}) => {
     // store in localStorage 
     localStorage.setItem('userID', userID)
     localStorage.setItem('isLoggedIn','true')
-    
-    const API = new FetchWrapper(baseURL)
+    console.log({userID:userID})
     if (response.additionalUserInfo.isNewUser) {
       createNewUser(userID)
     } else {
-    API.get(`/users/${userID}`)
+    get(`/users/${userID}`)
     .then(data => {
       console.log({response: data})
       if (data.detail === 'User not found') {
@@ -113,10 +114,9 @@ const Login = ({history}) => {
   }
 
   const createNewUser = (userID) => {
-    const API = new FetchWrapper(baseURL)
-    API.post('/users/', {
-      user_id: userID,
-      rating: 1200
+    post('/users/', {
+      user_id: `${userID}`,
+      overall_rating: 1200
     }).then(data => {
       localStorage.setItem('userPublicData', JSON.stringify(data))
     })

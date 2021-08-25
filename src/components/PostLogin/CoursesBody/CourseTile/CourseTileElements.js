@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 
 export const TileWrapper = styled.li`
+    display: flex;
+    min-height: 100%;
     /* border: 1px solid orange; */
     list-style-type: none;
     background: #fff;
@@ -14,7 +16,6 @@ export const TileWrapper = styled.li`
     box-shadow: rgba(36, 124, 241, 0.2) 0px 3px 8px;
     flex-shrink: 1;
     flex-grow: 1;
-    height: 200px;
     transition: all 0.2s ease-in-out;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 
@@ -29,6 +30,10 @@ export const TileWrapper = styled.li`
 
 export const TileHeader = styled.div`
     padding: 2px;
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    
 `
 
 export const TileIconWrap = styled.div`
@@ -53,13 +58,14 @@ export const TileHeadline = styled.h3`
     line-height: 1.1;
     font-weight: 600;
     color: #54606c;
-    text-align: center;
-    margin-top: 12px;
-    margin-bottom: 8px;
-    /* padding: 5px; */
+    text-align: left;
+    margin-bottom: 2px;
+    margin-left: 10px;
     /* margin-top: 5px; */
-
-`
+    @media screen and (max-width: 768px) {
+        margin-top: 5px;
+        margin-bottom: 10px; }
+ `
 
 export const TileSubheadline = styled.p`
     font-size: 0.875rem;
@@ -67,9 +73,16 @@ export const TileSubheadline = styled.p`
     line-height: 1.14;
     color: rgb(112, 118, 124);
     color: #54606c;
-    text-align: center;
+    text-align: left;
     margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 2px;
+    margin-left: 10px;
 
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
 `
 
 export const TileDescriptionWrapper = styled.div`

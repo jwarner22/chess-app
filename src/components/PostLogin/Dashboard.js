@@ -32,7 +32,6 @@ const Dashboard = () => {
     <DashNavbar toggle={toggle}/>
     <DashSidebar isOpen={isOpen} toggle={toggle} />
       <Announcements {...AnnouncementOne}/>
-      <Link to="PuzzleComplete" >To Puzzle</Link>
       <Body/>
     </>
   );

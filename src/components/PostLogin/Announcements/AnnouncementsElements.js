@@ -10,7 +10,7 @@ export const AnnouncementContainerWrapper = styled.div`
     display: flex;
     max-width: 1170px;
     /* border: 1px solid red; */
-    margin: 10px;
+    margin: 30px;
     height: auto;
     padding-top: 120px;
 `
@@ -18,7 +18,8 @@ export const AnnouncementContainerWrapper = styled.div`
 export const AnnouncementContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 200px;
+    height: auto;
+    width: 100%;
     align-content: center;
     grid-gap: 16px;
 `
@@ -46,26 +47,33 @@ export const ButtonWrapper = styled.div`
     grid-column: 2;
     padding-top: 15px;
 `
+export const CalendarTitle = styled.div`
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    grid-column: span 2;
+    font-size: 24px;
+    font-weight: 600;
+    color: #394149;
+`
 
 export const CalendarWrapper = styled.div`
     grid-column: span 2;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    justify-items: center;
-    margin-top: 20px;
+    grid-template-columns: repeat(7, 1fr) 40%;
+    grid-template-rows: 1;
+    justify-items: flex-start;
+    align-self: center;
+    grid-gap: 10px;
 `
 export const CalendarDaysWrapper = styled.div`
-    display: flex;
-    max-width: 90px;
-    max-height: 90px;
-    height: 70px;
-    width: 70px;
-    margin-bottom: 10px;
+    min-width: 80px;
+    min-height: 80px;
     background-color: #247cf1;
     border-radius: 10px;
 `
 export const DaysSpanWrapper = styled.div`
-    line-height:90px;
+    line-height:80px;
     width:100%;
     height:100%;
     text-align: center;

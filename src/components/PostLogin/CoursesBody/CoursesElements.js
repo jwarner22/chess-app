@@ -34,23 +34,30 @@ export const CoursesWrapper = styled.div`
 `
 
 export const ModuleWrapper = styled.div `
-display: flex;
-max-width: 1170px;
-/* border: 1px solid red; */
-margin-bottom: 30px;
-height: auto;
-width: 100%;
-padding-top: 10px;
+    display: flex;
+    max-width: 1170px;
+    /* border: 1px solid red; */
+    margin: 0 30px 30px 30px;
+    height: auto;
+    width: 100%;
+    padding-top: 10px;
 
 `
 
 export const ModuleGrid = styled.ul`
 display: grid;
 grid-auto-rows: auto;
-grid-template-columns: 1fr 1fr 1fr;
+grid-template-columns: 1fr 1fr 1fr 1fr;
 /* border: 1px dotted blue; */
 width: 100%;
 grid-gap: 40px;
+    @media screen and (max-width: 1064px) {
+        padding: 0, 100px;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+    }
 `
 
 export const Course = styled.li`

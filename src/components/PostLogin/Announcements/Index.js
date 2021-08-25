@@ -5,7 +5,8 @@ import {
     AnnouncementWrapper, 
     AnnouncementP,
     ButtonWrapper,
-    CalendarWrapper
+    CalendarWrapper,
+    CalendarTitle
 } from "./AnnouncementsElements"
 // import firebaseConfig from "../../../config";
 import React, {useContext} from 'react'
@@ -30,6 +31,7 @@ const Announcements = ({username, subheadline}) => {
 
 
     return (
+        //Need to add dynamic elements to this component and change the calendar to a list
         <>
             <AnnouncementWrapper>
                 <AnnouncementContainerWrapper>
@@ -46,11 +48,15 @@ const Announcements = ({username, subheadline}) => {
                         to="dailyPuzzle"
                         >Daily Puzzles</Button>
                         </ButtonWrapper>
+                        
+                        <CalendarTitle>
+                    0 of 7 days complete
+                </CalendarTitle>
                         <CalendarWrapper>
                         {CalendarData.map((module, index) => {
             return (
                         <Calendar key={index} {...module}/>
-            )})};
+            )})}
                         </CalendarWrapper>
                     </AnnouncementContainer>
                 </AnnouncementContainerWrapper>

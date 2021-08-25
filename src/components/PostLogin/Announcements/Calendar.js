@@ -1,5 +1,5 @@
 import React from 'react'
-import {CalendarDays, CalendarDaysWrapper, CalendarWrapper, DaysSpanWrapper} from "./AnnouncementsElements"
+import {CalendarDays, CalendarDaysWrapper, CalendarWrapper, DaysSpanWrapper, CalendarTitle} from "./AnnouncementsElements"
 
 
 const Calendar = ({title}) => {
