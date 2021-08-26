@@ -43,31 +43,39 @@ def get_db():
     finally:
         db.close()
 
+
+## TESTING
+
 # testing
 @app.get('/')
 def read_root():
         return {'Hello': 'world'}
 
+# get 100 ratings (testing)
+@app.get('/users/themes/', response_model=List[schemas.Theme])
+def read_ratings(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
+    ratings = crud.get_all_ratings(db, skip=skip, limit=limit)
+    return ratings
+
+# get users
 @app.get('/users')
 def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=skip, limit=limit)
     return users
 
-# get a puzzle
-@app.get('/puzzle/')
-def read_puzzle(puzzle_id: str, db: Session = Depends(get_db)): #, elo: Optional[str]=None):
-   puzzle = get_puzzle(db,puzzle_id)
-   if puzzle is None:
-       raise HTTPException(status_code=404, detail='puzzle not found')
-   return puzzle
+
+# PUZZLES
 
 # get module puzzles
 @app.get('/puzzles/')
-def read_puzzles(rating: int, theme: str, db: Session = Depends(get_db)): # changed from read puzzle to read puzzles
+def read_puzzles(rating: int, theme: str, db: Session = Depends(get_db)):
    puzzle = get_puzzles(db,rating, theme)
    if puzzle is None:
        raise HTTPException(status_code=404, detail='puzzle not found')
    return puzzle
+
+
+# USER
 
 # create user
 @app.post('/users/', response_model=schemas.User)
@@ -84,6 +92,9 @@ def read_user(user_id: str, db: Session = Depends(get_db)):
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
+
+
+# THEMES
 
 # initialize theme rating
 @app.post('/users/{user_id}/themes/', response_model=schemas.Theme)
@@ -105,11 +116,8 @@ async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = 
     db.refresh(db_user)
     return db_user
 
-# get 100 ratings (testing)
-@app.get('/users/themes/', response_model=List[schemas.Theme])
-def read_ratings(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
-    ratings = crud.get_all_ratings(db, skip=skip, limit=limit)
-    return ratings
+
+# DAILY PUZZLES
 
 # get user's daily puzzles
 @app.get('/users/{user_id}/daily_puzzles')
@@ -134,10 +142,9 @@ def create_daily_puzzles( user_id: str, db: Session = Depends(get_db)):
     db.add(db_user)
     for i in range(1,4): 
         #updates each module based on input results
-        #stmt = (insert.values(locked=puzzle.locked, completed=puzzle.completed))
         stmt = (insert(models.DailyPuzzle).values(location=i, theme_id = i, title = 'default', completed=False, locked=False, owner_id=user_id))
         db.execute(stmt)
-#def create_daily_puzzles(db: Session = Depends(get_db)):
+
     db.commit()
     db.refresh(db_user)
     return db_user

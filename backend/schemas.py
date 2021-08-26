@@ -4,13 +4,6 @@ from typing import Optional, List
 from sqlalchemy.engine import interfaces
 
 
-#class UserInfo(BaseModel):
-#    email: 'str'
-#    lichess_usn: Optional['str']
-#    chesscom_usn: Optional['str']
-#
-#class UserCreate(BaseModel):
-
 class Theme(BaseModel):
     id: int
     owner_id: str
