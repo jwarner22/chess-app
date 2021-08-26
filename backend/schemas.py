@@ -4,13 +4,6 @@ from typing import Optional, List
 from sqlalchemy.engine import interfaces
 
 
-#class UserInfo(BaseModel):
-#    email: 'str'
-#    lichess_usn: Optional['str']
-#    chesscom_usn: Optional['str']
-#
-#class UserCreate(BaseModel):
-
 class Theme(BaseModel):
     id: int
     owner_id: str
@@ -32,35 +25,19 @@ class CreateTheme(BaseModel):
 
     class Config:
         orm_mode=True
-# class UpdateTheme(BaseModel):
-#     title: str
-#     rating: int
-#     completed: int
-#     high_score: int
 
-# class ThemeBase(BaseModel):
-#     title: str
-#     category: str
-#     rating: Optional[int] = 1500
+class DailyPuzzle(BaseModel):
+    id: int
+    location: int
+    theme_id: int
+    title: str
+    completed: bool
+    locked: bool
+    owner_id: str
 
-# class ThemeCreate(ThemeBase):
-#     pass
+    class Config:
+        orm_mode=True
 
-# class Theme(ThemeBase):
-#     id: int
-#     owner_id: int
-#     completed: Optional[int] = 0
-#     high_score: Optional[int] = 0
-
-#     class Config:
-#         orm_mode = True
-
-# class UpdateTheme(ThemeBase):
-#     title: str
-#     category: str
-#     rating: Optional[int]
-#     completed: Optional[int]
-#     high_score: Optional[int]
 
 class Puzzle(BaseModel):
     puzzle_id: str
@@ -81,6 +58,7 @@ class User(UserBase):
     id: int
     overall_rating: Optional[int] = 1200
     themes: Optional[List[Theme]] = []
+    daily_puzzles: Optional[List[DailyPuzzle]] = []
 
     class Config:
         orm_mode=True

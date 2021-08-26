@@ -29,6 +29,17 @@ class Theme(Base):
     
     #owner = relationship("User", back_populates="themes")
 
+class DailyPuzzle(Base):
+    __tablename__ = 'daily_puzzles'
+    
+    id = Column(Integer, primary_key=True, index=True)
+    location = Column(Integer, unique=False, index=True)
+    theme_id = Column(Integer, unique = False, index=True)
+    title = Column(String, unique=False,index=True)
+    completed = Column(Boolean, unique=False,index=True)
+    locked = Column(Boolean, unique=False, index=True)
+    owner_id = Column(String, ForeignKey("user.user_id"))
+    
 
 
 class User(Base):
@@ -39,6 +50,7 @@ class User(Base):
     overall_rating = Column(Integer,unique=False, index=True)
 
     themes =  relationship("Theme", backref="user")
+    daily_puzzles = relationship("DailyPuzzle", backref="user")
     #themes = relationship("Theme", back_populates='owner')
 
     class Congif:
@@ -46,36 +58,3 @@ class User(Base):
 
 # can repeat this structure for openings and endgames
 
-#class UserProfile(Base):
-#    __tablename__ = "user_profile"
-#    id = Column(Integer, primary_key=True, index=True)
-#    user_id = Column(Integer, unique=True, index=True)
-#    rating = Column(Integer, unique=False, index=True)
-    
-#    user_progress = relationship("Users", back_populates="user_profile")
-
-#class Progress(Base):
-#    __tablename__ = "progress"
-
-#    id = Column(Integer, primary_key=True, index=True)
-#    module = Column(Integer, unique=False, index=True)
-#    completed = Column(Boolean, unique=False, index=True)
-#    score = Column(Integer, unique=False,index=True)
-#     email = Column(String, unique=True, index=True)
-#     hashed_password = Column(String)
-#     is_active = Column(Boolean, default=True)
-
-#     items = relationship("Item", back_populates="owner")
-
-# block comment with ctr+K+C
-# un-block comment with ctrl+K+U
-
-#class Item(Base):
- #   __tablename__ = "items"
-
-  #  id = Column(Integer, primary_key=True, index=True)
-   # title = Column(String, index=True)
-    #description = Column(String, index=True)
-   # owner_id = Column(Integer, ForeignKey("users.id"))
-
-#    owner = relationship("User", back_populates="items")
