@@ -29,6 +29,17 @@ class Theme(Base):
     
     #owner = relationship("User", back_populates="themes")
 
+class DailyPuzzle(Base):
+    __tablename__ = 'daily_puzzles'
+    
+    id = Column(Integer, primary_key=True, index=True)
+    location = Column(Integer, unique=False, index=True)
+    theme_id = Column(Integer, unique = False, index=True)
+    title = Column(String, unique=False,index=True)
+    completed = Column(Boolean, unique=False,index=True)
+    locked = Column(Boolean, unique=False, index=True)
+    owner_id = Column(String, ForeignKey("user.user_id"))
+    
 
 
 class User(Base):
@@ -39,6 +50,7 @@ class User(Base):
     overall_rating = Column(Integer,unique=False, index=True)
 
     themes =  relationship("Theme", backref="user")
+    daily_puzzles = relationship("DailyPuzzle", backref="user")
     #themes = relationship("Theme", back_populates='owner')
 
     class Congif:

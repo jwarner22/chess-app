@@ -4,7 +4,7 @@ import uvicorn
 from typing import Optional, List
 
 from sqlalchemy.orm import Session
-from sqlalchemy import update
+from sqlalchemy import update, insert
 
 import models
 from database import engine, SessionLocal
@@ -48,6 +48,11 @@ def get_db():
 def read_root():
         return {'Hello': 'world'}
 
+@app.get('/users')
+def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
+    users = crud.get_users(db, skip=skip, limit=limit)
+    return users
+
 # get a puzzle
 @app.get('/puzzle/')
 def read_puzzle(puzzle_id: str, db: Session = Depends(get_db)): #, elo: Optional[str]=None):
@@ -56,7 +61,7 @@ def read_puzzle(puzzle_id: str, db: Session = Depends(get_db)): #, elo: Optional
        raise HTTPException(status_code=404, detail='puzzle not found')
    return puzzle
 
-# get puzzles
+# get module puzzles
 @app.get('/puzzles/')
 def read_puzzles(rating: int, theme: str, db: Session = Depends(get_db)): # changed from read puzzle to read puzzles
    puzzle = get_puzzles(db,rating, theme)
@@ -109,11 +114,53 @@ def read_ratings(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
 # get user's daily puzzles
 @app.get('/users/{user_id}/daily_puzzles')
 def get_daily_puzzles():
-    daily_puzzles = [randint(0,45),randint(0,45),randint(0,45)];
-    # for i in range(0,4):
-    #     rand_i = randint(0,45)
-    #     daily_puzzles.append(rand_i)
+    #daily_puzzles = [randint(0,45),randint(0,45),randint(0,45)];
+    daily_puzzles = []
+    while (len(daily_puzzles) < 4): # we want three modules
+        pick = randint(0,45) # picks random module (how sophisticated!)
+        if pick not in daily_puzzles: # checks that modules don't repeat
+            daily_puzzles.append(pick)
+
     return daily_puzzles
+
+# create new user daily puzzles
+@app.post('/users/{user_id}/daily_puzzles',response_model = schemas.User)
+def create_daily_puzzles( user_id: str, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+
+    if db_user is None:
+         return None
+    
+    db.add(db_user)
+    for i in range(1,4): 
+        #updates each module based on input results
+        #stmt = (insert.values(locked=puzzle.locked, completed=puzzle.completed))
+        stmt = (insert(models.DailyPuzzle).values(location=i, theme_id = i, title = 'default', completed=False, locked=False, owner_id=user_id))
+        db.execute(stmt)
+#def create_daily_puzzles(db: Session = Depends(get_db)):
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+# update user daily puzzles
+@app.put("/users/{user_id}/daily_puzzles", response_model = schemas.User)
+async def update_daily_puzzles(user_id: str, puzzle: schemas.DailyPuzzle, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+
+    if db_user is None:
+        return None
+    
+    db.add(db_user)
+    #for puzzle in dailyPuzzles:
+        #updates each module based on input results  
+    stmt = (update(models.DailyPuzzle).where(models.DailyPuzzle.owner_id == user_id).where(models.DailyPuzzle.location == puzzle.location).values(theme_id=puzzle.theme_id, title=puzzle.title, locked=puzzle.locked, completed=puzzle.completed))
+    db.execute(stmt)
+    
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+
 
 if __name__ == '__main__':
     uvicorn.run('main:app', host='127.0.0.1', port=8000)
