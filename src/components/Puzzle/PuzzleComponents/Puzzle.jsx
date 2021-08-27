@@ -59,7 +59,7 @@ export default class Puzzle extends React.Component {
   newPuzzle = async () => {
     // refactor to show opposing move by setting state, waiting, making opposing move, and then resetting state (previously introduced some issues)
     if (this.count){
-      await wait(500);
+      await wait(1000);
     }
     this.game.load(this.props.fen);
     this.game.move({

@@ -5,7 +5,9 @@ import ProgressBar from "../Utilities/Progress";
 
 // import Swal from "sweetalert2";
 import {getMoves, wait} from '../Utilities/helpers.js';
-
+import confirmationSoundFile from "../../../assets/public_sound_standard_Confirmation.mp3";
+import errorSoundFile from "../../../assets/public_sound_standard_Error.mp3";
+import {Howl} from 'howler';
 // import Stockfish from "./Stockfish";
 // move functions to utils file
 
@@ -39,6 +41,8 @@ export default function PuzzlePage(props) {
   const [correctMoves, setCorrectMoves] = useState(
     getMoves(puzzleData[0].moves)
   );
+  const confirmationSound = new Howl({src: confirmationSoundFile})
+  const errorSound = new Howl({src: errorSoundFile})
 
   const numPuzzles = puzzleData.length;
 
@@ -70,6 +74,14 @@ export default function PuzzlePage(props) {
   };
 
   const displayOutcome = (success) => {
+    // play sound to indicate success or failure
+    if (success) {
+      confirmationSound.play()
+
+    } else {
+      errorSound.play()
+    }
+    
     setOutcome(success);
     setOutcomes(prevOutcomes => [...prevOutcomes, success]);
     incrementCount();
