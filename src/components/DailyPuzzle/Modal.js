@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { ModalWrapper, ModalHeader, ModalClose, ModalTitle, ModalImg, ModalSubheading, ModalStartButton} from "./ModalElements"
+import { ModalWrapper, 
+  ModalHeader, 
+  ModalClose, 
+  ModalTitle, 
+  ModalImg, 
+  ModalSubheading, 
+  StartButton} from "./ModalElements"
 import {ModalData} from "./ModalData"
 import {ModalContent} from "./ModalContent"
 import headerImg from "./../../Images/ModalHeaderImg.svg"
@@ -25,9 +31,9 @@ render() {
                         return (
             <ModalContent key={index} {...module}/>
             )})}
-            <ModalStartButton onClick={this.handleClick}>
+            <StartButton onClick={this.handleClick}>
                 View Daily Puzzles
-            </ModalStartButton>
+            </StartButton>
         </ModalHeader>
     </ModalWrapper>
   );

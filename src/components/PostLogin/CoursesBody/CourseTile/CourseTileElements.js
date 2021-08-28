@@ -14,8 +14,8 @@ export const TileWrapper = styled.li`
 , rgb(32, 131, 255), rgba(92, 235, 52, 0)), linear-gradient(rgb(76, 204, 255) 0%, rgb(24, 142, 189) 100%); */
     border-radius: 10px;
     box-shadow: rgba(36, 124, 241, 0.2) 0px 3px 8px;
-    flex-shrink: 1;
-    flex-grow: 1;
+    /* flex-shrink: 1;
+    flex-grow: 1; */
     transition: all 0.2s ease-in-out;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 

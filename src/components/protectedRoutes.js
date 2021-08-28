@@ -4,6 +4,7 @@ import Dashboard from "./PostLogin/Dashboard"
 import Module from './PostLogin/Module.js';
 import PostPuzzleMockup from '../PostPuzzleMockup/PostPuzzleMockup';
 import DailyPuzzle from "./DailyPuzzle/DailyPuzzle"
+import PrePuzzlePage from "./PrePuzzle/PrePuzzle"
 
 const protectedRoutes = [
 	{
@@ -31,6 +32,11 @@ const protectedRoutes = [
 		path: "/PuzzleComplete",
 		exact: true,
 		main: () => <PostPuzzleMockup />
+	}, {
+		name: "PrePuzzlePage",
+		path: "/PuzzleInfo",
+		exact: true,
+		main: () => <PrePuzzlePage />
 	}
 ];
 

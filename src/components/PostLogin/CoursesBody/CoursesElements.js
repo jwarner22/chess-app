@@ -16,13 +16,13 @@ export const CategoryLabelWrapper = styled.div`
     justify-content: flex-start;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     justify-content: center;
+    width: 100vw;
 `
 
 export const CategoryLabel = styled.h2`
     color: white;
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: 30px;
 
 `
 
@@ -34,7 +34,6 @@ export const CoursesWrapper = styled.div`
 `
 
 export const ModuleWrapper = styled.div `
-    display: flex;
     max-width: 1170px;
     /* border: 1px solid red; */
     margin: 0 30px 30px 30px;
@@ -46,18 +45,18 @@ export const ModuleWrapper = styled.div `
 
 export const ModuleGrid = styled.ul`
 display: grid;
-grid-auto-rows: auto;
-grid-template-columns: 1fr 1fr 1fr 1fr;
+grid-template-columns: repeat(auto-fit, minmax(160px, 240px));
+grid-gap: 24px;
+justify-content: center;
 /* border: 1px dotted blue; */
-width: 100%;
-grid-gap: 40px;
-    @media screen and (max-width: 1064px) {
-        padding: 0, 100px;
+    /* @media screen and (max-width: 1064px) {
+        padding: 0 20px;
         grid-template-columns: 1fr 1fr 1fr;
     }
     @media screen and (max-width: 768px) {
         grid-template-columns: 1fr 1fr;
-    }
+        grid-gap: 8px;
+    } */
 `
 
 export const Course = styled.li`

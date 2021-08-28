@@ -91,7 +91,7 @@ export const ModalBodyP = styled.p`
   margin-bottom: 15px;
 `
 
-export const ModalStartButton = styled.button`
+export const StartButton = styled.button`
   border-radius: 50px;
     background: #247cf1;
     white-space: nowrap;

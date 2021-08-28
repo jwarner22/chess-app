@@ -9,6 +9,7 @@ import Announcements from "./Announcements/Index";
 import Body from "./CoursesBody/Index";
 import {AnnouncementOne} from "./Announcements/Data";
 import MobileNavbar from "./MobileNavBar/MobileNavBar"
+import styled from "styled-components"
 
 
 
@@ -54,15 +55,28 @@ const Dashboard = () => {
     
   return (
     <>
+    <DashboardWrapper>
     {isMobile ? (
     <MobileNavbar />
     // <DashSidebar isOpen={isOpen} toggle={toggle} />
     ) : (
+      <>
       <DashNavbar toggle={toggle}/>
-    )}
       <Announcements {...AnnouncementOne}/>
+      </>
+    )}
+      <Link to="/PuzzleInfo">
+        Pre Puzzle
+      </Link>
       <Body/>
+      </DashboardWrapper>
       </>
   );
 };
 export default Dashboard;
+
+
+const DashboardWrapper =styled.div`
+  display: flex;
+  flex-direction: column;
+`

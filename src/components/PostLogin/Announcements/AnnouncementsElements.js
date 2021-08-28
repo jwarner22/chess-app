@@ -7,12 +7,16 @@ export const AnnouncementWrapper = styled.div`
 `
 
 export const AnnouncementContainerWrapper = styled.div`
-    display: flex;
     max-width: 1170px;
     /* border: 1px solid red; */
     margin: 30px;
     height: auto;
     padding-top: 120px;
+    display: flex;
+
+    @media screen and (max-height: 640px) {
+        padding-top: 0px;
+    }
 `
 
 export const AnnouncementContainer = styled.div`

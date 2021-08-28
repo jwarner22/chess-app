@@ -2,8 +2,8 @@ import React from 'react'
 import {FaChessPawn} from "react-icons/fa"
 import { RiHome3Fill } from "react-icons/ri"
 import { FcPuzzle } from "react-icons/fc"
-
-import {MobileNavbarWrapper, MobileNavbarItems, MobileNavbarItem, MobileNavbarIcon} from "./MobileNabarElements"
+import {Container} from '../../DailyPuzzle/DailyPuzzleElements'
+import {MobileNavbarWrapper, MobileNavbarItems, MobileNavbarItem, MobileNavbarIcon, Styles} from "./MobileNabarElements"
 
 
 const MobileNabarElements = () => {
@@ -31,6 +31,7 @@ const MobileNabarElements = () => {
                 </MobileNavbarItem>
             </MobileNavbarItems>
         </MobileNavbarWrapper>
+
         </>
     )
 }
