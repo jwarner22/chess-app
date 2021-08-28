@@ -4,7 +4,7 @@ import uvicorn
 from typing import Optional, List
 
 from sqlalchemy.orm import Session
-from sqlalchemy import update, insert
+from sqlalchemy import update, insert, delete
 
 import models
 from database import engine, SessionLocal
@@ -116,7 +116,6 @@ async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = 
     db.refresh(db_user)
     return db_user
 
-
 # DAILY PUZZLES
 
 # get user's daily puzzles
@@ -167,6 +166,19 @@ async def update_daily_puzzles(user_id: str, puzzle: schemas.DailyPuzzle, db: Se
     db.refresh(db_user)
     return db_user
 
+# remove daily puzzle
+@app.put('/users/{user_id}/daily_puzzles/delete')
+def delete_theme(user_id: str, theme_id: int, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+
+    if db_user is None:
+         return None
+    db.add(db_user)
+    stmt = (delete(models.DailyPuzzle).where(models.DailyPuzzle.owner_id == user_id).where(models.DailyPuzzle.theme_id == theme_id))
+    db.execute(stmt)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
 
 
 if __name__ == '__main__':

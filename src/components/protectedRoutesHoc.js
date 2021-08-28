@@ -9,10 +9,7 @@ const ProtectedRouteHoc = ({ component: Component, ...rest }) => {
 	const {currentUser} = useContext(AuthContext)
 
 
-	console.log({currentUser: currentUser})
 	if (currentUser || rest.public) {
-		console.log('reports')
-		console.log({isLoggedIn: currentUser})
 		return (
 			<Route
 				{...rest}

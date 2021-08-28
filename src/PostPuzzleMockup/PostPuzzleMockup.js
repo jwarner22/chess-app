@@ -1,15 +1,27 @@
 import React from 'react'
 import {Link} from "react-router-dom"
-import { PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from './PostPuzzleMockupElements'
+import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from './PostPuzzleMockupElements'
 import headerImg from "../Images/RewardHeaderImg.svg"
+import {Modules} from '../components/PostLogin/CoursesBody/CourseTile/Data.js';
 
 const PostPuzzleMockup = (props) => {
     console.log(props)
+    const module = Modules.find(module => module.type_ref === props.userData.title)
+
     if (!props.savingResults) {
     return (
         <PostPuzzleWrapper>
             <PostPuzzleGrid>
-                <PostPuzzleHeaderImg src={headerImg}/>
+                <IconWrap>
+                    <PostPuzzleHeaderImg src={module.img}/>
+                </IconWrap>
+                    <ModuleExperience>
+                        {module.headline}
+                    </ModuleExperience>
+                    <div>
+
+
+                    </div>
                     <RewardH1>
                         {props.failure ? 'Sorry.': 'Congrats!'}
                     </RewardH1>
@@ -19,11 +31,11 @@ const PostPuzzleMockup = (props) => {
                         {(props.failure) && 'Module Failed'}
                     </RewardH2>
                     <ModuleExperience>
-                        {`Your new rating for ${props.userData.title} is ${props.userData.rating}`}
+                        {props.userData.rating ? `New Rating: ${props.userData.rating}` : ''}
                     </ModuleExperience>
-                    <Link to="/dashboard">
+                    <Link to="/dailyPuzzle">
                     <FinishButton>
-                        Return to Dashboard
+                        Return to Daily Puzzles
                     </FinishButton>
                     </Link>
             </PostPuzzleGrid>

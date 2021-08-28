@@ -8,13 +8,14 @@ import {baseURL} from "../api/apiConfig";
 //import FetchWrapper from "../api/FetchWrapper";
 import PostPuzzle from '../../PostPuzzleMockup/PostPuzzleMockup'
 import useFetch from '../api/useFetch';
+import Loader from '../../Preloader';
 
 export default function Puzzle(props) {
   const {rating,theme,id} = props;
   const [puzzles,setPuzzles] = useState([]);
   const [isFinished,setIsFinished] = useState(false);
   const [outcomes, setOutcomes] = useState([]);
-  const [savingResults, setSavingResults] = useState(true);
+  const [savingResults, setSavingResults] = useState(false);
   const [failure, setFailure] = useState(false);
   const [perfect, setPerfect] = useState(false);
   const [userData, setUserData] = useState();
@@ -34,16 +35,12 @@ export default function Puzzle(props) {
   
   // saves results to api and localStorage
   function saveResults(results) {
-    setSavingResults(true)
     let oldData = JSON.parse(localStorage.getItem('userPublicData'))
     let userID = localStorage.getItem('userID')
     //let moduleID = props.id;
     let themeData = oldData.themes.find(element => element.title === theme);
-  
+    console.log({themeData: themeData})
     // score change
-    //let tried = results.length;
-    //let succeeded = results.filter(result => result === true).length;
-    //console.log({tried: tried, succeeded: succeeded})
     if (results.every(result => result === true)) {
       themeData.rating += 100
       console.log('perfect')
@@ -55,7 +52,7 @@ export default function Puzzle(props) {
     themeData.completed += 1; // adds 1 to number of puzzles completed
 
     setUserData(themeData)
-
+    
     let endpoint = `/users/themes/${userID}`
     put(endpoint, themeData)
     .then(data => {
@@ -76,13 +73,19 @@ export default function Puzzle(props) {
       return puzzle
     })
     const thisIndex = mutatedPuzzles.findIndex(puzzle => puzzle.id === id)
-    mutatedPuzzles[thisIndex+1].locked = false;
+    // check if last puzzle
+    if (thisIndex+1 < mutatedPuzzles.length) {
+      mutatedPuzzles[thisIndex+1].locked = false; // unlock next puzzle
+      // daily puzzle splash screen call here
+    }
+    // save to localStorage
     localStorage.setItem('dailyPuzzles',JSON.stringify(mutatedPuzzles));
   }
 
   // callback function when puzzle is finished (currently only success)
  const puzzleIsFinished = (results, result) => {
    console.log({finished: 'isFinished', outcomes: results})
+   setSavingResults(true)
    if (result === 'succeed') {
    setOutcomes(prevOutcomes => [...prevOutcomes,results])
    setIsFinished(true)
@@ -96,20 +99,13 @@ export default function Puzzle(props) {
    }   
  }
  
-//  <>
-//  {!failure && <strong>Nice Job!</strong>}
-//  {perfect && <strong>Congrats, Perfect Score!</strong>}
-//  {failure && <strong>Module Failed</strong>}
-//  {savingResults && <p>Saving Results...</p>}
-//  {!savingResults &&
-//  <button>
-//  <Link to="/dashboard">Back to Dashboard</Link>
-//  </button>
-//  }
-//  </>
-// )
 
  // render if the puzzle module is finished
+ if (savingResults) {
+   return(
+    <Loader />
+   )
+ }
  if (isFinished) {
    return(
      <PostPuzzle perfect={perfect} failure ={failure} outcomes={outcomes} savingResults={savingResults} userData={userData}/>

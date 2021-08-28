@@ -14,11 +14,8 @@ import {Modules} from './CourseTile/Data';
 const Body = (
 ) => {
 
-    console.log(Modules);
     const endgameModules = Modules.filter(module => module.type === "endgame")
-    console.log(endgameModules)
     const checkmateModules = Modules.filter(module => module.type === "checkmate")
-    console.log(checkmateModules)
     const tacticModules = Modules.filter(module => module.type === "midgame")
 
     return (

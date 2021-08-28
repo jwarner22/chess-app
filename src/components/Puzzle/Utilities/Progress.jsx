@@ -14,7 +14,9 @@ function ProgressBar(props) {
     const perfectColor = '#FFF90C';
     const outcome = props.outcome;
     const returnPercent = props.returnPercent;
-    
+    const increment = 20; // increment for progress - hardcoded for now
+    const decrement = 10; // decrement for failed puzzle
+
     useEffect(() => {
         if (props.percent === undefined) {
             setDisplay(outcome)
@@ -23,17 +25,18 @@ function ProgressBar(props) {
         }
     },[props.count])
 
+
     const setDisplay = result => {
-        console.log(percent)
         if (result === true && percent < 100) {
             setColor(correctColor)
-            setPercent(prevPercent => prevPercent + 15)
+            setPercent(prevPercent => prevPercent + increment)
         } else if (result === false && percent > 0) {
             setColor(incorrectColor)
-            setPercent(prevPercent => prevPercent - 5)
-        } else if (percent > 100 && result === true){
+            setPercent(prevPercent => prevPercent - decrement)
+        } else if (percent >= 100 && result === true){
             setColor(correctColor)
             setPercent(100)
+            returnPercent(100)
             if (results.every(outcome => outcome === true)) {
                 setColor(perfectColor)
             }
@@ -41,7 +44,6 @@ function ProgressBar(props) {
             setColor(baseColor)
         }
         setResults(prevResults => [...prevResults, result])
-        returnPercent(percent)
     }
 
     const containerStyle = {

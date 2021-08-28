@@ -49,9 +49,8 @@ export default function PuzzlePage(props) {
   useEffect(() => {
     // checks if user has missed 4 puzzles - if so route to fialure screen
     if (outcomes.filter(entry => entry === false).length > 3) {
-      props.puzzleIsFinished(outcomes, 'fail')
+      fail()
     }
-    console.log(outcomes)
   }, [outcomes]);
 
   useEffect(() => {
@@ -59,18 +58,30 @@ export default function PuzzlePage(props) {
       nextPuzzle();
     }
     if (progress >= 100) {
-      wait(500)
-      props.puzzleIsFinished(outcomes, 'succeed');
+      finished()
     }
   }, [progress, count])
 
+  // puzzle module is finished
+  const finished = async () => {
+    await wait(1000)
+    props.puzzleIsFinished(outcomes, 'succeed');
+  }
+
+  // module failed
+  const fail = async () => {
+    wait(1000)
+    props.puzzleIsFinished(outcomes, 'fail')
+  }
+
+  // track next puzzle
   const nextPuzzle = () => {
     setFen(() => puzzleData[count].fen);
     setCorrectMoves(() => getMoves(puzzleData[count].moves));
   }
 
   const unlockNext = () => {
-    // used to unlock button. Saving for now just 
+    // legacy - used to unlock button. Saving for now 
   };
 
   const displayOutcome = (success) => {
@@ -92,7 +103,7 @@ export default function PuzzlePage(props) {
   };
   
   const returnPercent = (percent) => {
-    setProgress(() => percent)
+    setProgress(percent)
   }
 
   return (

@@ -27,7 +27,13 @@ export const PostPuzzleHeaderImg = styled.img`
     text-align: center; 
     margin: 10px;
 `
-
+export const IconWrap = styled.div`
+    background: #247cf1;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+    
+`
 export const RewardH1 = styled.h1`
   color: #54606c;
   text-align: center;

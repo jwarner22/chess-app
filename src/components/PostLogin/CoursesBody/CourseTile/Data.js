@@ -362,7 +362,7 @@ export const Modules = [
         id: 39,
         category: 'puzzle',
         type: 'midgame',
-        type_ref: 'queitMove',
+        type_ref: 'quietMove',
         headline: 'Quiet Move',
         subheading: `Focus on improving your position.`,
         description: 'Lorem ipsum mah brudda',
