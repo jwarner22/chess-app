@@ -5,12 +5,13 @@ import { GoSearch } from "react-icons/go";
 export const PuzzlePageContainer = styled.div`
    min-height: 692px;
   position: fixed;
-  bottom: 0;
   left: 0;
   right: 0;
   top: 0;
   z-index: 0;
   overflow: hidden;
+  background-color: #f6f8f9;
+  height: 100vh;
 `
 export const PrePuzzleIconWrapper = styled.div`
     background: #247cf1;
@@ -20,46 +21,57 @@ export const PrePuzzleIconWrapper = styled.div`
     margin-bottom: 3px;
 `
 export const PrePuzzleWrapper = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 70%;
+    margin: 0 auto;
+    align-items: center;
+    background-color: white;
+    margin-top: 24px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 `
+
+
 
 export const PrePuzzleTitle = styled.h1`
     text-align: center;
     padding-bottom: 4px;
     padding-top: 16px;
     color: #54606c;
+    margin: 24px 24px 0 24px;
 `
 
 export const PrePuzzleSubheading = styled.h2`
     text-align: center;
     padding: 4px;
     color: #54606c;
-    margin-bottom: 40px;
+    margin: 0 0 40px 0;
 `
 
 export const PrePuzzleContentContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 `
 export const StatsWrapper = styled.div`
     display: flex;
     justify-content: center;
-    width: 100vw;
+    width: 40%;
 `
 
 export const StatsGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 100%;
-    column-gap: 40px;
+    justify-content: center;
+    align-items: center;
 `
 export const LeftStatWrapper = styled.div`
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 `
 
 export const PuzzleEloTitle = styled.h1`
@@ -70,13 +82,13 @@ export const PuzzleEloTitle = styled.h1`
 `
 
 export const PuzzleElo = styled.h1`
-    text-align: right;
+    text-align: center;
     grid-column: 1;
     color: #54606c;
 `
 
 export const HighScoreTitle = styled.h1`
-    text-align: left;
+    text-align: center;
     grid-column: 2;
     font-size: 1rem;
     grid-row: 1;
@@ -84,7 +96,7 @@ export const HighScoreTitle = styled.h1`
 `
 
 export const HighScore = styled.h1`
-    text-align: left;
+    text-align: center;
     grid-column: 2; 
     grid-row: 2;
     color: #54606c;
@@ -102,6 +114,7 @@ export const InstructionsWrapper = styled.div`
     /* border: 2px solid red; */
     height: 100%;
     padding: 24px;
+    margin: 24px;
 `
 export const TipsTitleWrapper = styled.div`
     margin-left: 24px;

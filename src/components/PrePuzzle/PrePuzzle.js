@@ -29,60 +29,60 @@ import { StartButton } from '../DailyPuzzle/ModalElements'
 const PrePuzzlePage = () => {
     return (
         <PuzzlePageContainer>
-            <PrePuzzleWrapper>
                 <PrePuzzleIconWrapper>
                     <DailyPuzzleIcon src={testIcon} />
                 </PrePuzzleIconWrapper>
-                <PrePuzzleTitle>
-                 EnPassant
-                </PrePuzzleTitle>
-                <PrePuzzleSubheading>
-                    Pattern Recognition
-                </PrePuzzleSubheading>
-                <PrePuzzleContentContainer>
-                    <StatsWrapper>
-                        <StatsGrid>
-                            <LeftStatWrapper>
-                            <PuzzleEloTitle>
-                                EnPassant Elo
-                            </PuzzleEloTitle>
-                            </LeftStatWrapper>
-                            <PuzzleElo>
-                                1200
-                            </PuzzleElo>
-                            <HighScoreTitle>
-                                High Score
-                            </HighScoreTitle>
-                            <HighScore>
-                                2,364,246
-                            </HighScore>
-                        </StatsGrid>
-                    </StatsWrapper>
-                    <InstructionsContainer>
-                        <InstructionsWrapper>
-                            <TipsTitleWrapper>
-                                    <TipsTitle>
-                                        Instructions:
-                                    </TipsTitle>
-                                </TipsTitleWrapper>
-                                    <TipsGrid>
-                                        <TipImageWrap>
-                                            <Tip1Image />
-                                        </TipImageWrap>
-                                        <TipDescriptionWrapper>
-                                            <Tip1Description>
-                                                I'm a description. I'm describing how to do something important to the user. 
-                                            </Tip1Description>
-                                        </TipDescriptionWrapper>
-                                    </TipsGrid>
-                                </InstructionsWrapper>
-                                <StartButton>
-                                    Start Puzzle
-                                </StartButton>
-                            </InstructionsContainer>
-                        </PrePuzzleContentContainer>
-                    </PrePuzzleWrapper>
-                 </PuzzlePageContainer>
+                <PrePuzzleWrapper>
+                    <PrePuzzleTitle>
+                        EnPassant
+                    </PrePuzzleTitle>
+                    <PrePuzzleSubheading>
+                        Pattern Recognition
+                    </PrePuzzleSubheading>
+                    <PrePuzzleContentContainer>
+                        <StatsWrapper>
+                            <StatsGrid>
+                                <LeftStatWrapper>
+                                <PuzzleEloTitle>
+                                    EnPassant Elo
+                                </PuzzleEloTitle>
+                                </LeftStatWrapper>
+                                <PuzzleElo>
+                                    1200
+                                </PuzzleElo>
+                                <HighScoreTitle>
+                                    High Score
+                                </HighScoreTitle>
+                                <HighScore>
+                                    2,364,246
+                                </HighScore>
+                            </StatsGrid>
+                        </StatsWrapper>
+                        <InstructionsContainer>
+                            <InstructionsWrapper>
+                                <TipsTitleWrapper>
+                                        <TipsTitle>
+                                            Instructions:
+                                        </TipsTitle>
+                                    </TipsTitleWrapper>
+                                        <TipsGrid>
+                                            <TipImageWrap>
+                                                <Tip1Image />
+                                            </TipImageWrap>
+                                            <TipDescriptionWrapper>
+                                                <Tip1Description>
+                                                    I'm a description. I'm describing how to do something important to the user. 
+                                                </Tip1Description>
+                                            </TipDescriptionWrapper>
+                                        </TipsGrid>
+                                    </InstructionsWrapper>
+                                    <StartButton>
+                                        Start Puzzle
+                                    </StartButton>
+                                </InstructionsContainer>
+                            </PrePuzzleContentContainer>
+                        </PrePuzzleWrapper>
+                    </PuzzlePageContainer>
     )
 }
 
