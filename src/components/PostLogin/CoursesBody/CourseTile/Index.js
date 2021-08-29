@@ -4,7 +4,9 @@ import {TileWrapper,
     TileIcon, 
     TileIconWrap, 
     TileHeader, 
-    TileSubheadline
+    TileSubheadline,
+    TileButton,
+    TileButtonWrap
 } from "./CourseTileElements"
 
 
@@ -28,6 +30,11 @@ const CourseTile = ({
                 <TileSubheadline>
                     {subheading}
                 </TileSubheadline>
+                <TileButtonWrap>
+                    <TileButton>
+                        Start
+                    </TileButton>
+                    </TileButtonWrap>
             </TileHeader>
             {/* <TileDescriptionWrapper>
                 <TileDescription>

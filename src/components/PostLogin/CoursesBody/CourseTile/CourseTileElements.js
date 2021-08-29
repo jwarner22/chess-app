@@ -18,15 +18,8 @@ export const TileWrapper = styled.li`
     flex-grow: 1; */
     transition: all 0.2s ease-in-out;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    `
 
-    &:hover {
-        box-shadow: 0.2s ease-in-out;
-        transform: scale(1.02);
-        transition: all 0.2 ease-in-out;
-        cursor: pointer;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
-    }
-`
 
 export const TileHeader = styled.div`
     padding: 2px;
@@ -98,4 +91,37 @@ export const TileDescription = styled.p`
     font-weight: 400;
     color: white;
     text-align: center;
+`
+export const TileButtonWrap = styled.div`
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    padding: 4px 4px 10px 10px;
+`
+
+export const TileButton = styled.div`
+    color: #fff;
+    background: #247cf1;
+    border-radius: 10px;
+    white-space: nowrap;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    min-height: 36px;
+    min-width: 50%;
+
+    &:hover {
+        box-shadow: 0.2s ease-in-out;
+        color: #fff;
+        transform: scale(1.02);
+        transition: all 0.2 ease-in-out;
+        cursor: pointer;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    }
 `
