@@ -97,6 +97,11 @@ export const TileButtonWrap = styled.div`
     align-items: flex-end;
     height: 100%;
     padding: 4px 4px 10px 10px;
+
+
+    @media screen and (max-height: 640px) {
+        display: none;
+    }
 `
 
 export const TileButton = styled.div`
@@ -123,5 +128,9 @@ export const TileButton = styled.div`
         transition: all 0.2 ease-in-out;
         cursor: pointer;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    }
+
+    @media screen and (max-height: 640px) {
+        display: none;
     }
 `

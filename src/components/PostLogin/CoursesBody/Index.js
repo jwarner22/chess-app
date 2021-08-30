@@ -20,13 +20,14 @@ const Body = (
 
     return (
         <>
-        <CategoryLabelContainerTop>
+        <div>
+        <CategoryLabelContainer>
             <CategoryLabelWrapper>
                 <CategoryLabel>
                     Endgames
                 </CategoryLabel>
             </CategoryLabelWrapper>
-        </CategoryLabelContainerTop>
+        </CategoryLabelContainer>
         <CoursesWrapper>
             <ModuleWrapper>
                 <ModuleGrid>
@@ -39,6 +40,8 @@ const Body = (
                 </ModuleGrid>
             </ModuleWrapper>
         </CoursesWrapper>
+        </div>
+        <div>
         <CategoryLabelContainer>
             <CategoryLabelWrapper>
                 <CategoryLabel>
@@ -58,6 +61,7 @@ const Body = (
                 </ModuleGrid>
             </ModuleWrapper>
         </CoursesWrapper>
+        </div>
         <CategoryLabelContainer>
             <CategoryLabelWrapper>
                 <CategoryLabel>

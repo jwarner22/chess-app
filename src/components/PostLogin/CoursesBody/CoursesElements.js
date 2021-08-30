@@ -2,28 +2,31 @@ import styled from 'styled-components'
 
 export const CategoryLabelContainerTop = styled.div`
     background-color: #f3f3f3;
+    position: sticky;
+    top: 0px;
 `
 
 export const CategoryLabelContainer = styled.div`
-    padding-top: 40px;
-
+    top: 0px;
+    position: sticky;
 `
 
 export const CategoryLabelWrapper = styled.div`
     display: flex;
-    height: 65px; 
+    min-height: 80px; 
     background: #24F299;
     justify-content: flex-start;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     justify-content: center;
     width: 100vw;
+    position: sticky;
+    top: 0px; 
 `
 
 export const CategoryLabel = styled.h2`
     color: white;
     margin-top: auto;
     margin-bottom: auto;
-
 `
 
 export const CoursesWrapper = styled.div`
@@ -31,6 +34,7 @@ export const CoursesWrapper = styled.div`
     justify-content: center;
     padding-top: 40px;
     background-color: #f6f8f9;
+    min-height: 100vh;
 `
 
 export const ModuleWrapper = styled.div `
@@ -47,7 +51,8 @@ export const ModuleGrid = styled.ul`
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(160px, 240px));
 grid-gap: 24px;
-justify-content: center;
+justify-content: space-around;
+align-items: stretch;
 /* border: 1px dotted blue; */
     /* @media screen and (max-width: 1064px) {
         padding: 0 20px;

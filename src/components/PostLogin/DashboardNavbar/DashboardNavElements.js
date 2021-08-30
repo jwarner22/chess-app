@@ -13,7 +13,6 @@ export const Nav = styled.nav`
     font-size: 1rem;
     position: sticky;
     top: 0;
-    z-index: 10;
     box-shadow: rgba(36, 124, 241, 0.2) 0px 3px 8px;
 
     @media screen and (max-width: 960px) {
@@ -25,7 +24,6 @@ export const NavbarContainer = styled.div`
     display: flex;
     justify-content: space-between;
     height: 80px;
-    z-index: 1;
     width: 100%;
     padding: 0 24px;
     max-width: 1170px;
