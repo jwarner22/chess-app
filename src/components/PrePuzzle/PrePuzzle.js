@@ -24,17 +24,24 @@ import {PuzzlePageContainer,
 import {DailyPuzzleIcon} from "../DailyPuzzle/DailyPuzzleElements"
 import testIcon from "../../Images/EnPassant.svg"
 import { StartButton } from '../DailyPuzzle/ModalElements'
+import {Modules} from '../PostLogin/CoursesBody/CourseTile/Data.js';
 
+const PrePuzzlePage = (props) => {
+    const moduleId = props.moduleId;
+    const module = Modules.find(element => element.id === moduleId)
 
-const PrePuzzlePage = () => {
+    function handleStartButtonClick() {
+        props.togglePrePuzzleCallback()
+    }
+
     return (
         <PuzzlePageContainer>
                 <PrePuzzleIconWrapper>
-                    <DailyPuzzleIcon src={testIcon} />
+                    <DailyPuzzleIcon src={module.img} />
                 </PrePuzzleIconWrapper>
                 <PrePuzzleWrapper>
                     <PrePuzzleTitle>
-                        EnPassant
+                        {module.headline}
                     </PrePuzzleTitle>
                     <PrePuzzleSubheading>
                         Pattern Recognition
@@ -44,17 +51,17 @@ const PrePuzzlePage = () => {
                             <StatsGrid>
                                 <LeftStatWrapper>
                                 <PuzzleEloTitle>
-                                    EnPassant Elo
+                                    {module.headline} Rating
                                 </PuzzleEloTitle>
                                 </LeftStatWrapper>
                                 <PuzzleElo>
-                                    1200
+                                    {props.rating}
                                 </PuzzleElo>
                                 <HighScoreTitle>
                                     High Score
                                 </HighScoreTitle>
                                 <HighScore>
-                                    2,364,246
+                                    1,234
                                 </HighScore>
                             </StatsGrid>
                         </StatsWrapper>
@@ -71,12 +78,12 @@ const PrePuzzlePage = () => {
                                             </TipImageWrap>
                                             <TipDescriptionWrapper>
                                                 <Tip1Description>
-                                                    I'm a description. I'm describing how to do something important to the user. 
+                                                    {module.subheading} 
                                                 </Tip1Description>
                                             </TipDescriptionWrapper>
                                         </TipsGrid>
                                     </InstructionsWrapper>
-                                    <StartButton>
+                                    <StartButton onClick={handleStartButtonClick}>
                                         Start Puzzle
                                     </StartButton>
                                 </InstructionsContainer>

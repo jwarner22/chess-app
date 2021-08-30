@@ -4,11 +4,13 @@ import React, {useEffect, useState} from 'react';
 import {baseURL} from '../api/apiConfig';
 import useFetch from '../api/useFetch.js';
 import Loader from '../../Preloader.js';
+import PrePuzzle from '../PrePuzzle/PrePuzzle.js';
 
 export default function Module(props) {
     //const text = props.location.state.text;
     const [rating, setRating] = useState();
     const [loading, setLoading] = useState(true);
+    const [prePuzzleToggle,setPrePuzzleToggle] = useState(true);
     const {get,post} = useFetch(baseURL);
     const theme = props.location.state.module.type_ref;
     const category = props.location.state.module.category;
@@ -43,9 +45,18 @@ export default function Module(props) {
         }
     },[])
 
+    const togglePrePuzzle = () => {
+        setPrePuzzleToggle(prevPrePuzzle => !prevPrePuzzle)
+    }
+    console.log({rating:rating})
     if (loading) {
         return <Loader />
+    }  else if (prePuzzleToggle) {
+        return(
+            <PrePuzzle togglePrePuzzleCallback={togglePrePuzzle} moduleId={id} rating={rating} />
+        )
     }
+
     return(
         <>
         <Puzzle rating={rating} theme = {theme} id={id}/>
