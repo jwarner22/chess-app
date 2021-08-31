@@ -78,7 +78,7 @@ const PrePuzzlePage = (props) => {
                                             </TipImageWrap>
                                             <TipDescriptionWrapper>
                                                 <Tip1Description>
-                                                    {module.subheading} 
+                                                    {module.instructions} 
                                                 </Tip1Description>
                                             </TipDescriptionWrapper>
                                         </TipsGrid>
