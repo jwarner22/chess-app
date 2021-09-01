@@ -13,6 +13,7 @@ import {Modules} from "../../components/PostLogin/CoursesBody/CourseTile/Data.js
 //import FetchWrapper from "../api/FetchWrapper";
 import { baseURL } from "../api/apiConfig";
 import useFetch from '../api/useFetch';
+import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
 
 export default function DailyPuzzzle() {
   const [seen, setSeen] = useState(false); // set to true to display modal on load
@@ -106,6 +107,7 @@ export default function DailyPuzzzle() {
           })}
         </PuzzleWrapper>
    </DailyPuzzleWrapper>
+   <MobileNavbar />
    </Container>
   }
    </>
