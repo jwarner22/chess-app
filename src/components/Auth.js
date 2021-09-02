@@ -34,8 +34,6 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       setCurrentUser(() => !!user);
-      console.log('auth state changed')
-      console.log({user: user})
       setLoading(false);
     });
   }, []);

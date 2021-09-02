@@ -39,6 +39,7 @@ const DashNavbar = ({ toggle }) => {
 
     useEffect(() => {
         window.addEventListener('scroll', changeNav)
+        return () => window.removeEventListener('scroll', changeNav)
     }, []);
 
     const toggleHome = () => {
@@ -75,7 +76,7 @@ const DashNavbar = ({ toggle }) => {
                         <NavMenu>
                         </NavMenu>
                         <NavBtn>
-                            <NavBtnLink onClick={() => handleLogout()}>
+                            <NavBtnLink to='/' onClick={() => handleLogout()}>
                                 Sign Out
                             </NavBtnLink>
                         </NavBtn>

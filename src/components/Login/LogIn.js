@@ -1,5 +1,5 @@
 
-import React, {useState, useContext, useEffect } from "react";
+import React, {useState, useContext, useEffect, useRef } from "react";
 import {Link, withRouter } from 'react-router-dom'
 //import { AuthContext } from "../../index";
 import firebaseConfig from "../../config.js";
@@ -32,14 +32,24 @@ const Login = ({history}) => {
   const [password, setPassword] = useState("");
   const [error, setErrors] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSaved,setIsSaved] = useState(false)
   const {currentUser} = useContext(AuthContext)
   const {get, post} = useFetch(baseURL)
+  const _isMounted = useRef(true)
   //const Auth = useContext(AuthContext);
+
   useEffect(() => {
-    if (currentUser && isLoggedIn) {
+    if (currentUser && isLoggedIn && isSaved) {
       history.push('/dashboard')
     }
-  }, [currentUser, isLoggedIn])
+  }, [currentUser, isLoggedIn, isSaved])
+
+  useEffect(() =>  {
+    return () => {
+      _isMounted.current =  false;
+    }
+  },[])
+
   //login with email
   const handleForm = e => {
     e.preventDefault();
@@ -88,19 +98,16 @@ const Login = ({history}) => {
   };
 
   // fetches backend and persists user data across app
-  const setUserData = (response, userID) => {
+  const setUserData = async (response, userID) => {
     // store in localStorage 
     localStorage.setItem('userID', userID)
-    localStorage.setItem('isLoggedIn','true')
-    console.log({userID:userID})
+    //localStorage.setItem('isLoggedIn','true')
     if (response.additionalUserInfo.isNewUser) {
       createNewUser(userID)
     } else {
     get(`/users/${userID}`)
     .then(data => {
-      console.log({response: data})
       if (data.detail === 'User not found') {
-        console.log('new user')
         createNewUser(userID)
       } else {
         localStorage.setItem('userPublicData', JSON.stringify(data))
@@ -109,14 +116,16 @@ const Login = ({history}) => {
     })
     .catch(error => {
       console.log(error)
-    })
+    }).finally(() => setIsSaved(true))
   }
   }
 
   const createNewUser = (userID) => {
+    let currentDateTime = new Date().toString()
     post('/users/', {
       user_id: `${userID}`,
-      overall_rating: 1200
+      overall_rating: 1200,
+      inserted_at: currentDateTime
     }).then(data => {
       localStorage.setItem('userPublicData', JSON.stringify(data))
     })
