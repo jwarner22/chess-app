@@ -68,11 +68,18 @@ export const StatsGrid = styled.div`
     grid-template-columns: 1fr 1fr;
     width: 100%;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
 `
 export const LeftStatWrapper = styled.div`
     display: flex;
     justify-content: center;
+
+`
+
+export const RightStatWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+
 `
 
 export const PuzzleEloTitle = styled.h1`
@@ -104,7 +111,7 @@ export const HighScore = styled.h1`
 `
 export const InstructionsContainer = styled.div`
     display: flex;
-    width: 100vw;
+    max-width: 1140px;
     /* border: 2px solid blue; */
     align-items: center;
     flex-direction: column;
@@ -118,7 +125,7 @@ export const InstructionsWrapper = styled.div`
     margin: 24px;
 `
 export const TipsTitleWrapper = styled.div`
-    margin-left: 24px;
+    margin: 24px;
 `
 
 export const TipsTitle = styled.h2`
@@ -128,12 +135,13 @@ export const TipsTitle = styled.h2`
 `
 export const TipsGrid = styled.div`
     display: grid;
-    grid-template-columns: 15% 1fr;
+    grid-template-columns: 20% 1fr;
 `
 
 export const TipImageWrap = styled.div`
-    margin: 24px;
+    padding: 24px;
     display: flex;
+    justify-content: center;
 `
 
 export const Tip1Image = styled(GoSearch) `
@@ -145,7 +153,7 @@ export const Tip1Image = styled(GoSearch) `
 
 export const TipDescriptionWrapper = styled.div`
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 `
 
 export const Tip1Description = styled.h3`
