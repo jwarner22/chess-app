@@ -1,3 +1,4 @@
+
 from pydantic import BaseModel
 from typing import Optional, List
 
@@ -33,6 +34,7 @@ class DailyPuzzle(BaseModel):
     title: str
     completed: bool
     locked: bool
+    inserted_at: str
     owner_id: str
 
     class Config:
@@ -53,6 +55,7 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     user_id: str
     overall_rating: int
+    inserted_at: str
 
 class User(UserBase):
     id: int

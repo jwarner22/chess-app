@@ -11,7 +11,7 @@ import useFetch from '../api/useFetch';
 import Loader from '../../Preloader';
 
 export default function Puzzle(props) {
-  const {rating,theme,id} = props;
+  const {rating,theme,id, isDaily} = props;
   const [puzzles,setPuzzles] = useState([]);
   const [isFinished,setIsFinished] = useState(false);
   const [outcomes, setOutcomes] = useState([]);
@@ -20,6 +20,7 @@ export default function Puzzle(props) {
   const [perfect, setPerfect] = useState(false);
   const [userData, setUserData] = useState();
   const {get,put} = useFetch(baseURL);
+  const userID = localStorage.getItem('userID')
 
   // called on component mount
   useEffect(()=>{
@@ -33,17 +34,39 @@ export default function Puzzle(props) {
     get(endpoint+queryParams).then(data => setPuzzles(data))
   }
   
+  const fetchThemeData = async () => {
+    try {
+      const data = await get(`/users/${userID}/themes/${theme}`);
+      return data;
+    } catch {
+      return null;
+    }
+  
+  }
+
+  const updateThemeData = (themeData) => {
+    let endpoint = `/users/themes/${userID}`
+    put(endpoint, themeData)
+    .then(data => {
+      //localStorage.setItem('userPublicData',JSON.stringify(data))
+    }).then(() => setSavingResults(false))
+    .catch(e => console.log(e))
+
+  }
+
   // saves results to api and localStorage
-  function saveResults(results) {
-    let oldData = JSON.parse(localStorage.getItem('userPublicData'))
-    let userID = localStorage.getItem('userID')
+  async function saveResults(results) {
+    //let oldData = JSON.parse(localStorage.getItem('userPublicData'))
+    //let userID = localStorage.getItem('userID')
     //let moduleID = props.id;
-    let themeData = oldData.themes.find(element => element.title === theme);
+
+    const themeData = await fetchThemeData() // gets theme data from API
     console.log({themeData: themeData})
+    //let themeData = oldData.themes.find(element => element.title === theme);
+
     // score change
     if (results.every(result => result === true)) {
       themeData.rating += 100
-      console.log('perfect')
       setPerfect(true)
     } else {
       themeData.rating += 50
@@ -51,15 +74,9 @@ export default function Puzzle(props) {
 
     themeData.completed += 1; // adds 1 to number of puzzles completed
 
-    setUserData(themeData)
+    setUserData(themeData) // sets user data to pass as props to post puzzle page
     
-    let endpoint = `/users/themes/${userID}`
-    put(endpoint, themeData)
-    .then(data => {
-      console.log(data)
-      localStorage.setItem('userPublicData',JSON.stringify(data))
-    }).then(() => setSavingResults(false))
-    .catch(e => console.log(e))
+    updateThemeData(themeData)  // updates data in piu
 
   }
 
@@ -84,14 +101,16 @@ export default function Puzzle(props) {
 
   // callback function when puzzle is finished (currently only success)
  const puzzleIsFinished = (results, result) => {
-   console.log({finished: 'isFinished', outcomes: results})
+
    setSavingResults(true)
    if (result === 'succeed') {
    setOutcomes(prevOutcomes => [...prevOutcomes,results])
    setIsFinished(true)
    saveResults(results);
-   // needs to be conditional on if it's a daily puzzle
-   updateDailyPuzzles();
+
+   // update if daily puzzle
+   if (isDaily)    updateDailyPuzzles();
+
    } else if (result === 'fail') {
     setOutcomes(prevOutcomes => [...prevOutcomes,results])
     setFailure(true)

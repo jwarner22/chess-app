@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
 import "./style.css";
 // import Demo from "./Demo";
 // import registerServiceWorker from "./registerServiceWorker";
@@ -38,5 +38,5 @@ export default function IndexPage() {
   */
 }
 
-ReactDOM.render(<IndexPage />, document.getElementById("root"));
+//ReactDOM.render(<IndexPage />, document.getElementById("root"));
 //registerServiceWorker();

@@ -33,7 +33,7 @@ const Body = (
                 <ModuleGrid>
                     {endgameModules.map((module, index) => {
                         return (
-                    <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                    <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}, isDaily: false}}>
                         <CourseTile key={index} {...module}/>
                     </Link>
                     )})}

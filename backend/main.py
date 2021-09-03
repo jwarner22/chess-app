@@ -7,9 +7,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy import update, insert, delete
 
 import models
-from database import engine, SessionLocal
-from read_puzzles import get_puzzle, get_puzzles
-from database import engine
+from database import engine_local,engine_remote, SessionLocal, SessionRemote
+from read_puzzles import get_puzzles
 import schemas
 import crud
 
@@ -33,16 +32,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-models.Base.metadata.create_all(engine)
+models.Base.metadata.create_all(engine_remote)
+models.Base.metadata.create_all(engine_local)
 
 # Dependency
 def get_db():
-    db = SessionLocal()
+    db = SessionRemote()
     try:
         yield db
     finally:
         db.close()
 
+def get_local_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 ## TESTING
 
@@ -68,7 +74,7 @@ def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
 
 # get module puzzles
 @app.get('/puzzles/')
-def read_puzzles(rating: int, theme: str, db: Session = Depends(get_db)):
+def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
    puzzle = get_puzzles(db,rating, theme)
    if puzzle is None:
        raise HTTPException(status_code=404, detail='puzzle not found')
@@ -95,14 +101,23 @@ def read_user(user_id: str, db: Session = Depends(get_db)):
 
 
 # THEMES
+# get theme
+@app.get('/users/{user_id}/themes/{theme_title}', response_model=schemas.Theme)
+def define_theme_ratings(user_id: str, theme_title: str, db: Session = Depends(get_db)):
+    theme_response = db.query(models.Theme).filter(models.Theme.title == theme_title, models.Theme.owner_id==user_id).one_or_none()
+    if theme_response is None:
+        raise HTTPException(status_code=404, detail="Theme not found")
+    #crud.add_theme(db, theme = theme, user_id = user_id)#title = theme.title, category = theme.category)
+    return theme_response
 
-# initialize theme rating
+
+# initialize theme
 @app.post('/users/{user_id}/themes/', response_model=schemas.Theme)
 def define_theme_ratings(user_id: str, theme: schemas.CreateTheme, db: Session = Depends(get_db)):
     theme_ratings = crud.add_theme(db, theme = theme, user_id = user_id)#title = theme.title, category = theme.category)
     return theme_ratings
 
-# update user theme rating
+# update theme
 @app.put("/users/themes/{user_id}", response_model = schemas.User)
 async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()

@@ -15,40 +15,59 @@ export default function Module(props) {
     const theme = props.location.state.module.type_ref;
     const category = props.location.state.module.category;
     const id = props.location.state.module.id;
-    
+    const isDaily = props.location.state.isDaily;
+    const userID = localStorage.getItem('userID');
+
     //load user data
     useEffect(() => {
-        let data = JSON.parse(localStorage.getItem('userPublicData'));
-        let themeRecord = data.themes.find(element=> element.title === theme)
+        //add if able to check for online status
+        //let data = JSON.parse(localStorage.getItem('userPublicData'));
+        //let themeRecord = data.themes.find(element=> element.title === theme)
+        getModule()
+        // if (typeof themeRecord !== 'undefined') {
+        //     setRating(() => themeRecord.rating)
+        //     setLoading(prev => !prev)
+        // } else {
+        //     createModule()
+        // }
+    },[])
+
+    const getModule = () => {
+        get(`/users/${userID}/themes/${theme}`)
+        .then(data => {
+            console.log(data)
+            if (data.detail === "Theme not found") {
+                createModule()
+            } else {
+                setRating(data.rating);
+            }
+        })
+        .catch(e => console.log(e))
+        .finally(() => setLoading(false))
+    }
+
+    const createModule = () => {
         
-        if (typeof themeRecord !== 'undefined') {
-            setRating(() => themeRecord.rating)
-            setLoading(prev => !prev)
-        } else {
-            //const API = new FetchWrapper(baseURL)
-            let userID = localStorage.getItem('userID');
             post(`/users/${userID}/themes/`,{
                 title: theme,
                 category: category,
                 rating: 1200,
                 completed: 0,
                 high_score: 0
-            }).then(data => {
-                setRating(data.rating)
-            }).then(() => {
-                get(`/users/${userID}`).then(data => {
-                    localStorage.setItem('userPublicData', JSON.stringify(data))
+                }).then(data => {
+                    setRating(data.rating)
+                }).then(() => {
+                     get(`/users/${userID}`).then(data => {
+                            localStorage.setItem('userPublicData', JSON.stringify(data))
                 })
-            })
-            .catch(e => console.log(e))
-            .finally(() => setLoading(false))
-        }
-    },[])
+                    })
+                    .catch(e => console.log(e))
+    }
 
     const togglePrePuzzle = () => {
         setPrePuzzleToggle(prevPrePuzzle => !prevPrePuzzle)
     }
-    console.log({rating:rating})
+
     if (loading) {
         return <Loader />
     }  else if (prePuzzleToggle) {
@@ -59,7 +78,7 @@ export default function Module(props) {
 
     return(
         <>
-        <Puzzle rating={rating} theme = {theme} id={id}/>
+        <Puzzle rating={rating} theme = {theme} id={id} isDaily={isDaily}/>
         </>
     )
 }

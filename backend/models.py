@@ -1,9 +1,14 @@
+from enum import unique
+from typing import Sequence
+import uuid
+from pydantic.types import UUID1
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import column
-from database import Base
+from sqlalchemy.sql.sqltypes import TIMESTAMP
+from database import Base, LocalBase
 
-class Puzzles(Base):
+class Puzzles(LocalBase):
     __tablename__ = "labels_raw"
     puzzle_id = Column(String, primary_key=True, index=True)
     fen = Column(String, unique=False, index=True)
@@ -34,6 +39,7 @@ class DailyPuzzle(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     location = Column(Integer, unique=False, index=True)
+    inserted_at = Column(String, unique=False, index=True)
     theme_id = Column(Integer, unique = False, index=True)
     title = Column(String, unique=False,index=True)
     completed = Column(Boolean, unique=False,index=True)
@@ -48,6 +54,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(String,unique=True, index=True)
     overall_rating = Column(Integer,unique=False, index=True)
+    inserted_at = Column(String, unique=False, index=True)
 
     themes =  relationship("Theme", backref="user")
     daily_puzzles = relationship("DailyPuzzle", backref="user")
