@@ -134,52 +134,59 @@ async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = 
 # DAILY PUZZLES
 
 # get user's daily puzzles
-@app.get('/users/{user_id}/daily_puzzles')
-def get_daily_puzzles():
-    #daily_puzzles = [randint(0,45),randint(0,45),randint(0,45)];
+@app.get('/daily_puzzles/{user_id}/picks')
+def get_daily_puzzle_picks(user_id: str, db: Session = Depends(get_db)):
+
+    # if no daily puzzles exist for user - create new ones (one time intiialization)
     daily_puzzles = []
-    while (len(daily_puzzles) < 4): # we want three modules
+    while (len(daily_puzzles) < 3): # we want three modules
         pick = randint(0,45) # picks random module (how sophisticated!)
         if pick not in daily_puzzles: # checks that modules don't repeat
             daily_puzzles.append(pick)
 
     return daily_puzzles
 
+@app.get('/users/{user_id}/daily_puzzles')
+def get_daily_puzzles(user_id: str, db: Session = Depends(get_db)):
+    daily_puzzles = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).all()
+    if daily_puzzles is None:
+        raise HTTPException(status_code=404, detail="daily puzzles not found")
+    elif len(daily_puzzles) == 0:
+        raise HTTPException(status_code=404, detail="daily puzzles not found")
+
+    return daily_puzzles
+
 # create new user daily puzzles
-@app.post('/users/{user_id}/daily_puzzles',response_model = schemas.User)
-def create_daily_puzzles( user_id: str, db: Session = Depends(get_db)):
+@app.post('/users/{user_id}/daily_puzzles')
+def create_daily_puzzles( user_id: str, puzzles: List[schemas.CreateDailyPuzzle], db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
     if db_user is None:
          return None
     
-    db.add(db_user)
-    for i in range(1,4): 
-        #updates each module based on input results
-        stmt = (insert(models.DailyPuzzle).values(location=i, theme_id = i, title = 'default', completed=False, locked=False, owner_id=user_id))
-        db.execute(stmt)
-
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+    for puzzle in puzzles:
+        db_daily_puzzle = models.DailyPuzzle(**puzzle.dict(), owner_id = user_id)
+        db.add(db_daily_puzzle)
+        db.commit()
+        db.refresh(db_daily_puzzle)
+        
+    return 'successful'
 
 # update user daily puzzles
-@app.put("/users/{user_id}/daily_puzzles", response_model = schemas.User)
-async def update_daily_puzzles(user_id: str, puzzle: schemas.DailyPuzzle, db: Session = Depends(get_db)):
+@app.put("/users/{user_id}/daily_puzzles")
+async def update_daily_puzzles(user_id: str, puzzles: List[schemas.CreateDailyPuzzle], db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
     if db_user is None:
         return None
-    
-    db.add(db_user)
-    #for puzzle in dailyPuzzles:
-        #updates each module based on input results  
-    stmt = (update(models.DailyPuzzle).where(models.DailyPuzzle.owner_id == user_id).where(models.DailyPuzzle.location == puzzle.location).values(theme_id=puzzle.theme_id, title=puzzle.title, locked=puzzle.locked, completed=puzzle.completed))
-    db.execute(stmt)
+
+    for puzzle in puzzles:
+        stmt = (update(models.DailyPuzzle).where(models.DailyPuzzle.owner_id == user_id).where(models.DailyPuzzle.location == puzzle.location).values(theme_id=puzzle.theme_id, title=puzzle.title, locked=puzzle.locked, completed=puzzle.completed))
+        db.execute(stmt)
     
     db.commit()
     db.refresh(db_user)
-    return db_user
+    return 'successfully updated'
 
 # remove daily puzzle
 @app.put('/users/{user_id}/daily_puzzles/delete')
@@ -188,7 +195,7 @@ def delete_theme(user_id: str, theme_id: int, db: Session = Depends(get_db)):
 
     if db_user is None:
          return None
-    db.add(db_user)
+
     stmt = (delete(models.DailyPuzzle).where(models.DailyPuzzle.owner_id == user_id).where(models.DailyPuzzle.theme_id == theme_id))
     db.execute(stmt)
     db.commit()

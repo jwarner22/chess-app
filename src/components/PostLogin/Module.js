@@ -16,20 +16,15 @@ export default function Module(props) {
     const category = props.location.state.module.category;
     const id = props.location.state.module.id;
     const isDaily = props.location.state.isDaily;
-    const userID = localStorage.getItem('userID');
+    const schemaPicks = props.location.state.schemaPicks;
 
+    const userID = localStorage.getItem('userID');
     //load user data
     useEffect(() => {
         //add if able to check for online status
         //let data = JSON.parse(localStorage.getItem('userPublicData'));
         //let themeRecord = data.themes.find(element=> element.title === theme)
         getModule()
-        // if (typeof themeRecord !== 'undefined') {
-        //     setRating(() => themeRecord.rating)
-        //     setLoading(prev => !prev)
-        // } else {
-        //     createModule()
-        // }
     },[])
 
     const getModule = () => {
@@ -78,7 +73,7 @@ export default function Module(props) {
 
     return(
         <>
-        <Puzzle rating={rating} theme = {theme} id={id} isDaily={isDaily}/>
+        <Puzzle rating={rating} theme = {theme} id={id} isDaily={isDaily} schemaPicks={schemaPicks}/>
         </>
     )
 }

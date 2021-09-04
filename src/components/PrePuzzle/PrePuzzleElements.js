@@ -172,11 +172,16 @@ export const Tip1Image = styled(GoSearch) `
 
 export const TipDescriptionWrapper = styled.div`
     display: flex;
+<<<<<<< HEAD
     align-items: flex-start;
+=======
+    align-items: center;
+    justify-content: center;
+>>>>>>> df6cce34803a5a7e06ff7b39e27053cc2eb5f598
 `
 
 export const Tip1Description = styled.h3`
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 600;
     color: #54606c;
 

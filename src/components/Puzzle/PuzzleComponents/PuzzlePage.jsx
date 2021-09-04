@@ -59,10 +59,7 @@ export default function PuzzlePage(props) {
     if (progress < 100) {
       nextPuzzle();
     }
-    if (progress >= 100) {
-      finished()
-    }
-  }, [progress, count])
+  }, [count])
 
   // puzzle module is finished
   const finished = async () => {
@@ -106,6 +103,9 @@ export default function PuzzlePage(props) {
   
   const returnPercent = (percent) => {
     setProgress(percent)
+    if (percent >= 100) {
+      finished()
+    }
   }
 
   return (
