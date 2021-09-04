@@ -27,6 +27,17 @@ class CreateTheme(BaseModel):
     class Config:
         orm_mode=True
 
+class CreateDailyPuzzle(BaseModel):
+    location: int
+    theme_id: int
+    title: str
+    completed: bool
+    locked: bool
+    inserted_at: str
+
+    class Config:
+        orm_mode=True
+
 class DailyPuzzle(BaseModel):
     id: int
     location: int

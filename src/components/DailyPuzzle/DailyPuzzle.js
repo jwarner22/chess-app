@@ -10,77 +10,137 @@ import Modal from "./Modal";
 import headerImg from "./../../Images/DailyPuzzleHeaderImg.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
 import {Modules} from "../../components/PostLogin/CoursesBody/CourseTile/Data.js"
-//import FetchWrapper from "../api/FetchWrapper";
 import { baseURL } from "../api/apiConfig";
 import useFetch from '../api/useFetch';
 import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
+import { PurchaseTag } from "styled-icons/boxicons-regular";
 
 export default function DailyPuzzzle() {
   const [seen, setSeen] = useState(false); // set to true to display modal on load
   const [loaded,setLoaded] = useState(false);
   const [dailyPicks, setDailyPicks] = useState([]);
-  const {get} = useFetch(baseURL);
+  const [schemaPicks, setSchemaPicks] = useState([]);
+  const [isMounted, setIsMounted] = useState(true);
+  const {get, put, post} = useFetch(baseURL);
+  const userId = localStorage.getItem('userID')
+  const now = new Date()
 
-  const togglePop = () => {
-    setSeen(prevSeen => !prevSeen)
-  }
 
   useEffect(() => {
-    checkFresh()
-    getPicksFromStorage()
+    if (isMounted) {
+      console.log('mounted')
+      setDailyPuzzles()
+    }
+    return () => setIsMounted(false) // componentDidUnMount
   },[])
 
-  const checkFresh = () => {
-    // check API to see if puzzles are fresh
-  }
 
-  const getPicksFromStorage = () => {
-    const today = new Date()
-    const storedDailyPuzzles = JSON.parse(localStorage.getItem('dailyPuzzles'));
+  const setDailyPuzzles = async () => {
+ 
+    //const storedDailyPuzzles = JSON.parse(localStorage.getItem('dailyPuzzles'));
+    let storedDailyPuzzles = await getDailyPuzzles();
 
-    if (storedDailyPuzzles == null) {// | (storedDailyPuzzles.date.getMonth() !== today.getMonth() | storedDailyPuzzles.date.getDate() !== today.getDate()))  {
-      // get new puzzles
-      fetchDailyPuzzles()
-      return
-    } 
-    
-    const storedDateString = storedDailyPuzzles[0].date;
-    const storedDate = new Date(storedDateString);
+    let storedDateString = storedDailyPuzzles[0].inserted_at;
+    let storedDate = new Date(storedDateString);
 
-    if ((storedDate.getMonth() !== today.getMonth()) | (storedDate.getDate() !== today.getDate())) {
-      // add functionality to prompt continue where left off if previous modules partially completed
-      fetchDailyPuzzles();
-    } else { 
-      setDailyPicks(storedDailyPuzzles);
-      setLoaded(true)
+    if ((storedDate.getMonth() !== now.getMonth()) | (storedDate.getDate() !== now.getDate())) {
+      let returnedPicks = await getNewPicks();
+      setDailyPicks(returnedPicks.mutatedPicks)
+      setSchemaPicks(returnedPicks.schemaPicks)
+    } else {
+      let picks = Modules.filter(module => {
+        return storedDailyPuzzles.some(entry => entry.theme_id === module.id)
+        })
+
+      let mutatedPicks = picks.map((pick,index) => {
+        let stored = storedDailyPuzzles.find(module => module.location === index)
+        return {...pick, completed: stored.completed, locked: stored.locked, inserted_at: stored.inserted_at}
+      });
+
+      setSchemaPicks(storedDailyPuzzles);
+      setDailyPicks(mutatedPicks);
+      
     }
-
+    setLoaded(true)
   }
 
-  const fetchDailyPuzzles = () => {
-    let user_id = localStorage.getItem('userID')
-    let endpoint = `/users/${user_id}/daily_puzzles`
-    get(endpoint).then(data => setPicks(data)).catch(e => console.log(e));
+  // creates daily puzzles for new user
+  const createPicks = async (picks) => {
+    let endpoint = `/users/${userId}/daily_puzzles`;
+    await post(endpoint, picks)
   }
 
+  // fetches daily puzzles from API
+  const getDailyPuzzles = async () => {
+    let endpoint = `/users/${userId}/daily_puzzles`;
+    try {
+      let data = await get(endpoint)
+      if (data.detail === 'daily puzzles not found') {
+        const returnedPicks = await getNewPicks(); // generate new picks
+        await createPicks(returnedPicks.schemaPicks) // create daily puzzles for new user
+        return returnedPicks.mutatedPicks;
+      } else {
+        return data // return daily puzzles from API
+      }
+    } catch (e) {
+      alert(e)
+    }
+  }
 
+  const getNewPicks = async () => {
+    let endpoint = `/daily_puzzles/{user_id}/picks`;
+    try {
+      let fetchedPicks = await get(endpoint) // gen new picks from API
+      let returnedPicks = await setPicks(fetchedPicks) // map picks to modules and save
+      return returnedPicks // return picks for use in rendering conditional on some criteria
+    } catch (e) {
+      alert(e)
+    }
+  }
+
+  // converts picks to modules and maps to API schema
   const setPicks = async (selections) => {
-    // get date
-    const today = new Date()
+
     // maps api picks to module data
     let picks = Modules.filter(element => {
       return selections.some(entry => entry === element.id)
       })
+
     // sets puzzles to incomplete and locked
-    let mutatedPicks = picks.map(pick => {return {...pick, completed: false, locked: true, date: today}})
+    let mutatedPicks = picks.map(pick => {return {...pick, completed: false, locked: true, inserted_at: now.toString()}})
     mutatedPicks[0].locked = false; // unlcocks first puzzle
-    // store to localStorage to persist over day
-    localStorage.setItem('dailyPuzzles',JSON.stringify(mutatedPicks));
-    // need to save to API
-    // const API = new FetchWrapper(baseURL)
     
-    setDailyPicks(mutatedPicks);
-    setLoaded(true);
+    // map data for rendering to API schema
+    let schemaPicks = mutatedPicks.map((pick, index) => {
+      let schemadPick = {
+      location: index,
+      theme_id: pick.id,
+      title: pick.type_ref,
+      completed: pick.completed,
+      locked: pick.locked,
+      inserted_at: pick.inserted_at
+    }
+    return schemadPick
+    });
+    
+    
+    // store to localStorage to persist over day
+    //localStorage.setItem('dailyPuzzles',JSON.stringify(mutatedPicks));
+    
+    await storePicks(schemaPicks) // update database
+    return {schemaPicks, mutatedPicks}; // return data in API schema formata and render format
+  }
+
+  // updates picks in database
+  const storePicks = async picks => {
+    let endpoint = `/users/${userId}/daily_puzzles`
+    put(endpoint, picks)
+    .then(data => console.log(data))
+    .catch(e => alert(e))
+  }
+
+  const togglePop = () => {
+    setSeen(prevSeen => !prevSeen)
   }
 
   return (
@@ -100,7 +160,7 @@ export default function DailyPuzzzle() {
         <PuzzleWrapper>
          {dailyPicks.map((module, index) => {
             return (
-              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/dashboard/module', state: {module: module, isDaily: true}}}>
+              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/dashboard/module', state: {module: module, schemaPicks:schemaPicks, isDaily: true}}}>
                 <DailyPuzzleModuleContainer key={index} {...module} />
               </Link>
             )
@@ -114,67 +174,3 @@ export default function DailyPuzzzle() {
   );
 
 }
-
-
-// export default class DailyPuzzle extends React.Component {
-//   state = {
-//     //change this to true when the Puzzle Page is done.
-//    seen: true,
-//    loaded: false,
-//    dailyPicks: []
-//    };
-//   togglePop = () => {
-//    this.setState({
-//     seen: !this.state.seen
-//    });
-//   };
-
-//   componentDidMount() {
-//     const API = new FetchWrapper(baseURL)
-//     let user_id = localStorage.getItem('userID')
-//     let endpoint = `/users/${user_id}/daily_puzzles`
-//     API.get(endpoint).then(data => this.setPicks(data)).catch(e => console.log(e));
-//   }
-
-//   setPicks = (selections) => {
-//     console.log('picks')
-//     let picks = Modules.filter(element => {
-//       return selections.some(entry => entry === element.id)
-//       })
-//     this.setState({...this.state, dailyPicks: picks, loaded: true})
-//   }
-
-// render() {
-//   console.log(this.state.seen)
-//   console.log(this.state.dailyPicks)
-//   return (
-//     <>
-//    <div> 
-//     {this.state.seen ? <Modal toggle={this.togglePop} /> : null}
-//    </div>
-//    {this.state.loaded &&
-//    <Container>
-//    <DailyPuzzleWrapper>
-//       <DailyPuzzleContainer>
-//         <DailyPuzzleHeaderImg src={headerImg}/>
-//         <DailyPuzzleTitle>
-//           Daily Puzzles
-//         </DailyPuzzleTitle>
-//         </DailyPuzzleContainer>
-//         <PuzzleWrapper>
-//          {this.state.dailyPicks.map((module, index) => {
-//             return (
-//               <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
-//                 <DailyPuzzleModuleContainer key={index} {...module} />
-//               </Link>
-//             )
-//           })}
-//         </PuzzleWrapper>
-//    </DailyPuzzleWrapper>
-//    </Container>
-//   }
-//    </>
-//   );
-//  }
-// }
-
