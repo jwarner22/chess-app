@@ -5,10 +5,12 @@ import "./style.css";
 // import registerServiceWorker from "./registerServiceWorker";
 import PuzzlePage from "./PuzzleComponents/PuzzlePage";
 import {baseURL} from "../api/apiConfig";
+import {calcScore, calcEloRating} from './Utilities/Scoring';
 //import FetchWrapper from "../api/FetchWrapper";
 import PostPuzzle from '../../PostPuzzleMockup/PostPuzzleMockup'
 import useFetch from '../api/useFetch';
 import Loader from '../../Preloader';
+import { SettingsBackupRestore } from "@styled-icons/material";
 
 export default function Puzzle(props) {
 
@@ -19,7 +21,9 @@ export default function Puzzle(props) {
   const [failure, setFailure] = useState(false);
   const [perfect, setPerfect] = useState(false);
   const [userData, setUserData] = useState({});
+  const [score, setScore] = useState(0);
   const {get,put} = useFetch(baseURL);
+
 
   const {rating,theme,id, isDaily} = props;
   const schemaPicks = props.schemaPicks;
@@ -62,20 +66,26 @@ export default function Puzzle(props) {
   }
 
   // updates theme data and sends to API
-  async function saveResults(results) {
+  async function saveResults(outcomes) {
     //let oldData = JSON.parse(localStorage.getItem('userPublicData'))
 
     const themeData = await fetchThemeData() // gets theme data from API
     // score change
-    if (results.every(result => result === true)) {
-      themeData.rating += 50
-      setPerfect(true)
-    } else {
-      themeData.rating += 25
-    }
+    if (outcomes.every(result => result === true)) setPerfect(true);
+  
 
+    let newRating = calcEloRating(outcomes,puzzles,themeData.rating);
+    
+    themeData.rating = newRating
     themeData.completed += 1; // adds 1 to number of puzzles completed
     await updateThemeData(themeData)  // updates data in piu
+
+    let score = calcScore(outcomes,puzzles)
+    if (themeData.high_score < score) {
+      // new high score!
+    }
+
+    setScore(score)
     setUserData(themeData) // sets user data to pass as props to post puzzle page
 
   }
@@ -150,7 +160,7 @@ export default function Puzzle(props) {
  
  if (isFinished) {
    return(
-     <PostPuzzle perfect={perfect} failure ={failure} outcomes={outcomes} userData={userData}/>
+     <PostPuzzle perfect={perfect} failure ={failure} outcomes={outcomes} userData={userData} score={score} />
    )
 
  }
@@ -162,3 +172,4 @@ export default function Puzzle(props) {
     </div>
   );
 }
+

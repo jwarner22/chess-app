@@ -133,6 +133,7 @@ export default function DailyPuzzzle() {
 
   // updates picks in database
   const storePicks = async picks => {
+    console.log(picks)
     let endpoint = `/users/${userId}/daily_puzzles`
     put(endpoint, picks)
     .then(data => console.log(data))

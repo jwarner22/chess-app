@@ -438,16 +438,6 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Skewer.svg").default
     },{
-        id: 4,
-        category: 'puzzle',
-        type: 'midgame',
-        type_ref: 'trappedPiece',
-        headline: 'Trapped Piece',
-        subheading: `There is no escape.`,
-        instructions: 'When a valuable piece has few squares left be on the look out for ways to leave it with none at all.',
-        description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/TrappedPiece.svg").default
-    },{
         id: 43,
         category: 'puzzle',
         type: 'midgame',
@@ -477,7 +467,17 @@ export const Modules = [
         instructions: 'Castling is typically used to acheive king safety. In rare cases, it can also be used in the offensive.',
         description: 'Lorem ipsum mah brudda',
         img: ''
-    }
+    },{
+        id: 46,
+        category: 'puzzle',
+        type: 'midgame',
+        type_ref: 'trappedPiece',
+        headline: 'Trapped Piece',
+        subheading: `There is no escape.`,
+        instructions: 'When a valuable piece has few squares left be on the look out for ways to leave it with none at all.',
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../Images/TrappedPiece.svg").default
+    },
 
 ]
 /*

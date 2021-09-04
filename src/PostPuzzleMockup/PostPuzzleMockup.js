@@ -5,7 +5,7 @@ import headerImg from "../Images/RewardHeaderImg.svg"
 import {Modules} from '../components/PostLogin/CoursesBody/CourseTile/Data.js';
 
 const PostPuzzleMockup = (props) => {
-    console.log(props)
+    
     const module = Modules.find(module => module.type_ref === props.userData.title)
 
     if (!props.savingResults) {
@@ -31,7 +31,7 @@ const PostPuzzleMockup = (props) => {
                         {(props.failure) && 'Module Failed'}
                     </RewardH2>
                     <ModuleExperience>
-                        {props.userData.rating ? `New Rating: ${props.userData.rating}` : ''}
+                        {props.userData.rating ? `Score: ${props.score}` : ''}
                     </ModuleExperience>
                     <Link to="/dailyPuzzle">
                     <FinishButton>
