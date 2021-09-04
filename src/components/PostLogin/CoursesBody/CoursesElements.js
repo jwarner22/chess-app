@@ -4,17 +4,19 @@ export const CategoryLabelContainerTop = styled.div`
     background-color: #f3f3f3;
     position: sticky;
     top: 0px;
-`
+` 
 
 export const CategoryLabelContainer = styled.div`
-    top: 0px;
+    top: -16px;
     position: sticky;
+    padding-top: 16px;
+    background-color: #f6f9fc;
 `
 
-export const CategoryLabelWrapper = styled.div`
+export const EndgamesLabelWrapper = styled.div`
     display: flex;
     min-height: 80px; 
-    background: #24F299;
+    background: #59C0F3;
     justify-content: flex-start;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     justify-content: center;
@@ -22,6 +24,31 @@ export const CategoryLabelWrapper = styled.div`
     position: sticky;
     top: 0px; 
 `
+
+export const TacticsLabelWrapper = styled.div`
+    display: flex;
+    min-height: 80px; 
+    background: #efb458;
+    justify-content: flex-start;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    justify-content: center;
+    width: 100vw;
+    position: sticky;
+    top: 0px; 
+`
+
+export const CheckmatesLabelWrapper = styled.div`
+    display: flex;
+    min-height: 80px; 
+    background: #5068F9;
+    justify-content: flex-start;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    justify-content: center;
+    width: 100vw;
+    position: sticky;
+    top: 0px; 
+`
+
 
 export const CategoryLabel = styled.h2`
     color: white;
