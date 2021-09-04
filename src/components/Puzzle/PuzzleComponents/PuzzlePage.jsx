@@ -8,6 +8,8 @@ import {getMoves, wait} from '../Utilities/helpers.js';
 import confirmationSoundFile from "../../../assets/public_sound_standard_Confirmation.mp3";
 import errorSoundFile from "../../../assets/public_sound_standard_Error.mp3";
 import {Howl} from 'howler';
+import PuzzleNav from "./PuzzleNav"
+import styled from "styled-components"
 // import Stockfish from "./Stockfish";
 // move functions to utils file
 
@@ -108,10 +110,11 @@ export default function PuzzlePage(props) {
 
   return (
     <div>
+      <PuzzlePageContainer>
       <div style={progressContainer}>
         <ProgressBar outcome={outcome} returnPercent={returnPercent} count={count}/>
       </div>
-      <div>
+      <PuzzleBoardWrapper>
         <PuzzleBoard
           fen={fen}
           correctMoves={correctMoves}
@@ -119,16 +122,33 @@ export default function PuzzlePage(props) {
           count={count}
           displayOutcome={displayOutcome}
         />
+      </PuzzleBoardWrapper>
+      <div>
+      <PuzzleNav />
       </div>
+     </PuzzlePageContainer>
     </div>
   );
 }
 
 const progressContainer = {
   display: "flex",
-  justifyContent: "space-around",
+  justifyContent: "center",
   alignItems: "center",
   flexWrap: "wrap",
-  marginTop: 30,
-  marginBottom: 40
+  marginTop: "24px",
+  marginBottom: "24px"
 };
+
+const PuzzlePageContainer = styled.div `
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 10% 70% 20%;
+  `
+
+const PuzzleBoardWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+`

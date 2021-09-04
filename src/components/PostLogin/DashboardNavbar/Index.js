@@ -64,7 +64,8 @@ const DashNavbar = ({ toggle }) => {
     
     return (
         <>
-            <IconContext.Provider value={{color: '#fff'}}>
+            {/* <IconContext.Provider value={{color: '#fff'}}> */}
+            <div>
                 <Nav scrollNav={scrollNav}>
                     <NavbarContainer>
                     <NavLogo onClick={toggleHome}>
@@ -82,7 +83,8 @@ const DashNavbar = ({ toggle }) => {
                         </NavBtn>
                     </NavbarContainer>
                 </Nav>
-            </IconContext.Provider>
+                </div>
+            {/* </IconContext.Provider> */}
         </>
     );
 };

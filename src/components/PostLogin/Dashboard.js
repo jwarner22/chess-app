@@ -65,9 +65,6 @@ const Dashboard = () => {
       <Announcements {...AnnouncementOne}/>
       </>
     )}
-      <Link to="/PuzzleInfo">
-        Pre Puzzle
-      </Link>
       <Body/>
       </DashboardWrapper>
       </>

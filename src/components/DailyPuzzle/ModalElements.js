@@ -95,8 +95,8 @@ export const StartButton = styled.button`
   border-radius: 50px;
     background: #247cf1;
     white-space: nowrap;
-    padding: 10px 22px;
-    margin: 30px;
+    padding: 8px 22px;
+    margin: 8px;
     color: #fff;
     font-size: 16px;
     outline: none;

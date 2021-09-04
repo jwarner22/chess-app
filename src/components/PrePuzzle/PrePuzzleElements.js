@@ -26,6 +26,7 @@ export const PrePuzzleWrapper = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     width: 70%;
+    min-width: 300px;
     margin: 0 auto;
     align-items: center;
     background-color: white;
@@ -41,14 +42,14 @@ export const PrePuzzleTitle = styled.h1`
     padding-bottom: 4px;
     padding-top: 16px;
     color: #54606c;
-    margin: 24px 24px 0 24px;
+    margin: 8px 24px 0 8px;
 `
 
 export const PrePuzzleSubheading = styled.h2`
     text-align: center;
     padding: 4px;
     color: #54606c;
-    margin: 0 0 40px 0;
+    margin: 0 0 8px 0;
 `
 
 export const PrePuzzleContentContainer = styled.div`
@@ -66,13 +67,28 @@ export const StatsWrapper = styled.div`
 export const StatsGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 100%;
+    min-width: 300px;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
+    border-top: 2px #247cf1 solid;
 `
 export const LeftStatWrapper = styled.div`
     display: flex;
     justify-content: center;
+    border-right: 1px #247cf1 solid;
+    height: 100%;
+    width: 100%;
+
+`
+
+export const RightStatWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    border-left: 1px #247cf1 solid;
+    grid-column: 2;
+    grid-row: 1;
+    height: 100%;
+    width: 100%;
 `
 
 export const PuzzleEloTitle = styled.h1`
@@ -80,6 +96,8 @@ export const PuzzleEloTitle = styled.h1`
     grid-column: 1;
     font-size: 1rem;
     color: #247cf1;
+    padding: 4px 8px;
+    margin: 4px 8px;
 `
 
 export const PuzzleElo = styled.h1`
@@ -90,10 +108,11 @@ export const PuzzleElo = styled.h1`
 
 export const HighScoreTitle = styled.h1`
     text-align: center;
-    grid-column: 2;
     font-size: 1rem;
     grid-row: 1;
     color: #247cf1;
+    padding: 4px 8px;
+    margin: 4px 8px;
 `
 
 export const HighScore = styled.h1`
@@ -104,42 +123,50 @@ export const HighScore = styled.h1`
 `
 export const InstructionsContainer = styled.div`
     display: flex;
-    width: 100vw;
+    max-width: 1140px;
     /* border: 2px solid blue; */
     align-items: center;
     flex-direction: column;
 `
 
 export const InstructionsWrapper = styled.div`
-    width: 70%;
+    /* width: 100%; */
     /* border: 2px solid red; */
     height: 100%;
-    padding: 24px;
-    margin: 24px;
+    padding: 8px;
+    margin: 8px;
+    min-width: 300px;
+    max-width: 85%;
 `
 export const TipsTitleWrapper = styled.div`
-    margin-left: 24px;
+    margin: 16px;
 `
 
 export const TipsTitle = styled.h2`
     font-weight: 400;
     color: #54606c;
+
+    @media screen and (max-width: 640px) {
+        text-align: center;
+    }
     
 `
 export const TipsGrid = styled.div`
     display: grid;
-    grid-template-columns: 15% 1fr;
+    grid-template-columns: 20% 1fr;
+    width: 100%;
 `
 
 export const TipImageWrap = styled.div`
-    margin: 24px;
+    padding: 24px;
     display: flex;
+    justify-content: center;
 `
 
 export const Tip1Image = styled(GoSearch) `
     color: #247cf1;
-    min-height: 60px;
-    min-width: 60px;
+    min-height: 40px;
+    min-width: 40px;
     grid-column: 1;
 `
 
@@ -153,4 +180,8 @@ export const Tip1Description = styled.h3`
     font-size: 18px;
     font-weight: 600;
     color: #54606c;
+
+    @media screen and (max-width: 768px)  {
+        font-size: 16px;
+    }
 `

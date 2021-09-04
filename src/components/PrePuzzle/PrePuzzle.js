@@ -20,7 +20,8 @@ import {PuzzlePageContainer,
     Tip1Image,
     TipDescriptionWrapper,
     Tip1Description,
-    LeftStatWrapper} from "./PrePuzzleElements"
+    LeftStatWrapper,
+RightStatWrapper} from "./PrePuzzleElements"
 import {DailyPuzzleIcon} from "../DailyPuzzle/DailyPuzzleElements"
 import testIcon from "../../Images/EnPassant.svg"
 import { StartButton } from '../DailyPuzzle/ModalElements'
@@ -57,9 +58,11 @@ const PrePuzzlePage = (props) => {
                                 <PuzzleElo>
                                     {props.rating}
                                 </PuzzleElo>
+                                <RightStatWrapper>
                                 <HighScoreTitle>
                                     High Score
                                 </HighScoreTitle>
+                                </RightStatWrapper>
                                 <HighScore>
                                     1,234
                                 </HighScore>

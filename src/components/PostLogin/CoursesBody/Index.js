@@ -6,7 +6,10 @@ import {CoursesWrapper,
     CategoryLabel,
     CategoryLabelWrapper,
     CategoryLabelContainer,
-    CategoryLabelContainerTop
+    TacticsLabelWrapper,
+    CategoryLabelContainerTop,
+    CheckmatesLabelWrapper,
+    EndgamesLabelWrapper,
 } from './CoursesElements'
 import CourseTile from './CourseTile/Index'
 import {Modules} from './CourseTile/Data';
@@ -22,11 +25,11 @@ const Body = (
         <>
         <div>
         <CategoryLabelContainer>
-            <CategoryLabelWrapper>
+            <EndgamesLabelWrapper>
                 <CategoryLabel>
                     Endgames
                 </CategoryLabel>
-            </CategoryLabelWrapper>
+            </EndgamesLabelWrapper>
         </CategoryLabelContainer>
         <CoursesWrapper>
             <ModuleWrapper>
@@ -43,11 +46,11 @@ const Body = (
         </div>
         <div>
         <CategoryLabelContainer>
-            <CategoryLabelWrapper>
+            <TacticsLabelWrapper>
                 <CategoryLabel>
                     Tactics
                 </CategoryLabel>
-            </CategoryLabelWrapper>
+            </TacticsLabelWrapper>
         </CategoryLabelContainer>
         <CoursesWrapper >
             <ModuleWrapper>
@@ -63,11 +66,11 @@ const Body = (
         </CoursesWrapper>
         </div>
         <CategoryLabelContainer>
-            <CategoryLabelWrapper>
+            <CheckmatesLabelWrapper>
                 <CategoryLabel>
                     Checkmates
                 </CategoryLabel>
-            </CategoryLabelWrapper>
+            </CheckmatesLabelWrapper>
         </CategoryLabelContainer>
         <CoursesWrapper>
             <ModuleWrapper>
