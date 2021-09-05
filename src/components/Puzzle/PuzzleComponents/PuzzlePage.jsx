@@ -40,6 +40,7 @@ export default function PuzzlePage(props) {
   const [progress, setProgress] = useState(count);
   const [outcome, setOutcome] = useState(null)
   const [outcomes,setOutcomes] = useState([]);
+  const [waiting, setWaiting] = useState(false);
   const [correctMoves, setCorrectMoves] = useState(
     getMoves(puzzleData[0].moves)
   );
@@ -81,6 +82,7 @@ export default function PuzzlePage(props) {
 
   const unlockNext = () => {
     // legacy - used to unlock button. Saving for now 
+    setWaiting(true);
   };
 
   const displayOutcome = (success) => {
@@ -94,7 +96,7 @@ export default function PuzzlePage(props) {
     
     setOutcome(success);
     setOutcomes(prevOutcomes => [...prevOutcomes, success]);
-    incrementCount();
+    //incrementCount();
   };
 
   const incrementCount = () => {
@@ -108,11 +110,17 @@ export default function PuzzlePage(props) {
     }
   }
 
+  function handleContinueClick() {
+    console.log('continue clicked')
+    incrementCount()
+    setWaiting(false)
+  }
+
   return (
     <div>
       <PuzzlePageContainer>
       <div style={progressContainer}>
-        <ProgressBar outcome={outcome} returnPercent={returnPercent} count={count}/>
+        <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count}/>
       </div>
       <PuzzleBoardWrapper>
         <PuzzleBoard
@@ -124,7 +132,7 @@ export default function PuzzlePage(props) {
         />
       </PuzzleBoardWrapper>
       <div>
-      <PuzzleNav />
+      <PuzzleNav disabled={!waiting} onContinueClick={handleContinueClick}/>
       </div>
      </PuzzlePageContainer>
     </div>

@@ -23,19 +23,22 @@ const PostPuzzleMockup = (props) => {
 
                     </div>
                     <RewardH1>
-                        {props.failure ? 'Sorry.': 'Congrats!'}
+                        {props.perfect && 'Congrats!'}
+                        {(!props.failure && !props.perfect) && 'Nice Job!'}
+                        {props.failure && 'Sorry.'}
                     </RewardH1>
                     <RewardH2>
-                        {props.perfect && 'Perfect Run!'}
-                        {(!props.failure && !props.perfect) && 'You Passed!'}
-                        {(props.failure) && 'Module Failed'}
+
+                        {props.perfect && 'perfect run!'}
+                        {(!props.failure && !props.perfect) && 'you passed'}
+                        {(props.failure) && 'module failed'}
                     </RewardH2>
                     <ModuleExperience>
-                        {props.userData.rating ? `Score: ${props.score}` : ''}
+                        {`Score: ${props.score}`}
                     </ModuleExperience>
-                    <Link to="/dailyPuzzle">
+                    <Link to={props.isDaily ? "/dailyPuzzle" : '/dashboard'}>
                     <FinishButton>
-                        Return to Daily Puzzles
+                        Return to {props.isDaily ? 'Daily Puzzles' : 'Dashboard'}
                     </FinishButton>
                     </Link>
             </PostPuzzleGrid>

@@ -160,7 +160,7 @@ export default function Puzzle(props) {
  
  if (isFinished) {
    return(
-     <PostPuzzle perfect={perfect} failure ={failure} outcomes={outcomes} userData={userData} score={score} />
+     <PostPuzzle perfect={perfect} failure ={failure} outcomes={outcomes} userData={userData} score={score} isDaily={isDaily}/>
    )
 
  }

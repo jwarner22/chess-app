@@ -11,6 +11,7 @@ export default function Module(props) {
     const [rating, setRating] = useState();
     const [loading, setLoading] = useState(true);
     const [prePuzzleToggle,setPrePuzzleToggle] = useState(true);
+    const [highScore, setHighScore] = useState(0);
     const {get,post} = useFetch(baseURL);
     const theme = props.location.state.module.type_ref;
     const category = props.location.state.module.category;
@@ -35,6 +36,7 @@ export default function Module(props) {
                 createModule()
             } else {
                 setRating(data.rating);
+                setHighScore(data.high_score)
             }
         })
         .catch(e => console.log(e))
@@ -67,7 +69,7 @@ export default function Module(props) {
         return <Loader />
     }  else if (prePuzzleToggle) {
         return(
-            <PrePuzzle togglePrePuzzleCallback={togglePrePuzzle} moduleId={id} rating={rating} />
+            <PrePuzzle togglePrePuzzleCallback={togglePrePuzzle} moduleId={id} rating={rating} highScore={highScore}/>
         )
     }
 

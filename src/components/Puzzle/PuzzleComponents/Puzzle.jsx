@@ -59,8 +59,9 @@ export default class Puzzle extends React.Component {
   newPuzzle = async () => {
     // refactor to show opposing move by setting state, waiting, making opposing move, and then resetting state (previously introduced some issues)
     if (this.count){
-      await wait(1250);
+      await wait(250);
     }
+
     this.game.load(this.props.fen);
     this.game.move({
       from: this.props.correctMoves[0],
@@ -75,6 +76,9 @@ export default class Puzzle extends React.Component {
       moveIndex: 2,
       check: this.game.in_check()
     });
+    if (this.count) {
+      this.calcMovable(true)
+    }
   };
 
   makeMove = async (from, to) => {
@@ -102,7 +106,7 @@ export default class Puzzle extends React.Component {
       return;
     }
     // extracts legal moves
-    const moves = this.game.moves({ verbose: true });
+    //const moves = this.game.moves({ verbose: true });
 
     /*
     // loops through each square
@@ -126,6 +130,7 @@ export default class Puzzle extends React.Component {
     // checks move for correctness and displays splash screen.
     this.verifyMove(from, to);
 
+    if (this.isCorrect) {
     // set game state
     let moveIndex = this.state.moveIndex;
     this.setState({
@@ -157,6 +162,7 @@ export default class Puzzle extends React.Component {
       if (this.isCorrect === true) {
         this.displayOutcome(true);
       }
+    }
     }
   };
 
@@ -194,8 +200,8 @@ export default class Puzzle extends React.Component {
   };
 
   // calcs legal moves and returns chessground compatible object
-  calcMovable = () => {
-    if (this.state.moveIndex !== this.state.prevMoveIndex | this.state.prevMoveIndex === 0) {
+  calcMovable = next => {
+    if (this.state.moveIndex !== this.state.prevMoveIndex | this.state.prevMoveIndex === 0 | next) {
       console.log('calced movable')
       this.game = new Chess(this.state.fen);
     const dests = new Map();
@@ -230,7 +236,7 @@ export default class Puzzle extends React.Component {
 
   // render function
   render() {
-    const movable = this.calcMovable();
+    const movable = this.calcMovable(false);
     return this.props.children({
       movable: movable,
       fen: this.state.fen,

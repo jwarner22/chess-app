@@ -64,7 +64,7 @@ const PrePuzzlePage = (props) => {
                                 </HighScoreTitle>
                                 </RightStatWrapper>
                                 <HighScore>
-                                    1,234
+                                    {props.highScore}
                                 </HighScore>
                             </StatsGrid>
                         </StatsWrapper>
