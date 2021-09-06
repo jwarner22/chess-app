@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from "styled-components"
 
-const PuzzleNav = () => {
+const PuzzleNav = (props) => {
+
     return (
         <PuzzleNavContainer>
             <NavBtn>
@@ -10,7 +11,7 @@ const PuzzleNav = () => {
                 </NavBtnLink2>
             </NavBtn>
             <NavBtn> 
-                <NavBtnLink>
+                <NavBtnLink onClick={props.onContinueClick} disabled={props.disabled}>
                     Continue
                 </NavBtnLink>
             </NavBtn>

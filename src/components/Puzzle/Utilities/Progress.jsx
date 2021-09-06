@@ -23,7 +23,7 @@ function ProgressBar(props) {
         } else{
             setPercent(props.percent)
         }
-    },[props.count])
+    },[props.outcomes])
 
 
     const setDisplay = result => {

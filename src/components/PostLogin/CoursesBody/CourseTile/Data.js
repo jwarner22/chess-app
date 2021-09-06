@@ -64,7 +64,7 @@ export const Modules = [
         type_ref: 'queenEndgame',
         headline: 'Queen Endgame',
         subheading: 'Practice using the queen in the endgame.',
-        instructions: 'The queen is an incredibly powerful piece in the endgame - look for it to traverse large swaths of the board due to the many open files and ranks.',
+        instructions: 'The queen is an incredibly powerful piece in the endgame - look for it to traverse large swaths of the board in the endgame.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Checkmate.svg").default
     },{
@@ -134,7 +134,7 @@ export const Modules = [
         type_ref: 'doubleBishopMate',
         headline: 'Double Bishop Mate',
         subheading: 'One bishop, two bishop, mate.',
-        instructions: 'The bishop pair is in part coveted due to their combined ability to attack all light and dark squares. This can leave little room for the opposing king',
+        instructions: 'The bishop pair is coveted due to their combined ability to attack all light and dark squares. This can leave the opposing king with nowhere to run.',
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
@@ -144,7 +144,7 @@ export const Modules = [
         type_ref: 'dovetailMate',
         headline: 'Dovetail Mate',
         subheading: 'Trap the black king.',
-        instructions: 'In this common mating pattern, the Queen gives check while the opposing king has no flight squares due to the obstructing pieces at its side.',
+        instructions: 'The Queen gives checkmate while the opposing king has no flight squares due to the obstructing pieces at its side.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Dove.svg").default
     },{
@@ -154,7 +154,7 @@ export const Modules = [
         type_ref: 'hookMate',
         headline: 'Hook Mate',
         subheading: 'Watch your back.',
-        instructions: `Named after its resemblence to a hook, this checkmate pattern demonstrates the perfect coordination between the rook and knight, with all but two of the opposing king's squares accounted for by the two pieces.`,
+        instructions: `Named after its resemblence to a hook, this checkmate pattern demonstrates the perfect coordination between the rook and knight.`,
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Hook.svg").default
     },{
@@ -174,7 +174,7 @@ export const Modules = [
         type_ref: 'smotheredMate',
         headline: 'Smothered Mate',
         subheading: `I....can't....breath....`,
-        instructions: 'A rare and coveted motif, the opposing king can sometimes become trapped by his own pieces. Find the sequence of moves that causes the opposing pieces to trap their own king and give check for a beautiful checkmate.',
+        instructions: 'The opposing king can sometimes become trapped by his own pieces. Find the sequence of moves that causes the opposing pieces to trap their own king and deliver a beautiful checkmate.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/SmotheredMate.svg").default
     },{
@@ -194,7 +194,7 @@ export const Modules = [
         type_ref: 'attackingF2F7',
         headline: 'Attack f2f7',
         subheading: 'Capitalize on the weakness.',
-        instructions: 'The squares F2 and F7 are common sources of weakness in a position. Exploit this weakness by capitalizing on the pressure that has been created in the position.',
+        instructions: 'The squares F2 and F7 are common sources of weakness in a position. Exploit this weakness by capitalizing on this pressure.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/AttackingF2F7.svg").default
     },{
@@ -284,7 +284,7 @@ export const Modules = [
         type_ref: 'doubleCheck',
         headline: 'Double Check',
         subheading: 'Check x2',
-        instructions: `When two pieces give check to a king it is then forced to move. This is incredibly 'forcing' and cand yield opporunities that would otherwise be easily defended.`,
+        instructions: `When two pieces give check to the opposing king it is forced to move. This is incredibly can yield tremendous opporunities.`,
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/DoubleCheck.svg").default
     },{
@@ -314,7 +314,7 @@ export const Modules = [
         type_ref: 'fork',
         headline: 'Fork',
         subheading: `It's one or the other.`,
-        instructions: 'A fork is when a piece attacks two pieces at the same time. One of these pieces is typically high in value and therefore forced to move, leaving the other vulnerable to attack.',
+        instructions: 'A fork is when a piece attacks two pieces at the same time - meaning one can always be taken.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Fork.svg").default
     },{
@@ -324,7 +324,7 @@ export const Modules = [
         type_ref: 'hangingPiece',
         headline: 'Hanging Piece',
         subheading: 'Find and capture the free material.',
-        instructions: 'The most important concept to understand as a beginner is that of a hanging piece. Generally, all pieces should be well defended at all times. Otherwise, tricky situations can arise...',
+        instructions: 'Generally, all pieces should be well defended at all times. Otherwise, material can often be lost...',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/HangingPiece.svg").default
     },{
@@ -364,7 +364,7 @@ export const Modules = [
         type_ref: 'overloading',
         headline: 'Overloading',
         subheading: `Your opponent can only do so many things at once.`,
-        instructions: 'When an opposing defensive piece has too much responsibility, look to add even more pressure. This may cause it to abandon its original assignment and leave the opposition vulnerable.',
+        instructions: 'When an opposing defensive piece has too much responsibility, look to add even more pressure. This can have explosive effects...',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Overloading.svg").default
     },{
