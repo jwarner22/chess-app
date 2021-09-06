@@ -87,7 +87,7 @@ const PrePuzzlePage = (props) => {
                                         </TipsGrid>
                                     </InstructionsWrapper>
                                     <StartButton onClick={handleStartButtonClick}>
-                                        Start Puzzle
+                                        Start Module
                                     </StartButton>
                                 </InstructionsContainer>
                             </PrePuzzleContentContainer>
