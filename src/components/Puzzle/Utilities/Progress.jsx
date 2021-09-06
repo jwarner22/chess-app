@@ -47,7 +47,7 @@ function ProgressBar(props) {
     }
 
     const containerStyle = {
-        width: "250px"
+        width: "480px"
       };
 
     return(

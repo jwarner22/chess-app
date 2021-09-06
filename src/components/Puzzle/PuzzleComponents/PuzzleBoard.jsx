@@ -57,6 +57,6 @@ const boardsContainer = {
   alignItems: "center",
   flexWrap: "wrap",
   width: "100vw",
-  marginTop: 30,
-  marginBottom: 40
+  marginTop: 24,
+  marginBottom: 30
 };

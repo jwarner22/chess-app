@@ -9,7 +9,9 @@ import {
      NavMenu,  
      NavBtn, 
      NavBtnLink, 
-     BlueBars
+     BlueBars,
+     NavItem,
+     NavLinks
     } from './DashboardNavElements'
 import {animateScroll as scroll} from 'react-scroll'
 import firebaseConfig from "../../../config";
@@ -75,6 +77,26 @@ const DashNavbar = ({ toggle }) => {
                             <BlueBars />
                         </MobileIcons>
                         <NavMenu>
+                            <NavItem>
+                            <NavLinks to="/dailyPuzzle"> 
+                                   Daily Puzzles 
+                                </NavLinks>
+                            </NavItem>
+                            <NavItem>
+                            <NavLinks to="/dashboard"> 
+                                   Pattern Recognition
+                                </NavLinks>
+                            </NavItem>
+                            <NavItem>
+                                <NavLinks to="/openings"> 
+                                   Openings 
+                                </NavLinks>
+                            </NavItem>
+                            <NavItem>
+                                <NavLinks to="/profile"> 
+                                   Profile Page
+                                </NavLinks>
+                            </NavItem>
                         </NavMenu>
                         <NavBtn>
                             <NavBtnLink to='/' onClick={() => handleLogout()}>

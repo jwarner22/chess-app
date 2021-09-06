@@ -6,6 +6,7 @@ import PostPuzzleMockup from '../PostPuzzleMockup/PostPuzzleMockup';
 import DailyPuzzle from "./DailyPuzzle/DailyPuzzle"
 import PrePuzzlePage from "./PrePuzzle/PrePuzzle"
 import Openings from "./Openings/Openings"
+import ProfilePage from "./ProfilePage/ProfilePage"
 
 const protectedRoutes = [
 	{
@@ -43,6 +44,11 @@ const protectedRoutes = [
 		path: "/openings",
 		exact: true,
 		main: () => <Openings />
+	},{	
+	name: "Profile",
+	path: "/profile",
+	exact: true,
+	main: () => <ProfilePage />
 	}
 ];
 

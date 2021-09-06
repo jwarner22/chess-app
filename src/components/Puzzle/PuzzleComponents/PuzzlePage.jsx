@@ -136,14 +136,14 @@ const progressContainer = {
   justifyContent: "center",
   alignItems: "center",
   flexWrap: "wrap",
-  marginTop: "24px",
-  marginBottom: "24px"
+  margin: "24px",
 };
 
 const PuzzlePageContainer = styled.div `
   display: grid;
-  height: 100vh;
-  grid-template-rows: 10% 70% 20%;
+  max-height: 100vh;
+  grid-auto-rows: auto;
+  width: 100vw;
   `
 
 const PuzzleBoardWrapper = styled.div`

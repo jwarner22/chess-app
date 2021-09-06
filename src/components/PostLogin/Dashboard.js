@@ -62,7 +62,6 @@ const Dashboard = () => {
     ) : (
       <>
       <DashNavbar toggle={toggle}/>
-      <Announcements {...AnnouncementOne}/>
       </>
     )}
       <Body/>

@@ -12,7 +12,7 @@ export const MobileNavbarWrapper = styled.div`
 `
 export const MobileNavbarItems = styled.ul`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     position: fixed;
     width: 100vw;
     bottom: 0;

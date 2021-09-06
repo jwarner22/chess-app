@@ -38,11 +38,11 @@ export const NavBtn = styled.nav `
 `
 
 const NavBtnLink = styled.button`
-    border-radius: 50px;
+    border-radius: 16px;
     background: #247cf1;
     white-space: nowrap;
-    padding: 8px 32px;
-    margin: 0px 16px;
+    padding: 16px 16px;
+    margin: 24px;
     color: #fff;
     font-size: 22px;
     outline: none;
@@ -50,6 +50,8 @@ const NavBtnLink = styled.button`
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+    min-width: 150px;
+    font-weight: 700;
 
     &:hover {
         transition: all 0.2s ease-in-out;
@@ -59,11 +61,11 @@ const NavBtnLink = styled.button`
 `;
 
 const NavBtnLink2 = styled.button`
-    border-radius: 50px;
+    border-radius: 16px;
     background: transparent;
     white-space: nowrap;
-    padding: 6px 32px;
-    margin: 0px 16px;
+    padding: 16px 16px;
+    margin: 24px;
     color: #afafaf;
     font-size: 22px;
     outline: none;
@@ -71,6 +73,8 @@ const NavBtnLink2 = styled.button`
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+    min-width: 150px;
+    font-weight: 700;
 
     &:hover {
         transition: all 0.2s ease-in-out;
