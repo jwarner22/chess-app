@@ -30,6 +30,7 @@ class Theme(Base):
     completed = Column(Integer, index=True)
     rating = Column(Integer, index=True)
     high_score = Column(Integer, index=True)
+    score_history = Column(String, index=True)
     owner_id = Column(String, ForeignKey("user.user_id"))
     
     #owner = relationship("User", back_populates="themes")

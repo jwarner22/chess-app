@@ -23,6 +23,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-scroll": "^1.8.2",
+    "recharts": "^2.1.2",
     "styled-components": "^5.3.0",
     "styled-icons": "^10.37.0",
     "tailwindcss": "^2.2.4",
@@ -53,5 +54,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-plugin-recharts": "^2.0.0"
+  }
 }

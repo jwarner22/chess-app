@@ -7,6 +7,7 @@ import DailyPuzzle from "./DailyPuzzle/DailyPuzzle"
 import PrePuzzlePage from "./PrePuzzle/PrePuzzle"
 import Openings from "./Openings/Openings"
 import ProfilePage from "./ProfilePage/ProfilePage"
+import Chart from '../PostPuzzleMockup/ScoreChart';
 
 const protectedRoutes = [
 	{

@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from './PostPuzzleMockupElements'
 import headerImg from "../Images/RewardHeaderImg.svg"
 import {Modules} from '../components/PostLogin/CoursesBody/CourseTile/Data.js';
+import Chart from './ScoreChart';
 
 const PostPuzzleMockup = (props) => {
     
@@ -10,6 +11,7 @@ const PostPuzzleMockup = (props) => {
 
     if (!props.savingResults) {
     return (
+        <>
         <PostPuzzleWrapper>
             <PostPuzzleGrid>
                 <IconWrap>
@@ -33,6 +35,7 @@ const PostPuzzleMockup = (props) => {
                         {(!props.failure && !props.perfect) && 'you passed'}
                         {(props.failure) && 'module failed'}
                     </RewardH2>
+                    <Chart data={props.scoreData}/>
                     <ModuleExperience>
                         {`Score: ${props.score}`}
                     </ModuleExperience>
@@ -43,6 +46,7 @@ const PostPuzzleMockup = (props) => {
                     </Link>
             </PostPuzzleGrid>
         </PostPuzzleWrapper>
+        </>
     )
     }
     return null;

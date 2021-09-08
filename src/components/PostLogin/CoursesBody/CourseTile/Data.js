@@ -134,7 +134,7 @@ export const Modules = [
         type_ref: 'doubleBishopMate',
         headline: 'Double Bishop Mate',
         subheading: 'One bishop, two bishop, mate.',
-        instructions: 'The bishop pair is coveted due to their combined ability to attack all light and dark squares. This can leave the opposing king with nowhere to run.',
+        instructions: 'The bishop pair is coveted due to their combined ability to attack all squares. This can leave the opposing king with nowhere to run.',
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
@@ -184,7 +184,7 @@ export const Modules = [
         type_ref: 'advancedPawn',
         headline: 'Advanced Pawn',
         subheading: `We're almost home free!`,
-        instructions: 'Clear the way for an advanced pawn to pave a path to victory. But beware allowing your opponene to do the same.',
+        instructions: 'Clear the way for an advanced pawn to pave a path to victory. But beware allowing your opponenent to do the same.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/AdvancedPawn.svg").default
     },{

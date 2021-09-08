@@ -22,6 +22,7 @@ export default function Puzzle(props) {
   const [perfect, setPerfect] = useState(false);
   const [userData, setUserData] = useState({});
   const [score, setScore] = useState(0);
+  const [scoreData, setScoreData] = useState([])
   const {get,put} = useFetch(baseURL);
 
 
@@ -78,14 +79,41 @@ export default function Puzzle(props) {
     
     themeData.rating = newRating
     themeData.completed += 1; // adds 1 to number of puzzles completed
-    await updateThemeData(themeData)  // updates data in piu
+    
 
     let score = calcScore(outcomes,puzzles)
     if (themeData.high_score < score) {
       // new high score!
+      themeData.high_score = score;
     }
 
     setScore(score)
+
+    // update theme score record here
+    let str = themeData.score_history;
+    console.log({str: str})
+    let score_array = str.split(",").map(Number);
+    console.log({score_array: score_array})
+
+    score_array.shift();
+    score_array.push(score)
+    console.log({score_array: score_array})
+
+    themeData.score_history = score_array.toString();
+    console.log({score_array: score_array})
+    let score_data = score_array.map((value, index) => {
+      return(
+        {
+          name: index.toString(),
+          score: value
+        }
+      )
+    });
+    console.log({score_data: score_data})
+    setScoreData(score_data)
+        
+    await updateThemeData(themeData)  // updates data in piu
+    
     setUserData(themeData) // sets user data to pass as props to post puzzle page
 
   }
@@ -160,7 +188,7 @@ export default function Puzzle(props) {
  
  if (isFinished) {
    return(
-     <PostPuzzle perfect={perfect} failure ={failure} outcomes={outcomes} userData={userData} score={score} isDaily={isDaily}/>
+     <PostPuzzle perfect={perfect} failure ={failure} outcomes={outcomes} userData={userData} score={score} isDaily={isDaily} scoreData={scoreData}/>
    )
 
  }

@@ -13,6 +13,7 @@ class Theme(BaseModel):
     rating: Optional[int] = 1500
     completed: Optional[int] = 0
     high_score: Optional[int] = 0
+    score_history: str
 
     class Config:
         orm_mode=True
@@ -23,6 +24,7 @@ class CreateTheme(BaseModel):
     rating: Optional[int] = 1500
     completed: Optional[int] = 0
     high_score: Optional[int] = 0
+    score_history: str
 
     class Config:
         orm_mode=True

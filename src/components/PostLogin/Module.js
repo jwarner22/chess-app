@@ -50,7 +50,8 @@ export default function Module(props) {
                 category: category,
                 rating: 1200,
                 completed: 0,
-                high_score: 0
+                high_score: 0,
+                score_history: '0,0,0,0,0,0,0'
                 }).then(data => {
                     setRating(data.rating)
                 }).then(() => {
