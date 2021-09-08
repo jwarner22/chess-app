@@ -3,8 +3,17 @@ import Announcements from "../PostLogin/Announcements/Index"
 import {AnnouncementOne} from "../PostLogin/Announcements/Data"
 import DashNavbar from "../PostLogin/DashboardNavbar/Index"
 import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
+import DashSidebar from "../PostLogin/DashboardSidebar/Index"
 
 const ProfilePage = () => {
+  
+  //hamburger sidebar menu
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggle = () => {
+    setIsOpen(!isOpen)
+  }
+  //mobile menu
   const [windowDimension, setWindowDimension] = useState(null);
 
   useEffect(() => {
@@ -28,10 +37,11 @@ const ProfilePage = () => {
       <>
       {isMobile ? (
     <MobileNavbar />
-    // <DashSidebar isOpen={isOpen} toggle={toggle} />
     ) : (
-
-      <DashNavbar />
+      <>
+      <DashNavbar toggle={toggle}/>
+      <DashSidebar isOpen={isOpen} toggle={toggle} />
+      </>
       )}
       <Announcements {...AnnouncementOne} /> 
       <div className = "mx-auto w-11/12 md:w-2/4 py-8 px-4 md:px-8">

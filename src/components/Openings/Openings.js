@@ -1,9 +1,24 @@
 import React, {useState, useEffect}from 'react'
 import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
 import DashboardNavbar from "../PostLogin/DashboardNavbar/Index"
+import DashSidebar from "../PostLogin/DashboardSidebar/Index"
+import openingImage from "../../Images/professor.svg"
+import {OpeningPageImgContainer, 
+  OpeningsPagePlaceholderImg, 
+  OpeningsTitle,
+  OpeningPageImgWrapper
+} from "./OpeningsElements"
 
 const Openings = () => {
+  
+  //hamburger sidebar menu
+  const [isOpen, setIsOpen] = useState(false)
 
+  const toggle = () => {
+    setIsOpen(!isOpen)
+  }
+
+  //mobile navbar
     const [windowDimension, setWindowDimension] = useState(null);
 
   useEffect(() => {
@@ -28,12 +43,20 @@ const Openings = () => {
         {isMobile ? (
           <MobileNavbar />  
         ) : (
-            <DashboardNavbar />
+          <>
+            <DashboardNavbar toggle={toggle}/>
+            <DashSidebar isOpen={isOpen} toggle={toggle} />
+            </>
         )
     }
-        <div>
-            Openings
-        </div>
+        <OpeningPageImgContainer>
+          <OpeningPageImgWrapper>
+            <OpeningsPagePlaceholderImg src={openingImage} />
+              <OpeningsTitle>
+                  Opening Trainer Coming Soon!
+              </OpeningsTitle>
+          </OpeningPageImgWrapper>
+        </OpeningPageImgContainer>
         </>
     )
 }

@@ -14,6 +14,8 @@ import { baseURL } from "../api/apiConfig";
 import useFetch from '../api/useFetch';
 import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
 import { PurchaseTag } from "styled-icons/boxicons-regular";
+import DashNavbar from "../PostLogin/DashboardNavbar/Index"
+import DashSidebar from '../PostLogin/DashboardSidebar/Index'
 
 export default function DailyPuzzzle() {
   const [seen, setSeen] = useState(false); // set to true to display modal on load
@@ -144,9 +146,44 @@ export default function DailyPuzzzle() {
     setSeen(prevSeen => !prevSeen)
   }
 
+  //hamburger side menu 
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggle = () => {
+    setIsOpen(!isOpen)
+  }
+
+  //mobile navigation bar
+  const [windowDimension, setWindowDimension] = useState(null);
+
+  useEffect(() => {
+    setWindowDimension(window.innerWidth);
+  }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimension(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isMobile = windowDimension <= 640;
+
+  console.log(isMobile)
+
   return (
     <>
    <div> 
+   {isMobile ? (
+    null
+    ) : (
+      <>
+      <DashNavbar toggle={toggle}/>
+      <DashSidebar isOpen={isOpen} toggle={toggle} />
+      </>
+      )}
     {seen ? <Modal toggle={togglePop} /> : null}
    </div>
    {loaded &&
@@ -155,7 +192,7 @@ export default function DailyPuzzzle() {
       <DailyPuzzleContainer>
         <DailyPuzzleHeaderImg src={headerImg}/>
         <DailyPuzzleTitle>
-          Daily Puzzles
+          Today's Training
         </DailyPuzzleTitle>
         </DailyPuzzleContainer>
         <PuzzleWrapper>
@@ -168,7 +205,6 @@ export default function DailyPuzzzle() {
           })}
         </PuzzleWrapper>
    </DailyPuzzleWrapper>
-   <MobileNavbar />
    </Container>
   }
    </>

@@ -18,7 +18,7 @@ import { BlueBars } from '../DashboardNavbar/DashboardNavElements'
 const MobileNabar = () => {
     return (
         <>
-        {/* <MobileNavbarWrapper> */}
+        <MobileNavbarWrapper>
             <MobileNavbarItems>
                 <MobileNavLink to="/dashboard" activeStyle={{
                     background:'#2170D9',
@@ -65,7 +65,7 @@ const MobileNabar = () => {
                 </MobileNavbarItem>
                 </MobileNavLink>
             </MobileNavbarItems>
-        {/* </MobileNavbarWrapper> */}
+        </MobileNavbarWrapper>
 
         </>
     )

@@ -7,9 +7,8 @@ export const CategoryLabelContainerTop = styled.div`
 ` 
 
 export const CategoryLabelContainer = styled.div`
-    top: -16px;
+    top: 0;
     position: sticky;
-    padding-top: 16px;
     background-color: #f6f9fc;
 `
 
@@ -59,9 +58,9 @@ export const CategoryLabel = styled.h2`
 export const CoursesWrapper = styled.div`
     display: flex;
     justify-content: center;
-    padding-top: 40px;
+    padding: 40px 0px;
     background-color: #f6f8f9;
-    min-height: 100vh;
+    /* min-height: 100vh; */
 `
 
 export const ModuleWrapper = styled.div `
@@ -70,7 +69,6 @@ export const ModuleWrapper = styled.div `
     margin: 0 30px 30px 30px;
     height: auto;
     width: 100%;
-    padding-top: 10px;
 
 `
 

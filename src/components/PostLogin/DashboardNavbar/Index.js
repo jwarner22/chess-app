@@ -79,7 +79,7 @@ const DashNavbar = ({ toggle }) => {
                         <NavMenu>
                             <NavItem>
                             <NavLinks to="/dailyPuzzle"> 
-                                   Daily Puzzles 
+                                   Today
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
@@ -99,7 +99,7 @@ const DashNavbar = ({ toggle }) => {
                             </NavItem>
                         </NavMenu>
                         <NavBtn>
-                            <NavBtnLink to='/' onClick={() => handleLogout()}>
+                            <NavBtnLink to='/login' onClick={() => handleLogout()}>
                                 Sign Out
                             </NavBtnLink>
                         </NavBtn>

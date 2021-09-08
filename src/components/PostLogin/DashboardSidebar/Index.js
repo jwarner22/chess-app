@@ -1,7 +1,21 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { SidebarContainer, Icon, CloseIcon, SidebarWapper, SidebarMenu, SidebarLink, SideBtnWrap, SidebarRoute} from './DashSidebarElements'
+import firebaseConfig from "../../../config"
+import firebase from 'firebase'
+require('firebase/auth')
 
 const DashSidebar = ({ isOpen, toggle}) => {
+
+        //const Auth = useContext(AuthContext)
+    const handleLogout = () => {
+        firebase.auth().signOut()
+  .then(res => {
+    // Sign-out successful.
+  })
+  .catch(function(error) {
+    // An error happened
+  });
+    }
     return (
         <>
             <SidebarContainer isOpen={isOpen} onClick={toggle}>
@@ -10,19 +24,21 @@ const DashSidebar = ({ isOpen, toggle}) => {
                 </Icon>
                 <SidebarWapper>
                     <SidebarMenu>
-                        <SidebarLink to='about' onClick={toggle}>
-                            About
+                        <SidebarLink to='/dailyPuzzle' onClick={toggle}>
+                            Today
                         </SidebarLink>
-                        <SidebarLink to='discover' onClick={toggle}>
-                            Discover
+                        <SidebarLink to='/dashboard' onClick={toggle}>
+                            Pattern Recognition
                         </SidebarLink>
-                        <SidebarLink to='services' onClick={toggle}>
-                            Services
+                        <SidebarLink to='/openings' onClick={toggle}>
+                            Openings
+                        </SidebarLink>
+                        <SidebarLink to='/profile' onClick={toggle}>
+                            Profile
                         </SidebarLink>
                     </SidebarMenu>
                     <SideBtnWrap>
-                        <SidebarRoute to='/login'>Log In</SidebarRoute>
-                        <SidebarRoute to='/signup'>Sign Up</SidebarRoute>
+                        <SidebarRoute to='/login' onClick={() => handleLogout()}>Log out</SidebarRoute>
                     </SideBtnWrap>
                 </SidebarWapper>
             </SidebarContainer>

@@ -1,13 +1,12 @@
 import styled from 'styled-components'
-import {Link as LinkS} from 'react-scroll'
-import {Link as LinkR} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {FaTimes} from 'react-icons/fa'
 
 export const SidebarContainer = styled.aside`
     position: fixed;
     z-index: 999;
     width: 100%;
-    background: #0d0d0d;
+    background: #fff;
     height: 100%;
     display: grid;
     align-items: center;
@@ -40,7 +39,7 @@ export const SidebarWapper = styled.div `
 export const SidebarMenu = styled.ul`
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(6, 80px);
+    grid-template-rows: repeat(4, 80px);
     text-align: center;
 
     @media screen and (max-width: 480px) {
@@ -48,7 +47,7 @@ export const SidebarMenu = styled.ul`
     }
 `
 
-export const SidebarLink = styled(LinkS)`
+export const SidebarLink = styled(Link)`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,8 +55,9 @@ export const SidebarLink = styled(LinkS)`
     text-decoration: none;
     list-style: none;
     transition: 0.2s ease-in-out;
-    color: #fff;
+    color: #247cf1;
     cursor: pointer;
+    font-weight: 600;
 
     &:hover {
         color: #01bf71;
@@ -70,23 +70,24 @@ export const SideBtnWrap = styled.div `
     justify-content: center;
 `
 
-export const SidebarRoute = styled(LinkR)`
+export const SidebarRoute = styled(Link)`
     border-radius: 50px;
-    background: #01bf71;
+    background: #247cf1;
     white-space: nowrap;
     padding: 16px 64px;
-    color: #010606;
+    color: #fff;
     font-size: 16px;
+    font-weight: 600;
     outline: none;
     border: none;
     cursor: pointer;
     transition: 0.2s ease-in-out;
     text-decoration: none;
-    margin: 8px;
+    margin: 40px;
 
     &:hover {
         transition: all 0.2s ease-in-out;
         background: #fff;
-        color: #010606;
+        color: #0e65d8;
     }
 `

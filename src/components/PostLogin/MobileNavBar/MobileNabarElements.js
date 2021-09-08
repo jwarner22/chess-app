@@ -4,19 +4,18 @@ import styled from "styled-components"
 
 export const MobileNavbarWrapper = styled.div`
     position: fixed;
-    width: 100vw;
     bottom: 0; 
+    left: 0;
     transform: translateZ(0);
     background-color: #fff;
-    margin-top: 8px 0px;
+    /* margin-top: 8px 0px; */
+    z-index: 999;
+    width: 100vw;
 `
 export const MobileNavbarItems = styled.ul`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    position: fixed;
-    width: 100vw;
-    bottom: 0;
-    transform: translateZ(0);
+    position: relative;
     background-color: #247cf1;
 `
 export const MobileNavLink = styled(NavLink)`
@@ -24,7 +23,7 @@ export const MobileNavLink = styled(NavLink)`
     color: white;
     transition: all 0.2s ease-in-out;
     padding: 8px 0px;
-
+    height: 100%;
 `
 
 
@@ -33,7 +32,6 @@ export const MobileNavbarItem = styled.li`
     flex-direction: column;
     align-items: center;
     font-size: 1.2rem;
-    flex-grow: 1;
     
 `
 export const MobileNavbarIcon = styled.span`

@@ -14,12 +14,14 @@ import styled from "styled-components"
 
 
 const Dashboard = () => {
+
+    //hamburger sidebar menu
   const [isOpen, setIsOpen] = useState(false)
 
   const toggle = () => {
     setIsOpen(!isOpen)
   }
-
+//mobile menu
   const [windowDimension, setWindowDimension] = useState(null);
 
   useEffect(() => {
@@ -38,29 +40,17 @@ const Dashboard = () => {
   const isMobile = windowDimension <= 640;
 
   console.log(isMobile)
-  // const [isOpen, setIsOpen] = useState(false)
-
-  // const toggle = () => {
-  //   setIsOpen(!isOpen)
-  // }
-
-  //placeholder for testing
-  // useEffect(() => console.log(JSON.parse(localStorage.getItem('userPublicData'))),[])
-
-  // const { currentUser } = useContext(AuthContext);
-  // if (!currentUser) {
-  //   return <Redirect to="/login" />;
-
   
+
     
   return (
     <>
     <DashboardWrapper>
     {isMobile ? (
     <MobileNavbar />
-    // <DashSidebar isOpen={isOpen} toggle={toggle} />
     ) : (
       <>
+          <DashSidebar isOpen={isOpen} toggle={toggle} />
       <DashNavbar toggle={toggle}/>
       </>
     )}
