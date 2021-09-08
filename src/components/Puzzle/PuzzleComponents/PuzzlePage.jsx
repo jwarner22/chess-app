@@ -62,6 +62,13 @@ export default function PuzzlePage(props) {
     }
   }, [count])
 
+  useEffect(() => {
+    console.log({progress: progress})
+    if (progress >= 100) {
+      finished()
+    }
+  }, [progress])
+
   // puzzle module is finished
   const finished = async () => {
     await wait(1000)
@@ -70,7 +77,7 @@ export default function PuzzlePage(props) {
 
   // module failed
   const fail = async () => {
-    wait(1000)
+    await wait(1000)
     props.puzzleIsFinished(outcomes, 'fail')
   }
 
@@ -105,6 +112,7 @@ export default function PuzzlePage(props) {
   
   const returnPercent = (percent) => {
     setProgress(percent)
+    console.log({percent: percent})
     if (percent >= 100) {
       finished()
     }

@@ -25,7 +25,10 @@ function ProgressBar(props) {
         }
     },[props.outcomes])
 
-
+    useEffect(() => {
+    returnPercent(percent)
+    },[percent])
+    
     const setDisplay = result => {
         if (result === true && percent < 100) {
             setColor(correctColor)
@@ -36,12 +39,10 @@ function ProgressBar(props) {
         } else if (percent >= 100 && result === true){
             setColor(correctColor)
             setPercent(100)
-            returnPercent(100)
             if (results.every(outcome => outcome === true)) {
                 setColor(perfectColor)
             }
         } else {
-            setColor(baseColor)
         }
         setResults(prevResults => [...prevResults, result])
     }

@@ -11,7 +11,7 @@ const PuzzleNav = (props) => {
                 </NavBtnLink2>
             </NavBtn>
             <NavBtn> 
-                <NavBtnLink onClick={props.onContinueClick} disabled={props.disabled}>
+                <NavBtnLink props= {props} onClick={props.onContinueClick} disabled={props.disabled}>
                     Continue
                 </NavBtnLink>
             </NavBtn>
@@ -40,7 +40,7 @@ export const NavBtn = styled.nav `
 
 const NavBtnLink = styled.button`
     border-radius: 16px;
-    background: #247cf1;
+    background: ${({props}) => ((props.disabled) ? '#afafaf' : '#247cf1')};;
     white-space: nowrap;
     padding: 16px 16px;
     margin: 24px;
@@ -53,13 +53,13 @@ const NavBtnLink = styled.button`
     text-decoration: none;
     min-width: 150px;
     font-weight: 700;
-
-    &:hover {
-        transition: all 0.2s ease-in-out;
-        background: #0e65d8;
-        color: #fff;
-    }
 `;
+// don't need hover with conditional styling
+// &:hover {
+//     transition: all 0.2s ease-in-out;
+//     background: #0e65d8;
+//     color: #fff;
+// }
 
 const NavBtnLink2 = styled.button`
     border-radius: 16px;
