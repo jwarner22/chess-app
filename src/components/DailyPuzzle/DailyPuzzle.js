@@ -177,7 +177,7 @@ export default function DailyPuzzzle() {
     <>
    <div> 
    {isMobile ? (
-    null
+    <MobileNavbar />
     ) : (
       <>
       <DashNavbar toggle={toggle}/>
