@@ -1,6 +1,10 @@
 .box {
-  width: 480px;
-  height: 480px;
+  display: flex;
+  width: 400px;
+  height: 400px;
+  grid-column: 1;
+  grid-row: 2;
+  grid-template-rows: min-content minmax(0,1fr);
 }
 
 /*
