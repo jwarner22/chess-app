@@ -210,7 +210,7 @@ export const Modules = [
     },{
         id: 20,
         category: 'puzzle',
-        type: 'midgame',
+        type: 'checkmate',
         type_ref: 'backRankMate',
         headline: 'Back Rank Mate',
         subheading: 'Watch out behind you!',
@@ -237,16 +237,6 @@ export const Modules = [
         instructions: 'Your own pieces can sometimes get in the way. Move them by any means necessary and you can open up excellent opportunities.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Clearance.svg").default
-    },{
-        id: 23,
-        category: 'puzzle',
-        type: 'midgame',
-        type_ref: 'coercion',
-        headline: 'Coercion',
-        subheading: `Force one of your opponent's pieces into a vulnerable position.`,
-        instructions: 'A coercion tactic is the act of forcing your opponent to move a piece, often the king, to a location in whihch it is vulnerable to tactics.',
-        description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/Coercion.svg").default
     },{
         id: 24,
         category: 'puzzle',
@@ -378,16 +368,6 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Pin.svg").default
     },{
-        id: 37,
-        category: 'puzzle',
-        type: 'midgame',
-        type_ref: 'promotion',
-        headline: 'Promotion',
-        subheading: `I deserve a promotion.`,
-        instructions: 'Push a pawn over the edge to seal your opponents fate.',
-        description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/Promotion.svg").default
-    },{
         id: 38,
         category: 'puzzle',
         type: 'midgame',
@@ -480,6 +460,32 @@ export const Modules = [
     },
 
 ]
+
+const excludedModules = [
+    {
+        id: 37,
+        category: 'puzzle',
+        type: 'midgame',
+        type_ref: 'promotion',
+        headline: 'Promotion',
+        subheading: `I deserve a promotion.`,
+        instructions: 'Push a pawn over the edge to seal your opponents fate.',
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../Images/Promotion.svg").default
+    }
+    ,{
+        id: 23,
+        category: 'puzzle',
+        type: 'midgame',
+        type_ref: 'coercion',
+        headline: 'Coercion',
+        subheading: `Force one of your opponent's pieces into a vulnerable position.`,
+        instructions: 'A coercion tactic is the act of forcing your opponent to move a piece, often the king, to a location in whihch it is vulnerable to tactics.',
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../Images/Coercion.svg").default
+    }
+]
+
 /*
     {
         id: 3, // `eventually use random str as modules will be dynamic for each user and may change over time

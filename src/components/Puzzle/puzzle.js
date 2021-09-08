@@ -91,16 +91,13 @@ export default function Puzzle(props) {
 
     // update theme score record here
     let str = themeData.score_history;
-    console.log({str: str})
     let score_array = str.split(",").map(Number);
-    console.log({score_array: score_array})
+
 
     score_array.shift();
     score_array.push(score)
-    console.log({score_array: score_array})
 
     themeData.score_history = score_array.toString();
-    console.log({score_array: score_array})
     let score_data = score_array.map((value, index) => {
       return(
         {
@@ -109,7 +106,7 @@ export default function Puzzle(props) {
         }
       )
     });
-    console.log({score_data: score_data})
+
     setScoreData(score_data)
         
     await updateThemeData(themeData)  // updates data in piu
