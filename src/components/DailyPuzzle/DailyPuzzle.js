@@ -16,9 +16,12 @@ import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
 import { PurchaseTag } from "styled-icons/boxicons-regular";
 import DashNavbar from "../PostLogin/DashboardNavbar/Index"
 import DashSidebar from '../PostLogin/DashboardSidebar/Index'
+import CompletedTraining from './completedTraining';
+
 
 export default function DailyPuzzzle() {
   const [seen, setSeen] = useState(false); // set to true to display modal on load
+  const [completed, setCompleted] = useState(false); // set to true to display completed screen
   const [loaded,setLoaded] = useState(false);
   const [dailyPicks, setDailyPicks] = useState([]);
   const [schemaPicks, setSchemaPicks] = useState([]);
@@ -46,8 +49,13 @@ export default function DailyPuzzzle() {
 
     if ((storedDate.getMonth() !== now.getMonth()) | (storedDate.getDate() !== now.getDate())) {
       let returnedPicks = await getNewPicks();
+      console.log({returnedPicks:  returnedPicks})
       setDailyPicks(returnedPicks.mutatedPicks)
       setSchemaPicks(returnedPicks.schemaPicks)
+      if (returnedPicks.schemaPicks.every(entry => entry.completed === true)) {
+        setCompleted(true)
+      }
+
     } else {
       let picks = Modules.filter(module => {
         return storedDailyPuzzles.some(entry => entry.theme_id === module.id)
@@ -170,6 +178,12 @@ export default function DailyPuzzzle() {
   const isMobile = windowDimension <= 640;
 
   console.log(isMobile)
+
+  if (completed) {
+    return(
+      <CompletedTraining />
+    )
+  }
 
   return (
     <>
