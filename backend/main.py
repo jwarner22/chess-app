@@ -84,7 +84,7 @@ def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
 # USER
 
 # create user
-@app.post('/users/', response_model=schemas.User)
+@app.post('/users', response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(db, user_id=user.user_id)
     if db_user:
@@ -93,7 +93,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 # get user
 @app.get('/users/{user_id}', response_model=schemas.User)
-def read_user(user_id: str, db: Session = Depends(get_db)):
+async def read_user(user_id: str, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -103,7 +103,7 @@ def read_user(user_id: str, db: Session = Depends(get_db)):
 # THEMES
 # get theme
 @app.get('/users/{user_id}/themes/{theme_title}', response_model=schemas.Theme)
-def define_theme_ratings(user_id: str, theme_title: str, db: Session = Depends(get_db)):
+async def define_theme_ratings(user_id: str, theme_title: str, db: Session = Depends(get_db)):
     theme_response = db.query(models.Theme).filter(models.Theme.title == theme_title, models.Theme.owner_id==user_id).one_or_none()
     if theme_response is None:
         raise HTTPException(status_code=404, detail="Theme not found")
@@ -112,13 +112,13 @@ def define_theme_ratings(user_id: str, theme_title: str, db: Session = Depends(g
 
 
 # initialize theme
-@app.post('/users/{user_id}/themes/', response_model=schemas.Theme)
-def define_theme_ratings(user_id: str, theme: schemas.CreateTheme, db: Session = Depends(get_db)):
+@app.post('/users/{user_id}/themes', response_model=schemas.Theme)
+async def define_theme_ratings(user_id: str, theme: schemas.CreateTheme, db: Session = Depends(get_db)):
     theme_ratings = crud.add_theme(db, theme = theme, user_id = user_id)#title = theme.title, category = theme.category)
     return theme_ratings
 
 # update theme
-@app.put("/users/themes/{user_id}", response_model = schemas.User)
+@app.put("/users/{user_id}/themes", response_model = schemas.User)
 async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
@@ -133,10 +133,10 @@ async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = 
 
 # DAILY PUZZLES
 
-# get user's daily puzzles
-@app.get('/daily_puzzles/{user_id}/picks')
-def get_daily_puzzle_picks(user_id: str, db: Session = Depends(get_db)):
-
+# generate user's daily puzzles
+@app.get('/users/{user_id}/daily_puzzles/picks')
+#async def get_daily_puzzle_picks(user_id: str, db: Session = Depends(get_db)):
+async def get_daily_puzzle_picks():
     # if no daily puzzles exist for user - create new ones (one time intiialization)
     daily_puzzles = []
     while (len(daily_puzzles) < 3): # we want three modules
@@ -146,8 +146,9 @@ def get_daily_puzzle_picks(user_id: str, db: Session = Depends(get_db)):
 
     return daily_puzzles
 
+# get user's daily puzzles
 @app.get('/users/{user_id}/daily_puzzles')
-def get_daily_puzzles(user_id: str, db: Session = Depends(get_db)):
+async def get_daily_puzzles(user_id: str, db: Session = Depends(get_db)):
     daily_puzzles = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).all()
     if daily_puzzles is None:
         raise HTTPException(status_code=404, detail="daily puzzles not found")
@@ -158,7 +159,7 @@ def get_daily_puzzles(user_id: str, db: Session = Depends(get_db)):
 
 # create new user daily puzzles
 @app.post('/users/{user_id}/daily_puzzles')
-def create_daily_puzzles( user_id: str, puzzles: List[schemas.CreateDailyPuzzle], db: Session = Depends(get_db)):
+async def create_daily_puzzles( user_id: str, puzzles: List[schemas.CreateDailyPuzzle], db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
     if db_user is None:
@@ -189,8 +190,8 @@ async def update_daily_puzzles(user_id: str, puzzles: List[schemas.CreateDailyPu
     return 'successfully updated'
 
 # remove daily puzzle
-@app.put('/users/{user_id}/daily_puzzles/delete')
-def delete_theme(user_id: str, theme_id: int, db: Session = Depends(get_db)):
+@app.delete('/users/{user_id}/daily_puzzles')
+async def delete_theme(user_id: str, theme_id: int, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
     if db_user is None:
@@ -203,5 +204,34 @@ def delete_theme(user_id: str, theme_id: int, db: Session = Depends(get_db)):
     return db_user
 
 
+## ACHIEVEMENTS
+
+# create new user achievment
+@app.post('/achievements/{user_id}', response_class=schemas.Achievement)
+async def add_achievement(user_id: str, achievement: schemas.CreateAchievement, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+
+    if db_user is None:
+         return None
+    
+    db_achievement= models.DailyPuzzle(**achievement.dict(), owner_id = user_id)
+    db.add(db_achievement)
+    db.commit()
+    db.refresh(db_achievement)
+    return {"achievement successfully created"}
+
+# get all user achievements
+@app.get('/achievements/{user_id}', response_model=List[schemas.Achievement])
+async def get_achievements(user_id: str, db: Session = Depends(get_db)):
+    achievements = db.query(models.Achievement).filter(models.Achievement.owner_id == user_id).all()
+    if achievements is None:
+        raise HTTPException(status_code=404, detail="daily puzzles not found")
+    elif len(achievements) == 0:
+        raise HTTPException(status_code=404, detail="daily puzzles not found")
+
+    return achievements
+
+
+
 if __name__ == '__main__':
-    uvicorn.run('main:app', host='127.0.0.1', port=8000)
+    uvicorn.run('main:app', host='127.0.0.1', port=8000, reload=True) # remove reload for production

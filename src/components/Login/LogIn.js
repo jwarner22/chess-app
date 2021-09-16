@@ -122,7 +122,7 @@ const Login = ({history}) => {
 
   const createNewUser = (userID) => {
     let currentDateTime = new Date().toString()
-    post('/users/', {
+    post('/users', {
       user_id: `${userID}`,
       overall_rating: 1200,
       inserted_at: currentDateTime

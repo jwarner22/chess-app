@@ -48,6 +48,15 @@ class DailyPuzzle(Base):
     owner_id = Column(String, ForeignKey("user.user_id"))
     
 
+class Achievement(Base):
+    __tablename__ = "achievements"
+
+    id = Column(Integer, primary_key=True, index=True)
+    inserted_at = Column(String, unique=False, index=True)
+    category = Column(String, unique=False, index=True)
+    value = Column(Integer, unique=False, index=True)
+    owner_id = Column(String, ForeignKey("user.user_id"))
+
 
 class User(Base):
     __tablename__ = "user"
@@ -59,10 +68,13 @@ class User(Base):
 
     themes =  relationship("Theme", backref="user")
     daily_puzzles = relationship("DailyPuzzle", backref="user")
+    achievements = relationship("Achievement", backref="user")
     #themes = relationship("Theme", back_populates='owner')
 
     class Congif:
         orm_mode = True
+
+
 
 # can repeat this structure for openings and endgames
 

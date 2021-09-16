@@ -75,7 +75,7 @@ const SignUp = ({history}) => {
       localStorage.setItem('userID', userID)
       if (response.additionalUserInfo.isNewUser) {
         console.log('post new user to API')
-        post('/users/', {
+        post('/users', {
           user_id: userID,
           overall_rating: 1200
         }).then(data => {

@@ -57,7 +57,7 @@ export default function Puzzle(props) {
 
   // updates theme after completing module
   const updateThemeData = async (themeData) => {
-    let endpoint = `/users/themes/${userID}`
+    let endpoint = `/users/${userID}/themes`
     put(endpoint, themeData)
     .then(data => {
       //localStorage.setItem('userPublicData',JSON.stringify(data))
