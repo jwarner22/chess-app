@@ -24,7 +24,7 @@ export default PuzzleNav
 
 const PuzzleNavContainer = styled.div`
     display: flex;
-    width: 100vw;
+    width: 100%;
     height: 100%;
     /* background-color: #afafaf33; */
     grid-row: 3;

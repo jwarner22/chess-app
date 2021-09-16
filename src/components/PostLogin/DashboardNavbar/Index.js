@@ -13,6 +13,7 @@ import {
      NavItem,
      NavLinks
     } from './DashboardNavElements'
+import {NavLink} from "react-router-dom"
 import {animateScroll as scroll} from 'react-scroll'
 import firebaseConfig from "../../../config";
 import { Redirect } from "react-router-dom";
@@ -78,22 +79,30 @@ const DashNavbar = ({ toggle }) => {
                         </MobileIcons>
                         <NavMenu>
                             <NavItem>
-                            <NavLinks to="/dailyPuzzle"> 
+                            <NavLinks to="/dailyPuzzle" activeStyle={{
+                            borderBottom: "3px solid #247cf1"
+                            }}> 
                                    Today
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                            <NavLinks to="/dashboard"> 
+                            <NavLinks to="/dashboard" activeStyle={{
+                            borderBottom: "3px solid #247cf1"
+                            }}> 
                                    Pattern Recognition
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to="/openings"> 
+                                <NavLinks to="/openings" activeStyle={{
+                            borderBottom: "3px solid #247cf1"
+                            }}> 
                                    Openings 
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to="/profile"> 
+                                <NavLinks to="/profile" activeStyle={{
+                            borderBottom: "3px solid #247cf1"
+                            }}> 
                                    Profile Page
                                 </NavLinks>
                             </NavItem>

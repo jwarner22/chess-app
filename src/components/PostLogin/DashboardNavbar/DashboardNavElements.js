@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Link as LinkR } from "react-router-dom"
+import { NavLink, Link as LinkR } from "react-router-dom"
 import { FaBars } from 'react-icons/fa'
 require('firebase/auth')
 
@@ -78,7 +78,7 @@ export const NavItem = styled.li `
     height: 80px;
 `;
 
-export const NavLinks = styled(LinkR)`
+export const NavLinks = styled(NavLink)`
     color: #54606c;
     display: flex;
     align-items: center;
