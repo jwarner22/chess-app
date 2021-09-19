@@ -97,7 +97,7 @@ export default function DailyPuzzzle() {
   }
 
   const getNewPicks = async () => {
-    let endpoint = `/daily_puzzles/{user_id}/picks`;
+    let endpoint = `/users/${userId}/daily_puzzles/picks`;
     try {
       let fetchedPicks = await get(endpoint) // gen new picks from API
       let returnedPicks = await setPicks(fetchedPicks) // map picks to modules and save

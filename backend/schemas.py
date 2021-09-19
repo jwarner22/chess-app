@@ -4,7 +4,7 @@ from typing import Optional, List
 
 from sqlalchemy.engine import interfaces
 
-
+# Theme Schemas
 class Theme(BaseModel):
     id: int
     owner_id: str
@@ -29,6 +29,7 @@ class CreateTheme(BaseModel):
     class Config:
         orm_mode=True
 
+# Daily Puzzle Schemas
 class CreateDailyPuzzle(BaseModel):
     location: int
     theme_id: int
@@ -54,6 +55,8 @@ class DailyPuzzle(BaseModel):
         orm_mode=True
 
 
+# Puzzle schema
+
 class Puzzle(BaseModel):
     puzzle_id: str
     fen: str
@@ -61,6 +64,22 @@ class Puzzle(BaseModel):
     themes: str
     class Config:
         orm_mode = True
+
+# Achievement schemas
+class AchievementCreate(BaseModel):
+    owner_id: str
+    inserted_at: str
+    category: str
+    value: str
+
+class Achievement(BaseModel):
+    id: int
+    owner_id: str
+    inserted_at: str
+    category: str
+    value: str
+
+# User schemas
 
 class UserBase(BaseModel):
     pass

@@ -45,7 +45,7 @@ export default function Module(props) {
 
     const createModule = () => {
         
-            post(`/users/${userID}/themes/`,{
+            post(`/users/${userID}/themes`,{
                 title: theme,
                 category: category,
                 rating: 1200,
