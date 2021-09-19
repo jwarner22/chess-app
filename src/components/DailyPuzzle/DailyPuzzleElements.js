@@ -7,7 +7,7 @@ export const Container = styled.div`
     left: 0;
     right: 0;
     top: 0;
-    background: #f6f9fc;
+    background: #F3F5F9;
 `
 
 export const DailyPuzzleWrapper = styled.div`
@@ -49,7 +49,7 @@ export const DailyPuzzleModuleStyle = styled.div`
     display: grid;
     grid-template-columns: 40% 1fr;
     border-radius: 10px;
-    box-shadow: ${({props}) => (props.completed ? 'rgba(48, 242, 24, 0.4) 0px 2px 4px, rgba(48, 242, 24, 0.3) 0px 7px 13px -3px, rgba(48, 242, 24, 0.2) 0px -3px 0px inset;' : 'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;')};
+    box-shadow: ${({props}) => (props.completed ? 'rgba(149, 157, 165, 0.2) 0px 8px 24px;' : 'rgba(149, 157, 165, 0.2) 0px 8px 24px;')};
     transition: all 0.2s ease-in-out;
     max-width: 800px;
     grid-gap: 16px;
@@ -70,13 +70,13 @@ export const DailyPuzzleModuleStyle = styled.div`
 `
 
 export const DailyPuzzleIconWrapper = styled.div`
-    background: #247cf1;
+    background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);
     grid-row: span 2;
     grid-column: 1;
     text-align: center;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    margin-bottom: 3px;
+    margin: 4px;
 `
 
 export const DailyPuzzleIcon = styled.img`

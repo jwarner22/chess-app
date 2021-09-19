@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components"
 import Announcements from "../PostLogin/Announcements/Index"
 import {AnnouncementOne} from "../PostLogin/Announcements/Data"
 import DashNavbar from "../PostLogin/DashboardNavbar/Index"
 import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
 import DashSidebar from "../PostLogin/DashboardSidebar/Index"
 import ProfilePanel from "../ProfilePanel/ProfilePanel"
+import AchievementTiles from "../AchievementTiles/AchievementTiles"
 
 const ProfilePage = () => {
   
@@ -44,10 +46,16 @@ const ProfilePage = () => {
       <DashSidebar isOpen={isOpen} toggle={toggle} />
       </>
       )}
+            <ProfilePageContainer>
       {/* <Announcements {...AnnouncementOne} />  */}
       <ProfilePanel />
+      <AchievementTiles />
+      </ProfilePageContainer>
       </>
     ) 
   };
   export default ProfilePage;
 
+const ProfilePageContainer = styled.div`
+  background: #F3F5F9;
+`

@@ -1,8 +1,9 @@
 import React from 'react'
 import {ProfilePanelContainer,
-    ProfilePanelImgWrapper,
+    ProfilePanelUsernameWrapper,
 ProfilePanelWrapper,
-ProfilePanelHeader
+ProfilePanelHeader,
+ProfilePanelContent
 } from "./ProfilePanelElements"
 import { CgProfile } from "react-icons/cg";
 
@@ -14,8 +15,11 @@ const ProfilePanel = () => {
         </ProfilePanelHeader>
           <ProfilePanelContainer>
               <ProfilePanelWrapper>
-                  <ProfilePanelImgWrapper>
-                  </ProfilePanelImgWrapper>
+                  <ProfilePanelContent>
+                  <ProfilePanelUsernameWrapper>
+                      CalebGibson21
+                  </ProfilePanelUsernameWrapper>
+                  </ProfilePanelContent>
               </ProfilePanelWrapper>
         </ProfilePanelContainer>  
         </>

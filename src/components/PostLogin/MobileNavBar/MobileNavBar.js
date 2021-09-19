@@ -1,9 +1,9 @@
 import React from 'react'
-import {FaChessPawn} from "react-icons/fa"
+import {BiDoorOpen} from "react-icons/bi"
 import {NavLink} from "react-router-dom"
-import { RiHome3Fill } from "react-icons/ri"
-import { FcPuzzle } from "react-icons/fc"
-import { CgProfile } from "react-icons/cg";
+import { BiBrain } from "react-icons/bi"
+import { IoCalendarClearOutline } from "react-icons/io5"
+import { AiOutlineUser } from "react-icons/ai";
 import {Container} from '../../DailyPuzzle/DailyPuzzleElements'
 import {MobileNavbarWrapper, 
     MobileNavbarItems, 
@@ -21,45 +21,45 @@ const MobileNabar = () => {
         <MobileNavbarWrapper>
             <MobileNavbarItems>
                 <MobileNavLink to="/dashboard" activeStyle={{
-                    background:'#2170D9',
+                    color:'#F4B062',
                     fontWeight: "bold"
                 }}>
                 <MobileNavbarItem>
                 <span>
-                    <RiHome3Fill size={16} />
+                    <BiBrain size={24} />
                 </span>
-                Home
+                Patterns
                 </MobileNavbarItem>
                 </MobileNavLink>
                 <MobileNavLink to="/dailyPuzzle" activeStyle={{
-                    background:'#2170D9',
+                    color:'#F4B062',
                     fontWeight: "bold"
                 }}>
                 <MobileNavbarItem>
                 <span>
-                    <FcPuzzle size={16} />
+                    <IoCalendarClearOutline size={24} />
                 </span>
-                Puzzles
+                Today
                 </MobileNavbarItem>
                 </MobileNavLink>
                 <MobileNavLink to="/openings" activeStyle={{
-                    background:'#2170D9',
+                    color:'#F4B062',
                     fontWeight: "bold"
                 }}>
                 <MobileNavbarItem>
                 <span>
-                    <FaChessPawn size={16} />
+                    <BiDoorOpen size={24} />
                 </span>
                 Openings
                 </MobileNavbarItem>
                 </MobileNavLink>
                 <MobileNavLink to="/profile" activeStyle={{
-                    background:'#2170D9',
+                    color:'#F4B062',
                     fontWeight: "bold"
                 }}>
                 <MobileNavbarItem>
                 <span>
-                    <CgProfile size={16} />
+                    <AiOutlineUser size={24} />
                 </span>
                 Profile
                 </MobileNavbarItem>

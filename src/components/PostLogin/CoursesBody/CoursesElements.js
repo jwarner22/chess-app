@@ -59,14 +59,14 @@ export const CoursesWrapper = styled.div`
     display: flex;
     justify-content: center;
     padding: 40px 0px;
-    background-color: #f6f8f9;
+    background: #F3F5F9;
     /* min-height: 100vh; */
 `
 
 export const ModuleWrapper = styled.div `
     max-width: 1170px;
     /* border: 1px solid red; */
-    margin: 0 30px 30px 30px;
+    margin: 0 16px 30px 16px;
     height: auto;
     width: 100%;
 
@@ -74,7 +74,7 @@ export const ModuleWrapper = styled.div `
 
 export const ModuleGrid = styled.ul`
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(160px, 240px));
+grid-template-columns: repeat(auto-fit, minmax(100px, 160px));
 grid-gap: 24px;
 justify-content: space-around;
 align-items: stretch;

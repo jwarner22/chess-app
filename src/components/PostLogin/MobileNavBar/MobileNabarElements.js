@@ -11,16 +11,17 @@ export const MobileNavbarWrapper = styled.div`
     /* margin-top: 8px 0px; */
     z-index: 999;
     width: 100vw;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 `
 export const MobileNavbarItems = styled.ul`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     position: relative;
-    background-color: #247cf1;
+    background-color: #fff;
 `
 export const MobileNavLink = styled(NavLink)`
     text-decoration: none;
-    color: white;
+    color: #247cf1;
     transition: all 0.2s ease-in-out;
     padding: 8px 0px;
     height: 100%;
@@ -31,7 +32,7 @@ export const MobileNavbarItem = styled.li`
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 12px;
     
 `
 export const MobileNavbarIcon = styled.span`
