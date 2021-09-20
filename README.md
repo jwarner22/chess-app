@@ -1,3 +1,7 @@
+# Learning Chess Made Simple!
+
+This project needs a good demo - I'm working on it now!
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
