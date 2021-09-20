@@ -67,10 +67,10 @@ class Puzzle(BaseModel):
 
 # Achievement schemas
 class AchievementCreate(BaseModel):
-    owner_id: str
     inserted_at: str
     category: str
     value: str
+    theme: str
 
 class Achievement(BaseModel):
     id: int
@@ -78,7 +78,9 @@ class Achievement(BaseModel):
     inserted_at: str
     category: str
     value: str
-
+    theme: str
+    class Config:
+        orm_mode = True
 # User schemas
 
 class UserBase(BaseModel):

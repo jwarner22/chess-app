@@ -55,6 +55,7 @@ class Achievement(Base):
     inserted_at = Column(String, unique=False, index=True)
     category = Column(String, unique=False, index=True)
     value = Column(Integer, unique=False, index=True)
+    theme = Column(String, unique=False, index=True)
     owner_id = Column(String, ForeignKey("user.user_id"))
 
 

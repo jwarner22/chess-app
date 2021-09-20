@@ -207,14 +207,14 @@ async def delete_theme(user_id: str, theme_id: int, db: Session = Depends(get_db
 ## ACHIEVEMENTS
 
 # create new user achievment
-@app.post('/achievements/{user_id}', response_class=schemas.Achievement)
-async def add_achievement(user_id: str, achievement: schemas.CreateAchievement, db: Session = Depends(get_db)):
+@app.post('/achievements/{user_id}')
+async def add_achievement(user_id: str, achievement: schemas.AchievementCreate, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
     if db_user is None:
          return None
     
-    db_achievement= models.DailyPuzzle(**achievement.dict(), owner_id = user_id)
+    db_achievement= models.Achievement(**achievement.dict(), owner_id = user_id)
     db.add(db_achievement)
     db.commit()
     db.refresh(db_achievement)

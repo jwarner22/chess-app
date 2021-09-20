@@ -52,9 +52,6 @@ export default function DailyPuzzzle() {
       console.log({returnedPicks:  returnedPicks})
       setDailyPicks(returnedPicks.mutatedPicks)
       setSchemaPicks(returnedPicks.schemaPicks)
-      if (returnedPicks.schemaPicks.every(entry => entry.completed === true)) {
-        setCompleted(true)
-      }
 
     } else {
       let picks = Modules.filter(module => {
@@ -68,6 +65,10 @@ export default function DailyPuzzzle() {
 
       setSchemaPicks(storedDailyPuzzles);
       setDailyPicks(mutatedPicks);
+
+      if (storedDailyPuzzles.every(entry => entry.completed === true)) {
+        setCompleted(true)
+      }
       
     }
     setLoaded(true)

@@ -32,7 +32,7 @@ export default class Chessground extends React.Component {
     items: PropTypes.object,
     drawable: PropTypes.object
   };
-
+  
   static defaultProps = {
     coordinates: true,
     resizable: true,
