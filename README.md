@@ -1,7 +1,6 @@
 # Learning Chess Made Simple!
 
-Demo: https://youtu.be/w15nCKn1hrk
-(I need to seriously improve this!)
+Demo: https://youtu.be/nfHMKA9y-68
 
 # Getting Started with Create React App
 
