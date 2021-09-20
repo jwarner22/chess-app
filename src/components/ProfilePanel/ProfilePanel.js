@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {ProfilePanelContainer,
     ProfilePanelUsernameWrapper,
 ProfilePanelWrapper,
@@ -8,6 +8,7 @@ ProfilePanelContent
 import { CgProfile } from "react-icons/cg";
 
 const ProfilePanel = () => {
+
     return (
         <>
         <ProfilePanelHeader>

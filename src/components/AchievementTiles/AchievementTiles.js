@@ -6,7 +6,9 @@ SmallTile
 } from "./AchievementTilesElements"
 
 
-const AchievementTiles = () => {
+const AchievementTiles = (props) => {
+    const achievements = props;
+    console.log(achievements)
     return (
         <>
         <AchievementTileContainer>
@@ -30,3 +32,11 @@ const AchievementTiles = () => {
 }
 
 export default AchievementTiles
+
+// {achievements.map(achievement => {
+//     return(
+//         <SmallTile>
+//             {achievement.category}
+//         </SmallTile>
+//     )
+// })}
