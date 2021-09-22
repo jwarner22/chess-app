@@ -1,7 +1,8 @@
 
 
-from fastapi import FastAPI, Depends, HTTPException
-
+from starlette.status import HTTP_401_UNAUTHORIZED
+from utlities.security import check_token
+from fastapi import FastAPI, Depends, HTTPException, APIRouter
 import uvicorn
 from typing import Optional, List
 
@@ -18,7 +19,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from random import randint
 
-app_v1 = FastAPI()
+app_v1 = APIRouter()
 
 # CORS middelware to allow http requests NEED TO MODIFY FOR PRODUCTION
 origins = [
@@ -26,13 +27,13 @@ origins = [
     "http://localhost:3000",
 ]
 
-app_v1.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# app_v1.middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 models.Base.metadata.create_all(engine_remote)
 models.Base.metadata.create_all(engine_local)
@@ -51,6 +52,7 @@ def get_local_db():
         yield db
     finally:
         db.close()
+
 
 ## TESTING
 
@@ -225,7 +227,7 @@ async def add_achievement(user_id: str, achievement: schemas.AchievementCreate, 
 # get all user achievements
 @app_v1.get('/achievements/{user_id}', response_model=List[schemas.Achievement])
 async def get_achievements(user_id: str, db: Session = Depends(get_db)):
-    achievements = db.query(models.Achievement).filter(models.Achievement.owner_id == user_id).all()
+    achievements = db.query(models.Achievement).filter(models.Achievement.owner_id == user_id).all() # daily: .filter(models.Achievement.inserted_at >= time.time() (but for today))
     if achievements is None:
         raise HTTPException(status_code=404, detail="daily puzzles not found")
     elif len(achievements) == 0:

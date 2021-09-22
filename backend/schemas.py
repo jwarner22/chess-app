@@ -69,7 +69,7 @@ class Puzzle(BaseModel):
 class AchievementCreate(BaseModel):
     inserted_at: str
     category: str
-    value: str
+    value: int
     theme: str
 
 class Achievement(BaseModel):
@@ -77,7 +77,7 @@ class Achievement(BaseModel):
     owner_id: str
     inserted_at: str
     category: str
-    value: str
+    value: int
     theme: str
     class Config:
         orm_mode = True

@@ -108,6 +108,7 @@ export default function Puzzle(props) {
     if (themeData.high_score < score) {
       // new high score!
       themeData.high_score = score;
+      console.log("set achievement")
       setAchievement("high_score", score)
     }
 

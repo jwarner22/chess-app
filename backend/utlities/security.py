@@ -1,6 +1,6 @@
 from fastapi import Depends, HTTPException
 from starlette.status import HTTP_401_UNAUTHORIZED
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer, HTTPAuthorizationCredentials, HTTPBearer
 import firebase_admin
 from firebase_admin import credentials, auth
 import time
@@ -49,3 +49,24 @@ def check_token(token: str): #= Depends(oauth_schema)):
         # return exception here
         return  False
     return  False
+
+def get_user(cred: HTTPAuthorizationCredentials=Depends(HTTPBearer(auto_error=False))):
+    if cred is None:
+        raise HTTPException(
+            status_code=HTTP_401_UNAUTHORIZED,
+            details="Bearer Authentication required"        
+            )
+    try:
+        check_token(cred)
+        if (check_token):
+            return True
+        else:
+            raise HTTPException(
+            status_code=HTTP_401_UNAUTHORIZED,
+            details="Invalid Authentication Credentials"        
+            )
+    except Exception as e:
+        raise HTTPException(
+            status_code=HTTP_401_UNAUTHORIZED,
+            details="Invalid Authentication Credentials"        
+            )
