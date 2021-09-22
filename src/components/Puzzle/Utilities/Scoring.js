@@ -33,7 +33,7 @@ export const calcEloRating = (outcomes, puzzles, playerRating) => {
 
     let ratings = puzzles.map(puzzle => puzzle.rating); // extracts ratings
     
-    const diff_index = rating => (rating - 800)/(2600-800); // calcs difficulty index
+    const diff_index = rating => (rating - 600)/(2600-600); // calcs difficulty index
     
     // calcs score for each puzzle
     let scores = outcomes.map((outcome, index) => {

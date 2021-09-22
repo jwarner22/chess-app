@@ -48,7 +48,7 @@ export default function Module(props) {
             post(`/users/${userID}/themes`,{
                 title: theme,
                 category: category,
-                rating: 1200,
+                rating: 800,
                 completed: 0,
                 high_score: 0,
                 score_history: '0,0,0,0,0,0,0'
