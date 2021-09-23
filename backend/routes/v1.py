@@ -14,6 +14,7 @@ from database import engine_local,engine_remote, SessionLocal, SessionRemote
 from read_puzzles import get_puzzles
 import schemas
 import crud
+import time
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -226,8 +227,8 @@ async def add_achievement(user_id: str, achievement: schemas.AchievementCreate, 
 
 # get all user achievements
 @app_v1.get('/achievements/{user_id}', response_model=List[schemas.Achievement])
-async def get_achievements(user_id: str, db: Session = Depends(get_db)):
-    achievements = db.query(models.Achievement).filter(models.Achievement.owner_id == user_id).all() # daily: .filter(models.Achievement.inserted_at >= time.time() (but for today))
+async def get_achievements(user_id: str, db: Session = Depends(get_db), limit: int = 20):
+    achievements = db.query(models.Achievement).filter(models.Achievement.owner_id == user_id).limit(limit).all() # daily: .filter(models.Achievement.inserted_at >= time.time() (but for today))
     if achievements is None:
         raise HTTPException(status_code=404, detail="daily puzzles not found")
     elif len(achievements) == 0:
@@ -235,6 +236,16 @@ async def get_achievements(user_id: str, db: Session = Depends(get_db)):
 
     return achievements
 
+# get user daily achievements
+@app_v1.get('/achievements/{user_id}/daily', response_model=List[schemas.Achievement])
+async def get_achievements(user_id: str, db: Session = Depends(get_db)):
+    achievements = db.query(models.Achievement).filter(models.Achievement.owner_id == user_id).filter(models.Achievement.inserted_at > ((time.time()*1000)-(3600*24*1000))).all() # daily: .filter(models.Achievement.inserted_at >= time.time() (but for today))
+    if achievements is None:
+        raise HTTPException(status_code=404, detail="daily puzzles not found")
+    elif len(achievements) == 0:
+        raise HTTPException(status_code=404, detail="daily puzzles not found")
+    else: 
+        return achievements
 
 
 #if __name__ == '__main__':

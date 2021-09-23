@@ -39,7 +39,7 @@ export default function CompletedTraining() {
 
     async function fetchAchievements() {
       // fetch daily achievements here and display in list in return statement
-      let endpoint = `/achievements/${userID}`
+      let endpoint = `/achievements/${userID}/daily`
       let achievements = await get(endpoint)
       setAchievements(achievements)
     }

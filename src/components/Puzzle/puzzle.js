@@ -68,7 +68,7 @@ export default function Puzzle(props) {
 
   async function setAchievement(category, value) {
     let endpoint = `/achievements/${userID}`
-    let now = Date.now().toString()
+    let now = Date.now()
     post(endpoint, {
       inserted_at: now,
       category: category,

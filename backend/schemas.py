@@ -67,7 +67,7 @@ class Puzzle(BaseModel):
 
 # Achievement schemas
 class AchievementCreate(BaseModel):
-    inserted_at: str
+    inserted_at: float
     category: str
     value: int
     theme: str
@@ -75,7 +75,7 @@ class AchievementCreate(BaseModel):
 class Achievement(BaseModel):
     id: int
     owner_id: str
-    inserted_at: str
+    inserted_at: float
     category: str
     value: int
     theme: str
