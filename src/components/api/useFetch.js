@@ -5,18 +5,22 @@ export default function useFetch(baseUrl) {
     const [loading, setLoading] = useState(true);
 
     async function getAccessToken() {
-        let storedToken = sessionStorage.getItem('access_token');
+        let storedToken = (sessionStorage.getItem('access_token')) ? sessionStorage.getItem('access_token') : null;
+        let accessTimeout = (sessionStorage.getItem('access_timeout')) ? Number.parseFloat(sessionStorage.getItem('access_token')) : null;
+        let now = Date.now();
+        let hour = 3600000;
         
-        if (storedToken != null) {
+        // check if token exists or is expired 
+        if (storedToken != null && accessTimeout != null && (accessTimeout > (now-hour))) {
             return storedToken;
         } else {
         let idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
               // store for later use  
               sessionStorage.setItem('access_token', idToken)
+              sessionStorage.setItem('access_timeout', now.toString())
               // pass this id token in headers
               return idToken;
-              
-            // ..
+
           }).catch(function(error) {
           // handle error
           alert('not authenticated')
