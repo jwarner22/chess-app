@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {Link} from 'react-router-dom'
 import {ProfilePanelContainer,
     ProfilePanelUsernameWrapper,
 ProfilePanelWrapper,
@@ -27,9 +28,11 @@ const ProfilePanel = () => {
                   <ProfilePanelUsernameWrapper>
                       CalebGibson21
                   </ProfilePanelUsernameWrapper>
+                  <Link to='/dailyPuzzle'>
                   <ProfilePanelButton>
                       Todays Workout
                   </ProfilePanelButton>
+                  </Link>
                   <CalendarTitleWrapper>
                       <CalendarTitle>
                           Daily Streak: 2
@@ -40,7 +43,7 @@ const ProfilePanel = () => {
                      <CalendarBackground>
                           <CalendarGrid>
                               <CalendarDay>
-                                  M
+                                  S
                               </CalendarDay>
                           </CalendarGrid>
                     </CalendarBackground>

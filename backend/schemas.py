@@ -90,10 +90,12 @@ class UserCreate(UserBase):
     user_id: str
     overall_rating: int
     inserted_at: str
+    total_score: Optional[int] = 0
 
 class User(UserBase):
     id: int
     overall_rating: Optional[int] = 1200
+    total_score: int
     themes: Optional[List[Theme]] = []
     daily_puzzles: Optional[List[DailyPuzzle]] = []
 

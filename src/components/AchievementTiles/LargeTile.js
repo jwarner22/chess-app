@@ -1,7 +1,8 @@
 import React from 'react'
 import {LargeTileContainer, LargeTileWrapper, LargeTileContent, LargeTileIconWrapper, LargeTileTitle, LargeTileData, LargeTileTip} from "./LargeTileElements"
 
-const LargeTile = () => {
+const LargeTile = (props) => {
+    const {value, title} = props;
     return (
         <>
             <LargeTileContainer>
@@ -10,10 +11,10 @@ const LargeTile = () => {
                         <LargeTileIconWrapper>
                         </LargeTileIconWrapper>
                         <LargeTileTitle>
-                                Accuracy
+                        {title}
                         </LargeTileTitle>
                         <LargeTileData>
-                            95%
+                        {value}
                         </LargeTileData>
                         <LargeTileTip>
                         Try to stay above 90%
