@@ -27,23 +27,77 @@ export const ProfilePanelWrapper = styled.div`
     background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);
     justify-content: flex-start;
     align-items: flex-start;
+    flex-direction: column;
 `
 
 export const ProfilePanelContent = styled.div`
     display: flex;
     flex-direction: column;
+    width: 50%;
 `
 
 export const ProfilePanelUsernameWrapper = styled.div`
     display: flex;
-    border: 2px white solid; 
     min-height: 90%;
-    margin: 16px;
+    margin: 6px;
     color: #fff;
     font-weight: 600;
     font-size: 1.25rem;
 `
+export const ProfilePanelButton = styled.button`
+    width: 130px;
+    height: 35px;
+    left: 46px;
+    top: 122px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 6px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+`
 
+export const CalendarTitleWrapper = styled.div`
+    display: flex; 
+    justify-content: flex-start;
+    align-items: center;
+    margin: 8px;
+`
+
+export const CalendarTitle = styled.h3`
+    color: white;
+`
+export const CalendarBackgroundWrapper = styled.div`
+    width: 100%;
+    justify-content: center;
+    display: flex;
+`
+
+
+export const CalendarBackground = styled.div`
+    width: 320px;
+    height: 39px;
+    left: 46px;
+    top: 199px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+`
 // export const ProfilePageImg = styled(CgProfile){
 
 // }
+
+export const CalendarGrid = styled.ul`
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: auto 0px;
+    align-items: center;
+`
+export const CalendarDay = styled.li`
+    color: #fff;
+    list-style-type: none;
+    font-weight:600;
+`

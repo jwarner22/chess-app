@@ -1,9 +1,9 @@
 import React from 'react'
 import {AchievementTileContainer, 
-AchievementTileWrapper,
-LargeTile,
-SmallTile
+AchievementTileWrapper
 } from "./AchievementTilesElements"
+import LargeTile from "./LargeTile"
+import SmallTile from "./SmallTiles"
 
 
 const AchievementTiles = () => {
@@ -11,18 +11,11 @@ const AchievementTiles = () => {
         <>
         <AchievementTileContainer>
             <AchievementTileWrapper>
-                <LargeTile>
-                </LargeTile>
-                <LargeTile>
-                </LargeTile>
-                <SmallTile>
-                </SmallTile>
-                <SmallTile>
-                </SmallTile>
-                <SmallTile>
-                </SmallTile>
-                <SmallTile>
-                </SmallTile>
+                <LargeTile />
+                <LargeTile />
+                <SmallTile />
+                <SmallTile />
+                <SmallTile />
             </AchievementTileWrapper>
         </AchievementTileContainer>
         </>

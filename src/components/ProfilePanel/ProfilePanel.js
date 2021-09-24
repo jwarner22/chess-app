@@ -3,7 +3,14 @@ import {ProfilePanelContainer,
     ProfilePanelUsernameWrapper,
 ProfilePanelWrapper,
 ProfilePanelHeader,
-ProfilePanelContent
+ProfilePanelContent,
+ProfilePanelButton,
+CalendarTitleWrapper,
+CalendarTitle,
+CalendarBackgroundWrapper,
+CalendarBackground,
+CalendarGrid,
+CalendarDay
 } from "./ProfilePanelElements"
 import { CgProfile } from "react-icons/cg";
 
@@ -19,7 +26,24 @@ const ProfilePanel = () => {
                   <ProfilePanelUsernameWrapper>
                       CalebGibson21
                   </ProfilePanelUsernameWrapper>
+                  <ProfilePanelButton>
+                      Todays Workout
+                  </ProfilePanelButton>
+                  <CalendarTitleWrapper>
+                      <CalendarTitle>
+                          Daily Streak: 2
+                      </CalendarTitle>
+                  </CalendarTitleWrapper>
                   </ProfilePanelContent>
+                  <CalendarBackgroundWrapper>
+                     <CalendarBackground>
+                          <CalendarGrid>
+                              <CalendarDay>
+                                  M
+                              </CalendarDay>
+                          </CalendarGrid>
+                    </CalendarBackground>
+                    </CalendarBackgroundWrapper>
               </ProfilePanelWrapper>
         </ProfilePanelContainer>  
         </>
