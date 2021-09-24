@@ -28,14 +28,15 @@ export const SmallTileIconContainer = styled.div`
     justify-self: center;
     grid-row: 1 / span 3;
     height: 100%;
+    background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);
 `
 
 export const SmallTileIconWrapper = styled.div`
+    background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);    
     display: flex;
     border-radius: 50%;
     min-width: 48px;
     min-height: 48px;
-    background: #F3F5F9;
     grid-row: 1 / span 3;
     grid-column: 1;
     border-radius: 10px;
@@ -58,7 +59,7 @@ export const SmallTileTitle = styled.div`
 
 export const ProgressBarWrapper = styled.div`
     background: #FFFFFF;
-    border: 1px solid rgba(188, 188, 188, 0.5);
+    margin-top: 8px;
     border-radius: 50px;
     margin-left: 20px;
     margin-right: 8px;
