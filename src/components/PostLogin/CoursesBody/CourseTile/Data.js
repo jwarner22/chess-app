@@ -398,16 +398,6 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Sacrifice.svg").default
     },{
-        id: 41,
-        category: 'puzzle',
-        type: 'midgame',
-        type_ref: 'simplification',
-        headline: 'Simplification',
-        subheading: `"If winning, clarify; if losing, complicate."`,
-        instructions: 'It is good practice to trade pieces when you hold the advantage. Simplifying in this way opens a clearer path to victory.',
-        description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/Simplification.svg").default
-    },{
         id: 42,
         category: 'puzzle',
         type: 'midgame',
@@ -483,6 +473,16 @@ const excludedModules = [
         instructions: 'A coercion tactic is the act of forcing your opponent to move a piece, often the king, to a location in whihch it is vulnerable to tactics.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Coercion.svg").default
+    },{
+        id: 41,
+        category: 'puzzle',
+        type: 'midgame',
+        type_ref: 'simplification',
+        headline: 'Simplification',
+        subheading: `"If winning, clarify; if losing, complicate."`,
+        instructions: 'It is good practice to trade pieces when you hold the advantage. Simplifying in this way opens a clearer path to victory.',
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../Images/Simplification.svg").default
     }
 ]
 

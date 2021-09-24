@@ -2,7 +2,7 @@ from enum import unique
 from typing import Sequence
 import uuid
 from pydantic.types import UUID1
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import column
 from sqlalchemy.sql.sqltypes import TIMESTAMP
@@ -52,9 +52,10 @@ class Achievement(Base):
     __tablename__ = "achievements"
 
     id = Column(Integer, primary_key=True, index=True)
-    inserted_at = Column(String, unique=False, index=True)
+    inserted_at = Column(Float, unique=False, index=True)
     category = Column(String, unique=False, index=True)
     value = Column(Integer, unique=False, index=True)
+    theme = Column(String, unique=False, index=True)
     owner_id = Column(String, ForeignKey("user.user_id"))
 
 

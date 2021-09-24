@@ -64,6 +64,7 @@ const Login = ({history}) => {
         .then(res => {
 //if user is logged in, push to the app dashboard
           if (res.user) {
+            console.log(res)
             //Auth.setLoggedIn(true);
             setUserData(res, res.user.uid);
             setIsLoggedIn(true)
@@ -124,7 +125,7 @@ const Login = ({history}) => {
     let currentDateTime = new Date().toString()
     post('/users', {
       user_id: `${userID}`,
-      overall_rating: 1200,
+      overall_rating: 800,
       inserted_at: currentDateTime
     }).then(data => {
       localStorage.setItem('userPublicData', JSON.stringify(data))

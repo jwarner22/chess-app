@@ -1,9 +1,15 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 
 import ConfettiGenerator from 'confetti-js';
 import queenImg from '../Puzzle/chess/pieces/nova/wQ.svg';
+import useFetch from '../api/useFetch';
+import {baseURL} from '../api/apiConfig';
 
 export default function CompletedTraining() {
+  const [achievements, setAchievements] = useState([])
+  const {get} = useFetch(baseURL)
+  const userID = localStorage.getItem('userID')
+
     useEffect(() => {
       const confettiSettings = {
         target: 'my-canvas',
@@ -25,9 +31,18 @@ export default function CompletedTraining() {
       };
       const confetti = new ConfettiGenerator(confettiSettings)
       confetti.render()
-  
+      
+      fetchAchievements()
+
       return(() => confetti.clear());
     },[])
+
+    async function fetchAchievements() {
+      // fetch daily achievements here and display in list in return statement
+      let endpoint = `/achievements/${userID}/daily`
+      let achievements = await get(endpoint)
+      setAchievements(achievements)
+    }
   
     return(
       <>
@@ -39,6 +54,14 @@ export default function CompletedTraining() {
       <h1 style={{textAlign: 'center', marginTop: '10px', color:'#DCDCDC'}}>Achievements</h1>
       </div>
       <hr style={{color: '#DCDCDC'}}></hr>
+      <ul>
+        <li>Theme Category Value</li>
+        {achievements && achievements.map((achievement, index) => {
+          return (
+            <li key={index}>{achievement.theme} {achievement.category} {achievement.value}</li>
+          )
+        })}
+      </ul>
       </>
     )
   }

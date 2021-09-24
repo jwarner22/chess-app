@@ -23,7 +23,7 @@ export default function Puzzle(props) {
   const [userData, setUserData] = useState({});
   const [score, setScore] = useState(0);
   const [scoreData, setScoreData] = useState([])
-  const {get,put} = useFetch(baseURL);
+  const {get,put, post} = useFetch(baseURL);
 
 
   const {rating,theme,id, isDaily} = props;
@@ -66,17 +66,40 @@ export default function Puzzle(props) {
 
   }
 
+  async function setAchievement(category, value) {
+    let endpoint = `/achievements/${userID}`
+    let now = Date.now()
+    post(endpoint, {
+      inserted_at: now,
+      category: category,
+      value: value,
+      theme: theme
+    })
+  }
+
   // updates theme data and sends to API
   async function saveResults(outcomes) {
     //let oldData = JSON.parse(localStorage.getItem('userPublicData'))
 
     const themeData = await fetchThemeData() // gets theme data from API
     // score change
-    if (outcomes.every(result => result === true)) setPerfect(true);
+    if (outcomes.every(result => result === true)) {
+      setPerfect(true);
+      setAchievement('perfect', 0);
+    };
   
 
     let newRating = calcEloRating(outcomes,puzzles,themeData.rating);
     
+    //if (themeData.rating < newRating) {
+      // new high rating
+      // need high rating parameter
+    //}
+    if (newRating > themeData.high_rating) {
+      // new high rating
+      themeData.high_rating = newRating;
+      setAchievement("high_rating", newRating);
+    }
     themeData.rating = newRating
     themeData.completed += 1; // adds 1 to number of puzzles completed
     
@@ -85,6 +108,8 @@ export default function Puzzle(props) {
     if (themeData.high_score < score) {
       // new high score!
       themeData.high_score = score;
+      console.log("set achievement")
+      setAchievement("high_score", score)
     }
 
     setScore(score)

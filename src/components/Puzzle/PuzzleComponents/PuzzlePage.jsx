@@ -71,7 +71,6 @@ export default function PuzzlePage(props) {
 
   // puzzle module is finished
   const finished = async () => {
-    await wait(1000)
     props.puzzleIsFinished(outcomes, 'succeed');
   }
 

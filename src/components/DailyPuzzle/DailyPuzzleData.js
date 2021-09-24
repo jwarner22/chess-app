@@ -361,15 +361,6 @@ export const DailyPuzzleModules = [
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 41,
-        category: 'puzzle',
-        type: 'midgame',
-        type_ref: 'simplification',
-        headline: 'Simplification',
-        subheading: `"If winning, clarify; if losing, complicate."`,
-        description: 'Lorem ipsum mah brudda',
-        img: require("../../Images/Simplification.svg").default
-    },{
         id: 42,
         category: 'puzzle',
         type: 'midgame',
@@ -417,3 +408,14 @@ export const DailyPuzzleModules = [
     }
 
 ]
+
+// ,{
+//     id: 41,
+//     category: 'puzzle',
+//     type: 'midgame',
+//     type_ref: 'simplification',
+//     headline: 'Simplification',
+//     subheading: `"If winning, clarify; if losing, complicate."`,
+//     description: 'Lorem ipsum mah brudda',
+//     img: require("../../Images/Simplification.svg").default
+// }

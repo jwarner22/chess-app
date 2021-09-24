@@ -7,9 +7,26 @@ import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
 import DashSidebar from "../PostLogin/DashboardSidebar/Index"
 import ProfilePanel from "../ProfilePanel/ProfilePanel"
 import AchievementTiles from "../AchievementTiles/AchievementTiles"
+import useFetch from '../api/useFetch';
+import {baseURL} from '../api/apiConfig';
 
 const ProfilePage = () => {
-  
+  const  [achievements, setAchievements] = useState([])
+  const {get, loading} = useFetch(baseURL)
+  const userID = localStorage.getItem('userID');
+
+  useEffect(() => {
+      fetchAchievements();
+  },[])
+
+  async function fetchAchievements() {
+      // fetch daily achievements here and display in list in return statement
+      let endpoint = `/achievements/${userID}`
+      let achievements = await get(endpoint)
+      setAchievements(achievements)
+      console.log({'achievements': achievements})
+    }
+
   //hamburger sidebar menu
   const [isOpen, setIsOpen] = useState(false)
 
@@ -49,7 +66,7 @@ const ProfilePage = () => {
             <ProfilePageContainer>
       {/* <Announcements {...AnnouncementOne} />  */}
       <ProfilePanel />
-      <AchievementTiles />
+      {(!loading) && <AchievementTiles achievements={achievements}/>}
       </ProfilePageContainer>
       </>
     ) 
