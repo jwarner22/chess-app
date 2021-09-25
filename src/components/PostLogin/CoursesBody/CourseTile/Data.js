@@ -121,7 +121,7 @@ export const Modules = [
         id: 11,
         category: 'puzzle',
         type: 'checkmate',
-        type_ref: 'bodensMate',
+        type_ref: 'bodenMate',
         headline: `Boden's Mate`,
         subheading: 'Criss-cross',
         instructions: `This classic bishop mating pattern involves two opposite facing bishops removing the opposing king's flight squares while delivering checkmate`,
