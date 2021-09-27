@@ -9,17 +9,16 @@ import SmallTile from "./SmallTiles"
 
 const AchievementTiles = (props) => {
     const {achievements} = props;
-    console.log({achievements: achievements})
-    
+    let accuracy = Math.floor((props.profileData.puzzles_correct/props.profileData.puzzles_completed)*100);
     return (
         <>
         <AchievementTileContainer>
             <AchievementTileWrapper>
                 <LargeTile value={props.profileData.overall_rating} title={'Overall Rating'}/>
-                <LargeTile value={props.profileData.total_score} title={'Total Score'}/>
+                <LargeTile value={accuracy} title={'Accuracy'}/>
                 {achievements.map((achievement, index) => {
                     return(
-                        <><SmallTile key={index} achievement={achievement} /></>
+                        <SmallTile key={index} achievement={achievement} />
                     )
                 })}
             </AchievementTileWrapper>

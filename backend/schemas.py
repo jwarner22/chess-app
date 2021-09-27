@@ -92,10 +92,34 @@ class UserCreate(UserBase):
     inserted_at: str
     total_score: Optional[int] = 0
 
+class UserUpdate(UserBase):
+    user_id: str
+    overall_rating: int
+    inserted_at: str
+    total_score: Optional[int] = 0
+    puzzles_completed: Optional[int] = 0
+    puzzles_correct: Optional[int] = 0
+
+    class Config:
+        orm_mode=True
+
+class UserProfile(UserBase):
+    user_id: str
+    overall_rating: int
+    inserted_at: str
+    total_score: Optional[int] = 0
+    puzzles_completed: Optional[int] = 0
+    puzzles_correct: Optional[int] = 0
+
+    class Config:
+        orm_mode=True
+
 class User(UserBase):
     id: int
     overall_rating: Optional[int] = 1200
     total_score: int
+    puzzles_completed: Optional[int] = 0
+    puzzles_correct: Optional[int] = 0
     themes: Optional[List[Theme]] = []
     daily_puzzles: Optional[List[DailyPuzzle]] = []
 

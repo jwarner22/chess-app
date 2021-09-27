@@ -19,8 +19,7 @@ const SmallTile = (props) => {
     const percent = (achievement.value/500)*100 // calculates percent of progress to max score (rudimentary initial setup)
     //const percent = 50;
     const color = 'blue';
-    console.log(achievement.value)
-    console.log(percent)
+
     useEffect(() => {
         matchCategory()
         matchModule()

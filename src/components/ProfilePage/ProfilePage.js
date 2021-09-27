@@ -26,14 +26,12 @@ const ProfilePage = () => {
       let endpoint = `/achievements/${userID}`
       let achievements = await get(endpoint)
       setAchievements(achievements)
-      console.log({'achievements furela': achievements})
     }
 
   async function fetchProfileData() {
     let endpoint = `/users/${userID}`;
     let profileData = await get(endpoint)
     setProfileData(profileData)
-    console.log({'profileData': profileData})
   }
 
   //hamburger sidebar menu

@@ -46,7 +46,6 @@ export default function Puzzle(props) {
   // fetches relevant user theme data from API
   const fetchThemeData = async () => {
     try {
-      console.log({theme: theme})
       const data = await get(`/users/${userID}/themes/${theme}`);
       return data;
     } catch {
@@ -77,6 +76,26 @@ export default function Puzzle(props) {
     })
   }
 
+  async function fetchProfileData() {
+    let endpoint = `/users/${userID}`;
+    try {
+      let profileData = await get(endpoint)
+      return profileData
+    } catch(e) {
+      alert(e)
+    }
+  }
+
+  async function setProfileData(profileData) {
+    let endpoint = `/users/${userID}`;
+    try {
+      put(endpoint, profileData)
+    } catch(e) {
+      alert(e)
+    }
+
+  }
+
   // updates theme data and sends to API
   async function saveResults(outcomes) {
     //let oldData = JSON.parse(localStorage.getItem('userPublicData'))
@@ -88,7 +107,6 @@ export default function Puzzle(props) {
       setAchievement('perfect', 0);
     };
   
-
     let newRating = calcEloRating(outcomes,puzzles,themeData.rating);
     
     //if (themeData.rating < newRating) {
@@ -108,7 +126,6 @@ export default function Puzzle(props) {
     if (themeData.high_score < score) {
       // new high score!
       themeData.high_score = score;
-      console.log("set achievement")
       setAchievement("high_score", score)
     }
 
@@ -137,6 +154,16 @@ export default function Puzzle(props) {
     await updateThemeData(themeData)  // updates data in piu
     
     setUserData(themeData) // sets user data to pass as props to post puzzle page
+
+    let profileData = await fetchProfileData()
+    let newOverallRating = calcEloRating(outcomes, puzzles, profileData.overall_rating)
+    console.log({ratingCalcOutput: newOverallRating})
+    profileData.overall_rating = newOverallRating;
+    profileData.total_score += score ;
+    profileData.puzzles_completed += outcomes.length;
+    profileData.puzzles_correct += outcomes.filter(outcome => outcome === true).length;
+
+    setProfileData(profileData)
 
   }
 
