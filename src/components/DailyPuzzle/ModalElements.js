@@ -58,7 +58,6 @@ export const ModalImg = styled.img`
 
 export const ModalTitle = styled.h1`
   text-align: center;
-  font-weight: 400;
   color: #247cf1;
   margin-top: 30px;
   grid-column: 1 / span 2;
@@ -68,6 +67,7 @@ export const ModalSubheading = styled.h2`
   text-align: center;
   color: #333;
   grid-column: 1 / span 2;
+  font-weight: 600;
 `
 
 export const ModalBodyImg = styled.img`
@@ -88,24 +88,25 @@ export const ModalBodyP = styled.p`
   text-align: left;
   color: #333;
   grid-column: 2;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
 `
 
 export const StartButton = styled.button`
-  border-radius: 50px;
-    background: #247cf1;
     white-space: nowrap;
-    padding: 8px 22px;
-    margin: 8px;
+    padding: 8px 16px;
+    margin: 16px 0px 24px 0px;
     color: #fff;
-    font-size: 16px;
+    font-size: 22px;
     outline: none;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+    min-width: 150px;
+    font-weight: 400;
     grid-column: 1 / span 2;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    background: #247cf1;
+    border-radius: 16px;
 
     &:hover {
         transition: all 0.2s ease-in-out;

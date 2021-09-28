@@ -11,7 +11,7 @@ export const PuzzlePageContainer = styled.div`
   z-index: 0;
   overflow: hidden;
   background-color: #f6f8f9;
-  height: 105vh;
+  height: 100%;
 `
 export const PrePuzzleIconWrapper = styled.div`
     background: #247cf1;
@@ -21,7 +21,6 @@ export const PrePuzzleIconWrapper = styled.div`
     margin-bottom: 3px;
 `
 export const PrePuzzleWrapper = styled.div`
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -134,8 +133,8 @@ export const InstructionsWrapper = styled.div`
     /* width: 100%; */
     /* border: 2px solid red; */
     height: 100%;
-    padding: 8px;
-    margin: 8px;
+    padding: 8px 8px 0px 8px;
+    margin: 8px 8px 0px 8px;
     min-width: 300px;
     max-width: 85%;
 `
@@ -144,7 +143,7 @@ export const TipsTitleWrapper = styled.div`
 `
 
 export const TipsTitle = styled.h2`
-    font-weight: 400;
+    font-weight: 600;
     color: #54606c;
 
     @media screen and (max-width: 640px) {
@@ -177,9 +176,8 @@ export const TipDescriptionWrapper = styled.div`
     justify-content: center;
 `
 
-export const Tip1Description = styled.h3`
+export const Tip1Description = styled.p`
     font-size: 18px;
-    font-weight: 600;
     color: #54606c;
 
     @media screen and (max-width: 768px)  {
