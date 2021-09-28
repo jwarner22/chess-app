@@ -74,13 +74,7 @@ const ProfilePage = () => {
             <ProfilePageContainer>
       {/* <Announcements {...AnnouncementOne} />  */}
       <ProfilePanel />
-<<<<<<< HEAD
-      <ProfilePageWrapper>
-      {(!loading) && <AchievementTiles achievements={achievements}/>}
-      </ProfilePageWrapper>
-=======
       {(!loading) && <AchievementTiles achievements={achievements} profileData={profileData}/>}
->>>>>>> d525c5f13ef1a366f93f9c0ac626e48d09ab389f
       </ProfilePageContainer>
       </>
     ) 
