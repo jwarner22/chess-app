@@ -157,7 +157,6 @@ export default function Puzzle(props) {
 
     let profileData = await fetchProfileData()
     let newOverallRating = calcEloRating(outcomes, puzzles, profileData.overall_rating)
-    console.log({ratingCalcOutput: newOverallRating})
     profileData.overall_rating = newOverallRating;
     profileData.total_score += score ;
     profileData.puzzles_completed += outcomes.length;

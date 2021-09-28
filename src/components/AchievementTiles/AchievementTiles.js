@@ -17,7 +17,7 @@ const AchievementTiles = (props) => {
                 <LargeTile value={accuracy} title={'Accuracy'}/>
                 {(achievements.length > 0) && achievements.map((achievement, index) => {
                     return(
-                        <SmallTile key={index} achievement={achievement} />
+                        <SmallTile key={index} achievement={achievement} isMobile={props.isMobile}/>
                     )
                 })}
             </AchievementTileWrapper>

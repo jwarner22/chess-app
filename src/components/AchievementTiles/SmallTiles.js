@@ -16,10 +16,9 @@ const SmallTile = (props) => {
     const [description, setDescription] = useState('')
     const [module, setModule] = useState({})
     const {achievement} = props;
-    console.log(achievement.value)
     const percent = (achievement.value === 0) ? 100 : (achievement.value/500)*100 // calculates percent of progress to max score (rudimentary initial setup)
-    //const percent = 50;
     const color = 'blue';
+    const strokeWidth = (props.isMobile) ? 5 : 2;
 
     useEffect(() => {
         matchCategory()
@@ -67,7 +66,7 @@ const SmallTile = (props) => {
                                 {category} - {module.headline}
                             </SmallTileTitle>
                             <ProgressBarWrapper>
-                            {(achievement.value !== 0) && <Line percent={percent} strokeWidth={5} strokeColor={color} />}
+                            {(achievement.value !== 0) && <Line percent={percent} strokeWidth={strokeWidth} strokeColor={color} />}
                             </ProgressBarWrapper>
                             <SmallTileDescription>
                                 {description} {(achievement.value !== 0) ? `- ${achievement.value}` : ''}
