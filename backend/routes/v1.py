@@ -97,13 +97,26 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db=db, user=user)
 
 # get user
-@app_v1.get('/users/{user_id}', response_model=schemas.User)
+@app_v1.get('/users/{user_id}', response_model=schemas.UserProfile)
 async def read_user(user_id: str, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
+# update user
+@app_v1.put('/users/{user_id}', response_model=schemas.UserUpdate)
+async def update_user(user_id: str, user: schemas.UserUpdate, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_id(db, user_id=user_id)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    stmt = (update(models.User).where(models.User.user_id == user_id).values(**user.dict()))
+    db.execute(stmt)
+    db.commit()
+    db.refresh(db_user)
+    
+    return db_user
 
 # THEMES
 # get theme
