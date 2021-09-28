@@ -14,7 +14,7 @@ const LargeTile = (props) => {
                         {title}
                         </LargeTileTitle>
                         <LargeTileData>
-                        {(title === 'Accuracy') ? `${value} %` : value}
+                        {(title === 'Accuracy') ? `${value}%` : value}
                         </LargeTileData>
                         <LargeTileTip>
                         {(title === 'Accuracy') ? 'Try to stay above 90%' : 'Keep climbing'}

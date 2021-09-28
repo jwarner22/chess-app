@@ -15,7 +15,7 @@ const AchievementTiles = (props) => {
             <AchievementTileWrapper>
                 <LargeTile value={props.profileData.overall_rating} title={'Overall Rating'}/>
                 <LargeTile value={accuracy} title={'Accuracy'}/>
-                {achievements.map((achievement, index) => {
+                {(achievements.length > 0) && achievements.map((achievement, index) => {
                     return(
                         <SmallTile key={index} achievement={achievement} />
                     )

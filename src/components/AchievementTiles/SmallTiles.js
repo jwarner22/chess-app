@@ -16,7 +16,8 @@ const SmallTile = (props) => {
     const [description, setDescription] = useState('')
     const [module, setModule] = useState({})
     const {achievement} = props;
-    const percent = (achievement.value/500)*100 // calculates percent of progress to max score (rudimentary initial setup)
+    console.log(achievement.value)
+    const percent = (achievement.value === 0) ? 100 : (achievement.value/500)*100 // calculates percent of progress to max score (rudimentary initial setup)
     //const percent = 50;
     const color = 'blue';
 
