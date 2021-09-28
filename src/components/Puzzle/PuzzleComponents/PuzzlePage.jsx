@@ -156,7 +156,7 @@ const progressContainer = {
 };
 
 const PuzzlePageContainer = styled.div `
-  display: grid;
+  display: flex;
   height: 100%;
   grid-template-rows: min-content 1fr min-content;
   width: 100% !important;

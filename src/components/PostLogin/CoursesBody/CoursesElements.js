@@ -74,10 +74,11 @@ export const ModuleWrapper = styled.div `
 
 export const ModuleGrid = styled.ul`
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(100px, 160px));
-grid-gap: 24px;
+grid-template-columns: repeat(auto-fit, minmax(100px, 240px)minmax(100px, 240px));
+grid-gap: 16px;
 justify-content: space-around;
 align-items: stretch;
+`
 /* border: 1px dotted blue; */
     /* @media screen and (max-width: 1064px) {
         padding: 0 20px;
@@ -87,7 +88,7 @@ align-items: stretch;
         grid-template-columns: 1fr 1fr;
         grid-gap: 8px;
     } */
-`
+
 
 export const Course = styled.li`
     border: 1px solid orange;

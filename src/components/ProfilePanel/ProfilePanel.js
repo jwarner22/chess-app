@@ -10,7 +10,8 @@ CalendarTitle,
 CalendarBackgroundWrapper,
 CalendarBackground,
 CalendarGrid,
-CalendarDay
+CalendarDay,
+PageBodyContainer
 } from "./ProfilePanelElements"
 import { CgProfile } from "react-icons/cg";
 
@@ -21,7 +22,7 @@ const ProfilePanel = () => {
         <ProfilePanelHeader>
             Profile
         </ProfilePanelHeader>
-          <ProfilePanelContainer>
+          {/* <ProfilePanelContainer>
               <ProfilePanelWrapper>
                   <ProfilePanelContent>
                   <ProfilePanelUsernameWrapper>
@@ -46,7 +47,7 @@ const ProfilePanel = () => {
                     </CalendarBackground>
                     </CalendarBackgroundWrapper>
               </ProfilePanelWrapper>
-        </ProfilePanelContainer>  
+        </ProfilePanelContainer>   */}
         </>
     )
 }

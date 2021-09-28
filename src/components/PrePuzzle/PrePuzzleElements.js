@@ -21,7 +21,7 @@ export const PrePuzzleIconWrapper = styled.div`
     margin-bottom: 3px;
 `
 export const PrePuzzleWrapper = styled.div`
-    height: 70%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -33,6 +33,7 @@ export const PrePuzzleWrapper = styled.div`
     margin-top: 24px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     border-radius: 10px;
+    top: 0;
 `
 
 

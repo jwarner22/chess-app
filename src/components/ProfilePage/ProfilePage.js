@@ -9,6 +9,7 @@ import ProfilePanel from "../ProfilePanel/ProfilePanel"
 import AchievementTiles from "../AchievementTiles/AchievementTiles"
 import useFetch from '../api/useFetch';
 import {baseURL} from '../api/apiConfig';
+import {Container} from "../Login/LoginElements"
 
 const ProfilePage = () => {
   const  [achievements, setAchievements] = useState([])
@@ -66,7 +67,9 @@ const ProfilePage = () => {
             <ProfilePageContainer>
       {/* <Announcements {...AnnouncementOne} />  */}
       <ProfilePanel />
+      <ProfilePageWrapper>
       {(!loading) && <AchievementTiles achievements={achievements}/>}
+      </ProfilePageWrapper>
       </ProfilePageContainer>
       </>
     ) 
@@ -74,5 +77,19 @@ const ProfilePage = () => {
   export default ProfilePage;
 
 const ProfilePageContainer = styled.div`
-  background: #F3F5F9;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: #F3F5F9;
+    min-height: 100vh;
+    min-width: 100vw;
+`
+
+const ProfilePageWrapper = styled.div`
+    padding-top: 32px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 `

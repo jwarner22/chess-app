@@ -11,7 +11,6 @@ const AchievementTiles = (props) => {
     console.log(achievements)
     return (
         <>
-        <AchievementTileContainer>
             <AchievementTileWrapper>
                 <LargeTile />
                 <LargeTile />
@@ -19,7 +18,6 @@ const AchievementTiles = (props) => {
                 <SmallTile />
                 <SmallTile />
             </AchievementTileWrapper>
-        </AchievementTileContainer>
         </>
     )
 }

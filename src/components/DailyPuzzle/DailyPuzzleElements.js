@@ -16,14 +16,13 @@ export const DailyPuzzleWrapper = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    flex: 1;
+
 `
 
 export const DailyPuzzleContainer = styled.div`
-    max-width: 800px;
     height: auto;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(100px, 800px);
     margin: 16px 32px;
 `
 
@@ -47,7 +46,7 @@ export const DailyPuzzleModuleStyle = styled.div`
     margin: 16px 32px ;
     background-color: ${({props}) => ((props.locked && !props.completed) ? 'gray' : 'white')};
     display: grid;
-    grid-template-columns: 40% 1fr;
+    grid-template-columns: min-content 1fr;
     border-radius: 10px;
     box-shadow: ${({props}) => (props.completed ? 'rgba(149, 157, 165, 0.2) 0px 8px 24px;' : 'rgba(149, 157, 165, 0.2) 0px 8px 24px;')};
     transition: all 0.2s ease-in-out;

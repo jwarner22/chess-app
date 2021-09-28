@@ -11,10 +11,21 @@ export const ProfilePanelHeader = styled.div`
     justify-content: center;
     padding: 16px;
     background-color: #fff;
+    width: 100%;
+`
+export const PageBodyContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `
 
 export const ProfilePanelContainer = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    justify-content: center;
 `
 
 export const ProfilePanelWrapper = styled.div`
@@ -28,6 +39,7 @@ export const ProfilePanelWrapper = styled.div`
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
+    max-width: 1100px;
 `
 
 export const ProfilePanelContent = styled.div`

@@ -108,7 +108,7 @@ export const TileButtonWrap = styled.div`
 export const TileButton = styled.div`
     color: #fff;
     background: #247cf1;
-    border-radius: 10px;
+    border-radius: 16px;
     white-space: nowrap;
     outline: none;
     border: none;
@@ -118,7 +118,6 @@ export const TileButton = styled.div`
     align-items: center;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     min-height: 36px;
     min-width: 50%;
 

@@ -2,14 +2,16 @@ import React from "react"
 import styled from "styled-components"
 
 export const AchievementTileContainer = styled.div`
-    display: hidden;
+    width: 100%;
+
 `
 
 export const AchievementTileWrapper = styled.ul`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin: 16px;
+    padding: 16px;
     grid-gap: 16px;
+    justify-content: center;
 `
 export const LargeTile = styled.li`
     min-height: 150px;
