@@ -33,7 +33,6 @@ const SignUp = ({history}) => {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(res => {
-          console.log(res)
           history.push('/dashboard')
           if (res.user) {
             //Auth.setLoggedIn(true)
@@ -58,7 +57,6 @@ const SignUp = ({history}) => {
         .auth()
         .signInWithPopup(provider)
         .then(result => {
-          console.log(result)
           history.push('/dashboard')
           //Auth.setLoggedIn(true)
           setUserData(result)
@@ -70,7 +68,6 @@ const SignUp = ({history}) => {
 
     // fetches backend and persists user data across app
     const setUserData = (response) => {
-      console.log(response)
       let userID = response.additionalUserInfo.profile.id;
       localStorage.setItem('userID', userID)
       if (response.additionalUserInfo.isNewUser) {
@@ -79,7 +76,6 @@ const SignUp = ({history}) => {
           user_id: userID,
           overall_rating: 1200
         }).then(data => {
-          console.log(data);
           localStorage.setItem('userPublicData', JSON.stringify(data))
         })
       } else {
@@ -121,7 +117,7 @@ const SignUp = ({history}) => {
           type="password"
           placeholder="re-enter password"
         />
-        <GoogleButton onClick={() => handleGoogleLogin()} class="googleBtn" type="button">
+        <GoogleButton onClick={() => handleGoogleLogin()} className="googleBtn" type="button">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
             alt="logo"
