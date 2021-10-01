@@ -2,8 +2,68 @@
 // import "./IntakeSurvey.css";
 // import 'survey-react/survey.css';
 // import * as Survey from "survey-react"
+import {SmallTileContainer, 
+    SmallTileWrapper, 
+    SmallTileContent, 
+    SmallTileIconWrapper, 
+    SmallTileTitle, 
+    ProgressBarWrapper, 
+    SmallTileDescription,
+    SmallTileIconContainer
+} from "../AchievementTiles/SmallTileElements";
+import styled from "styled-components"
 
+const TextWrapper = styled.div`
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+`
 
+const IntakeOption = (props) => {
+    return(
+        <>
+        <SmallTileContainer>
+            <SmallTileWrapper>
+                <TextWrapper>
+                {props.text}
+                </TextWrapper>
+            </SmallTileWrapper>
+        </SmallTileContainer>
+        </>
+    )
+}
+
+const IntakeSurvey = () => {
+    const options = ["Beginner", "Novice", "Intermediate", "Expert", "Master"]
+    
+    function handleSurveySelection(e, index) {
+        console.log(index)
+        
+    }
+    
+    return(
+    <>
+    <h1>Intake Survey</h1>
+    <SmallTileContainer>
+        <SmallTileWrapper>
+            {options.map((option, index) => {
+                return(
+                    <button key={index} onClick={(e) => handleSurveySelection(e, index)}>
+                    <IntakeOption text={option} />
+                    </button>
+                )
+            })}
+        </SmallTileWrapper>
+    </SmallTileContainer>
+    </>
+    )
+}
+
+export default IntakeSurvey
 // Survey
 //     .StylesManager
 //     .applyTheme("bootstrap");

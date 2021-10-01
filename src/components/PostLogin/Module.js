@@ -31,7 +31,6 @@ export default function Module(props) {
     const getModule = () => {
         get(`/users/${userID}/themes/${theme}`)
         .then(data => {
-            console.log(data)
             if (data.detail === "Theme not found") {
                 createModule()
             } else {

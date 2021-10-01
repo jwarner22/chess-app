@@ -18,9 +18,9 @@ const Footer = () => {
                             <FooterLink to="signin">How it Works</FooterLink>    
                             <FooterLink to="signin">Terms of Service</FooterLink>    
                             <FooterLink to="signin">Privacy Policy</FooterLink>    
-                            <FooterLink to="signin">Investors</FooterLink>    
+                            {/*<FooterLink to="signin">Investors</FooterLink>   */} 
                     </FooterLinkItems>
-                    <FooterLinkItems>
+                    {/*<FooterLinkItems>
                         <FooterLinkTitle>Helpful Links</FooterLinkTitle>
                             <FooterLink to="signin">About Us</FooterLink> 
                             <FooterLink to="signin">How it Works</FooterLink>    
@@ -45,7 +45,7 @@ const Footer = () => {
                             <FooterLink to="signin">Terms of Service</FooterLink>    
                             <FooterLink to="signin">Privacy Policy</FooterLink>    
                             <FooterLink to="signin">Investors</FooterLink>    
-                    </FooterLinkItems>
+                    </FooterLinkItems>*/}
                     </FooterLinksWrapper>
                 </FooterLinksContainer>
                 <SocialMedia>

@@ -74,7 +74,9 @@ const ProfilePage = () => {
             <ProfilePageContainer>
       {/* <Announcements {...AnnouncementOne} />  */}
       <ProfilePanel />
-      {(!loading) && <AchievementTiles achievements={achievements} profileData={profileData}/>}
+      <AchievementTileWrapper>
+      {(!loading) && <AchievementTiles achievements={achievements} profileData={profileData} isMobile={isMobile}/>}
+      </AchievementTileWrapper>
       </ProfilePageContainer>
       </>
     ) 
@@ -97,4 +99,7 @@ const ProfilePageWrapper = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: center;
+`
+const AchievementTileWrapper = styled.div`
+    padding-bottom: 56px;
 `

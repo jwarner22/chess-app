@@ -49,7 +49,6 @@ export default function DailyPuzzzle() {
 
     if ((storedDate.getMonth() !== now.getMonth()) | (storedDate.getDate() !== now.getDate())) {
       let returnedPicks = await getNewPicks();
-      console.log({returnedPicks:  returnedPicks})
       setDailyPicks(returnedPicks.mutatedPicks)
       setSchemaPicks(returnedPicks.schemaPicks)
 

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 //import { AuthContext } from "../Auth";
 import {Button} from '../ButtonElement'
 
-
 const HeroSection = () => {
     // const { currentUser } = useContext(AuthContext);
 
@@ -24,11 +23,11 @@ const HeroSection = () => {
                     Chess Learning                
                 </HeroH1>
                 <HeroP>
-                    Built for todays World                
+                    Made Simple.               
                 </HeroP>
                 <HeroBtnWrapper>
                     <Button 
-                    to="/survey" 
+                    to="/SignUp" 
                     onMouseEnter={onHover} 
                     onMouseLeave={onHover}
                     primary='true'

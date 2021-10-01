@@ -5,7 +5,7 @@ import Home from "./components/Home/Home"
 import Preloader from './Preloader'
 
 const routes = [
-  {name: "Home", path: "/", exact: true, main: () => <Home />},
+  { name: "Home", path: "/", exact: true, main: () => <Home />},
   { name: "SignUp", path: "/signup", exact: true, main: () => <SignUp /> },
   { name: "LogIn", path: "/login", exact: true, main: () => <LogIn /> },
   { name: "LoadingTest", path: "/test", exact: true, main: () => <Preloader /> }

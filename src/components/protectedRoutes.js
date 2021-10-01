@@ -8,6 +8,7 @@ import PrePuzzlePage from "./PrePuzzle/PrePuzzle"
 import Openings from "./Openings/Openings"
 import ProfilePage from "./ProfilePage/ProfilePage"
 import Chart from '../PostPuzzleMockup/ScoreChart';
+import IntakeSurvey from './IntakeSurvey/IntakeSurvey';
 
 const protectedRoutes = [
 	{
@@ -50,6 +51,12 @@ const protectedRoutes = [
 	path: "/profile",
 	exact: true,
 	main: () => <ProfilePage />
+	},
+	{
+		name: "IntakeSurvey",
+		path: "/survey",
+		exact: true,
+		main: () => <IntakeSurvey />
 	}
 ];
 
