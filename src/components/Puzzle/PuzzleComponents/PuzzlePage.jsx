@@ -157,6 +157,7 @@ const progressContainer = {
 
 const PuzzlePageContainer = styled.div `
   display: flex;
+  flex-direction: column;
   height: 100%;
   grid-template-rows: min-content 1fr min-content;
   width: 100% !important;
@@ -172,5 +173,4 @@ const PuzzleBoardWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
 `
