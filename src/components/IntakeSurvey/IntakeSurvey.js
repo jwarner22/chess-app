@@ -17,23 +17,25 @@ import {Link} from 'react-router-dom';
 const TextWrapper = styled.div`
     font-style: normal;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 18px;
     line-height: 14px;
-    display: flex;
     align-items: center;
     justify-content: space-around;
+    text-decoration: none;
 `
 
 const IntakeOption = (props) => {
     return(
         <>
-        <SmallTileContainer>
-            <SmallTileWrapper>
+        <SurveyGridTile>
+            <SurveyAnswerTextWrapper>
+            <SurveyAnswerText>
                 <TextWrapper>
                 {props.text}
                 </TextWrapper>
-            </SmallTileWrapper>
-        </SmallTileContainer>
+            </SurveyAnswerText>
+            </SurveyAnswerTextWrapper>
+            </SurveyGridTile>
         </>
     )
 }
@@ -43,113 +45,106 @@ const IntakeSurvey = () => {
 
     return(
     <>
-    <h2>How would you describe your chess skill level?</h2>
-    <SmallTileContainer>
-        <SmallTileWrapper>
-            {options.map((option, index) => {
-                return(
-                    <Link to={{pathname: "/create-user", state: {index: index}}}>
-                    <IntakeOption text={option} />
-                    </Link>
-                )
-            })}
-        </SmallTileWrapper>
-    </SmallTileContainer>
+    <SurveyTitleWrapper>How would you describe your chess skill level?</SurveyTitleWrapper>
+    <AnswerContainer>
+        <AnswerWrapper>
+            <AnswerContent>
+                <SurveyAnswerGrid>
+                        {options.map((option, index) => {
+                            return(
+                                <AnswerLink to={{pathname: "/create-user", state: {index: index}}}>
+                                <IntakeOption text={option} />
+                                </AnswerLink>
+                            )
+                        })}
+                </SurveyAnswerGrid>
+            </AnswerContent>
+        </AnswerWrapper>
+    </AnswerContainer>
     </>
     )
 }
-
 export default IntakeSurvey
-// Survey
-//     .StylesManager
-//     .applyTheme("bootstrap");
-
-// var myCss = {
-//         navigationButton: "button btn-red"
-//     };
-
-// class IntakeSurvey extends Component {
-//     constructor(props){
-//         super(props)
-//         this.state = {
-
-//         }
-//         this.onCompleteComponent = this.onCompleteComponent.bind(this)
-//     }
-//     onCompleteComponent = () => {
-//         this.setState({ 
-//             isCompleted: true
-//         })
-//     }
-//     render(){
-//         var json= { 
-//             title: "Let's answer a few questions", 
-//             pages: [{ 
-//                 name:"page1", 
-//                 questions: [{ 
-//                     type: "radiogroup", 
-//                     choices: [ "Yes", "No" ], 
-//                     isRequired: true, 
-//                     name: "frameworkUsing",
-//                     title: "Does Joe eat ass?" }
-//              ]},
-//                 { 
-//                 name: "page2", 
-//                 questions: [{ 
-//                     type: "radiogroup", 
-//                     choices: ["Yes","No"],
-//                     isRequired: true, 
-//                     name: "mvvmUsing", 
-//                     title: "Are you sure?" },
-//             ]},
-//             { 
-//                 name: "page3",
-//                 questions: [{ 
-//                     type: "comment", 
-//                     name: "about", 
-//                     title: "Do you have any final comments?" } ] }
-//            ]
-//         };
-
-//         const survey = new Survey.Model(json);
-
-//         survey.onUpdateQuestionCssClasses.add(function(survey, options) {
-//     var classes = options.cssClasses
-//     classes.root = "sq-root";
-//         classes.title = "sw-title"
-//         classes.item = "sq-item";
-//         classes.label = "sq-label";
-//         classes.navigationButton = "nav-btn";
 
 
-//         if (options.question.isRequired) {
-//             classes.title += " sq-title-required";
-//             classes.root += " sq-root-required";
-//         }
-//         if (options.question.getType() === "checkbox") {
-//             classes.root += " sq-root-cb";
-//         }
-//     });
+const SurveyTitleWrapper = styled.h2`
+    display: flex;
+    min-width: 1170px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #232323;
+    padding: 24px 0px;
+    min-height: 70px;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    line-height: 52px;
+`
 
-//         var surveyRender = !this.state.isCompleted ? (
-//             <Survey.Survey
-//                 json={json}
-//                 showCompletedPage={false}
-//                 onComplete={this.onCompleteComponent}
-//                 model={survey}
-//                 css={myCss}
-//             />
-//         ) : null
-        
-//         var onSurveyCompletion = this.state.isCompleted ? (
-//             <div>Welcome to the club</div>
-//         ) : null;
-//     return (
-//         <div>
-//             {surveyRender}
-//             {onSurveyCompletion}
-//         </div>
-//     )
-// }
-// }
-// export default IntakeSurvey
+const AnswerContainer = styled.div`
+    min-height: 100vh;
+    padding-top: 94px;
+`
+
+const AnswerWrapper = styled.div`
+    align-items: center;
+    color: #fff;
+    display: flex;
+    flex-grow: 1;
+    height: 100%;
+    justify-content: center;
+    max-width: 100%;
+    text-align: center;
+    z-index: 1;
+`
+
+const AnswerContent = styled.div`
+    flex-grow: 1;
+    max-width: 600px;
+    padding: 0 10px;
+    width: 100%;
+`
+
+const SurveyAnswerGrid = styled.ul`
+    display: grid;
+    grid-auto-flow: row;
+    grid-gap: 8px;
+`
+const SurveyAnswerTextWrapper = styled.div`
+    display: flex;
+    min-height: 100%;
+    justify-content: center;
+    align-items: center;
+`
+
+const SurveyAnswerText = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    height: 100%;
+    padding: 12px 16px;
+    justify-content: center;
+    align-items: center;
+`
+
+const AnswerLink = styled(Link)`
+    color: #54606c;
+    align-items: center;
+    text-decoration: none;
+    padding: 0 1rem;
+    height: 100%;
+    cursor: pointer;
+    align-items: center;
+`
+const SurveyGridTile = styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 64px;
+    list-style-type: none;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background-color: #fff;
+    border-radius: 10px;
+`
