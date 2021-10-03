@@ -42,12 +42,17 @@ export default function Module(props) {
         .finally(() => setLoading(false))
     }
 
-    const createModule = () => {
+    const createModule = async () => {
         
-            post(`/users/${userID}/themes`,{
+        // gets initial rating for user
+        let initialRating = await get(`/users/${userID}/initial-rating`)
+        console.log({initialRating: initialRating})
+        
+        
+        post(`/users/${userID}/themes`,{
                 title: theme,
                 category: category,
-                rating: 800,
+                rating: initialRating[0],
                 completed: 0,
                 high_score: 0,
                 score_history: '0,0,0,0,0,0,0'

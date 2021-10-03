@@ -103,14 +103,16 @@ const Login = ({history}) => {
     localStorage.setItem('userID', userID)
     //localStorage.setItem('isLoggedIn','true')
     if (response.additionalUserInfo.isNewUser) {
-      createNewUser(userID)
+      //createNewUser(userID)
+      history.push('/survey')
     } else {
     get(`/users/${userID}`)
     .then(data => {
       if (data.detail === 'User not found') {
-        createNewUser(userID)
+        //createNewUser(userID)
+        history.push('/survey')
       } else {
-        localStorage.setItem('userPublicData', JSON.stringify(data))
+        //localStorage.setItem('userPublicData', JSON.stringify(data))
       }
       
     })
@@ -120,16 +122,16 @@ const Login = ({history}) => {
   }
   }
 
-  const createNewUser = (userID) => {
-    let currentDateTime = new Date().toString()
-    post('/users', {
-      user_id: `${userID}`,
-      overall_rating: 800,
-      inserted_at: currentDateTime
-    }).then(data => {
-      localStorage.setItem('userPublicData', JSON.stringify(data))
-    })
-  }
+  // const createNewUser = (userID) => {
+  //   let currentDateTime = new Date().toString()
+  //   post('/users', {
+  //     user_id: `${userID}`,
+  //     overall_rating: 800,
+  //     inserted_at: currentDateTime
+  //   }).then(data => {
+  //     localStorage.setItem('userPublicData', JSON.stringify(data))
+  //   })
+  // }
 
   return (
     <>

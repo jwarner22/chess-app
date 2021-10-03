@@ -118,6 +118,12 @@ async def update_user(user_id: str, user: schemas.UserUpdate, db: Session = Depe
     
     return db_user
 
+# get user initial rating
+@app_v1.get('/users/{user_id}/initial-rating')
+async def get_user_initial_rating(user_id: str, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_id(db, user_id=user_id)
+    return {db_user.initial_rating}
+
 # THEMES
 # get theme
 @app_v1.get('/users/{user_id}/themes/{theme_title}', response_model=schemas.Theme, tags=["Themes"])

@@ -9,6 +9,7 @@ import Openings from "./Openings/Openings"
 import ProfilePage from "./ProfilePage/ProfilePage"
 import Chart from '../PostPuzzleMockup/ScoreChart';
 import IntakeSurvey from './IntakeSurvey/IntakeSurvey';
+import CreateUser from './IntakeSurvey/CreateUser';
 
 const protectedRoutes = [
 	{
@@ -57,6 +58,12 @@ const protectedRoutes = [
 		path: "/survey",
 		exact: true,
 		main: () => <IntakeSurvey />
+	},
+	{
+		name: "CreateUser",
+		path: "/create-user",
+		exact: true,
+		main: props => <CreateUser {...props}/>
 	}
 ];
 

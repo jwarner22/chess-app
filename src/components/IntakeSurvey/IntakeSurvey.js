@@ -12,6 +12,7 @@ import {SmallTileContainer,
     SmallTileIconContainer
 } from "../AchievementTiles/SmallTileElements";
 import styled from "styled-components"
+import {Link} from 'react-router-dom';
 
 const TextWrapper = styled.div`
     font-style: normal;
@@ -39,22 +40,17 @@ const IntakeOption = (props) => {
 
 const IntakeSurvey = () => {
     const options = ["Beginner", "Novice", "Intermediate", "Expert", "Master"]
-    
-    function handleSurveySelection(e, index) {
-        console.log(index)
-        
-    }
-    
+
     return(
     <>
-    <h1>Intake Survey</h1>
+    <h2>How would you describe your chess skill level?</h2>
     <SmallTileContainer>
         <SmallTileWrapper>
             {options.map((option, index) => {
                 return(
-                    <button key={index} onClick={(e) => handleSurveySelection(e, index)}>
+                    <Link to={{pathname: "/create-user", state: {index: index}}}>
                     <IntakeOption text={option} />
-                    </button>
+                    </Link>
                 )
             })}
         </SmallTileWrapper>

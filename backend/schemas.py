@@ -91,6 +91,9 @@ class UserCreate(UserBase):
     overall_rating: int
     inserted_at: str
     total_score: Optional[int] = 0
+    puzzles_completed: Optional[int] = 0
+    puzzles_correct: Optional[int] = 0
+    initial_rating: Optional[int] = 800
 
 class UserUpdate(UserBase):
     user_id: str

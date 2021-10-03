@@ -69,7 +69,8 @@ class User(Base):
     total_score = Column(Integer, unique=False, index=True)
     puzzles_completed = Column(Integer, unique=False, index=True)
     puzzles_correct = Column(Integer, unique=False, index=True)
-
+    initial_rating = Column(Integer, unique=False, index=False)
+    
     themes =  relationship("Theme", backref="user")
     daily_puzzles = relationship("DailyPuzzle", backref="user")
     achievements = relationship("Achievement", backref="user")

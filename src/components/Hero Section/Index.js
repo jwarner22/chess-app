@@ -20,14 +20,14 @@ const HeroSection = () => {
             </HeroBg>
             <HeroContent>
                 <HeroH1>
-                    Chess Learning                
+                    Learning Chess               
                 </HeroH1>
                 <HeroP>
                     Made Simple.               
                 </HeroP>
                 <HeroBtnWrapper>
                     <Button 
-                    to="/SignUp" 
+                    to="/signUp" 
                     onMouseEnter={onHover} 
                     onMouseLeave={onHover}
                     primary='true'

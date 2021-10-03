@@ -10,7 +10,8 @@ from retrying_query import RetryingQuery
 # rest of connection code using the connection string `uri`
 
 # remote user database
-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:AHnaHlgTnQwV2SwwVzUVyYZuxdxE7hQD@chess32d3e-chess21a41-db-lb-264ce7b2cdcec80d.elb.us-east-1.amazonaws.com:5432/'
+SQLALCHEMY_DATABASE_URL = 'postgresql://admin:91fb0df341@143.110.153.229:5432/chess_user'
+#SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:AHnaHlgTnQwV2SwwVzUVyYZuxdxE7hQD@chess32d3e-chess21a41-db-lb-264ce7b2cdcec80d.elb.us-east-1.amazonaws.com:5432/'
 
 engine_remote = create_engine(SQLALCHEMY_DATABASE_URL,                                      pool_size=10,
                                       max_overflow=2,

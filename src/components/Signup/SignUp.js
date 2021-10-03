@@ -33,11 +33,11 @@ const SignUp = ({history}) => {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(res => {
-          history.push('/dashboard')
           if (res.user) {
-            //Auth.setLoggedIn(true)
-            setUserData(res)
-          };
+            let userID = res.additionalUserInfo.profile.id;
+            localStorage.setItem('userID', userID)
+            history.push('/survey')
+            }
         })
         .catch(e => {
           setErrors(e.message);
@@ -56,36 +56,40 @@ const SignUp = ({history}) => {
         firebase
         .auth()
         .signInWithPopup(provider)
-        .then(result => {
-          history.push('/dashboard')
+        .then(res => {
+          if (res.user) {
+          let userID = res.additionalUserInfo.profile.id;
+          localStorage.setItem('userID', userID)
+          history.push('/survey')
+          }
           //Auth.setLoggedIn(true)
-          setUserData(result)
+          //setUserData(result)
         })
         .catch(e => setErrors(e.message))
       })
  
   }
 
-    // fetches backend and persists user data across app
-    const setUserData = (response) => {
-      let userID = response.additionalUserInfo.profile.id;
-      localStorage.setItem('userID', userID)
-      if (response.additionalUserInfo.isNewUser) {
-        console.log('post new user to API')
-        post('/users', {
-          user_id: userID,
-          overall_rating: 1200
-        }).then(data => {
-          localStorage.setItem('userPublicData', JSON.stringify(data))
-        })
-      } else {
-      get(`/users/${userID}`)
-      .then(data => {localStorage.setItem('userPublicData', JSON.stringify(data))})
-      .catch(error => {
-        console.log(error)
-      })
-    }
-    }
+    // // fetches backend and persists user data across app
+    // const setUserData = (response) => {
+    //   let userID = response.additionalUserInfo.profile.id;
+    //   localStorage.setItem('userID', userID)
+    //   if (response.additionalUserInfo.isNewUser) {
+    //     console.log('post new user to API')
+    //     post('/users', {
+    //       user_id: userID,
+    //       overall_rating: 1200
+    //     }).then(data => {
+    //       localStorage.setItem('userPublicData', JSON.stringify(data))
+    //     })
+    //   } else {
+    //   get(`/users/${userID}`)
+    //   .then(data => {localStorage.setItem('userPublicData', JSON.stringify(data))})
+    //   .catch(error => {
+    //     console.log(error)
+    //   })
+    // }
+    // }
 
 
   return (
