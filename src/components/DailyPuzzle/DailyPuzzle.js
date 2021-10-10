@@ -21,7 +21,7 @@ import CompletedTraining from './completedTraining';
 
 export default function DailyPuzzzle() {
   const [seen, setSeen] = useState(false); // set to true to display modal on load
-  const [completed, setCompleted] = useState(false); // set to true to display completed screen
+  const [completed, setCompleted] = useState(true); // set to true to display completed screen
   const [loaded,setLoaded] = useState(true);
   const [dailyPicks, setDailyPicks] = useState([]);
   const [schemaPicks, setSchemaPicks] = useState([]);

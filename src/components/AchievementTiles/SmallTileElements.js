@@ -8,6 +8,7 @@ export const SmallTileContainer = styled.li`
     border-radius: 10px;
     list-style-type: none;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    max-width: 1080px;
 `
 export const SmallTileWrapper = styled.div`
     display: flex;

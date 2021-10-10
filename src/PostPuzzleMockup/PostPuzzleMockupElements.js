@@ -51,11 +51,9 @@ export const ModuleExperience = styled.h1`
 `
 
 export const FinishButton = styled.button`
-  border-radius: 50px;
-    background: #247cf1;
     white-space: nowrap;
-    padding: 10px 22px;
-    margin: 30px;
+    padding: 16px 16px;
+    margin: 24px;
     color: #fff;
     font-size: 16px;
     outline: none;
@@ -63,8 +61,10 @@ export const FinishButton = styled.button`
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    grid-column: 1 / span 2;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    min-width: 150px;
+    font-weight: 600;
+    background: #247cf1;
+    border-radius: 10px;
 
     &:hover {
         transition: all 0.2s ease-in-out;

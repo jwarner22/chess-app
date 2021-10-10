@@ -55,7 +55,7 @@ export default function CompletedTraining() {
       <canvas id='my-canvas' style={{zIndex: '-1', position: 'absolute'}} />
       {(!loading) && 
       <>
-      <div style={{padding: '15% 0 0 5%'}}>
+      <div style={{padding: '15% 0 0 0 '}}>
         <h1 style={{textAlign: 'center'}}>Training Session Completed!</h1>
       </div>
       <div style={{padding: '10% 0 5% 0'}}>

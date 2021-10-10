@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Line, ProgressProps } from "rc-progress";
+import styled from "styled-components"
 
 // src: https://github.com/react-component/progress
 //class Example extends React.Component<ProgressProps, any> {
@@ -52,12 +53,15 @@ function ProgressBar(props) {
       };
 
     return(
-        <div style={containerStyle}>
+        <HeaderWrapper >
           <Line percent={percent} strokeWidth={4} strokeColor={color} />
-        </div>
+        </HeaderWrapper>
     )
 
 }
 export default ProgressBar
 
-
+const HeaderWrapper = styled.div`
+    width: 360px;
+    margin-top: 40px;
+`
