@@ -238,7 +238,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Clearance.svg").default
     },{
-        id: 24,
+        id: 23,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'defensiveMove',
@@ -248,7 +248,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/DefensiveMoves.svg").default
     },{
-        id: 25,
+        id: 24,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'discoveredAttack',
@@ -258,7 +258,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/DiscoveredAttack.svg").default
     },{
-        id: 26,
+        id: 25,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'deflection',
@@ -268,7 +268,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Deflection.svg").default
     },{
-        id: 27,
+        id: 26,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'doubleCheck',
@@ -278,7 +278,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/DoubleCheck.svg").default
     },{
-        id: 28,
+        id: 27,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'enPassant',
@@ -288,7 +288,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/EnPassant.svg").default
     },{
-        id: 29,
+        id: 28,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'exposedKing',
@@ -298,7 +298,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/ExposedKing.svg").default
     },{
-        id: 30,
+        id: 29,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'fork',
@@ -308,7 +308,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Fork.svg").default
     },{
-        id: 31,
+        id: 30,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'hangingPiece',
@@ -318,7 +318,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/HangingPiece.svg").default
     },{
-        id: 32,
+        id: 31,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'interference',
@@ -328,7 +328,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Interference.svg").default
     },{
-        id: 33,
+        id: 32,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'intermezzo',
@@ -338,7 +338,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Intermezzo.svg").default
     },{
-        id: 34,
+        id: 33,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'kingsideAttack',
@@ -348,7 +348,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 35,
+        id: 34,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'overloading',
@@ -358,7 +358,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Overloading.svg").default
     },{
-        id: 36,
+        id: 35,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'pin',
@@ -368,7 +368,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Pin.svg").default
     },{
-        id: 38,
+        id: 36,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'queensideAttack',
@@ -378,7 +378,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 39,
+        id: 37,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'quietMove',
@@ -388,7 +388,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/QuietMove.svg").default
     },{
-        id: 40,
+        id: 38,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'sacrifice',
@@ -398,7 +398,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Sacrifice.svg").default
     },{
-        id: 42,
+        id: 39,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'skewer',
@@ -408,17 +408,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Skewer.svg").default
     },{
-        id: 43,
-        category: 'puzzle',
-        type: 'midgame',
-        type_ref: 'underPromotion',
-        headline: 'Under Promotion',
-        subheading: `A queen may not be the best choice.`,
-        instructions: 'In rare and exciting situtations, a Queen is less favorable than other pieces for sealing the game.',
-        description: 'Lorem ipsum mah brudda',
-        img: ''
-    },{
-        id: 44,
+        id: 40,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'xRayAttack',
@@ -428,7 +418,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/XrayAttack.svg").default
     },{
-        id: 45,
+        id: 41,
         category: 'puzzle',
         type: 'earlygame',
         type_ref: 'castling',
@@ -438,7 +428,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 46,
+        id: 42,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'trappedPiece',
@@ -483,6 +473,16 @@ const excludedModules = [
         instructions: 'It is good practice to trade pieces when you hold the advantage. Simplifying in this way opens a clearer path to victory.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Simplification.svg").default
+    },{
+        id: 43,
+        category: 'puzzle',
+        type: 'midgame',
+        type_ref: 'underPromotion',
+        headline: 'Under Promotion',
+        subheading: `A queen may not be the best choice.`,
+        instructions: 'In rare and exciting situtations, a Queen is less favorable than other pieces for sealing the game.',
+        description: 'Lorem ipsum mah brudda',
+        img: ''
     }
 ]
 
