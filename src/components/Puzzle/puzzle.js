@@ -224,6 +224,7 @@ export default function Puzzle(props) {
     setOutcomes(prevOutcomes => [...prevOutcomes,results])
     setFailure(true)
     setIsFinished(true)
+    setSavingResults(false)
    }   
  }
  
