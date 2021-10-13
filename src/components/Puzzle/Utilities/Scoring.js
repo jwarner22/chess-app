@@ -1,15 +1,19 @@
 
 // calculates new elo rating
-export const calcEloRating = (outcomes, puzzles, playerRating) => {
-    // calculates rating difference capped at 400
-    const ratingDifference = (puzzleRating, playerRating) => Math.max(Math.min(playerRating-puzzleRating,400),-400); 
+export const calcEloRating = (outcomes, puzzles, playerRating, overall) => {
+
+  let k = overall ? 10 : 20; // calibration factor. Should adjust based on player experience
+  let maxDiff = overall ? 800 : 400; // max rating differential. Larger for overall rating to increase accuracy
+  
+  // calculates rating difference capped at 400
+    const ratingDifference = (puzzleRating, playerRating) => Math.max(Math.min(playerRating-puzzleRating,maxDiff),-maxDiff); 
     
     // expected outcome, formula: E = 1/1 + 10^((PR-PlayerRating)/400)
-    const expected = (playerRating, puzzleRating) => 1/(1+Math.pow(10, ratingDifference(puzzleRating,playerRating))/400);
+    const expected = (playerRating, puzzleRating) => 1/(1+Math.pow(10, ratingDifference(puzzleRating,playerRating))/maxDiff);
     
     let puzzleRatings = puzzles.map(puzzle => puzzle.rating); // extracts ratings
     
-    let k = 20; // calibration factor, default 20
+    //let k = 20; // calibration factor, default 20
     
     // calc rating changes
     let ratingChanges = outcomes.map((outcome,index) => {
