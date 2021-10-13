@@ -281,16 +281,6 @@ export const Modules = [
         id: 27,
         category: 'puzzle',
         type: 'midgame',
-        type_ref: 'enPassant',
-        headline: 'En Passant',
-        subheading: `Cature the pawn in passing.`,
-        instructions: 'En passant is the unique rule that allows a pawn to capture annother pawn as it passes...',
-        description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/EnPassant.svg").default
-    },{
-        id: 28,
-        category: 'puzzle',
-        type: 'midgame',
         type_ref: 'exposedKing',
         headline: 'Exposed King',
         subheading: 'The king is vulnerable, capitalize.',
@@ -298,7 +288,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/ExposedKing.svg").default
     },{
-        id: 29,
+        id: 28,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'fork',
@@ -308,7 +298,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Fork.svg").default
     },{
-        id: 30,
+        id: 29,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'hangingPiece',
@@ -318,7 +308,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/HangingPiece.svg").default
     },{
-        id: 31,
+        id: 30,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'interference',
@@ -328,7 +318,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Interference.svg").default
     },{
-        id: 32,
+        id: 31,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'intermezzo',
@@ -338,7 +328,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Intermezzo.svg").default
     },{
-        id: 33,
+        id: 32,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'kingsideAttack',
@@ -348,7 +338,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 34,
+        id: 33,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'overloading',
@@ -358,7 +348,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Overloading.svg").default
     },{
-        id: 35,
+        id: 34,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'pin',
@@ -368,7 +358,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Pin.svg").default
     },{
-        id: 36,
+        id: 35,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'queensideAttack',
@@ -378,7 +368,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 37,
+        id: 36,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'quietMove',
@@ -388,7 +378,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/QuietMove.svg").default
     },{
-        id: 38,
+        id: 37,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'sacrifice',
@@ -398,7 +388,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Sacrifice.svg").default
     },{
-        id: 39,
+        id: 38,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'skewer',
@@ -408,7 +398,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Skewer.svg").default
     },{
-        id: 40,
+        id: 39,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'xRayAttack',
@@ -418,7 +408,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/XrayAttack.svg").default
     },{
-        id: 41,
+        id: 40,
         category: 'puzzle',
         type: 'earlygame',
         type_ref: 'castling',
@@ -428,7 +418,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 42,
+        id: 41,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'trappedPiece',
@@ -483,6 +473,16 @@ const excludedModules = [
         instructions: 'In rare and exciting situtations, a Queen is less favorable than other pieces for sealing the game.',
         description: 'Lorem ipsum mah brudda',
         img: ''
+    },{
+        id: 27,
+        category: 'puzzle',
+        type: 'midgame',
+        type_ref: 'enPassant',
+        headline: 'En Passant',
+        subheading: `Cature the pawn in passing.`,
+        instructions: 'En passant is the unique rule that allows a pawn to capture annother pawn as it passes...',
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../Images/EnPassant.svg").default
     }
 ]
 
