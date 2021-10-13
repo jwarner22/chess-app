@@ -19,7 +19,7 @@ export const SmallTileWrapper = styled.div`
 
 export const SmallTileContent = styled.div`
     display: grid;
-    grid-template-columns: min-content 1fr;
+    grid-template-columns: 20% 1fr;
     grid-template-rows: min-content auto min-content;
     width: 100%;
 `
@@ -36,8 +36,8 @@ export const SmallTileIconWrapper = styled.div`
     background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);    
     display: flex;
     border-radius: 50%;
-    min-width: 48px;
-    min-height: 48px;
+    min-width: 60px;
+    min-height: 60px;
     grid-row: 1 / span 3;
     grid-column: 1;
     border-radius: 10px;

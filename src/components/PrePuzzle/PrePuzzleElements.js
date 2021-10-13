@@ -16,7 +16,6 @@ export const PuzzlePageContainer = styled.div`
 export const PrePuzzleIconWrapper = styled.div`
     background: #247cf1;
     text-align: center;
-    border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     margin-bottom: 3px;
 `

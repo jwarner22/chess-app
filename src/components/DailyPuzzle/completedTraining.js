@@ -10,6 +10,7 @@ import queenImg from '../Puzzle/chess/pieces/nova/wQ.svg';
 import useFetch from '../api/useFetch';
 import {baseURL} from '../api/apiConfig';
 import {FinishButton} from '../../PostPuzzleMockup/PostPuzzleMockupElements';
+import styled from "styled-components"
 
 export default function CompletedTraining() {
   const [achievements, setAchievements] = useState([])
@@ -70,14 +71,25 @@ export default function CompletedTraining() {
             )
         })}
         </AchievementTileWrapper>
+        <FinishButtonContainer>
         <Link to='/dashboard'>
         <FinishButton>
           Return to Dashboard
         </FinishButton>
+        
         </Link>
+        </FinishButtonContainer>
       </AchievementTileContainer>
       </>
     }
       </>
     )
   }
+  
+
+  export const FinishButtonContainer = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  `
