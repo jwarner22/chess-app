@@ -341,16 +341,6 @@ export const Modules = [
         id: 33,
         category: 'puzzle',
         type: 'midgame',
-        type_ref: 'overloading',
-        headline: 'Overloading',
-        subheading: `Your opponent can only do so many things at once.`,
-        instructions: 'When an opposing defensive piece has too much responsibility, look to add even more pressure. This can have explosive effects...',
-        description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/Overloading.svg").default
-    },{
-        id: 34,
-        category: 'puzzle',
-        type: 'midgame',
         type_ref: 'pin',
         headline: 'Pin',
         subheading: `I'm pinned!`,
@@ -358,7 +348,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Pin.svg").default
     },{
-        id: 35,
+        id: 34,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'queensideAttack',
@@ -368,7 +358,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 36,
+        id: 35,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'quietMove',
@@ -378,7 +368,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/QuietMove.svg").default
     },{
-        id: 37,
+        id: 36,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'sacrifice',
@@ -388,7 +378,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Sacrifice.svg").default
     },{
-        id: 38,
+        id: 37,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'skewer',
@@ -398,7 +388,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Skewer.svg").default
     },{
-        id: 39,
+        id: 38,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'xRayAttack',
@@ -408,7 +398,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/XrayAttack.svg").default
     },{
-        id: 40,
+        id: 39,
         category: 'puzzle',
         type: 'earlygame',
         type_ref: 'castling',
@@ -418,7 +408,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 41,
+        id: 40,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'trappedPiece',
@@ -483,6 +473,16 @@ const excludedModules = [
         instructions: 'En passant is the unique rule that allows a pawn to capture annother pawn as it passes...',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/EnPassant.svg").default
+    },{
+        id: 33,
+        category: 'puzzle',
+        type: 'midgame',
+        type_ref: 'overloading',
+        headline: 'Overloading',
+        subheading: `Your opponent can only do so many things at once.`,
+        instructions: 'When an opposing defensive piece has too much responsibility, look to add even more pressure. This can have explosive effects...',
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../Images/Overloading.svg").default
     }
 ]
 

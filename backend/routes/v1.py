@@ -164,7 +164,7 @@ async def get_daily_puzzle_picks():
     # if no daily puzzles exist for user - create new ones (one time intiialization)
     daily_puzzles = []
     while (len(daily_puzzles) < 3): # we want three modules
-        pick = randint(1,41) # picks random module (how sophisticated!)
+        pick = randint(1,40) # picks random module (how sophisticated!)
         if pick not in daily_puzzles: # checks that modules don't repeat
             daily_puzzles.append(pick)
 
