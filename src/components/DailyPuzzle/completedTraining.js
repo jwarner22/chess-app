@@ -56,10 +56,15 @@ export default function CompletedTraining() {
       <canvas id='my-canvas' style={{zIndex: '-1', position: 'absolute'}} />
       {(!loading) && 
       <>
-      <div style={{padding: '15% 0 0 0 '}}>
+      <div style={{padding: '80px 0 0 0 '}}>
         <h1 style={{textAlign: 'center'}}>Training Session Completed!</h1>
       </div>
-      <div style={{padding: '10% 0 5% 0'}}>
+      <SurveyButtonContainer>
+          < SurveyButton>
+          Give your Feedback
+          </ SurveyButton>
+        </SurveyButtonContainer>
+      <div style={{padding: '40px 0 12px 0'}}>
       <h1 style={{textAlign: 'center', marginTop: '10px', color:'#DCDCDC'}}>Achievements</h1>
       </div>
       <hr style={{color: '#DCDCDC'}}></hr>
@@ -93,3 +98,37 @@ export default function CompletedTraining() {
     justify-content: center;
     align-items: center;
   `
+
+  const SurveyButtonContainer = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  `
+
+export const SurveyButton = styled.button`
+white-space: nowrap;
+padding: 16px 16px;
+margin: 24px;
+color: #fff;
+font-size: 24px;
+outline: none;
+border: none;
+cursor: pointer;
+transition: all 0.2s ease-in-out;
+text-decoration: none;
+min-width: 150px;
+font-weight: 600;
+background: #247cf1;
+border-radius: 10px;
+
+&:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+}
+
+&:active {
+  box-shadow: none;
+}
+`
