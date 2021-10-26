@@ -174,7 +174,7 @@ export default function DailyPuzzzle() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  
   const isMobile = windowDimension <= 640;
 
   console.log(isMobile)

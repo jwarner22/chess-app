@@ -400,16 +400,6 @@ export const Modules = [
     },{
         id: 39,
         category: 'puzzle',
-        type: 'earlygame',
-        type_ref: 'castling',
-        headline: 'Castling',
-        subheading: `Protect the king!`,
-        instructions: 'Castling is typically used to acheive king safety. In rare cases, it can also be used in the offensive.',
-        description: 'Lorem ipsum mah brudda',
-        img: ''
-    },{
-        id: 40,
-        category: 'puzzle',
         type: 'midgame',
         type_ref: 'trappedPiece',
         headline: 'Trapped Piece',
@@ -483,6 +473,16 @@ const excludedModules = [
         instructions: 'When an opposing defensive piece has too much responsibility, look to add even more pressure. This can have explosive effects...',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Overloading.svg").default
+    },{
+        id: 39,
+        category: 'puzzle',
+        type: 'earlygame',
+        type_ref: 'castling',
+        headline: 'Castling',
+        subheading: `Protect the king!`,
+        instructions: 'Castling is typically used to acheive king safety. In rare cases, it can also be used in the offensive.',
+        description: 'Lorem ipsum mah brudda',
+        img: ''
     }
 ]
 

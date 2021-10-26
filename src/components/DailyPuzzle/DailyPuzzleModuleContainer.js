@@ -5,11 +5,8 @@ DailyPuzzleIcon,
 PuzzleModuleTitle,
 PuzzleDescripton,
 Col2Row1,
-Col2Row2,
-Col2Row3,
-CompletedCheck
+Col2Row2
 } from "./DailyPuzzleElements"
-import check from "../../Images/check.png"
 
 const DailyPuzzleModuleContainer = (props) => {
     
@@ -21,18 +18,15 @@ const DailyPuzzleModuleContainer = (props) => {
                 <DailyPuzzleIcon src={props.img}/>
             </DailyPuzzleIconWrapper>
             <Col2Row1>
-                <CompletedCheck src={check} />
-            </Col2Row1>
-            <Col2Row2>
             <PuzzleModuleTitle>
                 {props.headline}
             </PuzzleModuleTitle>
-            </Col2Row2>
-            <Col2Row3>
+            </Col2Row1>
+            <Col2Row2>
             <PuzzleDescripton>
                 {props.subheading}
             </PuzzleDescripton>
-            </Col2Row3>
+            </Col2Row2>
             </DailyPuzzleModuleStyle>
         {/* </PuzzleWrapper> */}
         </>
