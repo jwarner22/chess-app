@@ -15,9 +15,11 @@ const ProfilePage = () => {
   const  [achievements, setAchievements] = useState([])
   const [profileData, setProfileData] = useState({});
   const {get, loading} = useFetch(baseURL)
+  const [loaded, setLoaded] = useState(false)
   const userID = localStorage.getItem('userID');
 
   useEffect(() => {
+      setLoaded(false)
       fetchAchievements();
       fetchProfileData();
   },[])
@@ -33,6 +35,7 @@ const ProfilePage = () => {
     let endpoint = `/users/${userID}`;
     let profileData = await get(endpoint)
     setProfileData(profileData)
+    setLoaded(true)
   }
 
   //hamburger sidebar menu
@@ -73,10 +76,14 @@ const ProfilePage = () => {
       )}
             <ProfilePageContainer>
       {/* <Announcements {...AnnouncementOne} />  */}
+      {(loaded) &&
+      <>
       <ProfilePanel />
       <AchievementTileWrapper>
-      {(!loading) && <AchievementTiles achievements={achievements} profileData={profileData} isMobile={isMobile}/>}
+       <AchievementTiles achievements={achievements} profileData={profileData} isMobile={isMobile} />
       </AchievementTileWrapper>
+      </>
+      }
       </ProfilePageContainer>
       </>
     ) 
