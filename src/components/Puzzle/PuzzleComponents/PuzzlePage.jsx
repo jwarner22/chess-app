@@ -158,10 +158,9 @@ const progressContainer = {
 const PuzzlePageContainer = styled.div `
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
   grid-template-rows: min-content 1fr min-content;
   width: 100% !important;
-  min-height: 430px;
   grid-gap: 24px;
   top: 0;
   padding: 24px 16px;
