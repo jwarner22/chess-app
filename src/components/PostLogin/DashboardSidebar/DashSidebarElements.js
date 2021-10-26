@@ -5,7 +5,7 @@ import {FaTimes} from 'react-icons/fa'
 export const SidebarContainer = styled.aside`
     position: fixed;
     z-index: 999;
-    width: 100%;
+    width: 100vw;
     background: #fff;
     height: 100%;
     display: grid;
@@ -74,7 +74,7 @@ export const SidebarRoute = styled(Link)`
     border-radius: 50px;
     background: #247cf1;
     white-space: nowrap;
-    padding: 16px 64px;
+    padding: 16px 48px;
     color: #fff;
     font-size: 16px;
     font-weight: 600;
