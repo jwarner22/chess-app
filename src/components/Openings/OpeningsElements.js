@@ -4,7 +4,7 @@ import styled from "styled-components"
 export const OpeningPageImgContainer = styled.div`
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+    min-height: 100vh;
 `
 
 export const OpeningPageImgWrapper = styled.div`

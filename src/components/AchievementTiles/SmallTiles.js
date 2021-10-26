@@ -62,12 +62,12 @@ const SmallTile = (props) => {
                             <img src={module.img} alt='' />
                         </SmallTileIconWrapper>
                         </SmallTileIconContainer>
-                        <SmallTileTitle>
+                        <SmallTileTitle category={achievement.category}>
                                 {category} - {module.headline}
                             </SmallTileTitle>
-                            <ProgressBarWrapper>
+                            {(achievement.category !== 'perfect') && <ProgressBarWrapper props={props}>
                             {(achievement.value !== 0) && <Line percent={percent} strokeWidth={strokeWidth} strokeColor={color} />}
-                            </ProgressBarWrapper>
+                            </ProgressBarWrapper>}
                             <SmallTileDescription>
                                 {description} {(achievement.value !== 0) ? `- ${achievement.value}` : ''}
                             </SmallTileDescription>

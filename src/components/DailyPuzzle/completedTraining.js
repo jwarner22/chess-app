@@ -12,7 +12,7 @@ import {baseURL} from '../api/apiConfig';
 import {FinishButton} from '../../PostPuzzleMockup/PostPuzzleMockupElements';
 import styled from "styled-components"
 
-export default function CompletedTraining() {
+export default function CompletedTraining(props) {
   const [achievements, setAchievements] = useState([])
   const {get, loading} = useFetch(baseURL)
   const userID = localStorage.getItem('userID')
@@ -56,18 +56,17 @@ export default function CompletedTraining() {
       <canvas id='my-canvas' style={{zIndex: '-1', position: 'absolute'}} />
       {(!loading) && 
       <>
-      <div style={{padding: '15% 0 0 0 '}}>
-        <h1 style={{textAlign: 'center'}}>Training Session Completed!</h1>
+      <div style={{padding: '10% 0 10% 0 ', backgroundColor:'#1464e4'}}>
+        <h1 style={{textAlign: 'center', color: 'white'}}>Training Session Completed!</h1>
       </div>
-      <div style={{padding: '10% 0 5% 0'}}>
-      <h1 style={{textAlign: 'center', marginTop: '10px', color:'#DCDCDC'}}>Achievements</h1>
+      <div style={{padding: '0 0 0 0'}}>
+      <h1 style={{textAlign: 'center', marginTop: '10px', color:'black'}}>Achievements</h1>
       </div>
-      <hr style={{color: '#DCDCDC'}}></hr>
       <AchievementTileContainer>
         <AchievementTileWrapper>
         {achievements && achievements.map((achievement, index) => {
             return(
-                <><SmallTile key={index} achievement={achievement} /></>
+                <><SmallTile key={index} achievement={achievement} isMobile={props.isMobile}/></>
             )
         })}
         </AchievementTileWrapper>

@@ -181,7 +181,7 @@ export default function DailyPuzzzle() {
 
   if (completed) {
     return(
-      <CompletedTraining />
+      <CompletedTraining isMobile={isMobile}/>
     )
   }
 
