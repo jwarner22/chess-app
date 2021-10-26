@@ -37,9 +37,10 @@ export default function CompletedTraining(props) {
         rotate: true
       };
       const confetti = new ConfettiGenerator(confettiSettings)
-      confetti.render()
       
       fetchAchievements()
+
+      confetti.render()
 
       return(() => confetti.clear());
     },[])
@@ -50,23 +51,23 @@ export default function CompletedTraining(props) {
       let achievements = await get(endpoint)
       setAchievements(achievements)
     }
-  
+    
     return(
       <>
       <canvas id='my-canvas' style={{zIndex: '-1', position: 'absolute'}} />
-      {(!loading) && 
-      <>
       <div style={{padding: '10% 0 10% 0 ', backgroundColor:'#1464e4'}}>
         <h1 style={{textAlign: 'center', color: 'white'}}>Training Session Completed!</h1>
       </div>
       <div style={{padding: '0 0 0 0'}}>
       <h1 style={{textAlign: 'center', marginTop: '10px', color:'black'}}>Achievements</h1>
       </div>
+      {(!loading) && 
+      <>
       <AchievementTileContainer>
         <AchievementTileWrapper>
         {achievements && achievements.map((achievement, index) => {
             return(
-                <><SmallTile key={index} achievement={achievement} isMobile={props.isMobile}/></>
+                <SmallTile key={index} achievement={achievement} isMobile={props.isMobile}/>
             )
         })}
         </AchievementTileWrapper>
