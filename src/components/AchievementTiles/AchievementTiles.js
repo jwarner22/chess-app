@@ -1,11 +1,11 @@
 import React from 'react'
-import { ProfilePanelHeader } from '../ProfilePanel/ProfilePanelElements'
+import { ProfilePanelHeader, ProfilePanelContainer } from '../ProfilePanel/ProfilePanelElements'
 import {AchievementTileContainer, 
 AchievementTileWrapper
 } from "./AchievementTilesElements"
 import LargeTile from "./LargeTile"
 import SmallTile from "./SmallTiles"
-
+import {AchievementsHeader} from "../ProfilePanel/ProfilePanelElements";
 
 const AchievementTiles = (props) => {
     const {achievements} = props;
@@ -15,6 +15,13 @@ const AchievementTiles = (props) => {
             <AchievementTileWrapper>
                 <LargeTile value={props.profileData.overall_rating} title={'Overall Rating'}/>
                 <LargeTile value={accuracy} title={'Accuracy'}/>
+                </AchievementTileWrapper>
+                <ProfilePanelContainer> 
+                <AchievementsHeader>
+                Achievements
+                </AchievementsHeader>
+                </ProfilePanelContainer>
+                <AchievementTileWrapper>
                 {(achievements.length > 0) && achievements.map((achievement, index) => {
                     return(
                         <SmallTile key={index} achievement={achievement} isMobile={props.isMobile}/>

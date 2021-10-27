@@ -139,7 +139,7 @@ export default function PuzzlePage(props) {
         />
       </PuzzleBoardWrapper>
       <div>
-      <PuzzleNav disabled={!waiting} onContinueClick={handleContinueClick}/>
+      <PuzzleNav disabled={!waiting} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
       </div>
      </PuzzlePageContainer>
     </div>

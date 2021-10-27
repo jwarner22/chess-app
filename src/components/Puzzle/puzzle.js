@@ -245,7 +245,7 @@ export default function Puzzle(props) {
  // render puzzle module
   return (
     <div>
-      {(puzzles.length > 0) && <PuzzlePage puzzles={puzzles} puzzleIsFinished={puzzleIsFinished} />}
+      {(puzzles.length > 0) && <PuzzlePage puzzles={puzzles} puzzleIsFinished={puzzleIsFinished} isDaily={isDaily}/>}
     </div>
   );
 }

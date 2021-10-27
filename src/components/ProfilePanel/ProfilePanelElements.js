@@ -13,6 +13,18 @@ export const ProfilePanelHeader = styled.div`
     background-color: #fff;
     width: 100%;
 `
+export const AchievementsHeader = styled.div`
+    border-bottom: 2px solid #e5e5e5;
+    color: #afafaf;
+    display: flex;
+    font-size: 19px;
+    font-weight: 700;
+    justify-content: center;
+    padding: 16px;
+    background-color: #fff;
+    width: 100%;
+`
+
 export const PageBodyContainer = styled.div`
     width: 100%;
     display: flex;
