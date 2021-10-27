@@ -16,13 +16,15 @@ const SmallTile = (props) => {
     const [description, setDescription] = useState('')
     const [module, setModule] = useState({})
     const {achievement} = props;
-    const percent = (achievement.value === 0) ? 100 : (achievement.value/500)*100 // calculates percent of progress to max score (rudimentary initial setup)
+    //const percent = (achievement.value === 0) ? 100 : (achievement.value/500)*100 // calculates percent of progress to max score (rudimentary initial setup)
+    const [percent, setPercent] = useState(0)
     const color = 'blue';
     const strokeWidth = (props.isMobile) ? 5 : 2;
 
     useEffect(() => {
         matchCategory()
         matchModule()
+        calcPercent()
     }, [])
 
     const matchCategory = () => {
@@ -50,6 +52,26 @@ const SmallTile = (props) => {
     const matchModule = () => {
         let module = Modules.find(module => module.type_ref ===achievement.theme)
         setModule(module)
+    }
+
+    const calcPercent = () => {
+        switch(achievement.category) {
+            case 'high_score':
+                setPercent((achievement.value/500)*100)
+                break;
+    
+            case 'high_rating':
+                setPercent(achievement.value/2200)
+                break;
+    
+            case 'perfect':
+                setCategory('Perfect Module')
+                setDescription(`You didn't miss a single puzzle!`)
+                break;
+                
+            default:
+                return '';
+        }
     }
 
     return (
