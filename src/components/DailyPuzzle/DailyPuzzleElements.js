@@ -103,7 +103,7 @@ export const Col2Row1 = styled.div`
     justify-content: flex-end;
     grid-column: 2;
     grid-row: 1;
-    padding: 4px 12px 0px 0px;
+    padding: ${({props}) => ((props.completed) ? '4px 12px 0px 0px;' : '4px 12px 0px 0px')};
 `
 
 export const CompletedCheck = styled.img`

@@ -40,7 +40,7 @@ const Login = ({history}) => {
 
   useEffect(() => {
     if (currentUser && isLoggedIn && isSaved) {
-      history.push('/dashboard')
+      history.push('/dailyPuzzle')
     }
   }, [currentUser, isLoggedIn, isSaved])
 

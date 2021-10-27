@@ -48,12 +48,13 @@ export const SmallTileIconWrapper = styled.div`
 export const SmallTileTitle = styled.div`
     font-style: normal;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 14px;
     display: flex;
     align-items: flex-start;
+    margin-bottom: ${({category}) => ((category==='perfect') ? '12px' : '0px')};
     grid-column: 2;
-    grid-row: 1;
+    grid-row: ${({category}) => ((category==='perfect') ? 2 : 1)};
     margin-left: 20px;
 
 `
@@ -78,5 +79,6 @@ export const SmallTileDescription = styled.div`
     align-items: flex-end;
     color: #8F8F8F;
     grid-column: 2;
+    grid-row: 3;
     margin-left: 20px;
 `

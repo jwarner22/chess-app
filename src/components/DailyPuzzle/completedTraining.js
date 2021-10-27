@@ -12,7 +12,7 @@ import {baseURL} from '../api/apiConfig';
 import {FinishButton} from '../../PostPuzzleMockup/PostPuzzleMockupElements';
 import styled from "styled-components"
 
-export default function CompletedTraining() {
+export default function CompletedTraining(props) {
   const [achievements, setAchievements] = useState([])
   const {get, loading} = useFetch(baseURL)
   const userID = localStorage.getItem('userID')
@@ -37,9 +37,10 @@ export default function CompletedTraining() {
         rotate: true
       };
       const confetti = new ConfettiGenerator(confettiSettings)
-      confetti.render()
       
       fetchAchievements()
+
+      confetti.render()
 
       return(() => confetti.clear());
     },[])
@@ -50,29 +51,23 @@ export default function CompletedTraining() {
       let achievements = await get(endpoint)
       setAchievements(achievements)
     }
-  
+    
     return(
       <>
       <canvas id='my-canvas' style={{zIndex: '-1', position: 'absolute'}} />
+      <div style={{padding: '10% 0 10% 0 ', backgroundColor:'#1464e4'}}>
+        <h1 style={{textAlign: 'center', color: 'white'}}>Training Session Completed!</h1>
+      </div>
+      <div style={{padding: '0 0 0 0'}}>
+      <h1 style={{textAlign: 'center', marginTop: '10px', color:'black'}}>Achievements</h1>
+      </div>
       {(!loading) && 
       <>
-      <div style={{padding: '80px 0 0 0 '}}>
-        <h1 style={{textAlign: 'center'}}>Training Session Completed!</h1>
-      </div>
-      <SurveyButtonContainer>
-          < SurveyButton>
-          Give your Feedback
-          </ SurveyButton>
-        </SurveyButtonContainer>
-      <div style={{padding: '40px 0 12px 0'}}>
-      <h1 style={{textAlign: 'center', marginTop: '10px', color:'#DCDCDC'}}>Achievements</h1>
-      </div>
-      <hr style={{color: '#DCDCDC'}}></hr>
       <AchievementTileContainer>
         <AchievementTileWrapper>
         {achievements && achievements.map((achievement, index) => {
             return(
-                <><SmallTile key={index} achievement={achievement} /></>
+                <SmallTile key={index} achievement={achievement} isMobile={props.isMobile}/>
             )
         })}
         </AchievementTileWrapper>
@@ -98,37 +93,3 @@ export default function CompletedTraining() {
     justify-content: center;
     align-items: center;
   `
-
-  const SurveyButtonContainer = styled.div`
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-  `
-
-export const SurveyButton = styled.button`
-white-space: nowrap;
-padding: 16px 16px;
-margin: 24px;
-color: #fff;
-font-size: 24px;
-outline: none;
-border: none;
-cursor: pointer;
-transition: all 0.2s ease-in-out;
-text-decoration: none;
-min-width: 150px;
-font-weight: 600;
-background: #247cf1;
-border-radius: 10px;
-
-&:hover {
-    transition: all 0.2s ease-in-out;
-    background: #fff;
-    color: #010606;
-}
-
-&:active {
-  box-shadow: none;
-}
-`

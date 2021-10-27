@@ -22,7 +22,7 @@ import CompletedTraining from './completedTraining';
 export default function DailyPuzzzle() {
   const [seen, setSeen] = useState(false); // set to true to display modal on load
   const [completed, setCompleted] = useState(false); // set to true to display completed screen
-  const [loaded,setLoaded] = useState(true);
+  const [loaded,setLoaded] = useState(false);
   const [dailyPicks, setDailyPicks] = useState([]);
   const [schemaPicks, setSchemaPicks] = useState([]);
   const [isMounted, setIsMounted] = useState(true);
@@ -174,14 +174,14 @@ export default function DailyPuzzzle() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  
   const isMobile = windowDimension <= 640;
 
   console.log(isMobile)
 
   if (completed) {
     return(
-      <CompletedTraining />
+      <CompletedTraining isMobile={isMobile}/>
     )
   }
 
