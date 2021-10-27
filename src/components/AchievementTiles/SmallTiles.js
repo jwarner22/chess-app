@@ -61,7 +61,7 @@ const SmallTile = (props) => {
                 break;
     
             case 'high_rating':
-                setPercent(achievement.value/2200)
+                setPercent((achievement.value/2200)*100)
                 break;
     
             case 'perfect':
