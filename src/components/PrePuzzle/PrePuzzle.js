@@ -52,7 +52,7 @@ const PrePuzzlePage = (props) => {
                             <StatsGrid>
                                 <LeftStatWrapper>
                                 <PuzzleEloTitle>
-                                    {module.headline} Rating
+                                    Rating
                                 </PuzzleEloTitle>
                                 </LeftStatWrapper>
                                 <PuzzleElo>
