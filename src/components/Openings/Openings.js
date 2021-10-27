@@ -40,6 +40,7 @@ const Openings = () => {
 
     return (
         <>
+        <div className="page">
         {isMobile ? (
           <MobileNavbar />  
         ) : (
@@ -57,6 +58,7 @@ const Openings = () => {
               </OpeningsTitle>
           </OpeningPageImgWrapper>
         </OpeningPageImgContainer>
+        </div>
         </>
     )
 }

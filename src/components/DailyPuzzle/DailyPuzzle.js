@@ -187,7 +187,7 @@ export default function DailyPuzzzle() {
 
   return (
     <>
-   <div> 
+   <div className="page"> 
    {isMobile ? (
     <MobileNavbar />
     ) : (

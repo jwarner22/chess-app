@@ -24,6 +24,7 @@ import './App.css';
 import protectedRoutes from './components/protectedRoutes'
 import ProtectedRouteHoc from './components/protectedRoutesHoc'
 import firebaseConfig from "./config"
+import {CSSTransition, TransitionGroup} from "react-transition-group"
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from "firebase/app";
 import {AuthProvider} from './components/Auth.js';
@@ -63,25 +64,35 @@ function App() {
       {/*console.log({isloggedin: JSON.stringify(isLoggedIn)})*/}
       <div className="App">
         <Router>
-          <Switch>
-            {protectedRoutes.map(route => (
-              <ProtectedRouteHoc
-                key={route.path}
-                path={route.path}
-                component={route.main}
-                exact={route.exact}
-                public={route.public}
-              />
-            ))}
-            {routes.map(route => (
-              <Route
-                key={route.path}
-                path={route.path}
-                exact={route.exact}
-                component={route.main}
-              />
-            ))}
-          </Switch>
+          <Route render={({location}) => (
+            <TransitionGroup>
+            <CSSTransition
+            key={location.key}
+            timeout={150}
+            classNames="fade"
+            >
+            <Switch location={location}>
+              {protectedRoutes.map(route => (
+                <ProtectedRouteHoc
+                  key={route.path}
+                  path={route.path}
+                  component={route.main}
+                  exact={route.exact}
+                  public={route.public}
+                />
+              ))}
+              {routes.map(route => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  exact={route.exact}
+                  component={route.main}
+                />
+              ))}
+            </Switch>
+            </CSSTransition>
+          </TransitionGroup>
+          )} />
         </Router>
       </div>
     </AuthProvider>

@@ -135,7 +135,7 @@ const Login = ({history}) => {
 
   return (
     <>
-    <Container>
+    <Container className="page">
       <FormWrap>
         <FormContent>
           <Form onSubmit={e => handleForm(e)}>

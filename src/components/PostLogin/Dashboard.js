@@ -45,7 +45,7 @@ const Dashboard = () => {
     
   return (
     <>
-    <DashboardWrapper>
+    <DashboardWrapper className="page">
     {isMobile ? (
     <MobileNavbar />
     ) : (
