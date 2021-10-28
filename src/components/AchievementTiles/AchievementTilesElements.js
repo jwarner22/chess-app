@@ -2,9 +2,8 @@ import React from "react"
 import styled from "styled-components"
 
 export const AchievementTileContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100vw;
+    height: auto;
 `
 
 export const AchievementTileWrapper = styled.ul`
@@ -13,7 +12,6 @@ export const AchievementTileWrapper = styled.ul`
     padding: 16px;
     grid-gap: 16px;
     justify-content: center;
-    width: 65%; 
 `
 export const LargeTile = styled.li`
     min-height: 150px;

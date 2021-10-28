@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 import { CgProfile } from "react-icons/cg";
-
 export const ProfilePanelHeader = styled.div`
     border-bottom: 2px solid #e5e5e5;
     color: #afafaf;
@@ -32,14 +31,12 @@ export const PageBodyContainer = styled.div`
     justify-content: center;
     align-items: center;
 `
-
 export const ProfilePanelContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: center;
 `
-
 export const ProfilePanelWrapper = styled.div`
     display: flex;
     min-height: 200px;
@@ -53,13 +50,11 @@ export const ProfilePanelWrapper = styled.div`
     flex-direction: column;
     max-width: 1100px;
 `
-
 export const ProfilePanelContent = styled.div`
     display: flex;
     flex-direction: column;
     width: 50%;
 `
-
 export const ProfilePanelUsernameWrapper = styled.div`
     display: flex;
     min-height: 90%;
@@ -81,14 +76,12 @@ export const ProfilePanelButton = styled.button`
     border: none;
     cursor: pointer;
 `
-
 export const CalendarTitleWrapper = styled.div`
     display: flex; 
     justify-content: flex-start;
     align-items: center;
     margin: 8px;
 `
-
 export const CalendarTitle = styled.h3`
     color: white;
 `
@@ -97,8 +90,6 @@ export const CalendarBackgroundWrapper = styled.div`
     justify-content: center;
     display: flex;
 `
-
-
 export const CalendarBackground = styled.div`
     width: 320px;
     height: 39px;
@@ -108,9 +99,7 @@ export const CalendarBackground = styled.div`
     border-radius: 10px;
 `
 // export const ProfilePageImg = styled(CgProfile){
-
 // }
-
 export const CalendarGrid = styled.ul`
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -124,4 +113,4 @@ export const CalendarDay = styled.li`
     color: #fff;
     list-style-type: none;
     font-weight:600;
-`
+    `

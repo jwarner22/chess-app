@@ -38,6 +38,8 @@ export const SmallTileIconWrapper = styled.div`
     border-radius: 50%;
     min-width: 60px;
     min-height: 60px;
+    max-width: 60px;
+    max-height: 60px;
     grid-row: 1 / span 3;
     grid-column: 1;
     border-radius: 10px;

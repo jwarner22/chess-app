@@ -10,6 +10,7 @@ import AchievementTiles from "../AchievementTiles/AchievementTiles"
 import useFetch from '../api/useFetch';
 import {baseURL} from '../api/apiConfig';
 import {Container} from "../Login/LoginElements"
+import {AchievementsHeader} from "../ProfilePanel/ProfilePanelElements";
 
 const ProfilePage = () => {
   const  [achievements, setAchievements] = useState([])
@@ -74,17 +75,14 @@ const ProfilePage = () => {
       <DashSidebar isOpen={isOpen} toggle={toggle} />
       </>
       )}
-            <ProfilePageContainer>
       {/* <Announcements {...AnnouncementOne} />  */}
       {(loaded) &&
-      <>
+
+      <ProfilePageContainer>
       <ProfilePanel />
-      <AchievementTileWrapper>
        <AchievementTiles achievements={achievements} profileData={profileData} isMobile={isMobile} />
-      </AchievementTileWrapper>
-      </>
+       </ProfilePageContainer>
       }
-      </ProfilePageContainer>
       </>
     ) 
   };

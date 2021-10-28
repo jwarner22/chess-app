@@ -81,7 +81,7 @@ const SmallTile = (props) => {
                     <SmallTileContent>
                         <SmallTileIconContainer>
                         <SmallTileIconWrapper>
-                            <img src={module.img} alt='' />
+                            <img src={module.img} />
                         </SmallTileIconWrapper>
                         </SmallTileIconContainer>
                         <SmallTileTitle category={achievement.category}>

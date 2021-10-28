@@ -12,7 +12,7 @@ const AchievementTiles = (props) => {
     let accuracy = Math.floor((props.profileData.puzzles_correct/props.profileData.puzzles_completed)*100);
     return (
         <>
-        <AchievementTileContainer>
+            <AchievementTileContainer>
             <AchievementTileWrapper>
                 <LargeTile value={props.profileData.overall_rating} title={'Overall Rating'}/>
                 <LargeTile value={accuracy} title={'Accuracy'}/>
