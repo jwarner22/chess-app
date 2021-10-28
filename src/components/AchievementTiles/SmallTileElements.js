@@ -47,6 +47,12 @@ export const SmallTileIconWrapper = styled.div`
     justify-self: center;
 `
 
+export const SmallTileIcon = styled.img`
+    max-width: 55px;
+    min-width: 55px;
+    padding: 10px;
+`
+
 export const SmallTileTitle = styled.div`
     font-style: normal;
     font-weight: bold;

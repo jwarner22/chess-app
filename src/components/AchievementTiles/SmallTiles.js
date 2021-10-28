@@ -5,6 +5,7 @@ import {SmallTileContainer,
     SmallTileWrapper, 
     SmallTileContent, 
     SmallTileIconWrapper, 
+    SmallTileIcon,
     SmallTileTitle, 
     ProgressBarWrapper, 
     SmallTileDescription,
@@ -81,7 +82,7 @@ const SmallTile = (props) => {
                     <SmallTileContent>
                         <SmallTileIconContainer>
                         <SmallTileIconWrapper>
-                            <img src={module.img} />
+                            <SmallTileIcon src={module.img}/>
                         </SmallTileIconWrapper>
                         </SmallTileIconContainer>
                         <SmallTileTitle category={achievement.category}>
