@@ -221,14 +221,16 @@ export default function Puzzle(props) {
     let updatedDailyPuzzles = await updateDailyPuzzles();
     await saveDailyPuzzles(updatedDailyPuzzles)
    }
-   setIsFinished(true)
+   
 
    } else if (result === 'fail') {
     setOutcomes(prevOutcomes => [...prevOutcomes,results])
+    await saveResults(results);
     setFailure(true)
     setIsFinished(true)
     setSavingResults(false)
    }   
+   setIsFinished(true)
  }
  
 // render if saving to API

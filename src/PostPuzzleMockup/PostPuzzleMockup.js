@@ -27,9 +27,8 @@ const PostPuzzleMockup = (props) => {
                     <RewardH1>
                         {props.perfect && 'Congrats!'}
                         {(!props.failure && !props.perfect) && 'Nice Job!'}
-                        {props.failure && 'Sorry.'}
                     </RewardH1>
-                    <RewardH2>
+                    <RewardH2 props={props}>
 
                         {props.perfect && 'perfect run!'}
                         {(!props.failure && !props.perfect) && 'you passed'}

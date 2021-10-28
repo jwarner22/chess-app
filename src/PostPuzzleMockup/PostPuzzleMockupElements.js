@@ -42,7 +42,7 @@ export const RewardH1 = styled.h1`
 `
 
 export const RewardH2 = styled.h2`
-  color: #54606c;
+  color: ${({props}) => ((props.failure) ? '#F24F3D' : '#54606c')};
   text-align: center;
   margin-bottom: 20px;
 `
