@@ -35,7 +35,7 @@ export const Modules = [
         subheading: 'Convert engames with the bishop.',
         instructions: 'Depending on the color of the bishop, it can often guard a promotional square',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-        img: require("../../../../Images/LondonOpeningIcon.svg").default
+        img: require("../../../../Images/Bishop.png").default
     },
     {
         id: 3,
@@ -46,7 +46,7 @@ export const Modules = [
         subheading: 'Practice the endgame with a knight.',
         instructions: `The knight is particularly effective at fork tactics, which can be difficult for one's opponent to spot`,
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/Pin.svg").default
+        img: require("../../../../Images/Knight.png").default
     },{
         id: 4,
         category: 'puzzle',
@@ -56,7 +56,7 @@ export const Modules = [
         subheading: `Capitalize with a pawn.`,
         instructions: 'A pawn can become a huge focal point in the endgame when promotion is in sight.',
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/Skewer90px.svg").default
+        img: require("../../../../Images/Pawn.png").default
     },{
         id: 5,
         category: 'puzzle',
@@ -76,7 +76,7 @@ export const Modules = [
         subheading: 'Practice using the rook in the endgame.',
         instructions: 'Look to capitalize on open files and ranks to check the opposing king and track down dangerous pawns.',
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/Rook.png").default
     },{
         id: 7,
         category: 'puzzle',
@@ -84,9 +84,9 @@ export const Modules = [
         type_ref: 'queenRookEndgame',
         headline: 'Queen and Rook Endgame',
         subheading: 'The power couple',
-        instructions: 'Look to trap the opposing king with this powerful duo.',
+        instructions: 'Look to trap the opposing kingQu with this powerful duo.',
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require('../../../../Images/queenrook.png').default
     },{
         id: 8,
         category: 'puzzle',
@@ -97,27 +97,29 @@ export const Modules = [
         instructions: 'Zugzwang is a situation in which one player is at a disadvantage because of their obligation to make a move.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/Zugzwang.svg").default
-    },{
-        id: 9,
-        category: 'puzzle',
-        type: 'checkmate',
-        type_ref: 'anastasiaMate',
-        headline: `Anastasia's Mate`,
-        subheading: 'Beautiful checkmates with a rook and knight.',
-        instructions: `The knight defends the opposing king's flight squares while the rook delivers checkmate in the style of a back rank mate`,
-        description: 'Lorem ipsum mah brudda',
-        img: ''
-    },{
-        id: 10,
-        category: 'puzzle',
-        type: 'checkmate',
-        type_ref: 'arabianMate',
-        headline: 'Arabian Mate',
-        subheading: 'One of the oldest checkmate patterns.',
-        instructions: 'The knight often removes a flight square while the rook delivers checkmate in this classic motif.',
-        description: 'Lorem ipsum mah brudda',
-        img: ''
-    },{
+    },
+    // },{
+    //     id: 9,
+    //     category: 'puzzle',
+    //     type: 'checkmate',
+    //     type_ref: 'anastasiaMate',
+    //     headline: `Anastasia's Mate`,
+    //     subheading: 'Beautiful checkmates with a rook and knight.',
+    //     instructions: `The knight defends the opposing king's flight squares while the rook delivers checkmate in the style of a back rank mate`,
+    //     description: 'Lorem ipsum mah brudda',
+    //     img: ''
+    // },{
+    //     id: 10,
+    //     category: 'puzzle',
+    //     type: 'checkmate',
+    //     type_ref: 'arabianMate',
+    //     headline: 'Arabian Mate',
+    //     subheading: 'One of the oldest checkmate patterns.',
+    //     instructions: 'The knight often removes a flight square while the rook delivers checkmate in this classic motif.',
+    //     description: 'Lorem ipsum mah brudda',
+    //     img: ''
+    // },{
+        {
         id: 11,
         category: 'puzzle',
         type: 'checkmate',
@@ -136,7 +138,7 @@ export const Modules = [
         subheading: 'One bishop, two bishop, mate.',
         instructions: 'The bishop pair is coveted due to their combined ability to attack all squares. This can leave the opposing king with nowhere to run.',
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/2bishops.png").default
     },{
         id: 13,
         category: 'puzzle',
@@ -226,7 +228,7 @@ export const Modules = [
         subheading: 'Improve your position by weakening your opponents defenses.',
         instructions: 'Often a key piece will stand in defense in the opponents position. Capturing it can open up tactical opportunities...',
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img:require("../../../../Images/Capturingdefender.png").default
     },{
         id: 22,
         category: 'puzzle',
@@ -336,7 +338,7 @@ export const Modules = [
         subheading: `Attack the kingside.`,
         instructions: 'Attacking on the kingside is an aggressive plan of action that can lead to decisive results due to pressure on the opposing king.',
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/Kingsideattack2.png").default
     },{
         id: 33,
         category: 'puzzle',
@@ -356,7 +358,7 @@ export const Modules = [
         subheading: `Attack the queenside`,
         instructions: 'Sometimes the action is away from the center.',
         description: 'Lorem ipsum mah brudda',
-        img: ''
+        img: require("../../../../Images/Queensideattack.png").default
     },{
         id: 35,
         category: 'puzzle',
@@ -366,7 +368,7 @@ export const Modules = [
         subheading: `Focus on improving your position.`,
         instructions: 'Many of the most beautful moves in chess are not forcing moves, but rather set the stage for a decisive advantage.',
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../Images/QuietMove.svg").default
+        img: require("../../../../Images/feather.png").default
     },{
         id: 36,
         category: 'puzzle',

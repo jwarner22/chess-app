@@ -11,7 +11,7 @@ export const Container = styled.div`
 `
 
 export const DailyPuzzleWrapper = styled.div`
-    padding-top: 32px;
+    padding-top: 80px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -46,13 +46,13 @@ export const DailyPuzzleModuleStyle = styled.div`
     margin: 16px 32px ;
     background-color: ${({props}) => ((props.locked && !props.completed) ? 'gray' : 'white')};
     display: grid;
-    grid-template-columns: min-content 1fr;
+    grid-template-columns: min-content 1fr min-content;
     border-radius: 10px;
     box-shadow: ${({props}) => (props.completed ? 'rgba(149, 157, 165, 0.2) 0px 8px 24px;' : 'rgba(149, 157, 165, 0.2) 0px 8px 24px;')};
     transition: all 0.2s ease-in-out;
     max-width: 800px;
     grid-gap: 8px;
-    grid-template-rows: min-content min-content min-content;
+    grid-template-rows: min-content min-content;
 
 
     &:hover {
@@ -72,7 +72,7 @@ export const DailyPuzzleModuleStyle = styled.div`
 export const DailyPuzzleIconWrapper = styled.div`
     display: flex;
     background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);
-    grid-row: span 3;
+    grid-row: span 2;
     grid-column: 1;
     text-align: center;
     border-radius: 10px;
@@ -86,7 +86,7 @@ export const DailyPuzzleIcon = styled.img`
     max-height: 90px;
     width: 90px;
     height: 90px;
-    grid-row: span 3;
+    grid-row: span 2;
     grid-column: 1;
     margin: 1rem;
 
@@ -101,7 +101,7 @@ export const Col2Row1 = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    grid-column: 2;
+    grid-column: 3;
     grid-row: 1;
     padding: ${({props}) => ((props.completed) ? '4px 12px 0px 0px;' : '4px 12px 0px 0px')};
 `
@@ -113,13 +113,13 @@ export const CompletedCheck = styled.img`
 
 export const Col2Row2 = styled.div`
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: flex-start;
     grid-column: 2;
-    grid-row: 2
+    grid-row: 1;
 
     @media screen and (max-width: 425px) {
-        align-items: flex-start;
+        align-items: center;
         justify-content: flex-start;
     }
 `
@@ -128,7 +128,12 @@ export const Col2Row3 = styled.div`
     align-items: flex-start;
     justify-content: flex-start;
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 2;
+
+    @media screen and (max-width: 425px) {
+        align-items: center;
+        justify-content: flex-start;
+    }
 `
 export const PuzzleModuleTitle = styled.h2`
     text-align: left;

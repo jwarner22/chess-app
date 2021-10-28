@@ -23,13 +23,21 @@ export const LargeTileContent = styled.div`
 `
 
 export const LargeTileIconWrapper = styled.div`
+    display: flex;
     border-radius: 50%;
-     min-width: 47px;
-     min-height: 47px;
+     min-width: 60px;
+     min-height: 60px;
     background: rgba(89, 189, 42, 0.2);
     grid-row: 1;
     grid-column: 1;
     border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+`
+
+export const TileIcon = styled.img` 
+    max-height: 45px;
+    max-width: 45px;
 `
 
 export const LargeTileTitle = styled.div`
