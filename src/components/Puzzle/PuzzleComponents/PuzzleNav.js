@@ -1,14 +1,16 @@
 import React from 'react'
 import styled from "styled-components"
-
+import {Link} from "react-router-dom";
 const PuzzleNav = (props) => {
 
     return (
         <PuzzleNavContainer>
             <NavBtn>
+                <Link to={props.isDaily ? '/dailyPuzzle' : '/dashboard'}>
                 <NavBtnLink2>
-                    Skip
+                    Exit
                 </NavBtnLink2>
+                </Link>
             </NavBtn>
             <NavBtn> 
                 <NavBtnLink props= {props} onClick={props.onContinueClick} disabled={props.disabled}>

@@ -149,7 +149,7 @@ async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = 
     if db_user is None:
          return None
     db.add(db_user)
-    stmt = (update(models.Theme).where(models.Theme.owner_id == user_id).where(models.Theme.title == theme.title).values(rating=theme.rating, completed=theme.completed, high_score=theme.high_score, score_history=theme.score_history))
+    stmt = (update(models.Theme).where(models.Theme.owner_id == user_id).where(models.Theme.title == theme.title).values(rating=theme.rating, completed=theme.completed, high_score=theme.high_score, score_history=theme.score_history, high_rating=theme.high_rating))
     db.execute(stmt)
     db.commit()
     db.refresh(db_user)

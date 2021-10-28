@@ -113,8 +113,11 @@ export default function Puzzle(props) {
       // new high rating
       // need high rating parameter
     //}
+    console.log({newRating: newRating})
+    console.log({themeDataHighRating: themeData.high_rating})
     if (newRating > themeData.high_rating) {
       // new high rating
+      console.log('new high rating')
       themeData.high_rating = newRating;
       setAchievement("high_rating", newRating);
     }
@@ -245,7 +248,7 @@ export default function Puzzle(props) {
  // render puzzle module
   return (
     <div>
-      {(puzzles.length > 0) && <PuzzlePage puzzles={puzzles} puzzleIsFinished={puzzleIsFinished} />}
+      {(puzzles.length > 0) && <PuzzlePage puzzles={puzzles} puzzleIsFinished={puzzleIsFinished} isDaily={isDaily}/>}
     </div>
   );
 }

@@ -13,6 +13,7 @@ class Theme(BaseModel):
     rating: Optional[int] = 1500
     completed: Optional[int] = 0
     high_score: Optional[int] = 0
+    high_rating: Optional[int] = 800
     score_history: str
 
     class Config:

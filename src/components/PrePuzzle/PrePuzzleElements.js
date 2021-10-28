@@ -11,7 +11,7 @@ export const PuzzlePageContainer = styled.div`
   z-index: 0;
   overflow: hidden;
   background-color: #f6f8f9;
-  height: 100%;
+  height: 100vh;
 `
 export const PrePuzzleIconWrapper = styled.div`
     background: #247cf1;
