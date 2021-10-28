@@ -64,14 +64,15 @@ function App() {
       {/*console.log({isloggedin: JSON.stringify(isLoggedIn)})*/}
       <div className="App">
         <Router>
-          <Route render={({location}) => (
+          {/* <Route render={({location}) => (
             <TransitionGroup>
             <CSSTransition
             key={location.key}
             timeout={150}
             classNames="fade"
-            >
-            <Switch location={location}>
+            > */}
+
+            <Switch >
               {protectedRoutes.map(route => (
                 <ProtectedRouteHoc
                   key={route.path}
@@ -90,9 +91,9 @@ function App() {
                 />
               ))}
             </Switch>
-            </CSSTransition>
+            {/* </CSSTransition>
           </TransitionGroup>
-          )} />
+          )} /> */}
         </Router>
       </div>
     </AuthProvider>
