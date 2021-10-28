@@ -27,6 +27,7 @@ export const SmallTileIconContainer = styled.div`
     display: flex;
     align-self: center;
     justify-self: center;
+    justify-content: center;
     grid-row: 1 / span 3;
     height: 100%;
     background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);
@@ -48,18 +49,18 @@ export const SmallTileIconWrapper = styled.div`
 `
 
 export const SmallTileIcon = styled.img`
-    max-width: 55px;
-    min-width: 55px;
-    padding: 10px;
+    max-width: 60px;
+    min-width: 60px;
+    padding: 4px;
 `
 
 export const SmallTileTitle = styled.div`
     font-style: normal;
     font-weight: bold;
-    font-size: 14px;
+    font-size: ${({category}) => ((category==='perfect') ? '14px' : '12px')};
     line-height: 14px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: ${({category}) => ((category==='perfect') ? '12px' : '0px')};
     grid-column: 2;
     grid-row: ${({category}) => ((category==='perfect') ? 2 : 1)};
