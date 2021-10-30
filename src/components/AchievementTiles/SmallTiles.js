@@ -37,7 +37,7 @@ const SmallTile = (props) => {
     
             case 'high_rating':
                 setCategory('Record Rating')
-                setDescription('Your rating hit an all time high for this theme.')
+                setDescription('Your rating hit an all time high')
                 break;
     
             case 'perfect':
