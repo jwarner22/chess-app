@@ -43,7 +43,7 @@ export default function DailyPuzzzle() {
  
     //const storedDailyPuzzles = JSON.parse(localStorage.getItem('dailyPuzzles'));
     let storedDailyPuzzles = await getDailyPuzzles();
-
+  
     let storedDateString = storedDailyPuzzles[0].inserted_at;
     let storedDate = new Date(storedDateString);
 
@@ -61,7 +61,7 @@ export default function DailyPuzzzle() {
         let stored = storedDailyPuzzles.find(module => module.location === index)
         return {...pick, completed: stored.completed, locked: stored.locked, inserted_at: stored.inserted_at}
       });
-
+      
       setSchemaPicks(storedDailyPuzzles);
       setDailyPicks(mutatedPicks);
 
@@ -87,7 +87,7 @@ export default function DailyPuzzzle() {
       if (data.detail === 'daily puzzles not found') {
         const returnedPicks = await getNewPicks(); // generate new picks
         await createPicks(returnedPicks.schemaPicks) // create daily puzzles for new user
-        return returnedPicks.mutatedPicks;
+        return returnedPicks.schemaPicks;
       } else {
         return data // return daily puzzles from API
       }
@@ -198,7 +198,7 @@ export default function DailyPuzzzle() {
       )}
     {seen ? <Modal toggle={togglePop} /> : null}
    </div>
-   {loaded &&
+   {(loaded) &&
    <Container>
    <DailyPuzzleWrapper>
       <DailyPuzzleContainer>

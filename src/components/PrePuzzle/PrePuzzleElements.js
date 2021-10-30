@@ -4,7 +4,6 @@ import { GoSearch } from "react-icons/go";
 
 export const PuzzlePageContainer = styled.div`
    min-height: 692px;
-  position: fixed;
   left: 0;
   right: 0;
   top: 0;

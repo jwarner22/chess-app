@@ -124,6 +124,7 @@ class User(UserBase):
     total_score: int
     puzzles_completed: Optional[int] = 0
     puzzles_correct: Optional[int] = 0
+    initial_rating: int
     themes: Optional[List[Theme]] = []
     daily_puzzles: Optional[List[DailyPuzzle]] = []
 

@@ -1,4 +1,4 @@
-// import React, { Component } from 'react'
+import { useEffect, useState } from 'react'
 // import "./IntakeSurvey.css";
 // import 'survey-react/survey.css';
 // import * as Survey from "survey-react"
@@ -42,17 +42,33 @@ const IntakeOption = (props) => {
 
 const IntakeSurvey = () => {
     const options = ["Beginner", "Novice", "Intermediate", "Expert", "Master"]
+    const [windowDimension, setWindowDimension] = useState(null);
+
+    useEffect(() => {
+      setWindowDimension(window.innerWidth);
+    }, []);
+  
+    useEffect(() => {
+      function handleResize() {
+        setWindowDimension(window.innerWidth);
+      }
+  
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    
+    const isMobile = windowDimension <= 640;
 
     return(
     <>
-    <SurveyTitleWrapper>How would you describe your chess skill level?</SurveyTitleWrapper>
-    <AnswerContainer>
+    <SurveyTitleWrapper isMobile={isMobile}>How would you describe your chess skill level?</SurveyTitleWrapper>
+    <AnswerContainer isMobile={isMobile}>
         <AnswerWrapper>
             <AnswerContent>
                 <SurveyAnswerGrid>
                         {options.map((option, index) => {
                             return(
-                                <AnswerLink to={{pathname: "/create-user", state: {index: index}}}>
+                                <AnswerLink key={index} to={{pathname: "/create-user", state: {index: index}}}>
                                 <IntakeOption text={option} />
                                 </AnswerLink>
                             )
@@ -69,23 +85,23 @@ export default IntakeSurvey
 
 const SurveyTitleWrapper = styled.h2`
     display: flex;
-    min-width: 1170px;
+    max-width: 100%;
     justify-content: center;
     align-items: center;
     text-align: center;
     color: #232323;
-    padding: 24px 0px;
+    padding: ${({isMobile}) => ((isMobile) ? '48px 12px' : '48px 0px')};
     min-height: 70px;
     left: 0;
     right: 0;
     top: 0;
     position: fixed;
-    line-height: 52px;
+    line-height: 36px;
 `
 
 const AnswerContainer = styled.div`
     min-height: 100vh;
-    padding-top: 94px;
+    padding-top: ${({isMobile}) => ((isMobile) ? '60%' : '20vh')};
 `
 
 const AnswerWrapper = styled.div`

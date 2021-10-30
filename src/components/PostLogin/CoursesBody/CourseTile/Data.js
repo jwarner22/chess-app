@@ -406,7 +406,7 @@ export const Modules = [
         type_ref: 'trappedPiece',
         headline: 'Trapped Piece',
         subheading: `There is no escape.`,
-        instructions: 'When a valuable piece has few squares left be on the look out for ways to leave it with none at all.',
+        instructions: 'When a valuable piece has few squares left, be on the look out for ways to leave it with none at all.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../Images/TrappedPiece.svg").default
     },

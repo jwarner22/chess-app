@@ -15,7 +15,7 @@ const AchievementTiles = (props) => {
             <AchievementTileContainer>
             <AchievementTileWrapper>
                 <LargeTile value={props.profileData.overall_rating} title={'Overall Rating'}/>
-                <LargeTile value={accuracy} title={'Accuracy'}/>
+                <LargeTile value={isNaN(accuracy) ? 0 : accuracy} title={'Accuracy'}/>
                 </AchievementTileWrapper>
                 <ProfilePanelContainer> 
                 <AchievementsHeader>
