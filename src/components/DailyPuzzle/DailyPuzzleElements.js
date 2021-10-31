@@ -11,7 +11,7 @@ export const Container = styled.div`
 `
 
 export const DailyPuzzleWrapper = styled.div`
-    padding-top: 8px;
+    padding-top: 10vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
