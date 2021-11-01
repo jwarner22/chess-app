@@ -9,7 +9,7 @@ import ConfettiGenerator from 'confetti-js';
 import queenImg from '../Puzzle/chess/pieces/nova/wQ.svg';
 import useFetch from '../api/useFetch';
 import {baseURL} from '../api/apiConfig';
-import {FinishButton} from '../../PostPuzzleMockup/PostPuzzleMockupElements';
+import {FinishButton} from '../PostModule/PostModuleElements';
 import styled from "styled-components"
 
 export default function CompletedTraining(props) {

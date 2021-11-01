@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link} from "react-router-dom"
-import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from './PostPuzzleMockupElements'
-import headerImg from "../Images/RewardHeaderImg.svg"
-import {Modules} from '../components/PostLogin/CoursesBody/CourseTile/Data.js';
+import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from './PostModuleElements'
+import headerImg from "../../Images/RewardHeaderImg.svg"
+import {Modules} from '../PostLogin/CoursesBody/CourseTile/Data.js';
 import Chart from './ScoreChart';
 
 const PostPuzzleMockup = (props) => {

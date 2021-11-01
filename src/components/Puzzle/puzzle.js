@@ -7,7 +7,7 @@ import PuzzlePage from "./PuzzleComponents/PuzzlePage";
 import {baseURL} from "../api/apiConfig";
 import {calcScore, calcEloRating} from './Utilities/Scoring';
 //import FetchWrapper from "../api/FetchWrapper";
-import PostPuzzle from '../../PostPuzzleMockup/PostPuzzleMockup'
+import PostPuzzle from '../PostModule/PostModule';
 import useFetch from '../api/useFetch';
 import Loader from '../../Preloader';
 import { SettingsBackupRestore } from "@styled-icons/material";
