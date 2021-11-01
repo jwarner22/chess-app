@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 //import FetchWrapper from '../api/FetchWrapper.js';
 import {baseURL} from '../api/apiConfig';
 import useFetch from '../api/useFetch.js';
-import Loader from '../../Preloader.js';
+import Loader from '../Loader.js';
 import PrePuzzle from '../PrePuzzle/PrePuzzle.js';
 
 export default function Module(props) {

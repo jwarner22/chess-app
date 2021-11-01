@@ -1,7 +1,7 @@
 import React, {useState, useEffect}from 'react'
 import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
-import DashboardNavbar from "../PostLogin/DashboardNavbar/Index"
-import DashSidebar from "../PostLogin/DashboardSidebar/Index"
+import DashboardNavbar from "../PostLogin/DashboardNavbar/DashboardNavbar"
+import DashSidebar from "../PostLogin/DashboardSidebar/DashboardSidebar"
 import openingImage from "../../Images/professor.svg"
 import {OpeningPageImgContainer, 
   OpeningsPagePlaceholderImg, 

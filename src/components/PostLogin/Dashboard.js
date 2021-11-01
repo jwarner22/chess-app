@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"
-import { Redirect } from "react-router-dom";
-//import { AuthContext } from "../Auth";
-import firebaseConfig from "../../config.js";
-import DashNavbar from './DashboardNavbar/Index'
-import DashSidebar from './DashboardSidebar/Index'
-import Announcements from "./Announcements/Index";
-import Body from "./CoursesBody/Index";
-import {AnnouncementOne} from "./Announcements/Data";
+import DashNavbar from './DashboardNavbar/DashboardNavbar'
+import DashSidebar from './DashboardSidebar/DashboardSidebar'
+import Body from "./CoursesBody/CoursesBody";
 import MobileNavbar from "./MobileNavBar/MobileNavBar"
 import styled from "styled-components"
 

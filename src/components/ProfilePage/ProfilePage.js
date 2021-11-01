@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components"
-import Announcements from "../PostLogin/Announcements/Index"
-import {AnnouncementOne} from "../PostLogin/Announcements/Data"
-import DashNavbar from "../PostLogin/DashboardNavbar/Index"
+import DashNavbar from "../PostLogin/DashboardNavbar/DashboardNavbar"
 import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
-import DashSidebar from "../PostLogin/DashboardSidebar/Index"
+import DashSidebar from "../PostLogin/DashboardSidebar/DashboardSidebar"
 import ProfilePanel from "../ProfilePanel/ProfilePanel"
 import AchievementTiles from "../AchievementTiles/AchievementTiles"
 import useFetch from '../api/useFetch';
 import {baseURL} from '../api/apiConfig';
-import {Container} from "../Login/LoginElements"
-import {AchievementsHeader} from "../ProfilePanel/ProfilePanelElements";
 
 const ProfilePage = () => {
   const  [achievements, setAchievements] = useState([])
   const [profileData, setProfileData] = useState({});
-  const {get, loading} = useFetch(baseURL)
+  const {get} = useFetch(baseURL)
   const [loaded, setLoaded] = useState(false)
   const userID = localStorage.getItem('userID');
 

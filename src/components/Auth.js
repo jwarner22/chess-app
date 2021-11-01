@@ -3,7 +3,7 @@ import React, { useEffect, useState, createContext } from "react";
 //import {firebaseAPI} from '../config.js';
 import firebase from 'firebase/app';
 import auth from "../config.js"
-import Loader from '../Preloader.js';
+import Loader from '../components/Loader.js';
 
 require('@firebase/auth')
 

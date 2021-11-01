@@ -13,9 +13,8 @@ import {Modules} from "../../components/PostLogin/CoursesBody/CourseTile/Data.js
 import { baseURL } from "../api/apiConfig";
 import useFetch from '../api/useFetch';
 import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
-import { PurchaseTag } from "styled-icons/boxicons-regular";
-import DashNavbar from "../PostLogin/DashboardNavbar/Index"
-import DashSidebar from '../PostLogin/DashboardSidebar/Index'
+import DashNavbar from "../PostLogin/DashboardNavbar/DashboardNavbar"
+import DashSidebar from '../PostLogin/DashboardSidebar/DashboardSidebar'
 import CompletedTraining from './completedTraining';
 
 

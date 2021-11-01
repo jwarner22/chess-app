@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react'
-import Loader from '../../Preloader';
 import SmallTile from '../AchievementTiles/SmallTiles';
 import {Link} from 'react-router-dom';
 import {AchievementTileContainer, 

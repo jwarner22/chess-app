@@ -9,7 +9,7 @@ import {calcScore, calcEloRating} from './Utilities/Scoring';
 //import FetchWrapper from "../api/FetchWrapper";
 import PostPuzzle from '../PostModule/PostModule';
 import useFetch from '../api/useFetch';
-import Loader from '../../Preloader';
+import Loader from '../Loader';
 import { SettingsBackupRestore } from "@styled-icons/material";
 
 export default function Puzzle(props) {
