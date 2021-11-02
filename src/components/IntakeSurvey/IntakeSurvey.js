@@ -1,16 +1,4 @@
 import { useEffect, useState } from 'react'
-// import "./IntakeSurvey.css";
-// import 'survey-react/survey.css';
-// import * as Survey from "survey-react"
-import {SmallTileContainer, 
-    SmallTileWrapper, 
-    SmallTileContent, 
-    SmallTileIconWrapper, 
-    SmallTileTitle, 
-    ProgressBarWrapper, 
-    SmallTileDescription,
-    SmallTileIconContainer
-} from "../AchievementTiles/SmallTileElements";
 import styled from "styled-components"
 import {Link} from 'react-router-dom';
 

@@ -1,4 +1,4 @@
-import Puzzle from '../Puzzle/puzzle.js';
+import ModuleManager from '../Puzzle/ModuleManager.js';
 import React, {useEffect, useState} from 'react';
 //import FetchWrapper from '../api/FetchWrapper.js';
 import {baseURL} from '../api/apiConfig';
@@ -80,7 +80,7 @@ export default function Module(props) {
 
     return(
         <>
-        <Puzzle rating={rating} theme = {theme} id={id} isDaily={isDaily} schemaPicks={schemaPicks}/>
+        <ModuleManager rating={rating} theme = {theme} id={id} isDaily={isDaily} schemaPicks={schemaPicks}/>
         </>
     )
 }

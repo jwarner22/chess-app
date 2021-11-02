@@ -1,61 +1,21 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import './index.css';
-// import {App} from './App';
-// import reportWebVitals from './reportWebVitals';
 
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
-
-// // If you want to start measuring performance in your app, pass a function
-// // to log results (for example: reportWebVitals(console.log))
-// // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
-
-import React, { useState,useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import routes from "./routes.js";
 import './App.css';
 import protectedRoutes from './components/protectedRoutes'
 import ProtectedRouteHoc from './components/protectedRoutesHoc'
-import firebaseConfig from "./config"
-import {CSSTransition, TransitionGroup} from "react-transition-group"
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import firebase from "firebase/app";
 import {AuthProvider} from './components/Auth.js';
 require("firebase/auth");
 
-//export const AuthContext = React.createContext(null);
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// reportWebVitals();
+
 
 function App() {
-  //const [isLoggedIn, setLoggedIn] = useState(false);
-  // const [loaded, setLoaded] = useState(false);
-
-  // function readSession() {
-  //    //const user = localStorage.getItem(
-	// 		//`firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
-	// 	//);
-    
-  //   const userLoggedIn = localStorage.getItem('isLoggedIn')
-    
-	// 	//const user = firebase.auth().currentUser;
-  //   //console.log({localStorageUser: user})
-  //   if (userLoggedIn === 'true') {
-  //     console.log('isLoggedIn set to true')
-  //     //setLoggedIn(true)
-  //   }
-  //   //if (user) setLoggedIn(true)
-  //   setLoaded(!loaded)
-  // }
-
-  // useEffect(() => {
-  //   readSession()
-  // }, [])
 
   return(
     <>

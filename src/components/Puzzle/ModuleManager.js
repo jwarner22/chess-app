@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {Link} from 'react-router-dom';
 import "./style.css";
 // import Demo from "./Demo";
 // import registerServiceWorker from "./registerServiceWorker";
 import PuzzlePage from "./PuzzleComponents/PuzzlePage";
 import {baseURL} from "../api/apiConfig";
 import {calcScore, calcEloRating} from './Utilities/Scoring';
-//import FetchWrapper from "../api/FetchWrapper";
 import PostPuzzle from '../PostModule/PostModule';
 import useFetch from '../api/useFetch';
 import Loader from '../Loader';
-import { SettingsBackupRestore } from "@styled-icons/material";
 
 export default function Puzzle(props) {
 
