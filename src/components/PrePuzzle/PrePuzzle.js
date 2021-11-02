@@ -25,7 +25,7 @@ RightStatWrapper} from "./PrePuzzleElements"
 import {DailyPuzzleIcon} from "../DailyPuzzle/DailyPuzzleElements"
 import testIcon from "../../Images/EnPassant.svg"
 import { StartButton } from '../DailyPuzzle/ModalElements'
-import {Modules} from '../PostLogin/CoursesBody/CourseTile/Data.js';
+import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
 
 const PrePuzzlePage = (props) => {
     const moduleId = props.moduleId;

@@ -14,8 +14,8 @@ import {
      Img
     } from './NavbarElements'
 import {animateScroll as scroll} from 'react-scroll'
-import logo from "../../Images/EloElevation-2.png"
-import {BlueBars} from "../PostLogin/DashboardNavbar/DashboardNavElements"
+import logo from "../../../Images/EloElevation-2.png"
+import {BlueBars} from "../../PostLogin/DashboardNavbar/DashboardNavElements"
 
 const Navbar = ({ toggle }) => {
     const [scrollNav, setScrollNav] = useState(false)

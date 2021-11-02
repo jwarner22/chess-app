@@ -9,7 +9,7 @@ import { DailyPuzzleContainer,
 import Modal from "./Modal"; 
 import headerImg from "./../../Images/DailyPuzzleHeaderImg.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
-import {Modules} from "../../components/PostLogin/CoursesBody/CourseTile/Data.js"
+import {Modules} from "../../components/PostLogin/Views/PatternRecognition/CourseTiles/Data"
 import { baseURL } from "../api/apiConfig";
 import useFetch from '../api/useFetch';
 import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"

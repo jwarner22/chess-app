@@ -1,12 +1,12 @@
 import React from 'react';
 import ReportsView from './ReportsView';
-import Dashboard from "./PostLogin/Dashboard"
+import Dashboard from "./PostLogin/Views/PatternRecognition/PatternRecognition"
 import Module from './PostLogin/Module.js';
 import PostPuzzleMockup from './PostModule/PostModule';
 import DailyPuzzle from "./DailyPuzzle/DailyPuzzle"
 import PrePuzzlePage from "./PrePuzzle/PrePuzzle"
-import Openings from "./Openings/Openings"
-import ProfilePage from "./ProfilePage/ProfilePage"
+import Openings from "./PostLogin/Views/Openings/Openings"
+import ProfilePage from "./PostLogin/Views/ProfilePage/ProfilePage"
 import IntakeSurvey from './IntakeSurvey/IntakeSurvey';
 import CreateUser from './IntakeSurvey/CreateUser';
 

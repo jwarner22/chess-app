@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Modules} from '../PostLogin/CoursesBody/CourseTile/Data'
+import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data'
 import {Line} from 'rc-progress';
 import {SmallTileContainer, 
     SmallTileWrapper, 

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components"
-import DashNavbar from "../PostLogin/DashboardNavbar/DashboardNavbar"
-import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
-import DashSidebar from "../PostLogin/DashboardSidebar/DashboardSidebar"
-import ProfilePanel from "../ProfilePanel/ProfilePanel"
-import AchievementTiles from "../AchievementTiles/AchievementTiles"
-import useFetch from '../api/useFetch';
-import {baseURL} from '../api/apiConfig';
+import DashNavbar from "../../DashboardNavbar/DashboardNavbar"
+import MobileNavbar from "../../MobileNavBar/MobileNavBar"
+import DashSidebar from "../../DashboardSidebar/DashboardSidebar"
+import ProfilePanel from "../../../ProfilePanel/ProfilePanel"
+import AchievementTiles from "../../../AchievementTiles/AchievementTiles"
+import useFetch from '../../../api/useFetch';
+import {baseURL} from '../../../api/apiConfig';
 
 const ProfilePage = () => {
   const  [achievements, setAchievements] = useState([])

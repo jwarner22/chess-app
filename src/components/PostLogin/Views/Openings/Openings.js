@@ -1,8 +1,8 @@
 import React, {useState, useEffect}from 'react'
-import MobileNavbar from "../PostLogin/MobileNavBar/MobileNavBar"
-import DashboardNavbar from "../PostLogin/DashboardNavbar/DashboardNavbar"
-import DashSidebar from "../PostLogin/DashboardSidebar/DashboardSidebar"
-import openingImage from "../../Images/professor.svg"
+import MobileNavbar from "../../MobileNavBar/MobileNavBar"
+import DashboardNavbar from "../../DashboardNavbar/DashboardNavbar"
+import DashSidebar from "../../DashboardSidebar/DashboardSidebar"
+import openingImage from "../../../../Images/professor.svg"
 import {OpeningPageImgContainer, 
   OpeningsPagePlaceholderImg, 
   OpeningsTitle,

@@ -11,8 +11,8 @@ import {CoursesWrapper,
     CheckmatesLabelWrapper,
     EndgamesLabelWrapper,
 } from './CoursesElements'
-import CourseTile from './CourseTile/Index'
-import {Modules} from './CourseTile/Data';
+import CourseTile from '../CourseTiles/CourseTiles'
+import {Modules} from '../CourseTiles/Data';
 
 const Body = (
 ) => {

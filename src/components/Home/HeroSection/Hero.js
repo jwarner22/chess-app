@@ -1,9 +1,9 @@
 import {HeroContainer, HeroBg, VideoBg, HeroContent, HeroP, HeroH1, HeroBtnWrapper, ArrowForward, ArrowRight} from './HeroElements';
-import Video from '../../Videos/Video.mp4';
+import Video from '../../../Videos/Video.mp4';
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 //import { AuthContext } from "../Auth";
-import {Button} from '../ButtonElement'
+import {Button} from '../../ButtonElement'
 
 const HeroSection = () => {
     // const { currentUser } = useContext(AuthContext);

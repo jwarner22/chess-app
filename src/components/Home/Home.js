@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import { Link, BrowserRouter as Router, Swtich, Route } from "react-router-dom";
 //import { AuthContext } from "../Auth";
-import HeroSection from "../Hero Section/Index";
-import Navbar from '../NavBar/NavBar'
-import Sidebar from '../Sidebar/index'
-import InfoSection from '../InfoSection/index'
-import { homeObjOne, homeObjTwo, homeObjThree } from "../InfoSection/Data";
+import HeroSection from "./HeroSection/Hero";
+import Navbar from "./NavBar/NavBar"
+import Sidebar from './Sidebar/Sidebar'
+import InfoSection from './InfoSection/InfoSection'
+import { homeObjOne, homeObjTwo, homeObjThree } from "./InfoSection/Data";
 import Services  from '../Services/Index'
-import Footer from '../Footer/Index'
+import Footer from './Footer/Footer'
 
 
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import DashNavbar from './DashboardNavbar/DashboardNavbar'
-import DashSidebar from './DashboardSidebar/DashboardSidebar'
+import DashNavbar from '../../DashboardNavbar/DashboardNavbar'
+import DashSidebar from '../../DashboardSidebar/DashboardSidebar'
 import Body from "./CoursesBody/CoursesBody";
-import MobileNavbar from "./MobileNavBar/MobileNavBar"
+import MobileNavbar from "../../MobileNavBar/MobileNavBar"
 import styled from "styled-components"
 
 
