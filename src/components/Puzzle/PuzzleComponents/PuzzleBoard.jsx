@@ -31,6 +31,7 @@ export default class PuzzleBoard extends React.Component {
               unlockNext={this.props.unlockNext}
               count={this.props.count}
               displayOutcome={this.props.displayOutcome}
+              retry={this.props.retry}
             >
               {({ movable, fen, turnColor, lastMove, onMove, orientation, check }) => (
                 <Chessground

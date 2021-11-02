@@ -6,11 +6,9 @@ const PuzzleNav = (props) => {
     return (
         <PuzzleNavContainer>
             <NavBtn>
-                <Link to={props.isDaily ? '/dailyPuzzle' : '/dashboard'}>
-                <NavBtnLink2>
-                    Exit
+                <NavBtnLink2 props={props} onClick={props.onRetryClick} disabled={props.retryDisable}>
+                    Retry
                 </NavBtnLink2>
-                </Link>
             </NavBtn>
             <NavBtn> 
                 <NavBtnLink props= {props} onClick={props.onContinueClick} disabled={props.disabled}>
@@ -23,6 +21,11 @@ const PuzzleNav = (props) => {
 
 export default PuzzleNav
 
+{/* <Link to={props.isDaily ? '/dailyPuzzle' : '/dashboard'}>
+<NavBtnLink2>
+    Exit
+</NavBtnLink2>
+</Link> */}
 
 const PuzzleNavContainer = styled.div`
     display: flex;
@@ -69,10 +72,10 @@ const NavBtnLink2 = styled.button`
     white-space: nowrap;
     padding: 16px 16px;
     margin: 24px;
-    color: #afafaf;
+    color: ${({props}) => ((props.retryDisable) ? '#afafaf' : '#247cf1')};
     font-size: 22px;
     outline: none;
-    border: 2px solid #afafaf;
+    border: ${({props}) => ((props.retryDisable) ? '2px solid #afafaf' : '2px solid #247cf1')};
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;

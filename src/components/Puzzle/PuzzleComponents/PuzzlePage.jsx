@@ -10,6 +10,8 @@ import errorSoundFile from "../../../assets/public_sound_standard_Error.mp3";
 import {Howl} from 'howler';
 import PuzzleNav from "./PuzzleNav"
 import styled from "styled-components"
+import {Modules} from "../../PostLogin/Views/PatternRecognition/CourseTiles/Data"
+import { StoreMallDirectory } from "@styled-icons/material";
 // import Stockfish from "./Stockfish";
 // move functions to utils file
 
@@ -31,6 +33,10 @@ function NextButton(props) {
   )
 }
 */
+const getModuleTitle = (name) => {
+  const module = Modules.find(module => module.type_ref === name)
+  return module.headline
+}
 
 
 export default function PuzzlePage(props) {
@@ -41,12 +47,14 @@ export default function PuzzlePage(props) {
   const [outcome, setOutcome] = useState(null)
   const [outcomes,setOutcomes] = useState([]);
   const [waiting, setWaiting] = useState(false);
+  const [retry, setRetry] = useState(false);
+  const [retryDisable, setRetryDisable] = useState(true);
   const [correctMoves, setCorrectMoves] = useState(
     getMoves(puzzleData[0].moves)
   );
   const confirmationSound = new Howl({src: confirmationSoundFile})
   const errorSound = new Howl({src: errorSoundFile})
-
+  const title = getModuleTitle(props.theme)
   const numPuzzles = puzzleData.length;
 
   useEffect(() => {
@@ -63,7 +71,6 @@ export default function PuzzlePage(props) {
   }, [count])
 
   useEffect(() => {
-    console.log({progress: progress})
     if (progress >= 100) {
       finished()
     }
@@ -95,9 +102,11 @@ export default function PuzzlePage(props) {
     // play sound to indicate success or failure
     if (success) {
       confirmationSound.play()
-
+      setRetryDisable(true)
     } else {
       errorSound.play()
+      setRetryDisable(false)
+      
     }
     
     setOutcome(success);
@@ -111,27 +120,38 @@ export default function PuzzlePage(props) {
   
   const returnPercent = (percent) => {
     setProgress(percent)
-    console.log({percent: percent})
     if (percent >= 100) {
       finished()
     }
   }
 
   function handleContinueClick() {
-    console.log('continue clicked')
     incrementCount()
+    setRetry(false)
     setWaiting(false)
+    setRetryDisable(true)
+  }
+
+  const handleRetryClick = () => {
+    setRetry(true)
+    setFen(() => puzzleData[count].fen);
+    setCorrectMoves(() => getMoves(puzzleData[count].moves));
+    setRetryDisable(true)
   }
 
   return (
     <div>
       <PuzzlePageContainer>
+        <HeaderContainer>
+        <Header>{title}</Header>
+        </HeaderContainer>
       <div style={progressContainer}>
         <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count}/>
       </div>
       <PuzzleBoardWrapper>
         <PuzzleBoard
           fen={fen}
+          retry={retry}
           correctMoves={correctMoves}
           unlockNext={unlockNext}
           count={count}
@@ -139,7 +159,7 @@ export default function PuzzlePage(props) {
         />
       </PuzzleBoardWrapper>
       <div>
-      <PuzzleNav disabled={!waiting} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
+      <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
       </div>
      </PuzzlePageContainer>
     </div>
@@ -154,6 +174,15 @@ const progressContainer = {
   margin: "0 auto",
   maxWidth: "1080px"
 };
+
+const Header = styled.h2`
+  color: #afafaf;
+`
+const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 const PuzzlePageContainer = styled.div `
   display: flex;

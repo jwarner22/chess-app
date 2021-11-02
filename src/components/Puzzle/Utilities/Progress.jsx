@@ -63,5 +63,4 @@ export default ProgressBar
 
 const HeaderWrapper = styled.div`
     width: 360px;
-    margin-top: 40px;
 `

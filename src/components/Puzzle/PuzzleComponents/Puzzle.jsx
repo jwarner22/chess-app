@@ -24,7 +24,8 @@ export default class Puzzle extends React.Component {
     this.isCorrect = false;
     this.isFinished = false;
     this.moveSound = new Howl({src: moveSound});
-    this.captureSound = new Howl({src: captureSound})
+    this.captureSound = new Howl({src: captureSound});
+    this.retry = props.retry;
   }
 
   state = {
@@ -54,6 +55,20 @@ export default class Puzzle extends React.Component {
       this.count = this.props.count;
       this.newPuzzle();
     }
+    if (prevProps.retry === false && this.props.retry === true) {
+      this.isFinished = false;
+      this.count = this.props.count;
+      this.newPuzzle()
+    }
+  }
+
+  retryPuzzle = () => {
+    this.game.load(this.props.fen);
+    this.setState({
+      fen: this.game.fen(), //,
+      orientation: this.turnColor(),
+      check: this.game.in_check()
+    });
   }
 
   newPuzzle = async () => {
@@ -126,7 +141,7 @@ export default class Puzzle extends React.Component {
     // await this.makeMove(from, to);
     // set new game state
     const lastMove = from + to;
-
+ 
     // checks move for correctness and displays splash screen.
     this.verifyMove(from, to);
 
@@ -202,7 +217,6 @@ export default class Puzzle extends React.Component {
   // calcs legal moves and returns chessground compatible object
   calcMovable = next => {
     if (this.state.moveIndex !== this.state.prevMoveIndex | this.state.prevMoveIndex === 0 | next) {
-      console.log('calced movable')
       this.game = new Chess(this.state.fen);
     const dests = new Map();
     this.game.SQUARES.forEach((s) => {

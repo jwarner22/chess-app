@@ -10,17 +10,17 @@ const Footer = () => {
     return (
         <FooterContainer>
             <FooterWrap>
-                <FooterLinksContainer>
-                    <FooterLinksWrapper>
-                    <FooterLinkItems>
+                {/*<FooterLinksContainer>
+                     <FooterLinksWrapper>
+                     <FooterLinkItems>
                         <FooterLinkTitle>Helpful Links</FooterLinkTitle>
                             <FooterLink to="signin">About Us</FooterLink> 
                             <FooterLink to="signin">How it Works</FooterLink>    
                             <FooterLink to="signin">Terms of Service</FooterLink>    
                             <FooterLink to="signin">Privacy Policy</FooterLink>    
-                            {/*<FooterLink to="signin">Investors</FooterLink>   */} 
+                            <FooterLink to="signin">Investors</FooterLink>
                     </FooterLinkItems>
-                    {/*<FooterLinkItems>
+                    <FooterLinkItems>
                         <FooterLinkTitle>Helpful Links</FooterLinkTitle>
                             <FooterLink to="signin">About Us</FooterLink> 
                             <FooterLink to="signin">How it Works</FooterLink>    
@@ -45,16 +45,16 @@ const Footer = () => {
                             <FooterLink to="signin">Terms of Service</FooterLink>    
                             <FooterLink to="signin">Privacy Policy</FooterLink>    
                             <FooterLink to="signin">Investors</FooterLink>    
-                    </FooterLinkItems>*/}
+                    </FooterLinkItems>
                     </FooterLinksWrapper>
-                </FooterLinksContainer>
+                </FooterLinksContainer>*/}
                 <SocialMedia>
                     <SocialMediaWrap>
                         <SocialLogo to= '/' onClick={toggleHome}>
                             Elo Elevation
                         </SocialLogo>
                         <WebsiteRights>Elo Elevation © {new Date().getFullYear()} All Rights Reserved</WebsiteRights>
-                        <SocialIcons>
+                        {/* <SocialIcons>
                             <SocialIconLink href='/' target='_blank' aria-label='Facebook'>
                                 <FaFacebook />
                             </SocialIconLink>
@@ -67,7 +67,7 @@ const Footer = () => {
                             <SocialIconLink href='/' target='_blank' aria-label='Youtube'>
                                 <FaYoutube />
                             </SocialIconLink>
-                        </SocialIcons>
+                        </SocialIcons> */}
                     </SocialMediaWrap>
                 </SocialMedia>
             </FooterWrap>
