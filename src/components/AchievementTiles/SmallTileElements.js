@@ -24,6 +24,7 @@ export const SmallTileContent = styled.div`
     width: 100%;
 `
 export const SmallTileIconContainer = styled.div`
+    border-radius: 10px;
     display: flex;
     align-self: center;
     justify-self: center;
