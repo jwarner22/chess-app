@@ -98,29 +98,8 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Zugzwang.svg").default
     },
-    // },{
-    //     id: 9,
-    //     category: 'puzzle',
-    //     type: 'checkmate',
-    //     type_ref: 'anastasiaMate',
-    //     headline: `Anastasia's Mate`,
-    //     subheading: 'Beautiful checkmates with a rook and knight.',
-    //     instructions: `The knight defends the opposing king's flight squares while the rook delivers checkmate in the style of a back rank mate`,
-    //     description: 'Lorem ipsum mah brudda',
-    //     img: ''
-    // },{
-    //     id: 10,
-    //     category: 'puzzle',
-    //     type: 'checkmate',
-    //     type_ref: 'arabianMate',
-    //     headline: 'Arabian Mate',
-    //     subheading: 'One of the oldest checkmate patterns.',
-    //     instructions: 'The knight often removes a flight square while the rook delivers checkmate in this classic motif.',
-    //     description: 'Lorem ipsum mah brudda',
-    //     img: ''
-    // },{
-        {
-        id: 11,
+    {
+        id: 9,
         category: 'puzzle',
         type: 'checkmate',
         type_ref: 'bodenMate',
@@ -130,7 +109,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/BodensMate.svg").default
     },{
-        id: 12,
+        id: 10,
         category: 'puzzle',
         type: 'checkmate',
         type_ref: 'doubleBishopMate',
@@ -140,7 +119,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/2bishops.png").default
     },{
-        id: 13,
+        id: 11,
         category: 'puzzle',
         type: 'checkmate',
         type_ref: 'dovetailMate',
@@ -150,7 +129,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Dove.svg").default
     },{
-        id: 14,
+        id: 12,
         category: 'puzzle',
         type: 'checkmate',
         type_ref: 'hookMate',
@@ -160,7 +139,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Hook.svg").default
     },{
-        id: 15,
+        id: 13,
         category: 'puzzle',
         type: 'checkmate',
         type_ref: 'mate',
@@ -170,7 +149,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Checkmate.svg").default
     },{
-        id: 16,
+        id: 14,
         category: 'puzzle',
         type: 'checkmate',
         type_ref: 'smotheredMate',
@@ -180,17 +159,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/SmotheredMate.svg").default
     },{
-        id: 17,
-        category: 'puzzle',
-        type: 'midgame',
-        type_ref: 'advancedPawn',
-        headline: 'Advanced Pawn',
-        subheading: `We're almost home free!`,
-        instructions: 'Clear the way for an advanced pawn to pave a path to victory. But beware allowing your opponenent to do the same.',
-        description: 'Lorem ipsum mah brudda',
-        img: require("../../../../../Images/AdvancedPawn.svg").default
-    },{
-        id: 18,
+        id: 15,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'attackingF2F7',
@@ -200,7 +169,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/AttackingF2F7.svg").default
     },{
-        id: 19,
+        id: 16,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'attraction',
@@ -210,7 +179,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Attraction.svg").default
     },{
-        id: 20,
+        id: 17,
         category: 'puzzle',
         type: 'checkmate',
         type_ref: 'backRankMate',
@@ -220,7 +189,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img:require("../../../../../Images/BackRankMate.svg").default
     },{
-        id: 21,
+        id: 18,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'capturingDefender',
@@ -230,7 +199,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img:require("../../../../../Images/Capturingdefender.png").default
     },{
-        id: 22,
+        id: 19,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'clearance',
@@ -240,7 +209,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Clearance.svg").default
     },{
-        id: 23,
+        id: 20,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'defensiveMove',
@@ -250,7 +219,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/DefensiveMoves.svg").default
     },{
-        id: 24,
+        id: 21,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'discoveredAttack',
@@ -260,7 +229,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/DiscoveredAttack.svg").default
     },{
-        id: 25,
+        id: 22,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'deflection',
@@ -270,7 +239,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Deflection.svg").default
     },{
-        id: 26,
+        id: 23,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'doubleCheck',
@@ -280,7 +249,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/DoubleCheck.svg").default
     },{
-        id: 27,
+        id: 24,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'exposedKing',
@@ -290,7 +259,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/ExposedKing.svg").default
     },{
-        id: 28,
+        id: 25,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'fork',
@@ -300,7 +269,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Fork.svg").default
     },{
-        id: 29,
+        id: 26,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'hangingPiece',
@@ -310,7 +279,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/HangingPiece.svg").default
     },{
-        id: 30,
+        id: 27,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'interference',
@@ -320,7 +289,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Interference.svg").default
     },{
-        id: 31,
+        id: 28,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'intermezzo',
@@ -330,7 +299,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Intermezzo.svg").default
     },{
-        id: 32,
+        id: 29,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'kingsideAttack',
@@ -340,7 +309,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Kingsideattack2.png").default
     },{
-        id: 33,
+        id: 30,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'pin',
@@ -350,7 +319,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Pin.svg").default
     },{
-        id: 34,
+        id: 31,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'queensideAttack',
@@ -360,7 +329,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Queensideattack.png").default
     },{
-        id: 35,
+        id: 32,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'quietMove',
@@ -370,7 +339,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/feather.png").default
     },{
-        id: 36,
+        id: 33,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'sacrifice',
@@ -380,7 +349,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Sacrifice.svg").default
     },{
-        id: 37,
+        id: 34,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'skewer',
@@ -390,7 +359,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Skewer.svg").default
     },{
-        id: 38,
+        id: 35,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'xRayAttack',
@@ -400,7 +369,7 @@ export const Modules = [
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/XrayAttack.svg").default
     },{
-        id: 39,
+        id: 36,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'trappedPiece',
@@ -409,7 +378,7 @@ export const Modules = [
         instructions: 'When a valuable piece has few squares left, be on the look out for ways to leave it with none at all.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/TrappedPiece.svg").default
-    },
+    }
 
 ]
 
@@ -485,6 +454,36 @@ const excludedModules = [
         instructions: 'Castling is typically used to acheive king safety. In rare cases, it can also be used in the offensive.',
         description: 'Lorem ipsum mah brudda',
         img: ''
+    },{
+        id: 9,
+        category: 'puzzle',
+        type: 'checkmate',
+        type_ref: 'anastasiaMate',
+        headline: `Anastasia's Mate`,
+        subheading: 'Beautiful checkmates with a rook and knight.',
+        instructions: `The knight defends the opposing king's flight squares while the rook delivers checkmate in the style of a back rank mate`,
+        description: 'Lorem ipsum mah brudda',
+        img: ''
+    },{
+        id: 10,
+        category: 'puzzle',
+        type: 'checkmate',
+        type_ref: 'arabianMate',
+        headline: 'Arabian Mate',
+        subheading: 'One of the oldest checkmate patterns.',
+        instructions: 'The knight often removes a flight square while the rook delivers checkmate in this classic motif.',
+        description: 'Lorem ipsum mah brudda',
+        img: ''
+    },{
+        id: 17,
+        category: 'puzzle',
+        type: 'midgame',
+        type_ref: 'advancedPawn',
+        headline: 'Advanced Pawn',
+        subheading: `We're almost home free!`,
+        instructions: 'Clear the way for an advanced pawn to pave a path to victory. But beware allowing your opponenent to do the same.',
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../../Images/AdvancedPawn.svg").default
     }
 ]
 
