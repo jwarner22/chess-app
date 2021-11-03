@@ -103,7 +103,7 @@ const DashNavbar = ({ toggle }) => {
                                 <NavLinks to="/profile" activeStyle={{
                             borderBottom: "3px solid #247cf1"
                             }}> 
-                                   Profile Page
+                                   Profile
                                 </NavLinks>
                             </NavItem>
                         </NavMenu>

@@ -12,7 +12,7 @@ const PuzzleNav = (props) => {
             </NavBtn>
             <NavBtn> 
                 <NavBtnLink props= {props} onClick={props.onContinueClick} disabled={props.disabled}>
-                    Continue
+                    Next
                 </NavBtnLink>
             </NavBtn>
         </PuzzleNavContainer>
@@ -82,9 +82,9 @@ const NavBtnLink2 = styled.button`
     min-width: 150px;
     font-weight: 700;
 
-    &:hover {
+    /* &:hover {
         transition: all 0.2s ease-in-out;
         background: #fff;
         color: #247cf1;
-    }
+    } */
 `;
