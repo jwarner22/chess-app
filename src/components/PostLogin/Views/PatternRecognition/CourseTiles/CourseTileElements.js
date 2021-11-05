@@ -52,7 +52,7 @@ export const TileHeadline = styled.h3`
     color: #54606c;
     text-align: left;
     margin-bottom: 2px;
-    margin-left: 4px;
+    margin-left: 10px;
     margin-right: 2px;
     /* margin-top: 5px; */
     @media screen and (max-width: 768px) {

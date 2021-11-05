@@ -89,7 +89,7 @@ const DashNavbar = ({ toggle }) => {
                             <NavLinks to="/dashboard" activeStyle={{
                             borderBottom: "3px solid #247cf1"
                             }}> 
-                                   Pattern Recognition
+                                   Practice
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
