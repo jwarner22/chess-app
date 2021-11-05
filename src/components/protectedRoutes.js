@@ -3,7 +3,7 @@ import ReportsView from './ReportsView';
 import Dashboard from "./PostLogin/Views/PatternRecognition/PatternRecognition"
 import Module from './PostLogin/Module.js';
 import PostPuzzleMockup from './PostModule/PostModule';
-import DailyPuzzle from "./DailyPuzzle/DailyPuzzle"
+import DailyPuzzle from "./PostLogin/Views/DailyPuzzle/DailyPuzzle"
 import PrePuzzlePage from "./PrePuzzle/PrePuzzle"
 import Openings from "./PostLogin/Views/Openings/Openings"
 import ProfilePage from "./PostLogin/Views/ProfilePage/ProfilePage"

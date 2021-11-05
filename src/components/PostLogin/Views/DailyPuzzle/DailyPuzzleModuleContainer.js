@@ -9,7 +9,7 @@ Col2Row2,
 Col2Row3,
 CompletedCheck
 } from "./DailyPuzzleElements"
-import check from "../../Images/check.png"
+import check from "../../../../Images/check.png"
 
 const DailyPuzzleModuleContainer = (props) => {
     

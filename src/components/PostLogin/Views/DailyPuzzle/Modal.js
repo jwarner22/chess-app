@@ -8,7 +8,7 @@ import { ModalWrapper,
   StartButton} from "./ModalElements"
 import {ModalData} from "./ModalData"
 import {ModalContent} from "./ModalContent"
-import headerImg from "./../../Images/ModalHeaderImg.svg"
+import headerImg from "../../../../Images/ModalHeaderImg.svg"
 
 export default class Modal extends Component {
   //closes the popup

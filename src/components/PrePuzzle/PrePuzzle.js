@@ -22,9 +22,9 @@ import {PuzzlePageContainer,
     Tip1Description,
     LeftStatWrapper,
 RightStatWrapper} from "./PrePuzzleElements"
-import {DailyPuzzleIcon} from "../DailyPuzzle/DailyPuzzleElements"
+import {DailyPuzzleIcon} from "../PostLogin/Views/DailyPuzzle/DailyPuzzleElements"
 import testIcon from "../../Images/EnPassant.svg"
-import { StartButton } from '../DailyPuzzle/ModalElements'
+import { StartButton } from '../PostLogin/Views/DailyPuzzle/ModalElements'
 import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
 
 const PrePuzzlePage = (props) => {

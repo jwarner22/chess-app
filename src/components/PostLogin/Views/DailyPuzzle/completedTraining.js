@@ -1,14 +1,14 @@
 import {useEffect, useState} from 'react'
-import SmallTile from '../AchievementTiles/SmallTiles';
+import SmallTile from '../../../AchievementTiles/SmallTiles';
 import {Link} from 'react-router-dom';
 import {AchievementTileContainer, 
   AchievementTileWrapper
-  } from "../AchievementTiles/AchievementTilesElements"
+  } from "../../../AchievementTiles/AchievementTilesElements"
 import ConfettiGenerator from 'confetti-js';
-import queenImg from '../Puzzle/chess/pieces/nova/wQ.svg';
-import useFetch from '../api/useFetch';
-import {baseURL} from '../api/apiConfig';
-import {FinishButton} from '../PostModule/PostModuleElements';
+import queenImg from '../../../Puzzle/chess/pieces/nova/wQ.svg';
+import useFetch from '../../../api/useFetch';
+import {baseURL} from '../../../api/apiConfig';
+import {FinishButton} from '../../../PostModule/PostModuleElements';
 import styled from "styled-components"
 
 export default function CompletedTraining(props) {

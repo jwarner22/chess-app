@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom"
 import { BiBrain } from "react-icons/bi"
 import { IoCalendarClearOutline } from "react-icons/io5"
 import { AiOutlineUser } from "react-icons/ai";
-import {Container} from '../../DailyPuzzle/DailyPuzzleElements'
+import {Container} from '../Views/DailyPuzzle/DailyPuzzleElements'
 import {MobileNavbarWrapper, 
     MobileNavbarItems, 
     MobileNavbarItem, 
