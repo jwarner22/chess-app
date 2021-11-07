@@ -34,7 +34,8 @@ const SignUp = ({history}) => {
         .createUserWithEmailAndPassword(email, password)
         .then(res => {
           if (res.user) {
-            let userID = res.additionalUserInfo.profile.id;
+            let userID = res.user.uid;
+            console.log({res:res})
             localStorage.setItem('userID', userID)
             history.push('/survey')
             }
@@ -58,7 +59,7 @@ const SignUp = ({history}) => {
         .signInWithPopup(provider)
         .then(res => {
           if (res.user) {
-          let userID = res.additionalUserInfo.profile.id;
+          let userID = res.user.uid;
           localStorage.setItem('userID', userID)
           history.push('/survey')
           }
