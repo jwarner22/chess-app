@@ -7,12 +7,18 @@ import {OpeningPageImgContainer,
   OpeningsPagePlaceholderImg, 
   OpeningsTitle,
   OpeningPageImgWrapper
-} from "./OpeningsElements"
+} from "./OpeningsElements";
+import PromotionalModal from "../../PromotionModal/PromotionalModal"
 
 const Openings = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenModal = () => {
+      setOpenModal(prev => !prev)
+  }
   
   //hamburger sidebar menu
-  const [isOpen, setIsOpen] = useState(false)
 
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -52,6 +58,8 @@ const Openings = () => {
     }
         <OpeningPageImgContainer>
           <OpeningPageImgWrapper>
+            <button onClick={handleOpenModal}>Modal</button>
+            <PromotionalModal openModal={openModal} setOpenModal={setOpenModal}/>
             <OpeningsPagePlaceholderImg src={openingImage} />
               <OpeningsTitle>
                   Opening Trainer Coming Soon!
