@@ -14,6 +14,9 @@ import {Modules} from "../../PostLogin/Views/PatternRecognition/CourseTiles/Data
 import { StoreMallDirectory } from "@styled-icons/material";
 import PromotionalModal from "../../PostLogin/PromotionModal/PromotionalModal"
 
+import BlackIndicator from "./TurnIndicator/BlackIndicator"
+import WhiteIndicator from "./TurnIndicator/WhiteIndicator"
+import { Construction } from "@styled-icons/material-twotone";
 // import Stockfish from "./Stockfish";
 // move functions to utils file
 
@@ -42,6 +45,7 @@ const getModuleTitle = (name) => {
 
 
 export default function PuzzlePage(props) {
+  const [moveColor, setMoveColor] = useState("")
   const puzzleData = props.puzzles;
   const [count, setCount] = useState(0);
   const [fen, setFen] = useState(puzzleData[0].fen);
@@ -153,11 +157,20 @@ export default function PuzzlePage(props) {
     setOpenModal(false)
   }
 
+  const moveIndicator = (color) => {
+    console.log(color)
+    setMoveColor(color)
+  }
+
   return (
     <div>
       <PuzzlePageContainer>
         <HeaderContainer>
         <Header>{title}</Header>
+        {(moveColor === "white") ? (
+          <WhiteIndicator /> ) : (
+            <BlackIndicator />
+          )}
         </HeaderContainer>
       <div style={progressContainer}>
         <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count}/>
@@ -173,6 +186,7 @@ export default function PuzzlePage(props) {
           displayOutcome={displayOutcome}
           promotion={promotion}
           onPromotion={handlePromotion}
+          moveIndicator={moveIndicator}
         />
       </PuzzleBoardWrapper>
       <div>
@@ -199,6 +213,7 @@ const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 `
 
 const PuzzlePageContainer = styled.div `

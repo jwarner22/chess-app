@@ -17,11 +17,12 @@ const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
 export default class Puzzle extends React.Component {
   static propTypes = { children: PropTypes.func };
-
+  
   constructor(props) {
     super(props);
     this.displayOutcome = props.displayOutcome;
     this.onPromotion = props.onPromotion;
+    this.moveIndicator = props.moveIndicator
     this.isCorrect = false;
     this.isFinished = false;
     this.moveSound = new Howl({src: moveSound});
@@ -98,6 +99,10 @@ export default class Puzzle extends React.Component {
     if (this.count) {
       this.calcMovable(true)
     }
+    let moveColor = this.turnColor()
+    console.log({color: moveColor})
+    this.moveIndicator(moveColor);
+    
   };
 
   makeMove = async (from, to) => {

@@ -34,6 +34,7 @@ export default class PuzzleBoard extends React.Component {
               retry={this.props.retry}
               promotion={this.props.promotion}
               onPromotion={this.props.onPromotion}
+              moveIndicator={this.props.moveIndicator}
             >
               {({ movable, fen, turnColor, lastMove, onMove, orientation, check }) => (
                 <Chessground

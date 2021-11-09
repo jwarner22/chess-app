@@ -10,7 +10,7 @@ import useFetch from '../api/useFetch';
 import Loader from '../Loader';
 
 export default function Puzzle(props) {
-
+  console.log(props)
   const [puzzles,setPuzzles] = useState([]);
   const [isFinished,setIsFinished] = useState(false);
   const [outcomes, setOutcomes] = useState([]);
