@@ -15,22 +15,29 @@ import rook from "../../Puzzle/chess/pieces/nova/wR.svg";
 import bishop from "../../Puzzle/chess/pieces/nova/wB.svg"
 import knight from "../../Puzzle/chess/pieces/nova/wN.svg"
 
-function PromotionalModal({openModal, setOpenModal}) {
+function PromotionalModal(props) {
+    const {openModal, onPromotionSelection} = props;
+
+    const handleSelection = e => {
+        console.log({selection: e})
+        onPromotionSelection(e);
+    }
+
     return(
         <>
         {openModal ? 
         <PromoModalContainer>
             <PromoModalWrapper>
-                <PromoQueenWrapper>
+                <PromoQueenWrapper onClick={() => handleSelection("q")}>
                     <PromoQueenImg src={queen}/>
                 </PromoQueenWrapper>
-                <PromoRookWrapper>
+                <PromoRookWrapper onClick={() => handleSelection("r")}>
                     <PromoRookImg src={rook} />
                 </PromoRookWrapper>
-                <PromoBishopWrapper>
+                <PromoBishopWrapper onClick={() => handleSelection("b")}>
                     <PromoBishopImg src={bishop} />
                 </PromoBishopWrapper>
-                <PromoKnightWrapper>
+                <PromoKnightWrapper onClick={() => handleSelection("k")}>
                     <PromoKnightImg src={knight} />
                 </PromoKnightWrapper>
             </PromoModalWrapper>
@@ -40,5 +47,6 @@ function PromotionalModal({openModal, setOpenModal}) {
         </>
     )
 }
+
 
 export default PromotionalModal

@@ -378,11 +378,7 @@ export const Modules = [
         instructions: 'When a valuable piece has few squares left, be on the look out for ways to leave it with none at all.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/TrappedPiece.svg").default
-    }
-
-]
-
-const excludedModules = [
+    },
     {
         id: 37,
         category: 'puzzle',
@@ -393,8 +389,21 @@ const excludedModules = [
         instructions: 'Push a pawn over the edge to seal your opponents fate.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Promotion.svg").default
+    },{
+        id: 38,
+        category: 'puzzle',
+        type: 'midgame',
+        type_ref: 'advancedPawn',
+        headline: 'Advanced Pawn',
+        subheading: `We're almost home free!`,
+        instructions: 'Clear the way for an advanced pawn to pave a path to victory. But beware allowing your opponenent to do the same.',
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../../Images/AdvancedPawn.svg").default
     }
-    ,{
+
+]
+
+const excludedModules = [{
         id: 23,
         category: 'puzzle',
         type: 'midgame',
@@ -414,16 +423,6 @@ const excludedModules = [
         instructions: 'It is good practice to trade pieces when you hold the advantage. Simplifying in this way opens a clearer path to victory.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Simplification.svg").default
-    },{
-        id: 43,
-        category: 'puzzle',
-        type: 'midgame',
-        type_ref: 'underPromotion',
-        headline: 'Under Promotion',
-        subheading: `A queen may not be the best choice.`,
-        instructions: 'In rare and exciting situtations, a Queen is less favorable than other pieces for sealing the game.',
-        description: 'Lorem ipsum mah brudda',
-        img: ''
     },{
         id: 27,
         category: 'puzzle',
@@ -475,15 +474,15 @@ const excludedModules = [
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 17,
+        id: 38,
         category: 'puzzle',
         type: 'midgame',
-        type_ref: 'advancedPawn',
-        headline: 'Advanced Pawn',
-        subheading: `We're almost home free!`,
-        instructions: 'Clear the way for an advanced pawn to pave a path to victory. But beware allowing your opponenent to do the same.',
+        type_ref: 'underPromotion',
+        headline: 'Under Promotion',
+        subheading: `A queen may not be the best choice.`,
+        instructions: 'In rare and exciting situtations, a Queen is less favorable than other pieces for sealing the game.',
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../../Images/AdvancedPawn.svg").default
+        img: ''
     }
 ]
 

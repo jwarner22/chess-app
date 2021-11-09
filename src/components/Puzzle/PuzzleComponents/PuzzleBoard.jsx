@@ -32,6 +32,8 @@ export default class PuzzleBoard extends React.Component {
               count={this.props.count}
               displayOutcome={this.props.displayOutcome}
               retry={this.props.retry}
+              promotion={this.props.promotion}
+              onPromotion={this.props.onPromotion}
             >
               {({ movable, fen, turnColor, lastMove, onMove, orientation, check }) => (
                 <Chessground
@@ -59,5 +61,7 @@ const boardsContainer = {
   flexWrap: "wrap",
   width: "100vw",
   marginTop: 24,
-  marginBottom: 30
+  marginBottom: 30,
+  position: 'relative',
+  zIndex: 0
 };

@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import Chessground from "../Chessground.jsx";
 import * as ChessJS from "chess.js";
 import { wait } from "../Utilities/helpers.js";
-import moveSoundFile from "../../assets/public_sound_standard_Move.mp3";
+import moveSoundFile from "../../../assets/public_sound_standard_Move.mp3";
 import {Howl} from 'howler'
-
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
@@ -32,6 +31,10 @@ export default function Opening(props) {
     console.log('nextAttempt')
     setMovable(calcMovable());
   },[nextAttemptPrompt])
+
+  useEffect(() => {
+    console.log('opening mounted')
+  })
 
   // calcs legal moves and returns chessground compatible object
   const calcMovable = () => {
@@ -174,12 +177,12 @@ export default function Opening(props) {
 
   return (
     <>
-    <div style={boardsContainer}><div className='box'><Chessground movable={movable} onMove={onMove} fen={fen} /></div></div>
+    <div style={boardContainer}><div className='box'><Chessground movable={movable} onMove={onMove} fen={fen} /></div></div>
     </>
   );
 }
 
-const boardsContainer = {
+const boardContainer = {
   display: "flex",
   justifyContent: "space-around",
   alignItems: "center",

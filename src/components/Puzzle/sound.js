@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import moveSoundFile from "../assets/public_sound_standard_Move.mp3";
+import moveSoundFile from "../../assets/public_sound_standard_Move.mp3";
 
 
 export const MoveSound = (props) => {

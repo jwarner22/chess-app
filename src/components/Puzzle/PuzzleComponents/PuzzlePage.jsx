@@ -12,6 +12,8 @@ import PuzzleNav from "./PuzzleNav"
 import styled from "styled-components"
 import {Modules} from "../../PostLogin/Views/PatternRecognition/CourseTiles/Data"
 import { StoreMallDirectory } from "@styled-icons/material";
+import PromotionalModal from "../../PostLogin/PromotionModal/PromotionalModal"
+
 // import Stockfish from "./Stockfish";
 // move functions to utils file
 
@@ -52,10 +54,11 @@ export default function PuzzlePage(props) {
   const [correctMoves, setCorrectMoves] = useState(
     getMoves(puzzleData[0].moves)
   );
+  const [openModal, setOpenModal] = useState(false);
+  const [promotion, setPromotion] = useState("x");
   const confirmationSound = new Howl({src: confirmationSoundFile})
   const errorSound = new Howl({src: errorSoundFile})
   const title = getModuleTitle(props.theme)
-  const numPuzzles = puzzleData.length;
 
   useEffect(() => {
     // checks if user has missed 4 puzzles - if so route to fialure screen
@@ -108,7 +111,7 @@ export default function PuzzlePage(props) {
       setRetryDisable(false)
       
     }
-    
+    setPromotion("x")
     setOutcome(success);
     setOutcomes(prevOutcomes => [...prevOutcomes, success]);
     //incrementCount();
@@ -139,6 +142,17 @@ export default function PuzzlePage(props) {
     setRetryDisable(true)
   }
 
+  const handlePromotion = () => {
+    setOpenModal(true)
+  }
+
+  const handlePromotionSelection = (e) => {
+    console.log({promotion: e});
+    console.log("test")
+    setPromotion(e)
+    setOpenModal(false)
+  }
+
   return (
     <div>
       <PuzzlePageContainer>
@@ -149,6 +163,7 @@ export default function PuzzlePage(props) {
         <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count}/>
       </div>
       <PuzzleBoardWrapper>
+      <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
         <PuzzleBoard
           fen={fen}
           retry={retry}
@@ -156,6 +171,8 @@ export default function PuzzlePage(props) {
           unlockNext={unlockNext}
           count={count}
           displayOutcome={displayOutcome}
+          promotion={promotion}
+          onPromotion={handlePromotion}
         />
       </PuzzleBoardWrapper>
       <div>

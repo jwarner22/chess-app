@@ -1,25 +1,19 @@
-import React, {useState, useEffect}from 'react'
-import MobileNavbar from "../../MobileNavBar/MobileNavBar"
-import DashboardNavbar from "../../DashboardNavbar/DashboardNavbar"
-import DashSidebar from "../../DashboardSidebar/DashboardSidebar"
-import openingImage from "../../../../Images/professor.svg"
+import React, {useState, useEffect}from 'react';
+import {Link} from 'react-router-dom';
+import MobileNavbar from "../../MobileNavBar/MobileNavBar";
+import DashboardNavbar from "../../DashboardNavbar/DashboardNavbar";
+import DashSidebar from "../../DashboardSidebar/DashboardSidebar";
+import openingImage from "../../../../Images/professor.svg";
 import {OpeningPageImgContainer, 
   OpeningsPagePlaceholderImg, 
   OpeningsTitle,
   OpeningPageImgWrapper
 } from "./OpeningsElements";
-import PromotionalModal from "../../PromotionModal/PromotionalModal"
 
 const Openings = () => {
-  const [openModal, setOpenModal] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleOpenModal = () => {
-      setOpenModal(prev => !prev)
-  }
   
   //hamburger sidebar menu
-
   const toggle = () => {
     setIsOpen(!isOpen)
   }
@@ -58,12 +52,15 @@ const Openings = () => {
     }
         <OpeningPageImgContainer>
           <OpeningPageImgWrapper>
-            <button onClick={handleOpenModal}>Modal</button>
-            <PromotionalModal openModal={openModal} setOpenModal={setOpenModal}/>
             <OpeningsPagePlaceholderImg src={openingImage} />
               <OpeningsTitle>
                   Opening Trainer Coming Soon!
               </OpeningsTitle>
+              {/* <Link to='/opening'>
+          <button>
+            Opening Module
+          </button>
+        </Link> */}
           </OpeningPageImgWrapper>
         </OpeningPageImgContainer>
         </div>

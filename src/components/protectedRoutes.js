@@ -9,6 +9,7 @@ import Openings from "./PostLogin/Views/Openings/Openings"
 import ProfilePage from "./PostLogin/Views/ProfilePage/ProfilePage"
 import IntakeSurvey from './IntakeSurvey/IntakeSurvey';
 import CreateUser from './IntakeSurvey/CreateUser';
+import Opening from './Puzzle/Opening';
 
 const protectedRoutes = [
 	{
@@ -63,6 +64,12 @@ const protectedRoutes = [
 		path: "/create-user",
 		exact: true,
 		main: props => <CreateUser {...props}/>
+	},
+	{
+		name: "Opening Module",
+		path: "/opening",
+		exact: true,
+		main: () => <Opening />
 	}
 ];
 

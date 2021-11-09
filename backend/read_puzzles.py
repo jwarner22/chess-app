@@ -10,9 +10,12 @@ def get_puzzle(db: Session, puzzle_id: str):
 def get_puzzles(db: Session, rating: int = 1500, theme: str = '', limit: int = 30):
     upperBound = rating + 50
     lowerBound = max(1000, (rating - 50))
-    puzzles = db.query(models.Puzzles).filter((models.Puzzles.rating > lowerBound) & (models.Puzzles.rating < upperBound) & (models.Puzzles.themes.contains(theme)) & sqlalchemy.not_(models.Puzzles.themes.contains('promotion'))).order_by(func.random()).limit(limit).all() # .first() # .limit(10)
+    puzzles = db.query(models.Puzzles).filter((models.Puzzles.rating > lowerBound) & (models.Puzzles.rating < upperBound) & (models.Puzzles.themes.contains(theme))).order_by(func.random()).limit(limit).all() # .first() # .limit(10)
     while (upperBound < 2500 and len(puzzles) == 0):
         upperBound += 50
         lowerBound = max(1000, (lowerBound - 50))
         puzzles = db.query(models.Puzzles).filter((models.Puzzles.rating > lowerBound) & (models.Puzzles.rating < upperBound) & (models.Puzzles.themes.contains(theme)) & sqlalchemy.not_(models.Puzzles.themes.contains('promotion'))).order_by(func.random()).limit(limit).all() # .first() # .limit(10)
     return puzzles
+
+
+# & sqlalchemy.not_(models.Puzzles.themes.contains('promotion'))

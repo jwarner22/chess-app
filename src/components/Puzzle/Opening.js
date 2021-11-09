@@ -11,8 +11,8 @@ import {getOpeningMoves} from './Utilities/helpers.js';
 import Progress from './Utilities/Progress.jsx';
 
 const openingMoves = "e2e4 e7e5 g1f3 b8c6 f1c4 f8c5";
-
-export default function Puzzle() {
+ 
+export default function OpeningModule() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [demoIsFinished, setDemoIsFinished] = useState(false);
   const [fen, setFen] = useState();
@@ -22,6 +22,7 @@ export default function Puzzle() {
   const moves = getOpeningMoves(openingMoves);
 
   useEffect(() => {
+    console.log('loaded')
     swal({
       title: "Sicilain Defense",
       text: "replicate the moves..."
