@@ -54,10 +54,17 @@ export default function CompletedTraining(props) {
     return(
       <>
       <canvas id='my-canvas' style={{zIndex: '-1', position: 'absolute'}} />
-      <div style={{padding: '10% 0 10% 0 ', backgroundColor:'#1464e4'}}>
+      <div style={{padding: '40px 0 40px 0 ', backgroundColor:'#1464e4'}}>
         <h1 style={{textAlign: 'center', color: 'white'}}>Training Session Completed!</h1>
       </div>
       <div style={{padding: '0 0 0 0'}}>
+      <FinishButtonContainer>
+        <Link to='/dashboard'>
+        <FinishButton>
+          Return to Practice Page
+        </FinishButton>
+        </Link>
+        </FinishButtonContainer>
       <h1 style={{textAlign: 'center', marginTop: '10px', color:'black'}}>Achievements</h1>
       </div>
       {(!loading) && 
@@ -70,14 +77,6 @@ export default function CompletedTraining(props) {
             )
         })}
         </AchievementTileWrapper>
-        <FinishButtonContainer>
-        <Link to='/dashboard'>
-        <FinishButton>
-          Return to Dashboard
-        </FinishButton>
-        
-        </Link>
-        </FinishButtonContainer>
       </AchievementTileContainer>
       </>
     }
