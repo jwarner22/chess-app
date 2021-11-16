@@ -71,9 +71,14 @@ export default ProgressBar
 const HeaderWrapper = styled.div`
     display: grid;
     width: 100%;
-    grid-template-columns: min-content 1fr;
     align-items: center;
 `
+// const HeaderWrapper = styled.div`
+//     display: grid;
+//     width: 100%;
+//     grid-template-columns: min-content 1fr;
+//     align-items: center;
+// `
 
 export const BackButtonWrapper = styled.div`
     display: flex;

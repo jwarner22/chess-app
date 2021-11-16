@@ -26,7 +26,7 @@ export default function DemoMoves(props) {
   async function demo() {
     for await (const move of moves) {
       await nextMove(move);
-      await wait(100);
+      await wait(720);
     }
     props.demoFinished();
   }

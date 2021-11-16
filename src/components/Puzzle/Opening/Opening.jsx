@@ -21,6 +21,7 @@ export default function Opening(props) {
   const moveSound = new Howl({src: moveSoundFile});
   const moves = props.moves;
   const orientation = props.orientation;
+  const count = props.count;
 
   
   useEffect(() => {
@@ -30,6 +31,11 @@ export default function Opening(props) {
       newGame();
     }
   }, []);
+
+  useEffect(() => {
+    console.log("next attempt")
+    nextAttempt();
+  },[count]);
 
   const newGame = async () => {
     await makeMove(
@@ -90,18 +96,7 @@ export default function Opening(props) {
     setFen(game.fen());
 
     await verifyMove(from, to);
-  
-    if (moveIndex < moves.length-1) {
-    await makeMove(
-      moves[moveIndex + 1].substring(0, 2),
-      moves[moveIndex + 1].substring(2, 4)
-    );
 
-    setMoveIndex(() => moveIndex + 2);
-
-    let movableVals = calcMovable();
-    setMovable(movableVals);
-    }
     
   }
 
@@ -129,8 +124,18 @@ export default function Opening(props) {
         await wait(1000);
         console.log('finished');
         await finishedCallback();
-        await nextAttempt();
       }
+      if (moveIndex < moves.length-1) {
+        await makeMove(
+          moves[moveIndex + 1].substring(0, 2),
+          moves[moveIndex + 1].substring(2, 4)
+        );
+    
+        setMoveIndex(() => moveIndex + 2);
+    
+        let movableVals = calcMovable();
+        setMovable(movableVals);
+        }
     }
   };
 

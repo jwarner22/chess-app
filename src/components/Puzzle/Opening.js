@@ -5,10 +5,10 @@ import DemoMoves from "./Opening/DemoMoves.jsx";
 import Opening from "./Opening/Opening.jsx";
 import {getOpeningMoves} from './Utilities/helpers.js';
 import Progress from './Utilities/Progress.jsx';
+import OpeningNav from './Opening/OpeningNav.js';
 import correctSound from "../../assets/public_sound_standard_Confirmation.mp3";
 import incorrectSound from "../../assets/public_sound_standard_Error.mp3";
 import styled from "styled-components";
-
 import {Howl} from 'howler'
 
 
@@ -21,10 +21,13 @@ export default function OpeningModule(props) {
   const [count,setCount] = useState(0);
   const [moves,setMoves] = useState();
   const [orientation, setOrientation] = useState("");
+  const [continueDisabled, setContinueDisabled] = useState(true);
+  const [showDisabled, setShowDisabled] = useState(true);
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
   const OpeningsData = props.location.state.module;
-  
+
+
   useEffect(() => {
 
     getMoves();
@@ -65,20 +68,32 @@ export default function OpeningModule(props) {
   };
 
   const incorrectCallback = async (currentFen, moveIndex) => {
-    setFen(currentFen);
-    setMoveIndex(moveIndex);
-    setDemoIsFinished(false);
+    //setFen(currentFen);
+    //setMoveIndex(moveIndex);
+    setShowDisabled(false);
     incorrectSoundPlayer.play();
   };
 
   const finishedCallback = async () => {
     correctSoundPlayer.play();
     setProgress(progress + ((1/3)*100));
-    setCount(count + 1);
+    setContinueDisabled(false);
   }
 
   const returnPercent = (percent) => {
     //setProgress(percent)
+  }
+
+  const handleShowClick = () => {
+    console.log("show clicked");
+    setDemoIsFinished(false);
+    setShowDisabled(true);
+  };
+
+  const handleContinueClick = () => {
+    console.log("continue clicked");
+    setCount(count => count + 1);
+    setContinueDisabled(true);
   }
 
   if (isLoaded) {
@@ -87,10 +102,6 @@ export default function OpeningModule(props) {
       <PuzzlePageContainer>
         <HeaderContainer>
         <Header>{OpeningsData.headline}</Header>
-        {/* {(moveColor === "white") ? (
-          <WhiteIndicator /> ) : (
-            <BlackIndicator />
-          )} */}
         </HeaderContainer>
       <div style={progressContainer}><Progress returnPercent={returnPercent} percent={progress} count={count} /></div>
         <PuzzleBoardWrapper>
@@ -107,12 +118,13 @@ export default function OpeningModule(props) {
               />
             )}
             {isLoaded === true && demoIsFinished === true && (
-              <Opening moves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
+              <Opening count={count} moves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
             )}
           </div>
           </div>
         </div>
         </PuzzleBoardWrapper>
+        <OpeningNav onShowClick={handleShowClick} onContinueClick={handleContinueClick} showDisabled={showDisabled} continueDisabled={continueDisabled}/>
         </PuzzlePageContainer>
       </>
     );
@@ -132,15 +144,20 @@ const boardContainer = {
   position: 'relative',
   zIndex: 0
 };
-
 const progressContainer = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  flexWrap: "wrap",
   margin: "0 auto",
-  maxWidth: "1080px"
+  width: "40%",
+  minWidth: "320px"
+
 };
+// const progressContainer = {
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   flexWrap: "wrap",
+//   margin: "0 auto",
+//   maxWidth: "1080px"
+// };
 
 const Header = styled.h2`
   color: #afafaf;
