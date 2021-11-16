@@ -13,10 +13,11 @@ import styled from "styled-components"
 import {Modules} from "../../PostLogin/Views/PatternRecognition/CourseTiles/Data"
 import { StoreMallDirectory } from "@styled-icons/material";
 import PromotionalModal from "../../PostLogin/PromotionModal/PromotionalModal"
-
+import BackButton from "../../BackButton"
 import BlackIndicator from "./TurnIndicator/BlackIndicator"
 import WhiteIndicator from "./TurnIndicator/WhiteIndicator"
 import { Construction } from "@styled-icons/material-twotone";
+import {BackButtonWrapper} from "../Utilities/Progress"
 // import Stockfish from "./Stockfish";
 // move functions to utils file
 
@@ -165,6 +166,9 @@ export default function PuzzlePage(props) {
   return (
     <div>
       <PuzzlePageContainer>
+          <BackButtonWrapper>
+            <BackButton />
+          </BackButtonWrapper>
         <HeaderContainer>
         <Header>{title}</Header>
         </HeaderContainer>

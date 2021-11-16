@@ -56,9 +56,9 @@ function ProgressBar(props) {
 
     return(
         <HeaderWrapper >
-            <BackButtonWrapper>
+            {/* <BackButtonWrapper>
             <BackButton />
-            </BackButtonWrapper>
+            </BackButtonWrapper> */}
           <Line percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3}/>
         </HeaderWrapper>
     )
@@ -75,7 +75,7 @@ const HeaderWrapper = styled.div`
     align-items: center;
 `
 
-const BackButtonWrapper = styled.div`
+export const BackButtonWrapper = styled.div`
     display: flex;
     padding-right: 15px;
     justify-content: flex-start;
