@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from "styled-components"
+import blackPiece from "../../chess/pieces/nova/bN.svg"
 
 const BlackIndicator = () => {
     return (
         <BlackIndicatorContainer>
+            <BlackIndicatorIcon src={blackPiece} />
             <BlackIndicatorText>
             Black to move
             </BlackIndicatorText>
@@ -16,12 +18,16 @@ export default BlackIndicator
 const BlackIndicatorContainer = styled.div`
     padding: 8px;
     display: flex;
-    background: #000;
-    border-radius: 5px;
-    margin-top: 12px;
+    max-width: 400px;
 `
 
 const BlackIndicatorText = styled.span`
-    color: #fff;
+    color: #212121;
     font-weight: 600;
+    margin: auto;
 `
+const BlackIndicatorIcon = styled.img`
+    max-width: 30px;
+    margin-right: 8px;
+`
+

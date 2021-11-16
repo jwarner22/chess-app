@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from "styled-components"
 import {Link} from 'react-router-dom'
 import {CoursesWrapper, 
     ModuleWrapper, 
@@ -57,9 +58,9 @@ const Body = (
                 <ModuleGrid>
                     {tacticModules.map((module, index) => {
                         return(
-                        <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                        <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
                         <CourseTile key={index} {...module} />
-                        </Link>
+                        </ModalLink>
                     )})}
                 </ModuleGrid>
             </ModuleWrapper>
@@ -77,9 +78,9 @@ const Body = (
                 <ModuleGrid>
                     {checkmateModules.map((module, index) => {
                         return (
-                    <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                    <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
                         <CourseTile key={index} {...module}/>
-                    </Link>
+                    </ModalLink>
                     )})}
                 </ModuleGrid>
             </ModuleWrapper>
@@ -89,3 +90,8 @@ const Body = (
 }
 
 export default Body
+
+const ModalLink = styled(Link)`
+    position: relative;
+    z-index: 10;
+`

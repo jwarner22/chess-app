@@ -167,10 +167,6 @@ export default function PuzzlePage(props) {
       <PuzzlePageContainer>
         <HeaderContainer>
         <Header>{title}</Header>
-        {(moveColor === "white") ? (
-          <WhiteIndicator /> ) : (
-            <BlackIndicator />
-          )}
         </HeaderContainer>
       <div style={progressContainer}>
         <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count}/>
@@ -189,21 +185,23 @@ export default function PuzzlePage(props) {
           moveIndicator={moveIndicator}
         />
       </PuzzleBoardWrapper>
-      <div>
+      <IndicatorWrapper>
+      {(moveColor === "white") ? (
+          <WhiteIndicator /> ) : (
+            <BlackIndicator />
+          )}
+          </IndicatorWrapper>
       <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
-      </div>
      </PuzzlePageContainer>
     </div>
   );
 }
 
 const progressContainer = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  flexWrap: "wrap",
   margin: "0 auto",
-  maxWidth: "1080px"
+  width: "40%",
+  minWidth: "320px"
+
 };
 
 const Header = styled.h2`
@@ -222,7 +220,7 @@ const PuzzlePageContainer = styled.div `
   height: 100vh;
   grid-template-rows: min-content 1fr min-content;
   width: 100% !important;
-  grid-gap: 24px;
+  grid-gap: 16px;
   top: 0;
   padding: 24px 16px;
   position: absolute;
@@ -233,4 +231,10 @@ const PuzzleBoardWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+const IndicatorWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
 `

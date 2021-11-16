@@ -94,10 +94,11 @@ export const TileDescription = styled.p`
     text-align: center;
 `
 export const TileButtonWrap = styled.div`
-    display: flex;
+    display: grid;
     align-items: flex-end;
     height: 100%;
-    padding: 4px 4px 10px 10px;
+    padding: 4px 10px 10px 10px;
+    grid-template-columns: 1fr 1fr;
 
 
     @media screen and (max-height: 640px) {
@@ -134,3 +135,18 @@ export const TileButton = styled.div`
         display: none;
     }
 `
+
+export const InfoModalWrapper = styled.div`
+    display: flex;
+    justify-content: flex-end;
+`
+
+export const InfoModalIcon = styled.img`
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    justify-content: flex-end;
+    z-index: 5555;
+    position: relative;
+`
+

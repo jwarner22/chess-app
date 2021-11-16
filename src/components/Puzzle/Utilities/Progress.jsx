@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import { Line, ProgressProps } from "rc-progress";
 import styled from "styled-components"
+import { GrFormClose } from "react-icons/gr";
+import BackButton from "../../BackButton";
 
 // src: https://github.com/react-component/progress
 //class Example extends React.Component<ProgressProps, any> {
@@ -54,13 +56,28 @@ function ProgressBar(props) {
 
     return(
         <HeaderWrapper >
-          <Line percent={percent} strokeWidth={4} strokeColor={color} />
+            <BackButtonWrapper>
+            <BackButton />
+            </BackButtonWrapper>
+          <Line percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3}/>
         </HeaderWrapper>
     )
 
 }
 export default ProgressBar
 
+
+
 const HeaderWrapper = styled.div`
-    width: 360px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: min-content 1fr;
+    align-items: center;
+`
+
+const BackButtonWrapper = styled.div`
+    display: flex;
+    padding-right: 15px;
+    justify-content: flex-start;
+    align-items: center;
 `

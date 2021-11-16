@@ -57,12 +57,12 @@ export default class PuzzleBoard extends React.Component {
 
 const boardsContainer = {
   display: "flex",
-  justifyContent: "space-around",
+  justifyContent: "center",
   alignItems: "center",
   flexWrap: "wrap",
   width: "100vw",
-  marginTop: 24,
-  marginBottom: 30,
+  marginTop: 12,
+  marginBottom: 12,
   position: 'relative',
   zIndex: 0
 };
