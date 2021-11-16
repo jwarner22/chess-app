@@ -69,7 +69,7 @@ const protectedRoutes = [
 		name: "Opening Module",
 		path: "/opening",
 		exact: true,
-		main: () => <Opening />
+		main: props => <Opening {...props} />
 	}
 ];
 

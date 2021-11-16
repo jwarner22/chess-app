@@ -26,7 +26,7 @@ function ProgressBar(props) {
         } else{
             setPercent(props.percent)
         }
-    },[props.outcomes])
+    },[props.outcomes, props.percent])
 
     useEffect(() => {
     returnPercent(percent)

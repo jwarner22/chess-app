@@ -9,6 +9,28 @@ import {OpeningPageImgContainer,
   OpeningsTitle,
   OpeningPageImgWrapper
 } from "./OpeningsElements";
+import {TileWrapper, 
+  TileHeadline, 
+  TileIcon, 
+  TileIconWrap, 
+  TileHeader, 
+  TileSubheadline,
+  TileButton,
+  TileButtonWrap
+} from "../PatternRecognition/CourseTiles/CourseTileElements"
+import {CoursesWrapper, 
+    ModuleWrapper, 
+    ModuleGrid, 
+    CategoryLabel,
+    CategoryLabelWrapper,
+    CategoryLabelContainer,
+    TacticsLabelWrapper,
+    CategoryLabelContainerTop,
+    CheckmatesLabelWrapper,
+    EndgamesLabelWrapper,
+} from '../PatternRecognition/CoursesBody/CoursesElements'
+import CourseTile from '../PatternRecognition/CourseTiles/CourseTiles'
+import {OpeningData} from './OpeningData';
 
 const Openings = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +71,7 @@ const Openings = () => {
             <DashSidebar isOpen={isOpen} toggle={toggle} />
             </>
         )
-    }
+    }{/* 
         <OpeningPageImgContainer>
           <OpeningPageImgWrapper>
             <OpeningsPagePlaceholderImg src={openingImage} />
@@ -60,9 +82,44 @@ const Openings = () => {
           <button>
             Opening Module
           </button>
-        </Link> */}
+        </Link> 
           </OpeningPageImgWrapper>
-        </OpeningPageImgContainer>
+        </OpeningPageImgContainer> */}
+        <div>
+        <CategoryLabelContainer>
+            <EndgamesLabelWrapper>
+                <CategoryLabel>
+                    Openings
+                </CategoryLabel>
+            </EndgamesLabelWrapper>
+        </CategoryLabelContainer>
+        <CoursesWrapper>
+            <ModuleWrapper>
+                <ModuleGrid>
+                    {OpeningData.map((module, index) => {
+                        return (
+                    <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/opening', state: {module: module}}}>
+                        {/* <CourseTile key={index} {...module}/> */}
+                        <TileWrapper>
+                          <TileHeader>
+                            <TileHeadline>
+                              {module.headline}
+                            </TileHeadline> 
+                            {isMobile ? ( null ) : (
+                          <TileButtonWrap>
+                            <TileButton>
+                              Start
+                            </TileButton>
+                          </TileButtonWrap>
+                          )}
+                          </TileHeader>
+                        </TileWrapper>
+                    </Link>
+                    )})}
+                </ModuleGrid>
+            </ModuleWrapper>
+        </CoursesWrapper>
+        </div>
         </div>
         </>
     )

@@ -20,73 +20,96 @@ export default function Opening(props) {
   const finishedCallback = props.finishedCallback;
   const moveSound = new Howl({src: moveSoundFile});
   const moves = props.moves;
+  const orientation = props.orientation;
 
-
-  /*
+  
   useEffect(() => {
     console.log("mounted");
+    console.log(moves)
+    if (orientation === "black") {
+      newGame();
+    }
   }, []);
-*/
-  useEffect(() => {
-    console.log('nextAttempt')
-    setMovable(calcMovable());
-  },[nextAttemptPrompt])
+
+  const newGame = async () => {
+    await makeMove(
+      moves[0].substring(0, 2),
+      moves[0].substring(2, 4)
+    );
+    setMoveIndex(() => moveIndex + 1);
+    setMovable(() => calcMovable());
+  }
 
   useEffect(() => {
-    console.log('opening mounted')
-  })
+    console.log('nextAttempt')
+    let movableVals = calcMovable();
+    setMovable(movableVals);
+  },[nextAttemptPrompt])
+
 
   // calcs legal moves and returns chessground compatible object
   const calcMovable = () => {
-    const dests = new Map();
-    game.SQUARES.forEach((s) => {
-      const ms = game.moves({ square: s, verbose: true });
-      if (ms.length)
-        dests.set(
-          s,
-          ms.map((m) => m.to)
-        );
-    });
+    console.log(moveIndex)
+    if (turnColor() === orientation) {
+      console.log('calced movable')
+      const dests = new Map();
+      game.SQUARES.forEach((s) => {
+        const ms = game.moves({ square: s, verbose: true });
+        if (ms.length)
+          dests.set(
+            s,
+            ms.map((m) => m.to)
+          );
+      });
 
-    return {
-      free: false,
-      dests,
-      color: turnColor() // "white"
-    };
+      return {
+        free: false,
+        dests,
+        color: turnColor() // "white"
+      };
+    } else {
+    return;
+  }
   };
 
+  const playSound = async () => {
+    moveSound.play();
+  }
+
+
   async function onMove(from, to) {
-    if (moveIndex >= moves.length - 1) {
+    if (moveIndex >= moves.length) {
       return;
     }
     if (nextAttemptPrompt) {
       setNextAttemptPrompt(false)
     }
-    await setMovable(calcMovable());
+    playSound();
+
+    game.move({ from: from, to: to });
+    setFen(game.fen());
+
     await verifyMove(from, to);
-    moveSound.play();
-    await game.move({ from: from, to: to });
-    await setFen(game.fen());
-    // await setMoveIndex(moveIndex + 2);
+  
+    if (moveIndex < moves.length-1) {
     await makeMove(
       moves[moveIndex + 1].substring(0, 2),
       moves[moveIndex + 1].substring(2, 4)
     );
-    await setFen(game.fen());
-    setMoveIndex(moveIndex + 2);
-    
-    if (moveIndex >= moves.length - 2) {
-      console.log('finished')
-      await nextAttempt();
+
+    setMoveIndex(() => moveIndex + 2);
+
+    let movableVals = calcMovable();
+    setMovable(movableVals);
     }
+    
   }
 
   const nextAttempt = async () => {
-    await wait(1000);
-    await setFen('');
-    await setGame(new Chess());
+    //await wait(1000);
+    setGame(() => new Chess());
+    setFen(new Chess().fen());
     setMoveIndex(0);
-    console.log('reset')
     setNextAttemptPrompt(true)
   }
 
@@ -94,100 +117,42 @@ export default function Opening(props) {
   const verifyMove = async (from, to) => {
     const correctSource = moves[moveIndex].substring(0, 2);
     const correctTarget = moves[moveIndex].substring(2, 4);
-    console.log(from);
-    console.log(to);
-    console.log(correctSource);
-    console.log(correctTarget);
+    console.log({correctSource, correctTarget, from, to})
     // check correct move
     if ((to !== correctTarget) | (from !== correctSource)) {
       console.log("Incorrect!");
-      //outcomes.push("incorrect");
-
-      // await DemoMoves(fen, moves);
-      await wait(1000);
+      await wait(500);
       incorrectCallback(fen, moveIndex);
-      //this.unlockNext();
-      //this.displayOutcome(false); // success is false
-      //this.isCorrect = false;
-      //this.isFinished = true;
     } else {
       console.log("Correct!");
-
-      if (moveIndex === moves.length - 2){
+      if (moveIndex >= moves.length - 1){
+        await wait(1000);
+        console.log('finished');
         await finishedCallback();
+        await nextAttempt();
       }
-      //this.isCorrect = true;
-      // this.displayOutcome(true); // success is true
-      //this.isFinished = false;
     }
-    //console.log({ outcomes: outcomes });
   };
 
   const makeMove = async (from, to) => {
-    console.log("move made");
-    console.log({ to: to, from: from });
-    await wait(250);
+    //playSound();
+    await wait(750);
+    playSound();
     game.move({
       from: from,
       to: to
     });
-    console.log(game.fen());
+  
+    setFen(game.fen());
   };
-
-  // callback function to display outcome
-  //displayOutcome = (outcome) => {
-  // this.props.displayOutcome(outcome);
-  //};
-
-  /*
-  const DemoMoves = (fen, moves) => {
-    //const [fen, setFen] = useState(props.fen);
-
-    //const moves = props.moves;
-    // const index = props.index;
-    const game = new Chess();
-    demo();
-    
-    useEffect(() => {
-      demo();
-    }, []);
-    
-
-    async function demo() {
-      for (const move of moves) {
-        await nextMove(move);
-      }
-      //props.demoFinished();
-    }
-    async function nextMove(move) {
-      let from = move.substring(0, 2);
-      let to = move.substring(2, 5);
-      // await wait(1000);
-      await game.move({ to: to, from: from });
-      let newFen = await game.fen();
-      await setFen(newFen);
-      await wait(1500);
-    }
-  };
-  */
 
   const turnColor = () => {
     return game.turn() === "w" ? "white" : "black";
   };
 
   return (
-    <>
-    <div style={boardContainer}><div className='box'><Chessground movable={movable} onMove={onMove} fen={fen} /></div></div>
+    <>{console.log({fen:fen, movable:movable})}
+    <Chessground movable={movable} onMove={onMove} fen={fen} orientation={orientation} />
     </>
   );
 }
-
-const boardContainer = {
-  display: "flex",
-  justifyContent: "space-around",
-  alignItems: "center",
-  flexWrap: "wrap",
-  width: "100vw",
-  marginTop: 30,
-  marginBottom: 40
-};

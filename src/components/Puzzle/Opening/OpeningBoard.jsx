@@ -26,7 +26,7 @@ export default class OpeningBoard extends React.Component {
       <div style={boardsContainer}>
         <div className="box">
           <div className="main-board green merida my-2">
-            <Puzzle
+            <Opening
               fen={this.props.fen}
               correctMoves={this.state.correctMoves}
               unlockNext={this.props.unlockNext}
@@ -43,7 +43,7 @@ export default class OpeningBoard extends React.Component {
                   orientation={orientation}
                 />
               )}
-            </Puzzle>
+            </Opening>
           </div>
         </div>
       </div>

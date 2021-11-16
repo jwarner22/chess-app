@@ -81,12 +81,14 @@ export default class Puzzle extends React.Component {
     if (this.count){
       await wait(250);
     }
-    console.log({correctMoves: this.props.correctMoves})
+
     this.game.load(this.props.fen);
+
     this.game.move({
       from: this.props.correctMoves[0],
       to: this.props.correctMoves[1]
     });
+
     this.setState({
       fen: this.game.fen(), //,
       orientation: this.turnColor(),
@@ -96,11 +98,12 @@ export default class Puzzle extends React.Component {
       moveIndex: 2,
       check: this.game.in_check()
     });
+
     if (this.count) {
       this.calcMovable(true)
     }
+
     let moveColor = this.turnColor()
-    console.log({color: moveColor})
     this.moveIndicator(moveColor);
     
   };
@@ -115,15 +118,12 @@ export default class Puzzle extends React.Component {
       to = to.substring(0,2)
     }
 
-    console.log({from: from});
-    console.log({to: to})
-    console.log({promotion: promotion})
     this.game.move({
       from: from,
       to: to,
       promotion: promotion
     });
-    console.log('test')
+
     this.setState({
       fen: this.game.fen(),
       lastMove: [from,to],
@@ -173,7 +173,6 @@ export default class Puzzle extends React.Component {
         });
       } else {
         // unlocks next button
-        console.log("unlock next")
         this.unlockNext();
         if (this.isCorrect === true) {
           this.displayOutcome(true);
@@ -184,8 +183,6 @@ export default class Puzzle extends React.Component {
 
   // runs on player move
   onMove = async (from, to) => {
-    console.log({moveIndex: this.state.moveIndex})
-    console.log({length: this.props.correctMoves.length})
     // check for pawn promotion
     const moves = this.game.moves({verbose: true});
     for (let i = 0, len = moves.length; i < len; i++) {
@@ -202,37 +199,7 @@ export default class Puzzle extends React.Component {
     } else {
       this.playSound('n')
     }
-    console.log("too far")
-    // || this.isFinished === true (removed for auto next puzzle (not needed))
-    // if (
-    //   this.state.moveIndex >= this.state.correctMoves.length
-    // ) {
-    //   this.isFinished = false;
-    //   return;
-    // }
 
-
-
-    // extracts legal moves
-    //const moves = this.game.moves({ verbose: true });
-
-    /*
-    // loops through each square
-    for (let i = 0, len = moves.length; i < len; i++) {
-      // eslint-disable-line 
-      if (moves[i].flags.indexOf("p") !== -1 && moves[i].from === from) {
-        this.setState({
-          pendingMove: [from, to],
-          selectVisible: true
-        });
-        return;
-      }
-    }
-    */
-    
-    // make move on board before proceeding
-    // await this.makeMove(from, to);
-    // set new game state
     const lastMove = from + to;
  
     // checks move for correctness and displays splash screen.
@@ -270,17 +237,21 @@ export default class Puzzle extends React.Component {
 
   // verify correct move
   verifyMove = async (from, to, promotion) => {
-    console.log("verifying")
-    console.log({promotion: this.props.promotion})
-    console.log({target: this.state.correctTarget})
+
     if (promotion) {
       if (this.props.promotion === this.state.correctTarget.substring(2)) {
         this.isCorrect = true;
         this.isFinished = false;
-        console.log("correct!")
         return
       }
     }
+
+    if (this.game.in_checkmate()) {
+      this.isCorrect = true;
+      this.isFinished = true;
+      return
+    }
+
     // set correct move
     const correctTarget = this.state.correctTarget;
     const correctSource = this.state.correctSource;

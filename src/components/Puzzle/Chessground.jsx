@@ -44,6 +44,9 @@ export default class Chessground extends React.Component {
     animation: {
       enabled: true,
       duration: 350
+    },
+    drawable: {
+      visible: false
     }
   };
 
