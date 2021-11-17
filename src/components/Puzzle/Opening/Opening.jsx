@@ -14,30 +14,42 @@ export default function Opening(props) {
   const [fen, setFen] = useState();
   const [moveIndex, setMoveIndex] = useState(0);
   const [movable, setMovable] = useState(null);
-  const [nextAttemptPrompt,setNextAttemptPrompt] = useState(false);
+  //const [nextAttemptPrompt,setNextAttemptPrompt] = useState(false);
+  const [next, setNext] = useState(false);
   const [game, setGame] = useState(new Chess(fen));
+  const [color,setColor] = useState("");
   const incorrectCallback = props.incorrectCallback;
   const finishedCallback = props.finishedCallback;
   const moveSound = new Howl({src: moveSoundFile});
   const moves = props.moves;
   const orientation = props.orientation;
   const count = props.count;
-
+  
   
   useEffect(() => {
     console.log("mounted");
     console.log(moves)
+    setColor(() =>turnColor())
     if (orientation === "black") {
-      newGame();
+      initialMove();
     }
   }, []);
 
   useEffect(() => {
     console.log("next attempt")
-    nextAttempt();
+    if (count > 0) {
+      nextAttempt();
+      //initialMove();
+    }
   },[count]);
 
-  const newGame = async () => {
+  useEffect(() => {
+    if (orientation === "black") {
+      initialMove();
+    }
+  },[next]);
+
+  const initialMove = async () => {
     await makeMove(
       moves[0].substring(0, 2),
       moves[0].substring(2, 4)
@@ -46,16 +58,10 @@ export default function Opening(props) {
     setMovable(() => calcMovable());
   }
 
-  useEffect(() => {
-    console.log('nextAttempt')
-    let movableVals = calcMovable();
-    setMovable(movableVals);
-  },[nextAttemptPrompt])
-
 
   // calcs legal moves and returns chessground compatible object
   const calcMovable = () => {
-    console.log(moveIndex)
+
     if (turnColor() === orientation) {
       console.log('calced movable')
       const dests = new Map();
@@ -67,11 +73,11 @@ export default function Opening(props) {
             ms.map((m) => m.to)
           );
       });
-
+      let color = turnColor();
       return {
         free: false,
         dests,
-        color: turnColor() // "white"
+        color: color // "white"
       };
     } else {
     return;
@@ -87,14 +93,14 @@ export default function Opening(props) {
     if (moveIndex >= moves.length) {
       return;
     }
-    if (nextAttemptPrompt) {
-      setNextAttemptPrompt(false)
-    }
+    // if (nextAttemptPrompt) {
+    //   setNextAttemptPrompt(false)
+    // }
     playSound();
-
+    console.log({premove: game.fen()})
     game.move({ from: from, to: to });
     setFen(game.fen());
-
+    console.log({postmove: game.fen()})
     await verifyMove(from, to);
 
     
@@ -102,10 +108,15 @@ export default function Opening(props) {
 
   const nextAttempt = async () => {
     //await wait(1000);
-    setGame(() => new Chess());
-    setFen(new Chess().fen());
+    console.log('next')
+    setGame(new Chess());
+    let newFen = new Chess().fen();
+    setFen(newFen);
     setMoveIndex(0);
-    setNextAttemptPrompt(true)
+    let movableVals = calcMovable();
+    setMovable(movableVals);
+    setNext((prev) => !prev);
+    //setNextAttemptPrompt(true)
   }
 
   // verify correct move
@@ -120,11 +131,8 @@ export default function Opening(props) {
       incorrectCallback(fen, moveIndex);
     } else {
       console.log("Correct!");
-      if (moveIndex >= moves.length - 1){
-        await wait(1000);
-        console.log('finished');
-        await finishedCallback();
-      }
+
+      console.log({moveIndex: moveIndex})
       if (moveIndex < moves.length-1) {
         await makeMove(
           moves[moveIndex + 1].substring(0, 2),
@@ -135,7 +143,13 @@ export default function Opening(props) {
     
         let movableVals = calcMovable();
         setMovable(movableVals);
-        }
+        setColor(() => turnColor());
+      }
+      if (moveIndex >= moves.length - 2){
+        await wait(1000);
+        console.log('finished');
+        await finishedCallback();
+      }
     }
   };
 
@@ -149,6 +163,7 @@ export default function Opening(props) {
     });
   
     setFen(game.fen());
+    setColor(() => turnColor());
   };
 
   const turnColor = () => {
@@ -156,8 +171,10 @@ export default function Opening(props) {
   };
 
   return (
-    <>{console.log({fen:fen, movable:movable})}
-    <Chessground movable={movable} onMove={onMove} fen={fen} orientation={orientation} />
+    <>
+    <Chessground movable={movable} onMove={onMove} fen={fen} orientation={orientation} turnColor={color}/>
     </>
   );
 }
+
+// {console.log({fen:fen, movable:movable})}
