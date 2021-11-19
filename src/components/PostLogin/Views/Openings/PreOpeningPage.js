@@ -21,31 +21,30 @@ import {PuzzlePageContainer,
     TipDescriptionWrapper,
     Tip1Description,
     LeftStatWrapper,
-RightStatWrapper} from "./PrePuzzleElements"
-import {DailyPuzzleIcon} from "../PostLogin/Views/DailyPuzzle/DailyPuzzleElements"
-import testIcon from "../../Images/EnPassant.svg"
-import { StartButton } from '../PostLogin/Views/DailyPuzzle/ModalElements'
-import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
+RightStatWrapper} from "../../../PrePuzzle/PrePuzzleElements"
+import {DailyPuzzleIcon} from "../DailyPuzzle/DailyPuzzleElements"
+import { StartButton } from '../DailyPuzzle/ModalElements'
+import {Modules} from '../PatternRecognition/CourseTiles/Data';
 
 const PrePuzzlePage = (props) => {
-    const moduleId = props.moduleId;
-    const module = Modules.find(element => element.id === moduleId)
+    const img = Modules[3].img;
+    const {openingsData, togglePrePuzzleCallback} = props;
 
     function handleStartButtonClick() {
-        props.togglePrePuzzleCallback()
+        togglePrePuzzleCallback()
     }
 
     return (
         <PuzzlePageContainer>
                 <PrePuzzleIconWrapper>
-                    <DailyPuzzleIcon src={module.img} />
+                    <DailyPuzzleIcon src={img} />
                 </PrePuzzleIconWrapper>
                 <PrePuzzleWrapper>
                     <PrePuzzleTitle>
-                        {module.headline}
+                        {openingsData.headline}
                     </PrePuzzleTitle>
                     <PrePuzzleSubheading>
-                        Pattern Recognition
+                        Opening Training
                     </PrePuzzleSubheading>
                     <PrePuzzleContentContainer>
                         <StatsWrapper>
@@ -56,7 +55,7 @@ const PrePuzzlePage = (props) => {
                                 </PuzzleEloTitle>
                                 </LeftStatWrapper>
                                 <PuzzleElo>
-                                    {props.rating}
+                                    100
                                 </PuzzleElo>
                                 <RightStatWrapper>
                                 <HighScoreTitle>
@@ -64,7 +63,7 @@ const PrePuzzlePage = (props) => {
                                 </HighScoreTitle>
                                 </RightStatWrapper>
                                 <HighScore>
-                                    {props.highScore}
+                                    0
                                 </HighScore>
                             </StatsGrid>
                         </StatsWrapper>
@@ -81,7 +80,7 @@ const PrePuzzlePage = (props) => {
                                             </TipImageWrap>
                                             <TipDescriptionWrapper>
                                                 <Tip1Description>
-                                                    {module.instructions} 
+                                                    Replicate the opening moves... 
                                                 </Tip1Description>
                                             </TipDescriptionWrapper>
                                         </TipsGrid>

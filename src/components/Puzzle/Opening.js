@@ -25,41 +25,28 @@ export default function OpeningModule(props) {
   const [showDisabled, setShowDisabled] = useState(true);
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
-  const OpeningsData = props.location.state.module;
-
-
+  
   useEffect(() => {
-
     getMoves();
-
-    swal({
-      title: OpeningsData.headline,
-      text: "replicate the moves..."
-    }).then((value) => {
-      setIsLoaded(value);
-    });
-    setOrientation('white');
   }, []);
 
   useEffect(() => {
     if (count === 3) {
-      swal({
-        title: "Completed!",
-        text: OpeningsData.headline
-      }).then((value) => {
-        //console.log(value)
-      });
+      props.toggleFinished();
     }
   },[count])
 
   const getMoves = () => {
-    let moves = OpeningsData.moves;
+    let moves = props.openingsData.moves;
+    console.log({moves:moves})
     const openingMoves = getOpeningMoves(moves);
     setMoves(openingMoves)
     setFen(openingMoves[0].fen);
     setMoveIndex(0);
     setProgress(0);
     setCount(0);
+    setOrientation("white");
+    setIsLoaded(true);
   }
 
   const demoFinished = () => {
@@ -101,7 +88,7 @@ export default function OpeningModule(props) {
       <>
       <PuzzlePageContainer>
         <HeaderContainer>
-        <Header>{OpeningsData.headline}</Header>
+        <Header>{props.openingsData.headline}</Header>
         </HeaderContainer>
       <div style={progressContainer}><Progress returnPercent={returnPercent} percent={progress} count={count} /></div>
         <PuzzleBoardWrapper>

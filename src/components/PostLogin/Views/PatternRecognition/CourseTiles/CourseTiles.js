@@ -19,7 +19,7 @@ import InfoModal from "./InfoModal";
 
 
 function CourseTile(props){
-    console.log(props)
+    //console.log(props)
   const [windowDimension, setWindowDimension] = useState(null);
   const [openModal, setOpenModal] = useState(false)
   const {headline, subheading, img} = props

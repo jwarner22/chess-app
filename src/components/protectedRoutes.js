@@ -9,7 +9,7 @@ import Openings from "./PostLogin/Views/Openings/Openings"
 import ProfilePage from "./PostLogin/Views/ProfilePage/ProfilePage"
 import IntakeSurvey from './IntakeSurvey/IntakeSurvey';
 import CreateUser from './IntakeSurvey/CreateUser';
-import Opening from './Puzzle/Opening';
+import Opening from './Puzzle/Opening/OpeningManager';
 
 const protectedRoutes = [
 	{
