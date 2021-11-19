@@ -25,7 +25,6 @@ export const TileHeader = styled.div`
     display: flex;
     flex-direction: column;
     min-width: 100%;
-    
 `
 
 export const TileIconWrap = styled.div`

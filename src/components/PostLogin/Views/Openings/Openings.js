@@ -4,10 +4,21 @@ import MobileNavbar from "../../MobileNavBar/MobileNavBar";
 import DashboardNavbar from "../../DashboardNavbar/DashboardNavbar";
 import DashSidebar from "../../DashboardSidebar/DashboardSidebar";
 import openingImage from "../../../../Images/professor.svg";
+import board from "../../../../Images/BrownBoard.svg"
 import {OpeningPageImgContainer, 
   OpeningsPagePlaceholderImg, 
   OpeningsTitle,
-  OpeningPageImgWrapper
+  OpeningPageImgWrapper,
+  OpeningsTitleContainer,
+  OpeningsGrid,
+  OpeningsTileContainer,
+  OpeningsTileHeader,
+  OpeningTileHeadline,
+  OpeningTileButton,
+  OpeningsTileLeftColumn,
+  OpeningsTileRightColumn,
+  OpeningsTileImage,
+  OpeningTileButtonWrapper
 } from "./OpeningsElements";
 import {TileWrapper, 
   TileHeadline, 
@@ -86,37 +97,34 @@ const Openings = () => {
           </OpeningPageImgWrapper>
         </OpeningPageImgContainer> */}
         <div>
-        <CategoryLabelContainer>
-            <EndgamesLabelWrapper>
-                <CategoryLabel>
-                    Openings
-                </CategoryLabel>
-            </EndgamesLabelWrapper>
-        </CategoryLabelContainer>
+        <OpeningsTitleContainer>
+          Openings
+        </OpeningsTitleContainer>
         <CoursesWrapper>
             <ModuleWrapper>
-                <ModuleGrid>
+                <OpeningsGrid>
                     {OpeningData.map((module, index) => {
                         return (
                     <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/opening', state: {module: module}}}>
                         {/* <CourseTile key={index} {...module}/> */}
-                        <TileWrapper>
-                          <TileHeader>
-                            <TileHeadline>
+                        <OpeningsTileContainer>
+                          <OpeningsTileLeftColumn>
+                            <OpeningTileHeadline>
                               {module.headline}
-                            </TileHeadline> 
-                            {isMobile ? ( null ) : (
-                          <TileButtonWrap>
-                            <TileButton>
+                            </OpeningTileHeadline>
+                            <OpeningTileButtonWrapper>
+                            <OpeningTileButton>
                               Start
-                            </TileButton>
-                          </TileButtonWrap>
-                          )}
-                          </TileHeader>
-                        </TileWrapper>
+                            </OpeningTileButton>   
+                            </OpeningTileButtonWrapper>                     
+                          </OpeningsTileLeftColumn>
+                          <OpeningsTileRightColumn>
+                            <OpeningsTileImage src={board} />
+                          </OpeningsTileRightColumn>
+                        </OpeningsTileContainer>
                     </Link>
                     )})}
-                </ModuleGrid>
+                </OpeningsGrid>
             </ModuleWrapper>
         </CoursesWrapper>
         </div>
