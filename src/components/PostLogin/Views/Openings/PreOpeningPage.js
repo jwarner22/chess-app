@@ -25,6 +25,9 @@ RightStatWrapper} from "../../../PrePuzzle/PrePuzzleElements"
 import {DailyPuzzleIcon} from "../DailyPuzzle/DailyPuzzleElements"
 import { StartButton } from '../DailyPuzzle/ModalElements'
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
+import puzzle from "../../../../Images/chessBoardHeader.png"
+import { PreOpeningsIconWrapper,
+PreOpeningPageContainer } from './PreOpeningsPageElements';
 
 const PrePuzzlePage = (props) => {
     const img = Modules[3].img;
@@ -35,10 +38,10 @@ const PrePuzzlePage = (props) => {
     }
 
     return (
-        <PuzzlePageContainer>
-                <PrePuzzleIconWrapper>
-                    <DailyPuzzleIcon src={img} />
-                </PrePuzzleIconWrapper>
+        <PreOpeningPageContainer>
+                <PreOpeningsIconWrapper>
+                    <DailyPuzzleIcon src={puzzle} />
+                </PreOpeningsIconWrapper>
                 <PrePuzzleWrapper>
                     <PrePuzzleTitle>
                         {openingsData.headline}
@@ -91,7 +94,7 @@ const PrePuzzlePage = (props) => {
                                 </InstructionsContainer>
                             </PrePuzzleContentContainer>
                         </PrePuzzleWrapper>
-                    </PuzzlePageContainer>
+                    </PreOpeningPageContainer>
     )
 }
 

@@ -44,7 +44,7 @@ export const OpeningsTileLeftColumn = styled.div`
 
 `
 export const OpeningTileHeadline = styled.h3`
-    font-size: 36px;
+    font-size: 1.15rem;
     line-height: 1.1;
     font-weight: 600;
     color: #7F3AD4;
