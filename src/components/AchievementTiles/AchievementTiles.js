@@ -8,13 +8,13 @@ import SmallTile from "./SmallTiles"
 import {AchievementsHeader} from "../ProfilePanel/ProfilePanelElements";
 
 const AchievementTiles = (props) => {
-    const {achievements} = props;
+    const {achievements, overallRating} = props;
     let accuracy = Math.floor((props.profileData.puzzles_correct/props.profileData.puzzles_completed)*100);
     return (
         <>
             <AchievementTileContainer>
             <AchievementTileWrapper>
-                <LargeTile value={props.profileData.overall_rating} title={'Overall Rating'}/>
+                <LargeTile value={overallRating} title={'Overall Rating'}/>
                 <LargeTile value={isNaN(accuracy) ? 0 : accuracy} title={'Accuracy'}/>
                 </AchievementTileWrapper>
                 <ProfilePanelContainer> 

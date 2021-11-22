@@ -7,10 +7,13 @@ import ProfilePanel from "../../../ProfilePanel/ProfilePanel"
 import AchievementTiles from "../../../AchievementTiles/AchievementTiles"
 import useFetch from '../../../api/useFetch';
 import {baseURL} from '../../../api/apiConfig';
+import {Modules} from '../PatternRecognition/CourseTiles/Data';
+import { Profile } from "@styled-icons/icomoon";
 
 const ProfilePage = () => {
   const  [achievements, setAchievements] = useState([])
   const [profileData, setProfileData] = useState({});
+  const [overallRating, setOverallRating] = useState(0);
   const {get} = useFetch(baseURL)
   const [loaded, setLoaded] = useState(false)
   const userID = localStorage.getItem('userID');
@@ -31,8 +34,30 @@ const ProfilePage = () => {
   async function fetchProfileData() {
     let endpoint = `/users/${userID}`;
     let profileData = await get(endpoint)
+    await fetchOverallRating(profileData);
     setProfileData(profileData)
     setLoaded(true)
+  }
+
+  async function fetchOverallRating(data) {
+    // get all theme data for user
+    let endpoint = `/users/${userID}/themes`;
+    let themes = await get(endpoint)
+
+    // sum all them ratings
+    let ratingSum = themes.reduce((acc, theme) => { 
+      return acc + theme.rating;
+    }, 0)
+
+    // backfill any missing themes with initial rating
+    if (themes.length < Modules.length) {
+      ratingSum += (Modules.length - themes.length) * data.initial_rating;
+    }
+
+    // overall rating = average of all theme ratings
+    let overallRating = Math.round(ratingSum / Modules.length);
+
+    setOverallRating(overallRating);
   }
 
   //hamburger sidebar menu
@@ -76,7 +101,7 @@ const ProfilePage = () => {
 
       <ProfilePageContainer>
       <ProfilePanel />
-       <AchievementTiles achievements={achievements} profileData={profileData} isMobile={isMobile} />
+       <AchievementTiles achievements={achievements} profileData={profileData} isMobile={isMobile} overallRating={overallRating}/>
        </ProfilePageContainer>
       }
       </>

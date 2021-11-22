@@ -156,8 +156,6 @@ export default function Puzzle(props) {
     setUserData(themeData) // sets user data to pass as props to post puzzle page
 
     let profileData = await fetchProfileData()
-    let newOverallRating = calcEloRating(outcomes, puzzles, profileData.overall_rating)
-    profileData.overall_rating = newOverallRating;
     profileData.total_score += score ;
     profileData.puzzles_completed += outcomes.length;
     profileData.puzzles_correct += outcomes.filter(outcome => outcome === true).length;

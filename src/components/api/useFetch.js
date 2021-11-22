@@ -34,7 +34,7 @@ export default function useFetch(baseUrl) {
     async function get(url) {
 
         let token = await getAccessToken()
- 
+
         return new Promise((resolve, reject) => {
             fetch(baseUrl + url, {
                 headers: {
