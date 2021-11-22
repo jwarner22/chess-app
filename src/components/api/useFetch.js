@@ -14,22 +14,32 @@ export default function useFetch(baseUrl) {
         if (storedToken != null && accessTimeout != null && (accessTimeout > (now-hour))) {
             return storedToken;
         } else {
-        let idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-              // store for later use  
-              sessionStorage.setItem('access_token', idToken)
-              sessionStorage.setItem('access_timeout', now.toString())
-              // pass this id token in headers
-              return idToken;
+            try {
+                let response = await firebase.auth().currentUser.getIdToken(true);
+                sessionStorage.setItem('access_token', response);
+                sessionStorage.setItem('access_timeout', now);
+                return response;
+            } catch (error) {
+                alert('not authenticated')
+            }
+        }
+    }
 
-          }).catch(function(error) {
-          // handle error
-          alert('not authenticated')
-          return
-        })
-        return idToken
-    }
-        
-    }
+        // let idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+        //       // store for later use  
+        //       sessionStorage.setItem('access_token', idToken)
+        //       sessionStorage.setItem('access_timeout', now.toString())
+        //       // pass this id token in headers
+        //       return idToken;
+
+        //   }).catch(function(error) {
+        //   // handle error
+        //   alert('not authenticated')
+        //   return
+        // })
+        // return idToken
+    
+    
 
     async function get(url) {
 
