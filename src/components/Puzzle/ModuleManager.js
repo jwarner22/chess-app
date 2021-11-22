@@ -173,7 +173,7 @@ export default function Puzzle(props) {
     // was storedDailyPuzzles
     const mutatedPuzzles = schemaPicks.map(puzzle => {
       if (puzzle.theme_id === id) {
-        return {...puzzle, completed: true, locked: true}
+        return {...puzzle, completed: true, locked: false}
       }
       return puzzle
     })

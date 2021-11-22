@@ -35,7 +35,7 @@ export const TileIconWrap = styled.div`
     
 `
 
-export const TileIcon = styled.img`
+export const TileIconImg = styled.img`
     display: block;
     margin: auto;
     width: 70px;
