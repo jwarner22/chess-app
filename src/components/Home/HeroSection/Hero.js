@@ -1,11 +1,28 @@
 import {HeroContainer, HeroBg, HeroContent, HeroP, HeroH1, HeroBtnWrapper, ArrowForward, ArrowRight} from './HeroElements';
-import React, { useState } from "react";//import { AuthContext } from "../Auth";
+import React, { useState, useEffect } from "react";//import { AuthContext } from "../Auth";
 import {Button} from '../../ButtonElement'
+import {NavBtnLink2} from "../NavBar/NavbarElements"
 
 const HeroSection = () => {
     // const { currentUser } = useContext(AuthContext);
 
     const [hover, setHover] = useState(false)
+    const [windowDimension, setWindowDimension] = useState(null);
+
+    useEffect(() => {
+      setWindowDimension(window.innerWidth);
+    }, []);
+  
+    useEffect(() => {
+      function handleResize() {
+        setWindowDimension(window.innerWidth);
+      }
+  
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+  
+    const isMobile = windowDimension <= 640;
 
     const onHover = () => {
         setHover(!hover)
@@ -32,6 +49,10 @@ const HeroSection = () => {
                         Get Started {hover ? <ArrowForward/> : <ArrowRight/> }
                     </Button>
                 </HeroBtnWrapper>
+                {isMobile ? (
+                        <NavBtnLink2 to="/login">Login</NavBtnLink2> ) : (
+                        null
+                    )}
             </HeroContent>
         </HeroContainer>
     )

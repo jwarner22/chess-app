@@ -18,6 +18,8 @@ import BlackIndicator from "./TurnIndicator/BlackIndicator"
 import WhiteIndicator from "./TurnIndicator/WhiteIndicator"
 import { Construction } from "@styled-icons/material-twotone";
 import {BackButtonWrapper} from "../Utilities/Progress"
+import Lives from "./Lives/Lives"
+
 // import Stockfish from "./Stockfish";
 // move functions to utils file
 
@@ -48,6 +50,7 @@ const getModuleTitle = (name) => {
 export default function PuzzlePage(props) {
   const [moveColor, setMoveColor] = useState("")
   const puzzleData = props.puzzles;
+  // const [lives, setLives] = useState(3)
   const [count, setCount] = useState(0);
   const [fen, setFen] = useState(puzzleData[0].fen);
   const [progress, setProgress] = useState(count);
@@ -64,6 +67,10 @@ export default function PuzzlePage(props) {
   const confirmationSound = new Howl({src: confirmationSoundFile})
   const errorSound = new Howl({src: errorSoundFile})
   const title = getModuleTitle(props.theme)
+  const livesLost = outcomes.filter(entry => entry === false).length;
+  const startingLives = 3
+
+  // console.log(livesLost)
 
   useEffect(() => {
     // checks if user has missed 4 puzzles - if so route to fialure screen
@@ -71,6 +78,10 @@ export default function PuzzlePage(props) {
       fail()
     }
   }, [outcomes]);
+
+  useEffect(() => {
+    
+  },[])
 
   useEffect(() => {
     if (progress < 100) {
@@ -163,6 +174,12 @@ export default function PuzzlePage(props) {
     setMoveColor(color)
   }
 
+  const livesRemaining = () => {
+    return startingLives - livesLost
+  }
+  const totalLives = livesRemaining()
+  // const percentComplete = returnPercent()
+
   return (
     <div>
       <PuzzlePageContainer>
@@ -174,6 +191,7 @@ export default function PuzzlePage(props) {
         </HeaderContainer>
       <div style={progressContainer}>
         <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count}/>
+        {/* <div percentComplete={percentComplete}>{percentComplete}</div> */}
       </div>
       <PuzzleBoardWrapper>
       <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
@@ -189,6 +207,9 @@ export default function PuzzlePage(props) {
           moveIndicator={moveIndicator}
         />
       </PuzzleBoardWrapper>
+        <LivesWrapper>
+        Lives Remaining = {totalLives}  
+        </LivesWrapper>
       <IndicatorWrapper>
       {(moveColor === "white") ? (
           <WhiteIndicator /> ) : (
@@ -241,4 +262,21 @@ const IndicatorWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+`
+
+const LivesWrapper = styled.div`
+ display: flex;
+ width: 100%;
+ justify-content: center;
+ color: #247cf1;
+`
+
+const LivesGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 12px;
+  
+`
+const LivesImg = styled.img`
+  max-width: 30px;
 `

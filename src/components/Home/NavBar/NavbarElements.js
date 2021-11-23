@@ -140,6 +140,7 @@ export const NavBtnLink2 = styled(LinkR)`
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+    max-width: 180px;
 
     &:hover {
         transition: all 0.2s ease-in-out;
