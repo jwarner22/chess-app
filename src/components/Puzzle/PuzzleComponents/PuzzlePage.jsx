@@ -155,7 +155,7 @@ export default function PuzzlePage(props) {
     setRetry(true)
     setFen(() => puzzleData[count].fen);
     setCorrectMoves(() => getMoves(puzzleData[count].moves));
-    setRetryDisable(true)
+    setRetryDisable(prev => !prev)
   }
 
   const handlePromotion = () => {

@@ -37,9 +37,9 @@ const Body = (
                 <ModuleGrid>
                     {endgameModules.map((module, index) => {
                         return (
-                    <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}, isDaily: false}}>
+                    // <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}, isDaily: false}}>
                         <CourseTile key={index} {...module}/>
-                    </Link>
+                    // </Link>
                     )})}
                 </ModuleGrid>
             </ModuleWrapper>
@@ -58,9 +58,9 @@ const Body = (
                 <ModuleGrid>
                     {tacticModules.map((module, index) => {
                         return(
-                        <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                        // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
                         <CourseTile key={index} {...module} />
-                        </ModalLink>
+                        // </ModalLink>
                     )})}
                 </ModuleGrid>
             </ModuleWrapper>
@@ -78,9 +78,9 @@ const Body = (
                 <ModuleGrid>
                     {checkmateModules.map((module, index) => {
                         return (
-                    <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                    // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
                         <CourseTile key={index} {...module}/>
-                    </ModalLink>
+                    // </ModalLink>
                     )})}
                 </ModuleGrid>
             </ModuleWrapper>

@@ -194,7 +194,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'capturingDefender',
         headline: 'Capturing Defender',
-        subheading: 'Improve your position by weakening your opponents defenses.',
+        subheading: 'Weaken your opponents defenses.',
         instructions: 'Often a key piece will stand in defense in the opponents position. Capturing it can open up tactical opportunities...',
         description: 'Lorem ipsum mah brudda',
         img:require("../../../../../Images/Capturingdefender.png").default

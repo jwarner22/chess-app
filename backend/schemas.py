@@ -114,6 +114,7 @@ class UserProfile(UserBase):
     total_score: Optional[int] = 0
     puzzles_completed: Optional[int] = 0
     puzzles_correct: Optional[int] = 0
+    initial_rating: int
 
     class Config:
         orm_mode=True

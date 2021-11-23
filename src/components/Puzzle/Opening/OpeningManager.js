@@ -9,6 +9,7 @@ import OpeningPage from '../Opening.js'
 export default function OpeningManager(props) {
     const [isFinished, setIsFinished] = useState(false);
     const [isStarted, setIsStarted] = useState(false);
+    const [score, setScore] = useState(0);
     const openingsData = props.location.state.module;
     console.log({openingsData: openingsData})
     const togglePrePuzzleCallback = () => {
@@ -16,9 +17,11 @@ export default function OpeningManager(props) {
         setIsStarted(true);
     }
 
-    const toggleFinished = () => {
+    const toggleFinished = (result) => {
         setIsFinished(true);
         setIsStarted(false);
+        setScore(result);
+        // need to save results to db (score and completed (+1))
     }
 
     return (
@@ -30,7 +33,7 @@ export default function OpeningManager(props) {
             <OpeningPage toggleFinished={toggleFinished} openingsData={openingsData}/>
         )}
         {isFinished && (
-            <PostOpeningPage openingsData={openingsData} isDaily={false}/>
+            <PostOpeningPage openingsData={openingsData} isDaily={false} score={score}/>
         )}
         </>
     )

@@ -125,15 +125,23 @@ async def get_user_initial_rating(user_id: str, db: Session = Depends(get_db)):
     return {db_user.initial_rating}
 
 # THEMES
+
 # get theme
 @app_v1.get('/users/{user_id}/themes/{theme_title}', response_model=schemas.Theme, tags=["Themes"])
-async def define_theme_ratings(user_id: str, theme_title: str, db: Session = Depends(get_db)):
+async def return_theme_rating(user_id: str, theme_title: str, db: Session = Depends(get_db)):
     theme_response = db.query(models.Theme).filter(models.Theme.title == theme_title, models.Theme.owner_id==user_id).one_or_none()
     if theme_response is None:
         raise HTTPException(status_code=404, detail="Theme not found")
     #crud.add_theme(db, theme = theme, user_id = user_id)#title = theme.title, category = theme.category)
     return theme_response
 
+# get themes
+@app_v1.get('/users/{user_id}/themes', response_model=List[schemas.Theme], tags=["Themes"])
+async def return_all_themes(user_id: str, db: Session = Depends(get_db)):
+    themes = db.query(models.Theme).filter(models.Theme.owner_id == user_id).all()
+    if themes is None:
+        raise HTTPException(status_code=404, detail="Themes not found")
+    return themes
 
 # initialize theme
 @app_v1.post('/users/{user_id}/themes', response_model=schemas.Theme, tags=["Themes"])

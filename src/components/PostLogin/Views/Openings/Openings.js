@@ -82,18 +82,13 @@ const Openings = () => {
             <DashSidebar isOpen={isOpen} toggle={toggle} />
             </>
         )
-    }{/* 
-        <OpeningPageImgContainer>
+    } 
+        {/* <OpeningPageImgContainer>
           <OpeningPageImgWrapper>
             <OpeningsPagePlaceholderImg src={openingImage} />
               <OpeningsTitle>
                   Opening Trainer Coming Soon!
               </OpeningsTitle>
-              {/* <Link to='/opening'>
-          <button>
-            Opening Module
-          </button>
-        </Link> 
           </OpeningPageImgWrapper>
         </OpeningPageImgContainer> */}
         <div>
@@ -126,7 +121,7 @@ const Openings = () => {
                     )})}
                 </OpeningsGrid>
             </ModuleWrapper>
-        </CoursesWrapper>
+        </CoursesWrapper> 
         </div>
         </div>
         </>

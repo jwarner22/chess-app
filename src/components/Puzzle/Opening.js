@@ -10,6 +10,7 @@ import correctSound from "../../assets/public_sound_standard_Confirmation.mp3";
 import incorrectSound from "../../assets/public_sound_standard_Error.mp3";
 import styled from "styled-components";
 import {Howl} from 'howler'
+import { Score, SettingsBackupRestore } from "@styled-icons/material";
 
 
 export default function OpeningModule(props) {
@@ -23,6 +24,7 @@ export default function OpeningModule(props) {
   const [orientation, setOrientation] = useState("");
   const [continueDisabled, setContinueDisabled] = useState(true);
   const [showDisabled, setShowDisabled] = useState(true);
+  const [score, setScore] = useState(0);
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
   
@@ -32,7 +34,7 @@ export default function OpeningModule(props) {
 
   useEffect(() => {
     if (count === 3) {
-      props.toggleFinished();
+      props.toggleFinished(score);
     }
   },[count])
 
@@ -57,14 +59,16 @@ export default function OpeningModule(props) {
   const incorrectCallback = async (currentFen, moveIndex) => {
     //setFen(currentFen);
     //setMoveIndex(moveIndex);
-    setShowDisabled(false);
+    setShowDisabled(prev => !prev);
     incorrectSoundPlayer.play();
+    setScore(prev => prev - 200);
   };
 
   const finishedCallback = async () => {
     correctSoundPlayer.play();
     setProgress(progress + ((1/3)*100));
     setContinueDisabled(false);
+    setScore(prev => prev + 100*(Math.floor(moves.length/2)));
   }
 
   const returnPercent = (percent) => {
