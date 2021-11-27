@@ -254,21 +254,18 @@ const PuzzlePageContainer = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    top: 0;
-    height: 100%;
-    
+    top: 0; 
+    position: absolute;
 `
 const PuzzlePageWrapper = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, hsla(244, 36%, 52%, 1) 0%, hsla(214, 88%, 54%, 1) 100%);
-  padding: 24px;
 `
 
 const PuzzlePageGrid = styled.div `
   display: grid;
-  height: auto;
   grid-template-columns: minmax(300px, 800px) min-content;
   width: 100% !important;
   grid-gap: 16px;
@@ -281,24 +278,14 @@ const PuzzleBoardContainer = styled.div`
   justify-content: center;
   align-items: center;
   grid-column: 1;
+  position: relative;
 `
 
 const PuzzleBoardWrapper = styled.div`
     position: relative;
-    height: auto;
     width: 100%;
     margin: 24px;
 `
-
-const LeftPuzzlePanelContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    grid-column: 1;
-    background-color: #fff;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-`
-
 
 const RightPuzzlePanelContainer = styled.div`
     display: flex;
