@@ -33,6 +33,10 @@ function ProgressBar(props) {
     returnPercent(percent)
     },[percent])
     
+    useEffect(() => {
+        setColor(baseColor) // reset color to base color on retry on continue
+    },[props.count, props.retry])
+
     const setDisplay = result => {
         if (result === true && percent < 100) {
             setColor(correctColor)

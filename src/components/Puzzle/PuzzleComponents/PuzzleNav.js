@@ -2,7 +2,7 @@ import React from 'react'
 import styled from "styled-components"
 import {Link} from "react-router-dom";
 const PuzzleNav = (props) => {
-    console.log(props)
+
     return (
         <PuzzleNavContainer>
             <NavBtn>

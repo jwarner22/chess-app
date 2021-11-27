@@ -285,7 +285,7 @@ export const Modules = [
         type_ref: 'interference',
         headline: 'Interference',
         subheading: `Disrupt the harmony of the opponent's position`,
-        instructions: 'Interference is when the line between an attacked piece and its defender is interupted by sacrificing an interposing piece.',
+        instructions: 'Interference is when the line between an attacked piece and its defender is interrupted by sacrificing an interposing piece.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Interference.svg").default
     },{
