@@ -5,8 +5,9 @@ import ProgressBar from "../Utilities/Progress";
 
 // import Swal from "sweetalert2";
 import {getMoves, wait} from '../Utilities/helpers.js';
-import confirmationSoundFile from "../../../assets/public_sound_standard_Confirmation.mp3";
+import confirmationSoundFile from "../../../assets/mixkit-quick-win-video-game-notification-269.wav";
 import errorSoundFile from "../../../assets/public_sound_standard_Error.mp3";
+//import selectSoundFile from "../../../assets/mixkit-select-click-1109.wav";
 import {Howl} from 'howler';
 import PuzzleNav from "./PuzzleNav"
 import styled from "styled-components"
@@ -64,11 +65,13 @@ export default function PuzzlePage(props) {
   );
   const [openModal, setOpenModal] = useState(false);
   const [promotion, setPromotion] = useState("x");
+  const [correct, setCorrect] = useState(null);
   const confirmationSound = new Howl({src: confirmationSoundFile})
   const errorSound = new Howl({src: errorSoundFile})
+  //const selectSound = new Howl({src: selectSoundFile})
   const title = getModuleTitle(props.theme)
-  const livesLost = outcomes.filter(entry => entry === false).length;
-  const startingLives = 3
+  const [lives, setLives] = useState(3);
+
 
   // console.log(livesLost)
 
@@ -121,10 +124,13 @@ export default function PuzzlePage(props) {
     // play sound to indicate success or failure
     if (success) {
       confirmationSound.play()
+      setCorrect(true)
       setRetryDisable(true)
     } else {
       errorSound.play()
+      setCorrect(false)
       setRetryDisable(false)
+      setLives(prev => prev - 1)
       
     }
     setPromotion("x")
@@ -149,6 +155,7 @@ export default function PuzzlePage(props) {
     setRetry(false)
     setWaiting(false)
     setRetryDisable(true)
+    //selectSound.play()
   }
 
   const handleRetryClick = () => {
@@ -156,6 +163,7 @@ export default function PuzzlePage(props) {
     setFen(() => puzzleData[count].fen);
     setCorrectMoves(() => getMoves(puzzleData[count].moves));
     setRetryDisable(prev => !prev)
+    //selectSound.play();
   }
 
   const handlePromotion = () => {
@@ -174,12 +182,6 @@ export default function PuzzlePage(props) {
     setMoveColor(color)
   }
 
-  const livesRemaining = () => {
-    return startingLives - livesLost
-  }
-  const totalLives = livesRemaining()
-  // const percentComplete = returnPercent()
-
   return (
     <div>
       <PuzzlePageContainer>
@@ -190,7 +192,7 @@ export default function PuzzlePage(props) {
         <Header>{title}</Header>
         </HeaderContainer>
       <div style={progressContainer}>
-        <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count}/>
+        <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} retry={retry}/>
         {/* <div percentComplete={percentComplete}>{percentComplete}</div> */}
       </div>
       <PuzzleBoardWrapper>
@@ -208,8 +210,11 @@ export default function PuzzlePage(props) {
         />
       </PuzzleBoardWrapper>
         <LivesWrapper>
-        Lives Remaining = {totalLives}  
+        Lives Remaining = {lives}  
         </LivesWrapper>
+        <IndicatorWrapper>
+          <NumericIndicator correct={correct} />
+        </IndicatorWrapper>
       <IndicatorWrapper>
       {(moveColor === "white") ? (
           <WhiteIndicator /> ) : (
@@ -220,6 +225,35 @@ export default function PuzzlePage(props) {
      </PuzzlePageContainer>
     </div>
   );
+}
+
+const NumericIndicator = (props) => {
+  const [visible, setVisible] = useState(false)
+  
+  useEffect(() => {
+    setVisible(true)
+    toggleVisible();
+  },[props.correct])
+
+  const toggleVisible = async () => {
+    await wait(2000)
+    setVisible(prev => !prev)
+  }
+if (visible) {
+  if (props.correct) {
+    return(
+      <div style={{color: '#30F218'}}> +20 </div>
+    )
+  } else if (props.correct == null) {
+    return(
+      <div></div>
+    )
+  } else {
+    return <div style={{color: '#F24F3D'}}>-10</div>
+  }
+} else {
+  return <div></div>
+}
 }
 
 const progressContainer = {
