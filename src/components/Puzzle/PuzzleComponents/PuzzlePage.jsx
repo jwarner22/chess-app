@@ -256,6 +256,8 @@ if (visible) {
 }
 }
 
+// does it fuking work now
+
 const progressContainer = {
   margin: "0 auto",
   width: "40%",
