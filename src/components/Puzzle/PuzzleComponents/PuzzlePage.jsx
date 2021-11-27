@@ -230,6 +230,37 @@ export default function PuzzlePage(props) {
   );
 }
 
+const NumericIndicator = (props) => {
+  const [visible, setVisible] = useState(false)
+  
+  useEffect(() => {
+    setVisible(true)
+    toggleVisible();
+  },[props.correct])
+
+  const toggleVisible = async () => {
+    await wait(2000)
+    setVisible(prev => !prev)
+  }
+if (visible) {
+  if (props.correct) {
+    return(
+      <div style={{color: '#30F218'}}> +20 </div>
+    )
+  } else if (props.correct == null) {
+    return(
+      <div></div>
+    )
+  } else {
+    return <div style={{color: '#F24F3D'}}>-10</div>
+  }
+} else {
+  return <div></div>
+}
+}
+
+// does it fuking work now
+
 const progressContainer = {
   display: "flex",
   justifyContent: "space-around",
