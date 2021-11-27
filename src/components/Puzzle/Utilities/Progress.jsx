@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Line, ProgressProps } from "rc-progress";
+import { Circle, ProgressProps } from "rc-progress";
 import styled from "styled-components"
 import { GrFormClose } from "react-icons/gr";
 import BackButton from "../../BackButton";
@@ -19,6 +19,7 @@ function ProgressBar(props) {
     const returnPercent = props.returnPercent;
     const increment = 20; // increment for progress - hardcoded for now
     const decrement = 10; // decrement for failed puzzle
+    const trailColor = 'rgba(255, 255, 255, 0.3)'
 
     useEffect(() => {
         if (props.percent === undefined) {
@@ -59,7 +60,7 @@ function ProgressBar(props) {
             {/* <BackButtonWrapper>
             <BackButton />
             </BackButtonWrapper> */}
-          <Line percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3}/>
+          <Circle percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor}/>
         </HeaderWrapper>
     )
 
@@ -69,8 +70,8 @@ export default ProgressBar
 
 
 const HeaderWrapper = styled.div`
-    display: grid;
-    width: 100%;
+    display: flex;
+    width: 60%;
     align-items: center;
 `
 // const HeaderWrapper = styled.div`

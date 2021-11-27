@@ -60,7 +60,7 @@ const boardsContainer = {
   justifyContent: "center",
   alignItems: "center",
   flexWrap: "wrap",
-  width: "100vw",
+  width: "100%",
   marginTop: 12,
   marginBottom: 12,
   position: 'relative',

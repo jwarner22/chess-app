@@ -22,7 +22,7 @@ const BlackIndicatorContainer = styled.div`
 `
 
 const BlackIndicatorText = styled.span`
-    color: #212121;
+    color: #565252;
     font-weight: 600;
     margin: auto;
 `

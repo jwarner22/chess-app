@@ -32,8 +32,8 @@ const PuzzleNavContainer = styled.div`
     width: 100%;
     height: 100%;
     /* background-color: #afafaf33; */
-    grid-row: 3;
-    border-top: 2px #afafaf33 solid;
+    /* grid-row: 3; */
+    /* border-top: 2px #afafaf33 solid; */
     justify-content: space-evenly;
     align-items: center;
 
@@ -45,18 +45,18 @@ export const NavBtn = styled.nav `
 
 const NavBtnLink = styled.button`
     border-radius: 16px;
-    background: ${({props}) => ((props.disabled) ? '#afafaf' : '#247cf1')};;
+    background: ${({props}) => ((props.disabled) ? 'rgba(255, 255, 255, 0.4)' : '#fff')};;
     white-space: nowrap;
     padding: 16px 16px;
     margin: 24px;
-    color: #fff;
+    color: #247cf1;
     font-size: 22px;
     outline: none;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    min-width: 150px;
+    min-width: 120px;
     font-weight: 700;
 `;
 // don't need hover with conditional styling
@@ -72,14 +72,14 @@ const NavBtnLink2 = styled.button`
     white-space: nowrap;
     padding: 16px 16px;
     margin: 24px;
-    color: ${({props}) => ((props.retryDisable) ? '#afafaf' : '#247cf1')};
+    color: ${({props}) => ((props.retryDisable) ? 'rgba(255, 255, 255, 0.4)' : '#fff')};
     font-size: 22px;
     outline: none;
-    border: ${({props}) => ((props.retryDisable) ? '2px solid #afafaf' : '2px solid #247cf1')};
+    border: ${({props}) => ((props.retryDisable) ? '2px solid rgba(255, 255, 255, 0.4)' : '2px solid #fff')};
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    min-width: 150px;
+    min-width: 120px;
     font-weight: 700;
 
     /* &:hover {

@@ -183,79 +183,129 @@ export default function PuzzlePage(props) {
   return (
     <div>
       <PuzzlePageContainer>
-          <BackButtonWrapper>
-            <BackButton />
-          </BackButtonWrapper>
-        <HeaderContainer>
-        <Header>{title}</Header>
-        </HeaderContainer>
-      <div style={progressContainer}>
-        <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count}/>
-        {/* <div percentComplete={percentComplete}>{percentComplete}</div> */}
-      </div>
-      <PuzzleBoardWrapper>
-      <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
-        <PuzzleBoard
-          fen={fen}
-          retry={retry}
-          correctMoves={correctMoves}
-          unlockNext={unlockNext}
-          count={count}
-          displayOutcome={displayOutcome}
-          promotion={promotion}
-          onPromotion={handlePromotion}
-          moveIndicator={moveIndicator}
-        />
-      </PuzzleBoardWrapper>
-        <LivesWrapper>
-        Lives Remaining = {totalLives}  
-        </LivesWrapper>
-      <IndicatorWrapper>
-      {(moveColor === "white") ? (
-          <WhiteIndicator /> ) : (
-            <BlackIndicator />
-          )}
-          </IndicatorWrapper>
-      <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
+        <PuzzlePageWrapper>
+          <PuzzlePageGrid>
+              {/* <BackButtonWrapper>
+                <BackButton />
+              </BackButtonWrapper> */}
+            <PuzzleBoardContainer>
+              <PuzzleBoardWrapper>
+                <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
+                  <PuzzleBoard
+                    fen={fen}
+                    retry={retry}
+                    correctMoves={correctMoves}
+                    unlockNext={unlockNext}
+                    count={count}
+                    displayOutcome={displayOutcome}
+                    promotion={promotion}
+                    onPromotion={handlePromotion}
+                    moveIndicator={moveIndicator}
+                  />
+              </PuzzleBoardWrapper>
+            </PuzzleBoardContainer>
+              {/* <LivesWrapper>
+              Lives Remaining = {totalLives}  
+              </LivesWrapper> */}
+              <RightPuzzlePanelContainer>
+                <HeaderContainer>
+                  <Header>{title}</Header>
+                </HeaderContainer>
+                   <div style={progressContainer}>
+                      <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count}/>
+                      {/* <div percentComplete={percentComplete}>{percentComplete}</div> */}
+                  </div>
+              <IndicatorWrapper>
+            {(moveColor === "white") ? (
+                <WhiteIndicator /> ) : (
+                  <BlackIndicator />
+                )}
+                </IndicatorWrapper>
+            <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
+            </RightPuzzlePanelContainer>
+        </PuzzlePageGrid>
+      </PuzzlePageWrapper>
      </PuzzlePageContainer>
     </div>
   );
 }
 
 const progressContainer = {
-  margin: "0 auto",
-  width: "40%",
-  minWidth: "320px"
-
+  display: "flex",
+  justifyContent: "space-around",
+  alignItems: "center",
+  flexWrap: "wrap",
+  marginTop: 30,
+  marginBottom: 40
 };
 
 const Header = styled.h2`
-  color: #afafaf;
+  color: rgba(255,255,255,0.8);
 `
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 16px;
 `
 
-const PuzzlePageContainer = styled.div `
+const PuzzlePageContainer = styled.div`
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 100%;
+    
+`
+const PuzzlePageWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  height: 100vh;
-  grid-template-rows: min-content 1fr min-content;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, hsla(244, 36%, 52%, 1) 0%, hsla(214, 88%, 54%, 1) 100%);
+  padding: 24px;
+`
+
+const PuzzlePageGrid = styled.div `
+  display: grid;
+  height: auto;
+  grid-template-columns: minmax(300px, 800px) min-content;
   width: 100% !important;
   grid-gap: 16px;
-  top: 0;
   padding: 24px 16px;
-  position: absolute;
-  overflow: hidden;
+  justify-content: center;
   `
 
-const PuzzleBoardWrapper = styled.div`
+const PuzzleBoardContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  grid-column: 1;
+`
+
+const PuzzleBoardWrapper = styled.div`
+    position: relative;
+    height: auto;
+    width: 100%;
+    margin: 24px;
+`
+
+const LeftPuzzlePanelContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    grid-column: 1;
+    background-color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+`
+
+
+const RightPuzzlePanelContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    grid-column: 2;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
 `
 
 const IndicatorWrapper = styled.div`

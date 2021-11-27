@@ -22,7 +22,7 @@ const WhiteIndicatorContainer = styled.div`
 `
 
 const WhiteIndicatorText = styled.span`
-    color: #000;
+    color: #fff;
     font-weight: 600;
     margin: auto;
 `
