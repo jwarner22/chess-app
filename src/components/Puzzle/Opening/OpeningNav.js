@@ -8,7 +8,7 @@ const OpeningNav = (props) => {
         <PuzzleNavContainer>
             <NavBtn>
                 <NavBtnLink2 props={props} onClick={props.onShowClick} disabled={props.showDisabled}>
-                    Show Moves
+                    Retry
                 </NavBtnLink2>
             </NavBtn>
             <NavBtn> 
@@ -28,7 +28,6 @@ const PuzzleNavContainer = styled.div`
     height: 100%;
     /* background-color: #afafaf33; */
     grid-row: 3;
-    border-top: 2px #afafaf33 solid;
     justify-content: space-evenly;
     align-items: center;
 
@@ -40,35 +39,33 @@ export const NavBtn = styled.nav `
 
 const NavBtnLink = styled.button`
     border-radius: 16px;
-    background: ${({props}) => ((props.continueDisabled) ? '#afafaf' : '#247cf1')};
+    background: ${({props}) => ((props.continueDisabled) ? 'rgba(255, 255, 255, 0.4)' : '#fff')};
     white-space: nowrap;
     padding: 16px 16px;
-    margin: 24px;
-    color: #fff;
+    color: #247cf1;
     font-size: 22px;
     outline: none;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    min-width: 150px;
+    min-width: 120px;
     font-weight: 700;
 `;
 
 const NavBtnLink2 = styled.button`
-    border-radius: 16px;
+       border-radius: 16px;
     background: transparent;
     white-space: nowrap;
     padding: 16px 16px;
-    margin: 24px;
-    color: ${({props}) => ((props.showDisabled) ? '#afafaf' : '#247cf1')};
+    color: ${({props}) => ((props.retryDisable) ? 'rgba(255, 255, 255, 0.4)' : '#fff')};
     font-size: 22px;
     outline: none;
-    border: ${({props}) => ((props.showDisabled) ? '2px solid #afafaf' : '2px solid #247cf1')};
+    border: ${({props}) => ((props.retryDisable) ? '2px solid rgba(255, 255, 255, 0.4)' : '2px solid #fff')};
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    min-width: 150px;
+    min-width: 120px;
     font-weight: 700;
 
     /* &:hover {

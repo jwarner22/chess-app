@@ -324,7 +324,7 @@ const HeaderContainer = styled.div`
   padding: 16px;
 `
 
-const PuzzlePageContainer = styled.div`
+export const PuzzlePageContainer = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
@@ -332,7 +332,7 @@ const PuzzlePageContainer = styled.div`
     position: absolute;
     height: 100%;
 `
-const PuzzlePageWrapper = styled.div`
+export const PuzzlePageWrapper = styled.div`
   display: flex;
   width: 100%;
   background: linear-gradient(90deg, hsla(244, 36%, 52%, 1) 0%, hsla(214, 88%, 54%, 1) 100%);
@@ -340,7 +340,7 @@ const PuzzlePageWrapper = styled.div`
   justify-content: center;
 `
 
-const PuzzlePageGrid = styled.div `
+export const PuzzlePageGrid = styled.div `
   display: grid;
   grid-template-columns: minmax(300px, auto) min-content;
   max-width: 100vw;
@@ -359,7 +359,7 @@ const PuzzlePageGrid = styled.div `
   }
   `
 
-const PuzzleBoardContainer = styled.div`
+export const PuzzleBoardContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -372,14 +372,14 @@ const PuzzleBoardContainer = styled.div`
   }
 `
 
-const PuzzleBoardWrapper = styled.div`
+export const PuzzleBoardWrapper = styled.div`
     position: relative;
     width: 100%;
     margin: 24px 0px;
     height: minmax(300px, auto);
 `
 
-const RightPuzzlePanelContainer = styled.div`
+export const RightPuzzlePanelContainer = styled.div`
     display: flex;
     flex-direction: column;
     grid-column: 2;

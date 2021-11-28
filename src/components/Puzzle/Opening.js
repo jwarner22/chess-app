@@ -4,14 +4,16 @@ import { wait } from './Utilities/helpers.js';
 import DemoMoves from "./Opening/DemoMoves.jsx";
 import Opening from "./Opening/Opening.jsx";
 import {getOpeningMoves} from './Utilities/helpers.js';
-import Progress from './Utilities/Progress.jsx';
+import Progress, { BackButtonWrapper } from './Utilities/Progress.jsx';
 import OpeningNav from './Opening/OpeningNav.js';
 import correctSound from "../../assets/public_sound_standard_Confirmation.mp3";
 import incorrectSound from "../../assets/public_sound_standard_Error.mp3";
 import styled from "styled-components";
 import {Howl} from 'howler'
 import { Score, SettingsBackupRestore } from "@styled-icons/material";
-
+import {PuzzlePageContainer, PuzzlePageWrapper, PuzzlePageGrid, PuzzleBoardContainer, PuzzleBoardWrapper, RightPuzzlePanelContainer} from "../Puzzle/PuzzleComponents/PuzzlePage"
+import {MobileHeaderContainer, MobilePuzzleWrapper} from "../Puzzle/PuzzleComponents/MobilePuzzle/MobilePuzzleElements"
+import BackButton from "../BackButton.js";
 
 export default function OpeningModule(props) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -25,8 +27,24 @@ export default function OpeningModule(props) {
   const [continueDisabled, setContinueDisabled] = useState(true);
   const [showDisabled, setShowDisabled] = useState(true);
   const [score, setScore] = useState(0);
+  const [windowDimension, setWindowDimension] = useState(null);
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
+
+  useEffect(() => {
+    setWindowDimension(window.innerWidth);
+  }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimension(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isMobile = windowDimension <= 640;
   
   useEffect(() => {
     getMoves();
@@ -91,10 +109,51 @@ export default function OpeningModule(props) {
     return (
       <>
       <PuzzlePageContainer>
-        <HeaderContainer>
-        <Header>{props.openingsData.headline}</Header>
-        </HeaderContainer>
-      <div style={progressContainer}><Progress returnPercent={returnPercent} percent={progress} count={count} /></div>
+        {isMobile ? ( <>
+          <MobilePuzzleWrapper>
+            <BackButtonWrapper>
+              <BackButton />
+            </BackButtonWrapper>
+            <MobileHeaderContainer>
+              <Header>{props.openingsData.headline}</Header>
+            </MobileHeaderContainer>
+            {/* <div style={progressContainer}>
+              <Progress returnPercent={returnPercent} percent={progress} count={count} />
+            </div> */}
+            <PuzzleBoardWrapper>
+              <div style={boardContainer}>
+                <div className="box">
+                  <div className="main-board green merida my-2">
+                    {isLoaded === true && demoIsFinished === false && (
+                      <DemoMoves
+                        moves={moves}
+                        demoFinished={demoFinished}
+                        fen={fen}
+                        moveIndex={moveIndex}
+                        orientation={orientation}
+                      />
+                    )}
+                    {isLoaded === true && demoIsFinished === true && (
+                      <Opening count={count} moves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
+                    )}
+                  </div>
+                  </div>
+              </div>
+            </PuzzleBoardWrapper>
+            <OpeningNav onShowClick={handleShowClick} onContinueClick={handleContinueClick} showDisabled={showDisabled} continueDisabled={continueDisabled}/>
+          </MobilePuzzleWrapper>
+          </>
+        ) : (
+          <>
+          <BackButtonWrapper>
+            <BackButton />
+          </BackButtonWrapper>
+          <PuzzlePageWrapper>
+            <PuzzlePageGrid>
+      {/* <div style={progressContainer}>
+      <Progress returnPercent={returnPercent} percent={progress} count={count} />
+      </div> */}
+      <PuzzleBoardContainer>
         <PuzzleBoardWrapper>
         <div style={boardContainer}>
         <div className="box">
@@ -115,7 +174,17 @@ export default function OpeningModule(props) {
           </div>
         </div>
         </PuzzleBoardWrapper>
+        </PuzzleBoardContainer>
+        <RightPuzzlePanelContainer>
+          <HeaderContainer>
+          <Header>{props.openingsData.headline}</Header>
+        </HeaderContainer>
         <OpeningNav onShowClick={handleShowClick} onContinueClick={handleContinueClick} showDisabled={showDisabled} continueDisabled={continueDisabled}/>
+        </RightPuzzlePanelContainer>
+        </PuzzlePageGrid>
+        </PuzzlePageWrapper>
+        </>
+        )}
         </PuzzlePageContainer>
       </>
     );
@@ -129,11 +198,8 @@ const boardContainer = {
   justifyContent: "space-around",
   alignItems: "center",
   flexWrap: "wrap",
-  width: "100vw",
-  marginTop: 24,
-  marginBottom: 30,
-  position: 'relative',
-  zIndex: 0
+  marginTop: 16,
+  marginBottom: 24
 };
 const progressContainer = {
   margin: "0 auto",
@@ -151,30 +217,31 @@ const progressContainer = {
 // };
 
 const Header = styled.h2`
-  color: #afafaf;
+  color: rgba(255,255,255,0.8);
 `
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 16px;
 `
 
-const PuzzlePageContainer = styled.div `
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  grid-template-rows: min-content 1fr min-content;
-  width: 100% !important;
-  grid-gap: 24px;
-  top: 0;
-  padding: 24px 16px;
-  position: absolute;
-  overflow: hidden;
-  `
+// const PuzzlePageContainer = styled.div `
+//   display: flex;
+//   flex-direction: column;
+//   height: 100vh;
+//   grid-template-rows: min-content 1fr min-content;
+//   width: 100% !important;
+//   grid-gap: 24px;
+//   top: 0;
+//   padding: 24px 16px;
+//   position: absolute;
+//   overflow: hidden;
+//   `
 
-const PuzzleBoardWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
+// const PuzzleBoardWrapper = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// `
