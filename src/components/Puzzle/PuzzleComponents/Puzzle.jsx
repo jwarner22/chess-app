@@ -44,7 +44,8 @@ export default class Puzzle extends React.Component {
     puzzleFinished: false,
     moveIndex: 0,
     check: false,
-    prevMoveIndex: 0
+    prevMoveIndex: 0,
+    dests: {}
   };
 
   componentDidMount() {
@@ -262,13 +263,14 @@ export default class Puzzle extends React.Component {
       this.displayOutcome(false); // success is false
       this.isCorrect = false;
       this.isFinished = true;
+
     } else {
       this.isCorrect = true;
       this.isFinished = false;
     }
   };
 
-  playSound = (moveType) => {
+  playSound = async (moveType) => {
     // Howler.volume(1.0)
     if (moveType === 'c') {
       this.captureSound.play()
@@ -287,6 +289,7 @@ export default class Puzzle extends React.Component {
   calcMovable = next => {
     if (this.state.moveIndex !== this.state.prevMoveIndex | this.state.prevMoveIndex === 0 | next) {
       this.game = new Chess(this.state.fen);
+      console.log('calced movable')
     const dests = new Map();
     this.game.SQUARES.forEach((s) => {
       const ms = this.game.moves({ square: s, verbose: true });

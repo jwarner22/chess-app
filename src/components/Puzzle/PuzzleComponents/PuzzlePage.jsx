@@ -74,9 +74,10 @@ export default function PuzzlePage(props) {
   const confirmationSound = new Howl({src: confirmationSoundFile})
   const errorSound = new Howl({src: errorSoundFile})
   const title = getModuleTitle(props.theme)
-  const livesLost = outcomes.filter(entry => entry === false).length;
-  const startingLives = 3
-  const {...rest} = props
+  const [lives, setLives] = useState(3)
+  //const livesLost = outcomes.filter(entry => entry === false).length;
+  //const startingLives = 3
+  //const {...rest} = props
 
   // console.log(livesLost)
 
@@ -140,7 +141,7 @@ export default function PuzzlePage(props) {
     setWaiting(true);
   };
 
-  const displayOutcome = (success) => {
+  const displayOutcome = async (success) => {
     // play sound to indicate success or failure
     if (success) {
       confirmationSound.play()
@@ -150,6 +151,7 @@ export default function PuzzlePage(props) {
       errorSound.play()
       setRetryDisable(false)
       setCorrect(false)
+      setLives(prev => prev - 1)
     }
     setPromotion("x")
     setOutcome(success);
@@ -198,10 +200,10 @@ export default function PuzzlePage(props) {
     setMoveColor(color)
   }
 
-  const livesRemaining = () => {
-    return startingLives - livesLost
-  }
-  const totalLives = livesRemaining()
+  // const livesRemaining = () => {
+  //   return startingLives - livesLost
+  // }
+  //const totalLives = livesRemaining()
   // const percentComplete = returnPercent()
 
   return (
@@ -240,7 +242,7 @@ export default function PuzzlePage(props) {
                      )}
                 </IndicatorWrapper>
                 <LivesWrapper>
-                  <strong>{totalLives}</strong>&nbsp;Lives Remaining 
+                  <strong>{lives}</strong>&nbsp;Lives Remaining 
               </LivesWrapper>
                   <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
                   </MobileContent>
@@ -284,7 +286,7 @@ export default function PuzzlePage(props) {
                 )}
                 </IndicatorWrapper>
                 <LivesWrapper>
-                <strong>{totalLives}</strong>&nbsp;Lives Remaining 
+                <strong>{lives}</strong>&nbsp;Lives Remaining 
                 </LivesWrapper>
             <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
             </RightPuzzlePanelContainer>
