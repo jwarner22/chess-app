@@ -10,6 +10,7 @@ export const CategoryLabelContainer = styled.div`
     top: 0;
     position: sticky;
     background-color: #f6f9fc;
+    z-index: 9999;
 `
 
 export const EndgamesLabelWrapper = styled.div`
