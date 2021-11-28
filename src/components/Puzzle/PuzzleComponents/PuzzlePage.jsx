@@ -67,6 +67,7 @@ export default function PuzzlePage(props) {
   const [correctMoves, setCorrectMoves] = useState(
     getMoves(puzzleData[0].moves)
   );
+  const [correct, setCorrect] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [promotion, setPromotion] = useState("x");
   const [windowDimension, setWindowDimension] = useState(null);
@@ -144,10 +145,11 @@ export default function PuzzlePage(props) {
     if (success) {
       confirmationSound.play()
       setRetryDisable(true)
+      setCorrect(true)
     } else {
       errorSound.play()
       setRetryDisable(false)
-      
+      setCorrect(false)
     }
     setPromotion("x")
     setOutcome(success);
@@ -215,7 +217,7 @@ export default function PuzzlePage(props) {
                   <Header>{title}</Header>
                 </MobileHeaderContainer>
                 <div style={progressContainer}>
-                      <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count}/>
+                      <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
                       {/* <div percentComplete={percentComplete}>{percentComplete}</div> */}
                   </div>
                 <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
@@ -272,7 +274,7 @@ export default function PuzzlePage(props) {
                   <Header>{title}</Header>
                 </HeaderContainer>
                    <div style={progressContainer}>
-                      <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count}/>
+                      <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
                       {/* <div percentComplete={percentComplete}>{percentComplete}</div> */}
                   </div>
               <IndicatorWrapper>
@@ -295,34 +297,7 @@ export default function PuzzlePage(props) {
   );
 }
 
-const NumericIndicator = (props) => {
-  const [visible, setVisible] = useState(false)
-  
-  useEffect(() => {
-    setVisible(true)
-    toggleVisible();
-  },[props.correct])
 
-  const toggleVisible = async () => {
-    await wait(2000)
-    setVisible(prev => !prev)
-  }
-if (visible) {
-  if (props.correct) {
-    return(
-      <div style={{color: '#30F218'}}> +20 </div>
-    )
-  } else if (props.correct == null) {
-    return(
-      <div></div>
-    )
-  } else {
-    return <div style={{color: '#F24F3D'}}>-10</div>
-  }
-} else {
-  return <div></div>
-}
-}
 
 // does it fuking work now
 // No, it doesn't fucking work. You dumb, stupid, weak, pathetic, white, white... uh, uh... guilt, white guilt, milquetoast piece of human garbage.
