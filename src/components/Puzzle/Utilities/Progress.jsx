@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Circle, ProgressProps } from "rc-progress";
+import { Circle, Line, ProgressProps } from "rc-progress";
 import styled from "styled-components"
 import { GrFormClose } from "react-icons/gr";
 import BackButton from "../../BackButton";
@@ -11,6 +11,7 @@ function ProgressBar(props) {
     const [percent,setPercent] = useState(0);
     const [color,setColor] = useState('#247CF1')
     const [results, setResults] = useState([]);
+    const [windowDimension, setWindowDimension] = useState(null);
     const baseColor = '#247CF1';
     const incorrectColor = '#F24F3D';
     const correctColor = '#30F218';
@@ -20,6 +21,21 @@ function ProgressBar(props) {
     const increment = 20; // increment for progress - hardcoded for now
     const decrement = 10; // decrement for failed puzzle
     const trailColor = 'rgba(255, 255, 255, 0.3)'
+
+    useEffect(() => {
+        setWindowDimension(window.innerWidth);
+      }, []);
+    
+      useEffect(() => {
+        function handleResize() {
+          setWindowDimension(window.innerWidth);
+        }
+    
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+      }, []);
+    
+      const isMobile = windowDimension <= 640;
 
     useEffect(() => {
         if (props.percent === undefined) {
@@ -61,10 +77,8 @@ function ProgressBar(props) {
 
     return(
         <HeaderWrapper >
-            {/* <BackButtonWrapper>
-            <BackButton />
-            </BackButtonWrapper> */}
-          <Circle percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor}/>
+            {isMobile ? ( <Line percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor}/> ) : (
+          <Circle percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor}/>)}
         </HeaderWrapper>
     )
 
@@ -77,6 +91,7 @@ const HeaderWrapper = styled.div`
     display: flex;
     width: 60%;
     align-items: center;
+    justify-content: center;
 `
 // const HeaderWrapper = styled.div`
 //     display: grid;

@@ -19,6 +19,11 @@ import WhiteIndicator from "./TurnIndicator/WhiteIndicator"
 import { Construction } from "@styled-icons/material-twotone";
 import {BackButtonWrapper} from "../Utilities/Progress"
 import Lives from "./Lives/Lives"
+import MobilePuzzle from "./MobilePuzzle/MobilePuzzle";
+import { MobilePuzzleContainer, 
+  MobilePuzzleWrapper, 
+  MobileHeaderContainer, 
+  MobileContent} from "./MobilePuzzle/MobilePuzzleElements";
 
 // import Stockfish from "./Stockfish";
 // move functions to utils file
@@ -64,13 +69,30 @@ export default function PuzzlePage(props) {
   );
   const [openModal, setOpenModal] = useState(false);
   const [promotion, setPromotion] = useState("x");
+  const [windowDimension, setWindowDimension] = useState(null);
   const confirmationSound = new Howl({src: confirmationSoundFile})
   const errorSound = new Howl({src: errorSoundFile})
   const title = getModuleTitle(props.theme)
   const livesLost = outcomes.filter(entry => entry === false).length;
   const startingLives = 3
+  const {...rest} = props
 
   // console.log(livesLost)
+
+  useEffect(() => {
+    setWindowDimension(window.innerWidth);
+  }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimension(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isMobile = windowDimension <= 640;
 
   useEffect(() => {
     // checks if user has missed 4 puzzles - if so route to fialure screen
@@ -183,11 +205,52 @@ export default function PuzzlePage(props) {
   return (
     <div>
       <PuzzlePageContainer>
+        {isMobile ? (<>
+          {/* <MobilePuzzleContainer> */}
+            <MobilePuzzleWrapper>
+              <BackButtonWrapper>
+                <BackButton />
+              </BackButtonWrapper>
+              <MobileHeaderContainer>
+                  <Header>{title}</Header>
+                </MobileHeaderContainer>
+                <div style={progressContainer}>
+                      <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count}/>
+                      {/* <div percentComplete={percentComplete}>{percentComplete}</div> */}
+                  </div>
+                <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
+                  <PuzzleBoard
+                    fen={fen}
+                    retry={retry}
+                    correctMoves={correctMoves}
+                    unlockNext={unlockNext}
+                    count={count}
+                    displayOutcome={displayOutcome}
+                    promotion={promotion}
+                    onPromotion={handlePromotion}
+                    moveIndicator={moveIndicator}
+                  />
+                  <MobileContent>
+                  <IndicatorWrapper>
+                    {(moveColor === "white") ? (
+                      <WhiteIndicator /> ) : (
+                      <BlackIndicator />
+                     )}
+                </IndicatorWrapper>
+                <LivesWrapper>
+                  <strong>{totalLives}</strong>&nbsp;Lives Remaining 
+              </LivesWrapper>
+                  <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
+                  </MobileContent>
+                </MobilePuzzleWrapper>
+              {/* </MobilePuzzleContainer> */}
+          </>) : (
+          <>
+      <BackButtonWrapper>
+                <BackButton />
+              </BackButtonWrapper>
         <PuzzlePageWrapper>
           <PuzzlePageGrid>
-              {/* <BackButtonWrapper>
-                <BackButton />
-              </BackButtonWrapper> */}
             <PuzzleBoardContainer>
               <PuzzleBoardWrapper>
                 <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
@@ -204,9 +267,6 @@ export default function PuzzlePage(props) {
                   />
               </PuzzleBoardWrapper>
             </PuzzleBoardContainer>
-              {/* <LivesWrapper>
-              Lives Remaining = {totalLives}  
-              </LivesWrapper> */}
               <RightPuzzlePanelContainer>
                 <HeaderContainer>
                   <Header>{title}</Header>
@@ -221,10 +281,15 @@ export default function PuzzlePage(props) {
                   <BlackIndicator />
                 )}
                 </IndicatorWrapper>
+                <LivesWrapper>
+                <strong>{totalLives}</strong>&nbsp;Lives Remaining 
+                </LivesWrapper>
             <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
             </RightPuzzlePanelContainer>
         </PuzzlePageGrid>
       </PuzzlePageWrapper>
+      </>
+        )}
      </PuzzlePageContainer>
     </div>
   );
@@ -260,14 +325,15 @@ if (visible) {
 }
 
 // does it fuking work now
+// No, it doesn't fucking work. You dumb, stupid, weak, pathetic, white, white... uh, uh... guilt, white guilt, milquetoast piece of human garbage.
 
 const progressContainer = {
   display: "flex",
   justifyContent: "space-around",
   alignItems: "center",
   flexWrap: "wrap",
-  marginTop: 30,
-  marginBottom: 40
+  marginTop: 16,
+  marginBottom: 24
 };
 
 const Header = styled.h2`
@@ -287,21 +353,33 @@ const PuzzlePageContainer = styled.div`
     right: 0;
     top: 0; 
     position: absolute;
+    height: 100%;
 `
 const PuzzlePageWrapper = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
   background: linear-gradient(90deg, hsla(244, 36%, 52%, 1) 0%, hsla(214, 88%, 54%, 1) 100%);
+  height: 100%;
+  justify-content: center;
 `
 
 const PuzzlePageGrid = styled.div `
   display: grid;
-  grid-template-columns: minmax(300px, 800px) min-content;
-  width: 100% !important;
+  grid-template-columns: minmax(300px, auto) min-content;
+  max-width: 100vw;
   grid-gap: 16px;
   padding: 24px 16px;
   justify-content: center;
+  grid-template-rows: minmax(300px, auto);
+  align-items: center;
+
+  /* @media screen and (max-width: 900px){
+    grid-template-columns: minmax(250px, 600px);
+    flex-direction: column;
+    grid-template-rows: min-content;
+    align-items: center;
+    padding: 60px 4px 0px 4px; */
+  }
   `
 
 const PuzzleBoardContainer = styled.div`
@@ -309,13 +387,19 @@ const PuzzleBoardContainer = styled.div`
   justify-content: center;
   align-items: center;
   grid-column: 1;
-  position: relative;
+  /* position: relative; */
+
+
+  @media screen and (max-width: 900px){
+
+  }
 `
 
 const PuzzleBoardWrapper = styled.div`
     position: relative;
     width: 100%;
-    margin: 24px;
+    margin: 24px 0px;
+    height: minmax(300px, auto);
 `
 
 const RightPuzzlePanelContainer = styled.div`
@@ -324,19 +408,28 @@ const RightPuzzlePanelContainer = styled.div`
     grid-column: 2;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
+    height: auto;
+    min-width: 300px;
+    justify-content: center;
+    padding: 60px 0;
+
+    /* @media screen and (max-width: 900px){
+    grid-column: 1;
+  } */
 `
 
 const IndicatorWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
+    display: flex;
+    width: 100%;
+    justify-content: center;
 `
 
 const LivesWrapper = styled.div`
- display: flex;
- width: 100%;
- justify-content: center;
- color: #247cf1;
+    padding: 16px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    color: #fff;
 `
 
 const LivesGrid = styled.div`

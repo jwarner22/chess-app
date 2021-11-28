@@ -2,7 +2,6 @@
 .box {
   display: flex;
   width: 650px;
-  height: 650px;
 
 }
 
@@ -25,7 +24,6 @@
 .cg-wrap {
   width: 320px;
   height: 320px;
-  position: relative;
   display: block;
   position: absolute;
   width: 100%;

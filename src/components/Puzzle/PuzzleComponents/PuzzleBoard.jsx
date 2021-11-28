@@ -59,10 +59,7 @@ const boardsContainer = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  flexWrap: "wrap",
   width: "100%",
-  marginTop: 12,
-  marginBottom: 12,
   position: 'relative',
   zIndex: 0
 };

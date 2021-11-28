@@ -19,6 +19,9 @@ const WhiteIndicatorContainer = styled.div`
     padding: 8px;
     display: flex;
     max-width: 400px;
+    background: rgba(86,82,82, 0.5);
+    border-radius: 5px;
+    margin-top: 8px;
 `
 
 const WhiteIndicatorText = styled.span`

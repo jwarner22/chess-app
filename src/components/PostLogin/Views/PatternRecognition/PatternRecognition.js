@@ -10,12 +10,12 @@ const Dashboard = () => {
 
     //hamburger sidebar menu
   const [isOpen, setIsOpen] = useState(false)
+  const [windowDimension, setWindowDimension] = useState(null);
 
   const toggle = () => {
     setIsOpen(!isOpen)
   }
 //mobile menu
-  const [windowDimension, setWindowDimension] = useState(null);
 
   useEffect(() => {
     setWindowDimension(window.innerWidth);

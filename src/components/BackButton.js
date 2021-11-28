@@ -13,7 +13,7 @@ const BackButton = () => {
             text: "All progress will be lost.",
             icon: "warning",
             dangerMode: true,
-            buttons: true
+            buttons: true        
           })
           .then(willDelete => {
             if (willDelete) {
@@ -49,5 +49,6 @@ const ClickBack = styled.div`
         padding-left: 12px;
     }
 `
+
 
 //onClick={() => history.goBack()}

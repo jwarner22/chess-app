@@ -36,6 +36,7 @@ const PuzzleNavContainer = styled.div`
     /* border-top: 2px #afafaf33 solid; */
     justify-content: space-evenly;
     align-items: center;
+    padding-bottom: 16px;
 
 `
 export const NavBtn = styled.nav `
@@ -48,7 +49,6 @@ const NavBtnLink = styled.button`
     background: ${({props}) => ((props.disabled) ? 'rgba(255, 255, 255, 0.4)' : '#fff')};;
     white-space: nowrap;
     padding: 16px 16px;
-    margin: 24px;
     color: #247cf1;
     font-size: 22px;
     outline: none;
@@ -71,7 +71,6 @@ const NavBtnLink2 = styled.button`
     background: transparent;
     white-space: nowrap;
     padding: 16px 16px;
-    margin: 24px;
     color: ${({props}) => ((props.retryDisable) ? 'rgba(255, 255, 255, 0.4)' : '#fff')};
     font-size: 22px;
     outline: none;

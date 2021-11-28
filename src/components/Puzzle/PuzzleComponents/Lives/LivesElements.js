@@ -5,6 +5,7 @@ export const LivesWrapper = styled.div`
  display: flex;
  width: 100%;
  justify-content: center;
+ 
 `
 
 export const LivesGrid = styled.div`
