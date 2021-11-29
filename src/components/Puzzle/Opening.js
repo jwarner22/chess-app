@@ -10,10 +10,11 @@ import correctSound from "../../assets/public_sound_standard_Confirmation.mp3";
 import incorrectSound from "../../assets/public_sound_standard_Error.mp3";
 import styled from "styled-components";
 import {Howl} from 'howler'
-import { Score, SettingsBackupRestore } from "@styled-icons/material";
-import {PuzzlePageContainer, PuzzlePageWrapper, PuzzlePageGrid, PuzzleBoardContainer, PuzzleBoardWrapper, RightPuzzlePanelContainer} from "../Puzzle/PuzzleComponents/PuzzlePage"
+import { Padding, Score, SettingsBackupRestore } from "@styled-icons/material";
+import {PuzzlePageContainer, PuzzlePageWrapper, PuzzlePageGrid, PuzzleBoardContainer, PuzzleBoardWrapper, RightPuzzlePanelContainer, PercentCompleted} from "../Puzzle/PuzzleComponents/PuzzlePage"
 import {MobileHeaderContainer, MobilePuzzleWrapper} from "../Puzzle/PuzzleComponents/MobilePuzzle/MobilePuzzleElements"
 import BackButton from "../BackButton.js";
+import { CreativeCommonsNoncommercialEu } from "@styled-icons/entypo";
 
 export default function OpeningModule(props) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -30,6 +31,8 @@ export default function OpeningModule(props) {
   const [windowDimension, setWindowDimension] = useState(null);
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
+
+  console.log(props)
 
   useEffect(() => {
     setWindowDimension(window.innerWidth);
@@ -105,6 +108,9 @@ export default function OpeningModule(props) {
     setContinueDisabled(true);
   }
 
+  const shortProgress = Math.trunc(progress)
+  
+
   if (isLoaded) {
     return (
       <>
@@ -115,11 +121,11 @@ export default function OpeningModule(props) {
               <BackButton />
             </BackButtonWrapper>
             <MobileHeaderContainer>
-              <Header>{props.openingsData.headline}</Header>
+              <Header>{props.openingsData.headline}</Header> 
             </MobileHeaderContainer>
-            {/* <div style={progressContainer}>
-              <Progress returnPercent={returnPercent} percent={progress} count={count} />
-            </div> */}
+            <div style={progressContainer}>
+        <Progress returnPercent={returnPercent} percent={progress} count={count} />
+        </div>
             <PuzzleBoardWrapper>
               <div style={boardContainer}>
                 <div className="box">
@@ -150,9 +156,6 @@ export default function OpeningModule(props) {
           </BackButtonWrapper>
           <PuzzlePageWrapper>
             <PuzzlePageGrid>
-      {/* <div style={progressContainer}>
-      <Progress returnPercent={returnPercent} percent={progress} count={count} />
-      </div> */}
       <PuzzleBoardContainer>
         <PuzzleBoardWrapper>
         <div style={boardContainer}>
@@ -179,6 +182,10 @@ export default function OpeningModule(props) {
           <HeaderContainer>
           <Header>{props.openingsData.headline}</Header>
         </HeaderContainer>
+        <div style={progressContainer}>
+        <Progress returnPercent={returnPercent} percent={progress} count={count} />
+        <PercentCompleted>{shortProgress}/100</PercentCompleted>
+        </div>
         <OpeningNav onShowClick={handleShowClick} onContinueClick={handleContinueClick} showDisabled={showDisabled} continueDisabled={continueDisabled}/>
         </RightPuzzlePanelContainer>
         </PuzzlePageGrid>
@@ -202,10 +209,12 @@ const boardContainer = {
   marginBottom: 24
 };
 const progressContainer = {
-  margin: "0 auto",
-  width: "40%",
-  minWidth: "320px"
-
+  display: "flex",
+  justifyContent: "space-around",
+  alignItems: "center",
+  flexWrap: "wrap",
+  marginTop: 16,
+  marginBottom: 24
 };
 // const progressContainer = {
 //   display: "flex",

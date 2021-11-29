@@ -52,6 +52,8 @@ const getModuleTitle = (name) => {
 }
 
 
+
+
 export default function PuzzlePage(props) {
   const [moveColor, setMoveColor] = useState("")
   const puzzleData = props.puzzles;
@@ -64,6 +66,7 @@ export default function PuzzlePage(props) {
   const [waiting, setWaiting] = useState(false);
   const [retry, setRetry] = useState(false);
   const [retryDisable, setRetryDisable] = useState(true);
+  const [puzzleType, setPuzzleType] = useState("") 
   const [correctMoves, setCorrectMoves] = useState(
     getMoves(puzzleData[0].moves)
   );
@@ -95,6 +98,14 @@ export default function PuzzlePage(props) {
   }, []);
 
   const isMobile = windowDimension <= 640;
+
+  const handlePuzzleType = () => {
+    if (props.puzzles){
+      setPuzzleType("Puzzles")
+    } else {
+      setPuzzleType("Openings")
+    }
+  }
 
   useEffect(() => {
     // checks if user has missed 4 puzzles - if so route to fialure screen
@@ -277,7 +288,7 @@ export default function PuzzlePage(props) {
                 </HeaderContainer>
                    <div style={progressContainer}>
                       <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
-                      {/* <div percentComplete={percentComplete}>{percentComplete}</div> */}
+                      <PercentCompleted>{progress}/100</PercentCompleted>
                   </div>
               <IndicatorWrapper>
             {(moveColor === "white") ? (
@@ -313,6 +324,13 @@ const progressContainer = {
   marginBottom: 24
 };
 
+export const PercentCompleted = styled.div`
+  position: absolute;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 600;
+`
+
 const Header = styled.h2`
   color: rgba(255,255,255,0.8);
 `
@@ -333,22 +351,22 @@ export const PuzzlePageContainer = styled.div`
     height: 100%;
 `
 export const PuzzlePageWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  background: linear-gradient(90deg, hsla(244, 36%, 52%, 1) 0%, hsla(214, 88%, 54%, 1) 100%);
-  height: 100%;
-  justify-content: center;
+    display: flex;
+    width: 100%;
+    background-image:linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
+    height: 100%;
+    justify-content: center;
 `
 
 export const PuzzlePageGrid = styled.div `
-  display: grid;
-  grid-template-columns: minmax(300px, auto) min-content;
-  max-width: 100vw;
-  grid-gap: 16px;
-  padding: 24px 16px;
-  justify-content: center;
-  grid-template-rows: minmax(300px, auto);
-  align-items: center;
+    display: grid;
+    grid-template-columns: minmax(300px, auto) min-content;
+    max-width: 100%;
+    grid-gap: 16px;
+    padding: 24px 16px;
+    justify-content: center;
+    grid-template-rows: minmax(300px, auto);
+    align-items: center;
 
   /* @media screen and (max-width: 900px){
     grid-template-columns: minmax(250px, 600px);
@@ -360,11 +378,11 @@ export const PuzzlePageGrid = styled.div `
   `
 
 export const PuzzleBoardContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  grid-column: 1;
-  /* position: relative; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1;
+    /* position: relative; */
 
 
   @media screen and (max-width: 900px){
