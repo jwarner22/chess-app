@@ -9,8 +9,8 @@ export const MobileNavbarWrapper = styled.div`
     transform: translateZ(0);
     background-color: #fff;
     /* margin-top: 8px 0px; */
-    z-index: 999;
-    width: 100vw;
+    z-index: 9999;
+    width: 100%;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 `
 export const MobileNavbarItems = styled.ul`

@@ -114,8 +114,7 @@ const ProfilePageContainer = styled.div`
     left: 0;
     right: 0;
     top: 0;
-    background: #F3F5F9;
-    min-height: 100vh;
+    background-image:linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
     min-width: 100vw;
 `
 

@@ -10,17 +10,17 @@ export const CategoryLabelContainer = styled.div`
     top: 0;
     position: sticky;
     background-color: #f6f9fc;
-    z-index: 9999;
+    z-index: 6666;
 `
 
 export const EndgamesLabelWrapper = styled.div`
     display: flex;
     min-height: 80px; 
-    background: #59C0F3;
+    background: rgba(97,186,255,1);
     justify-content: flex-start;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     justify-content: center;
-    width: 100vw;
+    width: 100%;
     position: sticky;
     top: 0px; 
 `
@@ -28,11 +28,11 @@ export const EndgamesLabelWrapper = styled.div`
 export const TacticsLabelWrapper = styled.div`
     display: flex;
     min-height: 80px; 
-    background: #efb458;
+    background: #FBAB7E;
     justify-content: flex-start;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     justify-content: center;
-    width: 100vw;
+    width: 100%;
     position: sticky;
     top: 0px; 
 `
@@ -44,7 +44,7 @@ export const CheckmatesLabelWrapper = styled.div`
     justify-content: flex-start;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     justify-content: center;
-    width: 100vw;
+    width: 100%;
     position: sticky;
     top: 0px; 
 `

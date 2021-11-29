@@ -28,7 +28,7 @@ export const TileHeader = styled.div`
 `
 
 export const TileIconWrap = styled.div`
-    background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);
+    background-image: linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
     padding: 20px;
     border-radius: 10px;
     margin: 4px;
@@ -107,7 +107,7 @@ export const TileButtonWrap = styled.div`
 
 export const TileButton = styled.div`
     color: #fff;
-    background: #247cf1;
+    background: #000DFF;
     border-radius: 16px;
     white-space: nowrap;
     outline: none;

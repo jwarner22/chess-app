@@ -29,7 +29,7 @@ export const OpeningsTileContainer = styled.li`
     display: grid;
     min-height: 100%;
     list-style-type: none;
-    background: #ece4ff;
+    background: linear-gradient(to right, #9d50bb, #6e48aa);
     border-radius: 10px;
     transition: all 0.2s ease-in-out;
     box-shadow: 4px 4px 25px rgba(0, 0, 0, 0.12);
@@ -47,7 +47,7 @@ export const OpeningTileHeadline = styled.h3`
     font-size: 1.15rem;
     line-height: 1.1;
     font-weight: 600;
-    color: #7F3AD4;
+    color: #fff;
     text-align: left;
     @media screen and (max-width: 768px) {
         font-size: 1.2rem }

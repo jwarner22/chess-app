@@ -71,7 +71,7 @@ export const DailyPuzzleModuleStyle = styled.div`
 
 export const DailyPuzzleIconWrapper = styled.div`
     display: flex;
-    background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);
+    background-image: linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
     grid-row: span 2;
     grid-column: 1;
     text-align: center;
