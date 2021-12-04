@@ -42,11 +42,8 @@ export const FormContent = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 
-  @media screen and (max-width: 480px) {
-    padding: 10px;
-  }
 `;
 
 export const Form = styled.form`

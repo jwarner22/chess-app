@@ -46,15 +46,16 @@ function CourseTile(props){
             <TileIconImg src={img}/>
         </TileIconWrap>
         <TileHeadline>
-                    {headline}
-                </TileHeadline> 
-                <TileSubheadline>
-                    {subheading}
+            {headline}
+        </TileHeadline> 
+        <TileSubheadline>
+            {subheading}
         </TileSubheadline>
         </>
     )
     }
 
+// console.log(props)
 
   const isMobile = windowDimension <= 640;  
 

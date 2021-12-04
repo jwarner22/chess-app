@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
 import {Link} from 'react-router-dom'
 import {CoursesWrapper, 
@@ -11,80 +11,80 @@ import {CoursesWrapper,
     CategoryLabelContainerTop,
     CheckmatesLabelWrapper,
     EndgamesLabelWrapper,
+    MenuWrapper,
+    MenuGrid,
+    MenuTile
 } from './CoursesElements'
 import CourseTile from '../CourseTiles/CourseTiles'
 import {Modules} from '../CourseTiles/Data';
+import EngameTiles from './EngameTiles'
+import TacticTiles from './TacticTiles'
+import CheckmateTiles from './CheckmateTiles'
 
-const Body = (
-) => {
+const Body = (props) => {
+    const [showEndgameTiles, setShowEngameTiles] = useState(true);
+    const [showTacticTiles, setShowTacticTiles] = useState(false);
+    const [showCheckmateTiles, setShowCheckmateTiles] = useState(false)
 
-    const endgameModules = Modules.filter(module => module.type === "endgame")
-    const checkmateModules = Modules.filter(module => module.type === "checkmate")
-    const tacticModules = Modules.filter(module => module.type === "midgame")
+    function handleShowEngameTiles(){
+        if (showEndgameTiles === false) {
+            setShowEngameTiles(true) 
+        }
+    }
+
+    function handleShowTacticTiles(){
+        if (showTacticTiles === false) {
+            setShowTacticTiles(true)
+        }
+    }
+
+    function handleShowCheckmateTiles(){
+        if (showCheckmateTiles === false){
+            setShowCheckmateTiles(true)
+        } 
+    }
+
+    useEffect(() => {
+       if (showTacticTiles === true) {
+           setShowEngameTiles(false);
+           setShowCheckmateTiles(false)
+       }
+    }, [showTacticTiles]);
+
+    useEffect(() => {
+        if (showEndgameTiles === true) {
+            setShowTacticTiles(false);
+            setShowCheckmateTiles(false)
+        }
+    }, [showEndgameTiles]);
+
+    useEffect(() => {
+        if (showCheckmateTiles === true) {
+            setShowEngameTiles(false)
+            setShowTacticTiles(false)
+        }
+    }, [showCheckmateTiles])
+    
+    const endgameActive = showEndgameTiles;
+    const tacticActive = showTacticTiles;
+    const checkmateActive = showCheckmateTiles;
+
+    console.log(endgameActive)
+    console.log(tacticActive)
+    console.log(checkmateActive)
 
     return (
         <>
-        <div>
-        <CategoryLabelContainer>
-            <EndgamesLabelWrapper>
-                <CategoryLabel>
-                    Endgames
-                </CategoryLabel>
-            </EndgamesLabelWrapper>
-        </CategoryLabelContainer>
-        <CoursesWrapper>
-            <ModuleWrapper>
-                <ModuleGrid>
-                    {endgameModules.map((module, index) => {
-                        return (
-                    // <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}, isDaily: false}}>
-                        <CourseTile key={index} {...module}/>
-                    // </Link>
-                    )})}
-                </ModuleGrid>
-            </ModuleWrapper>
-        </CoursesWrapper>
-        </div>
-        <div>
-        <CategoryLabelContainer>
-            <TacticsLabelWrapper>
-                <CategoryLabel>
-                    Tactics
-                </CategoryLabel>
-            </TacticsLabelWrapper>
-        </CategoryLabelContainer>
-        <CoursesWrapper >
-            <ModuleWrapper>
-                <ModuleGrid>
-                    {tacticModules.map((module, index) => {
-                        return(
-                        // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
-                        <CourseTile key={index} {...module} />
-                        // </ModalLink>
-                    )})}
-                </ModuleGrid>
-            </ModuleWrapper>
-        </CoursesWrapper>
-        </div>
-        <CategoryLabelContainer>
-            <CheckmatesLabelWrapper>
-                <CategoryLabel>
-                    Checkmates
-                </CategoryLabel>
-            </CheckmatesLabelWrapper>
-        </CategoryLabelContainer>
-        <CoursesWrapper>
-            <ModuleWrapper>
-                <ModuleGrid>
-                    {checkmateModules.map((module, index) => {
-                        return (
-                    // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
-                        <CourseTile key={index} {...module}/>
-                    // </ModalLink>
-                    )})}
-                </ModuleGrid>
-            </ModuleWrapper>
-        </CoursesWrapper>
+        <MenuWrapper>
+            <MenuGrid className="menuGrid">
+                <MenuTile className="endgameButton" onClick={handleShowEngameTiles}>Endgames</MenuTile>
+                <MenuTile className="tacticButton" onClick={handleShowTacticTiles}>Tactics</MenuTile>
+                <MenuTile className="checkmateButton" onClick={handleShowCheckmateTiles}>CheckMates</MenuTile>
+            </MenuGrid>
+        </MenuWrapper>
+        {endgameActive ? (<EngameTiles className="endgameTiles"/>) : (null)}
+        {tacticActive ? (<TacticTiles className="tacticTiles"/>) : (null)}
+        {checkmateActive ? (<CheckmateTiles className="checkmateTiles"/>) : (null)}
         </>
     )
 }
@@ -95,3 +95,14 @@ const ModalLink = styled(Link)`
     position: relative;
     z-index: 10;
 `
+
+
+//backup old label container styling
+
+{/* <CategoryLabelContainer>
+<EndgamesLabelWrapper>
+    <CategoryLabel>
+        Endgames
+    </CategoryLabel>
+</EndgamesLabelWrapper>
+</CategoryLabelContainer> */}

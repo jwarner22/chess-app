@@ -1,10 +1,31 @@
 import React, { useState, useContext } from "react";
 //import { AuthContext } from "../../index";
+import logo from '../../Images/eloElevationWhite.png'
+import headerImg from "../../Images/realChessHeader.jpg"
 import { Link, Redirect } from "react-router-dom";
 import firebaseConfig from "../../config"
-import { Container, FormWrap, Icon, FormContent, Form, FormH1, FormLabel, FormInput, Text, GoogleLoginButton} from "./SignupElements";
-import logo from '../../Images/EloElevation-2.png'
-import {NavLogo, Img, GoogleButton, GoogleButtonText, FormButton, FormText} from "../Login/LoginElements"
+import {  
+  FormWrap, 
+  Icon, 
+  FormContent, 
+  FormH1, 
+  FormLabel, 
+  FormInput, 
+  Text, 
+  GoogleLoginButton} from "./SignupElements";
+import {Container, 
+  NavLogo, 
+  Img, 
+  GoogleButton, 
+  GoogleButtonText, 
+  FormButton, 
+  FormText,
+  Form,
+  LoginHeaderImg,
+  ImgOverlay,
+  LoginHeaderLogoWrapper,
+  LoginHeaderLogo  
+} from "../Login/LoginElements"
 import "./Signup.css"
 import { withRouter } from 'react-router-dom';
 import firebase from "firebase/app";
@@ -96,10 +117,15 @@ const SignUp = ({history}) => {
   return (
     <>
     <Container className="page">
-      <FormWrap>
+    <LoginHeaderImg src={headerImg}/>
+      <ImgOverlay />
+        <FormWrap>
+          <LoginHeaderLogoWrapper>
+           <LoginHeaderLogo src={logo} />
+          </LoginHeaderLogoWrapper>
       <FormContent>
       <Form onSubmit={e => handleForm(e)}>
-      <FormH1>Join</FormH1>
+      {/* <FormH1>Join</FormH1> */}
       <FormLabel>Email</FormLabel>
         <FormInput
           value={email}

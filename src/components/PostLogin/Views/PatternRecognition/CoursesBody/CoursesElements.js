@@ -13,6 +13,38 @@ export const CategoryLabelContainer = styled.div`
     z-index: 6666;
 `
 
+export const MenuWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    /* padding: 0 24px; */
+    background: #EEF0FF;
+    overflow: hidden;
+`
+export const MenuGrid = styled.ul`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 24px;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling:touch;
+    -ms-overflow-style: none;
+    padding: 0 24px 12px 24px;
+`
+export const MenuTile = styled.li`
+    display: flex;
+    width: 110px;
+    height: 70px;
+    background: #FFFFFF;
+    border: 1px solid #010EFF;
+    box-shadow: 0px 5px 8px rgba(1, 14, 255, 0.25);
+    border-radius: 25px;
+    list-style-type: none;
+    cursor: pointer;
+
+    &:active {
+        background: red;
+    }
+`
+
 export const EndgamesLabelWrapper = styled.div`
     display: flex;
     min-height: 80px; 
@@ -59,15 +91,15 @@ export const CategoryLabel = styled.h2`
 export const CoursesWrapper = styled.div`
     display: flex;
     justify-content: center;
-    padding: 40px 0px;
-    background: #F3F5F9;
+    padding: 24px 0px;
+    background: #EEF0FF;
     /* min-height: 100vh; */
 `
 
 export const ModuleWrapper = styled.div `
     max-width: 1170px;
     /* border: 1px solid red; */
-    margin: 0 16px 30px 16px;
+    margin: 0 24px 30px 24px;
     height: auto;
     width: 100%;
 
@@ -76,7 +108,7 @@ export const ModuleWrapper = styled.div `
 export const ModuleGrid = styled.ul`
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(100px, 240px)minmax(100px, 240px));
-grid-gap: 16px;
+grid-gap: 36px;
 justify-content: space-around;
 align-items: stretch;
 `

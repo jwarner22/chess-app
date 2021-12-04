@@ -353,7 +353,7 @@ export const PuzzlePageContainer = styled.div`
 export const PuzzlePageWrapper = styled.div`
     display: flex;
     width: 100%;
-    background-image:linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
+    background-image: linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
     height: 100%;
     justify-content: center;
 `

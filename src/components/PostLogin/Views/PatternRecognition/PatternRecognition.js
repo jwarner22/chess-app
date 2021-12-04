@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import DashNavbar from '../../DashboardNavbar/DashboardNavbar'
 import DashSidebar from '../../DashboardSidebar/DashboardSidebar'
 import Body from "./CoursesBody/CoursesBody";
@@ -32,7 +33,7 @@ const Dashboard = () => {
 
   const isMobile = windowDimension <= 640;
 
-  console.log(isMobile)
+
   
 
     
@@ -47,6 +48,9 @@ const Dashboard = () => {
       <DashNavbar toggle={toggle}/>
       </>
     )}
+          <Link to="/brandPage">
+          <div >BrandPage</div>
+          </Link>
       <Body/>
       </DashboardWrapper>
       </>

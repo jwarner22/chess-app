@@ -9,9 +9,42 @@ export const Container = styled.div`
   right: 0;
   top: 0;
   z-index: 0;
-  overflow: hidden;
-  background: #f6f9fc;
+  background: #EEF0FF;
 `;
+
+export const LoginHeaderImg = styled.img`
+  /* clip-path: circle(100px at center) */
+  border-radius: 50%;
+  position: absolute;
+  width: 530px;
+  height: 530px;
+  left: -80px;
+  top: -270px;
+  transform: scaleX(-1);
+`
+
+export const ImgOverlay = styled.div`
+  border-radius: 50%;
+  position: absolute;
+  width: 530px;
+  height: 530px;
+  left: -80px;
+  top: -270px;
+  background: linear-gradient(341.33deg, rgba(0, 13, 255, 0.8) 20.21%, rgba(107, 115, 255, 0.8) 83.15%);
+`
+
+export const LoginHeaderLogoWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`
+
+export const LoginHeaderLogo = styled.img`
+  width: 193px;
+  height: 193px;
+  z-index: 999;
+`
 
 export const FormWrap = styled.div`
   height: 100%;
@@ -20,7 +53,7 @@ export const FormWrap = styled.div`
   justify-content: center;
 
   @media screen and (max-width: 400px) {
-    height: 80%;
+    height: 100%;
   }
 `;
 
@@ -56,24 +89,23 @@ export const FormContent = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-
-  @media screen and (max-width: 480px) {
-    padding: 10px;
-  }
+  justify-content: flex-start;
 `;
 
 export const Form = styled.form`
+  position: fixed;
+  left: 0; 
+  right: 0; 
   background: #fff;
-  max-width: 400px;
+  max-width: 350px;
   height: auto;
-  width: 100%;
+  width: 90%;
   z-index: 1;
   display: grid;
   margin: 0 auto;
   padding: 50px 32px;
-  border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 30px;
+  box-shadow: 0px 5px 15px rgba(94, 137, 249, 0.25);
 
   @media screen and (max-width: 400px) {
     padding: 32px 32px;
@@ -147,15 +179,14 @@ export const GoogleButtonText = styled.p`
 `
 
 export const FormButton = styled.button`
-  background: #247cf1;
-  padding: 12px 0;
-  border: none;
-  border-radius:10px;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 12px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    background: #010EFF;
+    padding: 12px 0;
+    border: none;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 12px;
 
   &:hover {
         transition: all 0.2s ease-in-out;

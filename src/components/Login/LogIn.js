@@ -3,7 +3,8 @@ import React, {useState, useContext, useEffect, useRef } from "react";
 import {Link, withRouter } from 'react-router-dom'
 //import { AuthContext } from "../../index";
 import firebaseConfig from "../../config.js";
-import logo from '../../Images/EloElevation-2.png'
+import logo from '../../Images/eloElevationWhite.png'
+import headerImg from "../../Images/realChessHeader.jpg"
 import {GoogleLoginButton} from "./../Signup/SignupElements"
 import {FormH1, 
   Container, 
@@ -15,7 +16,11 @@ import {FormH1,
   FormButton,
   FormText,
   GoogleButton,
-  GoogleButtonText
+  GoogleButtonText,
+  LoginHeaderImg,
+  ImgOverlay,
+  LoginHeaderLogoWrapper,
+  LoginHeaderLogo
 } from './LoginElements';
 import firebase from "firebase/app";
 // import FetchWrapper from "../api/FetchWrapper";
@@ -136,10 +141,15 @@ const Login = ({history}) => {
   return (
     <>
     <Container className="page">
+      <LoginHeaderImg src={headerImg}/>
+      <ImgOverlay />
       <FormWrap>
+        <LoginHeaderLogoWrapper>
+          <LoginHeaderLogo src={logo} />
+        </LoginHeaderLogoWrapper>
         <FormContent>
           <Form onSubmit={e => handleForm(e)}>
-            <FormH1>Login</FormH1>
+            {/* <FormH1>Login</FormH1> */}
             <FormLabel>Email</FormLabel>
         <FormInput
           value={email}

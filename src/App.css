@@ -45,6 +45,9 @@ a:hover{
     transition: opacity 150ms linear;
 }
 
+.menuGrid::-webkit-scrollbar{
+  display: none;
+}
 
 /* form {
   display: flex;

@@ -10,6 +10,7 @@ import ProfilePage from "./PostLogin/Views/ProfilePage/ProfilePage"
 import IntakeSurvey from './IntakeSurvey/IntakeSurvey';
 import CreateUser from './IntakeSurvey/CreateUser';
 import Opening from './Puzzle/Opening/OpeningManager';
+import BrandPage from './BrandPage/BrandPage';
 
 const protectedRoutes = [
 	{
@@ -48,10 +49,10 @@ const protectedRoutes = [
 		exact: true,
 		main: () => <Openings />
 	},{	
-	name: "Profile",
-	path: "/profile",
-	exact: true,
-	main: () => <ProfilePage />
+		name: "Profile",
+		path: "/profile",
+		exact: true,
+		main: () => <ProfilePage />
 	},
 	{
 		name: "IntakeSurvey",
@@ -70,6 +71,11 @@ const protectedRoutes = [
 		path: "/opening",
 		exact: true,
 		main: props => <Opening {...props} />
+	},{
+		name: "BrandPage",
+		path: '/brandPage',
+		exact: true,
+		main: props => <BrandPage />
 	}
 ];
 

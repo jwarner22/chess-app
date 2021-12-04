@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import PrePuzzleHeader from "./OpeningComponents/PrePuzzleHeader"
 import {PuzzlePageContainer, 
     PrePuzzleWrapper, 
     PrePuzzleIconWrapper, 
@@ -28,6 +29,7 @@ import {Modules} from '../PatternRecognition/CourseTiles/Data';
 import puzzle from "../../../../Images/chessBoardHeader.png"
 import { PreOpeningsIconWrapper,
 PreOpeningPageContainer } from './PreOpeningsPageElements';
+import PrePuzzleTile from './OpeningComponents/PrePuzzleTiles';
 
 const PrePuzzlePage = (props) => {
     const img = Modules[3].img;
@@ -39,62 +41,9 @@ const PrePuzzlePage = (props) => {
 
     return (
         <PreOpeningPageContainer>
-                <PreOpeningsIconWrapper>
-                    <DailyPuzzleIcon src={puzzle} />
-                </PreOpeningsIconWrapper>
-                <PrePuzzleWrapper>
-                    <PrePuzzleTitle>
-                        {openingsData.headline}
-                    </PrePuzzleTitle>
-                    <PrePuzzleSubheading>
-                        Opening Training
-                    </PrePuzzleSubheading>
-                    <PrePuzzleContentContainer>
-                        <StatsWrapper>
-                            <StatsGrid>
-                                <LeftStatWrapper>
-                                <PuzzleEloTitle>
-                                    Rating
-                                </PuzzleEloTitle>
-                                </LeftStatWrapper>
-                                <PuzzleElo>
-                                    100
-                                </PuzzleElo>
-                                <RightStatWrapper>
-                                <HighScoreTitle>
-                                    High Score
-                                </HighScoreTitle>
-                                </RightStatWrapper>
-                                <HighScore>
-                                    0
-                                </HighScore>
-                            </StatsGrid>
-                        </StatsWrapper>
-                        <InstructionsContainer>
-                            <InstructionsWrapper>
-                                <TipsTitleWrapper>
-                                        <TipsTitle>
-                                            Instructions:
-                                        </TipsTitle>
-                                    </TipsTitleWrapper>
-                                        <TipsGrid>
-                                            <TipImageWrap>
-                                                <Tip1Image />
-                                            </TipImageWrap>
-                                            <TipDescriptionWrapper>
-                                                <Tip1Description>
-                                                    Replicate the opening moves... 
-                                                </Tip1Description>
-                                            </TipDescriptionWrapper>
-                                        </TipsGrid>
-                                    </InstructionsWrapper>
-                                    <StartButton onClick={handleStartButtonClick}>
-                                        Start
-                                    </StartButton>
-                                </InstructionsContainer>
-                            </PrePuzzleContentContainer>
-                        </PrePuzzleWrapper>
-                    </PreOpeningPageContainer>
+            <PrePuzzleHeader />
+            <PrePuzzleTile openingsData={openingsData} onStartClick={handleStartButtonClick}/>
+        </PreOpeningPageContainer>
     )
 }
 
