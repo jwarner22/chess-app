@@ -105,12 +105,13 @@ export const StartButton = styled.button`
     min-width: 150px;
     font-weight: 400;
     grid-column: 1 / span 2;
-    background: #247cf1;
+    background: #010EFF;
     border-radius: 16px;
+    box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
 
     &:hover {
         transition: all 0.2s ease-in-out;
-        background: #0e65d8;
-        color: #fff;
+        background: #fff;
+        color: #010EFF;
     }
 `

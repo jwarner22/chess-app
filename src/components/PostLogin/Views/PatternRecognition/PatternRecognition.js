@@ -48,9 +48,6 @@ const Dashboard = () => {
       <DashNavbar toggle={toggle}/>
       </>
     )}
-          <Link to="/brandPage">
-          <div >BrandPage</div>
-          </Link>
       <Body/>
       </DashboardWrapper>
       </>

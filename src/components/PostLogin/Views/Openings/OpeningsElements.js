@@ -20,47 +20,82 @@ export const OpeningsTitleContainer = styled.div`
 
 export const OpeningsGrid = styled.ul`
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 300px));
-    grid-gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 240px)minmax(100px, 240px));
+    grid-gap: 36px;
     justify-content: space-around;
+    background: #EEF0FF;
+    align-items: stretch;
+    padding-top: 40px;
 `
 
 export const OpeningsTileContainer = styled.li`
-    display: grid;
-    min-height: 100%;
+    display: flex;
+    min-height: 170px;
     list-style-type: none;
-    background: linear-gradient(to right, #9d50bb, #6e48aa);
-    border-radius: 10px;
+    background: linear-gradient(360deg, #8E2DE2 0%, #4A00E0 100%);
+    border-radius: 35px;
     transition: all 0.2s ease-in-out;
-    box-shadow: 4px 4px 25px rgba(0, 0, 0, 0.12);
-    grid-template-columns: 70% 1fr;
+    box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
+    
 `
 export const OpeningsTileLeftColumn = styled.div`
     display: flex;
     flex-direction: column;
-    grid-column: 1;
     justify-content: space-around;
-    padding: 16px;
-
+    width: 100%;
 `
 export const OpeningTileHeadline = styled.h3`
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     line-height: 1.1;
     font-weight: 600;
     color: #fff;
     text-align: left;
+    margin-bottom: 2px;
+    margin-left: 10px;
+    margin-right: 2px;
+    padding-left: 8px;
+    /* margin-top: 5px; */
     @media screen and (max-width: 768px) {
-        font-size: 1.2rem }
+        margin-top: 8px;
+        font-size: 12px;
+        padding: 0 8px;
+         }
+ `
+
+ export const OpeningTileSubheadline = styled.p`
+     font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.14;
+    color: #fff;
+    text-align: left;
+    margin-bottom: 10px;
+    padding-left: 8px;
+    margin-left: 10px;
+
+    @media screen and (max-width: 768px) {
+        padding: 0 8px;
+        font-size: 10px;
+    }
  `
 
 export const OpeningTileButtonWrapper = styled.div`
-    display: flex;
+    display: grid;
+    align-items: center;
+    height: 100%;
+    padding: 4px 10px 10px 10px;
+    grid-template-columns: 1fr 1fr;
+    margin-left: 10px;
+
+
+    @media screen and (max-height: 640px) {
+        display: none;
+    }
 `
 
- export const OpeningTileButton = styled.button`
-    color: #212121;
+ export const OpeningTileButton = styled.div`
+     color: #8E2DE2;
     background: #fff;
-    border-radius: 10px;
+    border-radius: 16px;
     white-space: nowrap;
     outline: none;
     border: none;
@@ -70,11 +105,8 @@ export const OpeningTileButtonWrapper = styled.div`
     align-items: center;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    padding: 12px 32px 12px 32px;
-    font-size: 14px;
-    font-weight: 600;
-    margin-top: 12px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    min-height: 36px;
+    min-width: 50%;
 
     &:hover {
         box-shadow: 0.2s ease-in-out;
@@ -84,6 +116,10 @@ export const OpeningTileButtonWrapper = styled.div`
         cursor: pointer;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
     }
+
+    @media screen and (max-height: 640px) {
+        display: none;
+    }
  `
 
 export const OpeningsTileRightColumn = styled.div`
@@ -92,41 +128,47 @@ export const OpeningsTileRightColumn = styled.div`
     align-items: flex-end;
 `
 
+export const OpeningImgWrapper = styled.div`
+    padding: 20px;
+    margin: 4px;
+`
+
 export const OpeningsTileImage = styled.img`
-    width: 100px;
-    position: relative;
-    top: 20px;
+    display: block;
+    margin: auto;
+    width: 70px;
+    height: 70px;
 `
 
 
 
 //Placeholder page elements
 
-export const OpeningPageImgContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-`
+// export const OpeningPageImgContainer = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     min-height: 100vh;
+// `
 
-export const OpeningPageImgWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 24px 8px;
-    margin: 24px 8px;
-`
+// export const OpeningPageImgWrapper = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     padding: 24px 8px;
+//     margin: 24px 8px;
+// `
 
-export const OpeningsPagePlaceholderImg = styled.img`
-    max-width: 70%;
-    height: auto;
-    padding-top: 16px;
-    margin: 16px;
-`
+// export const OpeningsPagePlaceholderImg = styled.img`
+//     max-width: 70%;
+//     height: auto;
+//     padding-top: 16px;
+//     margin: 16px;
+// `
 
-export const OpeningsTitle = styled.h1`
-    color: #247cf1;
-    padding: 16px;
-    margin: 8px;
-    text-align: center;
-`
+// export const OpeningsTitle = styled.h1`
+//     color: #247cf1;
+//     padding: 16px;
+//     margin: 8px;
+//     text-align: center;
+// `

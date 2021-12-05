@@ -4,10 +4,10 @@ import styled from "styled-components"
 
 export const LargeTileContainer = styled.li`
     min-height: 150px;
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.8);
     list-style-type: none;
     border-radius: 10px;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: 0px 5px 8px rgba(1, 14, 255, 0.25);
 `
 export const LargeTileWrapper = styled.div`
     display: flex;

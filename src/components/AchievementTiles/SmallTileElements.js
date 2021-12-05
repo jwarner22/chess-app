@@ -4,10 +4,10 @@ import styled from "styled-components"
 export const SmallTileContainer = styled.li`
     grid-column: span 2;
     min-height: 64px;
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.8);
     border-radius: 10px;
     list-style-type: none;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: 0px 5px 8px rgba(1, 14, 255, 0.25);
     width: 100%;
 `
 export const SmallTileWrapper = styled.div`
@@ -35,7 +35,7 @@ export const SmallTileIconContainer = styled.div`
 `
 
 export const SmallTileIconWrapper = styled.div`
-    background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);    
+    background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
     display: flex;
     border-radius: 50%;
     min-width: 60px;
@@ -70,7 +70,7 @@ export const SmallTileTitle = styled.div`
 `
 
 export const ProgressBarWrapper = styled.div`
-    background: #FFFFFF;
+    background-color: rgba(255,255,255,0.8);
     margin-top: 8px;
     border-radius: 50px;
     margin-left: 20px;

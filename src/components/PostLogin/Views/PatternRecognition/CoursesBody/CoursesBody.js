@@ -13,22 +13,31 @@ import {CoursesWrapper,
     EndgamesLabelWrapper,
     MenuWrapper,
     MenuGrid,
-    MenuTile
+    MenuTile,
+    MenuContent,
+    MenuTitle,
+    MenuImg
 } from './CoursesElements'
 import CourseTile from '../CourseTiles/CourseTiles'
 import {Modules} from '../CourseTiles/Data';
 import EngameTiles from './EngameTiles'
 import TacticTiles from './TacticTiles'
 import CheckmateTiles from './CheckmateTiles'
+import {activeMenuTile, inactiveMenuTile} from "./MenuStyle"
+import endgameImg from "../../../../../Images/kingIconBlue.svg"
+import tacticsImg from "../../../../../Images/TacticsIconBlue.svg"
+import checkmateImg from "../../../../../Images/checkmateIconBlue.svg"
 
-const Body = (props) => {
+const Body = (props, {activeMenuTile, inactiveMenuTile}) => {
     const [showEndgameTiles, setShowEngameTiles] = useState(true);
     const [showTacticTiles, setShowTacticTiles] = useState(false);
-    const [showCheckmateTiles, setShowCheckmateTiles] = useState(false)
+    const [showCheckmateTiles, setShowCheckmateTiles] = useState(false);
+    
 
     function handleShowEngameTiles(){
         if (showEndgameTiles === false) {
-            setShowEngameTiles(true) 
+            setShowEngameTiles(true)
+
         }
     }
 
@@ -77,9 +86,30 @@ const Body = (props) => {
         <>
         <MenuWrapper>
             <MenuGrid className="menuGrid">
-                <MenuTile className="endgameButton" onClick={handleShowEngameTiles}>Endgames</MenuTile>
-                <MenuTile className="tacticButton" onClick={handleShowTacticTiles}>Tactics</MenuTile>
-                <MenuTile className="checkmateButton" onClick={handleShowCheckmateTiles}>CheckMates</MenuTile>
+                <MenuTile  className="endgameButton"onClick={handleShowEngameTiles}>
+                    <MenuContent>
+                        <MenuImg src={endgameImg} />
+                        <MenuTitle>
+                            Endgames
+                        </MenuTitle>
+                    </MenuContent>
+                </MenuTile>
+                <MenuTile className="tacticButton" onClick={handleShowTacticTiles}>
+                    <MenuContent>
+                        <MenuImg src={tacticsImg} />
+                            <MenuTitle>
+                                Tactics
+                        </MenuTitle>
+                    </MenuContent>
+                </MenuTile>
+                <MenuTile className="checkmateButton" onClick={handleShowCheckmateTiles}>
+                    <MenuContent>
+                        <MenuImg src={checkmateImg} />
+                            <MenuTitle>
+                                Checkmates
+                            </MenuTitle>
+                    </MenuContent>
+                </MenuTile>
             </MenuGrid>
         </MenuWrapper>
         {endgameActive ? (<EngameTiles className="endgameTiles"/>) : (null)}

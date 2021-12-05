@@ -8,28 +8,36 @@ export const PuzzlePageContainer = styled.div`
   top: 0;
   z-index: 0;
   overflow: hidden;
-  background-color: #f6f8f9;
+  background-color: #EEF0FF;
   height: 100vh;
 `
 export const PrePuzzleIconWrapper = styled.div`
-    background: #247cf1;
+    background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
     text-align: center;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     margin-bottom: 3px;
 `
+
+export const PrePuzzleTileContainer = styled.div`
+    display: flex;
+    min-width: 100%;
+    justify-content: center;
+    align-items: center;
+`
+
 export const PrePuzzleWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
     width: 70%;
     min-width: 300px;
     margin: 0 auto;
     align-items: center;
     background-color: white;
-    margin-top: 24px;
+    margin-top: 50px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     border-radius: 10px;
-    top: 0;
 `
 
 

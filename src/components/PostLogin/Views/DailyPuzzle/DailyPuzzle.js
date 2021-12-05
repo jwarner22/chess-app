@@ -7,7 +7,7 @@ import { DailyPuzzleContainer,
   PuzzleWrapper,
   Container} from "./DailyPuzzleElements";
 import Modal from "./Modal"; 
-import headerImg from "./../../../../Images/DailyPuzzleHeaderImg.svg"
+import headerImg from "./../../../../Images/DailyPuzzleIcon.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
 import {Modules} from "../../Views/PatternRecognition/CourseTiles/Data"
 import { baseURL } from "../../../api/apiConfig";

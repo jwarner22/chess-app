@@ -28,7 +28,7 @@ export const PostPuzzleHeaderImg = styled.img`
     margin: 10px;
 `
 export const IconWrap = styled.div`
-    background: #247cf1;
+    background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);;
     padding: 20px;
     border-radius: 10px;
     margin: 10px;
@@ -63,13 +63,14 @@ export const FinishButton = styled.button`
     text-decoration: none;
     min-width: 150px;
     font-weight: 600;
-    background: #247cf1;
+    background: #000DFF;
     border-radius: 10px;
+    box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
 
     &:hover {
         transition: all 0.2s ease-in-out;
         background: #fff;
-        color: #010606;
+        color: #000DFF;
     }
 
     &:active {

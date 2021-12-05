@@ -21,7 +21,8 @@ import {PuzzlePageContainer,
     TipDescriptionWrapper,
     Tip1Description,
     LeftStatWrapper,
-RightStatWrapper} from "./PrePuzzleElements"
+RightStatWrapper,
+PrePuzzleTileContainer} from "./PrePuzzleElements"
 import {DailyPuzzleIcon} from "../PostLogin/Views/DailyPuzzle/DailyPuzzleElements"
 import testIcon from "../../Images/EnPassant.svg"
 import { StartButton } from '../PostLogin/Views/DailyPuzzle/ModalElements'
@@ -40,6 +41,7 @@ const PrePuzzlePage = (props) => {
                 <PrePuzzleIconWrapper>
                     <DailyPuzzleIcon src={module.img} />
                 </PrePuzzleIconWrapper>
+                <PrePuzzleTileContainer>
                 <PrePuzzleWrapper>
                     <PrePuzzleTitle>
                         {module.headline}
@@ -92,6 +94,7 @@ const PrePuzzlePage = (props) => {
                                 </InstructionsContainer>
                             </PrePuzzleContentContainer>
                         </PrePuzzleWrapper>
+                        </PrePuzzleTileContainer>
                     </PuzzlePageContainer>
     )
 }

@@ -3,25 +3,27 @@ import styled from "styled-components"
 import { CgProfile } from "react-icons/cg";
 export const ProfilePanelHeader = styled.div`
     border-bottom: 2px solid #e5e5e5;
-    color: #afafaf;
     display: flex;
     font-size: 19px;
     font-weight: 700;
     justify-content: center;
     padding: 16px;
-    background-color: #fff;
+    color: #fff;
     width: 100%;
+    margin-bottom: 24px;
+    background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
 `
 export const AchievementsHeader = styled.div`
     border-bottom: 2px solid #e5e5e5;
-    color: #afafaf;
+    color: #fff;
     display: flex;
     font-size: 19px;
     font-weight: 700;
     justify-content: center;
     padding: 16px;
-    background-color: #fff;
+    background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
     width: 100%;
+    margin: 24px 0;
 `
 
 export const PageBodyContainer = styled.div`

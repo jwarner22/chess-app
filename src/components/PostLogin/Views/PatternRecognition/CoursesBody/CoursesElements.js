@@ -19,6 +19,8 @@ export const MenuWrapper = styled.div`
     /* padding: 0 24px; */
     background: #EEF0FF;
     overflow: hidden;
+    padding-top: 40px;
+    justify-content: center;
 `
 export const MenuGrid = styled.ul`
     display: grid;
@@ -33,16 +35,31 @@ export const MenuTile = styled.li`
     display: flex;
     width: 110px;
     height: 70px;
-    background: #FFFFFF;
+    background: ${({testBackground}) => (testBackground ? "red" : "#fff")}
     border: 1px solid #010EFF;
     box-shadow: 0px 5px 8px rgba(1, 14, 255, 0.25);
     border-radius: 25px;
     list-style-type: none;
     cursor: pointer;
 
-    &:active {
-        background: red;
-    }
+`
+export const MenuContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+`
+
+export const MenuImg = styled.img`
+    width: 35%;
+    padding-top: 8px;
+`
+
+export const MenuTitle = styled.span`
+    font-size: 10px;
+    color: #010EFF;
+    padding: 8px 0;
 `
 
 export const EndgamesLabelWrapper = styled.div`

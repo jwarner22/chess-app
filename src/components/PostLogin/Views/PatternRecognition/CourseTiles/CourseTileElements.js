@@ -12,13 +12,12 @@ export const TileWrapper = styled.li`
     /* background: linear-gradient(
 320deg
 , rgb(32, 131, 255), rgba(92, 235, 52, 0)), linear-gradient(rgb(76, 204, 255) 0%, rgb(24, 142, 189) 100%); */
-    border-radius: 50px;
+    border-radius: 35px;
     /* flex-shrink: 1;
     flex-grow: 1; */
     transition: all 0.2s ease-in-out;
     background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
     box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
-    cursor: pointer;
     `
 
 
@@ -72,7 +71,6 @@ export const TileSubheadline = styled.p`
     margin-bottom: 10px;
     padding-left: 8px;
     margin-left: 10px;
-
 
     @media screen and (max-width: 768px) {
         /* display: none; */

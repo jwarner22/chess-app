@@ -7,7 +7,7 @@ export const Container = styled.div`
     left: 0;
     right: 0;
     top: 0;
-    background: #F3F5F9;
+    background: #EEF0FF;
 `
 
 export const DailyPuzzleWrapper = styled.div`
@@ -27,28 +27,26 @@ export const DailyPuzzleContainer = styled.div`
 `
 
 export const DailyPuzzleHeaderImg = styled.img`
-    max-width: 90px;
-    max-height: 90px;
-    width: 90px;
-    height: 90px;
+    max-width: 150px;
+    max-height: 150px;
     justify-self: center;
     grid-column: 1 / span 2;
     margin-bottom: 20px;
 `
 
 export const DailyPuzzleTitle = styled.h1`
-    color: #247cf1;
+    color: #010EFF;
     text-align: center;
     grid-column: 1 / span 2;
 `
 
 export const DailyPuzzleModuleStyle = styled.div`
     margin: 16px 32px ;
-    background-color: ${({props}) => ((props.locked) ? 'gray' : 'white')};
+    background: ${({props}) => ((props.locked) ? 'rgba(218, 218, 218, 0.7)' : 'linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%)')};
     display: grid;
     grid-template-columns: min-content 1fr min-content;
-    border-radius: 10px;
-    box-shadow: ${({props}) => (props.completed ? 'rgba(149, 157, 165, 0.2) 0px 8px 24px;' : 'rgba(149, 157, 165, 0.2) 0px 8px 24px;')};
+    border-radius: 35px;
+    box-shadow: ${({props}) => ((props.locked) ? 'rgba(1, 14, 255, 0.24) 0px 8px 15px' : "rgba(1, 14, 255, 0.24) 0px 8px 15px" )};
     transition: all 0.2s ease-in-out;
     max-width: 800px;
     grid-gap: 8px;
@@ -60,23 +58,21 @@ export const DailyPuzzleModuleStyle = styled.div`
         transform: scale(1.01);
         transition: all 0.2 ease-in-out;
         cursor: pointer;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
     }
 
     @media screen and (max-width: 425px) {
         grid-template-rows: 1fr;
         grid-gap: 8px;
+        margin-bottom: 32px;
         }
 `
 
 export const DailyPuzzleIconWrapper = styled.div`
     display: flex;
-    background-image: linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
     grid-row: span 2;
     grid-column: 1;
     text-align: center;
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     margin: 4px;
     align-items: center;
 `
@@ -88,7 +84,7 @@ export const DailyPuzzleIcon = styled.img`
     height: 90px;
     grid-row: span 2;
     grid-column: 1;
-    margin: 1rem;
+    margin: 1rem 8px 1rem 1rem;
 
     @media screen and (max-width: 425px) {
         grid-row: 1;
@@ -137,13 +133,14 @@ export const Col2Row3 = styled.div`
 `
 export const PuzzleModuleTitle = styled.h2`
     text-align: left;
-    color: #333;
+    color: #fff;
     grid-column: 2;
+    font-size: 16px;
 `
 
 export const PuzzleDescripton = styled.p`
     text-align: left;
-    color: #333;
+    color: #fff;
     grid-column: 2;
     margin: 0 8px 8px 0;
 

@@ -4,7 +4,7 @@ import MobileNavbar from "../../MobileNavBar/MobileNavBar";
 import DashboardNavbar from "../../DashboardNavbar/DashboardNavbar";
 import DashSidebar from "../../DashboardSidebar/DashboardSidebar";
 import openingImage from "../../../../Images/professor.svg";
-import board from "../../../../Images/BrownBoard.svg"
+import book from "../../../../Images/open-book.svg"
 import {OpeningPageImgContainer, 
   OpeningsPagePlaceholderImg, 
   OpeningsTitle,
@@ -18,7 +18,9 @@ import {OpeningPageImgContainer,
   OpeningsTileLeftColumn,
   OpeningsTileRightColumn,
   OpeningsTileImage,
-  OpeningTileButtonWrapper
+  OpeningTileButtonWrapper,
+  OpeningTileSubheadline,
+  OpeningImgWrapper
 } from "./OpeningsElements";
 import {TileWrapper, 
   TileHeadline, 
@@ -104,18 +106,21 @@ const Openings = () => {
                         {/* <CourseTile key={index} {...module}/> */}
                         <OpeningsTileContainer>
                           <OpeningsTileLeftColumn>
+                            <OpeningImgWrapper>
+                          <OpeningsTileImage src={book} />
+                          </OpeningImgWrapper>
                             <OpeningTileHeadline>
                               {module.headline}
                             </OpeningTileHeadline>
-                            <OpeningTileButtonWrapper>
+                            <OpeningTileSubheadline>
+                              Placeholder
+                            </OpeningTileSubheadline>
+                            {isMobile ? ( null ) : (<OpeningTileButtonWrapper>
                             <OpeningTileButton>
                               Start
                             </OpeningTileButton>   
-                            </OpeningTileButtonWrapper>                     
+                            </OpeningTileButtonWrapper>)}                    
                           </OpeningsTileLeftColumn>
-                          <OpeningsTileRightColumn>
-                            <OpeningsTileImage src={board} />
-                          </OpeningsTileRightColumn>
                         </OpeningsTileContainer>
                     </Link>
                     )})}
