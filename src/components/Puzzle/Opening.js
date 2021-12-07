@@ -60,7 +60,7 @@ export default function OpeningModule(props) {
   },[count])
 
   const getMoves = () => {
-    let moves = props.openingsData.moves;
+    let moves = props.openingData.moves;
     console.log({moves:moves})
     const openingMoves = getOpeningMoves(moves);
     setMoves(openingMoves)
@@ -90,6 +90,7 @@ export default function OpeningModule(props) {
     setProgress(progress + ((1/3)*100));
     setContinueDisabled(false);
     setScore(prev => prev + 100*(Math.floor(moves.length/2)));
+    console.log({openingScore: score})
   }
 
   const returnPercent = (percent) => {
@@ -121,7 +122,7 @@ export default function OpeningModule(props) {
               <BackButton />
             </BackButtonWrapper>
             <MobileHeaderContainer>
-              <Header>{props.openingsData.headline}</Header> 
+              <Header>{props.openingData.headline}</Header> 
             </MobileHeaderContainer>
             <div style={progressContainer}>
         <Progress returnPercent={returnPercent} percent={progress} count={count} />
@@ -180,7 +181,7 @@ export default function OpeningModule(props) {
         </PuzzleBoardContainer>
         <RightPuzzlePanelContainer>
           <HeaderContainer>
-          <Header>{props.openingsData.headline}</Header>
+          <Header>{props.openingData.headline}</Header>
         </HeaderContainer>
         <div style={progressContainer}>
         <Progress returnPercent={returnPercent} percent={progress} count={count} />

@@ -8,6 +8,7 @@ import moveSound from "../../../assets/public_sound_standard_Move.mp3";
 import captureSound from "../../../assets/public_sound_standard_Capture.mp3";
 import {Howl} from 'howler';
 import { useMemo } from "react";
+import { Time } from "@styled-icons/boxicons-regular";
 
 // BackgroundEvaluation();
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
@@ -182,6 +183,15 @@ export default class Puzzle extends React.Component {
       }
   }
 
+  playMoveSound = async (from, to) => {
+    // play sounds
+    if (this.game.move({to:to, from:from, verbose: true}).flags === 'c') {
+      this.playSound('c')
+    } else {
+      this.playSound('n')
+    }
+  }
+
   // runs on player move
   onMove = async (from, to) => {
     // check for pawn promotion
@@ -193,13 +203,8 @@ export default class Puzzle extends React.Component {
           return
         }
     }
-
-    // play sounds
-    if (this.game.move({to:to, from:from, verbose: true}).flags === 'c') {
-      this.playSound('c')
-    } else {
-      this.playSound('n')
-    }
+    
+    this.playMoveSound(from, to);
 
     const lastMove = from + to;
  
@@ -235,7 +240,7 @@ export default class Puzzle extends React.Component {
     }
     }
   };
-
+  
   // verify correct move
   verifyMove = async (from, to, promotion) => {
 

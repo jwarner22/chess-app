@@ -132,3 +132,24 @@ class User(UserBase):
     class Config:
         orm_mode=True
 
+class Opening(BaseModel):
+    id: int
+    opening_id: str
+    opening_name: str
+    completed: Optional[int] = 0
+    high_score: Optional[int] = 0
+    score_history: Optional[str] = ""
+    owner_id: str
+
+    class Config:
+        orm_mode=True
+
+class OpeningCreate(BaseModel):
+    opening_id: str
+    opening_name: str
+    completed: Optional[int] = 0
+    high_score: Optional[int] = 0
+    score_history: Optional[str] = ""
+
+    class Config:
+        orm_mode=True
