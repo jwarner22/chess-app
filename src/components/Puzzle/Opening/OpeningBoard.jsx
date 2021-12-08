@@ -21,7 +21,6 @@ export default class OpeningBoard extends React.Component {
   }
 
   render() {
-    console.log("rendered openingboard");
     return (
       <div style={boardsContainer}>
         <div className="box">

@@ -171,7 +171,7 @@ export default function Puzzle(props) {
     const mutatedPuzzles = schemaPicks.map(puzzle => {
       if (puzzle.theme_id === id) {
         return {...puzzle, completed: true, locked: false}
-      }
+      } 
       return puzzle
     })
     

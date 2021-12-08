@@ -3,12 +3,11 @@ import styled from "styled-components"
 
 
 const OpeningNav = (props) => {
-    console.log(props)
     return (
         <PuzzleNavContainer>
             <NavBtn>
                 <NavBtnLink2 props={props} onClick={props.onShowClick} disabled={props.showDisabled}>
-                    Show Moves
+                    Retry
                 </NavBtnLink2>
             </NavBtn>
             <NavBtn> 

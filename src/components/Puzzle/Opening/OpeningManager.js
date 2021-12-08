@@ -14,7 +14,9 @@ export default function OpeningManager(props) {
     const [scoreData, setScoreData] = useState([]);
     const {put} = useFetch(baseURL);
     const openingData = props.location.state.module;
-
+    const schemaPicks = props.location.state.schemaPicks;
+    const isDaily = props.location.state.isDaily;
+    
     const togglePrePuzzleCallback = () => {
         setIsFinished(false);
         setIsStarted(true);
@@ -43,13 +45,7 @@ export default function OpeningManager(props) {
           });
       
         setScoreData(score_data)
-        console.log({postedResults: {
-            ...userOpeningData,
-            score: result,
-            completed: completed,
-            high_score: highScore,
-            score_history: score_array.toString()
-        }})
+
         try {
             // update database
             await put(`/openings/${userId}/${openingId}`,{
@@ -74,13 +70,47 @@ export default function OpeningManager(props) {
         }
     }
 
+    // update daily module
+    const updateDailyModules = async () => {
+        
+        console.log({schemaPicks: schemaPicks})
+
+        const mutatedPuzzles = schemaPicks.map(puzzle => {
+          if (puzzle.theme_id === openingData.id) {
+            return {...puzzle, completed: true, locked: false}
+          } 
+          return puzzle
+        })
+        
+        // find module index
+        const thisIndex = mutatedPuzzles.findIndex(puzzle => puzzle.theme_id === openingData.id)
+    
+        // unlocks next module
+        mutatedPuzzles.map(puzzle => {
+          if (puzzle.location === (mutatedPuzzles[thisIndex].location + 1)) {
+            return puzzle.locked = false;
+          } 
+          return puzzle
+        })
+
+        return mutatedPuzzles
+      }
+    
+      const saveDailyModules = async (mutatedPuzzles) => {
+        let userID = localStorage.getItem('userID');
+        // save daily puzzles to api here
+        let endpoint = `/users/${userID}/daily_puzzles`;
+        put(endpoint, mutatedPuzzles)
+        .catch(error => alert(error))
+      }
+
     const toggleFinished = async (result) => {
-        console.log({result: result})
         await saveResults(result);
+        let updatedDailyModules = await updateDailyModules();
+        await saveDailyModules(updatedDailyModules);
         setScore(result);
         setIsFinished(true);
         setIsStarted(false);
-        // need to save results to db (score and completed (+1))
     }
 
     return (
@@ -92,7 +122,7 @@ export default function OpeningManager(props) {
             <OpeningPage toggleFinished={toggleFinished} openingData={openingData}/>
         )}
         {isFinished && (
-            <PostOpeningPage openingData={openingData} isDaily={false} score={score} scoreData={scoreData}/>
+            <PostOpeningPage openingData={openingData} isDaily={isDaily} score={score} scoreData={scoreData}/>
         )}
         </>
     )

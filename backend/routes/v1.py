@@ -169,13 +169,13 @@ async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = 
 @app_v1.get('/users/{user_id}/daily_puzzles/picks', tags=["Daily"])
 #async def get_daily_puzzle_picks(user_id: str, db: Session = Depends(get_db)):
 async def get_daily_puzzle_picks():
-    # if no daily puzzles exist for user - create new ones (one time intiialization)
+    # generate daily puzzle module picks
     daily_puzzles = []
     while (len(daily_puzzles) < 3): # we want three modules
         pick = randint(1,38) # picks random module (how sophisticated!)
         if pick not in daily_puzzles: # checks that modules don't repeat
             daily_puzzles.append(pick)
-
+    daily_puzzles.append(randint(39,60)) # adds a random opening
     return daily_puzzles
 
 # get user's daily puzzles

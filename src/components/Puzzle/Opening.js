@@ -32,8 +32,6 @@ export default function OpeningModule(props) {
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
 
-  console.log(props)
-
   useEffect(() => {
     setWindowDimension(window.innerWidth);
   }, []);
@@ -59,9 +57,8 @@ export default function OpeningModule(props) {
     }
   },[count])
 
-  const getMoves = () => {
+  const getMoves = async () => {
     let moves = props.openingData.moves;
-    console.log({moves:moves})
     const openingMoves = getOpeningMoves(moves);
     setMoves(openingMoves)
     setFen(openingMoves[0].fen);
@@ -73,7 +70,6 @@ export default function OpeningModule(props) {
   }
 
   const demoFinished = () => {
-    console.log("demo finished");
     setDemoIsFinished(true);
   };
 
@@ -90,7 +86,6 @@ export default function OpeningModule(props) {
     setProgress(progress + ((1/3)*100));
     setContinueDisabled(false);
     setScore(prev => prev + 100*(Math.floor(moves.length/2)));
-    console.log({openingScore: score})
   }
 
   const returnPercent = (percent) => {
@@ -98,13 +93,11 @@ export default function OpeningModule(props) {
   }
 
   const handleShowClick = () => {
-    console.log("show clicked");
     setDemoIsFinished(false);
     setShowDisabled(true);
   };
 
   const handleContinueClick = () => {
-    console.log("continue clicked");
     setCount(count => count + 1);
     setContinueDisabled(true);
   }

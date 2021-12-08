@@ -83,7 +83,7 @@ export default function DailyPuzzzle() {
     let endpoint = `/users/${userId}/daily_puzzles`;
     try {
       let data = await get(endpoint)
-      if (data.detail === 'daily puzzles not found') {
+      if (data.detail === 'daily puzzles not found' || data.length < 4) {
         const returnedPicks = await getNewPicks(); // generate new picks
         await createPicks(returnedPicks.schemaPicks) // create daily puzzles for new user
         return returnedPicks.schemaPicks;
@@ -208,12 +208,19 @@ export default function DailyPuzzzle() {
         </DailyPuzzleContainer>
         <PuzzleWrapper>
          {dailyPicks.map((module, index) => {
+           if (module.category === 'opening') {
+             return(
+              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/opening', state: {module: module, schemaPicks:schemaPicks, isDaily: true}}}>
+              <DailyPuzzleModuleContainer key={index} {...module} />
+            </Link>
+             )
+           } else {
             return (
               <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/dashboard/module', state: {module: module, schemaPicks:schemaPicks, isDaily: true}}}>
                 <DailyPuzzleModuleContainer key={index} {...module} />
               </Link>
             )
-          })}
+          }})}
         </PuzzleWrapper>
    </DailyPuzzleWrapper>
    </Container>
