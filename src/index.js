@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 import ReactDOM from "react-dom";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import routes from "./routes.js";
@@ -7,7 +7,12 @@ import './App.css';
 import protectedRoutes from './components/protectedRoutes'
 import ProtectedRouteHoc from './components/protectedRoutesHoc'
 import {AuthProvider} from './components/Auth.js';
+import {TransitionGroup, CSSTransition} from "react-transition-group"
+import DashboardNavbar from "./components/PostLogin/DashboardNavbar/DashboardNavbar"
+import DashSidebar from "./components/PostLogin/DashboardSidebar/DashboardSidebar"
+import MobileNavbar from './components/PostLogin/MobileNavBar/MobileNavBar'
 require("firebase/auth");
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
@@ -17,22 +22,52 @@ require("firebase/auth");
 
 function App() {
 
+  const [windowDimension, setWindowDimension] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  
+  //hamburger sidebar menu
+  const toggle = () => {
+    setIsOpen(!isOpen)
+  }
+
+  useEffect(() => {
+    setWindowDimension(window.innerWidth);
+  }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimension(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const isMobile = windowDimension <= 640;
+
   return(
     <>
     <AuthProvider>
       {/*Is logged in? {JSON.stringify(isLoggedIn)}*/}
       {/*console.log({isloggedin: JSON.stringify(isLoggedIn)})*/}
-      <div className="App">
         <Router>
-          {/* <Route render={({location}) => (
+        {/* {isMobile ? (
+          <MobileNavbar />  
+        ) : (
+          <>
+            <DashboardNavbar toggle={toggle}/>
+            <DashSidebar isOpen={isOpen} toggle={toggle} />
+            </>
+        )
+    }  */}
+          <Route render={({location}) => (
             <TransitionGroup>
             <CSSTransition
             key={location.key}
             timeout={150}
             classNames="fade"
-            > */}
-
-            <Switch >
+            >
+            <Switch location={location}>
               {protectedRoutes.map(route => (
                 <ProtectedRouteHoc
                   key={route.path}
@@ -51,11 +86,10 @@ function App() {
                 />
               ))}
             </Switch>
-            {/* </CSSTransition>
+            </CSSTransition>
           </TransitionGroup>
-          )} /> */}
+          )} />
         </Router>
-      </div>
     </AuthProvider>
     </>
   );
