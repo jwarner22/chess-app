@@ -82,5 +82,20 @@ class User(Base):
 
 
 
+class Opening(Base):
+    __tablename__ = "opening"
+
+    id = Column(Integer, primary_key=True, index=True)
+    opening_id = Column(Integer, unique = False, index=True)
+    opening_name = Column(String, unique=False, index=True)
+    completed = Column(Integer, index=True)
+    high_score = Column(Integer, index=True)
+    score_history = Column(String, index=True)
+    owner_id = Column(String, ForeignKey("user.user_id"))
+
+    class Congif:
+        orm_mode = True
+
+
 # can repeat this structure for openings and endgames
 

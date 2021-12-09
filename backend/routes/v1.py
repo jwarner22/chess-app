@@ -169,13 +169,13 @@ async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = 
 @app_v1.get('/users/{user_id}/daily_puzzles/picks', tags=["Daily"])
 #async def get_daily_puzzle_picks(user_id: str, db: Session = Depends(get_db)):
 async def get_daily_puzzle_picks():
-    # if no daily puzzles exist for user - create new ones (one time intiialization)
+    # generate daily puzzle module picks
     daily_puzzles = []
     while (len(daily_puzzles) < 3): # we want three modules
         pick = randint(1,38) # picks random module (how sophisticated!)
         if pick not in daily_puzzles: # checks that modules don't repeat
             daily_puzzles.append(pick)
-
+    daily_puzzles.append(randint(39,60)) # adds a random opening
     return daily_puzzles
 
 # get user's daily puzzles
@@ -273,3 +273,43 @@ async def get_achievements(user_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="daily puzzles not found")
     else: 
         return achievements
+
+
+## OPENINGS
+
+# get user opening data
+@app_v1.get('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
+async def get_opening(user_id: str, opening_id: str, db: Session = Depends(get_db)):
+    opening = db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
+    if opening is None:
+        raise HTTPException(status_code=404, detail="opening not found")
+    else: 
+        return opening
+
+# create user opening 
+@app_v1.post('/openings/{user_id}/{opening_id}', tags=["Openings"])
+async def add_opening(user_id: str, opening_id: str, opening: schemas.OpeningCreate, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+
+    if db_user is None:
+         return None
+    
+    db_opening= models.Opening(**opening.dict(), owner_id = user_id)
+    db.add(db_opening)
+    db.commit()
+    db.refresh(db_opening)
+    return {"opening successfully created"}
+
+# update user opening data
+@app_v1.put('/openings/{user_id}/{opening_id}', tags=["Openings"])
+async def update_opening(user_id: str, opening_id: int, opening: schemas.Opening, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+
+    if db_user is None:
+         return None
+    
+    stmt = (update(models.Opening).where(models.Opening.owner_id == user_id).where(models.Opening.opening_id == opening.opening_id).values(**opening.dict()))
+    db.execute(stmt)
+    db.commit()
+    db.refresh(db_user)
+    return {"opening successfully updated"}

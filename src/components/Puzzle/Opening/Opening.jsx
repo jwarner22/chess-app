@@ -27,8 +27,7 @@ export default function Opening(props) {
   
   
   useEffect(() => {
-    console.log("mounted");
-    console.log(moves)
+
     setColor(() =>turnColor())
     if (orientation === "black") {
       initialMove();
@@ -36,7 +35,6 @@ export default function Opening(props) {
   }, []);
 
   useEffect(() => {
-    console.log("next attempt")
     if (count > 0) {
       nextAttempt();
       //initialMove();
@@ -63,7 +61,6 @@ export default function Opening(props) {
   const calcMovable = () => {
 
     if (turnColor() === orientation) {
-      console.log('calced movable')
       const dests = new Map();
       game.SQUARES.forEach((s) => {
         const ms = game.moves({ square: s, verbose: true });
@@ -97,18 +94,14 @@ export default function Opening(props) {
     //   setNextAttemptPrompt(false)
     // }
     playSound();
-    console.log({premove: game.fen()})
     game.move({ from: from, to: to });
     setFen(game.fen());
-    console.log({postmove: game.fen()})
     await verifyMove(from, to);
 
     
   }
 
   const nextAttempt = async () => {
-    //await wait(1000);
-    console.log('next')
     setGame(new Chess());
     let newFen = new Chess().fen();
     setFen(newFen);
@@ -123,7 +116,6 @@ export default function Opening(props) {
   const verifyMove = async (from, to) => {
     const correctSource = moves[moveIndex].substring(0, 2);
     const correctTarget = moves[moveIndex].substring(2, 4);
-    console.log({correctSource, correctTarget, from, to})
     // check correct move
     if ((to !== correctTarget) | (from !== correctSource)) {
       console.log("Incorrect!");
@@ -132,7 +124,6 @@ export default function Opening(props) {
     } else {
       console.log("Correct!");
 
-      console.log({moveIndex: moveIndex})
       if (moveIndex < moves.length-1) {
         await makeMove(
           moves[moveIndex + 1].substring(0, 2),
@@ -176,5 +167,3 @@ export default function Opening(props) {
     </>
   );
 }
-
-// {console.log({fen:fen, movable:movable})}

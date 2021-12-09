@@ -31,7 +31,7 @@ const PrePuzzleTile = (props) => {
         <div>
     <PrePuzzleWrapper>
         <PrePuzzleTitle>
-            {props.openingsData.headline}
+            {props.openingData.headline}
         </PrePuzzleTitle>
         <PrePuzzleSubheading>
             Opening Training
@@ -41,19 +41,19 @@ const PrePuzzleTile = (props) => {
                 <StatsGrid>
                     <LeftStatWrapper>
                     <PuzzleEloTitle>
-                        Rating
+                        High Score
                     </PuzzleEloTitle>
                     </LeftStatWrapper>
                     <PuzzleElo>
-                        100
+                        {props.userOpeningData.high_score}
                     </PuzzleElo>
                     <RightStatWrapper>
                     <HighScoreTitle>
-                        High Score
+                        Completions
                     </HighScoreTitle>
                     </RightStatWrapper>
                     <HighScore>
-                        0
+                        {props.userOpeningData.completed}
                     </HighScore>
                 </StatsGrid>
             </StatsWrapper>

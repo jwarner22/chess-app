@@ -103,7 +103,7 @@ const Openings = () => {
                     {OpeningData.map((module, index) => {
                         return (
                     <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/opening', state: {module: module}}}>
-                        {/* <CourseTile key={index} {...module}/> */}
+                        {/* { <CourseTile key={index} {...module}/> } // need to comment this line out */}
                         <OpeningsTileContainer>
                           <OpeningsTileLeftColumn>
                             <OpeningImgWrapper>

@@ -32,8 +32,6 @@ export default function OpeningModule(props) {
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
 
-  console.log(props)
-
   useEffect(() => {
     setWindowDimension(window.innerWidth);
   }, []);
@@ -59,9 +57,8 @@ export default function OpeningModule(props) {
     }
   },[count])
 
-  const getMoves = () => {
-    let moves = props.openingsData.moves;
-    console.log({moves:moves})
+  const getMoves = async () => {
+    let moves = props.openingData.moves;
     const openingMoves = getOpeningMoves(moves);
     setMoves(openingMoves)
     setFen(openingMoves[0].fen);
@@ -73,7 +70,6 @@ export default function OpeningModule(props) {
   }
 
   const demoFinished = () => {
-    console.log("demo finished");
     setDemoIsFinished(true);
   };
 
@@ -97,13 +93,11 @@ export default function OpeningModule(props) {
   }
 
   const handleShowClick = () => {
-    console.log("show clicked");
     setDemoIsFinished(false);
     setShowDisabled(true);
   };
 
   const handleContinueClick = () => {
-    console.log("continue clicked");
     setCount(count => count + 1);
     setContinueDisabled(true);
   }
@@ -121,7 +115,7 @@ export default function OpeningModule(props) {
               <BackButton />
             </BackButtonWrapper>
             <MobileHeaderContainer>
-              <Header>{props.openingsData.headline}</Header> 
+              <Header>{props.openingData.headline}</Header> 
             </MobileHeaderContainer>
             <div style={progressContainer}>
         <Progress returnPercent={returnPercent} percent={progress} count={count}/>
@@ -180,7 +174,7 @@ export default function OpeningModule(props) {
         </PuzzleBoardContainer>
         <RightPuzzlePanelContainer>
           <HeaderContainer>
-          <Header>{props.openingsData.headline}</Header>
+          <Header>{props.openingData.headline}</Header>
         </HeaderContainer>
         <div style={progressContainer}>
         <Progress returnPercent={returnPercent} percent={progress} count={count} />

@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from '../../../PostModule/PostModuleElements'
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
+import Chart from '../../../PostModule/ScoreChart';
 //import Chart from './ScoreChart';
 
 const PostPuzzleMockup = (props) => {
@@ -15,7 +16,7 @@ const PostPuzzleMockup = (props) => {
                     <PostPuzzleHeaderImg src={img}/>
                 </IconWrap>
                     <ModuleExperience>
-                        {props.openingsData.headline}
+                        {props.openingData.headline}
                     </ModuleExperience>
                     <RewardH1>
                         {/* {props.perfect && 'Congrats!'}
@@ -28,6 +29,7 @@ const PostPuzzleMockup = (props) => {
                         {(!props.failure && !props.perfect) && 'you passed'}
                         {(props.failure) && 'module failed'}
                     </RewardH2> */}
+                    <Chart data={props.scoreData}/>
                     <ModuleExperience>
                         {/* {`Score: 100`} */}
                     </ModuleExperience>
