@@ -83,7 +83,7 @@ export default function OpeningModule(props) {
 
   const finishedCallback = async () => {
     correctSoundPlayer.play();
-    setProgress(progress + ((1/3)*100));
+    setProgress(progress + ((1/3)*100.01));
     setContinueDisabled(false);
     setScore(prev => prev + 100*(Math.floor(moves.length/2)));
   }

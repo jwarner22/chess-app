@@ -106,8 +106,10 @@ export default function OpeningManager(props) {
 
     const toggleFinished = async (result) => {
         await saveResults(result);
-        let updatedDailyModules = await updateDailyModules();
-        await saveDailyModules(updatedDailyModules);
+        if (isDaily) {
+          let updatedDailyModules = await updateDailyModules();
+          await saveDailyModules(updatedDailyModules);
+        }
         setScore(result);
         setIsFinished(true);
         setIsStarted(false);
