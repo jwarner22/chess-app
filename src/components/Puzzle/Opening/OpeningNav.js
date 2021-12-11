@@ -7,7 +7,7 @@ const OpeningNav = (props) => {
         <PuzzleNavContainer>
             <NavBtn>
                 <NavBtnLink2 props={props} onClick={props.onShowClick} disabled={props.showDisabled}>
-                    Show Moves
+                    Retry
                 </NavBtnLink2>
             </NavBtn>
             <NavBtn> 

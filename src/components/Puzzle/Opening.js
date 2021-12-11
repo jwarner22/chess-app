@@ -29,6 +29,7 @@ export default function OpeningModule(props) {
   const [showDisabled, setShowDisabled] = useState(true);
   const [score, setScore] = useState(0);
   const [windowDimension, setWindowDimension] = useState(null);
+  const [outcome, setOutcome] = useState(null);
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
 
@@ -73,19 +74,27 @@ export default function OpeningModule(props) {
     setDemoIsFinished(true);
   };
 
+  const playSound = async (type) => {
+    if (type === 'correct') {
+      correctSoundPlayer.play();
+    } else {
+      incorrectSoundPlayer.play();
+    }
+  }
+
   const incorrectCallback = async (currentFen, moveIndex) => {
-    //setFen(currentFen);
-    //setMoveIndex(moveIndex);
+    await playSound('incorrect');
     setShowDisabled(prev => !prev);
-    incorrectSoundPlayer.play();
     setScore(prev => prev - 200);
+    setOutcome(() => false);
   };
 
   const finishedCallback = async () => {
-    correctSoundPlayer.play();
-    setProgress(progress + ((1/3)*100.01));
+    await playSound('correct');
+    setProgress(prevProgress => prevProgress + ((1/3)*100.01));
     setContinueDisabled(false);
     setScore(prev => prev + 100*(Math.floor(moves.length/2)));
+    setOutcome(() => true);
   }
 
   const returnPercent = (percent) => {
@@ -101,8 +110,6 @@ export default function OpeningModule(props) {
     setCount(count => count + 1);
     setContinueDisabled(true);
   }
-
-  const shortProgress = Math.trunc(progress)
   
 
   if (isLoaded) {
@@ -177,8 +184,8 @@ export default function OpeningModule(props) {
           <Header>{props.openingData.headline}</Header>
         </HeaderContainer>
         <div style={progressContainer}>
-        <Progress returnPercent={returnPercent} percent={progress} count={count} />
-        <PercentCompleted>{shortProgress}/100</PercentCompleted>
+        <Progress returnPercent={returnPercent} outcome={outcome} percent={progress} count={count} />
+        <PercentCompleted>{Math.trunc(progress)}/100</PercentCompleted>
         </div>
         <OpeningNav onShowClick={handleShowClick} onContinueClick={handleContinueClick} showDisabled={showDisabled} continueDisabled={continueDisabled}/>
         </RightPuzzlePanelContainer>

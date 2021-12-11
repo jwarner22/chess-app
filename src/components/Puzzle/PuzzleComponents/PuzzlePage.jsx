@@ -60,7 +60,7 @@ export default function PuzzlePage(props) {
   // const [lives, setLives] = useState(3)
   const [count, setCount] = useState(0);
   const [fen, setFen] = useState(puzzleData[0].fen);
-  const [progress, setProgress] = useState(count);
+  const [progress, setProgress] = useState(0);
   const [outcome, setOutcome] = useState(null)
   const [outcomes,setOutcomes] = useState([]);
   const [waiting, setWaiting] = useState(false);
@@ -175,6 +175,7 @@ export default function PuzzlePage(props) {
   };
   
   const returnPercent = (percent) => {
+    console.log('callback')
     setProgress(percent)
     if (percent >= 100) {
       finished()
@@ -288,7 +289,7 @@ export default function PuzzlePage(props) {
                 </HeaderContainer>
                    <div style={progressContainer}>
                       <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
-                      <PercentCompleted>{progress}/100</PercentCompleted>
+                      <PercentCompleted>{Math.trunc(progress)}/100</PercentCompleted>
                   </div>
               <IndicatorWrapper>
             {(moveColor === "white") ? (
