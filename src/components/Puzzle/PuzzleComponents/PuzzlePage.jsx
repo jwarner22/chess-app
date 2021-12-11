@@ -152,14 +152,24 @@ export default function PuzzlePage(props) {
     setWaiting(true);
   };
 
+  const playSound = async (sound) => {
+    if (sound === "confirmation") {
+      confirmationSound.play();
+    } else if (sound === "error") {
+      errorSound.play();
+    }
+  }
+
   const displayOutcome = async (success) => {
     // play sound to indicate success or failure
     if (success) {
-      confirmationSound.play()
+      await playSound("confirmation");
+      //confirmationSound.play()
       setRetryDisable(true)
       setCorrect(true)
     } else {
-      errorSound.play()
+      await playSound("error");
+      //errorSound.play()
       setRetryDisable(false)
       setCorrect(false)
       setLives(prev => prev - 1)
