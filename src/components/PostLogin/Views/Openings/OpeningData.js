@@ -106,7 +106,7 @@ export const OpeningData = [{
       category: "opening",
       headline: "Petrov's Defense",
       pawn: "e4",
-      moves: "e2e4 e7e5 g1f3 g8f6 f3e5 d7d6 e5f3 f3e4 d2d4 d6d5 f1d3 b8c6 e1g1"
+      moves: "e2e4 e7e5 g1f3 g8f6 f3e5 d7d6 e5f3 f6e4 d2d4 d6d5 f1d3 b8c6 e1g1"
 }, {
       id: 61,
       category: "opening",
