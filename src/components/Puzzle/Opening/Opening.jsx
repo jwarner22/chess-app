@@ -59,7 +59,6 @@ export default function Opening(props) {
 
   // calcs legal moves and returns chessground compatible object
   const calcMovable = () => {
-
     if (turnColor() === orientation) {
       const dests = new Map();
       game.SQUARES.forEach((s) => {
@@ -90,10 +89,7 @@ export default function Opening(props) {
     if (moveIndex >= moves.length) {
       return;
     }
-    // if (nextAttemptPrompt) {
-    //   setNextAttemptPrompt(false)
-    // }
-    playSound();
+    await playSound();
     game.move({ from: from, to: to });
     setFen(game.fen());
     await verifyMove(from, to);
@@ -101,15 +97,15 @@ export default function Opening(props) {
     
   }
 
+  useEffect(() => {
+    setMovable(() => calcMovable());
+  },[game])
+
   const nextAttempt = async () => {
-    setGame(new Chess());
-    let newFen = new Chess().fen();
-    setFen(newFen);
+    setGame(() => new Chess());
+    setFen(() => new Chess().fen());
     setMoveIndex(0);
-    let movableVals = calcMovable();
-    setMovable(movableVals);
     setNext((prev) => !prev);
-    //setNextAttemptPrompt(true)
   }
 
   // verify correct move

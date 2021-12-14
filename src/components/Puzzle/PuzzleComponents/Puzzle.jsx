@@ -32,7 +32,7 @@ export default class Puzzle extends React.Component {
   }
 
   state = {
-    fen: "",
+    fen: this.props.fen,
     movable: {},
     pendingMove: [],
     selectVisible: "",
@@ -50,6 +50,7 @@ export default class Puzzle extends React.Component {
   };
 
   componentDidMount() {
+    this.game = new Chess(this.props.fen);
     this.newPuzzle();
   }
 
@@ -74,6 +75,7 @@ export default class Puzzle extends React.Component {
     this.setState({
       fen: this.game.fen(), //,
       orientation: this.turnColor(),
+      turnColor: this.turnColor(),
       check: this.game.in_check()
     });
   }
@@ -90,19 +92,21 @@ export default class Puzzle extends React.Component {
       from: this.props.correctMoves[0],
       to: this.props.correctMoves[1]
     });
-
+    console.log('set state')
     this.setState({
       fen: this.game.fen(), //,
       orientation: this.turnColor(),
+      turnColor: this.turnColor(),
       correctMoves: this.props.correctMoves,
       correctTarget: this.props.correctMoves[3],
       correctSource: this.props.correctMoves[2],
       moveIndex: 2,
-      check: this.game.in_check()
+      check: this.game.in_check(),
+      movable: this.calcMovable(true),
     });
-
+    
     if (this.count) {
-      this.calcMovable(true)
+      //this.calcMovable(true)
     }
 
     let moveColor = this.turnColor()
@@ -111,8 +115,8 @@ export default class Puzzle extends React.Component {
   };
 
   makeMove = async (from, to) => {
-    await wait(350);
-    
+    await wait(500);
+    await this.playMoveSound(from, to);
     // check for promotion
     let promotion = "q"
     if (to.length > 2) {
@@ -131,7 +135,8 @@ export default class Puzzle extends React.Component {
       lastMove: [from,to],
       turnColor: this.turnColor(),
       moveIndex: this.state.moveIndex + 2,
-      check: this.game.in_check()
+      check: this.game.in_check(),
+      movable: this.calcMovable(true),
     })
   };
 
@@ -204,7 +209,7 @@ export default class Puzzle extends React.Component {
         }
     }
     
-    this.playMoveSound(from, to);
+    await this.playMoveSound(from, to);
 
     const lastMove = from + to;
  
@@ -234,6 +239,12 @@ export default class Puzzle extends React.Component {
     } else {
       // unlocks next button
       this.unlockNext();
+      this.setState({
+        movable: {      
+          free: false,
+          dests: new Map(),
+          color: this.turnColor()}
+      })
       if (this.isCorrect === true) {
         this.displayOutcome(true);
       }
@@ -268,7 +279,13 @@ export default class Puzzle extends React.Component {
       this.displayOutcome(false); // success is false
       this.isCorrect = false;
       this.isFinished = true;
-
+      this.setState({
+        movable: {
+          free: false,
+          dests: new Map(),
+          color: this.turnColor()
+        }
+      });
     } else {
       this.isCorrect = true;
       this.isFinished = false;
@@ -293,7 +310,7 @@ export default class Puzzle extends React.Component {
   // calcs legal moves and returns chessground compatible object
   calcMovable = next => {
     if (this.state.moveIndex !== this.state.prevMoveIndex | this.state.prevMoveIndex === 0 | next) {
-      this.game = new Chess(this.state.fen);
+      //this.game = new Chess(this.state.fen);
       console.log('calced movable')
     const dests = new Map();
     this.game.SQUARES.forEach((s) => {
@@ -327,11 +344,11 @@ export default class Puzzle extends React.Component {
 
   // render function
   render() {
-    const movable = this.calcMovable(false);
+    //const movable = this.calcMovable(false);
     return this.props.children({
-      movable: movable,
+      movable: this.state.movable,
       fen: this.state.fen,
-      turnColor: movable.color,
+      turnColor: this.state.turnColor,
       lastMove: this.state.lastMove,
       onMove: this.onMove,
       orientation: this.state.orientation,

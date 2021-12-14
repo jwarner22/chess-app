@@ -550,7 +550,7 @@ export const Modules = [
             subheading: "Openings",
             type_ref: 'petrovDefense',
             pawn: "e4",
-            moves: "e2e4 e7e5 f3e5 d7d6 e5f3 f3e4 d2d4 d6d5 f1d3 b8c6 e1g1",
+            moves: "e2e4 e7e5 g1f3 g8f6 f3e5 d7d6 e5f3 f3e4 d2d4 d6d5 f1d3 b8c6 e1g1",
             img: require("../../../../../Images/open-book.svg").default
       }, {
             id: 59,
@@ -642,6 +642,16 @@ const excludedOPenings = [{
   }]
 
 const excludedModules = [{
+    id: 2, // `eventually use random str as modules will be dynamic for each user and may change over time
+    category: 'puzzle',
+    type: 'endgame',
+    type_ref: 'bishopEndgame',
+    headline: 'Bishop Endgame',
+    subheading: "Pattern Recognition",
+    instructions: 'Depending on the color of the bishop, it can often guard a promotional square',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    img: require("../../../../../Images/Bishop.png").default
+},{
         id: 23,
         category: 'puzzle',
         type: 'midgame',

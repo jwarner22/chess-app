@@ -38,15 +38,24 @@ function ProgressBar(props) {
       const isMobile = windowDimension <= 640;
 
     useEffect(() => {
-        if (props.percent === undefined) {
             setDisplay(outcome)
-        } else{
-            setPercent(props.percent)
-        }
-    },[props.outcomes, props.percent])
+    },[props.outcomes])
 
     useEffect(() => {
-    returnPercent(percent)
+      if (props.percent != null) {
+      setPercent(props.percent)
+      console.log({props: props.outcome})
+      if (props.outcome === true) {
+        setColor(correctColor)
+      } else if (props.outcome === false) {
+        setColor(incorrectColor)
+      }
+    }
+    },[props.percent, props.outcome])
+
+    useEffect(() => {
+      console.log(percent)
+      returnPercent(percent)
     },[percent])
     
     useEffect(() => {
@@ -67,6 +76,7 @@ function ProgressBar(props) {
                 setColor(perfectColor)
             }
         } else {
+          setPercent(0)
         }
         setResults(prevResults => [...prevResults, result])
     }
