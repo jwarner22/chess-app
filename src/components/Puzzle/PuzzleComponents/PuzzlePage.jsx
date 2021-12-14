@@ -85,6 +85,12 @@ export default function PuzzlePage(props) {
   // console.log(livesLost)
 
   useEffect(() => {
+    if (lives < 0){
+      setLives(0)
+    }
+  },[lives])
+
+  useEffect(() => {
     setWindowDimension(window.innerWidth);
   }, []);
 

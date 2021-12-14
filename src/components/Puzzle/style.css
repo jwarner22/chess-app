@@ -40,8 +40,8 @@ cg-helper {
 
 cg-container {
   position: absolute;
-  width: 800%;
-  height: 800%;
+  width: 556px;
+  height: 556px;
   display: block;
   bottom: 0;
 }

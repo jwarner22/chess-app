@@ -34,6 +34,7 @@ const PuzzleNavContainer = styled.div`
 export const NavBtn = styled.nav `
     display: flex;
     align-items: center;
+    margin: 18px;
 `
 
 const NavBtnLink = styled.button`
