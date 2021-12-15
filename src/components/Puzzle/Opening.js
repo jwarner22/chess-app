@@ -125,7 +125,7 @@ export default function OpeningModule(props) {
               <Header>{props.openingData.headline}</Header> 
             </MobileHeaderContainer>
             <div style={progressContainer}>
-        <Progress returnPercent={returnPercent} percent={progress} count={count}/>
+        <Progress returnPercent={returnPercent} outcome={outcome} percent={progress} count={count}  />
         </div>
             <PuzzleBoardWrapper>
               <div style={boardContainer}>
