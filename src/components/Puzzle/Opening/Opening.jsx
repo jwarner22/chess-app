@@ -53,7 +53,8 @@ export default function Opening(props) {
       moves[0].substring(2, 4)
     );
     setMoveIndex(() => moveIndex + 1);
-    setMovable(() => calcMovable());
+    let movable = calcMovable();
+    setMovable(movable);
   }
 
 
@@ -82,6 +83,8 @@ export default function Opening(props) {
 
   const playSound = async () => {
     moveSound.play();
+    await wait(300);
+    return null;
   }
 
 
@@ -89,10 +92,10 @@ export default function Opening(props) {
     if (moveIndex >= moves.length) {
       return;
     }
-    await playSound();
+    playSound();
     game.move({ from: from, to: to });
     setFen(game.fen());
-    await verifyMove(from, to);
+    verifyMove(from, to);
 
     
   }
@@ -102,8 +105,10 @@ export default function Opening(props) {
   },[game])
 
   const nextAttempt = async () => {
-    setGame(() => new Chess());
-    setFen(() => new Chess().fen());
+    let newGame = new Chess();
+    let newFen = newGame.fen();
+    setGame(newGame);
+    setFen(newFen);
     setMoveIndex(0);
     setNext((prev) => !prev);
   }
@@ -143,7 +148,7 @@ export default function Opening(props) {
   const makeMove = async (from, to) => {
     //playSound();
     await wait(750);
-    playSound();
+    await playSound();
     game.move({
       from: from,
       to: to

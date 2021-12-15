@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 import PostOpeningPage from '../../PostLogin/Views/Openings/PostOpeningPage';
 import PreOpeningPage from '../../PostLogin/Views/Openings/PreOpeningPage';

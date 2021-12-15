@@ -1,4 +1,5 @@
 export const wait = (milliseconds) => {
+  console.log('new timer')
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve();
