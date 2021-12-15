@@ -31,3 +31,8 @@ export const SmallTile = styled.li`
     list-style-type: none;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `
+export const AchievementSelectionContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 80px;
+`

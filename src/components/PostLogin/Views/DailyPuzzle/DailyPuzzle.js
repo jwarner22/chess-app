@@ -5,7 +5,8 @@ import { DailyPuzzleContainer,
   DailyPuzzleWrapper, 
   DailyPuzzleHeaderImg,
   PuzzleWrapper,
-  Container} from "./DailyPuzzleElements";
+  Container,
+  SelectionContainer} from "./DailyPuzzleElements";
 import Modal from "./Modal"; 
 import headerImg from "./../../../../Images/DailyPuzzleIcon.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
@@ -205,6 +206,7 @@ export default function DailyPuzzzle() {
           Today's Training
         </DailyPuzzleTitle>
         </DailyPuzzleContainer>
+        <SelectionContainer>
         <PuzzleWrapper>
          {dailyPicks.map((module, index) => {
            if (module.category === 'opening') {
@@ -221,6 +223,7 @@ export default function DailyPuzzzle() {
             )
           }})}
         </PuzzleWrapper>
+        </SelectionContainer>
    </DailyPuzzleWrapper>
    </Container>
   }

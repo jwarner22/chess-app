@@ -63,7 +63,6 @@ export const DailyPuzzleModuleStyle = styled.div`
     @media screen and (max-width: 425px) {
         grid-template-rows: 1fr;
         grid-gap: 8px;
-        margin-bottom: 32px;
         }
 `
 
@@ -150,6 +149,15 @@ export const PuzzleDescripton = styled.p`
         }
 `
 export const PuzzleWrapper = styled.div`
-    display: block; 
-    flex-wrap: flex;
+    display: flex; 
+    flex-direction: column;
+`
+
+export const SelectionContainer = styled.div`
+    display: flex;
+    padding-bottom: 40px;
+
+    @media screen and (max-width: 425px) {
+        padding-bottom: 80px;
+    }
 `
