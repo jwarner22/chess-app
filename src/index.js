@@ -60,9 +60,6 @@ function App() {
             </>
         )
     }  */}
-<<<<<<< HEAD
-            <Switch >
-=======
           <Route render={({location}) => (
             // <TransitionGroup>
             // <CSSTransition
@@ -71,7 +68,6 @@ function App() {
             // classNames="fade"
             // >
             <Switch location={location}>
->>>>>>> 432948c8dd6d19bbe292e3d9e24d20d84ce7c7e5
               {protectedRoutes.map(route => (
                 <ProtectedRouteHoc
                   key={route.path}
@@ -90,12 +86,9 @@ function App() {
                 />
               ))}
             </Switch>
-<<<<<<< HEAD
-=======
           //   </CSSTransition>
           // </TransitionGroup>
           )} />
->>>>>>> 432948c8dd6d19bbe292e3d9e24d20d84ce7c7e5
         </Router>
     </AuthProvider>
     </>

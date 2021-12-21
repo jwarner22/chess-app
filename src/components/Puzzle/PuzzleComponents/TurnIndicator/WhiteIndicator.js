@@ -19,7 +19,7 @@ const WhiteIndicatorContainer = styled.div`
     padding: 8px;
     display: flex;
     max-width: 400px;
-    background: rgba(86,82,82, 0.5);
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
     margin-top: 8px;
 `

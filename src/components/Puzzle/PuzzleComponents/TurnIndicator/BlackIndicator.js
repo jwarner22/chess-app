@@ -19,7 +19,7 @@ const BlackIndicatorContainer = styled.div`
     padding: 8px;
     display: flex;
     max-width: 400px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
     margin-top: 8px;
 `
