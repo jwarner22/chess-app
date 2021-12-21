@@ -96,9 +96,9 @@ export default function Opening(props) {
     game.move({ from: from, to: to });
     setFen(game.fen());
     verifyMove(from, to);
-
-    
   }
+
+
 
   useEffect(() => {
     setMovable(() => calcMovable());
