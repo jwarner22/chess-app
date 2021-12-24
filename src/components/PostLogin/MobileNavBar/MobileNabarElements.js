@@ -15,9 +15,10 @@ export const MobileNavbarWrapper = styled.div`
 `
 export const MobileNavbarItems = styled.ul`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     position: relative;
     background-color: #fff;
+    justify-content: space-around;
 `
 export const MobileNavLink = styled(NavLink)`
     text-decoration: none;
@@ -35,6 +36,6 @@ export const MobileNavbarItem = styled.li`
     font-size: 12px;
     
 `
-export const MobileNavbarIcon = styled.span`
-
+export const MobileNavbarIcon = styled.img`
+    max-width: 24px;
 `

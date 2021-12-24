@@ -13,6 +13,7 @@ import {MobileNavbarWrapper,
     MobileNavLink    
 } from "./MobileNabarElements"
 import { BlueBars } from '../DashboardNavbar/DashboardNavElements'
+import leaderboard from "../../../Images/LeaderboardMenuBlue.svg"
 
 
 const MobileNabar = () => {
@@ -40,6 +41,17 @@ const MobileNabar = () => {
                     <IoCalendarClearOutline size={24} />
                 </span>
                 Today
+                </MobileNavbarItem>
+                </MobileNavLink>
+                <MobileNavLink to="/leaderboards" activeStyle={{
+                    color:'#F4B062',
+                    fontWeight: "bold"
+                }}>
+                <MobileNavbarItem>
+                <span>
+                    <MobileNavbarIcon src={leaderboard}/>
+                </span>
+                Leaderboards
                 </MobileNavbarItem>
                 </MobileNavLink>
                 <MobileNavLink to="/openings" activeStyle={{

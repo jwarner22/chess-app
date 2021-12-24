@@ -11,6 +11,7 @@ import IntakeSurvey from './IntakeSurvey/IntakeSurvey';
 import CreateUser from './IntakeSurvey/CreateUser';
 import Opening from './Puzzle/Opening/OpeningManager';
 import BrandPage from './BrandPage/BrandPage';
+import Leaderboards from './PostLogin/Views/Leaderboards/Leaderboards';
 
 const protectedRoutes = [
 	{
@@ -76,6 +77,11 @@ const protectedRoutes = [
 		path: '/brandPage',
 		exact: true,
 		main: props => <BrandPage />
+	},{
+		name: "Leaderboards",
+		path: "/leaderboards",
+		exact: true,
+		main: props => <Leaderboards />
 	}
 ];
 
