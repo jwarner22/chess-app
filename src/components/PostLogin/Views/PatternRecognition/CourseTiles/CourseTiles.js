@@ -23,7 +23,7 @@ function CourseTile(props){
   const {headline, subheading, img} = props
 
   function handleOpenModal() {
-      //setOpenModal(prev => !prev)
+      setOpenModal(prev => !prev)
   }
 
   useEffect(() => {
