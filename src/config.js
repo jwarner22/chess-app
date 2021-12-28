@@ -1,6 +1,6 @@
-import firebase from "firebase/app"
-import "firebase/auth"
-
+import firebase from "firebase/compat/app"
+import "firebase/compat/auth"
+//import {getAnalytics, logEvent} from "firebase/analytics";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -16,5 +16,6 @@ export default firebaseConfig;
 
 firebase.initializeApp(firebaseConfig)
 
+//export const analytics = firebase.analytics();
 
 

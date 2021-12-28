@@ -153,3 +153,7 @@ class OpeningCreate(BaseModel):
 
     class Config:
         orm_mode=True
+
+class LeaderboardUser(BaseModel):
+    user_id: str
+    total_score: int

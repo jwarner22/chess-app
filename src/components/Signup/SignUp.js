@@ -28,7 +28,7 @@ import {Container,
 } from "../Login/LoginElements"
 import "./Signup.css"
 import { withRouter } from 'react-router-dom';
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 //import FetchWrapper from '../api/FetchWrapper'
 import {baseURL} from '../api/apiConfig'
 import useFetch from '../api/useFetch';

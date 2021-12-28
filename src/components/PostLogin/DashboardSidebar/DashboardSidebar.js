@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import { SidebarContainer, Icon, CloseIcon, SidebarWapper, SidebarMenu, SidebarLink, SideBtnWrap, SidebarRoute} from './DashSidebarElements'
 import firebaseConfig from "../../../config"
-import firebase from 'firebase'
+import firebase from 'firebase/compat/app'
 require('firebase/auth')
 
 const DashSidebar = ({ isOpen, toggle}) => {

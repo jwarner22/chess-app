@@ -75,7 +75,7 @@ def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
     return users
 
 
-# PUZZLES
+## PUZZLES
 
 # get module puzzles
 @app_v1.get('/puzzles/', tags=["Puzzles"])
@@ -86,7 +86,7 @@ def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
    return puzzle
 
 
-# USER
+## USER
 
 # create user
 @app_v1.post('/users', response_model=schemas.User, tags=["User"])
@@ -124,7 +124,7 @@ async def get_user_initial_rating(user_id: str, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(db, user_id=user_id)
     return {db_user.initial_rating}
 
-# THEMES
+## THEMES
 
 # get theme
 @app_v1.get('/users/{user_id}/themes/{theme_title}', response_model=schemas.Theme, tags=["Themes"])
@@ -163,7 +163,7 @@ async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = 
     db.refresh(db_user)
     return db_user
 
-# DAILY PUZZLES
+## DAILY PUZZLES
 
 # generate user's daily puzzles
 @app_v1.get('/users/{user_id}/daily_puzzles/picks', tags=["Daily"])
@@ -236,7 +236,7 @@ async def delete_theme(user_id: str, theme_id: int, db: Session = Depends(get_db
     return db_user
 
 
-## ACHIEVEMENTS
+### ACHIEVEMENTS
 
 # create new user achievment
 @app_v1.post('/achievements/{user_id}', tags=["Achievements"])
@@ -313,3 +313,19 @@ async def update_opening(user_id: str, opening_id: int, opening: schemas.Opening
     db.commit()
     db.refresh(db_user)
     return {"opening successfully updated"}
+
+
+## LEADERBOARD
+
+# get user leaderboard data
+@app_v1.get('/leaderboard/{leaderboard_id}', tags=["Leaderboard"])
+async def get_leaderboard(leaderboard_id: str, limit: int = 100, skip: int = 0, db: Session = Depends(get_db)):
+    users = db.query(models.User).offset(skip).limit(limit).all()
+
+    leaderboard = []
+    if users is None:
+        return 'leaderboard not found'
+    else:
+        for user in users:
+            leaderboard.append(schemas.LeaderboardUser(user_id=user.user_id, total_score=user.total_score))
+        return leaderboard

@@ -22,13 +22,15 @@ import {FormH1,
   LoginHeaderLogoWrapper,
   LoginHeaderLogo
 } from './LoginElements';
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 // import FetchWrapper from "../api/FetchWrapper";
 import {baseURL} from '../api/apiConfig';
 import {AuthContext} from '../Auth.js';
 import useFetch from "../api/useFetch";
-
+import {getAnalytics, logEvent} from "firebase/analytics";
+import {analytics} from '../../config.js';
 require("firebase/auth");
+
 
 
 //history = push to dashboard
@@ -41,10 +43,12 @@ const Login = ({history}) => {
   const {currentUser} = useContext(AuthContext)
   const {get, post} = useFetch(baseURL)
   const _isMounted = useRef(true)
+  const analytics = getAnalytics();
   //const Auth = useContext(AuthContext);
 
   useEffect(() => {
     if (currentUser && isLoggedIn && isSaved) {
+      logEvent(analytics, "login", {'user': currentUser.uid});
       history.push('/dailyPuzzle')
     }
   }, [currentUser, isLoggedIn, isSaved])
