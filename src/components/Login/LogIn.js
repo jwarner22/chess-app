@@ -6,7 +6,7 @@ import firebaseConfig from "../../config.js";
 import logo from '../../Images/eloElevationWhite.png'
 import headerImg from "../../Images/realChessHeader.jpg"
 import {GoogleLoginButton} from "./../Signup/SignupElements"
-import {FormH1, 
+import {FormH1,  
   Container, 
   FormWrap, 
   FormContent, 
