@@ -116,19 +116,22 @@ export default class Puzzle extends React.Component {
 
   makeMove = async (from, to) => {
     await wait(500);
-    await this.playMoveSound(from, to);
+    let promotion_bool=false
     // check for promotion
     let promotion = "q"
     if (to.length > 2) {
       promotion = to.substring(2)
       to = to.substring(0,2)
+      promotion_bool = true
     }
+    await this.playMoveSound(from, to, promotion_bool);
 
     this.game.move({
       from: from,
       to: to,
       promotion: promotion
     });
+
 
     this.setState({
       fen: this.game.fen(),
@@ -188,11 +191,21 @@ export default class Puzzle extends React.Component {
       }
   }
 
-  playMoveSound = async (from, to) => {
+  playMoveSound = async (from, to, promotion) => {
+
+    if (promotion) {
+      this.playSound('n')
+      return null;
+    }
     // play sounds
-    if (this.game.move({to:to, from:from, verbose: true}).flags === 'c') {
-      this.playSound('c')
-    } else {
+    try {
+      if (this.game.move({to:to, from:from, verbose: true}).flags === 'c') {
+        this.playSound('c')
+      } else {
+        this.playSound('n')
+      }
+    } catch (e) {
+      console.log(e)
       this.playSound('n')
     }
   }
@@ -205,11 +218,11 @@ export default class Puzzle extends React.Component {
         if (moves[i].flags.indexOf("p") !== -1 && moves[i].from === from) {
           this.pendingMove = [from,to];
           this.onPromotion()
-          return
+          return;
         }
     }
     
-    await this.playMoveSound(from, to);
+    await this.playMoveSound(from, to, false);
 
     const lastMove = from + to;
  

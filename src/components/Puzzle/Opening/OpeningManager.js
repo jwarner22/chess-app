@@ -82,8 +82,6 @@ export default function OpeningManager(props) {
     // update daily module
     const updateDailyModules = async () => {
         
-        console.log({schemaPicks: schemaPicks})
-
         const mutatedPuzzles = schemaPicks.map(puzzle => {
           if (puzzle.theme_id === openingData.id) {
             return {...puzzle, completed: true, locked: false}
