@@ -1,7 +1,7 @@
 import React, { useEffect, useState, createContext } from "react";
 //import firebaseConfig from "../config.js";
 //import {firebaseAPI} from '../config.js';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import auth from "../config.js"
 import Loader from '../components/Loader.js';
 

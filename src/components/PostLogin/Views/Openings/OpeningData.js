@@ -112,7 +112,7 @@ export const OpeningData = [{
       category: "opening",
       headline: "French Defense: Winawer Variation",
       pawn: "e4",
-      moves: "e2e4 e7e6 d2d4 d7d5 b1c3 f1b4 e4e5 c7c5 a2a3 b4c3 b2c3 g8e7 d1g4"
+      moves: "e2e4 e7e6 d2d4 d7d5 b1c3 f8b4 e4e5 c7c5 a2a3 b4c3 b2c3 g8e7 d1g4"
 },{
       id: 62,
       category: "opening",

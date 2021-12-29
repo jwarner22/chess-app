@@ -43,11 +43,11 @@ import {CoursesWrapper,
     EndgamesLabelWrapper,
 } from '../PatternRecognition/CoursesBody/CoursesElements'
 import CourseTile from '../PatternRecognition/CourseTiles/CourseTiles'
-import {OpeningData} from './OpeningData';
+import {Modules} from '../PatternRecognition/CourseTiles/Data';
 
 const Openings = () => {
   const [isOpen, setIsOpen] = useState(false);
-  
+  const openingData = Modules.filter(module => module.category === 'opening');
   //hamburger sidebar menu
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -100,7 +100,7 @@ const Openings = () => {
         <CoursesWrapper>
             <ModuleWrapper>
                 <OpeningsGrid>
-                    {OpeningData.map((module, index) => {
+                    {openingData.map((module, index) => {
                         return (
                     <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/opening', state: {module: module}}}>
                         {/* { <CourseTile key={index} {...module}/> } // need to comment this line out */}

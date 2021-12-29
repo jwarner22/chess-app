@@ -19,7 +19,7 @@ import firebaseConfig from "../../../config";
 import { Redirect } from "react-router-dom";
 //import { AuthContext } from "../../../index";
 import logo from "../../../Images/EloElevation-2.png"
-import firebase from 'firebase'
+import firebase from 'firebase/compat/app'
 require('firebase/auth')
 
 

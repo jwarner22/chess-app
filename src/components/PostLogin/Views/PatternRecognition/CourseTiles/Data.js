@@ -559,7 +559,7 @@ export const Modules = [
             subheading: "Openings",
             type_ref: 'frenchDefenseWinawer',
             pawn: "e4",
-            moves: "e2e4 e7e6 d2d4 d7d5 b1c3 f1b4 e4e5 c7c5 a2a3 b4c3 b2c3 g8e7 d1g4",
+            moves: "e2e4 e7e6 d2d4 d7d5 b1c3 f8b4 e4e5 c7c5 a2a3 b4c3 b2c3 g8e7 d1g4",
             img: require("../../../../../Images/open-book.svg").default
       },{
             id: 60,

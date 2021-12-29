@@ -7,6 +7,7 @@ import Chart from '../../../PostModule/ScoreChart';
 
 const PostPuzzleMockup = (props) => {
     const img = Modules[3].img;
+    
     if (!props.savingResults) {
     return (
         <>
@@ -31,7 +32,7 @@ const PostPuzzleMockup = (props) => {
                     </RewardH2> */}
                     <Chart data={props.scoreData}/>
                     <ModuleExperience>
-                        {/* {`Score: 100`} */}
+                        {`Score: ${props.score}`}
                     </ModuleExperience>
                     <Link to={props.isDaily ? "/dailyPuzzle" : '/openings'}>
                     <FinishButton>

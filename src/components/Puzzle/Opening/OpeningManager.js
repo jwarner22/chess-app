@@ -12,11 +12,11 @@ export default function OpeningManager(props) {
     const [isStarted, setIsStarted] = useState(false);
     const [score, setScore] = useState(0);
     const [scoreData, setScoreData] = useState([]);
-    const {put} = useFetch(baseURL);
+    const {put, post} = useFetch(baseURL);
     const openingData = props.location.state.module;
     const schemaPicks = props.location.state.schemaPicks;
     const isDaily = props.location.state.isDaily;
-    
+ 
     const togglePrePuzzleCallback = () => {
         setIsFinished(false);
         setIsStarted(true);
@@ -29,7 +29,12 @@ export default function OpeningManager(props) {
         
         let completed = userOpeningData.completed + 1;
         let highScore = (result > userOpeningData.high_score) ? result : userOpeningData.high_score;
-       
+        
+        // set high score achievement
+        if (result > userOpeningData.high_score) {
+          await SetAchievements(result);
+        }
+
         let score_array = userOpeningData.score_history.split(",").map(Number);
         score_array.shift();
         score_array.push(result);
@@ -103,7 +108,23 @@ export default function OpeningManager(props) {
         put(endpoint, mutatedPuzzles)
         .catch(error => alert(error))
       }
+    
+    const SetAchievements = async (result) => {
+        let userID = localStorage.getItem('userID');
+        let endpoint = `/achievements/${userID}`;
+        let now = Date.now();
+  
+        let achievement =  {
+          inserted_at: now,
+          category: 'opening',
+          value: result,
+          theme: openingData.type_ref
+        }
 
+        post(endpoint, achievement)
+        .catch(error => alert(error))
+    }
+    
     const toggleFinished = async (result) => {
         await saveResults(result);
         if (isDaily) {

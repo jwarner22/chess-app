@@ -1,9 +1,9 @@
 import {useState} from 'react';
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 
 export default function useFetch(baseUrl) {
     const [loading, setLoading] = useState(true);
-
+    
     async function getAccessToken() {
         let storedToken = (sessionStorage.getItem('access_token')) ? sessionStorage.getItem('access_token') : null;
         let accessTimeout = (sessionStorage.getItem('access_timeout')) ? Number.parseFloat(sessionStorage.getItem('access_token')) : null;
