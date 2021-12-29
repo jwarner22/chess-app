@@ -34,12 +34,11 @@ export default function DemoMoves(props) {
 
   async function playMoveSound() {
     moveSound.play()
-    await wait(300)
     return null;
   }
 
   async function nextMove(move) {
-    await playMoveSound();
+    playMoveSound();
     let from = move.substring(0, 2);
     let to = move.substring(2, 5);
         

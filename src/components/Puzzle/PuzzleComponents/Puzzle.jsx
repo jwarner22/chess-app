@@ -208,6 +208,7 @@ export default class Puzzle extends React.Component {
       console.log(e)
       this.playSound('n')
     }
+    return null;
   }
 
   // runs on player move

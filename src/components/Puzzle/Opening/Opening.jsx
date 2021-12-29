@@ -83,7 +83,7 @@ export default function Opening(props) {
 
   const playSound = async () => {
     moveSound.play();
-    await wait(100);
+    await wait(75);
     return null;
   }
 
