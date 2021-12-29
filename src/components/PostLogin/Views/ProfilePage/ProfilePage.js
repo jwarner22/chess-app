@@ -11,7 +11,7 @@ import {Modules} from '../PatternRecognition/CourseTiles/Data';
 import { Profile } from "@styled-icons/icomoon";
 
 const ProfilePage = () => {
-  const  [achievements, setAchievements] = useState([])
+  const [achievements, setAchievements] = useState([])
   const [profileData, setProfileData] = useState({});
   const [overallRating, setOverallRating] = useState(0);
   const {get} = useFetch(baseURL)
