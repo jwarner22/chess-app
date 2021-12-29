@@ -71,8 +71,6 @@ const Openings = () => {
 
   const isMobile = windowDimension <= 640;
 
-  console.log(isMobile)
-
     return (
         <>
         <div className="page">

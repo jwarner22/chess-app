@@ -28,7 +28,7 @@ import {baseURL} from '../api/apiConfig';
 import {AuthContext} from '../Auth.js';
 import useFetch from "../api/useFetch";
 import {getAnalytics, logEvent} from "firebase/analytics";
-import {analytics} from '../../config.js';
+//import {analytics} from '../../config.js';
 require("firebase/auth");
 
 
