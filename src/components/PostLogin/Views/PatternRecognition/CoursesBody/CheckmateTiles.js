@@ -22,7 +22,7 @@ const CheckmateTiles = () => {
     const checkmateModules = Modules.filter(module => module.type === "checkmate")
     
     return (
-        <div>
+        <>
             <CoursesWrapper>
             <ModuleWrapper>
                 <ModuleGrid>
@@ -35,8 +35,7 @@ const CheckmateTiles = () => {
                 </ModuleGrid>
             </ModuleWrapper>
         </CoursesWrapper>
-            
-        </div>
+        </>
     )
 }
 

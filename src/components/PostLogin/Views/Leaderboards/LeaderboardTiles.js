@@ -7,18 +7,21 @@ import {LeaderboardSectionContainer,
     LeaderboardScore} from "./LeaderboardElements";
 
 
-const LeaderboardTiles = () => {
+const LeaderboardTiles = (props) => {
+
+    console.log(props)
+
     return (
         <>
         <LeaderboardTileContainer>
             <LeaderboardPlacement>
-                1
+                {props.leaderboardPlacement}
             </LeaderboardPlacement>
             <LeaderboardUsername>
-                Username
+                {props.user_id}
             </LeaderboardUsername>
             <LeaderboardScore>
-                1200
+                {props.total_score}
             </LeaderboardScore>
         </LeaderboardTileContainer>
         </>

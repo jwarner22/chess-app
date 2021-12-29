@@ -13,13 +13,15 @@ const LeaderboardsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [totalScore, setTotalScore] = useState(0);
     const [profileData, setProfileData] = useState({});
-    const [users, setUsers] = useState([])
+    const [leaderboard, setLeaderboard] = useState([])
     const {get} = useFetch(baseURL)
     const userID = localStorage.getItem('userID');
+    const leaderboardID = localStorage.getItem('leaderboardID')
 
     useEffect(() => {
         fetchProfileData();
-        fetchUsers()
+        fetchLeaderboard();
+        console.log(leaderboard)
     },[])
     
 
@@ -31,13 +33,14 @@ const LeaderboardsPage = () => {
         setIsLoading(false)
       }
 
-    async function fetchUsers() {
-        let endpoint = `/users`
-        let users = await get(endpoint)
-        setUsers(users)
-        console.log(users)
-        setIsLoading(false)
-    }
+      async function fetchLeaderboard() {
+          let endpoint = `/leaderboard/${leaderboardID}`
+          let leaderboard = await get(endpoint)
+          setLeaderboard(leaderboard)
+          setIsLoading(false)
+      }
+
+
 
     return (
         <Container>
@@ -53,8 +56,9 @@ const LeaderboardsPage = () => {
                 </LeaderboardHeaderWrapper>
             </LeaderboardHeaderContainer>
             <LeaderboardContainer>
-                {isLoading && <Loader />}
-                <LeaderboardSection />
+                {isLoading ? (<Loader />) : (
+                    <LeaderboardSection leaderboard={leaderboard}/>
+                )}
             </LeaderboardContainer>
         </Container>
     )

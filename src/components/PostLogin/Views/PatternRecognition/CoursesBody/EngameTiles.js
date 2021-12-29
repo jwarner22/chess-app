@@ -24,7 +24,7 @@ const EngameTiles = (props) => {
     const endgameModules = Modules.filter(module => module.type === "endgame")
 
     return (
-        <div>
+        <>
         <CoursesWrapper >
             <ModuleWrapper>
                 <ModuleGrid>
@@ -37,7 +37,7 @@ const EngameTiles = (props) => {
                 </ModuleGrid>
             </ModuleWrapper>
         </CoursesWrapper>
-        </div>
+        </>
     )
 }
 

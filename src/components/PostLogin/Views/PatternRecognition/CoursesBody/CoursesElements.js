@@ -110,7 +110,7 @@ export const CoursesWrapper = styled.div`
     justify-content: center;
     padding: 24px 0px;
     background: #EEF0FF;
-    /* min-height: 100vh; */
+    height: 100%;
 `
 
 export const ModuleWrapper = styled.div `

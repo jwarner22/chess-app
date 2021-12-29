@@ -22,7 +22,7 @@ const TacticTiles = (props) => {
     const tacticModules = Modules.filter(module => module.type === "midgame")
 
     return (
-        <div>
+        <>
             <CoursesWrapper >
                 <ModuleWrapper>
                     <ModuleGrid>
@@ -36,7 +36,7 @@ const TacticTiles = (props) => {
                 </ModuleWrapper>
             </CoursesWrapper>
             
-        </div>
+        </>
     )
 }
 
