@@ -104,18 +104,11 @@ export default function Puzzle(props) {
       setPerfect(true);
       setAchievement('perfect', 0);
     };
-  
-    let newRating = calcEloRating(outcomes,puzzles,themeData.rating);
-    
-    //if (themeData.rating < newRating) {
-      // new high rating
-      // need high rating parameter
-    //}
-    console.log({newRating: newRating})
-    console.log({themeDataHighRating: themeData.high_rating})
+
+    let newRating = calcEloRating(outcomes,puzzles,themeData.rating, themeData.completed);
+
     if (newRating > themeData.high_rating) {
       // new high rating
-      console.log('new high rating')
       themeData.high_rating = newRating;
       setAchievement("high_rating", newRating);
     }
@@ -152,7 +145,7 @@ export default function Puzzle(props) {
 
     setScoreData(score_data)
         
-    await updateThemeData(themeData)  // updates data in piu
+    await updateThemeData(themeData)  // updates data in api
     
     setUserData(themeData) // sets user data to pass as props to post puzzle page
 
