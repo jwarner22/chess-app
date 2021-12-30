@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 export const LeaderboardHeaderContainer = styled.div`
     width: 100%;
-    height: 40%;
+    height: 45%;
     background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
 `  
 
@@ -15,6 +15,7 @@ export const LeaderboardHeaderWrapper = styled.div`
     justify-content: flex-start;
     padding: 30px;
     flex-direction: column;
+    align-items: center;
 `
 
 export const LeaderboardContainer = styled.div`
@@ -33,10 +34,12 @@ export const LeaderboardLeaguesContainer = styled.ul`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 20px;
+    max-width: 500px;
 `
 
 export const LeaguesWrapper = styled.li`
     list-style-type: none;
+    text-align: center;
 `
 
 export const LeaguesIcon = styled.img`
@@ -60,6 +63,7 @@ export const ComingSoonSubheading = styled.div`
     color: white;
     font-size: 18px;;
     text-align: center;
+    margin-bottom: 24px;
 `
 //Leaderboard section styling
 
@@ -69,18 +73,16 @@ export const LeaderboardSectionContainer = styled.div`
     align-items: center;
 `
 
-export const LeaderboardGridWrapper = styled.ul`
-    display: grid;
+export const LeaderboardGridWrapper = styled.table`
     width: 90%;
     max-width: 800px;
-    border: 2px solid blue;
     margin-top: 24px;
     grid-gap: 12px;
 `
 
 //leaderboard tile styling 
 
-export const LeaderboardTileContainer = styled.li`
+export const LeaderboardTileContainer = styled.tr`
     list-style-type: none;
     width: 100%;
     display: flex;

@@ -3,23 +3,27 @@ import {LeaderboardSectionContainer, LeaderboardGridWrapper} from "./Leaderboard
 import LeaderboardTiles from "./LeaderboardTiles"
 
 const LeaderboardSection = (props) => {
-    const {leaderboard} = props;
-    // console.log(leaderboard)
-     const sortedLeaderboard = leaderboard.sort(function(a, b) {
-        return b.total_score - a.total_score
-    })
-    console.log(sortedLeaderboard)
+    const {leaderboard, userID} = props;
+    console.log(leaderboard)
+    const userIndex = leaderboard.findIndex(user => user.user_id === {userID})
+        console.log(userIndex);
+    
+    // sorts the leaderboard array by highest total score. 
+    //  const sortedLeaderboard = leaderboard.sort(function(a, b) {
+    //     return b.total_score - a.total_score
+    // })
+    // console.log(sortedLeaderboard)
     
     return (
-        <LeaderboardSectionContainer>
-            <LeaderboardGridWrapper>
-                {sortedLeaderboard.map((placement, index) => {
+        <>
+            <LeaderboardGridWrapper> 
+                {leaderboard.map((placement, index) => {
                     const leaderboardPlacement = index + 1;
                     return(
                     <LeaderboardTiles key={index} {...placement} leaderboardPlacement={leaderboardPlacement}/>
                 )})}
             </LeaderboardGridWrapper>
-        </LeaderboardSectionContainer>   
+        </>
     )
 }
 

@@ -9,8 +9,6 @@ import {LeaderboardSectionContainer,
 
 const LeaderboardTiles = (props) => {
 
-    console.log(props)
-
     return (
         <>
         <LeaderboardTileContainer>
