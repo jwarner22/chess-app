@@ -66,6 +66,7 @@ export default function DailyPuzzzle() {
       setDailyPicks(mutatedPicks);
 
       if (storedDailyPuzzles.every(entry => entry.completed === true)) {
+
         setCompleted(true)
       }
       

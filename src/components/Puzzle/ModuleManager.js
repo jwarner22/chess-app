@@ -189,7 +189,10 @@ export default function Puzzle(props) {
     })
 
     // add completed all (i.e. mutatedPuzzles.all(...completed)) splash screen here
-
+    if (mutatedPuzzles.every(puzzle => puzzle.completed === true)) {
+      // record daily training completion => firebase
+      logEvent(analytics, 'daily_training_completed', {'user': userID});
+    }
     // save to localStorage
     //localStorage.setItem('dailyPuzzles',JSON.stringify(mutatedPuzzles));
     //await saveDailyPuzzles(mutatedPuzzles);
