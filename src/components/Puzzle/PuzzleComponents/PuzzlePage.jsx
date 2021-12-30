@@ -7,7 +7,7 @@ import ProgressBar from "../Utilities/Progress";
 import {getMoves, wait} from '../Utilities/helpers.js';
 import confirmationSoundFile from "../../../assets/public_sound_standard_Confirmation.mp3";
 import errorSoundFile from "../../../assets/public_sound_standard_Error.mp3";
-import buttonSoundFile from "../../../assets/blipSelect.wav";
+import buttonSoundFile from "../../../assets/click_005.ogg";
 import {Howl} from 'howler';
 import PuzzleNav from "./PuzzleNav"
 import styled from "styled-components"

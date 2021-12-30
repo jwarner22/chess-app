@@ -76,9 +76,9 @@ export default function OpeningModule(props) {
 
   const playSound = async (type) => {
     if (type === 'correct') {
-      correctSoundPlayer.play();
+      return correctSoundPlayer.play();
     } else {
-      incorrectSoundPlayer.play();
+      return incorrectSoundPlayer.play();
     }
   }
 

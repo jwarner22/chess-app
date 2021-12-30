@@ -4,6 +4,7 @@ import * as ChessJS from "chess.js";
 import { wait } from "../Utilities/helpers.js";
 import moveSoundFile from "../../../assets/public_sound_standard_Move.mp3";
 import {Howl} from 'howler'
+import { Fence } from "styled-icons/material-outlined";
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
@@ -60,7 +61,8 @@ export default function Opening(props) {
 
   // calcs legal moves and returns chessground compatible object
   const calcMovable = () => {
-    if (turnColor() === orientation) {
+    //console.log('calced movable')
+    //if (turnColor() === orientation) {
       const dests = new Map();
       game.SQUARES.forEach((s) => {
         const ms = game.moves({ square: s, verbose: true });
@@ -76,15 +78,13 @@ export default function Opening(props) {
         dests,
         color: color // "white"
       };
-    } else {
-    return;
-  }
+    //} else {
+    //return;
+  //}
   };
 
   const playSound = async () => {
-    moveSound.play();
-    await wait(75);
-    return null;
+    return moveSound.play();
   }
 
 
@@ -92,7 +92,7 @@ export default function Opening(props) {
     if (moveIndex >= moves.length) {
       return;
     }
-    playSound();
+    await playSound();
     game.move({ from: from, to: to });
     setFen(game.fen());
     verifyMove(from, to);
@@ -101,8 +101,9 @@ export default function Opening(props) {
 
 
   useEffect(() => {
-    setMovable(() => calcMovable());
-  },[game])
+    let movable = calcMovable();
+    setMovable(movable);
+  },[fen]);
 
   const nextAttempt = async () => {
     let newGame = new Chess();
@@ -120,7 +121,7 @@ export default function Opening(props) {
     // check correct move
     if ((to !== correctTarget) | (from !== correctSource)) {
       console.log("Incorrect!");
-      await wait(500);
+      await wait(750);
       incorrectCallback(fen, moveIndex);
     } else {
       console.log("Correct!");
@@ -133,21 +134,21 @@ export default function Opening(props) {
     
         setMoveIndex(() => moveIndex + 2);
     
-        let movableVals = calcMovable();
-        setMovable(movableVals);
+        //let movableVals = calcMovable();
+        //setMovable(movableVals);
         setColor(() => turnColor());
       }
       if (moveIndex >= moves.length - 2){
-        await wait(1000);
+        await wait(750);
         console.log('finished');
-        await finishedCallback();
+        finishedCallback();
       }
     }
   };
 
   const makeMove = async (from, to) => {
     //playSound();
-    await wait(750);
+    await wait(500);
     await playSound();
     game.move({
       from: from,

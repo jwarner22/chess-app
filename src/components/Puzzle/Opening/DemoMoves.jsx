@@ -33,8 +33,7 @@ export default function DemoMoves(props) {
   }
 
   async function playMoveSound() {
-    moveSound.play()
-    return null;
+    return moveSound.play()
   }
 
   async function nextMove(move) {
