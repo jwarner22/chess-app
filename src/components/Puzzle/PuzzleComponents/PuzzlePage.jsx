@@ -7,6 +7,7 @@ import ProgressBar from "../Utilities/Progress";
 import {getMoves, wait} from '../Utilities/helpers.js';
 import confirmationSoundFile from "../../../assets/public_sound_standard_Confirmation.mp3";
 import errorSoundFile from "../../../assets/public_sound_standard_Error.mp3";
+import buttonSoundFile from "../../../assets/blipSelect.wav";
 import {Howl} from 'howler';
 import PuzzleNav from "./PuzzleNav"
 import styled from "styled-components"
@@ -76,6 +77,7 @@ export default function PuzzlePage(props) {
   const [windowDimension, setWindowDimension] = useState(null);
   const confirmationSound = new Howl({src: confirmationSoundFile})
   const errorSound = new Howl({src: errorSoundFile})
+  const buttonSound = new Howl({src: buttonSoundFile})
   const title = getModuleTitle(props.theme)
   const [lives, setLives] = useState(3)
   //const livesLost = outcomes.filter(entry => entry === false).length;
@@ -160,9 +162,11 @@ export default function PuzzlePage(props) {
 
   const playSound = async (sound) => {
     if (sound === "confirmation") {
-      confirmationSound.play();
+      return confirmationSound.play();
     } else if (sound === "error") {
-      errorSound.play();
+      return errorSound.play();
+    } else  if (sound === "button") {
+      return buttonSound.play();
     }
   }
 
@@ -198,14 +202,16 @@ export default function PuzzlePage(props) {
     }
   }
 
-  function handleContinueClick() {
+  async function handleContinueClick() {
+    await playSound("button")
     incrementCount()
     setRetry(false)
     setWaiting(false)
     setRetryDisable(true)
   }
 
-  const handleRetryClick = () => {
+  const handleRetryClick = async () => {
+    await playSound("button")
     setRetry(true)
     setFen(() => puzzleData[count].fen);
     setCorrectMoves(() => getMoves(puzzleData[count].moves));

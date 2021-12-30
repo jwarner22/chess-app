@@ -3,10 +3,11 @@ import styled from "styled-components"
 
 
 const OpeningNav = (props) => {
+    console.log({navProps: props})
     return (
         <PuzzleNavContainer>
             <NavBtn>
-                <NavBtnLink2 props={props} onClick={props.onShowClick} disabled={props.showDisabled}>
+                <NavBtnLink2 props={props} onClick={props.onRetryClick} disabled={props.retryDisabled}>
                     Retry
                 </NavBtnLink2>
             </NavBtn>
@@ -58,10 +59,10 @@ const NavBtnLink2 = styled.button`
     background: transparent;
     white-space: nowrap;
     padding: 16px 16px;
-    color: ${({props}) => ((props.retryDisable) ? 'rgba(255, 255, 255, 0.4)' : '#fff')};
+    color: ${({props}) => ((props.retryDisabled) ? 'rgba(255, 255, 255, 0.4)': '#fff')};
     font-size: 22px;
     outline: none;
-    border: ${({props}) => ((props.retryDisable) ? '2px solid rgba(255, 255, 255, 0.4)' : '2px solid #fff')};
+    border: ${({props}) => ((props.retryDisabled) ? '2px solid rgba(255, 255, 255, 0.4)' : '2px solid #fff')};
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;

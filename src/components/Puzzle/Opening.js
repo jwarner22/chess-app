@@ -101,7 +101,7 @@ export default function OpeningModule(props) {
     //setProgress(percent)
   }
 
-  const handleShowClick = () => {
+  const handleRetryClick = () => {
     setDemoIsFinished(false);
     setShowDisabled(true);
   };
@@ -147,7 +147,7 @@ export default function OpeningModule(props) {
                   </div>
               </div>
             </PuzzleBoardWrapper>
-            <OpeningNav onShowClick={handleShowClick} onContinueClick={handleContinueClick} showDisabled={showDisabled} continueDisabled={continueDisabled}/>
+            <OpeningNav onShowClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={showDisabled} continueDisabled={continueDisabled}/>
           </MobilePuzzleWrapper>
           </>
         ) : (
@@ -187,7 +187,7 @@ export default function OpeningModule(props) {
         <Progress returnPercent={returnPercent} outcome={outcome} percent={progress} count={count} />
         <PercentCompleted>{Math.trunc(progress)}/100</PercentCompleted>
         </div>
-        <OpeningNav onShowClick={handleShowClick} onContinueClick={handleContinueClick} showDisabled={showDisabled} continueDisabled={continueDisabled}/>
+        <OpeningNav onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={showDisabled} continueDisabled={continueDisabled}/>
         </RightPuzzlePanelContainer>
         </PuzzlePageGrid>
         </PuzzlePageWrapper>

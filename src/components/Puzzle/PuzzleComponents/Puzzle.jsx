@@ -194,21 +194,19 @@ export default class Puzzle extends React.Component {
   playMoveSound = async (from, to, promotion) => {
 
     if (promotion) {
-      this.playSound('n')
-      return null;
+      return this.playSound('n')
     }
     // play sounds
     try {
       if (this.game.move({to:to, from:from, verbose: true}).flags === 'c') {
-        this.playSound('c')
+        return this.playSound('c')
       } else {
-        this.playSound('n')
+        return this.playSound('n')
       }
     } catch (e) {
       console.log(e)
-      this.playSound('n')
+      return this.playSound('n')
     }
-    return null;
   }
 
   // runs on player move
