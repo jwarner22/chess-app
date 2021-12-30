@@ -8,6 +8,7 @@ import {calcScore, calcEloRating} from './Utilities/Scoring';
 import PostPuzzle from '../PostModule/PostModule';
 import useFetch from '../api/useFetch';
 import Loader from '../Loader';
+import {getAnalytics, logEvent} from "firebase/analytics";
 
 export default function Puzzle(props) {
   const [puzzles,setPuzzles] = useState([]);
@@ -20,7 +21,7 @@ export default function Puzzle(props) {
   const [score, setScore] = useState(0);
   const [scoreData, setScoreData] = useState([])
   const {get,put, post} = useFetch(baseURL);
-
+  const analytics = getAnalytics();
 
   const {rating,theme,id, isDaily} = props;
   const schemaPicks = props.schemaPicks;
@@ -30,6 +31,7 @@ export default function Puzzle(props) {
   // called on component mount
   useEffect(()=>{
     fetchPuzzles(rating,theme);
+    logEvent(analytics, 'module_started', {'user': userID, 'isDaily': isDaily});
   },[]);
   
   // fetches puzzles from api
@@ -204,7 +206,7 @@ export default function Puzzle(props) {
 
   // callback function when puzzle is finished (currently only success)
  const puzzleIsFinished = async (results, result) => {
-
+   logEvent(analytics, 'module_completed', {'user': userID, 'isDaily': isDaily});
    setSavingResults(true)
    if (result === 'succeed') {
    setOutcomes(prevOutcomes => [...prevOutcomes,results])

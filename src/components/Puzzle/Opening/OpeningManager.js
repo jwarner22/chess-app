@@ -5,6 +5,7 @@ import PreOpeningPage from '../../PostLogin/Views/Openings/PreOpeningPage';
 import OpeningPage from '../Opening.js'
 import useFetch from '../../api/useFetch';
 import {baseURL} from '../../api/apiConfig';
+import {getAnalytics, logEvent} from "firebase/analytics";
 
 // need to add to opening route and clean up props for child components and this componen
 export default function OpeningManager(props) {
@@ -16,10 +17,13 @@ export default function OpeningManager(props) {
     const openingData = props.location.state.module;
     const schemaPicks = props.location.state.schemaPicks;
     const isDaily = props.location.state.isDaily;
- 
+    const userID = localStorage.getItem('userID');
+    const analytics = getAnalytics();
+
     const togglePrePuzzleCallback = () => {
         setIsFinished(false);
         setIsStarted(true);
+        logEvent(analytics, 'opening_started', {'user': userID, 'isDaily': isDaily});
     }
 
     const saveResults = async (result) => {
@@ -78,8 +82,6 @@ export default function OpeningManager(props) {
     // update daily module
     const updateDailyModules = async () => {
         
-        console.log({schemaPicks: schemaPicks})
-
         const mutatedPuzzles = schemaPicks.map(puzzle => {
           if (puzzle.theme_id === openingData.id) {
             return {...puzzle, completed: true, locked: false}
@@ -134,6 +136,7 @@ export default function OpeningManager(props) {
         setScore(result);
         setIsFinished(true);
         setIsStarted(false);
+        logEvent(analytics, 'opening_completed', {'user': userID, 'isDaily': isDaily});
     }
 
     return (
