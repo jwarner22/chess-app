@@ -11,7 +11,7 @@ const LeaderboardSection = (props) => {
             
             <LeaderboardGridWrapper> 
                 {leaderboard.map((placement, index) => { 
-                    let leaderboardPlacement = index + 1;
+                    const leaderboardPlacement = index + 1;
                     return(
                     <LeaderboardTiles 
                     key={index} 

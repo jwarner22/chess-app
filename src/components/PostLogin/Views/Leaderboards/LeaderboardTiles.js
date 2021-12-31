@@ -10,7 +10,14 @@ import {LeaderboardSectionContainer,
 const LeaderboardTiles = (props) => {
     const [isUser, setIsUser] = useState(false);
     
-  
+    function handleIsUser() {
+        if(props.leaderboardPlacement == props.getPlacement){
+            setIsUser(true)
+        }
+    }
+    console.log(props.leaderboardPlacement)
+    console.log(props.getPlacement)
+    console.log(isUser)
 
     return (
         <>

@@ -29,7 +29,6 @@ const LeaderboardsPage = () => {
     useEffect(() => {
         fetchProfileData();
         fetchLeaderboard();
-        // sortLeaderboard();
     },[])
 
     
@@ -54,9 +53,7 @@ const LeaderboardsPage = () => {
         setUserPlacement(findUserPlacement);
             setIsLoading(false)
             setIsSorted(true)
-            console.log(leaderboard)
-            console.log(userIndex)
-            console.log(findUserPlacement)
+            
         }
       
         useEffect(() => {
