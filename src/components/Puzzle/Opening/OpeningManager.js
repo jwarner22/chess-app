@@ -118,7 +118,7 @@ export default function OpeningManager(props) {
   
         let achievement =  {
           inserted_at: now,
-          category: 'opening',
+          category: 'high_score',
           value: result,
           theme: openingData.type_ref
         }
