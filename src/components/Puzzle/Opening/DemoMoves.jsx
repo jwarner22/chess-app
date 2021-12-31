@@ -16,12 +16,15 @@ export default function DemoMoves(props) {
 
   useEffect(() => {
     let isMounted = true; // note mutable flag
-    demo(); // run demo
  
     return () => {
       isMounted = false;
     }; // use cleanup to toggle value, if unmounted
   }, []);
+
+  useEffect(()  => {
+    if (props.startedDemo) demo();
+  },[props.startedDemo]);
 
   async function demo() {
     await wait(1200);

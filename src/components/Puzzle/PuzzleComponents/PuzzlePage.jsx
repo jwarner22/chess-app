@@ -166,7 +166,7 @@ export default function PuzzlePage(props) {
     } else if (sound === "error") {
       return errorSound.play();
     } else  if (sound === "button") {
-      return buttonSound.play();
+      //return buttonSound.play();
     }
   }
 
