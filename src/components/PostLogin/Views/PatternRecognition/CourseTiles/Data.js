@@ -164,7 +164,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'attackingF2F7',
         headline: 'Attack f2f7',
-        subheading: "Checkmates",
+        subheading: "Midgame Tactics",
         instructions: 'The squares F2 and F7 are common sources of weakness in a position. Exploit this weakness by capitalizing on this pressure.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/AttackingF2F7.svg").default
