@@ -93,6 +93,13 @@ const DashNavbar = ({ toggle }) => {
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
+                                <NavLinks to="/leaderboards" activeStyle={{
+                            borderBottom: "3px solid #247cf1"
+                            }}> 
+                                    Leaderboard
+                                </NavLinks>
+                            </NavItem>
+                            <NavItem>
                                 <NavLinks to="/openings" activeStyle={{
                             borderBottom: "3px solid #247cf1"
                             }}> 

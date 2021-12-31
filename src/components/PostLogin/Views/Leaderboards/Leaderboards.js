@@ -3,10 +3,14 @@ import {Container} from "../../../Login/LoginElements";
 import {LeaderboardContainer, LeaderboardHeaderContainer, LeaderboardHeaderWrapper, ComingSoonHeading, ComingSoonSubheading, LeaderboardSectionContainer} from "./LeaderboardElements"
 import LeaderboardLeagues from "./LeaderboardLeagues";
 import LeaderboardSection from './LeaderboardSection';
-import LeaderboardTiles from "./LeaderboardTiles"
-import {baseURL} from "../../../api/apiConfig"
+import LeaderboardTiles from "./LeaderboardTiles";
+import {baseURL} from "../../../api/apiConfig";
 import useFetch from '../../../api/useFetch';
-import Loader from "../../../Loader"
+import Loader from "../../../Loader";
+import DashNavbar from "../../DashboardNavbar/DashboardNavbar"
+import MobileNavbar from "../../MobileNavBar/MobileNavBar"
+import DashSidebar from "../../DashboardSidebar/DashboardSidebar"
+
 
 
 const LeaderboardsPage = () => {
@@ -19,9 +23,8 @@ const LeaderboardsPage = () => {
     const userID = localStorage.getItem('userID');
     const leaderboardID = localStorage.getItem('leaderboardID')
     const [userPlacement, setUserPlacement] = useState();
-    
-
-
+    const [windowDimension, setWindowDimension] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         fetchProfileData();
@@ -56,8 +59,35 @@ const LeaderboardsPage = () => {
             console.log(findUserPlacement)
         }
       
+        useEffect(() => {
+          setWindowDimension(window.innerWidth);
+        }, []);
+      
+        useEffect(() => {
+          function handleResize() {
+            setWindowDimension(window.innerWidth);
+          }
+      
+          window.addEventListener("resize", handleResize);
+          return () => window.removeEventListener("resize", handleResize);
+        }, []);
+      
+        const isMobile = windowDimension <= 640;
+
+        const toggle = () => {
+          setIsOpen(!isOpen)
+        }
 
     return (
+        <>
+        {isMobile ? (
+    <MobileNavbar />
+    ) : (
+      <>
+      <DashNavbar toggle={toggle}/>
+      <DashSidebar isOpen={isOpen} toggle={toggle} />
+      </>
+      )}
         <Container>
             <LeaderboardHeaderContainer>
                 <LeaderboardHeaderWrapper>
@@ -78,6 +108,7 @@ const LeaderboardsPage = () => {
                 </LeaderboardSectionContainer>
             </LeaderboardContainer>
         </Container>
+        </>
     )
 }
 

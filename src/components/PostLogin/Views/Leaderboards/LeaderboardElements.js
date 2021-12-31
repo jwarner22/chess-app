@@ -89,6 +89,7 @@ export const LeaderboardTileContainer = styled.tr`
     list-style-type: none;
     width: 100%;
     display: flex;
+    justify-content: space-between;
 `
 
 export const LeaderboardPlacement = styled.span`
