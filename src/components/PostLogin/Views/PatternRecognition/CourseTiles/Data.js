@@ -22,7 +22,7 @@ export const Modules = [
         type: 'endgame',
         type_ref: 'endgame',
         headline: 'Endgame Shuffle',
-        subheading: "Pattern Recognition",
+        subheading: "Endgame Tactics",
         instructions: 'Confidence in the endgame can be the difference in a close game.',
         description: 'A mixture of all endgame strategies',
         img: require("../../../../../Images/Endgame_shuffle.svg").default
@@ -32,7 +32,7 @@ export const Modules = [
         type: 'endgame',
         type_ref: 'bishopEndgame',
         headline: 'Bishop Endgame',
-        subheading: "Pattern Recognition",
+        subheading: "Endgame Tactics",
         instructions: 'Depending on the color of the bishop, it can often guard a promotional square',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         img: require("../../../../../Images/Bishop.png").default
@@ -43,7 +43,7 @@ export const Modules = [
         type: 'endgame',
         type_ref: 'knightEndgame',
         headline: 'Knight Endgame',
-        subheading: "Pattern Recognition",
+        subheading: "Endgame Tactics",
         instructions: `The knight is particularly effective at fork tactics, which can be difficult for one's opponent to spot`,
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Knight.png").default
@@ -53,7 +53,7 @@ export const Modules = [
         type: 'endgame',
         headline: 'Pawn Endgame',
         type_ref: 'pawnEndgame',
-        subheading: "Pattern Recognition",
+        subheading: "Endgame Tactics",
         instructions: 'A pawn can become a huge focal point in the endgame when promotion is in sight.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Pawn.png").default
@@ -63,7 +63,7 @@ export const Modules = [
         type: 'endgame',
         type_ref: 'queenEndgame',
         headline: 'Queen Endgame',
-        subheading: "Pattern Recognition",
+        subheading: "Endgame Tactics",
         instructions: 'The queen is an incredibly powerful piece in the endgame - look for it to traverse large swaths of the board in the endgame.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Checkmate.svg").default
@@ -73,7 +73,7 @@ export const Modules = [
         type: 'endgame',
         type_ref: 'rookEndgame',
         headline: 'Rook Endgame',
-        subheading: "Pattern Recognition",
+        subheading: "Endgame Tactics",
         instructions: 'Look to capitalize on open files and ranks to check the opposing king and track down dangerous pawns.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Rook.png").default
@@ -83,7 +83,7 @@ export const Modules = [
         type: 'endgame',
         type_ref: 'queenRookEndgame',
         headline: 'Queen and Rook Endgame',
-        subheading: "Pattern Recognition",
+        subheading: "Endgame Tactics",
         instructions: 'Look to trap the opposing kingQu with this powerful duo.',
         description: 'Lorem ipsum mah brudda',
         img: require('../../../../../Images/queenrook.png').default
@@ -93,7 +93,7 @@ export const Modules = [
         type: 'endgame',
         type_ref: 'zugzwang',
         headline: 'Zugzwang',
-        subheading: "Pattern Recognition",
+        subheading: "Endgame Tactics",
         instructions: 'Zugzwang is a situation in which one player is at a disadvantage because of their obligation to make a move.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Zugzwang.svg").default
@@ -104,7 +104,7 @@ export const Modules = [
         type: 'checkmate',
         type_ref: 'bodenMate',
         headline: `Boden's Mate`,
-        subheading: "Pattern Recognition",
+        subheading: "Checkmates",
         instructions: `This classic bishop mating pattern involves two opposite facing bishops removing the opposing king's flight squares while delivering checkmate`,
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/BodensMate.svg").default
@@ -114,7 +114,7 @@ export const Modules = [
         type: 'checkmate',
         type_ref: 'doubleBishopMate',
         headline: 'Double Bishop Mate',
-        subheading: "Pattern Recognition",
+        subheading: "Checkmates",
         instructions: 'The bishop pair is coveted due to their combined ability to attack all squares. This can leave the opposing king with nowhere to run.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/2bishops.png").default
@@ -124,7 +124,7 @@ export const Modules = [
         type: 'checkmate',
         type_ref: 'dovetailMate',
         headline: 'Dovetail Mate',
-        subheading: "Pattern Recognition",
+        subheading: "Checkmates",
         instructions: 'The Queen gives checkmate while the opposing king has no flight squares due to the obstructing pieces at its side.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Dove.svg").default
@@ -134,7 +134,7 @@ export const Modules = [
         type: 'checkmate',
         type_ref: 'hookMate',
         headline: 'Hook Mate',
-        subheading: "Pattern Recognition",
+        subheading: "Checkmates",
         instructions: `Named after its resemblence to a hook, this checkmate pattern demonstrates the perfect coordination between the rook and knight.`,
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Hook.svg").default
@@ -144,7 +144,7 @@ export const Modules = [
         type: 'checkmate',
         type_ref: 'mate',
         headline: 'Checkmate Shuffle',
-        subheading: "Pattern Recognition",
+        subheading: "Checkmates",
         instructions: 'Deliver checkmate any way you can.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Checkmate.svg").default
@@ -154,7 +154,7 @@ export const Modules = [
         type: 'checkmate',
         type_ref: 'smotheredMate',
         headline: 'Smothered Mate',
-        subheading: "Pattern Recognition",
+        subheading: "Checkmates",
         instructions: 'The opposing king can sometimes become trapped by his own pieces. Find the sequence of moves that causes the opposing pieces to trap their own king and deliver a beautiful checkmate.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/SmotheredMate.svg").default
@@ -164,7 +164,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'attackingF2F7',
         headline: 'Attack f2f7',
-        subheading: "Pattern Recognition",
+        subheading: "Checkmates",
         instructions: 'The squares F2 and F7 are common sources of weakness in a position. Exploit this weakness by capitalizing on this pressure.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/AttackingF2F7.svg").default
@@ -174,7 +174,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'attraction',
         headline: 'Attraction',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'This motif typically involves a sacrifice which lures or decoys an opposing piece to move to a square in which it can be exploited or attacked.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Attraction.svg").default
@@ -184,7 +184,7 @@ export const Modules = [
         type: 'checkmate',
         type_ref: 'backRankMate',
         headline: 'Back Rank Mate',
-        subheading: "Pattern Recognition",
+        subheading: "Checkmates",
         instructions: 'When the king is on the back rank, there is limited room for escape. Look to deliver check when the opposing king has nowhere to go.',
         description: 'Lorem ipsum mah brudda',
         img:require("../../../../../Images/BackRankMate.svg").default
@@ -194,7 +194,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'capturingDefender',
         headline: 'Capturing Defender',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Often a key piece will stand in defense in the opponents position. Capturing it can open up tactical opportunities...',
         description: 'Lorem ipsum mah brudda',
         img:require("../../../../../Images/Capturingdefender.png").default
@@ -204,7 +204,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'clearance',
         headline: 'Clearance',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Your own pieces can sometimes get in the way. Move them by any means necessary and you can open up excellent opportunities.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Clearance.svg").default
@@ -214,7 +214,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'defensiveMove',
         headline: 'Defensive Move',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Look to defend your position and king while maintaining or gaining an advantage',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/DefensiveMoves.svg").default
@@ -224,7 +224,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'discoveredAttack',
         headline: 'Discovered Attack',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'A piece moves - often by giving check - and reveals an attack on an opposing piece which is vulnerable to tactics',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/DiscoveredAttack.svg").default
@@ -234,7 +234,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'deflection',
         headline: 'Deflection',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Force a (often defensive) piece away from an important duty and you can reveal previously unseen tactical opportunities.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Deflection.svg").default
@@ -244,7 +244,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'doubleCheck',
         headline: 'Double Check',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: `When two pieces give check to the opposing king it is forced to move. This is incredibly can yield tremendous opporunities.`,
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/DoubleCheck.svg").default
@@ -254,7 +254,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'exposedKing',
         headline: 'Exposed King',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'World Champion Garry Kasparov stated that the most important strategic concept in chess is king safety.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/ExposedKing.svg").default
@@ -264,7 +264,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'fork',
         headline: 'Fork',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'A fork is when a piece attacks two pieces at the same time - meaning one can always be taken.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Fork.svg").default
@@ -274,7 +274,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'hangingPiece',
         headline: 'Hanging Piece',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Generally, all pieces should be well defended at all times. Otherwise, material can often be lost...',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/HangingPiece.svg").default
@@ -284,7 +284,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'interference',
         headline: 'Interference',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Interference is when the line between an attacked piece and its defender is interrupted by sacrificing an interposing piece.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Interference.svg").default
@@ -294,7 +294,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'intermezzo',
         headline: 'Intermezzo',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'An intermezzo, or in-between move, is characterized by the disruption of the opponents plan by an unexpected move that poses a severe threat.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Intermezzo.svg").default
@@ -304,7 +304,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'kingsideAttack',
         headline: 'Kingside Attack',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Attacking on the kingside is an aggressive plan of action that can lead to decisive results due to pressure on the opposing king.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Kingsideattack2.png").default
@@ -314,7 +314,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'pin',
         headline: 'Pin',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'When standing between an opposing piece and its king, a piece is said to be pinned. It is legally unable to move and therefore vulnerable.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Pin.svg").default
@@ -324,7 +324,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'queensideAttack',
         headline: 'Queenside attack',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Sometimes the action is away from the center.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Queensideattack.png").default
@@ -334,7 +334,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'quietMove',
         headline: 'Quiet Move',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Many of the most beautful moves in chess are not forcing moves, but rather set the stage for a decisive advantage.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/feather.png").default
@@ -344,7 +344,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'sacrifice',
         headline: 'Sacrifice',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Give up something to gain far more.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Sacrifice.svg").default
@@ -354,7 +354,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'skewer',
         headline: 'Skewer',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Attack two pieces at once and only one can evade your sight.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Skewer.svg").default
@@ -364,7 +364,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'xRayAttack',
         headline: 'X-Ray Attack',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Vulnerable pieces need not be in the line of sight to be under attack. An x-ray attack, as the name suggests, exerts its influence through any obstructing material.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/XrayAttack.svg").default
@@ -374,7 +374,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'trappedPiece',
         headline: 'Trapped Piece',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'When a valuable piece has few squares left, be on the look out for ways to leave it with none at all.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/TrappedPiece.svg").default
@@ -385,7 +385,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'promotion',
         headline: 'Promotion',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Push a pawn over the edge to seal your opponents fate.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Promotion.svg").default
@@ -395,7 +395,7 @@ export const Modules = [
         type: 'midgame',
         type_ref: 'advancedPawn',
         headline: 'Advanced Pawn',
-        subheading: "Pattern Recognition",
+        subheading: "Midgame Tactics",
         instructions: 'Clear the way for an advanced pawn to pave a path to victory. But beware allowing your opponenent to do the same.',
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/AdvancedPawn.svg").default
