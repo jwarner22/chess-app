@@ -3,7 +3,16 @@ import styled from "styled-components"
 
 
 const OpeningNav = (props) => {
-    console.log({navProps: props})
+    console.log(props)
+    if (!props.startedDemo) {
+        return(
+            <PuzzleNavContainer>
+            <NavBtn>
+                <StartBtn onClick={props.startDemo}>Start</StartBtn>
+            </NavBtn>
+            </PuzzleNavContainer>
+        )
+    } else if (props.demoIsFinished) {
     return (
         <PuzzleNavContainer>
             <NavBtn>
@@ -12,15 +21,27 @@ const OpeningNav = (props) => {
                 </NavBtnLink2>
             </NavBtn>
             <NavBtn> 
-                <NavBtnLink props= {props} onClick={props.onContinueClick} disabled={props.continueDisabled}>
+                <NavBtnLink props={props} onClick={props.onContinueClick} disabled={props.continueDisabled}>
                     Continue
                 </NavBtnLink>
             </NavBtn>
         </PuzzleNavContainer>
     )
+    } else{
+        return(
+        <PuzzleNavContainer>
+        <Text>Replicate the moves...</Text>
+        </PuzzleNavContainer>
+        )
+    }
 }
 
 export default OpeningNav
+
+const Text = styled.div`
+    color: white;
+    padding: 18px 18px;
+`
 
 const PuzzleNavContainer = styled.div`
     display: flex;
@@ -74,4 +95,20 @@ const NavBtnLink2 = styled.button`
         background: #fff;
         color: #247cf1;
     } */
+`;
+
+const StartBtn = styled.button`
+border-radius: 16px;
+background: 'rgba(255, 255, 255, 0.4)';
+white-space: nowrap;
+padding: 16px 16px;
+color: #247cf1;
+font-size: 22px;
+outline: none;
+border: none;
+cursor: pointer;
+transition: all 0.2s ease-in-out;
+text-decoration: none;
+min-width: 120px;
+font-weight: 700;
 `;

@@ -30,6 +30,7 @@ export default function OpeningModule(props) {
   const [score, setScore] = useState(0);
   const [windowDimension, setWindowDimension] = useState(null);
   const [outcome, setOutcome] = useState(null);
+  const [startedDemo, setStartedDemo] = useState(false);
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
 
@@ -101,6 +102,10 @@ export default function OpeningModule(props) {
     //setProgress(percent)
   }
 
+  const startDemo = () => {
+    setStartedDemo(true);
+  }
+
   const handleRetryClick = () => {
     setDemoIsFinished(false);
     setShowDisabled(true);
@@ -138,6 +143,7 @@ export default function OpeningModule(props) {
                         fen={fen}
                         moveIndex={moveIndex}
                         orientation={orientation}
+                        startedDemo={startedDemo}
                       />
                     )}
                     {isLoaded === true && demoIsFinished === true && (
@@ -147,7 +153,7 @@ export default function OpeningModule(props) {
                   </div>
               </div>
             </PuzzleBoardWrapper>
-            <OpeningNav onShowClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={showDisabled} continueDisabled={continueDisabled}/>
+            <OpeningNav onShowClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={showDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo}/>
           </MobilePuzzleWrapper>
           </>
         ) : (
@@ -169,6 +175,7 @@ export default function OpeningModule(props) {
                 fen={fen}
                 moveIndex={moveIndex}
                 orientation={orientation}
+                startedDemo={startedDemo}
               />
             )}
             {isLoaded === true && demoIsFinished === true && (
@@ -187,7 +194,7 @@ export default function OpeningModule(props) {
         <Progress returnPercent={returnPercent} outcome={outcome} percent={progress} count={count} />
         <PercentCompleted>{Math.trunc(progress)}/100</PercentCompleted>
         </div>
-        <OpeningNav onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={showDisabled} continueDisabled={continueDisabled}/>
+        <OpeningNav onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={showDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo}/>
         </RightPuzzlePanelContainer>
         </PuzzlePageGrid>
         </PuzzlePageWrapper>
