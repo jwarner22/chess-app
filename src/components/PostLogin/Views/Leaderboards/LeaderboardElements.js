@@ -78,6 +78,9 @@ export const LeaderboardGridWrapper = styled.table`
     max-width: 800px;
     margin-top: 24px;
     grid-gap: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 //leaderboard tile styling 
@@ -91,16 +94,20 @@ export const LeaderboardTileContainer = styled.tr`
 export const LeaderboardPlacement = styled.span`
     color: black;
     padding: 12px;
+    padding-right: 12px;
 `
 
 export const LeaderboardUsername = styled.span`
     color: black;
     padding: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `
 
 export const LeaderboardScore = styled.span`
     color: black;
-    width: 100%;
+    width: 50%;
     padding: 12px;
     text-align: right;
 `

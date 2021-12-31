@@ -14,15 +14,19 @@ const LeaderboardsPage = () => {
     const [totalScore, setTotalScore] = useState(0);
     const [profileData, setProfileData] = useState({});
     const [leaderboard, setLeaderboard] = useState([])
-    // const [isSorted, setIsSorted] = useState(false)
+    const [isSorted, setIsSorted] = useState(false)
     const {get} = useFetch(baseURL)
     const userID = localStorage.getItem('userID');
     const leaderboardID = localStorage.getItem('leaderboardID')
+    const [userPlacement, setUserPlacement] = useState();
+    
+
 
 
     useEffect(() => {
         fetchProfileData();
         fetchLeaderboard();
+        // sortLeaderboard();
     },[])
 
     
@@ -39,17 +43,19 @@ const LeaderboardsPage = () => {
       async function fetchLeaderboard() {
           let endpoint = `/leaderboard/${leaderboardID}`
           let leaderboard = await get(endpoint)
-          //sorts leaderboard
           setLeaderboard(leaderboard.sort(function(a, b) {
             return b.total_score - a.total_score
         }))
-        //gets the index of the user on the leaderboard
-        setIsLoading(false)
-      }
-
-
-
-
+        const userIndex = leaderboard.findIndex(user => user.user_id === userID);
+        const findUserPlacement = userIndex + 1;
+        setUserPlacement(findUserPlacement);
+            setIsLoading(false)
+            setIsSorted(true)
+            console.log(leaderboard)
+            console.log(userIndex)
+            console.log(findUserPlacement)
+        }
+      
 
     return (
         <Container>
@@ -66,9 +72,9 @@ const LeaderboardsPage = () => {
             </LeaderboardHeaderContainer>
             <LeaderboardContainer>
                 <LeaderboardSectionContainer>
-                {isLoading ? (<Loader />) : (
-                    <LeaderboardSection leaderboard={leaderboard} userID={userID}/>
-                )}
+                {isLoading ? ( <Loader /> ) : (
+                    <LeaderboardSection userPlacement={userPlacement} leaderboard={leaderboard} userID={userID} isLoading={isLoading}/>
+                )}     
                 </LeaderboardSectionContainer>
             </LeaderboardContainer>
         </Container>

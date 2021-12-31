@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {LeaderboardSectionContainer, 
     LeaderboardGridWrapper, 
     LeaderboardTileContainer, 
@@ -8,6 +8,9 @@ import {LeaderboardSectionContainer,
 
 
 const LeaderboardTiles = (props) => {
+    const [isUser, setIsUser] = useState(false);
+    
+  
 
     return (
         <>

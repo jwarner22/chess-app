@@ -1,24 +1,24 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {LeaderboardSectionContainer, LeaderboardGridWrapper} from "./LeaderboardElements"
 import LeaderboardTiles from "./LeaderboardTiles"
+import Loader from "../../../Loader"
 
 const LeaderboardSection = (props) => {
-    const {leaderboard, userID} = props;
-    const userIndex = leaderboard.findIndex(user => user.user_id === userID)
-
-    // sorts the leaderboard array by highest total score. 
-    //  const sortedLeaderboard = leaderboard.sort(function(a, b) {
-    //     return b.total_score - a.total_score
-    // })
-    // console.log(sortedLeaderboard)
+    const {leaderboard, userID, userPlacement, isLoading} = props;
     
     return (
         <>
+            
             <LeaderboardGridWrapper> 
-                {leaderboard.map((placement, index) => {
-                    const leaderboardPlacement = index + 1;
+                {leaderboard.map((placement, index) => { 
+                    let leaderboardPlacement = index + 1;
                     return(
-                    <LeaderboardTiles key={index} {...placement} leaderboardPlacement={leaderboardPlacement}/>
+                    <LeaderboardTiles 
+                    key={index} 
+                    {...placement} 
+                    leaderboardPlacement={leaderboardPlacement}
+                    getPlacement={userPlacement}
+                    />
                 )})}
             </LeaderboardGridWrapper>
         </>
