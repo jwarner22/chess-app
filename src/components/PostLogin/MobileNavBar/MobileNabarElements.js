@@ -19,6 +19,7 @@ export const MobileNavbarItems = styled.ul`
     position: relative;
     background-color: #fff;
     justify-content: space-around;
+    align-items: center;
 `
 export const MobileNavLink = styled(NavLink)`
     text-decoration: none;
@@ -34,8 +35,9 @@ export const MobileNavbarItem = styled.li`
     flex-direction: column;
     align-items: center;
     font-size: 12px;
-    
+    height: 100%;
+    justify-content: center;
 `
 export const MobileNavbarIcon = styled.img`
-    max-width: 24px;
+    max-width: 32px;
 `
