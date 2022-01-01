@@ -18,8 +18,9 @@ export const MobileNavbarItems = styled.ul`
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     position: relative;
     background-color: #fff;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    height: 80px;
 `
 export const MobileNavLink = styled(NavLink)`
     text-decoration: none;
@@ -39,5 +40,5 @@ export const MobileNavbarItem = styled.li`
     justify-content: center;
 `
 export const MobileNavbarIcon = styled.img`
-    max-width: 32px;
+    max-width: 45px;
 `

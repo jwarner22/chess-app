@@ -29,7 +29,7 @@ const MobileNabar = () => {
                     fontWeight: "bold"
                 }}>
                 <MobileNavbarItem>                  
-                        <IoExtensionPuzzleOutline size={32} />                  
+                        <IoExtensionPuzzleOutline size={45} />                  
                 </MobileNavbarItem>
                 </MobileNavLink>
                 <MobileNavLink to="/dailyPuzzle" activeStyle={{
@@ -37,7 +37,7 @@ const MobileNabar = () => {
                     fontWeight: "bold"
                 }}>
                 <MobileNavbarItem>      
-                    <IoCalendarClearOutline size={32} />            
+                    <IoCalendarClearOutline size={45} />            
                 </MobileNavbarItem>
                 </MobileNavLink>
                 <MobileNavLink to="/leaderboards" activeStyle={{
@@ -53,7 +53,7 @@ const MobileNabar = () => {
                     fontWeight: "bold"
                 }}>
                 <MobileNavbarItem>             
-                    <IoBookOutline size={32} />
+                    <IoBookOutline size={45} />
                 </MobileNavbarItem>
                 </MobileNavLink>
                 <MobileNavLink to="/profile" activeStyle={{
@@ -61,7 +61,7 @@ const MobileNabar = () => {
                     fontWeight: "bold"
                 }}>
                 <MobileNavbarItem>
-                    <AiOutlineUser size={32} />
+                    <AiOutlineUser size={45} />
                 </MobileNavbarItem>
                 </MobileNavLink>
             </MobileNavbarItems>
