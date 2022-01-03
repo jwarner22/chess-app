@@ -84,23 +84,23 @@ const SmallTile = (props) => {
             setPercent(((achievement.value)/value)*100)
             setLowValue(0)
             setHighValue(value)
-        } else if (value < achievement.value && achievement.value < (value + increment)) { 
+        } else if (value <= achievement.value && achievement.value < (value + increment)) { 
             setPercent(((achievement.value-(value))/increment)*100)
             setLowValue(value)
             setHighValue(value + increment)
-        } else if ((value + increment) < achievement.value && achievement.value < value + (2*increment)) { 
+        } else if ((value + increment) <= achievement.value && achievement.value < value + (2*increment)) { 
             setPercent(((achievement.value-(value+increment))/increment)*100)
             setLowValue(value + increment)
             setHighValue(value + (2*increment))
-        } else if ((value + 2*increment) < achievement.value && achievement.value < value + (3*increment)) { 
+        } else if ((value + 2*increment) <= achievement.value && achievement.value < value + (3*increment)) { 
             setPercent(((achievement.value-(value+2*increment))/increment)*100)
             setLowValue(value + (2*increment))
             setHighValue(value + (3*increment))
-        } else if ((value + 3*increment) < achievement.value && achievement.value < value + (4*increment)) { 
+        } else if ((value + 3*increment) <= achievement.value && achievement.value < value + (4*increment)) { 
             setPercent(((achievement.value-(value+3*increment))/increment)*100)
             setLowValue(value + (3*increment))
             setHighValue(value + (4*increment))
-        } else if ((value + 4*increment) < achievement.value) { 
+        } else if ((value + 4*increment) <= achievement.value) { 
             setPercent(((achievement.value-(value+4*increment))/increment)*100)
             setLowValue(value + (4*increment))
             setHighValue(value + (5*increment))
@@ -160,21 +160,23 @@ const RankIcon = (props) => {
     if (achievement.value < value) { 
         //setRank('Novice')
         return <ChessPawn size={40} color='blue'/>
-    } else if (value < achievement.value && achievement.value < (value + increment)) { 
+    } else if (value <= achievement.value && achievement.value < (value + increment)) { 
         //setRank('Intermediate');
         return <ChessKnight size={40} color='blue'/>
-    } else if ((value + increment) < achievement.value && achievement.value < value + (2*increment)) { 
+    } else if ((value + increment) <= achievement.value && achievement.value < value + (2*increment)) { 
         //setRank('Advanced');
         return <ChessBishop size={40} color='blue'/>
-    } else if ((value + 2*increment) < achievement.value && achievement.value < value + (3*increment)) { 
+    } else if ((value + 2*increment) <= achievement.value && achievement.value < value + (3*increment)) { 
         //setRank('Expert');
         return <ChessRook size={40} color='blue'/>
-    } else if ((value + 3*increment) < achievement.value && achievement.value < value + (4*increment)) { 
+    } else if ((value + 3*increment) <= achievement.value && achievement.value < value + (4*increment)) { 
         //setRank('Master');
         return <ChessQueen size={40} color='blue'/>
-    } else if ((value + 4*increment) < achievement.value) { 
+    } else if ((value + 4*increment) <= achievement.value) { 
         //setRank('Grandmaster');
         return <ChessKing size={40} color='blue'/>
+    } else {
+        return null;
     }
 
 }
