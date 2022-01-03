@@ -31,7 +31,6 @@ export const SmallTileIconContainer = styled.div`
     justify-content: center;
     grid-row: 1 / span 3;
     height: 100%;
-    background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);
 `
 
 export const SmallTileIconWrapper = styled.div`

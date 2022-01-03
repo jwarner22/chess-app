@@ -3,7 +3,10 @@ import {BiDoorOpen} from "react-icons/bi"
 import {NavLink} from "react-router-dom"
 import { BiBrain } from "react-icons/bi"
 import { IoCalendarClearOutline } from "react-icons/io5"
+import { IoBookOutline } from "react-icons/io5"
 import { AiOutlineUser } from "react-icons/ai";
+import { GiEmptyChessboard } from "react-icons/gi";
+import { IoExtensionPuzzleOutline } from "react-icons/io5";
 import {Container} from '../Views/DailyPuzzle/DailyPuzzleElements'
 import {MobileNavbarWrapper, 
     MobileNavbarItems, 
@@ -25,44 +28,32 @@ const MobileNabar = () => {
                     color:'#F4B062',
                     fontWeight: "bold"
                 }}>
-                <MobileNavbarItem>
-                <span>
-                    <BiBrain size={24} />
-                </span>
-                Patterns
+                <MobileNavbarItem>                  
+                        <IoExtensionPuzzleOutline size={45} />                  
                 </MobileNavbarItem>
                 </MobileNavLink>
                 <MobileNavLink to="/dailyPuzzle" activeStyle={{
                     color:'#F4B062',
                     fontWeight: "bold"
                 }}>
-                <MobileNavbarItem>
-                <span>
-                    <IoCalendarClearOutline size={24} />
-                </span>
-                Today
+                <MobileNavbarItem>      
+                    <IoCalendarClearOutline size={45} />            
                 </MobileNavbarItem>
                 </MobileNavLink>
                 <MobileNavLink to="/leaderboards" activeStyle={{
                     color:'#F4B062',
                     fontWeight: "bold"
                 }}>
-                <MobileNavbarItem>
-                <span>
-                    <MobileNavbarIcon src={leaderboard}/>
-                </span>
-                Leaderboards
+                <MobileNavbarItem>        
+                    <MobileNavbarIcon src={leaderboard}/>              
                 </MobileNavbarItem>
                 </MobileNavLink>
                 <MobileNavLink to="/openings" activeStyle={{
                     color:'#F4B062',
                     fontWeight: "bold"
                 }}>
-                <MobileNavbarItem>
-                <span>
-                    <BiDoorOpen size={24} />
-                </span>
-                Openings
+                <MobileNavbarItem>             
+                    <IoBookOutline size={45} />
                 </MobileNavbarItem>
                 </MobileNavLink>
                 <MobileNavLink to="/profile" activeStyle={{
@@ -70,10 +61,7 @@ const MobileNabar = () => {
                     fontWeight: "bold"
                 }}>
                 <MobileNavbarItem>
-                <span>
-                    <AiOutlineUser size={24} />
-                </span>
-                Profile
+                    <AiOutlineUser size={45} />
                 </MobileNavbarItem>
                 </MobileNavLink>
             </MobileNavbarItems>

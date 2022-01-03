@@ -5,7 +5,7 @@ import styled from "styled-components"
 export const LeaderboardHeaderContainer = styled.div`
     width: 100%;
     height: 45%;
-    background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
+    background: #EEF0FF;
 `  
 
 export const LeaderboardHeaderWrapper = styled.div`
@@ -26,6 +26,7 @@ export const LeaderboardContainer = styled.div`
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
     height: 100%;
+    box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
 `
 
 //leaderboard leagues styling
@@ -51,7 +52,7 @@ export const LeaguesIcon = styled.img`
 export const ComingSoonHeading = styled.div`
     display: flex;
     padding-top: 12px;
-    color: white;
+    color: #010EFF;
     font-size: 24px;
     font-weight: 600;
     text-align: center;
@@ -60,7 +61,7 @@ export const ComingSoonHeading = styled.div`
 export const ComingSoonSubheading = styled.div`
     display: flex;
     padding-top: 8px;
-    color: white;
+    color: #010EFF;
     font-size: 18px;;
     text-align: center;
     margin-bottom: 24px;

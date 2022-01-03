@@ -8,10 +8,7 @@ import {LeaderboardSectionContainer,
 
 
 const LeaderboardTiles = (props) => {
-    const [isUser, setIsUser] = useState(false);
     
-  
-
     return (
         <>
         <LeaderboardTileContainer>
