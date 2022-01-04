@@ -103,7 +103,8 @@ class UserUpdate(UserBase):
     total_score: Optional[int] = 0
     puzzles_completed: Optional[int] = 0
     puzzles_correct: Optional[int] = 0
-
+    user_name: Optional[str] = None
+    
     class Config:
         orm_mode=True
 
@@ -115,6 +116,7 @@ class UserProfile(UserBase):
     puzzles_completed: Optional[int] = 0
     puzzles_correct: Optional[int] = 0
     initial_rating: int
+    user_name: Optional[str] = None
 
     class Config:
         orm_mode=True
@@ -126,8 +128,10 @@ class User(UserBase):
     puzzles_completed: Optional[int] = 0
     puzzles_correct: Optional[int] = 0
     initial_rating: int
+    user_name: Optional[str] = None
     themes: Optional[List[Theme]] = []
     daily_puzzles: Optional[List[DailyPuzzle]] = []
+    achievements: Optional[List[Achievement]] = []
 
     class Config:
         orm_mode=True

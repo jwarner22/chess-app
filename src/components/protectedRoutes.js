@@ -12,6 +12,7 @@ import CreateUser from './IntakeSurvey/CreateUser';
 import Opening from './Puzzle/Opening/OpeningManager';
 import BrandPage from './BrandPage/BrandPage';
 import LeaderboardsPage from './PostLogin/Views/Leaderboards/Leaderboards';
+import UserName from './PostLogin/Announcements/UserName';
 
 const protectedRoutes = [
 	{
@@ -82,6 +83,11 @@ const protectedRoutes = [
 		path: "/leaderboards",
 		exact: true,
 		main: props => <LeaderboardsPage />
+	},{
+		name: "SetUserName",
+		path: "/username",
+		exact: true,
+		main: () => <UserName />
 	}
 ];
 

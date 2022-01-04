@@ -120,11 +120,15 @@ const Login = ({history}) => {
       if (data.detail === 'User not found') {
         //createNewUser(userID)
         history.push('/survey')
+      } else if (data.user_name == null) {
+        console.log(data)
+        history.push('/username')
+        localStorage.setItem('userPublicData', JSON.stringify(data))
       } else {
-        //localStorage.setItem('userPublicData', JSON.stringify(data))
+        localStorage.setItem('userPublicData', JSON.stringify(data))
+        //history.push('/dailyPuzzle')
       }
-      
-    })
+      })
     .catch(error => {
       console.log(error)
     }).finally(() => setIsSaved(true))

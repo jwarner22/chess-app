@@ -1,5 +1,6 @@
 
 
+from sqlalchemy.sql.sqltypes import Boolean
 from starlette.status import HTTP_401_UNAUTHORIZED
 from utlities.security import check_token
 from fastapi import FastAPI, Depends, HTTPException, APIRouter
@@ -329,3 +330,15 @@ async def get_leaderboard(leaderboard_id: str, limit: int = 100, skip: int = 0, 
         for user in users:
             leaderboard.append(schemas.LeaderboardUser(user_id=user.user_id, total_score=user.total_score))
         return leaderboard
+
+
+## LOGIN
+
+#check if username exists
+@app_v1.get('/users/username/{user_name}',tags=["Login"])
+async def check_username(user_name: str, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.user_name == user_name).one_or_none()
+    if user is None:
+        return 'username is available'
+    else: 
+        return  'username already exists'

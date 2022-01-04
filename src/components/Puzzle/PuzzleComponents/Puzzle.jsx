@@ -193,6 +193,7 @@ export default class Puzzle extends React.Component {
 
   playMoveSound = async (from, to, promotion) => {
 
+    
     if (promotion) {
       return this.playSound('n')
     }
@@ -307,10 +308,10 @@ export default class Puzzle extends React.Component {
   playSound = async (moveType) => {
     // Howler.volume(1.0)
     if (moveType === 'c') {
-      this.captureSound.play()
+      return this.captureSound.play()
 
     } else if (moveType === 'n') {
-      this.moveSound.play()
+      return this.moveSound.play()
     }
 
   }

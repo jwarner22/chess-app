@@ -9,6 +9,7 @@ import useFetch from '../../../api/useFetch';
 import {baseURL} from '../../../api/apiConfig';
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
 import { Profile } from "@styled-icons/icomoon";
+import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
   const [achievements, setAchievements] = useState([])
@@ -100,6 +101,9 @@ const ProfilePage = () => {
       {(loaded) &&
 
       <ProfilePageContainer>
+        <Link to="/username">
+        <button>set username</button>  
+        </Link>
       <ProfilePanel />
        <AchievementTiles achievements={achievements} profileData={profileData} isMobile={isMobile} overallRating={overallRating}/>
        </ProfilePageContainer>
