@@ -48,6 +48,8 @@ const Dashboard = () => {
       <DashNavbar toggle={toggle}/>
       </>
     )}
+    <PatternRecognitionHeading>Choose a <br></br> <strong>Puzzle to Play</strong></PatternRecognitionHeading>
+    <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading>
       <Body/>
       </DashboardWrapper>
       </>
@@ -61,4 +63,18 @@ const DashboardWrapper =styled.div`
   flex-direction: column;
   min-height: 100vh;
   background: #EEF0FF;
+`
+export const PatternRecognitionHeading = styled.h1`
+  font-size: 18px;
+  margin: 36px 24px 24px 24px;
+  font-weight: 200;
+  opacity: 0.7;
+`
+
+export const PatternRecognitionSubheading = styled.h2`
+  font-size: 16px;
+  font-weight: 200;
+  opacity: 0.7;
+  margin-left: 24px;
+  padding-bottom: 12px;
 `

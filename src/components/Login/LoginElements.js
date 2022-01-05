@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
-  min-height: 692px;
+  
   /* position: fixed; */
   bottom: 0;
   left: 0;
@@ -15,22 +15,24 @@ export const Container = styled.div`
 export const LoginHeaderImg = styled.img`
   /* clip-path: circle(100px at center) */
   border-radius: 50%;
-  position: absolute;
+  position: fixed;
   width: 530px;
   height: 530px;
   left: -80px;
   top: -270px;
   transform: scaleX(-1);
+  overflow: hidden;
 `
 
 export const ImgOverlay = styled.div`
   border-radius: 50%;
-  position: absolute;
+  position: fixed;
   width: 530px;
   height: 530px;
   left: -80px;
   top: -270px;
   background: linear-gradient(341.33deg, rgba(0, 13, 255, 0.8) 20.21%, rgba(107, 115, 255, 0.8) 83.15%);
+  overflow: hidden;
 `
 
 export const LoginHeaderLogoWrapper = styled.div`

@@ -19,7 +19,7 @@ export const MenuWrapper = styled.div`
     /* padding: 0 24px; */
     background: #EEF0FF;
     overflow: hidden;
-    padding-top: 40px;
+    padding-top: 12px;
     justify-content: center;
 `
 export const MenuGrid = styled.ul`
