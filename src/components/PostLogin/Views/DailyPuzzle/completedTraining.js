@@ -51,6 +51,10 @@ export default function CompletedTraining(props) {
       setAchievements(achievements)
     }
     
+    const handleClick = () => {
+      localStorage.setItem('completedTrainingDisplayed', 'true')
+    }
+
     return(
       <>
       <canvas id='my-canvas' style={{zIndex: '-1', position: 'absolute'}} />
@@ -60,7 +64,7 @@ export default function CompletedTraining(props) {
       <div style={{padding: '0 0 0 0'}}>
       <FinishButtonContainer>
         <Link to='/dashboard'>
-        <FinishButton>
+        <FinishButton onClick={handleClick}>
           Return to Practice Page
         </FinishButton>
         </Link>

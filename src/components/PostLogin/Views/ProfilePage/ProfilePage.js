@@ -101,9 +101,6 @@ const ProfilePage = () => {
       {(loaded) &&
 
       <ProfilePageContainer>
-        <Link to="/username">
-        <button>set username</button>  
-        </Link>
       <ProfilePanel />
        <AchievementTiles achievements={achievements} profileData={profileData} isMobile={isMobile} overallRating={overallRating}/>
        </ProfilePageContainer>

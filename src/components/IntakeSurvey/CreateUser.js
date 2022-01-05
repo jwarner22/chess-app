@@ -30,7 +30,7 @@ const CreateUser = (props) => {
             initial_rating: rating
         }).then(data => {
             //localStorage.setItem('userPublicData', JSON.stringify(data))
-            history.push('/dailyPuzzle')
+            history.push('/username')
         })
     }
 

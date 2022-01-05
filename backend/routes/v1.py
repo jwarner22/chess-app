@@ -339,7 +339,7 @@ async def get_leaderboard(leaderboard_id: str, limit: int = 100, skip: int = 0, 
         return leaderboard
 
 
-## LOGIN
+## Username
 
 #check if username exists
 @app_v1.get('/users/username/{user_name}',tags=["Login"])
@@ -347,5 +347,20 @@ async def check_username(user_name: str, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.user_name == user_name).one_or_none()
     if user is None:
         return 'username is available'
+    else: 
+        return  'username already exists'
+
+@app_v1.post('/users/username/{user_id}/{user_name}',tags=["Login"])
+async def add_username(user_name: str, user_id: str, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.user_name == user_name).one_or_none()
+    if user is None:
+        user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+        if user is None:
+            return 'user not found'
+        else:
+            user.user_name = user_name
+            db.commit()
+            db.refresh(user)
+            return 'username successfully updated'
     else: 
         return  'username already exists'

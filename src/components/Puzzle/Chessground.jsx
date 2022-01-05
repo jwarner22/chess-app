@@ -35,7 +35,7 @@ export default class Chessground extends React.Component {
   
   static defaultProps = {
     coordinates: true,
-    resizable: true,
+    resizable: false,
     highlight: {
       lastMove: false,
       check: true
@@ -47,6 +47,9 @@ export default class Chessground extends React.Component {
     },
     drawable: {
       visible: false
+    },
+    style: {
+      margin: "auto"
     }
   };
 

@@ -124,7 +124,7 @@ export default class Puzzle extends React.Component {
       to = to.substring(0,2)
       promotion_bool = true
     }
-    await this.playMoveSound(from, to, promotion_bool);
+    this.playMoveSound(from, to, promotion_bool);
 
     this.game.move({
       from: from,
@@ -191,7 +191,7 @@ export default class Puzzle extends React.Component {
       }
   }
 
-  playMoveSound = async (from, to, promotion) => {
+  playMoveSound = (from, to, promotion) => {
 
     
     if (promotion) {
@@ -222,7 +222,7 @@ export default class Puzzle extends React.Component {
         }
     }
     
-    await this.playMoveSound(from, to, false);
+    this.playMoveSound(from, to, false);
 
     const lastMove = from + to;
  
@@ -305,13 +305,13 @@ export default class Puzzle extends React.Component {
     }
   };
 
-  playSound = async (moveType) => {
+  playSound = (moveType) => {
     // Howler.volume(1.0)
     if (moveType === 'c') {
-      return this.captureSound.play()
+      this.captureSound.play()
 
     } else if (moveType === 'n') {
-      return this.moveSound.play()
+      this.moveSound.play()
     }
 
   }

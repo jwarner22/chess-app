@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 
 const OpeningNav = (props) => {
-    console.log(props)
+
     if (!props.startedDemo) {
         return(
             <PuzzleNavContainer>

@@ -16,6 +16,16 @@ export const SmallTileWrapper = styled.div`
     padding: 8px;
     height: 100%;
 `
+export const SmallTileCategory = styled.div`
+    font-size: 12px;
+    grid-row: 3;
+`
+
+export const SmallTileValue = styled.div`
+    font-size: 16px;
+    grid-column: 3;
+    grid-row: 2;
+    `
 
 export const SmallTileContent = styled.div`
     display: grid;
@@ -57,13 +67,13 @@ export const SmallTileIcon = styled.img`
 export const SmallTileTitle = styled.div`
     font-style: normal;
     font-weight: bold;
-    font-size: ${({category}) => ((category==='perfect') ? '14px' : '12px')};
+    font-size: 12px
     line-height: 14px;
     display: flex;
     align-items: center;
-    margin-bottom: ${({category}) => ((category==='perfect') ? '12px' : '0px')};
+    margin-bottom: 0px;
     grid-column: 2;
-    grid-row: ${({category}) => ((category==='perfect') ? 2 : 1)};
+    grid-row: 1/ span 2;
     margin-left: 20px;
 
 `

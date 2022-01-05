@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components"
-import {Link, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import swal from 'sweetalert';
 import useFetch from '../../api/useFetch';
 import { baseURL } from '../../api/apiConfig';
-import {Container, Form, FormButton, FormContent, FormH1, FormInput, FormLabel, FormWrap} from "../../Login/LoginElements"
+import {Container, Form, FormButton, FormH1, FormInput, FormLabel} from "../../Login/LoginElements"
 
 const ENTER_KEY = 13;
 const WAIT_INTERVAL = 1000;
@@ -27,18 +27,16 @@ const UserName = ({history}) => {
     },[confirmation])
 
     const getUserNameValidation = async (value) => {
+        // check if username is available
         let response = await get('/users/username/' + value)
-        //let confirmatin = true;
-        console.log(response)
+
         if (response === 'username is available') {
-            // render positive message
-            console.log('render positive message')
+            // render username available message
             setConfirmation(true);
             return true;
         
         } else if (response === 'username already exists') {
             // render username taken message
-            console.log('render username taken message')
             setConfirmation(false);
             return false;
         } 
@@ -46,21 +44,6 @@ const UserName = ({history}) => {
 
     const checkUserName = async (e) => {
         getUserNameValidation(e.target.value);
-        // let response = await get('/users/username/' + e.target.value)
-        // //let confirmatin = true;
-        // console.log(response)
-        // if (response === 'username is available') {
-        //     // render positive message
-        //     console.log('render positive message')
-        //     setConfirmation(true);
-        //     return true;
-        
-        // } else if (response === 'username already exists') {
-        //     // render username taken message
-        //     console.log('render username taken message')
-        //     setConfirmation(false);
-        //     return false;
-        // } 
     }
 
     const handleChange = (e) => {
@@ -77,21 +60,29 @@ const UserName = ({history}) => {
 
     const triggerChange = async (e) => {
         // api call to check if username is valid
-        console.log('post username to database')
-        console.log('other message')
-        console.log({username: value})
+
+        // get user id from local storage
         let userID = localStorage.getItem('userID');
-        //console.log(confirmation)
+
+        // check that username is available
         let confirmation_response = await getUserNameValidation(value);
-        console.log(confirmation_response)
+
         if (confirmation_response) {
             try {
-                console.log('post username to database')
-                //post('/users/username/value)')
-                //history.push('/postlogin/profile')
+                // post username to database
+                const response = await post(`/users/username/${userID}/${value}`)
+
+                // pessimistic checks
+                if (response === 'username successfully updated') {
+                    history.push('/dailyPuzzle')
+                } else if (response === 'username already exists') {
+                    swal('Username already exists')
+                } else {
+                    swal('Error: user not found. Please sign in.')
+                }
+    
             } catch(err) {
-                console.log(err)
-                //checkUserName(value)
+                alert(err)
             }
         } else {
             console.log('username taken')
@@ -100,18 +91,21 @@ const UserName = ({history}) => {
         }
     }
 
-
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        triggerChange(e);
+    }
 
     return (
         <div>
             <Container className="page">
                 <UsernameContainer>
-                            <Form>
+                            <Form onSubmit={handleFormSubmit}>
                                 <FormH1>Enter Username</FormH1>
                                 <FormLabel>This username will be visible to other users</FormLabel>
                                 <div>{message}</div>
-                                <FormInput type="text" placeholder="Ex. Joe is gay" onChange={e=>handleChange(e)} onKeyDown={e=>handleKeyDown(e)}/>
-                                <FormButton onClick={triggerChange}>Submit</FormButton>
+                                <FormInput type="text" placeholder="Ex. username" onChange={e=>handleChange(e)} onKeyDown={e=>handleKeyDown(e)}/>
+                                <FormButton>Submit</FormButton>
                             </Form>
                 </UsernameContainer>
             </Container>

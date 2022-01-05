@@ -13,6 +13,7 @@ import Opening from './Puzzle/Opening/OpeningManager';
 import BrandPage from './BrandPage/BrandPage';
 import LeaderboardsPage from './PostLogin/Views/Leaderboards/Leaderboards';
 import UserName from './PostLogin/Announcements/UserName';
+import CompletedTraining from './PostLogin/Views/DailyPuzzle/completedTraining';
 
 const protectedRoutes = [
 	{
@@ -88,6 +89,12 @@ const protectedRoutes = [
 		path: "/username",
 		exact: true,
 		main: () => <UserName />
+	},
+	{
+		name: "CompletedDailyTraining",
+		path: "/completed-training",
+		exact: true,
+		main: props => <CompletedTraining props={props} />
 	}
 ];
 
