@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import styled from "styled-components"
 import {Link, withRouter} from 'react-router-dom';
 import swal from 'sweetalert';
 import useFetch from '../../api/useFetch';
 import { baseURL } from '../../api/apiConfig';
+import {Container, Form, FormButton, FormContent, FormH1, FormInput, FormLabel, FormWrap} from "../../Login/LoginElements"
 
 const ENTER_KEY = 13;
 const WAIT_INTERVAL = 1000;
@@ -102,12 +104,26 @@ const UserName = ({history}) => {
 
     return (
         <div>
-        <h1>Enter User Name</h1>
-        <div>Please enter a unique user name.</div>
-        <div>{message}</div>
-        <input type="text" placeholder="user name" onChange={e=>handleChange(e)} onKeyDown={e=>handleKeyDown(e)}/>
-        <button onClick={triggerChange}>Submit</button>
+            <Container className="page">
+                <UsernameContainer>
+                            <Form>
+                                <FormH1>Enter Username</FormH1>
+                                <FormLabel>This username will be visible to other users</FormLabel>
+                                <div>{message}</div>
+                                <FormInput type="text" placeholder="Ex. Joe is gay" onChange={e=>handleChange(e)} onKeyDown={e=>handleKeyDown(e)}/>
+                                <FormButton onClick={triggerChange}>Submit</FormButton>
+                            </Form>
+                </UsernameContainer>
+            </Container>
         </div>
     )
 }
 export default withRouter(UserName);
+
+const UsernameContainer = styled.div`
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`

@@ -2,9 +2,13 @@ import React from "react"
 import styled from "styled-components"
 
 export const AchievementTileContainer = styled.div`
+    display: flex;
     width: 100%;
     height: auto;
     text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `
 
 export const AchievementTileWrapper = styled.ul`
@@ -14,7 +18,8 @@ export const AchievementTileWrapper = styled.ul`
     grid-gap: 24px;
     justify-content: center;
     max-width: 1080px;
-    margin: auto;
+    width: 90%;
+    
 `
 export const LargeTile = styled.li`
     min-height: 150px;
@@ -35,4 +40,6 @@ export const AchievementSelectionContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding-bottom: 80px;
+    width: 100%;
+    align-items: center;
 `
