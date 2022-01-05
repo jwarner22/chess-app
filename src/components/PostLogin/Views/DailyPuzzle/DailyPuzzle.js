@@ -65,8 +65,8 @@ export default function DailyPuzzzle() {
       setSchemaPicks(storedDailyPuzzles);
       setDailyPicks(mutatedPicks);
 
-      if (storedDailyPuzzles.every(entry => entry.completed === true)) {
-
+      let completedTrainingDisplayed = (localStorage.getItem('completedTrainingDisplayed') === 'true');
+      if (storedDailyPuzzles.every(entry => entry.completed === true) && completedTrainingDisplayed === false) {
         setCompleted(true)
       }
       
@@ -98,6 +98,7 @@ export default function DailyPuzzzle() {
   }
 
   const getNewPicks = async () => {
+    localStorage.setItem('completedTrainingDisplayed', 'false')
     let endpoint = `/users/${userId}/daily_puzzles/picks`;
     try {
       let fetchedPicks = await get(endpoint) // gen new picks from API
