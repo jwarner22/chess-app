@@ -148,7 +148,7 @@ export default function Opening(props) {
 
   const makeMove = async (from, to) => {
     //playSound();
-    await wait(500);
+    await wait(750);
     await playSound();
     game.move({
       from: from,
