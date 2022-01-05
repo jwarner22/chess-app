@@ -19,6 +19,7 @@ export default function Opening(props) {
   const [next, setNext] = useState(false);
   const [game, setGame] = useState(new Chess(fen));
   const [color,setColor] = useState("");
+  const [lastMove, setLastMove] = useState([]);
   const incorrectCallback = props.incorrectCallback;
   const finishedCallback = props.finishedCallback;
   const moveSound = new Howl({src: moveSoundFile});
@@ -83,8 +84,8 @@ export default function Opening(props) {
   //}
   };
 
-  const playSound = async () => {
-    return moveSound.play();
+  const playSound = () => {
+    moveSound.play();
   }
 
 
@@ -92,9 +93,9 @@ export default function Opening(props) {
     if (moveIndex >= moves.length) {
       return;
     }
-    await playSound();
+    playSound();
     game.move({ from: from, to: to });
-    setFen(game.fen());
+    //setFen(game.fen());
     verifyMove(from, to);
   }
 
@@ -133,31 +134,52 @@ export default function Opening(props) {
         );
     
         setMoveIndex(() => moveIndex + 2);
-    
-        //let movableVals = calcMovable();
-        //setMovable(movableVals);
         setColor(() => turnColor());
-      }
-      if (moveIndex >= moves.length - 2){
+      } else {
         await wait(750);
-        console.log('finished');
-        finishedCallback();
+        setMoveIndex(() => moveIndex + 2);
       }
+      // if (moveIndex >= moves.length - 2){
+      //   await wait(750);
+      //   console.log('finished');
+      //   //finishedCallback();
+      // }
     }
   };
 
+  useEffect(() => {
+    if (moveIndex >= moves.length) {
+      setFen(game.fen());
+      finishedCallback();
+    }
+  } ,[moveIndex]);
+
+  // useEffect(() => {
+  //   let toMove = turnColor();
+  //   if (toMove !== orientation) {
+  //     let from = moves[moveIndex - 1].substring(0, 2);
+  //     let to = moves[moveIndex - 1].substring(2, 4);
+  //     makeMove(from, to);
+  //   }
+  // },[moveIndex]);
+
   const makeMove = async (from, to) => {
-    //playSound();
+
     await wait(750);
-    await playSound();
+    
+    playSound();
+
     game.move({
       from: from,
       to: to
     });
   
     setFen(game.fen());
+    setLastMove([from, to]);
     setColor(() => turnColor());
   };
+
+
 
   const turnColor = () => {
     return game.turn() === "w" ? "white" : "black";
@@ -165,7 +187,7 @@ export default function Opening(props) {
 
   return (
     <>
-    <Chessground movable={movable} onMove={onMove} fen={fen} orientation={orientation} turnColor={color}/>
+    <Chessground lastMove={lastMove} movable={movable} onMove={onMove} fen={fen} orientation={orientation} turnColor={color}/>
     </>
   );
 }

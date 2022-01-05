@@ -9,6 +9,7 @@ const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
 export default function DemoMoves(props) {
   const [fen, setFen] = useState(props.fen);
+  const [lastMove, setLastMove] = useState([]);
   const moveSound = new Howl({src: moveSoundFile})
   const moves = props.moves.slice(props.moveIndex, props.moves.length);
   const game = new Chess(fen);
@@ -29,30 +30,30 @@ export default function DemoMoves(props) {
   async function demo() {
     await wait(1200);
     for await (const move of moves) {
-      await nextMove(move);
+      nextMove(move);
       await wait(1000);
     }
     props.demoFinished();
   }
 
-  async function playMoveSound() {
-    return moveSound.play()
+  function playMoveSound() {
+    moveSound.play()
   }
 
-  async function nextMove(move) {
+  function nextMove(move) {
     playMoveSound();
     let from = move.substring(0, 2);
     let to = move.substring(2, 5);
         
-    
     game.move({ to: to, from: from });
-    let newFen = game.fen();
-    setFen(newFen);
+    //let newFen = game.fen();
+    setFen(game.fen());
+    setLastMove([from,to])
   }
 
   return (
     <>
-        <Chessground fen={fen} orientation={orientation}/>
+        <Chessground fen={fen} orientation={orientation} lastMove={lastMove}/>
     </>
   );
 }

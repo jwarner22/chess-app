@@ -153,7 +153,7 @@ export default function OpeningModule(props) {
                   </div>
               </div>
             </PuzzleBoardWrapper>
-            <OpeningNav onShowClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={showDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo}/>
+            <OpeningNav onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={showDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo}/>
           </MobilePuzzleWrapper>
           </>
         ) : (
