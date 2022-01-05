@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components"
-import {Link, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import swal from 'sweetalert';
 import useFetch from '../../api/useFetch';
 import { baseURL } from '../../api/apiConfig';
-import {Container, Form, FormButton, FormContent, FormH1, FormInput, FormLabel, FormWrap} from "../../Login/LoginElements"
+import {Container, Form, FormButton, FormH1, FormInput, FormLabel} from "../../Login/LoginElements"
 
 const ENTER_KEY = 13;
 const WAIT_INTERVAL = 1000;
