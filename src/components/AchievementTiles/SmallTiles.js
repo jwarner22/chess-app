@@ -9,10 +9,12 @@ import {SmallTileContainer,
     SmallTileTitle, 
     ProgressBarWrapper, 
     SmallTileDescription,
+    SmallTileCategory,
+    SmallTileValue,
     SmallTileIconContainer
 } from "./SmallTileElements"
 import { SettingsInputComponent } from 'styled-icons/material';
-import { ChessPawn, ChessKnight, ChessBishop, ChessRook, ChessQueen, ChessKing } from 'styled-icons/fa-solid';
+//import { ChessPawn, ChessKnight, ChessBishop, ChessRook, ChessQueen, ChessKing } from 'styled-icons/fa-solid';
 
 const SmallTile = (props) => {
     const {achievement} = props;
@@ -21,8 +23,8 @@ const SmallTile = (props) => {
     const [description, setDescription] = useState('')
     const [module, setModule] = useState({})
     const [percent, setPercent] = useState(0);
-    const [lowValue, setLowValue] = useState(0);
-    const [highValue, setHighValue] = useState(0);
+    // const [lowValue, setLowValue] = useState(0);
+    // const [highValue, setHighValue] = useState(0);
 
     const color = 'blue';
     const strokeWidth = (props.isMobile) ? 5 : 2;
@@ -36,12 +38,12 @@ const SmallTile = (props) => {
     const matchCategory = () => {
         switch(achievement.category) {
             case 'high_score':
-                setCategory('High Score')
+                setCategory('New High Score')
                 setDescription('You set a new high score!')
                 break;
     
             case 'high_rating':
-                setCategory('Record Rating')
+                setCategory('New High Rating')
                 setDescription('Your rating hit an all time high')
                 break;
     
@@ -82,28 +84,28 @@ const SmallTile = (props) => {
 
         if (achievement.value < value) { 
             setPercent(((achievement.value)/value)*100)
-            setLowValue(0)
-            setHighValue(value)
+            // setLowValue(0)
+            // setHighValue(value)
         } else if (value <= achievement.value && achievement.value < (value + increment)) { 
             setPercent(((achievement.value-(value))/increment)*100)
-            setLowValue(value)
-            setHighValue(value + increment)
+            // setLowValue(value)
+            // setHighValue(value + increment)
         } else if ((value + increment) <= achievement.value && achievement.value < value + (2*increment)) { 
             setPercent(((achievement.value-(value+increment))/increment)*100)
-            setLowValue(value + increment)
-            setHighValue(value + (2*increment))
+            // setLowValue(value + increment)
+            // setHighValue(value + (2*increment))
         } else if ((value + 2*increment) <= achievement.value && achievement.value < value + (3*increment)) { 
             setPercent(((achievement.value-(value+2*increment))/increment)*100)
-            setLowValue(value + (2*increment))
-            setHighValue(value + (3*increment))
+            // setLowValue(value + (2*increment))
+            // setHighValue(value + (3*increment))
         } else if ((value + 3*increment) <= achievement.value && achievement.value < value + (4*increment)) { 
             setPercent(((achievement.value-(value+3*increment))/increment)*100)
-            setLowValue(value + (3*increment))
-            setHighValue(value + (4*increment))
+            // setLowValue(value + (3*increment))
+            // setHighValue(value + (4*increment))
         } else if ((value + 4*increment) <= achievement.value) { 
             setPercent(((achievement.value-(value+4*increment))/increment)*100)
-            setLowValue(value + (4*increment))
-            setHighValue(value + (5*increment))
+            // setLowValue(value + (4*increment))
+            // setHighValue(value + (5*increment))
         }
         
     }
@@ -119,15 +121,15 @@ const SmallTile = (props) => {
                         </SmallTileIconWrapper>
                         </SmallTileIconContainer>
                         <SmallTileTitle category={achievement.category}>
-                                {category} - {module.headline}
+                                {module.headline}
                             </SmallTileTitle>
-                            {(achievement.category !== 'perfect') && <ProgressBarWrapper props={props}>
-                            {(achievement.value !== 0) && <><div>{lowValue}</div><Line percent={percent} strokeWidth={strokeWidth} strokeColor={color} /><div>{highValue}</div></>}
-                            </ProgressBarWrapper>}
-                            <SmallTileDescription>
-                                {description} {(achievement.value !== 0) ? `- ${achievement.value}` : ''}
-                            </SmallTileDescription>
-                            <RankIcon achievement={achievement} />
+                           <SmallTileCategory>{category}</SmallTileCategory>
+                            {/* <SmallTileDescription>
+                                {description} 
+                            </SmallTileDescription> */}
+                            <SmallTileValue>
+                                {(achievement.value !== 0) ? `${achievement.value}` : ''}
+                            </SmallTileValue>
                     </SmallTileContent>
                 </SmallTileWrapper>
             </SmallTileContainer>
@@ -137,48 +139,52 @@ const SmallTile = (props) => {
 
 export default SmallTile
 
-const RankIcon = (props) => { 
-    const {achievement} = props;
-    let value = 0;
-    let increment = 0;
+// {(achievement.category !== 'perfect') && <ProgressBarWrapper props={props}></ProgressBarWrapper>}
+// {(achievement.value !== 0) && <Line percent={percent} strokeWidth={strokeWidth} strokeColor={color} />}
 
-    switch(achievement.category) {
-        case 'high_score':
-            value = 100;
-            increment = 100;
-            break;
-        case 'high_rating':
-            value = 800;
-            increment = 400;
-            break;
-        case 'perfect':
-            return  null;
-        default:
-            return null;
-    }
 
-    if (achievement.value < value) { 
-        //setRank('Novice')
-        return <ChessPawn size={40} color='blue'/>
-    } else if (value <= achievement.value && achievement.value < (value + increment)) { 
-        //setRank('Intermediate');
-        return <ChessKnight size={40} color='blue'/>
-    } else if ((value + increment) <= achievement.value && achievement.value < value + (2*increment)) { 
-        //setRank('Advanced');
-        return <ChessBishop size={40} color='blue'/>
-    } else if ((value + 2*increment) <= achievement.value && achievement.value < value + (3*increment)) { 
-        //setRank('Expert');
-        return <ChessRook size={40} color='blue'/>
-    } else if ((value + 3*increment) <= achievement.value && achievement.value < value + (4*increment)) { 
-        //setRank('Master');
-        return <ChessQueen size={40} color='blue'/>
-    } else if ((value + 4*increment) <= achievement.value) { 
-        //setRank('Grandmaster');
-        return <ChessKing size={40} color='blue'/>
-    } else {
-        return null;
-    }
+// const RankIcon = (props) => { 
+//     const {achievement} = props;
+//     let value = 0;
+//     let increment = 0;
 
-}
+//     switch(achievement.category) {
+//         case 'high_score':
+//             value = 100;
+//             increment = 100;
+//             break;
+//         case 'high_rating':
+//             value = 800;
+//             increment = 400;
+//             break;
+//         case 'perfect':
+//             return  null;
+//         default:
+//             return null;
+//     }
+
+//     if (achievement.value < value) { 
+//         //setRank('Novice')
+//         return <ChessPawn size={40} color='blue'/>
+//     } else if (value <= achievement.value && achievement.value < (value + increment)) { 
+//         //setRank('Intermediate');
+//         return <ChessKnight size={40} color='blue'/>
+//     } else if ((value + increment) <= achievement.value && achievement.value < value + (2*increment)) { 
+//         //setRank('Advanced');
+//         return <ChessBishop size={40} color='blue'/>
+//     } else if ((value + 2*increment) <= achievement.value && achievement.value < value + (3*increment)) { 
+//         //setRank('Expert');
+//         return <ChessRook size={40} color='blue'/>
+//     } else if ((value + 3*increment) <= achievement.value && achievement.value < value + (4*increment)) { 
+//         //setRank('Master');
+//         return <ChessQueen size={40} color='blue'/>
+//     } else if ((value + 4*increment) <= achievement.value) { 
+//         //setRank('Grandmaster');
+//         return <ChessKing size={40} color='blue'/>
+//     } else {
+//         return null;
+//     }
+
+// }
 
 //</ProgressBarWrapper>
