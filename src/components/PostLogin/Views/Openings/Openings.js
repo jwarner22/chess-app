@@ -44,7 +44,7 @@ import {CoursesWrapper,
 } from '../PatternRecognition/CoursesBody/CoursesElements'
 import CourseTile from '../PatternRecognition/CourseTiles/CourseTiles'
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
-import {PatternRecognitionHeading, PatternRecognitionSubheading} from "../PatternRecognition/PatternRecognition"
+import {HeadingWrapper, PatternRecognitionHeading, PatternRecognitionSubheading} from "../PatternRecognition/PatternRecognition"
 
 const Openings = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -93,8 +93,10 @@ const Openings = () => {
           </OpeningPageImgWrapper>
         </OpeningPageImgContainer> */}
         <div>
+          <HeadingWrapper>
         <PatternRecognitionHeading>Choose a <br></br> <strong>Opening to Practice</strong></PatternRecognitionHeading>
-        <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading>
+        {/* <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading> */}
+        </HeadingWrapper>
         <CoursesWrapper>
             <ModuleWrapper>
                 <OpeningsGrid>
