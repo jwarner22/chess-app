@@ -116,7 +116,7 @@ export const CoursesWrapper = styled.div`
 export const ModuleWrapper = styled.div `
     max-width: 1170px;
     /* border: 1px solid red; */
-    margin: 0 24px 30px 24px;
+    margin: 0 24px 0px 24px;
     height: auto;
     width: 100%;
 

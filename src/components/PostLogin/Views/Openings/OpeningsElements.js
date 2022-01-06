@@ -25,7 +25,6 @@ export const OpeningsGrid = styled.ul`
     justify-content: space-around;
     background: #EEF0FF;
     align-items: stretch;
-    padding-top: 40px;
 `
 
 export const OpeningsTileContainer = styled.li`
