@@ -14,16 +14,16 @@ export const ProfilePanelHeader = styled.div`
     background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
 `
 export const AchievementsHeader = styled.div`
-    border-bottom: 2px solid #e5e5e5;
-    color: #fff;
+    border-top: 2px solid #54606c;
+    color: #000;
+    opacity: 0.7;
     display: flex;
     font-size: 19px;
     font-weight: 700;
     justify-content: center;
     padding: 16px;
-    background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
     width: 100%;
-    margin: 24px 0;
+    margin: 24px 0 12px 0;
 `
 
 export const PageBodyContainer = styled.div`

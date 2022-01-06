@@ -14,10 +14,9 @@ export const AchievementTileContainer = styled.div`
 export const AchievementTileWrapper = styled.ul`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding: 16px;
     grid-gap: 24px;
     justify-content: center;
-    max-width: 1080px;
+    max-width: 704px;
     width: 90%;
     
 `

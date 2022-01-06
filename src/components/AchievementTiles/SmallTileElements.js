@@ -5,7 +5,7 @@ export const SmallTileContainer = styled.li`
     grid-column: span 2;
     min-height: 64px;
     background-color: rgba(255,255,255,0.8);
-    border-radius: 10px;
+    border-radius: 25px;
     list-style-type: none;
     box-shadow: 0px 5px 8px rgba(1, 14, 255, 0.25);
     width: 100%;
@@ -19,12 +19,15 @@ export const SmallTileWrapper = styled.div`
 export const SmallTileCategory = styled.div`
     font-size: 12px;
     grid-row: 3;
+    text-align: left;
+    margin-left: 20px;
 `
 
 export const SmallTileValue = styled.div`
     font-size: 16px;
     grid-column: 3;
     grid-row: 2;
+
     `
 
 export const SmallTileContent = styled.div`
@@ -34,11 +37,12 @@ export const SmallTileContent = styled.div`
     width: 100%;
 `
 export const SmallTileIconContainer = styled.div`
-    border-radius: 10px;
-    display: flex;
     align-self: center;
     justify-self: center;
     justify-content: center;
+    margin-left: 12px;  
+    border-radius: 10px;
+    display: flex;
     grid-row: 1 / span 3;
     height: 100%;
 `
@@ -46,21 +50,19 @@ export const SmallTileIconContainer = styled.div`
 export const SmallTileIconWrapper = styled.div`
     background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
     display: flex;
-    border-radius: 50%;
-    min-width: 60px;
-    min-height: 60px;
-    max-width: 60px;
-    max-height: 60px;
+    width: 75px;
+    height: 75px;
     grid-row: 1 / span 3;
     grid-column: 1;
-    border-radius: 10px;
-    align-self: center;
-    justify-self: center;
+    border-radius: 50px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
 `
 
 export const SmallTileIcon = styled.img`
-    max-width: 60px;
-    min-width: 60px;
+    width: 80%;
+    height: 80%;
     padding: 4px;
 `
 
