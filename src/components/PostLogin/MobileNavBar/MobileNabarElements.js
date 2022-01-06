@@ -16,7 +16,7 @@ export const MobileNavbarWrapper = styled.div`
 export const MobileNavbarItems = styled.ul`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    position: relative;
+    position: relative; 
     background-color: #fff;
     justify-content: space-between;
     align-items: center;
