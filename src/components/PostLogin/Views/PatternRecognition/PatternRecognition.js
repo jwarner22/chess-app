@@ -39,7 +39,6 @@ const Dashboard = () => {
     
   return (
     <>
-    <DashboardWrapper>
     {isMobile ? (
     <MobileNavbar />
     ) : (
@@ -48,6 +47,7 @@ const Dashboard = () => {
       <DashNavbar toggle={toggle}/>
       </>
     )}
+      <DashboardWrapper>
     <HeadingWrapper>
     <PatternRecognitionHeading>Choose a <br></br> <strong>Puzzle to Play</strong></PatternRecognitionHeading>
     <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading>
