@@ -335,7 +335,7 @@ async def get_leaderboard(leaderboard_id: str, limit: int = 100, skip: int = 0, 
         return 'leaderboard not found'
     else:
         for user in users:
-            leaderboard.append(schemas.LeaderboardUser(user_id=user.user_id, total_score=user.total_score))
+            leaderboard.append(schemas.LeaderboardUser(user_id=user.user_id, user_name=user.user_name, total_score=user.total_score))
         return leaderboard
 
 

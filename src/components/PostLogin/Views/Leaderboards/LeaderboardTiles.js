@@ -16,7 +16,7 @@ const LeaderboardTiles = (props) => {
                 {props.leaderboardPlacement}
             </LeaderboardPlacement>
             <LeaderboardUsername>
-                {props.user_id}
+                {props.user_name}
             </LeaderboardUsername>
             <LeaderboardScore>
                 {props.total_score}

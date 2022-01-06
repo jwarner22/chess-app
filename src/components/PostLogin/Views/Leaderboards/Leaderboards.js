@@ -45,6 +45,7 @@ const LeaderboardsPage = () => {
       async function fetchLeaderboard() {
           let endpoint = `/leaderboard/${leaderboardID}`
           let leaderboard = await get(endpoint)
+          console.log(leaderboard)
           setLeaderboard(leaderboard.sort(function(a, b) {
             return b.total_score - a.total_score
         }))
