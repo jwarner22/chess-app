@@ -91,6 +91,7 @@ export const LeaderboardTileContainer = styled.tr`
     width: 100%;
     display: flex;
     justify-content: space-between;
+    max-width: 548px;
 `
 
 export const LeaderboardPlacement = styled.span`
