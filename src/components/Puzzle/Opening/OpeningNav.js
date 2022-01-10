@@ -14,6 +14,7 @@ const OpeningNav = (props) => {
         )
     } else if (props.demoIsFinished) {
     return (
+        <>
         <PuzzleNavContainer>
             <NavBtn>
                 <NavBtnLink2 props={props} onClick={props.onRetryClick} disabled={props.retryDisabled}>
@@ -26,6 +27,12 @@ const OpeningNav = (props) => {
                 </NavBtnLink>
             </NavBtn>
         </PuzzleNavContainer>
+                    <NavBtnCenter> 
+                    <NavBtnLink3 props={props} onClick={props.onShowMovesClick} disabled={props.showDisabled}>
+                        Show Moves
+                    </NavBtnLink3>
+                </NavBtnCenter>
+                </>
     )
     } else{
         return(
@@ -57,6 +64,12 @@ export const NavBtn = styled.nav `
     display: flex;
     align-items: center;
     margin: 18px;
+`
+export const NavBtnCenter = styled.nav `
+    display: flex;
+    align-items: center;
+    margin: 18px;
+    justify-content: center;
 `
 
 const NavBtnLink = styled.button`
@@ -95,6 +108,24 @@ const NavBtnLink2 = styled.button`
         background: #fff;
         color: #247cf1;
     } */
+`;
+
+
+const NavBtnLink3 = styled.button`
+    border-radius: 16px;
+    background: ${({props}) => ((props.showDisabled) ? 'rgba(255, 255, 255, 0.4)' : '#fff')};
+    white-space: nowrap;
+    padding: 16px 16px;
+    justify-content: center;
+    color: #247cf1;
+    font-size: 22px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    min-width: 120px;
+    font-weight: 700;
 `;
 
 const StartBtn = styled.button`

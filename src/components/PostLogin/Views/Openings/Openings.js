@@ -94,7 +94,7 @@ const Openings = () => {
         </OpeningPageImgContainer> */}
         <div>
           <HeadingWrapper>
-        <PatternRecognitionHeading>Choose a <br></br> <strong>Opening to Practice</strong></PatternRecognitionHeading>
+        <PatternRecognitionHeading>Choose an <br></br> <strong>Opening to Practice</strong></PatternRecognitionHeading>
         {/* <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading> */}
         </HeadingWrapper>
         <CoursesWrapper>

@@ -19,6 +19,7 @@ export default function Opening(props) {
   const [next, setNext] = useState(false);
   const [game, setGame] = useState(new Chess(fen));
   const [color,setColor] = useState("");
+  const [inCheck, setInCheck] = useState(false);
   const [lastMove, setLastMove] = useState([]);
   const incorrectCallback = props.incorrectCallback;
   const finishedCallback = props.finishedCallback;
@@ -99,12 +100,16 @@ export default function Opening(props) {
     verifyMove(from, to);
   }
 
-
-
   useEffect(() => {
     let movable = calcMovable();
     setMovable(movable);
   },[fen]);
+
+  useEffect(() => {
+    if (props.triggerNext) {
+      nextAttempt();
+    }
+  },[props.triggerNext])
 
   const nextAttempt = async () => {
     let newGame = new Chess();
@@ -132,8 +137,9 @@ export default function Opening(props) {
           moves[moveIndex + 1].substring(0, 2),
           moves[moveIndex + 1].substring(2, 4)
         );
-    
+            //setFen(game.fen());
         setMoveIndex(() => moveIndex + 2);
+    
         setColor(() => turnColor());
       } else {
         await wait(750);
