@@ -33,19 +33,22 @@ export const calcEloRating = (outcomes, puzzles, playerRating, completed) => {
   }
 
   // calculates module score
-  export const calcScore = (outcomes, puzzles) => {
+  export const calcScore = (outcomes, puzzles, times) => {
 
     let ratings = puzzles.map(puzzle => puzzle.rating); // extracts ratings
     
     const diff_index = rating => (rating - 600)/(2600-600); // calcs difficulty index
-    
+
+    let target_time = 60000; // target time in ms
+    const time_factor = time => Math.max((1-0.5*Math.sqrt(time/target_time)), 0)
+
     // calcs score for each puzzle
     let scores = outcomes.map((outcome, index) => {
       if (outcome === true) {
-        let score = 100*diff_index(ratings[index]); // positive for correct
+        let score = 100*(time_factor(times[index])+0.25)*diff_index(ratings[index]); // positive for correct
         return score;
       } else {
-        let negScore = -(50*diff_index(ratings[index])); // penalty for incorrect
+        let negScore = -(50*(1-time_factor(times[index]))*diff_index(ratings[index])); // penalty for incorrect
         return negScore;
       }
     })

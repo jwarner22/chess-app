@@ -74,6 +74,9 @@ export default function PuzzlePage(props) {
   const [correct, setCorrect] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [promotion, setPromotion] = useState("x");
+  const [startTime, setStartTime] = useState(null);
+  const [times, setTimes] = useState([]);
+  const [toggleTimer, setToggleTimer] = useState(true)
   const [windowDimension, setWindowDimension] = useState(null);
   const confirmationSound = new Howl({src: confirmationSoundFile})
   const errorSound = new Howl({src: errorSoundFile})
@@ -117,14 +120,10 @@ export default function PuzzlePage(props) {
 
   useEffect(() => {
     // checks if user has missed 4 puzzles - if so route to fialure screen
-    if (outcomes.filter(entry => entry === false).length > 3) {
+    if (outcomes.filter(entry => entry === false).length > 2) {
       fail()
     }
   }, [outcomes]);
-
-  useEffect(() => {
-    
-  },[])
 
   useEffect(() => {
     if (progress < 100) {
@@ -140,13 +139,13 @@ export default function PuzzlePage(props) {
 
   // puzzle module is finished
   const finished = async () => {
-    props.puzzleIsFinished(outcomes, 'succeed');
+    props.puzzleIsFinished(outcomes, 'succeed', times);
   }
 
   // module failed
   const fail = async () => {
     await wait(1000)
-    props.puzzleIsFinished(outcomes, 'fail')
+    props.puzzleIsFinished(outcomes, 'fail', times)
   }
 
   // track next puzzle
@@ -171,6 +170,10 @@ export default function PuzzlePage(props) {
   }
 
   const displayOutcome = async (success) => {
+    // end puzzle timer here
+    console.log('ended timer')
+    //handleTime('end')
+    setToggleTimer(prev => !prev)
     // play sound to indicate success or failure
     if (success) {
       playSound("confirmation");
@@ -187,8 +190,34 @@ export default function PuzzlePage(props) {
     setPromotion("x")
     setOutcome(success);
     setOutcomes(prevOutcomes => [...prevOutcomes, success]);
-    //incrementCount();
   };
+
+
+  useEffect(() => {
+    let now = Date.now();
+    if (toggleTimer) {
+      setStartTime(now)
+    } else {
+      setTimes(prevTimes => [...prevTimes, now - startTime])
+      console.log(times)
+    }
+  },[toggleTimer])
+
+  // const handleTime = (event) => {
+  //   // let now = Date.now();
+  //   // if (event === "start") {
+  //   //   // start timer here
+  //   //   console.log('started timer')
+  //   //   console.log({startTime: now})
+  //   //   setStartTime(() => now);
+  //   // } else {
+  //   //   // end timer here
+  //   //   console.log({startTime: startTime})
+  //   //   console.log({completionTime: `${((now-startTime) / 1000)} seconds`})
+  //   //   console.log({endTime: now})
+  //   //   setTimes(prevTimes => [...prevTimes, now - startTime]);
+  //   // }
+  // }
 
   const incrementCount = () => {
     setCount((count) => count + 1);
@@ -203,19 +232,23 @@ export default function PuzzlePage(props) {
   }
 
   async function handleContinueClick() {
-    await playSound("button")
+    //playSound("button")
     incrementCount()
     setRetry(false)
     setWaiting(false)
     setRetryDisable(true)
+    //handleTime('start')
+    setToggleTimer(prev => !prev)
   }
 
   const handleRetryClick = async () => {
-    await playSound("button")
+    //playSound("button")
     setRetry(true)
     setFen(() => puzzleData[count].fen);
     setCorrectMoves(() => getMoves(puzzleData[count].moves));
     setRetryDisable(prev => !prev)
+    //handleTime('start')
+    setToggleTimer(prev => !prev)
   }
 
   const handlePromotion = () => {
@@ -256,6 +289,7 @@ export default function PuzzlePage(props) {
                       <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
                       {/* <div percentComplete={percentComplete}>{percentComplete}</div> */}
                   </div>
+                  <Lives lives={lives}/>
                 <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
                   <PuzzleBoard
                     fen={fen}
@@ -275,9 +309,10 @@ export default function PuzzlePage(props) {
                       <BlackIndicator />
                      )}
                 </IndicatorWrapper>
-                <LivesWrapper>
+            
+                {/* <LivesWrapper>
                   <strong>{lives}</strong>&nbsp;Lives Remaining 
-              </LivesWrapper>
+              </LivesWrapper> */}
                   <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
                   </MobileContent>
                 </MobilePuzzleWrapper>
@@ -344,7 +379,7 @@ const progressContainer = {
   justifyContent: "space-around",
   alignItems: "center",
   flexWrap: "wrap",
-  marginTop: 16,
+  marginTop: 24,
   marginBottom: 24
 };
 

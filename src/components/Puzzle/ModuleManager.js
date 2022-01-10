@@ -95,7 +95,7 @@ export default function Puzzle(props) {
   }
 
   // updates theme data and sends to API
-  async function saveResults(outcomes) {
+  async function saveResults(outcomes, times) {
     //let oldData = JSON.parse(localStorage.getItem('userPublicData'))
 
     const themeData = await fetchThemeData() // gets theme data from API
@@ -116,7 +116,7 @@ export default function Puzzle(props) {
     themeData.completed += 1; // adds 1 to number of puzzles completed
     
 
-    let score = calcScore(outcomes,puzzles)
+    let score = calcScore(outcomes,puzzles, times)
     if (themeData.high_score < score) {
       // new high score!
       themeData.high_score = score;
@@ -201,12 +201,16 @@ export default function Puzzle(props) {
   }
 
   // callback function when puzzle is finished (currently only success)
- const puzzleIsFinished = async (results, result) => {
+ const puzzleIsFinished = async (results, result, times) => {
+   // log module completion to firebase
    logEvent(analytics, 'module_completed', {'user': userID, 'isDaily': isDaily});
+
+    console.log({times: times})
+
    setSavingResults(true)
    if (result === 'succeed') {
    setOutcomes(prevOutcomes => [...prevOutcomes,results])
-   await saveResults(results);
+   await saveResults(results, times);
 
    // update if daily puzzle
    if (isDaily) {
