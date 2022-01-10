@@ -13,17 +13,13 @@ const Lives = (props) => {
     const [lifeTwo, setLifeTwo] = useState(true)
     const [lifeThree, setLifeThree] = useState(true)
     const {lives} = props;
-    console.log(lives)
-    console.log(lifeThree)
 
     const activeLife = livesIcon;
     const inactiveLife = lostLife;
 
     useEffect(() => {
-        console.log(`effect is running`)
         if(lives < 3){
             setLifeThree(false)
-            console.log(`state updated`)
             }
         if(lives < 2){
             setLifeTwo(false)
