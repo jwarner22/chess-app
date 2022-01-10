@@ -319,9 +319,10 @@ export default function PuzzlePage(props) {
                   <BlackIndicator />
                 )}
                 </IndicatorWrapper>
-                <LivesWrapper>
+                <Lives lives={lives}/>
+                {/* <LivesWrapper>
                 <strong>{lives}</strong>&nbsp;Lives Remaining 
-                </LivesWrapper>
+                </LivesWrapper> */}
             <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
             </RightPuzzlePanelContainer>
         </PuzzlePageGrid>
