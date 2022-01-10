@@ -72,10 +72,10 @@ function CourseTile(props){
                         Start
                     </TileButton>
                     </Link>
-                    <InfoModalWrapper>
+                    {/* <InfoModalWrapper>
                         <InfoModalIcon src={info} onClick={handleOpenModal}/>
                         <InfoModal openModal={openModal} setOpenModal={setOpenModal} />
-                    </InfoModalWrapper>
+                    </InfoModalWrapper> */}
                 </TileButtonWrap>
 
                 )}
