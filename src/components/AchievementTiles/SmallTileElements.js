@@ -26,8 +26,8 @@ export const SmallTileCategory = styled.div`
 export const SmallTileValue = styled.div`
     font-size: 16px;
     grid-column: 3;
-    grid-row: 2;
-
+    grid-row: 2 / span 3;
+    padding-right: 12px;
     `
 
 export const SmallTileContent = styled.div`
