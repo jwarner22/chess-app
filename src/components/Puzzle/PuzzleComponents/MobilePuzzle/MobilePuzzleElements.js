@@ -28,7 +28,7 @@ export const MobileContent = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     background: rgba(255, 255, 255, 0.2);
     flex-grow: 1
 

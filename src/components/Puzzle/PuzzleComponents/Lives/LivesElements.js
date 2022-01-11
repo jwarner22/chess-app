@@ -26,5 +26,5 @@ export const LifeThree = styled.div`
 `
 
 export const LivesImg = styled.img`
-    max-width: 30px;
+    max-width: ${( props ) => (props.isMobile ? '25px' : '30px')};
 `

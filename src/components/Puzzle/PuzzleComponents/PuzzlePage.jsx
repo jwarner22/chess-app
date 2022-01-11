@@ -289,7 +289,7 @@ export default function PuzzlePage(props) {
                       <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
                       {/* <div percentComplete={percentComplete}>{percentComplete}</div> */}
                   </div>
-                  <Lives lives={lives}/>
+                  <Lives lives={lives} isMobile={isMobile} />
                 <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
                   <PuzzleBoard
                     fen={fen}
@@ -354,7 +354,7 @@ export default function PuzzlePage(props) {
                   <BlackIndicator />
                 )}
                 </IndicatorWrapper>
-                <Lives lives={lives}/>
+                <Lives lives={lives} isMobile={isMobile} />
                 {/* <LivesWrapper>
                 <strong>{lives}</strong>&nbsp;Lives Remaining 
                 </LivesWrapper> */}
