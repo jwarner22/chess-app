@@ -4,7 +4,7 @@ import "./style.css";
 // import Demo from "./Demo";
 // import registerServiceWorker from "./registerServiceWorker";
 import Puzzle from "./components/puzzle.js";
-import Opening from './components/opening.js';
+import Opening from './components/OpeningPage.js';
 
 
 export default function IndexPage() {

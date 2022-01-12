@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 
 import PostOpeningPage from '../../PostLogin/Views/Openings/PostOpeningPage';
 import PreOpeningPage from '../../PostLogin/Views/Openings/PreOpeningPage';
-import OpeningPage from '../Opening.js'
+import OpeningPage from '../OpeningPage.js'
 import useFetch from '../../api/useFetch';
 import {baseURL} from '../../api/apiConfig';
 import {getAnalytics, logEvent} from "firebase/analytics";
