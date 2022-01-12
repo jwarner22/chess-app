@@ -63,12 +63,13 @@ export default function Puzzle(props) {
 
   }
 
-  async function setAchievement(category, value) {
+  async function setAchievement(category, value, diff) {
     let endpoint = `/achievements/${userID}`
     let now = Date.now()
     post(endpoint, {
       inserted_at: now,
       category: category,
+      diff: diff,
       value: value,
       theme: theme
     })
@@ -102,7 +103,7 @@ export default function Puzzle(props) {
     // score change
     if (outcomes.every(result => result === true)) {
       setPerfect(true);
-      setAchievement('perfect', 0);
+      setAchievement('perfect', 0, 0);
     };
 
     let newRating = calcEloRating(outcomes,puzzles,themeData.rating, themeData.completed);
@@ -110,7 +111,8 @@ export default function Puzzle(props) {
     if (newRating > themeData.high_rating) {
       // new high rating
       themeData.high_rating = newRating;
-      setAchievement("high_rating", newRating);
+      let diff = newRating - themeData.high_rating;
+      setAchievement("high_rating", newRating, diff);
     }
     themeData.rating = newRating
     themeData.completed += 1; // adds 1 to number of puzzles completed
@@ -120,7 +122,8 @@ export default function Puzzle(props) {
     if (themeData.high_score < score) {
       // new high score!
       themeData.high_score = score;
-      setAchievement("high_score", score)
+      let diff = score - themeData.high_score;
+      setAchievement("high_score", score, diff)
     }
 
     setScore(score)
