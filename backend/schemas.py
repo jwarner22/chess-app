@@ -160,5 +160,5 @@ class OpeningCreate(BaseModel):
 
 class LeaderboardUser(BaseModel):
     user_id: str
-    user_name: str
+    user_name: Optional[str] = None
     total_score: int
