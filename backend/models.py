@@ -57,6 +57,7 @@ class Achievement(Base):
     category = Column(String, unique=False, index=True)
     value = Column(Integer, unique=False, index=True)
     theme = Column(String, unique=False, index=True)
+    diff = Column(Integer, unique=False, index=True)
     owner_id = Column(String, ForeignKey("user.user_id"))
 
 

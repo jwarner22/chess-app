@@ -63,12 +63,13 @@ export default function Puzzle(props) {
 
   }
 
-  async function setAchievement(category, value) {
+  async function setAchievement(category, value, diff) {
     let endpoint = `/achievements/${userID}`
     let now = Date.now()
     post(endpoint, {
       inserted_at: now,
       category: category,
+      diff: diff,
       value: value,
       theme: theme
     })
@@ -95,14 +96,14 @@ export default function Puzzle(props) {
   }
 
   // updates theme data and sends to API
-  async function saveResults(outcomes) {
+  async function saveResults(outcomes, times) {
     //let oldData = JSON.parse(localStorage.getItem('userPublicData'))
 
     const themeData = await fetchThemeData() // gets theme data from API
     // score change
     if (outcomes.every(result => result === true)) {
       setPerfect(true);
-      setAchievement('perfect', 0);
+      setAchievement('perfect', 0, 0);
     };
 
     let newRating = calcEloRating(outcomes,puzzles,themeData.rating, themeData.completed);
@@ -110,17 +111,19 @@ export default function Puzzle(props) {
     if (newRating > themeData.high_rating) {
       // new high rating
       themeData.high_rating = newRating;
-      setAchievement("high_rating", newRating);
+      let diff = newRating - themeData.high_rating;
+      setAchievement("high_rating", newRating, diff);
     }
     themeData.rating = newRating
     themeData.completed += 1; // adds 1 to number of puzzles completed
     
 
-    let score = calcScore(outcomes,puzzles)
+    let score = calcScore(outcomes,puzzles, times)
     if (themeData.high_score < score) {
       // new high score!
       themeData.high_score = score;
-      setAchievement("high_score", score)
+      let diff = score - themeData.high_score;
+      setAchievement("high_score", score, diff)
     }
 
     setScore(score)
@@ -201,12 +204,16 @@ export default function Puzzle(props) {
   }
 
   // callback function when puzzle is finished (currently only success)
- const puzzleIsFinished = async (results, result) => {
+ const puzzleIsFinished = async (results, result, times) => {
+   // log module completion to firebase
    logEvent(analytics, 'module_completed', {'user': userID, 'isDaily': isDaily});
+
+    console.log({times: times})
+
    setSavingResults(true)
    if (result === 'succeed') {
    setOutcomes(prevOutcomes => [...prevOutcomes,results])
-   await saveResults(results);
+   await saveResults(results, times);
 
    // update if daily puzzle
    if (isDaily) {

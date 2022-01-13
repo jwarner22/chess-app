@@ -323,7 +323,7 @@ export const Modules = [
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'queensideAttack',
-        headline: 'Queenside attack',
+        headline: 'Queenside Attack',
         subheading: "Midgame Tactics",
         instructions: 'Sometimes the action is away from the center.',
         description: 'Lorem ipsum mah brudda',

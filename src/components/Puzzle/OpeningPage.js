@@ -26,11 +26,13 @@ export default function OpeningModule(props) {
   const [moves,setMoves] = useState();
   const [orientation, setOrientation] = useState("");
   const [continueDisabled, setContinueDisabled] = useState(true);
+  const [retryDisabled, setRetryDisabled] = useState(true);
   const [showDisabled, setShowDisabled] = useState(true);
   const [score, setScore] = useState(0);
   const [windowDimension, setWindowDimension] = useState(null);
   const [outcome, setOutcome] = useState(null);
   const [startedDemo, setStartedDemo] = useState(false);
+  const [triggerNext, setTriggerNext] = useState(false);
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
 
@@ -85,6 +87,7 @@ export default function OpeningModule(props) {
 
   const incorrectCallback = async (currentFen, moveIndex) => {
     await playSound('incorrect');
+    setRetryDisabled(prev => !prev);
     setShowDisabled(prev => !prev);
     setScore(prev => prev - 200);
     setOutcome(() => false);
@@ -107,7 +110,9 @@ export default function OpeningModule(props) {
   }
 
   const handleRetryClick = () => {
-    setDemoIsFinished(false);
+    //setDemoIsFinished(false);
+    setTriggerNext(prev=>!prev);
+    setRetryDisabled(true);
     setShowDisabled(true);
   };
 
@@ -116,6 +121,11 @@ export default function OpeningModule(props) {
     setContinueDisabled(true);
   }
   
+  const handleShowMovesClick = () => {
+    setDemoIsFinished(false);
+    setShowDisabled(true);
+    setRetryDisabled(true);
+  }
 
   if (isLoaded) {
     return (
@@ -147,13 +157,13 @@ export default function OpeningModule(props) {
                       />
                     )}
                     {isLoaded === true && demoIsFinished === true && (
-                      <Opening count={count} moves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
+                      <Opening triggerNext={triggerNext}  count={count} moves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
                     )}
                   </div>
                   </div>
               </div>
             </PuzzleBoardWrapper>
-            <OpeningNav onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={showDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo}/>
+            <OpeningNav onShowMovesClick={handleShowMovesClick} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={retryDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo} showDisabled={showDisabled}/>
           </MobilePuzzleWrapper>
           </>
         ) : (
@@ -179,7 +189,7 @@ export default function OpeningModule(props) {
               />
             )}
             {isLoaded === true && demoIsFinished === true && (
-              <Opening count={count} moves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
+              <Opening triggerNext={triggerNext} count={count} moves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
             )}
           </div>
           </div>
@@ -194,7 +204,7 @@ export default function OpeningModule(props) {
         <Progress returnPercent={returnPercent} outcome={outcome} percent={progress} count={count} />
         <PercentCompleted>{Math.trunc(progress)}/100</PercentCompleted>
         </div>
-        <OpeningNav onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={showDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo}/>
+        <OpeningNav onShowMovesClick={handleShowMovesClick}  onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={retryDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo} showDisabled={showDisabled}/>
         </RightPuzzlePanelContainer>
         </PuzzlePageGrid>
         </PuzzlePageWrapper>

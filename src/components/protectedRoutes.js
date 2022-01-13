@@ -5,7 +5,7 @@ import Module from './PostLogin/Module.js';
 import PostPuzzleMockup from './PostModule/PostModule';
 import DailyPuzzle from "./PostLogin/Views/DailyPuzzle/DailyPuzzle"
 import PrePuzzlePage from "./PrePuzzle/PrePuzzle"
-import Openings from "./PostLogin/Views/Openings/Openings"
+import Openings from "./PostLogin/Views/Openings/OpeningsDashboard"
 import ProfilePage from "./PostLogin/Views/ProfilePage/ProfilePage"
 import IntakeSurvey from './IntakeSurvey/IntakeSurvey';
 import CreateUser from './IntakeSurvey/CreateUser';

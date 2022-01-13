@@ -45,7 +45,15 @@ const LeaderboardsPage = () => {
       async function fetchLeaderboard() {
           let endpoint = `/leaderboard/${leaderboardID}`
           let leaderboard = await get(endpoint)
+          // set null usernames to anonymous
+          leaderboard.map((user, index) => {
+              if (user.user_name==null) {
+                    user.user_name = "Anon" + index
+              }
+              return user
+          })
           console.log(leaderboard)
+
           setLeaderboard(leaderboard.sort(function(a, b) {
             return b.total_score - a.total_score
         }))
