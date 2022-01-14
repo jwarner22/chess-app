@@ -109,9 +109,11 @@ export default function Puzzle(props) {
     let newRating = calcEloRating(outcomes,puzzles,themeData.rating, themeData.completed);
 
     if (newRating > themeData.high_rating) {
+      // change from previous high rating
+      let diff = newRating - themeData.high_rating;
       // new high rating
       themeData.high_rating = newRating;
-      let diff = newRating - themeData.high_rating;
+      
       setAchievement("high_rating", newRating, diff);
     }
     themeData.rating = newRating
@@ -120,9 +122,11 @@ export default function Puzzle(props) {
 
     let score = calcScore(outcomes,puzzles, times)
     if (themeData.high_score < score) {
+      // change from previous high score
+      let diff = score - themeData.high_score;
       // new high score!
       themeData.high_score = score;
-      let diff = score - themeData.high_score;
+      
       setAchievement("high_score", score, diff)
     }
 
@@ -224,7 +228,7 @@ export default function Puzzle(props) {
 
    } else if (result === 'fail') {
     setOutcomes(prevOutcomes => [...prevOutcomes,results])
-    await saveResults(results);
+    await saveResults(results, times);
     setFailure(true)
     setIsFinished(true)
     setSavingResults(false)
