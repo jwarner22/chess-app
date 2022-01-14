@@ -97,6 +97,8 @@ class UserCreate(UserBase):
     puzzles_completed: Optional[int] = 0
     puzzles_correct: Optional[int] = 0
     initial_rating: Optional[int] = 800
+    daily_streak: Optional[int] = 0
+    last_daily: Optional[str]
 
 class UserUpdate(UserBase):
     user_id: str
@@ -106,6 +108,8 @@ class UserUpdate(UserBase):
     puzzles_completed: Optional[int] = 0
     puzzles_correct: Optional[int] = 0
     user_name: Optional[str] = None
+    daily_streak: Optional[int] = 0
+    last_daily: Optional[int]
     
     class Config:
         orm_mode=True
@@ -119,6 +123,8 @@ class UserProfile(UserBase):
     puzzles_correct: Optional[int] = 0
     initial_rating: int
     user_name: Optional[str] = None
+    daily_streak: Optional[int] = 0
+    last_daily: Optional[int]
 
     class Config:
         orm_mode=True
@@ -131,6 +137,8 @@ class User(UserBase):
     puzzles_correct: Optional[int] = 0
     initial_rating: int
     user_name: Optional[str] = None
+    daily_streak: Optional[int] = 0
+    last_daily: Optional[int]
     themes: Optional[List[Theme]] = []
     daily_puzzles: Optional[List[DailyPuzzle]] = []
     achievements: Optional[List[Achievement]] = []

@@ -242,7 +242,7 @@ async def delete_theme(user_id: str, theme_id: int, db: Session = Depends(get_db
     db.commit()
     db.refresh(db_user)
     return db_user
-
+    
 
 ### ACHIEVEMENTS
 
