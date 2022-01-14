@@ -4,6 +4,7 @@ import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, Reward
 import headerImg from "../../Images/RewardHeaderImg.svg"
 import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
 import Chart from './ScoreChart';
+import StarRating from './StarRating'
 
 const PostPuzzleMockup = (props) => {
     
@@ -43,6 +44,10 @@ const PostPuzzleMockup = (props) => {
                         Return to {props.isDaily ? 'Daily Puzzles' : 'Dashboard'}
                     </FinishButton>
                     </Link>
+                    <div>
+                    <div> How would you rate this module? </div>
+                    <StarRating />
+                    </div>
             </PostPuzzleGrid>
         </PostPuzzleWrapper>
         </>

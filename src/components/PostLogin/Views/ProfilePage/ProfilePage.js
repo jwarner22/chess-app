@@ -30,6 +30,7 @@ const ProfilePage = () => {
       let endpoint = `/achievements/${userID}`
       let achievements = await get(endpoint)
       setAchievements(achievements)
+      //console.log(achievements)
     }
 
   async function fetchProfileData() {

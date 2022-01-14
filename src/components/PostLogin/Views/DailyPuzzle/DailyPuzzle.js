@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import { DailyPuzzleContainer, 
   DailyPuzzleTitle, 
   DailyPuzzleWrapper, 
@@ -17,15 +17,18 @@ import MobileNavbar from "../../../PostLogin/MobileNavBar/MobileNavBar"
 import DashNavbar from "../../../PostLogin/DashboardNavbar/DashboardNavbar"
 import DashSidebar from '../../../PostLogin/DashboardSidebar/DashboardSidebar'
 import CompletedTraining from './completedTraining';
-
+import {wait} from '../../../Puzzle/Utilities/helpers'
 
 export default function DailyPuzzzle() {
   const [seen, setSeen] = useState(false); // set to true to display modal on load
-  const [completed, setCompleted] = useState(false); // set to true to display completed screen
+  //const [completed, setCompleted] = useState(false); // set to true to display completed screen
   const [loaded,setLoaded] = useState(false);
   const [dailyPicks, setDailyPicks] = useState([]);
   const [schemaPicks, setSchemaPicks] = useState([]);
   const [isMounted, setIsMounted] = useState(true);
+  const [screenTimer, setScreenTimer] = useState(true);
+  //const [userData, setUserData] = useState({});
+  const history = useHistory();
   const {get, put, post} = useFetch(baseURL);
   const userId = localStorage.getItem('userID')
   const now = new Date()
@@ -33,11 +36,21 @@ export default function DailyPuzzzle() {
 
   useEffect(() => {
     if (isMounted) {
-      setDailyPuzzles()
+      setDailyPuzzles();
+      setTimer();
+      //getUserData();
     }
     return () => setIsMounted(false) // componentDidUnMount
   },[])
 
+  // const getUserData = async () => { 
+  //   try {
+  //     const data = await get(`/users/${userId}`)
+  //     setUserData(data)
+  //   } catch {
+  //     return null;
+  //   }
+  // }
 
   const setDailyPuzzles = async () => {
  
@@ -65,9 +78,24 @@ export default function DailyPuzzzle() {
       setSchemaPicks(storedDailyPuzzles);
       setDailyPicks(mutatedPicks);
 
-      let completedTrainingDisplayed = (localStorage.getItem('completedTrainingDisplayed') === 'true');
-      if (storedDailyPuzzles.every(entry => entry.completed === true) && completedTrainingDisplayed === false) {
-        setCompleted(true)
+      let completedTrainingDisplayed = (sessionStorage.getItem('completedTrainingDisplayed') === 'true');
+      
+      // conditional rendering of completed training - phased out
+      // if (storedDailyPuzzles.every(entry => entry.completed === true) && completedTrainingDisplayed === false) {
+      //   setCompleted(true)
+      // }
+
+      let endpoint = `/users/${userId}`
+      let data = await get(endpoint);
+      console.log(data)
+      let lastDaily = new Date(data.last_daily);
+
+      // push to completed training page
+      console.log(completedTrainingDisplayed)
+      console.log(lastDaily)
+      if (lastDaily.getMonth() === now.getMonth() && lastDaily.getDate() === now.getDate() && completedTrainingDisplayed === false) {
+        history.push('/completed-training')
+        sessionStorage.setItem('completedTrainingDisplayed', 'true')
       }
       
     }
@@ -168,6 +196,35 @@ export default function DailyPuzzzle() {
     setWindowDimension(window.innerWidth);
   }, []);
 
+  const setTimer = async () => {
+   //let shownSplashScreen = (localStorage.getItem('shownDailySplashScreen') === 'true');
+    let lastScreenTime = new Date(parseInt(localStorage.getItem('lastDailySplashScreenTime')));
+    let now = new Date();
+
+
+    try {
+      if (lastScreenTime.getDate() !== (now.getDate())) {
+        // show splash screen
+        setScreenTimer(prev => !prev)
+        await wait(2000);
+        setScreenTimer(prev => !prev) // hide splash screen
+
+        // update localStorage
+        localStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
+      }
+    } catch (e) {
+      console.log(e)
+      console.log('stored values were not found')
+      // show splash screen
+      setScreenTimer(prev => !prev)
+      await wait(2000)
+      setScreenTimer(prev => !prev)
+      // update localStorage
+      localStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
+    }
+    
+  }
+
   useEffect(() => {
     function handleResize() {
       setWindowDimension(window.innerWidth);
@@ -181,9 +238,20 @@ export default function DailyPuzzzle() {
 
   console.log(isMobile)
 
-  if (completed) {
-    return(
-      <CompletedTraining isMobile={isMobile}/>
+  // if (completed) {
+  //   return(
+  //     <CompletedTraining isMobile={isMobile}/>
+  //   )
+  // }
+
+  if (!screenTimer) {
+    return (
+      <>
+        <DailyPuzzleHeaderImg src={headerImg}/>
+        <DailyPuzzleTitle>
+          Generating Today's Training...
+        </DailyPuzzleTitle>
+      </>
     )
   }
 
@@ -203,10 +271,10 @@ export default function DailyPuzzzle() {
    <Container>
    <DailyPuzzleWrapper>
       <DailyPuzzleContainer>
-        <DailyPuzzleHeaderImg src={headerImg}/>
+        {/* <DailyPuzzleHeaderImg src={headerImg}/>
         <DailyPuzzleTitle>
           Today's Training
-        </DailyPuzzleTitle>
+        </DailyPuzzleTitle> */}
         </DailyPuzzleContainer>
         <SelectionContainer>
         <PuzzleWrapper>

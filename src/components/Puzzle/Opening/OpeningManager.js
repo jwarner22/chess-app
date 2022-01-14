@@ -13,7 +13,7 @@ export default function OpeningManager(props) {
     const [isStarted, setIsStarted] = useState(false);
     const [score, setScore] = useState(0);
     const [scoreData, setScoreData] = useState([]);
-    const {put, post} = useFetch(baseURL);
+    const {get, put, post} = useFetch(baseURL);
     const openingData = props.location.state.module;
     const schemaPicks = props.location.state.schemaPicks;
     const isDaily = props.location.state.isDaily;
@@ -99,6 +99,48 @@ export default function OpeningManager(props) {
           } 
           return puzzle
         })
+
+
+        // check for completed daily training
+        if (mutatedPuzzles.every(puzzle => puzzle.completed === true)) {
+          // record daily training completion => firebase
+          logEvent(analytics, 'daily_training_completed', {'user': userID});
+
+          // user profile endpoint
+          let endpoint = `/users/${userID}`;
+          //get user daily streak info
+          let userProfileData = await get(endpoint);
+
+          let now = new Date();
+          // if new user, set daily streak to 1
+          if (userProfileData.lastDaily == null) {
+            put(endpoint, {
+              ...userProfileData,
+              daily_streak: 1,
+              last_daily: Date.now()
+            })
+          }
+    
+          let lastDaily = new Date(userProfileData.last_daily);
+          // update user daily streak info
+          if (lastDaily.getDate() !== now.getDate()) { // ensure no same day streak increase
+            if (lastDaily.getDate() === (now.getDate() - 1)) { // ensure last daily completion was yesterday
+              // update streak (+1)
+              put(endpoint, {
+                ...userProfileData,
+                daily_streak: userProfileData.daily_streak + 1,
+                last_daily: Date.now()
+              })
+            } else {
+              // reset streak to 1
+              put(endpoint, {
+                ...userProfileData,
+                daily_streak: 1,
+                last_daily: Date.now()
+              })
+            }
+          }
+        }
 
         return mutatedPuzzles
       }

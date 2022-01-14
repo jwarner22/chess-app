@@ -597,13 +597,22 @@ export const Modules = [
           pawn: "d4",
           moves: "d2d4 g8f6 c2c4 g7g6 b1c3 f8g7 e2e4 d7d6 g1f3 e8g8 f1e2 e2e5 e1g1",
             img: require("../../../../../Images/open-book.svg").default
-      }
-
+    },{
+        id: 64, // `eventually use random str as modules will be dynamic for each user and may change over time
+        category: 'puzzle',
+        type: 'midgame',
+        type_ref: 'mix',
+        headline: 'Healthy Mix',
+        subheading: "Pattern Recognition",
+        instructions: 'A healthy mix of puzzles from all categories and themes.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        img: require("../../../../../Images/Books.svg").default
+    }
 ]
 
 // variations/not included
 const excludedOPenings = [{
-    id: 48,
+    id: 64,
     headline: "English: King's Pawn 2",
     pawn: "c4",
     moves: "c2c4 e7e5 g2g3 b8c6 f1g2 f8c5 b1c3 g8f6 e2e3"
@@ -642,7 +651,7 @@ const excludedOPenings = [{
   }]
 
 const excludedModules = [{
-    id: 2, // `eventually use random str as modules will be dynamic for each user and may change over time
+    id: 64, // `eventually use random str as modules will be dynamic for each user and may change over time
     category: 'puzzle',
     type: 'endgame',
     type_ref: 'bishopEndgame',
@@ -652,7 +661,7 @@ const excludedModules = [{
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     img: require("../../../../../Images/Bishop.png").default
 },{
-        id: 23,
+        id: 65,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'coercion',
@@ -662,7 +671,7 @@ const excludedModules = [{
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Coercion.svg").default
     },{
-        id: 41,
+        id: 66,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'simplification',
@@ -672,7 +681,7 @@ const excludedModules = [{
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Simplification.svg").default
     },{
-        id: 27,
+        id: 67,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'enPassant',
@@ -682,7 +691,7 @@ const excludedModules = [{
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/EnPassant.svg").default
     },{
-        id: 33,
+        id: 68,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'overloading',
@@ -692,7 +701,7 @@ const excludedModules = [{
         description: 'Lorem ipsum mah brudda',
         img: require("../../../../../Images/Overloading.svg").default
     },{
-        id: 39,
+        id: 69,
         category: 'puzzle',
         type: 'earlygame',
         type_ref: 'castling',
@@ -702,7 +711,7 @@ const excludedModules = [{
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 9,
+        id: 70,
         category: 'puzzle',
         type: 'checkmate',
         type_ref: 'anastasiaMate',
@@ -712,7 +721,7 @@ const excludedModules = [{
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 10,
+        id: 71,
         category: 'puzzle',
         type: 'checkmate',
         type_ref: 'arabianMate',
@@ -722,7 +731,7 @@ const excludedModules = [{
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{
-        id: 38,
+        id:72,
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'underPromotion',

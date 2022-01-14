@@ -242,7 +242,7 @@ async def delete_theme(user_id: str, theme_id: int, db: Session = Depends(get_db
     db.commit()
     db.refresh(db_user)
     return db_user
-
+    
 
 ### ACHIEVEMENTS
 
@@ -263,7 +263,8 @@ async def add_achievement(user_id: str, achievement: schemas.AchievementCreate, 
 # get all user achievements
 @app_v1.get('/achievements/{user_id}', response_model=List[schemas.Achievement], tags=["Achievements"])
 async def get_achievements(user_id: str, db: Session = Depends(get_db), limit: int = 20):
-    achievements = db.query(models.Achievement).filter(models.Achievement.owner_id == user_id).limit(limit).all() # daily: .filter(models.Achievement.inserted_at >= time.time() (but for today))
+    achievements = db.query(models.Achievement).filter(models.Achievement.owner_id == user_id).order_by(models.Achievement.id.desc()).limit(limit).all()
+
     if achievements is None:
         raise HTTPException(status_code=404, detail="daily puzzles not found")
     elif len(achievements) == 0:

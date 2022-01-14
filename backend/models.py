@@ -73,7 +73,9 @@ class User(Base):
     puzzles_correct = Column(Integer, unique=False, index=True)
     initial_rating = Column(Integer, unique=False, index=False)
     user_name = Column(String, unique=False, index=True)
-    
+    daily_streak = Column(Integer, unique=False, index=True)
+    last_daily = Column(Integer, unique=False, index=True)
+
     themes =  relationship("Theme", backref="user")
     daily_puzzles = relationship("DailyPuzzle", backref="user")
     achievements = relationship("Achievement", backref="user")
