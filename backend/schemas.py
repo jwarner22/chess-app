@@ -79,7 +79,7 @@ class Achievement(BaseModel):
     owner_id: str
     inserted_at: float
     category: str
-    diff: Optional[int] = 0
+    diff: Optional[int]
     value: int
     theme: str
     class Config:
