@@ -67,20 +67,35 @@ const DashboardWrapper =styled.div`
   background: #EEF0FF;
 `
 export const PatternRecognitionHeading = styled.h1`
+  font-size: 24px;
+  color: #54606c;
+  padding: 24px 0px;
+  text-align: center;
+
+@media screen and (max-width: 450px) {
   font-size: 18px;
   margin: 36px 0px 24px 24px;
   font-weight: 200;
   opacity: 0.7;
   width: 378px;
+}
 `
 
 export const PatternRecognitionSubheading = styled.h2`
+  font-size: 18px;
+  color: #010EFF;
+  text-align: center;
+  padding-bottom: 12px;
+  font-weight: 200;
+  
+  @media screen and (max-width: 450px) {
   font-size: 16px;
   font-weight: 200;
   opacity: 0.7;
   margin: 0px 0px 0px 24px;
   padding-bottom: 12px;
   width: 378px;
+  }
 `
 
 export const HeadingWrapper = styled.div`
