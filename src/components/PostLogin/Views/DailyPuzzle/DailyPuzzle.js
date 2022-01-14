@@ -17,7 +17,7 @@ import MobileNavbar from "../../../PostLogin/MobileNavBar/MobileNavBar"
 import DashNavbar from "../../../PostLogin/DashboardNavbar/DashboardNavbar"
 import DashSidebar from '../../../PostLogin/DashboardSidebar/DashboardSidebar'
 import CompletedTraining from './completedTraining';
-
+import {wait} from '../../../Puzzle/Utilities/helpers'
 
 export default function DailyPuzzzle() {
   const [seen, setSeen] = useState(false); // set to true to display modal on load
@@ -26,6 +26,7 @@ export default function DailyPuzzzle() {
   const [dailyPicks, setDailyPicks] = useState([]);
   const [schemaPicks, setSchemaPicks] = useState([]);
   const [isMounted, setIsMounted] = useState(true);
+  const [screenTimer, setScreenTimer] = useState(false);
   const {get, put, post} = useFetch(baseURL);
   const userId = localStorage.getItem('userID')
   const now = new Date()
@@ -166,7 +167,13 @@ export default function DailyPuzzzle() {
 
   useEffect(() => {
     setWindowDimension(window.innerWidth);
+    setTimer()
   }, []);
+
+  const setTimer = async () => {
+    await wait(2000)
+    setScreenTimer(true)
+  }
 
   useEffect(() => {
     function handleResize() {
@@ -187,6 +194,17 @@ export default function DailyPuzzzle() {
     )
   }
 
+  if (!screenTimer) {
+    return (
+      <>
+        <DailyPuzzleHeaderImg src={headerImg}/>
+        <DailyPuzzleTitle>
+          Generating Today's Training...
+        </DailyPuzzleTitle>
+      </>
+    )
+  }
+
   return (
     <>
        <div className="page"> 
@@ -203,10 +221,10 @@ export default function DailyPuzzzle() {
    <Container>
    <DailyPuzzleWrapper>
       <DailyPuzzleContainer>
-        <DailyPuzzleHeaderImg src={headerImg}/>
+        {/* <DailyPuzzleHeaderImg src={headerImg}/>
         <DailyPuzzleTitle>
           Today's Training
-        </DailyPuzzleTitle>
+        </DailyPuzzleTitle> */}
         </DailyPuzzleContainer>
         <SelectionContainer>
         <PuzzleWrapper>
