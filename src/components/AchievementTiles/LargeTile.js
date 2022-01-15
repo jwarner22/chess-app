@@ -1,14 +1,42 @@
 import React from 'react'
-import {LargeTileContainer, TileIcon, LargeTileWrapper, LargeTileContent, LargeTileIconWrapper, LargeTileTitle, LargeTileData, LargeTileTip} from "./LargeTileElements"
+import {LargeTileContainer, 
+    TileIcon, 
+    LargeTileWrapper, 
+    LargeTileContent, 
+    LargeTileIconWrapper, 
+    LargeTileTitle, 
+    LargeTileData, 
+    LargeTileTip, 
+    StatContainer, 
+    StatWrapper, 
+    StatImage, 
+    StatTitle,
+StatContentWrapper,
+Stat} from "./LargeTileElements"
 import icon from "../../Images/Aim.png"
 import icon2 from "../../Images/rating.png"
 
+
+
 const LargeTile = (props) => {
-    const {value, title} = props;
+    const {value, title, image} = props;
     // const src = {(props.title === "Accuracy") ? icon : icon2}
     return (
         <>
-            <LargeTileContainer>
+            <StatContainer>
+                <StatWrapper>
+                <StatImage src={image}/>
+                    <StatContentWrapper>
+                    <Stat>
+                        {(title === 'Accuracy') ? `${value}%` : value}
+                    </Stat>
+                    <StatTitle>
+                        {title}
+                    </StatTitle>
+                    </StatContentWrapper>
+                </StatWrapper>
+            </StatContainer>
+            {/* <LargeTileContainer>
                 <LargeTileWrapper>
                     <LargeTileContent>
                         <LargeTileIconWrapper>
@@ -18,7 +46,7 @@ const LargeTile = (props) => {
                         {title}
                         </LargeTileTitle>
                         <LargeTileData>
-                        {(title === 'Accuracy') ? `${value}%` : value}
+                        
                         </LargeTileData>
                         <LargeTileTip>
                         {(title === 'Accuracy') ? 'Try to stay above 90%' : 'Keep climbing'}
@@ -26,7 +54,7 @@ const LargeTile = (props) => {
                         </LargeTileTip>
                     </LargeTileContent>
                 </LargeTileWrapper>
-            </LargeTileContainer>
+            </LargeTileContainer> */}
         </>
     )
 }

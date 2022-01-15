@@ -1,20 +1,60 @@
 import React from "react"
-import styled from "styled-components"
+import styled from "styled-components" 
 
 
-export const LargeTileContainer = styled.li`
-    min-height: 150px;
+export const StatContainer = styled.li`
+    height: auto;
     background-color: rgba(255,255,255,0.8);
     list-style-type: none;
-    border-radius: 10px;
+    border-radius: 15px;
     box-shadow: 0px 5px 8px rgba(1, 14, 255, 0.25);
 `
-export const LargeTileWrapper = styled.div`
+
+export const StatWrapper = styled.div`
     display: flex;
-    flex-direction: column;
     padding: 8px;
     height: 100%;
-    `
+    justify-content: flex-start;
+    width: 100%;
+`
+
+export const StatImage = styled.img`
+    max-height: 30px;
+    max-width: 30px;
+    display: inline-block;
+`
+
+export const StatContentWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+`
+
+export const StatTitle = styled.h3`
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 70%;
+`
+
+export const Stat = styled.h2`
+    font-size: 24px;
+    font-weight: 600;
+    opacity: 70%;
+`
+
+// export const LargeTileContainer = styled.li`
+//     min-height: 150px;
+//     background-color: rgba(255,255,255,0.8);
+//     list-style-type: none;
+//     border-radius: 10px;
+//     box-shadow: 0px 5px 8px rgba(1, 14, 255, 0.25);
+// `
+// export const LargeTileWrapper = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     padding: 8px;
+//     height: 100%;
+//     `
 export const LargeTileContent = styled.div`
     display: grid;
     grid-template-columns: min-content 1fr;

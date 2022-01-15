@@ -41,22 +41,32 @@ export const ProfilePanelContainer = styled.div`
 `
 export const ProfilePanelWrapper = styled.div`
     display: flex;
-    min-height: 200px;
+    min-height: 175px;
     margin: 16px;
     padding: 16px;
     border-radius: 10px;
     //opacity @ 20% looks really nice
     background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: flex-start;
-    flex-direction: column;
     max-width: 1100px;
 `
 export const ProfilePanelContent = styled.div`
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 60%;
 `
+
+export const ProfilePanelImageContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+`
+
+export const ProfilePagePlaceholder = styled.img`
+    max-width: 80px;
+`
+
+
 export const ProfilePanelUsernameWrapper = styled.div`
     display: flex;
     min-height: 90%;
@@ -84,8 +94,16 @@ export const CalendarTitleWrapper = styled.div`
     align-items: center;
     margin: 8px;
 `
+
+export const ClockIcon = styled.img`
+    width: 12px;
+    margin-right: 4px;
+`
+
 export const CalendarTitle = styled.h3`
     color: white;
+    font-size: 12px;
+    font-weight: 400;
 `
 export const CalendarBackgroundWrapper = styled.div`
     width: 100%;

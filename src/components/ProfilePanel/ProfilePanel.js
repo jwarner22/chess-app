@@ -12,22 +12,24 @@ CalendarBackgroundWrapper,
 CalendarBackground,
 CalendarGrid,
 CalendarDay,
-PageBodyContainer
+PageBodyContainer,
+ProfilePanelImageContainer,
+ProfilePagePlaceholder,
+ClockIcon
 } from "./ProfilePanelElements"
 import { CgProfile } from "react-icons/cg";
+import placeholder from "../../Images/user.png"
+import clock from "../../Images/clockSVG.svg"
 
-const ProfilePanel = () => {
+const ProfilePanel = (props) => {
 
     return (
         <>
-        <ProfilePanelHeader>
-            Profile
-        </ProfilePanelHeader>
-          {/* <ProfilePanelContainer>
+          <ProfilePanelContainer>
               <ProfilePanelWrapper>
                   <ProfilePanelContent>
                   <ProfilePanelUsernameWrapper>
-                      CalebGibson21
+                      {props.username}
                   </ProfilePanelUsernameWrapper>
                   <Link to='/dailyPuzzle'>
                   <ProfilePanelButton>
@@ -36,11 +38,12 @@ const ProfilePanel = () => {
                   </Link>
                   <CalendarTitleWrapper>
                       <CalendarTitle>
-                          Daily Streak: 2
+                          <ClockIcon src={clock}/>
+                          Joined {props.joinDate}
                       </CalendarTitle>
                   </CalendarTitleWrapper>
                   </ProfilePanelContent>
-                  <CalendarBackgroundWrapper>
+                  {/* <CalendarBackgroundWrapper>
                      <CalendarBackground>
                           <CalendarGrid>
                               <CalendarDay>
@@ -48,9 +51,12 @@ const ProfilePanel = () => {
                               </CalendarDay>
                           </CalendarGrid>
                     </CalendarBackground>
-                    </CalendarBackgroundWrapper>
+                    </CalendarBackgroundWrapper> */}
+                    <ProfilePanelImageContainer>
+                        <ProfilePagePlaceholder src={[placeholder]}/>
+                    </ProfilePanelImageContainer >
               </ProfilePanelWrapper>
-        </ProfilePanelContainer>   */}
+        </ProfilePanelContainer>  
         </>
     )
 }

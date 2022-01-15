@@ -10,14 +10,21 @@ import {baseURL} from '../../../api/apiConfig';
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
 import { Profile } from "@styled-icons/icomoon";
 import { Link } from "react-router-dom";
+import PageHeader from "../../../PageHeaders/PageHeaders"
+import { DateAdd } from "@styled-icons/zondicons";
 
 const ProfilePage = () => {
-  const [achievements, setAchievements] = useState([])
+  const [achievements, setAchievements] = useState([]);
   const [profileData, setProfileData] = useState({});
   const [overallRating, setOverallRating] = useState(0);
-  const {get} = useFetch(baseURL)
-  const [loaded, setLoaded] = useState(false)
+  const [dailyStreak, setDailyStreak] = useState(0);
+  const [totalScore, setTotalScore] = useState(0);
+  const [username, setUsername] = useState('')
+  const [joinDate, setJoinDate] = useState('')
+  const {get} = useFetch(baseURL);
+  const [loaded, setLoaded] = useState(false);
   const userID = localStorage.getItem('userID');
+  const pageTitle = `Profile`;
 
   useEffect(() => {
       setLoaded(false)
@@ -38,8 +45,23 @@ const ProfilePage = () => {
     let profileData = await get(endpoint)
     await fetchOverallRating(profileData);
     setProfileData(profileData)
+    const streak = profileData.daily_streak;
+    const score = profileData.total_score;
+    const name = profileData.user_name;
+    let date = new Date(profileData.inserted_at); 
+    const reformattedDate = date.toLocaleString('en-US', {
+      day: 'numeric', // numeric 2-digit
+      year: 'numeric', // numeric, 2-digit
+      month: 'long', // numeric, 2-digit, long, short, narrow
+    }).toString()
+    // setJoinDate(date)
+    setUsername(name)
+    setTotalScore(score)
+    setDailyStreak(streak);
+    setJoinDate(reformattedDate)
     setLoaded(true)
   }
+
 
   async function fetchOverallRating(data) {
     // get all theme data for user
@@ -102,8 +124,11 @@ const ProfilePage = () => {
       {(loaded) &&
 
       <ProfilePageContainer>
-      <ProfilePanel />
-       <AchievementTiles achievements={achievements} profileData={profileData} isMobile={isMobile} overallRating={overallRating}/>
+      <PageHeader 
+        pageTitle={pageTitle}>
+      </PageHeader>
+      <ProfilePanel username={username} dailyStreak={dailyStreak} joinDate={joinDate}/>
+       <AchievementTiles achievements={achievements} profileData={profileData} isMobile={isMobile} overallRating={overallRating} dailyStreak={dailyStreak} totalScore={totalScore}/>
        </ProfilePageContainer>
       }
       </>

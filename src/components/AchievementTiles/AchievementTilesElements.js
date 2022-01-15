@@ -18,6 +18,7 @@ export const AchievementTileWrapper = styled.ul`
     justify-content: center;
     max-width: 704px;
     width: 90%;
+    margin-bottom: 18px;
     
 `
 export const LargeTile = styled.li`
