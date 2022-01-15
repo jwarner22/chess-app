@@ -7,6 +7,7 @@ export const PageHeaderContainer = styled.div`
     justify-content: center;
     padding: 16px;
     width: 100%;
+    background: #fff;
 `
 
 export const PageHeaderTitle = styled.h1`

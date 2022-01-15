@@ -10,6 +10,7 @@ import Loader from "../../../Loader";
 import DashNavbar from "../../DashboardNavbar/DashboardNavbar"
 import MobileNavbar from "../../MobileNavBar/MobileNavBar"
 import DashSidebar from "../../DashboardSidebar/DashboardSidebar"
+import PageHeader from '../../../PageHeaders/PageHeaders';
 
 
 
@@ -25,6 +26,7 @@ const LeaderboardsPage = () => {
     const [userPlacement, setUserPlacement] = useState();
     const [windowDimension, setWindowDimension] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
+    const pageTitle = `Leaderboard`
 
     useEffect(() => {
         fetchProfileData();
@@ -87,7 +89,10 @@ const LeaderboardsPage = () => {
     return (
         <>
         {isMobile ? (
+            <>
+            <PageHeader pageTitle={pageTitle}/>
     <MobileNavbar />
+    </>
     ) : (
       <>
       <DashNavbar toggle={toggle}/>

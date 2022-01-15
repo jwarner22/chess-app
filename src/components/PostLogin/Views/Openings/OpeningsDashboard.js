@@ -5,6 +5,7 @@ import DashboardNavbar from "../../DashboardNavbar/DashboardNavbar";
 import DashSidebar from "../../DashboardSidebar/DashboardSidebar";
 import openingImage from "../../../../Images/professor.svg";
 import book from "../../../../Images/open-book.svg"
+import PageHeader from "../../../PageHeaders/PageHeaders"
 import {OpeningPageImgContainer, 
   OpeningsPagePlaceholderImg, 
   OpeningsTitle,
@@ -49,6 +50,7 @@ import {HeadingWrapper, PatternRecognitionHeading, PatternRecognitionSubheading}
 const Openings = () => {
   const [isOpen, setIsOpen] = useState(false);
   const openingData = Modules.filter(module => module.category === 'opening');
+  const pageTitle = `Openings`
   //hamburger sidebar menu
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -76,7 +78,10 @@ const Openings = () => {
         <>
         <div className="page">
         {isMobile ? (
+          <>
+          <PageHeader pageTitle={pageTitle} />
           <MobileNavbar />  
+          </>
         ) : (
           <>
             <DashboardNavbar toggle={toggle}/>

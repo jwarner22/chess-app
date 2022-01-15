@@ -113,7 +113,11 @@ const ProfilePage = () => {
     return (
       <>
       {isMobile ? (
-    <MobileNavbar />
+        <>
+      <PageHeader pageTitle={pageTitle}>
+      </PageHeader>
+      <MobileNavbar />
+      </>
     ) : (
       <>
       <DashNavbar toggle={toggle}/>
@@ -124,9 +128,6 @@ const ProfilePage = () => {
       {(loaded) &&
 
       <ProfilePageContainer>
-      <PageHeader 
-        pageTitle={pageTitle}>
-      </PageHeader>
       <ProfilePanel username={username} dailyStreak={dailyStreak} joinDate={joinDate}/>
        <AchievementTiles achievements={achievements} profileData={profileData} isMobile={isMobile} overallRating={overallRating} dailyStreak={dailyStreak} totalScore={totalScore}/>
        </ProfilePageContainer>

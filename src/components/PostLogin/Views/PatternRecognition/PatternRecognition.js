@@ -5,6 +5,7 @@ import DashSidebar from '../../DashboardSidebar/DashboardSidebar'
 import Body from "./CoursesBody/CoursesBody";
 import MobileNavbar from "../../MobileNavBar/MobileNavBar"
 import styled from "styled-components"
+import PageHeader from "../../../PageHeaders/PageHeaders";
 
 
 const Dashboard = () => {
@@ -12,6 +13,7 @@ const Dashboard = () => {
     //hamburger sidebar menu
   const [isOpen, setIsOpen] = useState(false)
   const [windowDimension, setWindowDimension] = useState(null);
+  const pageTitle = `Puzzles`
 
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -40,7 +42,10 @@ const Dashboard = () => {
   return (
     <>
     {isMobile ? (
+      <>
+      <PageHeader pageTitle={pageTitle}/>
     <MobileNavbar />
+    </>
     ) : (
       <>
           <DashSidebar isOpen={isOpen} toggle={toggle} />
@@ -74,10 +79,10 @@ export const PatternRecognitionHeading = styled.h1`
 
 @media screen and (max-width: 450px) {
   font-size: 18px;
-  margin: 36px 0px 24px 24px;
+  margin: 18px 0px 24px 0px;
   font-weight: 200;
   opacity: 0.7;
-  width: 378px;
+  width: 100%;
 }
 `
 
