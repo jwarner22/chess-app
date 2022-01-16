@@ -16,3 +16,14 @@ export const PageHeaderTitle = styled.h1`
     color: #000;
     opacity: 70%;
 `
+
+export const SettingsIconWrapper = styled.div`
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 12px;
+`
+
+export const SettingsIcon = styled.img`
+    max-width: 30px;
+`

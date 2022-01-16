@@ -129,7 +129,7 @@ const SmallTile = (props) => {
                                 {description} 
                             </SmallTileDescription> */}
                             <SmallTileValue>
-                                {(achievement.value !== 0) ? `${achievement.value}` : ''} {(achievement.diff == 0) ? '' : <ValueDiff>{`+${achievement.diff}`}</ValueDiff>}
+                                {(achievement.value !== 0) ? `${achievement.value}` : ''} {(achievement.diff === 0 ) ? null : <ValueDiff>{`+${achievement.diff}`}</ValueDiff>}
                             </SmallTileValue>
                             
                     </SmallTileContent>

@@ -108,7 +108,6 @@ const ProfilePage = () => {
 
   const isMobile = windowDimension <= 640;
 
-  console.log(isMobile)
 
     return (
       <>
