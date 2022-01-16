@@ -30,6 +30,12 @@ export const SmallTileValue = styled.div`
     padding-right: 12px;
     `
 
+export const ValueDiff = styled.span`
+    color: green;
+    font-size: 10px;
+    vertical-align: top;
+`
+
 export const SmallTileContent = styled.div`
     display: grid;
     grid-template-columns: 20% 1fr;

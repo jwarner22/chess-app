@@ -12,7 +12,7 @@ export const StatContainer = styled.li`
 
 export const StatWrapper = styled.div`
     display: flex;
-    padding: 8px;
+    padding: 12px;
     height: 100%;
     justify-content: flex-start;
     width: 100%;

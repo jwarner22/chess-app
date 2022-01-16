@@ -11,7 +11,8 @@ import {SmallTileContainer,
     SmallTileDescription,
     SmallTileCategory,
     SmallTileValue,
-    SmallTileIconContainer
+    SmallTileIconContainer,
+    ValueDiff
 } from "./SmallTileElements"
 import { SettingsInputComponent } from 'styled-icons/material';
 //import { ChessPawn, ChessKnight, ChessBishop, ChessRook, ChessQueen, ChessKing } from 'styled-icons/fa-solid';
@@ -128,7 +129,7 @@ const SmallTile = (props) => {
                                 {description} 
                             </SmallTileDescription> */}
                             <SmallTileValue>
-                                {(achievement.value !== 0) ? `${achievement.value}` : ''} {(achievement.diff == null) ? '' : `+${achievement.diff}`}
+                                {(achievement.value !== 0) ? `${achievement.value}` : ''} {(achievement.diff == 0) ? '' : <ValueDiff>{`+${achievement.diff}`}</ValueDiff>}
                             </SmallTileValue>
                             
                     </SmallTileContent>
