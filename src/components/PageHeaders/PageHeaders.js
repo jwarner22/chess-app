@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import {PageHeaderContainer, PageHeaderTitle, SettingsIcon, SettingsIconWrapper} from "./PageHeaderElements"
 import settings from "../../Images/settings.png"
 
@@ -13,8 +14,11 @@ const PageHeader = (props) => {
             </PageHeaderTitle>
             {isProfile ?    
             (<SettingsIconWrapper>
+                <Link to="settings">
                 <SettingsIcon src={settings}/>
-            </SettingsIconWrapper>) : (
+                </Link>
+            </SettingsIconWrapper>
+            ) : (
                 null
             )}
 

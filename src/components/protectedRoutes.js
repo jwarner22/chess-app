@@ -14,6 +14,7 @@ import BrandPage from './BrandPage/BrandPage';
 import LeaderboardsPage from './PostLogin/Views/Leaderboards/Leaderboards';
 import UserName from './PostLogin/Announcements/UserName';
 import CompletedTraining from './PostLogin/Views/DailyPuzzle/completedTraining';
+import Settings from './PostLogin/Views/Settings/Settings';
 
 const protectedRoutes = [
 	{
@@ -95,6 +96,11 @@ const protectedRoutes = [
 		path: "/completed-training",
 		exact: true,
 		main: props => <CompletedTraining props={props} />
+	},	{
+		name: "Settings",
+		path: "/settings",
+		exact: true,
+		main: props => <Settings />
 	}
 ];
 

@@ -22,8 +22,10 @@ export const SettingsIconWrapper = styled.div`
     top: 0;
     right: 0;
     margin: 12px;
+    cursor: pointer;
 `
 
 export const SettingsIcon = styled.img`
     max-width: 30px;
+    opacity: 70%;
 `
