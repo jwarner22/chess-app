@@ -100,17 +100,27 @@ class Opening(Base):
     class Congif:
         orm_mode = True
 
-
 class ThemeRating(Base):
     __tablename__ = "theme_ratings"
 
     id = Column(Integer, primary_key=True, index=True)
-    theme_title = Column(String, unique=False, index=True)
+    user_rating = Column(Integer, unique=False, index=True)
+    title = Column(String, unique=False, index=True)
     rating = Column(Float, index=True, unique=False)
-    user_id = Column(String, unique=False, index=True)
-    user_theme_rating = Column(Integer, unique=False, index=True)
-    user_score = Column(Integer, unique=False)
-    # owner_id = Column(String, ForeignKey("themes.title"))
+    failure = Column(Boolean, index=True, unique=False)
+    isDaily = Column(Boolean, index=True, unique=False)
+    perfect = Column(Boolean, index=True, unique=False)
+    score = Column(Integer, index=True, unique=False)
+    category = Column(String, index=True, unique=False)
+    completed = Column(Integer, index=True, unique=False)
+    theme_id = Column(Integer, index=True, unique=False)
+    rating = Column(Integer, index=True, unique=False)
+    high_score = Column(Integer, index=True, unique=False)
+    high_rating = Column(Integer, index=True, unique=False)
+    score_history = Column(String, index=True, unique=False)
+    inserted_at = Column(Integer, index=True, unique=False)
+
+    owner_id = Column(String, ForeignKey("user.user_id"))
 
 class OpeningRating(Base):
     __tablename__ = "opening_ratings"

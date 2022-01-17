@@ -172,7 +172,7 @@ async def user_module_rating(user_id: str, theme_rating: schemas.ThemeRating, db
     if db_user is None:
          return None
     
-    db_rating = models.ThemeRating(**theme_rating.dict(), owner_id = user_id)
+    db_rating = models.ThemeRating(**theme_rating.dict())
     db.add(db_rating)
     db.commit()
     db.refresh(db_rating)
@@ -186,7 +186,7 @@ async def user_module_rating(user_id: str, opening_rating: schemas.OpeningRating
     if db_user is None:
          return None
     
-    db_rating = models.OpeningRating(**opening_rating.dict(), owner_id = user_id)
+    db_rating = models.OpeningRating(**opening_rating.dict(), user_id = user_id)
     db.add(db_rating)
     db.commit()
     db.refresh(db_rating)

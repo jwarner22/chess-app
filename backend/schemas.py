@@ -174,11 +174,25 @@ class LeaderboardUser(BaseModel):
     total_score: int
 
 class ThemeRating(BaseModel):
-    user_id: str
-    theme_title: str
+    user_rating: int
+    title: str
     rating: float
-    user_theme_rating: int
-    user_score: int
+    failure: bool
+    isDaily: bool
+    perfect: bool
+    score: int
+    category: str
+    completed: int
+    theme_id: int
+    rating: int
+    high_score: int
+    high_rating: int
+    score_history: str
+    owner_id: str
+    inserted_at: int
+
+    class Config:
+        orm_mode=True
 
 class OpeningRating(BaseModel):
     opening_id: int
@@ -186,3 +200,6 @@ class OpeningRating(BaseModel):
     user_id: str
     user_opening_rating: int
     user_score: int
+
+    class Config:
+        orm_mode=True

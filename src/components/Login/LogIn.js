@@ -73,6 +73,7 @@ const Login = ({history}) => {
         .then(res => {
 //if user is logged in, push to the app dashboard
           if (res.user) {
+            //console.log(res)
             //Auth.setLoggedIn(true);
             setUserData(res, res.user.uid);
             setIsLoggedIn(true)

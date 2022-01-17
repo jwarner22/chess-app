@@ -7,7 +7,7 @@ import Chart from './ScoreChart';
 import StarRating from './StarRating'
 
 const PostPuzzleMockup = (props) => {
-    
+    //console.log({postModuleProps: props})
     const module = Modules.find(module => module.type_ref === props.userData.title)
 
     if (!props.savingResults) {
@@ -46,7 +46,7 @@ const PostPuzzleMockup = (props) => {
                     </Link>
                     <div>
                     <div> How would you rate this module? </div>
-                    <StarRating />
+                    <StarRating {...props}/>
                     </div>
             </PostPuzzleGrid>
         </PostPuzzleWrapper>
