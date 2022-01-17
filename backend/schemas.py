@@ -172,3 +172,17 @@ class LeaderboardUser(BaseModel):
     user_id: str
     user_name: Optional[str] = None
     total_score: int
+
+class ThemeRating(BaseModel):
+    user_id: str
+    theme_title: str
+    rating: float
+    user_theme_rating: int
+    user_score: int
+
+class OpeningRating(BaseModel):
+    opening_id: int
+    rating: float
+    user_id: str
+    user_opening_rating: int
+    user_score: int

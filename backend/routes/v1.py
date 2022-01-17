@@ -164,18 +164,47 @@ async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = 
     db.refresh(db_user)
     return db_user
 
+## RATINGS
+@app_v1.post("/users/{user_id}/themes/ratings/{rating}", tags=["Ratings"])
+async def user_module_rating(user_id: str, theme_rating: schemas.ThemeRating, db: Session=Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+
+    if db_user is None:
+         return None
+    
+    db_rating = models.ThemeRating(**theme_rating.dict(), owner_id = user_id)
+    db.add(db_rating)
+    db.commit()
+    db.refresh(db_rating)
+
+    return {"rating posted"}
+
+@app_v1.post("/users/{user_id}/openings/ratings/{rating}", tags=["Ratings"])
+async def user_module_rating(user_id: str, opening_rating: schemas.OpeningRating, db: Session=Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+
+    if db_user is None:
+         return None
+    
+    db_rating = models.OpeningRating(**opening_rating.dict(), owner_id = user_id)
+    db.add(db_rating)
+    db.commit()
+    db.refresh(db_rating)
+
+    return {"rating posted"}
+
 ## DAILY PUZZLES
 
 # generate user's daily puzzles
 @app_v1.get('/users/{user_id}/daily_puzzles/picks', tags=["Daily"])
-#async def get_daily_puzzle_picks(user_id: str, db: Session = Depends(get_db)):
 async def get_daily_puzzle_picks():
     
     # generate daily puzzle module picks
     daily_puzzles = []
+    excluded_ids = [2] # exclude these moduless
     while (len(daily_puzzles) < 3): # we want three modules
         pick = randint(1,38) # picks random module (how sophisticated!)
-        if pick not in daily_puzzles: # checks that modules don't repeat
+        if pick not in daily_puzzles and not in excluded_ids: # checks that picks don't repeat and are not in excluded modules
             daily_puzzles.append(pick)
 
     excluded_ids = [0, 48, 49, 50] # exclude these modules

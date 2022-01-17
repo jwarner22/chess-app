@@ -101,5 +101,23 @@ class Opening(Base):
         orm_mode = True
 
 
-# can repeat this structure for openings and endgames
+class ThemeRating(Base):
+    __tablename__ = "theme_ratings"
 
+    id = Column(Integer, primary_key=True, index=True)
+    theme_title = Column(String, unique=False, index=True)
+    rating = Column(Float, index=True, unique=False)
+    user_id = Column(String, unique=False, index=True)
+    user_theme_rating = Column(Integer, unique=False, index=True)
+    user_score = Column(Integer, unique=False)
+    # owner_id = Column(String, ForeignKey("themes.title"))
+
+class OpeningRating(Base):
+    __tablename__ = "opening_ratings"
+
+    id = Column(Integer, primary_key=True, index=True)
+    opening_id = Column(Integer, unique=False, index=True)
+    rating = Column(Float, index=True, unique=False)
+    user_id = Column(String, unique=False, index=True)
+    user_opening_rating = Column(Integer, unique=False, index=True)
+    user_score = Column(Integer, unique=False)
