@@ -204,7 +204,7 @@ async def get_daily_puzzle_picks():
     excluded_ids = [2] # exclude these moduless
     while (len(daily_puzzles) < 3): # we want three modules
         pick = randint(1,38) # picks random module (how sophisticated!)
-        if pick not in daily_puzzles and not in excluded_ids: # checks that picks don't repeat and are not in excluded modules
+        if pick not in daily_puzzles and pick not in excluded_ids: # checks that picks don't repeat and are not in excluded modules
             daily_puzzles.append(pick)
 
     excluded_ids = [0, 48, 49, 50] # exclude these modules
