@@ -45,7 +45,9 @@ export default function Opening(props) {
   },[count]);
 
   useEffect(() => {
+    console.log('next')
     if (orientation === "black") {
+      console.log('should trigger initial move')
       initialMove();
     }
   },[next]);
@@ -55,7 +57,9 @@ export default function Opening(props) {
       moves[0].substring(0, 2),
       moves[0].substring(2, 4)
     );
-    setMoveIndex(() => moveIndex + 1);
+    if (color === "white") {
+     setMoveIndex(() => moveIndex + 1);
+    }
     let movable = calcMovable();
     setMovable(movable);
   }
@@ -162,7 +166,7 @@ export default function Opening(props) {
 
   // useEffect(() => {
   //   let toMove = turnColor();
-  //   if (toMove !== orientation) {
+  //   if ((toMove !== orientation) && (moveIndex > 2)) {
   //     let from = moves[moveIndex - 1].substring(0, 2);
   //     let to = moves[moveIndex - 1].substring(2, 4);
   //     makeMove(from, to);

@@ -188,17 +188,15 @@ export default function Puzzle(props) {
       return puzzle
     })
 
-    console.log('if statement ran')
     // add completed all (i.e. mutatedPuzzles.all(...completed)) splash screen here
     if (mutatedPuzzles.every(puzzle => puzzle.completed === true)) {
       // record daily training completion => firebase
       logEvent(analytics, 'daily_training_completed', {'user': userID});
-      console.log('daily training completed')
       // user profile endpoint
       let endpoint = `/users/${userID}`;
       //get user daily streak info
       let userProfileData = await get(endpoint);
-      console.log({userProfileData: userProfileData})
+
       let now = new Date();
       // if new user, set daily streak to 1
       if (userProfileData.lastDaily == null) {
@@ -245,8 +243,6 @@ export default function Puzzle(props) {
  const puzzleIsFinished = async (results, result, times) => {
    // log module completion to firebase
    logEvent(analytics, 'module_completed', {'user': userID, 'isDaily': isDaily});
-
-    console.log({times: times})
 
    setSavingResults(true)
    if (result === 'succeed') {

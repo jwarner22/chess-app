@@ -43,7 +43,7 @@ function CourseTile(props){
     return (
         <>
         <TileIconWrap>
-            <TileIconImg src={img}/>
+            <TileIconImg src={img} loading={'lazy'}/>
         </TileIconWrap>
         <TileHeadline>
             {headline}

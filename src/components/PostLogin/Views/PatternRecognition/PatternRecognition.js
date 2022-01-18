@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import DashNavbar from '../../DashboardNavbar/DashboardNavbar'
 import DashSidebar from '../../DashboardSidebar/DashboardSidebar'
@@ -7,18 +7,11 @@ import MobileNavbar from "../../MobileNavBar/MobileNavBar"
 import styled from "styled-components"
 import PageHeader from "../../../PageHeaders/PageHeaders";
 
-
 const Dashboard = () => {
-
     //hamburger sidebar menu
   const [isOpen, setIsOpen] = useState(false)
   const [windowDimension, setWindowDimension] = useState(null);
   const pageTitle = `Puzzles`
-
-  const toggle = () => {
-    setIsOpen(!isOpen)
-  }
-//mobile menu
 
   useEffect(() => {
     setWindowDimension(window.innerWidth);
@@ -33,12 +26,12 @@ const Dashboard = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const toggle = () => {
+    setIsOpen(!isOpen)
+  }
+
   const isMobile = windowDimension <= 640;
 
-
-  
-
-    
   return (
     <>
     {isMobile ? (

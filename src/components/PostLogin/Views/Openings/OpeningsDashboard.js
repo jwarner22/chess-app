@@ -3,58 +3,29 @@ import {Link} from 'react-router-dom';
 import MobileNavbar from "../../MobileNavBar/MobileNavBar";
 import DashboardNavbar from "../../DashboardNavbar/DashboardNavbar";
 import DashSidebar from "../../DashboardSidebar/DashboardSidebar";
-import openingImage from "../../../../Images/professor.svg";
 import book from "../../../../Images/open-book.svg"
 import PageHeader from "../../../PageHeaders/PageHeaders"
-import {OpeningPageImgContainer, 
-  OpeningsPagePlaceholderImg, 
-  OpeningsTitle,
-  OpeningPageImgWrapper,
-  OpeningsTitleContainer,
+import {
   OpeningsGrid,
   OpeningsTileContainer,
-  OpeningsTileHeader,
   OpeningTileHeadline,
   OpeningTileButton,
   OpeningsTileLeftColumn,
-  OpeningsTileRightColumn,
   OpeningsTileImage,
   OpeningTileButtonWrapper,
   OpeningTileSubheadline,
   OpeningImgWrapper
 } from "./OpeningsElements";
-import {TileWrapper, 
-  TileHeadline, 
-  TileIcon, 
-  TileIconWrap, 
-  TileHeader, 
-  TileSubheadline,
-  TileButton,
-  TileButtonWrap
-} from "../PatternRecognition/CourseTiles/CourseTileElements"
 import {CoursesWrapper, 
-    ModuleWrapper, 
-    ModuleGrid, 
-    CategoryLabel,
-    CategoryLabelWrapper,
-    CategoryLabelContainer,
-    TacticsLabelWrapper,
-    CategoryLabelContainerTop,
-    CheckmatesLabelWrapper,
-    EndgamesLabelWrapper,
+    ModuleWrapper
 } from '../PatternRecognition/CoursesBody/CoursesElements'
-import CourseTile from '../PatternRecognition/CourseTiles/CourseTiles'
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
-import {HeadingWrapper, PatternRecognitionHeading, PatternRecognitionSubheading} from "../PatternRecognition/PatternRecognition"
+import {HeadingWrapper, PatternRecognitionHeading} from "../PatternRecognition/PatternRecognition"
 
 const Openings = () => {
   const [isOpen, setIsOpen] = useState(false);
   const openingData = Modules.filter(module => module.category === 'opening');
   const pageTitle = `Openings`
-  //hamburger sidebar menu
-  const toggle = () => {
-    setIsOpen(!isOpen)
-  }
 
   //mobile navbar
     const [windowDimension, setWindowDimension] = useState(null);
@@ -71,6 +42,11 @@ const Openings = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+    //hamburger sidebar menu
+    const toggle = () => {
+      setIsOpen(!isOpen)
+    }
 
   const isMobile = windowDimension <= 640;
 
