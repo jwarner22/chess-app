@@ -5,6 +5,7 @@ LivesImg,
 LifeOne, 
 LifeTwo,
 LifeThree} from "./LivesElements"
+import { CSSTransition } from "react-transition-group"
 import livesIcon from "../../../../Images/heart.svg"
 import lostLife from "../../../../Images/close.svg"
 
@@ -35,9 +36,9 @@ const Lives = (props) => {
         <div>
     <   LivesWrapper>
             <LivesGrid>
-            <LifeOne>{lifeOne ? <LivesImg isMobile={props.isMobile} src={livesIcon}/> : <LivesImg isMobile={props.isMobile} src={lostLife}/>}</LifeOne>
-            <LifeTwo>{lifeTwo ? <LivesImg isMobile={props.isMobile} src={livesIcon}/> : <LivesImg isMobile={props.isMobile} src={lostLife}/>}</LifeTwo>
-            <LifeThree>{lifeThree ? <LivesImg isMobile={props.isMobile} src={livesIcon}/> : <LivesImg isMobile={props.isMobile} src={lostLife}/>}</LifeThree>
+                <LifeOne>{lifeOne ? <LivesImg isMobile={props.isMobile} src={livesIcon}/> : <LivesImg isMobile={props.isMobile} src={lostLife}/>}</LifeOne>
+                <LifeTwo>{lifeTwo ? <LivesImg isMobile={props.isMobile} src={livesIcon}/> : <LivesImg isMobile={props.isMobile} src={lostLife}/>}</LifeTwo>
+                <LifeThree>{lifeThree ? <LivesImg isMobile={props.isMobile} src={livesIcon}/> : <LivesImg isMobile={props.isMobile} src={lostLife}/>}</LifeThree>
             </LivesGrid>
         </LivesWrapper>
         </div>

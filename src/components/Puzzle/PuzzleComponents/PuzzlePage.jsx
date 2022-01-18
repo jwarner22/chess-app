@@ -21,6 +21,7 @@ import { Construction } from "@styled-icons/material-twotone";
 import {BackButtonWrapper} from "../Utilities/Progress"
 import Lives from "./Lives/Lives"
 import MobilePuzzle from "./MobilePuzzle/MobilePuzzle";
+import { CSSTransition, TransitionGroup } from "react-transition-group"
 import { MobilePuzzleContainer, 
   MobilePuzzleWrapper, 
   MobileHeaderContainer, 
@@ -354,7 +355,14 @@ export default function PuzzlePage(props) {
                   <BlackIndicator />
                 )}
                 </IndicatorWrapper>
-                <Lives lives={lives} isMobile={isMobile} />
+                <TransitionGroup>
+                  <CSSTransition
+                    timeout={300}
+                    classNames="fade"
+                  >
+                  <Lives lives={lives} isMobile={isMobile} />
+                  </CSSTransition>
+                </TransitionGroup>
                 {/* <LivesWrapper>
                 <strong>{lives}</strong>&nbsp;Lives Remaining 
                 </LivesWrapper> */}

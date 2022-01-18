@@ -8,20 +8,20 @@ export const LivesWrapper = styled.div`
  
 `
 
-export const LivesGrid = styled.div`
+export const LivesGrid = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 12px;
   margin: 12px 0px;
   
 `
-export const LifeOne = styled.div`
+export const LifeOne = styled.li`
   max-width: 30px;
 `
-export const LifeTwo = styled.div`
+export const LifeTwo = styled.li`
   max-width: 30px;
 `
-export const LifeThree = styled.div`
+export const LifeThree = styled.li`
   max-width: 30px;
 `
 
