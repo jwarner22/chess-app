@@ -42,6 +42,7 @@ function StarRating(props) {
 
   return (
       <>
+      <div> {posted ? 'How would you rate this module?' : 'Response submitted.  Thanks for your feedback!'}</div>
     <Rating
     onClick={onClick}
     ratingValue={ratingValue}
