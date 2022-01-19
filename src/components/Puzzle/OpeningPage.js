@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import swal from "sweetalert";
-import { wait } from './Utilities/helpers.js';
 import DemoMoves from "./Opening/DemoMoves.jsx";
 import Opening from "./Opening/Opening.jsx";
 import {getOpeningMoves} from './Utilities/helpers.js';
@@ -10,11 +8,9 @@ import correctSound from "../../assets/public_sound_standard_Confirmation.mp3";
 import incorrectSound from "../../assets/public_sound_standard_Error.mp3";
 import styled from "styled-components";
 import {Howl} from 'howler'
-import { Padding, Score, SettingsBackupRestore } from "@styled-icons/material";
 import {PuzzlePageContainer, PuzzlePageWrapper, PuzzlePageGrid, PuzzleBoardContainer, PuzzleBoardWrapper, RightPuzzlePanelContainer, PercentCompleted} from "../Puzzle/PuzzleComponents/PuzzlePage"
 import {MobileHeaderContainer, MobilePuzzleWrapper} from "../Puzzle/PuzzleComponents/MobilePuzzle/MobilePuzzleElements"
 import BackButton from "../BackButton.js";
-import { CreativeCommonsNoncommercialEu } from "@styled-icons/entypo";
 
 export default function OpeningModule(props) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -61,6 +57,12 @@ export default function OpeningModule(props) {
     }
   },[count])
 
+  useEffect(() => {
+    if (progress > 50) {
+      setOrientation("black")
+    }
+  },[progress])
+
   const getMoves = async () => {
     let moves = props.openingData.moves;
     const openingMoves = getOpeningMoves(moves);
@@ -95,7 +97,7 @@ export default function OpeningModule(props) {
 
   const finishedCallback = async () => {
     await playSound('correct');
-    setProgress(prevProgress => prevProgress + ((1/3)*100.01));
+    setProgress(prevProgress => prevProgress + ((1/4)*100.01));
     setContinueDisabled(false);
     setScore(prev => prev + 100*(Math.floor(moves.length/2)));
     setOutcome(() => true);

@@ -20,14 +20,17 @@ import CompletedTraining from './completedTraining';
 import {wait} from '../../../Puzzle/Utilities/helpers'
 
 export default function DailyPuzzzle() {
+  // state variables
   const [seen, setSeen] = useState(false); // set to true to display modal on load
-  //const [completed, setCompleted] = useState(false); // set to true to display completed screen
   const [loaded,setLoaded] = useState(false);
   const [dailyPicks, setDailyPicks] = useState([]);
   const [schemaPicks, setSchemaPicks] = useState([]);
   const [isMounted, setIsMounted] = useState(true);
   const [screenTimer, setScreenTimer] = useState(true);
-  //const [userData, setUserData] = useState({});
+  const [windowDimension, setWindowDimension] = useState(null);   //mobile navigation bar
+  
+  // misc. variables
+  const isMobile = windowDimension <= 640;
   const history = useHistory();
   const {get, put, post} = useFetch(baseURL);
   const userId = localStorage.getItem('userID')
@@ -35,31 +38,36 @@ export default function DailyPuzzzle() {
 
 
   useEffect(() => {
+    setWindowDimension(window.innerWidth);
     if (isMounted) {
       setDailyPuzzles();
       setTimer();
-      //getUserData();
     }
     return () => setIsMounted(false) // componentDidUnMount
   },[])
 
-  // const getUserData = async () => { 
-  //   try {
-  //     const data = await get(`/users/${userId}`)
-  //     setUserData(data)
-  //   } catch {
-  //     return null;
-  //   }
-  // }
 
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimension(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // gets daily puzzle module data
   const setDailyPuzzles = async () => {
  
-    //const storedDailyPuzzles = JSON.parse(localStorage.getItem('dailyPuzzles'));
+    // get daily puzzles from api
     let storedDailyPuzzles = await getDailyPuzzles();
-  
+    
+    // convert stored string to date
     let storedDateString = storedDailyPuzzles[0].inserted_at;
     let storedDate = new Date(storedDateString);
 
+
+    // check if we need to get new daily puzzle picks (refactor to backend cache?)
     if ((storedDate.getMonth() !== now.getMonth()) | (storedDate.getDate() !== now.getDate())) {
       let returnedPicks = await getNewPicks();
       setDailyPicks(returnedPicks.mutatedPicks)
@@ -75,24 +83,19 @@ export default function DailyPuzzzle() {
         return {...pick, completed: stored.completed, locked: stored.locked, inserted_at: stored.inserted_at}
       });
       
+      // set data for display and module consumption
       setSchemaPicks(storedDailyPuzzles);
       setDailyPicks(mutatedPicks);
 
+      // check if completed training page has been displayed
       let completedTrainingDisplayed = (sessionStorage.getItem('completedTrainingDisplayed') === 'true');
       
-      // conditional rendering of completed training - phased out
-      // if (storedDailyPuzzles.every(entry => entry.completed === true) && completedTrainingDisplayed === false) {
-      //   setCompleted(true)
-      // }
-
+      // check user daily training completion
       let endpoint = `/users/${userId}`
       let data = await get(endpoint);
-      console.log(data)
       let lastDaily = new Date(data.last_daily);
 
       // push to completed training page
-      console.log(completedTrainingDisplayed)
-      console.log(lastDaily)
       if (lastDaily.getMonth() === now.getMonth() && lastDaily.getDate() === now.getDate() && completedTrainingDisplayed === false) {
         history.push('/completed-training')
         sessionStorage.setItem('completedTrainingDisplayed', 'true')
@@ -101,6 +104,7 @@ export default function DailyPuzzzle() {
     }
     setLoaded(true)
   }
+
 
   // creates daily puzzles for new user
   const createPicks = async (picks) => {
@@ -126,6 +130,7 @@ export default function DailyPuzzzle() {
   }
 
   const getNewPicks = async () => {
+    // reset the daily puzzle cycle for the day
     localStorage.setItem('completedTrainingDisplayed', 'false')
     let endpoint = `/users/${userId}/daily_puzzles/picks`;
     try {
@@ -161,11 +166,7 @@ export default function DailyPuzzzle() {
     }
     return schemadPick
     });
-    
-    
-    // store to localStorage to persist over day
-    //localStorage.setItem('dailyPuzzles',JSON.stringify(mutatedPicks));
-    
+
     await storePicks(schemaPicks) // update database
     return {schemaPicks, mutatedPicks}; // return data in API schema formata and render format
   }
@@ -189,21 +190,18 @@ export default function DailyPuzzzle() {
     setIsOpen(!isOpen)
   }
 
-  //mobile navigation bar
-  const [windowDimension, setWindowDimension] = useState(null);
 
-  useEffect(() => {
-    setWindowDimension(window.innerWidth);
-  }, []);
-
+  // displays "generating daily training" message and hides it after timer
   const setTimer = async () => {
-   //let shownSplashScreen = (localStorage.getItem('shownDailySplashScreen') === 'true');
+
+    // get last display of screen time
     let lastScreenTime = new Date(parseInt(localStorage.getItem('lastDailySplashScreenTime')));
     let now = new Date();
 
-
+    // check if we need to display the message
     try {
       if (lastScreenTime.getDate() !== (now.getDate())) {
+
         // show splash screen
         setScreenTimer(prev => !prev)
         await wait(2000);
@@ -213,8 +211,7 @@ export default function DailyPuzzzle() {
         localStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
       }
     } catch (e) {
-      console.log(e)
-      console.log('stored values were not found')
+      // just in case
       // show splash screen
       setScreenTimer(prev => !prev)
       await wait(2000)
@@ -225,24 +222,6 @@ export default function DailyPuzzzle() {
     
   }
 
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimension(window.innerWidth);
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  
-  const isMobile = windowDimension <= 640;
-
-  console.log(isMobile)
-
-  // if (completed) {
-  //   return(
-  //     <CompletedTraining isMobile={isMobile}/>
-  //   )
-  // }
 
   if (!screenTimer) {
     return (

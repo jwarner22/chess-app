@@ -45,7 +45,6 @@ const PostPuzzleMockup = (props) => {
                     </FinishButton>
                     </Link>
                     <div>
-                    <div> How would you rate this module? </div>
                     <StarRating {...props}/>
                     </div>
             </PostPuzzleGrid>

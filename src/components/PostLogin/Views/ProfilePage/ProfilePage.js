@@ -37,24 +37,32 @@ const ProfilePage = () => {
       let endpoint = `/achievements/${userID}`
       let achievements = await get(endpoint)
       setAchievements(achievements)
-      //console.log(achievements)
     }
 
   async function fetchProfileData() {
+
+    // get profile data
     let endpoint = `/users/${userID}`;
     let profileData = await get(endpoint)
+
+    // get overall rating
     await fetchOverallRating(profileData);
     setProfileData(profileData)
+
+    // set values for profile page
     const streak = profileData.daily_streak;
     const score = profileData.total_score;
     const name = profileData.user_name;
+
+    // set join date
     let date = new Date(profileData.inserted_at); 
     const reformattedDate = date.toLocaleString('en-US', {
       day: 'numeric', // numeric 2-digit
       year: 'numeric', // numeric, 2-digit
       month: 'long', // numeric, 2-digit, long, short, narrow
-    }).toString()
-    // setJoinDate(date)
+    }).toString();
+
+    // set state values for profile page
     setUsername(name)
     setTotalScore(score)
     setDailyStreak(streak);
@@ -145,13 +153,13 @@ const ProfilePageContainer = styled.div`
     min-width: 100vw;
 `
 
-const ProfilePageWrapper = styled.div`
-    padding-top: 32px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-`
-const AchievementTileWrapper = styled.div`
-    padding-bottom: 56px;
-`
+// const ProfilePageWrapper = styled.div`
+//     padding-top: 32px;
+//     display: flex;
+//     justify-content: center;
+//     flex-direction: column;
+//     align-items: center;
+// `
+// const AchievementTileWrapper = styled.div`
+//     padding-bottom: 56px;
+// `
