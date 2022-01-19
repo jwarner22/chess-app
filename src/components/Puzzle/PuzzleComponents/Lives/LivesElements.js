@@ -17,12 +17,15 @@ export const LivesGrid = styled.ul`
 `
 export const LifeOne = styled.li`
   max-width: 30px;
+  list-style-type: none;
 `
 export const LifeTwo = styled.li`
   max-width: 30px;
+  list-style-type: none;
 `
 export const LifeThree = styled.li`
   max-width: 30px;
+  list-style-type: none;
 `
 
 export const LivesImg = styled.img`
