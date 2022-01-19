@@ -5,6 +5,8 @@ import firebase from 'firebase/compat/app';
 import {firebaseApp} from "../config.js"
 import Loader from '../components/Loader.js';
 import {getAuth, onAuthStateChanged} from 'firebase/auth';
+import { Cs } from "styled-icons/crypto";
+import { setUserId } from "firebase/analytics";
 //require('@firebase/auth')
 
 const AuthContext = createContext();
@@ -13,7 +15,7 @@ const auth = getAuth(firebaseApp);
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
-
+  const [userId, setUserId] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
   const signup = (email, password) => {
@@ -35,7 +37,9 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
+      console.log({user: user})
       setCurrentUser(() => !!user);
+      setUserId(() => user.uid)
       setLoading(false);
     });
   }, []);
@@ -44,7 +48,7 @@ const AuthProvider = ({ children }) => {
      return <Loader />
    }
   return (
-    <AuthContext.Provider value={{signup, login, logout, resetPassword, currentUser }}>
+    <AuthContext.Provider value={{signup, login, logout, resetPassword, currentUser, userId }}>
       {children}
     </AuthContext.Provider>
   );

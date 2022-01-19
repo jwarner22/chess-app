@@ -12,8 +12,9 @@ import {TransitionGroup, CSSTransition} from "react-transition-group"
 import DashboardNavbar from "./components/PostLogin/DashboardNavbar/DashboardNavbar"
 import DashSidebar from "./components/PostLogin/DashboardSidebar/DashboardSidebar"
 import MobileNavbar from './components/PostLogin/MobileNavBar/MobileNavBar'
-require("firebase/auth");
+import {UserProvider} from './GlobalState.js';
 
+require("firebase/auth");
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
@@ -49,6 +50,7 @@ function App() {
   return(
     <>
     <AuthProvider>
+      <UserProvider>
       {/*Is logged in? {JSON.stringify(isLoggedIn)}*/}
       {/*console.log({isloggedin: JSON.stringify(isLoggedIn)})*/}
         <Router>
@@ -91,6 +93,7 @@ function App() {
           // </TransitionGroup>
           )} />
         </Router>
+        </UserProvider>
     </AuthProvider>
     </>
   );

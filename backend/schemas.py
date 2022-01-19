@@ -100,19 +100,6 @@ class UserCreate(UserBase):
     daily_streak: Optional[int] = 0
     last_daily: Optional[str]
 
-class UserUpdate(UserBase):
-    user_id: str
-    overall_rating: int
-    inserted_at: str
-    total_score: Optional[int] = 0
-    puzzles_completed: Optional[int] = 0
-    puzzles_correct: Optional[int] = 0
-    user_name: Optional[str] = None
-    daily_streak: Optional[int] = 0
-    last_daily: Optional[int]
-    
-    class Config:
-        orm_mode=True
 
 class UserProfile(UserBase):
     user_id: str
