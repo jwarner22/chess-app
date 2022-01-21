@@ -1,13 +1,8 @@
 import React, { useEffect, useState, createContext } from "react";
-//import firebaseConfig from "../config.js";
-//import {firebaseAPI} from '../config.js';
 import firebase from 'firebase/compat/app';
 import {firebaseApp} from "../config.js"
 import Loader from '../components/Loader.js';
-import {getAuth, onAuthStateChanged} from 'firebase/auth';
-import { Cs } from "styled-icons/crypto";
-import { setUserId } from "firebase/analytics";
-//require('@firebase/auth')
+import {getAuth} from 'firebase/auth';
 
 const AuthContext = createContext();
 const auth = getAuth(firebaseApp);
@@ -37,9 +32,8 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      console.log({user: user})
       setCurrentUser(() => !!user);
-      setUserId(() => user.uid)
+      setUserId(() => (user != null) ? user.uid : null);
       setLoading(false);
     });
   }, []);

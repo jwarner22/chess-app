@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./style.css";
-// import Demo from "./Demo";
 // import registerServiceWorker from "./registerServiceWorker";
 import PuzzlePage from "./PuzzleComponents/PuzzlePage";
 import {baseURL} from "../api/apiConfig";
@@ -10,6 +9,10 @@ import useFetch from '../api/useFetch';
 import Loader from '../Loader';
 import {getAnalytics, logEvent} from "firebase/analytics";
 
+// Global context
+import {UserContext} from '../../GlobalState'
+
+
 export default function Puzzle(props) {
   const [puzzles,setPuzzles] = useState([]);
   const [isFinished,setIsFinished] = useState(false);
@@ -17,11 +20,21 @@ export default function Puzzle(props) {
   const [savingResults, setSavingResults] = useState(false);
   const [failure, setFailure] = useState(false);
   const [perfect, setPerfect] = useState(false);
-  const [userData, setUserData] = useState({});
+  const [userThemeData, setUserThemeData] = useState({});
   const [score, setScore] = useState(0);
   const [scoreData, setScoreData] = useState([])
-  const {get,put, post} = useFetch(baseURL);
+  
+  // fetch Hook
+  const {get} = useFetch(baseURL);
+  
+  // Google Analytics
   const analytics = getAnalytics();
+
+  // global context  
+  const {userData, updateUserData} = useContext(UserContext);
+  const {dailyModules, updateDailyModules} = useContext(UserContext);
+  const {themesData, updateThemesData} = useContext(UserContext);
+  const {updateAchievements} = useContext(UserContext);
 
   const {rating,theme,id, isDaily} = props;
   const schemaPicks = props.schemaPicks;
@@ -41,71 +54,75 @@ export default function Puzzle(props) {
     get(endpoint+queryParams).then(data => setPuzzles(data))
   }
   
-  // fetches relevant user theme data from API
-  const fetchThemeData = async () => {
-    try {
-      const data = await get(`/users/${userID}/themes/${theme}`);
-      return data;
-    } catch {
-      return null;
-    }
-  
-  }
+  // // fetches relevant user theme data from API
+  // const fetchThemeData = async () => {
+  //   try {
+  //     const data = await get(`/users/${userID}/themes/${theme}`);
+  //     return data;
+  //   } catch {
+  //     return null;
+  //   }
+  // }
 
-  // updates theme after completing module
-  const updateThemeData = async (themeData) => {
-    let endpoint = `/users/${userID}/themes`
-    put(endpoint, themeData)
-    .then(data => {
-      //localStorage.setItem('userPublicData',JSON.stringify(data))
-    }).then(() => setSavingResults(false))
-    .catch(e => console.log(e))
+  // // updates theme after completing module
+  // const updateThemeData = async (themeData) => {
+  //   let endpoint = `/users/${userID}/themes`
+  //   put(endpoint, themeData)
+  //   .then(data => {
+  //     //localStorage.setItem('userPublicData',JSON.stringify(data))
+  //   }).then(() => setSavingResults(false))
+  //   .catch(e => console.log(e))
 
-  }
+  // }
 
-  async function setAchievement(category, value, diff) {
-    let endpoint = `/achievements/${userID}`
-    let now = Date.now()
-    post(endpoint, {
-      inserted_at: now,
-      category: category,
-      diff: diff,
-      value: value,
-      theme: theme
-    })
-  }
+  // async function setAchievement(category, value, diff) {
+  //   let endpoint = `/achievements/${userID}`
+  //   let now = Date.now()
+  //   post(endpoint, {
+  //     inserted_at: now,
+  //     category: category,
+  //     diff: diff,
+  //     value: value,
+  //     theme: theme
+  //   })
+  // }
 
-  async function fetchProfileData() {
-    let endpoint = `/users/${userID}`;
-    try {
-      let profileData = await get(endpoint)
-      return profileData
-    } catch(e) {
-      alert(e)
-    }
-  }
+  // async function fetchProfileData() {
+  //   let endpoint = `/users/${userID}`;
+  //   try {
+  //     let profileData = await get(endpoint)
+  //     return profileData
+  //   } catch(e) {
+  //     alert(e)
+  //   }
+  // }
 
-  async function setProfileData(profileData) {
-    let endpoint = `/users/${userID}`;
-    try {
-      put(endpoint, profileData)
-    } catch(e) {
-      alert(e)
-    }
+  // async function setProfileData(profileData) {
+  //   let endpoint = `/users/${userID}`;
+  //   try {
+  //     put(endpoint, profileData)
+  //   } catch(e) {
+  //     alert(e)
+  //   }
 
-  }
+  // }
 
   // updates theme data and sends to API
   async function saveResults(outcomes, times) {
     //let oldData = JSON.parse(localStorage.getItem('userPublicData'))
 
-    const themeData = await fetchThemeData() // gets theme data from API
+    //const themeData = await fetchThemeData() // gets theme data from API
     // score change
     if (outcomes.every(result => result === true)) {
       setPerfect(true);
-      setAchievement('perfect', 0, 0);
+      updateAchievements('perfect', 0, 0, theme);
     };
 
+    // filter relevant theme from user themes data
+    let userThemesData = [...themesData]
+    let themeData = userThemesData.filter(item => item.title === theme)[0];
+
+    // update theme data
     let newRating = calcEloRating(outcomes,puzzles,themeData.rating, themeData.completed);
 
     if (newRating > themeData.high_rating) {
@@ -114,7 +131,7 @@ export default function Puzzle(props) {
       // new high rating
       themeData.high_rating = newRating;
       
-      setAchievement("high_rating", newRating, diff);
+      updateAchievements("high_rating", newRating, diff, theme);
     }
     themeData.rating = newRating
     themeData.completed += 1; // adds 1 to number of puzzles completed
@@ -127,11 +144,11 @@ export default function Puzzle(props) {
       // new high score!
       themeData.high_score = score;
       
-      setAchievement("high_score", score, diff)
+      updateAchievements("high_score", score, diff, theme)
     }
 
     setScore(score)
-
+    console.log({themeData: themeData, themesData: themesData})
     // update theme score record here
     let str = themeData.score_history;
     let score_array = str.split(",").map(Number);
@@ -152,17 +169,18 @@ export default function Puzzle(props) {
 
     setScoreData(score_data)
         
-    await updateThemeData(themeData)  // updates data in api
+    await updateThemesData(themeData)  // updates data in api
     
-    setUserData(themeData) // sets user data to pass as props to post puzzle page
+    setUserThemeData(themeData) // sets user data to pass as props to post puzzle page
 
-    let profileData = await fetchProfileData()
+    //let profileData = await fetchProfileData()
+    let profileData = {...userData}
     profileData.total_score += score ;
     profileData.puzzles_completed += outcomes.length;
     profileData.puzzles_correct += outcomes.filter(outcome => outcome === true).length;
 
-    setProfileData(profileData)
-
+    //setProfileData(profileData)
+    updateUserData(profileData)
   }
 
   // updates daily puzzle data based on completion
@@ -170,7 +188,7 @@ export default function Puzzle(props) {
     //const storedDailyPuzzles = JSON.parse(localStorage.getItem('dailyPuzzles'));
     
     // was storedDailyPuzzles
-    const mutatedPuzzles = schemaPicks.map(puzzle => {
+    const mutatedPuzzles = dailyModules.map(puzzle => {
       if (puzzle.theme_id === id) {
         return {...puzzle, completed: true, locked: false}
       } 
@@ -193,18 +211,21 @@ export default function Puzzle(props) {
       // record daily training completion => firebase
       logEvent(analytics, 'daily_training_completed', {'user': userID});
       // user profile endpoint
-      let endpoint = `/users/${userID}`;
+      //let endpoint = `/users/${userID}`;
       //get user daily streak info
-      let userProfileData = await get(endpoint);
+      //let userProfileData = await get(endpoint);
+      let userProfileData = {...userData};
 
       let now = new Date();
+
       // if new user, set daily streak to 1
       if (userProfileData.lastDaily == null) {
-        put(endpoint, {
-          ...userProfileData,
-          daily_streak: 1,
-          last_daily: Date.now()
-        })
+        // put(endpoint, {
+        //   ...userProfileData,
+        //   daily_streak: 1,
+        //   last_daily: Date.now()
+        // })
+        updateUserData({...userProfileData, daily_streak: 1, last_daily: Date.now()})
       }
 
       let lastDaily = new Date(userProfileData.last_daily);
@@ -212,18 +233,20 @@ export default function Puzzle(props) {
       if (lastDaily.getDate() !== now.getDate()) { // ensure no same day streak increase
         if (lastDaily.getDate() === (now.getDate() - 1)) { // ensure last daily completion was yesterday
           // update streak (+1)
-          put(endpoint, {
-            ...userProfileData,
-            daily_streak: userProfileData.daily_streak + 1,
-            last_daily: Date.now()
-          })
+          // put(endpoint, {
+          //   ...userProfileData,
+          //   daily_streak: userProfileData.daily_streak + 1,
+          //   last_daily: Date.now()
+          // })
+          updateUserData({...userProfileData, daily_streak: userData.daily_streak + 1, last_daily: Date.now()})
         } else {
           // reset streak to 1
-          put(endpoint, {
-            ...userProfileData,
-            daily_streak: 1,
-            last_daily: Date.now()
-          })
+          // put(endpoint, {
+          //   ...userProfileData,
+          //   daily_streak: 1,
+          //   last_daily: Date.now()
+          // })
+          updateUserData({...userProfileData, daily_streak: 1, last_daily: Date.now()})
         }
       }
     }
@@ -231,13 +254,14 @@ export default function Puzzle(props) {
     return mutatedPuzzles
   }
 
-  const saveDailyPuzzles = async (mutatedPuzzles) => {
-    // save daily puzzles to api here
-    let endpoint = `/users/${userID}/daily_puzzles`;
-    put(endpoint, mutatedPuzzles)
-    .catch(error => alert(error))
-    .finally(() => setSavingResults(false))
-  }
+  // const saveDailyPuzzles = async (mutatedPuzzles) => {
+  //   // save daily puzzles to api here
+  //   // let endpoint = `/users/${userID}/daily_puzzles`;
+  //   // put(endpoint, mutatedPuzzles)
+  //   // .catch(error => alert(error))
+  //   // .finally(() => setSavingResults(false))
+  //   updateDailyModules(mutatedPuzzles);
+  // }
 
   // callback function when puzzle is finished (currently only success)
  const puzzleIsFinished = async (results, result, times) => {
@@ -245,25 +269,20 @@ export default function Puzzle(props) {
    logEvent(analytics, 'module_completed', {'user': userID, 'isDaily': isDaily});
 
    setSavingResults(true)
-   if (result === 'succeed') {
    setOutcomes(prevOutcomes => [...prevOutcomes,results])
    await saveResults(results, times);
 
-   // update if daily puzzle
-   if (isDaily) {
-    let updatedDailyPuzzles = await updateDailyPuzzles();
-    await saveDailyPuzzles(updatedDailyPuzzles)
-   }
-   
+   if (result === 'fail') setFailure(true);
 
-   } else if (result === 'fail') {
-    setOutcomes(prevOutcomes => [...prevOutcomes,results])
-    await saveResults(results, times);
-    setFailure(true)
-    setIsFinished(true)
-    setSavingResults(false)
-   }   
-   setIsFinished(true)
+        
+    // update if daily puzzle
+    if (isDaily) {
+      let updatedDailyPuzzles = await updateDailyPuzzles();
+      await updateDailyModules(updatedDailyPuzzles);
+    }
+    
+  setSavingResults(false)
+  setIsFinished(true)
  }
  
 // render if saving to API
@@ -275,9 +294,8 @@ export default function Puzzle(props) {
  
  if (isFinished) {
    return(
-     <PostPuzzle perfect={perfect} failure ={failure} outcomes={outcomes} userData={userData} score={score} isDaily={isDaily} scoreData={scoreData}/>
+     <PostPuzzle perfect={perfect} failure ={failure} outcomes={outcomes} userData={userThemeData} score={score} isDaily={isDaily} scoreData={scoreData}/>
    )
-
  }
 
  // render puzzle module

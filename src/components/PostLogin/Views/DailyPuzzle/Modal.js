@@ -16,7 +16,6 @@ export default class Modal extends Component {
    this.props.toggle();
   };
 render() {
-  console.log(ModalData)
   return (
    <ModalWrapper>
         <ModalHeader>

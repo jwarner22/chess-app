@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {PromoModalContainer,
     PromoModalWrapper,
     PromoQueenWrapper,
@@ -19,7 +19,6 @@ function PromotionalModal(props) {
     const {openModal, onPromotionSelection} = props;
 
     const handleSelection = e => {
-        console.log({selection: e})
         onPromotionSelection(e);
     }
 

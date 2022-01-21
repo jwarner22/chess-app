@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from "styled-components"
 import whitePiece from "../../chess/pieces/nova/wN.svg"
 

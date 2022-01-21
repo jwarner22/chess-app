@@ -57,12 +57,3 @@ export default function DemoMoves(props) {
     </>
   );
 }
-const boardsContainer = {
-  display: "flex",
-  justifyContent: "space-around",
-  alignItems: "center",
-  flexWrap: "wrap",
-  width: "100vw",
-  marginTop: 30,
-  marginBottom: 40
-};

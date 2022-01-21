@@ -1,5 +1,6 @@
 
 
+from datetime import datetime
 from sqlalchemy.sql.sqltypes import Boolean
 from starlette.status import HTTP_401_UNAUTHORIZED
 from utlities.security import check_token
@@ -226,6 +227,24 @@ async def get_daily_puzzles(user_id: str, db: Session = Depends(get_db)):
 
     return daily_puzzles
 
+# testing...
+@app_v1.get('/users/{user_id}/daily_modules', tags=["Daily"])
+async def get_daily_modules(user_id: str, db: Session = Depends(get_db)):
+    
+    daily_puzzles = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).all()
+
+    # check if daily puzzles exist
+    if daily_puzzles is None:
+        raise HTTPException(status_code=404, detail="daily puzzles not found")
+    elif len(daily_puzzles) == 0:
+        raise HTTPException(status_code=404, detail="daily puzzles not found")
+    elif daily_puzzles[0].expiration is None: # check if daily puzzles aexpiration date has been set
+        raise HTTPException(status_code=404, detail="daily puzzles expired")
+    # elif daily_puzzles[0].expiration < datetime.now(): # check if daily puzzles have expired
+    #     raise HTTPException(status_code=489, detail="daily puzzles expired")
+
+    return daily_puzzles
+
 # create new user daily puzzles
 @app_v1.post('/users/{user_id}/daily_puzzles', tags=["Daily"])
 async def create_daily_puzzles( user_id: str, puzzles: List[schemas.CreateDailyPuzzle], db: Session = Depends(get_db)):
@@ -234,6 +253,11 @@ async def create_daily_puzzles( user_id: str, puzzles: List[schemas.CreateDailyP
     if db_user is None:
          return None
     
+    ## create daily puzzles
+    #picks = get_daily_puzzles()
+
+    ## post daily puzzles
+
     for puzzle in puzzles:
         db_daily_puzzle = models.DailyPuzzle(**puzzle.dict(), owner_id = user_id)
         db.add(db_daily_puzzle)
@@ -251,7 +275,7 @@ async def update_daily_puzzles(user_id: str, puzzles: List[schemas.CreateDailyPu
         return None
 
     for puzzle in puzzles:
-        stmt = (update(models.DailyPuzzle).where(models.DailyPuzzle.owner_id == user_id).where(models.DailyPuzzle.location == puzzle.location).values(theme_id=puzzle.theme_id, title=puzzle.title, locked=puzzle.locked, completed=puzzle.completed, inserted_at=puzzle.inserted_at))
+        stmt = (update(models.DailyPuzzle).where(models.DailyPuzzle.owner_id == user_id).where(models.DailyPuzzle.location == puzzle.location).values(theme_id=puzzle.theme_id, title=puzzle.title, locked=puzzle.locked, completed=puzzle.completed, inserted_at=puzzle.inserted_at, expiration=puzzle.expiration))
         db.execute(stmt)
     
     db.commit()
@@ -287,7 +311,7 @@ async def add_achievement(user_id: str, achievement: schemas.AchievementCreate, 
     db.add(db_achievement)
     db.commit()
     db.refresh(db_achievement)
-    return {"achievement successfully created"}
+    return db_achievement
 
 # get all user achievements
 @app_v1.get('/achievements/{user_id}', response_model=List[schemas.Achievement], tags=["Achievements"])
@@ -366,7 +390,15 @@ async def get_leaderboard(leaderboard_id: str, limit: int = 100, skip: int = 0, 
     else:
         for user in users:
             leaderboard.append(schemas.LeaderboardUser(user_id=user.user_id, user_name=user.user_name, total_score=user.total_score))
-        return leaderboard
+        
+        # return leaderboard sans user_id
+        public_leaderboard = []
+        for user in leaderboard:
+            if user.total_score > 0: # user must have played at least one game
+                delattr(user, 'user_id')
+                public_leaderboard.append(user)
+        
+        return public_leaderboard
 
 
 ## Username

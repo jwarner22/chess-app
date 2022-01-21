@@ -22,33 +22,37 @@ import {CoursesWrapper,
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
 import {HeadingWrapper, PatternRecognitionHeading} from "../PatternRecognition/PatternRecognition"
 
+import {useWindowSize} from '../../../Hooks/UseWindowSize'
+
+
 const Openings = () => {
   const [isOpen, setIsOpen] = useState(false);
   const openingData = Modules.filter(module => module.category === 'opening');
   const pageTitle = `Openings`
-
+  const windowDimension = useWindowSize();
+  const isMobile = windowDimension[0] <= 640;
   //mobile navbar
-    const [windowDimension, setWindowDimension] = useState(null);
+    //const [windowDimension, setWindowDimension] = useState(null);
 
-  useEffect(() => {
-    setWindowDimension(window.innerWidth);
-  }, []);
+  // useEffect(() => {
+  //   setWindowDimension(window.innerWidth);
+  // }, []);
 
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimension(window.innerWidth);
-    }
+  // useEffect(() => {
+  //   function handleResize() {
+  //     setWindowDimension(window.innerWidth);
+  //   }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
     //hamburger sidebar menu
     const toggle = () => {
       setIsOpen(!isOpen)
     }
 
-  const isMobile = windowDimension <= 640;
+  //const isMobile = windowDimension <= 640;
 
     return (
         <>

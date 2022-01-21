@@ -2,11 +2,10 @@
 import React, {useState, useContext, useEffect, useRef } from "react";
 import {Link, withRouter } from 'react-router-dom'
 //import { AuthContext } from "../../index";
-import firebaseConfig from "../../config.js";
+//import firebaseConfig from "../../config.js";
 import logo from '../../Images/eloElevationWhite.png'
 import headerImg from "../../Images/realChessHeader.jpg"
-import {GoogleLoginButton} from "./../Signup/SignupElements"
-import {FormH1,  
+import {  
   Container, 
   FormWrap, 
   FormContent, 
@@ -23,12 +22,13 @@ import {FormH1,
   LoginHeaderLogo
 } from './LoginElements';
 import firebase from "firebase/compat/app";
-// import FetchWrapper from "../api/FetchWrapper";
-import {baseURL} from '../api/apiConfig';
 import {AuthContext} from '../Auth.js';
+
 import useFetch from "../api/useFetch";
+import {baseURL} from '../api/apiConfig';
+
 import {getAnalytics, logEvent} from "firebase/analytics";
-//import {analytics} from '../../config.js';
+
 require("firebase/auth");
 
 
@@ -47,6 +47,11 @@ const Login = ({history}) => {
   //const Auth = useContext(AuthContext);
 
   useEffect(() => {
+    console.log({
+      currentUser: currentUser,
+      isLoggedIn: isLoggedIn,
+      isSaved: isSaved
+    })
     if (currentUser && isLoggedIn && isSaved) {
       logEvent(analytics, "login", {'user': currentUser.uid});
       history.push('/dailyPuzzle')
@@ -111,41 +116,21 @@ const Login = ({history}) => {
   const setUserData = async (response, userID) => {
     // store in localStorage 
     localStorage.setItem('userID', userID)
-    //localStorage.setItem('isLoggedIn','true')
     if (response.additionalUserInfo.isNewUser) {
-      //createNewUser(userID)
       history.push('/survey')
     } else {
     get(`/users/${userID}`)
     .then(data => {
       if (data.detail === 'User not found') {
-        //createNewUser(userID)
         history.push('/survey')
       } else if (data.user_name == null) {
-        console.log(data)
         history.push('/username')
-        localStorage.setItem('userPublicData', JSON.stringify(data))
-      } else {
-        localStorage.setItem('userPublicData', JSON.stringify(data))
-        //history.push('/dailyPuzzle')
-      }
+      } 
       })
     .catch(error => {
-      console.log(error)
     }).finally(() => setIsSaved(true))
   }
   }
-
-  // const createNewUser = (userID) => {
-  //   let currentDateTime = new Date().toString()
-  //   post('/users', {
-  //     user_id: `${userID}`,
-  //     overall_rating: 800,
-  //     inserted_at: currentDateTime
-  //   }).then(data => {
-  //     localStorage.setItem('userPublicData', JSON.stringify(data))
-  //   })
-  // }
 
   return (
     <>
@@ -200,82 +185,5 @@ const Login = ({history}) => {
 
 export default withRouter(Login);
 
-// const LogIn = () => {
-
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [error, setError] = useState(null);
-//   const signInWithEmailAndPasswordHandler = 
-//   (event, email, password) => {
-//     event.preventDefault();
-//   };
-
-//     const onChangeHandler = (event) => {
-//       const {name, value} = event.currentTarget;
-    
-//       if (name === 'userEmail') {
-//         setEmail(value);
-//       } 
-//       else if (name === 'userPassword') {
-//         setPassword(value)
-//       }
-//     };
    
 
-  
-//   return (
-//     <>
-//     <Container>
-//       <FormWrap>
-//         <NavLogo>
-//           <Link to="/" >
-//           <Img src={logo}/>
-//           </Link>
-//         </NavLogo>
-//           <FormContent> 
-//               <Form>
-//               {error !== null && <div className = "py-4 bg-red-600 w-full text-white text-center mb-3">{error}</div>}
-//                 <FormH1>Log In</FormH1>
-//                 <FormLabel for="email">Email</FormLabel>
-//                 <FormInput 
-//                   type="email" 
-//                   name="userEmail" 
-//                   placeholder="Email" 
-//                   value={email}
-//                   id="userEmail"
-//                   onChange= {(event) => onChangeHandler(event)}
-//                   />
-//                 <FormLabel for="password">Password</FormLabel>
-//                 <FormInput 
-//                   type="password" 
-//                   name="userPassword" 
-//                   placeholder="Password" 
-//                   value={password}
-//                   id="userPassword"
-//                   onChange = {(event) => onChangeHandler(event)}
-//                   />
-//                 <FormButton 
-//                 type="submit"
-//                 onClick = {(event) => {signInWithEmailAndPasswordHandler(event, email, password)}}
-//                 >Submit</FormButton>
-//                 <LinkP to="passwordReset">Forgot Password?</LinkP>
-//               </Form>
-//               <Text>or</Text>
-//         <GoogleLoginButton>
-//           Sign in with Google
-//           </GoogleLoginButton>
-//         <Text>
-//           Don't have an account?{" "}
-//           <Link to="signUp" className="text-blue-500 hover:text-blue-600">
-//             Sign up here
-//           </Link>{" "}
-//           <br />{" "}
-//           </Text>
-//             </FormContent>
-//           </FormWrap>
-//     </Container>
-//     </>
-// );
-//   };
-
-// export default LogIn;

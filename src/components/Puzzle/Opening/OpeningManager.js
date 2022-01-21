@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 
 import PostOpeningPage from '../../PostLogin/Views/Openings/PostOpeningPage';
 import PreOpeningPage from '../../PostLogin/Views/Openings/PreOpeningPage';
@@ -9,11 +9,15 @@ import {getAnalytics, logEvent} from "firebase/analytics";
 
 // need to add to opening route and clean up props for child components and this componen
 export default function OpeningManager(props) {
+    
+    // state
     const [isFinished, setIsFinished] = useState(false);
     const [isStarted, setIsStarted] = useState(false);
     const [score, setScore] = useState(0);
     const [scoreData, setScoreData] = useState([]);
     const {get, put, post} = useFetch(baseURL);
+
+    // from props
     const openingData = props.location.state.module;
     const schemaPicks = props.location.state.schemaPicks;
     const isDaily = props.location.state.isDaily;

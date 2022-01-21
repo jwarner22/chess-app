@@ -1,7 +1,6 @@
 import React from 'react'
-import {PuzzlePageContainer, 
+import { 
     PrePuzzleWrapper, 
-    PrePuzzleIconWrapper, 
     PrePuzzleTitle, 
     PrePuzzleSubheading, 
     PrePuzzleContentContainer, 
@@ -25,7 +24,6 @@ RightStatWrapper} from "../../../../PrePuzzle/PrePuzzleElements"
 import { StartButton } from '../../DailyPuzzle/ModalElements'
 
 const PrePuzzleTile = (props) => {
-    console.log(props)
 
     return (
         <div>

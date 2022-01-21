@@ -1,16 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
 import {Link} from 'react-router-dom'
-import {CoursesWrapper, 
-    ModuleWrapper, 
-    ModuleGrid, 
-    CategoryLabel,
-    CategoryLabelWrapper,
-    CategoryLabelContainer,
-    TacticsLabelWrapper,
-    CategoryLabelContainerTop,
-    CheckmatesLabelWrapper,
-    EndgamesLabelWrapper,
+import {
     MenuWrapper,
     MenuGrid,
     MenuTile,
@@ -18,21 +9,18 @@ import {CoursesWrapper,
     MenuTitle,
     MenuImg
 } from './CoursesElements'
-import CourseTile from '../CourseTiles/CourseTiles'
-import {Modules} from '../CourseTiles/Data';
 import EngameTiles from './EngameTiles'
 import TacticTiles from './TacticTiles'
 import CheckmateTiles from './CheckmateTiles'
-import {activeMenuTile, inactiveMenuTile} from "./MenuStyle"
 import endgameImg from "../../../../../Images/kingIconBlue.svg"
 import tacticsImg from "../../../../../Images/TacticsIconBlue.svg"
 import checkmateImg from "../../../../../Images/checkmateIconBlue.svg"
+
 
 const Body = (props, {activeMenuTile, inactiveMenuTile}) => {
     const [showEndgameTiles, setShowEngameTiles] = useState(true);
     const [showTacticTiles, setShowTacticTiles] = useState(false);
     const [showCheckmateTiles, setShowCheckmateTiles] = useState(false);
-    
 
     function handleShowEngameTiles(){
         if (showEndgameTiles === false) {
@@ -78,9 +66,6 @@ const Body = (props, {activeMenuTile, inactiveMenuTile}) => {
     const tacticActive = showTacticTiles;
     const checkmateActive = showCheckmateTiles;
 
-    console.log(endgameActive)
-    console.log(tacticActive)
-    console.log(checkmateActive)
 
     return (
         <>

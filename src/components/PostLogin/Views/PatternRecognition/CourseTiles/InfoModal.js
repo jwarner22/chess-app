@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {InfoModalContainer} from "./InfoModalElements"
 
 const InfoModal = ({openModal, setOpenModal}) => {

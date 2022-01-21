@@ -1,5 +1,4 @@
-import React, { useEffect, useState} from "react";
-import { Link } from "react-router-dom";
+import React, {useState} from "react";
 import DashNavbar from '../../DashboardNavbar/DashboardNavbar'
 import DashSidebar from '../../DashboardSidebar/DashboardSidebar'
 import Body from "./CoursesBody/CoursesBody";
@@ -7,30 +6,33 @@ import MobileNavbar from "../../MobileNavBar/MobileNavBar"
 import styled from "styled-components"
 import PageHeader from "../../../PageHeaders/PageHeaders";
 
+import {useWindowSize} from '../../../Hooks/UseWindowSize'
+
 const Dashboard = () => {
     //hamburger sidebar menu
   const [isOpen, setIsOpen] = useState(false)
-  const [windowDimension, setWindowDimension] = useState(null);
+  //const [windowDimension, setWindowDimension] = useState(null);
   const pageTitle = `Puzzles`
+  const windowDimension = useWindowSize();
+  const isMobile = windowDimension[0] <= 640;
+  // useEffect(() => {
+  //   setWindowDimension(window.innerWidth);
+  // }, []);
 
-  useEffect(() => {
-    setWindowDimension(window.innerWidth);
-  }, []);
+  // useEffect(() => {
+  //   function handleResize() {
+  //     setWindowDimension(window.innerWidth);
+  //   }
 
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimension(window.innerWidth);
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   const toggle = () => {
     setIsOpen(!isOpen)
   }
 
-  const isMobile = windowDimension <= 640;
+  //const isMobile = windowDimension <= 640;
 
   return (
     <>

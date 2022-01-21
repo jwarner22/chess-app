@@ -24,7 +24,6 @@ import {PuzzlePageContainer,
 RightStatWrapper,
 PrePuzzleTileContainer} from "./PrePuzzleElements"
 import {DailyPuzzleIcon} from "../PostLogin/Views/DailyPuzzle/DailyPuzzleElements"
-import testIcon from "../../Images/EnPassant.svg"
 import { StartButton } from '../PostLogin/Views/DailyPuzzle/ModalElements'
 import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
 

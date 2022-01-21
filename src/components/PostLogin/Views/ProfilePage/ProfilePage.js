@@ -8,17 +8,24 @@ import AchievementTiles from "../../../AchievementTiles/AchievementTiles"
 import useFetch from '../../../api/useFetch';
 import {baseURL} from '../../../api/apiConfig';
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
-import { Profile } from "@styled-icons/icomoon";
-import { Link } from "react-router-dom";
 import PageHeader from "../../../PageHeaders/PageHeaders"
-import { DateAdd } from "@styled-icons/zondicons";
+
 import {UserContext} from '../../../../GlobalState'
+import {useWindowSize} from '../../../Hooks/UseWindowSize'
+
 
 const ProfilePage = () => {
   //const [achievements, setAchievements] = useState([]);
   //const [profileData, setProfileData] = useState({});
   const [overallRating, setOverallRating] = useState(0);
   const [dailyStreak, setDailyStreak] = useState(0);
+  //mobile menu
+  //const [windowDimension, setWindowDimension] = useState(null);
+  const windowDimensions = useWindowSize();
+  const isMobile = windowDimensions[0] <= 640;
+  //hamburger sidebar menu
+  const [isOpen, setIsOpen] = useState(false)
+
   //const [totalScore, setTotalScore] = useState(0);
   //const [username, setUsername] = useState('')
   const [joinDate, setJoinDate] = useState('')
@@ -27,7 +34,7 @@ const ProfilePage = () => {
   const {get} = useFetch(baseURL);
   const {userData} = useContext(UserContext);
   const {achievements} = useContext(UserContext);
-  const {themes} = useContext(UserContext);
+  const {themesData} = useContext(UserContext);
   const pageTitle = `Profile`;
 
   useEffect(() => {
@@ -36,12 +43,29 @@ const ProfilePage = () => {
       fetchProfileData();
   },[])
 
-  async function fetchAchievements() {
-      // fetch daily achievements here and display in list in return statement
-      let endpoint = `/achievements/${userData.user_id}`;
-      let achievements = await get(endpoint)
-      //setAchievements(achievements)
+    const toggle = () => {
+      setIsOpen(!isOpen)
     }
+  
+    // useEffect(() => {
+    //   setWindowDimension(window.innerWidth);
+    // }, []);
+  
+    // useEffect(() => {
+    //   function handleResize() {
+    //     setWindowDimension(window.innerWidth);
+    //   }
+  
+    //   window.addEventListener("resize", handleResize);
+    //   return () => window.removeEventListener("resize", handleResize);
+    // }, []);
+
+  // async function fetchAchievements() {
+  //     // fetch daily achievements here and display in list in return statement
+  //     let endpoint = `/achievements/${userData.user_id}`;
+  //     let achievements = await get(endpoint)
+  //     //setAchievements(achievements)
+  //   }
 
   async function fetchProfileData() {
 
@@ -50,7 +74,7 @@ const ProfilePage = () => {
     //let profileData = await get(endpoint)
 
     // get overall rating
-    await fetchOverallRating(userData);
+    await calcOverallRating(userData);
     //setProfileData(profileData)
 
     // set values for profile page
@@ -75,19 +99,20 @@ const ProfilePage = () => {
   }
 
 
-  async function fetchOverallRating(data) {
+  async function calcOverallRating(data) {
     // get all theme data for user
     // let endpoint = `/users/${userData.user_id}/themes`;
     // let themes = await get(endpoint)
     
     // sum all them ratings
-    let ratingSum = themes.reduce((acc, theme) => { 
+    let profileThemesData = [...themesData];
+    let ratingSum = profileThemesData.reduce((acc, theme) => { 
       return acc + theme.rating;
     }, 0)
 
     // backfill any missing themes with initial rating
-    if (themes.length < Modules.length) {
-      ratingSum += (Modules.length - themes.length) * data.initial_rating;
+    if (profileThemesData.length < Modules.length) {
+      ratingSum += (Modules.length - profileThemesData.length) * data.initial_rating;
     }
 
     // overall rating = average of all theme ratings
@@ -96,29 +121,8 @@ const ProfilePage = () => {
     setOverallRating(overallRating);
   }
 
-  //hamburger sidebar menu
-  const [isOpen, setIsOpen] = useState(false)
 
-  const toggle = () => {
-    setIsOpen(!isOpen)
-  }
-  //mobile menu
-  const [windowDimension, setWindowDimension] = useState(null);
-
-  useEffect(() => {
-    setWindowDimension(window.innerWidth);
-  }, []);
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimension(window.innerWidth);
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const isMobile = windowDimension <= 640;
+  //const isMobile = windowDimension <= 640;
 
 
     return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
-import {Link} from "react-router-dom";
+
 const PuzzleNav = (props) => {
 
     return (
@@ -21,11 +21,6 @@ const PuzzleNav = (props) => {
 
 export default PuzzleNav
 
-{/* <Link to={props.isDaily ? '/dailyPuzzle' : '/dashboard'}>
-<NavBtnLink2>
-    Exit
-</NavBtnLink2>
-</Link> */}
 
 const PuzzleNavContainer = styled.div`
     display: flex;

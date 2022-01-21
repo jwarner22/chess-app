@@ -1,21 +1,14 @@
 import React from 'react'
-import {BiDoorOpen} from "react-icons/bi"
-import {NavLink} from "react-router-dom"
-import { BiBrain } from "react-icons/bi"
 import { IoCalendarClearOutline } from "react-icons/io5"
 import { IoBookOutline } from "react-icons/io5"
 import { AiOutlineUser } from "react-icons/ai";
-import { GiEmptyChessboard } from "react-icons/gi";
 import { IoExtensionPuzzleOutline } from "react-icons/io5";
-import {Container} from '../Views/DailyPuzzle/DailyPuzzleElements'
 import {MobileNavbarWrapper, 
     MobileNavbarItems, 
     MobileNavbarItem, 
     MobileNavbarIcon, 
-    Styles,
     MobileNavLink    
 } from "./MobileNabarElements"
-import { BlueBars } from '../DashboardNavbar/DashboardNavElements'
 import leaderboard from "../../../Images/LeaderboardMenuBlue.svg"
 
 

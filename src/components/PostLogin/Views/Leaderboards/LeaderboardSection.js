@@ -1,7 +1,5 @@
-import React, {useState, useEffect} from 'react'
 import {LeaderboardSectionContainer, LeaderboardGridWrapper} from "./LeaderboardElements"
 import LeaderboardTiles from "./LeaderboardTiles"
-import Loader from "../../../Loader"
 
 const LeaderboardSection = (props) => {
     const {leaderboard, userID, userPlacement, isLoading} = props;

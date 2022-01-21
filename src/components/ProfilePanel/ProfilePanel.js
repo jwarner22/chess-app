@@ -1,23 +1,15 @@
-import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {ProfilePanelContainer,
     ProfilePanelUsernameWrapper,
 ProfilePanelWrapper,
-ProfilePanelHeader,
 ProfilePanelContent,
 ProfilePanelButton,
 CalendarTitleWrapper,
 CalendarTitle,
-CalendarBackgroundWrapper,
-CalendarBackground,
-CalendarGrid,
-CalendarDay,
-PageBodyContainer,
 ProfilePanelImageContainer,
 ProfilePagePlaceholder,
 ClockIcon
 } from "./ProfilePanelElements"
-import { CgProfile } from "react-icons/cg";
 import placeholder from "../../Images/user.png"
 import clock from "../../Images/clockSVG.svg"
 
