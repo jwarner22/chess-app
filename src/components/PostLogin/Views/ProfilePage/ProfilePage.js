@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components"
 import DashNavbar from "../../DashboardNavbar/DashboardNavbar"
 import MobileNavbar from "../../MobileNavBar/MobileNavBar"
@@ -12,50 +12,54 @@ import { Profile } from "@styled-icons/icomoon";
 import { Link } from "react-router-dom";
 import PageHeader from "../../../PageHeaders/PageHeaders"
 import { DateAdd } from "@styled-icons/zondicons";
+import {UserContext} from '../../../../GlobalState'
 
 const ProfilePage = () => {
-  const [achievements, setAchievements] = useState([]);
-  const [profileData, setProfileData] = useState({});
+  //const [achievements, setAchievements] = useState([]);
+  //const [profileData, setProfileData] = useState({});
   const [overallRating, setOverallRating] = useState(0);
   const [dailyStreak, setDailyStreak] = useState(0);
-  const [totalScore, setTotalScore] = useState(0);
-  const [username, setUsername] = useState('')
+  //const [totalScore, setTotalScore] = useState(0);
+  //const [username, setUsername] = useState('')
   const [joinDate, setJoinDate] = useState('')
-  const {get} = useFetch(baseURL);
   const [loaded, setLoaded] = useState(false);
-  const userID = localStorage.getItem('userID');
+
+  const {get} = useFetch(baseURL);
+  const {userData} = useContext(UserContext);
+  const {achievements} = useContext(UserContext);
+  const {themes} = useContext(UserContext);
   const pageTitle = `Profile`;
 
   useEffect(() => {
       setLoaded(false)
-      fetchAchievements();
+      //fetchAchievements();
       fetchProfileData();
   },[])
 
   async function fetchAchievements() {
       // fetch daily achievements here and display in list in return statement
-      let endpoint = `/achievements/${userID}`
+      let endpoint = `/achievements/${userData.user_id}`;
       let achievements = await get(endpoint)
-      setAchievements(achievements)
+      //setAchievements(achievements)
     }
 
   async function fetchProfileData() {
 
     // get profile data
-    let endpoint = `/users/${userID}`;
-    let profileData = await get(endpoint)
+    //let endpoint = `/users/${userData.user_id}`;
+    //let profileData = await get(endpoint)
 
     // get overall rating
-    await fetchOverallRating(profileData);
-    setProfileData(profileData)
+    await fetchOverallRating(userData);
+    //setProfileData(profileData)
 
     // set values for profile page
-    const streak = profileData.daily_streak;
-    const score = profileData.total_score;
-    const name = profileData.user_name;
+    const streak = userData.daily_streak;
+    //const score = profileData.total_score;
+    //const name = profileData.user_name;
 
     // set join date
-    let date = new Date(profileData.inserted_at); 
+    let date = new Date(userData.inserted_at); 
     const reformattedDate = date.toLocaleString('en-US', {
       day: 'numeric', // numeric 2-digit
       year: 'numeric', // numeric, 2-digit
@@ -63,8 +67,8 @@ const ProfilePage = () => {
     }).toString();
 
     // set state values for profile page
-    setUsername(name)
-    setTotalScore(score)
+    //setUsername(name)
+    //setTotalScore(score)
     setDailyStreak(streak);
     setJoinDate(reformattedDate)
     setLoaded(true)
@@ -73,9 +77,9 @@ const ProfilePage = () => {
 
   async function fetchOverallRating(data) {
     // get all theme data for user
-    let endpoint = `/users/${userID}/themes`;
-    let themes = await get(endpoint)
-
+    // let endpoint = `/users/${userData.user_id}/themes`;
+    // let themes = await get(endpoint)
+    
     // sum all them ratings
     let ratingSum = themes.reduce((acc, theme) => { 
       return acc + theme.rating;
@@ -135,8 +139,8 @@ const ProfilePage = () => {
       {(loaded) &&
 
       <ProfilePageContainer>
-      <ProfilePanel username={username} dailyStreak={dailyStreak} joinDate={joinDate}/>
-       <AchievementTiles achievements={achievements} profileData={profileData} isMobile={isMobile} overallRating={overallRating} dailyStreak={dailyStreak} totalScore={totalScore}/>
+      <ProfilePanel username={userData.username} dailyStreak={dailyStreak} joinDate={joinDate}/>
+       <AchievementTiles achievements={achievements} profileData={userData} isMobile={isMobile} overallRating={overallRating} dailyStreak={dailyStreak} totalScore={userData.total_score}/>
        </ProfilePageContainer>
       }
       </>
