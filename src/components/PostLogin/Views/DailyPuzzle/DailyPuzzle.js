@@ -37,7 +37,9 @@ export default function DailyPuzzzle() {
   const isMobile = windowSize[0] <= 640;
   
   const {dailyModules} = useContext(UserContext);
+  const {globalData} = useContext(UserContext);
 
+  console.log(globalData)
 
   // misc. variables
   //const isMobile = windowDimension <= 640;
