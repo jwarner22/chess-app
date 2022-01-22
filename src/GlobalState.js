@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext, useContext } from "react";
+import React, { useEffect, useState, createContext, useContext, useReducer } from "react";
 import Loader from './components/Loader.js';
 import useFetch from './components/api/useFetch.js';
 import { baseURL } from "./components/api/apiConfig.js";
@@ -8,6 +8,140 @@ import {Modules} from './components/PostLogin/Views/PatternRecognition/CourseTil
 
 const UserContext = createContext();
 
+// Actions
+const INITIALIZE = 'INITIALIZE';
+
+const mutatePicks = (picks) => { 
+    let now = new Date();
+    picks = Modules.filter(element => {
+        return picks.some(entry => entry === element.id)
+    })
+
+
+    let mutatedPicks = picks.map(pick => {return {...pick, completed: false, locked: true, inserted_at: now.toString()}})
+    mutatedPicks[0].locked = false; // unlcocks first puzzle
+
+    console.log({picks: picks});
+    // expiration date is tomorrow at 12:00:00
+    let expiration_date = new Date();
+    expiration_date.setHours(24,0,0,0);
+    expiration_date.toString();
+
+    let schemaPicks = mutatedPicks.map((pick, index) => {
+        return {
+        location: index,
+        theme_id: pick.id,
+        title: pick.type_ref,
+        completed: pick.completed,
+        locked: pick.locked,
+        inserted_at: pick.inserted_at,
+        expiration: expiration_date
+      }
+    })
+    return schemaPicks;
+}
+
+// GLOBAL STATE REDUCER
+const reducer = (state, action) => {
+
+    // Endpoints
+    const userEndpoint = `/users/${action.userId}`;
+    const achievementsEndpoint = `/achievements/${action.userId}`;
+    const themesEndpoint = `/users/${action.userId}/themes`;
+    const dailyEndpoint =  `/users/${action.userId}/daily_modules`;
+    const picksEndpoint = `/users/${action.userId}/daily_puzzles/picks`
+
+    switch (action.type) {
+
+        //Initial Global Data
+        case 'INITIALIZE':
+            // FETCH USER DATA
+            console.log('fetching user data');
+            let response = await get(userEndpoint);
+            let userData = response;
+
+            // FETCH ACHIEVEMENTS
+            console.log('fetching achievement data');
+            let response = await get(achievementsEndpoint);
+            let achievements = response;
+
+            // FETCH THEMES
+            console.log('fetching themes data');
+            let response = await get(themesEndpoint);
+            let themes = response;
+            
+            return {...state, userData: userData, achievements: achievements, themes: themes}
+
+            // GET DAILY MODULES
+            console.log('fetching daily modules data');
+            let now = new Date();
+    
+            try {
+                
+                let response = await get(dailyEndpoint);
+                let expiration = new Date(response.expiration);
+
+                if (response.detail === "daily puzzles not found") { // no daily modules
+
+                    let picks = await get(picksEndpoint); // get picks
+                    let schemaPicks = mutatePicks(picks); // map picks to modules and save
+                    await post(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // post daily modules to db
+                    
+                    return {...state, dailyModules: schemaPicks}
+                    
+                } else if (response.detail === "daily puzzles expired") { // daily modules expired
+                    let picks = await get(picksEndpoint); // get new picks
+                    let schemaPicks = mutatePicks(picks); // map picks to modules and save
+                    await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
+
+                    return {...state, dailyModules: schemaPicks}
+
+                } else if (expiration < now) {
+                    let picks = await get(picksEndpoint); // get new picks
+                    let schemaPicks = mutatePicks(picks); // map picks to modules and save
+                    await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
+                    
+                    return {...state, dailyModules: schemaPicks}
+
+                } else {
+                    return {...state, dailyModules: schemaPicks}
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        
+        // UPDATE USER DATA
+        case 'UPDATE USER':
+            let response = await put(userEndpoint, action.payload);
+            
+            return {...state, userData: response}
+        
+        // UPDATE THEME DATA
+        case 'UPDATE THEME':
+            let response = await put(themesEndpoint, action.payload);
+
+            return {...state, themes: response}
+
+        // ADD ACHIEVEMENT
+        case 'ADD_ACHIEVEMENT':
+            let response = await post(achievementsEndpoint, action.payload)
+
+            return {...state, achievements: [...state.achievements, response]}
+        
+        // UPDATE DAILY MODULES
+        case 'UPDATE_DAILY':    
+            let endpoint = `/users/${auth.userId}/daily_puzzles`; 
+            let response = await put(endpoint, action.payload);
+            
+            return {...state, dailyModules: response}
+
+        default:
+            return null;
+    }
+}
+
+
+// USER CONTEXT
 const UserProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [userData, setUserData] = useState(null);
@@ -16,13 +150,24 @@ const UserProvider = ({ children }) => {
     const [dailyModules, setDailyModules] = useState([]);
     const [isMounted, setIsMounted] = useState(false);
     const {get, put, post} = useFetch(baseURL);
+    //const [themes, setThemes] = useState([]);
+    const [state, dispatch] = useReducer(reducer, initialState)
+
+    const {get, put} = useFetch(baseURL);
+
     const auth = useContext(AuthContext);
 
     // RUNS ON LOGIN
     useEffect(() => {
-        console.log(auth)
-        if (auth.currentUser && (auth.userId != null) && (isMounted === false)) {
-            console.log(auth.currentUser)
+        //console.log(auth)
+        //if (auth.currentUser && (auth.userId != null) && (isMounted === false)) {
+            //console.log(auth.currentUser)
+        // execute dispatch function with action = initialize
+        dispatch({type: INITIALIZE}, {userId: auth.userId})
+    }, []);
+
+    useEffect(() => {
+        if (auth.currentUser) {
             setLoading(true);
             fetchUserData();
             fetchAchievements();
@@ -197,11 +342,11 @@ const UserProvider = ({ children }) => {
         setLoading(() => false);
     }
 
-    // if (loading) {
+    // if (loading) { 
     //    return <Loader />
     //  }
     return (
-      <UserContext.Provider value={{userData, updateUserData, achievements, updateAchievements, themesData, updateThemesData, dailyModules, updateDailyModules}}>
+      <UserContext.Provider value={{userData, updateUserData, achievements, updateAchievements, themesData, updateThemesData, dailyModules, updateDailyModules, globalData: state}}>
         {children}
       </UserContext.Provider>
     );
