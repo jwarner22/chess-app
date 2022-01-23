@@ -42,7 +42,9 @@ const mutatePicks = (picks) => {
 }
 
 // GLOBAL STATE REDUCER
-const reducer = (state, action) => {
+const Reducer = async (state, action) => {
+    // Fetch hook
+    const {get, put, post} = useFetch(baseURL);
 
     // Endpoints
     const userEndpoint = `/users/${action.userId}`;
@@ -62,16 +64,14 @@ const reducer = (state, action) => {
 
             // FETCH ACHIEVEMENTS
             console.log('fetching achievement data');
-            let response = await get(achievementsEndpoint);
+            response = await get(achievementsEndpoint);
             let achievements = response;
 
             // FETCH THEMES
             console.log('fetching themes data');
-            let response = await get(themesEndpoint);
+            response = await get(themesEndpoint);
             let themes = response;
             
-            return {...state, userData: userData, achievements: achievements, themes: themes}
-
             // GET DAILY MODULES
             console.log('fetching daily modules data');
             let now = new Date();
@@ -80,58 +80,55 @@ const reducer = (state, action) => {
                 
                 let response = await get(dailyEndpoint);
                 let expiration = new Date(response.expiration);
+                let dailyModules = response;
 
                 if (response.detail === "daily puzzles not found") { // no daily modules
 
                     let picks = await get(picksEndpoint); // get picks
                     let schemaPicks = mutatePicks(picks); // map picks to modules and save
-                    await post(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // post daily modules to db
+                    await post(`/users/${action.userId}/daily_puzzles`, schemaPicks); // post daily modules to db
                     
-                    return {...state, dailyModules: schemaPicks}
+                    dailyModules = schemaPicks;
                     
-                } else if (response.detail === "daily puzzles expired") { // daily modules expired
+                } else if (response.detail === "daily puzzles expired" | expiration < now) { // daily modules expired
                     let picks = await get(picksEndpoint); // get new picks
                     let schemaPicks = mutatePicks(picks); // map picks to modules and save
-                    await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
-
-                    return {...state, dailyModules: schemaPicks}
-
-                } else if (expiration < now) {
-                    let picks = await get(picksEndpoint); // get new picks
-                    let schemaPicks = mutatePicks(picks); // map picks to modules and save
-                    await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
+                    await put(`/users/${action.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
                     
-                    return {...state, dailyModules: schemaPicks}
+                    dailyModules = schemaPicks;
 
-                } else {
-                    return {...state, dailyModules: schemaPicks}
-                }
+                } 
+
+                // return new state
+                return {...state, userData: userData, achievements: achievements, themes: themes, dailyModules: dailyModules}
+
             } catch (e) {
                 console.log(e)
             }
+            break;
         
         // UPDATE USER DATA
-        case 'UPDATE USER':
-            let response = await put(userEndpoint, action.payload);
+        case 'UPDATE_USER':
+            response = await put(userEndpoint, action.payload);
             
             return {...state, userData: response}
         
         // UPDATE THEME DATA
-        case 'UPDATE THEME':
-            let response = await put(themesEndpoint, action.payload);
+        case 'UPDATE_THEME':
+            response = await put(themesEndpoint, action.payload);
 
             return {...state, themes: response}
 
         // ADD ACHIEVEMENT
         case 'ADD_ACHIEVEMENT':
-            let response = await post(achievementsEndpoint, action.payload)
+            response = await post(achievementsEndpoint, action.payload)
 
             return {...state, achievements: [...state.achievements, response]}
         
         // UPDATE DAILY MODULES
         case 'UPDATE_DAILY':    
-            let endpoint = `/users/${auth.userId}/daily_puzzles`; 
-            let response = await put(endpoint, action.payload);
+            let endpoint = `/users/${action.userId}/daily_puzzles`; 
+            response = await put(endpoint, action.payload);
             
             return {...state, dailyModules: response}
 
@@ -140,7 +137,7 @@ const reducer = (state, action) => {
     }
 }
 
-
+let initialState = {userData: null, achievements: [], themes: [], dailyModules: []}
 // USER CONTEXT
 const UserProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
@@ -151,9 +148,7 @@ const UserProvider = ({ children }) => {
     const [isMounted, setIsMounted] = useState(false);
     const {get, put, post} = useFetch(baseURL);
     //const [themes, setThemes] = useState([]);
-    const [state, dispatch] = useReducer(reducer, initialState)
-
-    const {get, put} = useFetch(baseURL);
+    const [state, dispatch] = useReducer(Reducer, initialState);
 
     const auth = useContext(AuthContext);
 
@@ -163,7 +158,7 @@ const UserProvider = ({ children }) => {
         //if (auth.currentUser && (auth.userId != null) && (isMounted === false)) {
             //console.log(auth.currentUser)
         // execute dispatch function with action = initialize
-        dispatch({type: INITIALIZE}, {userId: auth.userId})
+        //dispatch({type: INITIALIZE}, {userId: auth.userId})
     }, []);
 
     useEffect(() => {
