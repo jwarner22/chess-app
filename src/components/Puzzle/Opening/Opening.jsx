@@ -67,9 +67,9 @@ export default function Opening(props) {
   },[fen]);
 
   useEffect(() => {
-    if (props.triggerNext) {
+    //if (props.triggerNext) {
       nextAttempt();
-    }
+    //}
   },[props.triggerNext])
 
 
@@ -78,9 +78,7 @@ export default function Opening(props) {
       moves[0].substring(0, 2),
       moves[0].substring(2, 4)
     );
-    if (color === "white") {
-     setMoveIndex(() => moveIndex + 1);
-    }
+    setMoveIndex(1);
     let movable = calcMovable();
     setMovable(movable);
   }
@@ -167,10 +165,13 @@ export default function Opening(props) {
       to: to
     });
   
-    setFen(game.fen());
     setLastMove([from, to]);
     setColor(() => turnColor());
   };
+  
+  useEffect(()=> {
+    setFen(game.fen());
+  }, [lastMove])
 
 
   const turnColor = () => {

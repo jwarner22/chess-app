@@ -15,6 +15,7 @@ export default function OpeningManager(props) {
     const [isStarted, setIsStarted] = useState(false);
     const [score, setScore] = useState(0);
     const [scoreData, setScoreData] = useState([]);
+    const [orientation, setOrientation] = useState('');
     const {get, put, post} = useFetch(baseURL);
 
     // from props
@@ -24,9 +25,10 @@ export default function OpeningManager(props) {
     const userID = localStorage.getItem('userID');
     const analytics = getAnalytics();
 
-    const togglePrePuzzleCallback = () => {
+    const togglePrePuzzleCallback = (color) => {
         setIsFinished(false);
         setIsStarted(true);
+        setOrientation(color);
         logEvent(analytics, 'opening_started', {'user': userID, 'isDaily': isDaily});
     }
 
@@ -191,7 +193,7 @@ export default function OpeningManager(props) {
             <PreOpeningPage togglePrePuzzleCallback={togglePrePuzzleCallback} openingData={openingData}/>
         )}
         {isStarted && !isFinished && (
-            <OpeningPage toggleFinished={toggleFinished} openingData={openingData}/>
+            <OpeningPage toggleFinished={toggleFinished} openingData={openingData} orientation={orientation}/>
         )}
         {isFinished && (
             <PostOpeningPage openingData={openingData} isDaily={isDaily} score={score} scoreData={scoreData}/>

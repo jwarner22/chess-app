@@ -13,8 +13,8 @@ const PreOpeningPage = (props) => {
     const [loaded, setLoaded] = useState(false);
     const [userOpeningData, setUserOpeningData] = useState({});
 
-    function handleStartButtonClick() {
-        togglePrePuzzleCallback()
+    function handleStartButtonClick(color) {
+        togglePrePuzzleCallback(color)
     }
 
     useEffect(() => {

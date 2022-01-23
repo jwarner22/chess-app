@@ -73,9 +73,14 @@ const PrePuzzleTile = (props) => {
                                 </TipDescriptionWrapper>
                             </TipsGrid>
                         </InstructionsWrapper>
-                        <StartButton onClick={props.onStartClick}>
-                            Start
+                        <div>
+                        <StartButton onClick={() => props.onStartClick('white')}>
+                            Train as White
                         </StartButton>
+                        <StartButton onClick={() => props.onStartClick('black')}>
+                            Train as Black
+                        </StartButton>
+                        </div>
                     </InstructionsContainer>
                 </PrePuzzleContentContainer>
             </PrePuzzleWrapper>

@@ -341,7 +341,7 @@ const UserProvider = ({ children }) => {
     //    return <Loader />
     //  }
     return (
-      <UserContext.Provider value={{userData, updateUserData, achievements, updateAchievements, themesData, updateThemesData, dailyModules, updateDailyModules, globalData: state}}>
+      <UserContext.Provider value={{userData, updateUserData, achievements, updateAchievements, themesData, updateThemesData, dailyModules, updateDailyModules}}>
         {children}
       </UserContext.Provider>
     );
