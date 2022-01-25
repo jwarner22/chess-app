@@ -20,7 +20,9 @@ function CourseTile(props){
     //console.log(props)
   const [windowDimension, setWindowDimension] = useState(null);
   const [openModal, setOpenModal] = useState(false)
-  const {headline, subheading, img} = props
+  const {headline, subheading, img, background} = props 
+  console.log(props.type)
+  
 
   function handleOpenModal() {
       setOpenModal(prev => !prev)
@@ -61,14 +63,14 @@ function CourseTile(props){
 
     return (
         <>
-        <TileWrapper>
+        <TileWrapper type={props.type}>
             <TileHeader>
                 {isMobile ? (<Link style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: props}, isDaily: false}}>
 <TileContent /></Link>) : (<TileContent />)}
                 {isMobile ? ( null ) : (
                 <TileButtonWrap>
                 <Link style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: props}, isDaily: false}}>
-                    <TileButton>
+                    <TileButton type={props.type}>
                         Start
                     </TileButton>
                     </Link>

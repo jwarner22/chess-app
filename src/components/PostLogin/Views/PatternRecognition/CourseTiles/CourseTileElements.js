@@ -7,7 +7,6 @@ export const TileWrapper = styled.li`
     min-height: 170px;
     /* border: 1px solid orange; */
     list-style-type: none;
-    background: #fff;
     /* background: #247fc1; */
     /* background: linear-gradient(
 320deg
@@ -17,6 +16,14 @@ export const TileWrapper = styled.li`
     flex-grow: 1; */
     transition: all 0.2s ease-in-out;
     background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
+    ${props => {
+        if (props.type === 'endgame') return`
+            background: linear-gradient(to right top, #5f3aff, #6e43ff, #7b4cff, #8755ff, #925eff);
+            `
+        else if (props.type === 'midgame') return`
+        background: linear-gradient(to right top, #008b72, #01987e, #01a68b, #01b498, #00c2a6);
+        `
+    }}
     box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
     `
 
@@ -109,6 +116,14 @@ export const TileButtonWrap = styled.div`
 
 export const TileButton = styled.div`
     color: #000DFF;
+    ${props => {
+        if (props.type === 'endgame') return`
+            color: #5f3aff;
+            `
+        else if (props.type === 'midgame') return`
+            color: #008b72;
+        `
+    }}
     background: #fff;
     border-radius: 16px;
     white-space: nowrap;
