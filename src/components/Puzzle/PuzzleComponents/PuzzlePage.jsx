@@ -18,14 +18,8 @@ import BlackIndicator from "./TurnIndicator/BlackIndicator"
 import WhiteIndicator from "./TurnIndicator/WhiteIndicator"
 import {BackButtonWrapper} from "../Utilities/Progress"
 import Lives from "./Lives/Lives"
-<<<<<<< HEAD
-import MobilePuzzle from "./MobilePuzzle/MobilePuzzle";
-import { CSSTransition, TransitionGroup } from "react-transition-group"
-import { MobilePuzzleContainer, 
-=======
 
 import { 
->>>>>>> 0ffeec9f306411f6604082ca2b3de2a3896a6e84
   MobilePuzzleWrapper, 
   MobileHeaderContainer, 
   MobileContent} from "./MobilePuzzle/MobilePuzzleElements";
@@ -293,21 +287,7 @@ export default function PuzzlePage(props) {
                   <BlackIndicator />
                 )}
                 </IndicatorWrapper>
-<<<<<<< HEAD
-                <TransitionGroup>
-                  <CSSTransition
-                    timeout={300}
-                    classNames="fade"
-                  >
-                  <Lives lives={lives} isMobile={isMobile} />
-                  </CSSTransition>
-                </TransitionGroup>
-                {/* <LivesWrapper>
-                <strong>{lives}</strong>&nbsp;Lives Remaining 
-                </LivesWrapper> */}
-=======
                 <Lives lives={lives} isMobile={isMobile} />
->>>>>>> 0ffeec9f306411f6604082ca2b3de2a3896a6e84
             <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
             </RightPuzzlePanelContainer>
         </PuzzlePageGrid>

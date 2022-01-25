@@ -12,19 +12,10 @@ import {TileWrapper,
 
 
 function CourseTile(props){
-<<<<<<< HEAD
-    //console.log(props)
-  const [windowDimension, setWindowDimension] = useState(null);
-  const [openModal, setOpenModal] = useState(false)
-  const {headline, subheading, img, background} = props 
-  console.log(props.type)
-  
-=======
 
     const [windowDimension, setWindowDimension] = useState(null);
   //const [openModal, setOpenModal] = useState(false)
   const {headline, subheading, img} = props
->>>>>>> 0ffeec9f306411f6604082ca2b3de2a3896a6e84
 
 //   function handleOpenModal() {
 //       setOpenModal(prev => !prev)

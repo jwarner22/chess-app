@@ -38,6 +38,7 @@ export const ProfilePanelContainer = styled.div`
     flex-direction: column;
     width: 100%;
     justify-content: center;
+    align-items: center;
 `
 export const ProfilePanelWrapper = styled.div`
     display: flex;
@@ -46,10 +47,11 @@ export const ProfilePanelWrapper = styled.div`
     padding: 16px;
     border-radius: 10px;
     //opacity @ 20% looks really nice
-    background-image: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);
+    background: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);
     justify-content: space-between;
     align-items: flex-start;
-    max-width: 1100px;
+    max-width: 704px;
+    width: 100%;
 `
 export const ProfilePanelContent = styled.div`
     display: flex;
