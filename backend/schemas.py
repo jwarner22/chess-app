@@ -39,6 +39,8 @@ class CreateDailyPuzzle(BaseModel):
     locked: bool
     inserted_at: str
     expiration: str
+    alt_id: Optional[int] = None
+    alt_title: Optional[str] = None
 
     class Config:
         orm_mode=True
@@ -53,10 +55,15 @@ class DailyPuzzle(BaseModel):
     inserted_at: str
     expiration: str
     owner_id: str
+    alt_id: Optional[int] = None
+    alt_title: Optional[str] = None
 
     class Config:
         orm_mode=True
 
+class DailyPicks(BaseModel):
+    picks: List[int]
+    alts: List[int]
 
 # Puzzle schema
 

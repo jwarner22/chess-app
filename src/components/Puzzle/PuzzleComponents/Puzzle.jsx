@@ -4,16 +4,13 @@ import PropTypes from "prop-types";
 import * as ChessJS from "chess.js";
 import { wait } from "../Utilities/helpers.js";
 // import BackgroundEvaluation from "./Stockfish";
+
 import moveSound from "../../../assets/public_sound_standard_Move.mp3";
 import captureSound from "../../../assets/public_sound_standard_Capture.mp3";
 import {Howl} from 'howler';
-import { useMemo } from "react";
-import { Time } from "@styled-icons/boxicons-regular";
 
 // BackgroundEvaluation();
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
-
-
 // const Chess = require("chess.js");
 
 export default class Puzzle extends React.Component {

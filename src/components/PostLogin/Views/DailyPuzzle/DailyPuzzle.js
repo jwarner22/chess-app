@@ -13,7 +13,7 @@ import {Modules} from "../../Views/PatternRecognition/CourseTiles/Data"
 import MobileNavbar from "../../../PostLogin/MobileNavBar/MobileNavBar"
 import DashNavbar from "../../../PostLogin/DashboardNavbar/DashboardNavbar"
 import DashSidebar from '../../../PostLogin/DashboardSidebar/DashboardSidebar'
-
+import Loader from '../../../Loader'
 // utilities
 import {useWindowSize} from '../../../Hooks/UseWindowSize'
 import {wait} from '../../../Puzzle/Utilities/helpers'
@@ -33,30 +33,33 @@ export default function DailyPuzzzle() {
   const isMobile = windowSize[0] <= 640;
   
   const {dailyModules} = useContext(UserContext);
-
+  const {contextLoading} = useContext(UserContext);
 
   useEffect(() => {
-    if (isMounted) {
+    console.log('effect ran')
+    if (!contextLoading) {
+      console.log('if statement ran')
+
+      setLoaded(false);
       transformDaily();
       setTimer();
     }
     return () => setIsMounted(false) // componentDidUnMount
-  },[])
+  },[contextLoading])
 
-  const transformDaily = () => { 
-    let picks = Modules.filter(module => {
-      return dailyModules.some(entry => entry.theme_id === module.id)
-      })
+  const transformDaily = () => {
+    let modules = [...Modules]; // copy of Modules
+    let daily = [...dailyModules]; // copy of dailyModules
 
-    let mutatedPicks = picks.map((pick,index) => {
-      let stored = dailyModules.find(module => module.location === index)
-      return {...pick, completed: stored.completed, locked: stored.locked, inserted_at: stored.inserted_at}
-    });
-    
-    // set data for display and module consumption
-    setDailyPicks(mutatedPicks);
-    setSchemaPicks(dailyModules)
-    setLoaded(true)
+    setSchemaPicks(daily); // set schema picks to daily
+    daily = daily.map((module, index) => {
+      let locatedModule = daily.find(item => item.location === index);
+      let item = modules.find(entry => entry.id === locatedModule.theme_id)
+      return {...item, ...locatedModule}
+    })
+
+    setDailyPicks(daily); // set data for display and module consumption
+    setLoaded(true);
   }
 
   //hamburger side menu 
@@ -93,6 +96,9 @@ export default function DailyPuzzzle() {
     
   }
 
+  if (contextLoading) {
+    return <Loader />
+   }
 
   if (!screenTimer) {
     return (
@@ -130,13 +136,13 @@ export default function DailyPuzzzle() {
          {dailyPicks.map((module, index) => {
            if (module.category === 'opening') {
              return(
-              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/opening', state: {module: module, schemaPicks:schemaPicks, isDaily: true}}}>
+              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/opening', state: {module: module, schemaPicks:schemaPicks, isDaily: true, location: index}}}>
               <DailyPuzzleModuleContainer key={index} {...module} />
             </Link>
              )
            } else {
             return (
-              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/dashboard/module', state: {module: module, schemaPicks:schemaPicks, isDaily: true}}}>
+              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/dashboard/module', state: {module: module, schemaPicks:schemaPicks, isDaily: true, location: index}}}>
                 <DailyPuzzleModuleContainer key={index} {...module} />
               </Link>
             )

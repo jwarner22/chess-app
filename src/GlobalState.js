@@ -163,7 +163,7 @@ const UserProvider = ({ children }) => {
 
     useEffect(() => {
         if (auth.currentUser) {
-            setLoading(true);
+            setLoading(() => true);
             fetchUserData();
             fetchAchievements();
             fetchDailyModules();
@@ -171,7 +171,7 @@ const UserProvider = ({ children }) => {
             setIsMounted(true);
         }
         
-    },[auth.userId, isMounted]);
+    },[auth.userId]);
 
 
     // USER DATA
@@ -207,12 +207,12 @@ const UserProvider = ({ children }) => {
     }
 
     const updateThemesData = async (data) => { 
-        setLoading(() => true);
+        //setLoading(() => true);
         let endpoint = `/users/${auth.userId}/themes`; 
         let response = await put(endpoint, data);
 
         setThemesData(response);
-        setLoading(() => false);
+        //setLoading(() => false);
     }
 
 
@@ -225,64 +225,69 @@ const UserProvider = ({ children }) => {
         try {
             
             let response = await get(endpoint);
-            let expiration = new Date(response.expiration);
-            console.log({response: response});
+
             if (response.detail === "daily puzzles not found") { // no daily modules
                 // get picks
                 let endpoint = `/users/${auth.userId}/daily_puzzles/picks`;
-                let picks = await get(endpoint);
-                // map picks to modules and save
-                let schemaPicks = mutatePicks(picks);
-                // post daily modules to db
-                await post(`/users/${auth.userId}/daily_puzzles`, schemaPicks);
-                // set daily modules
-                setDailyModules(schemaPicks);
+                let {picks, alts} = await get(endpoint); // get picks
+                let schemaPicks = mutatePicks(picks, alts); // map picks to modules and save
+                await post(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // post daily modules to db
+                setDailyModules(schemaPicks); // set daily modules
             } else if (response.detail === "daily puzzles expired") { // daily modules expired
-                // get new picks
-                let endpoint = `/users/${auth.userId}/daily_puzzles/picks`;
-                let picks = await get(endpoint);
-                // map picks to modules and save
-                let schemaPicks = mutatePicks(picks);
-                // update daily modules in db
-                await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks);
+                let endpoint = `/users/${auth.userId}/daily_puzzles/picks`; // get new picks
+                let {picks, alts} = await get(endpoint); // get picks
+                let schemaPicks = mutatePicks(picks, alts); // map picks to modules and save
+                await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
                 setDailyModules(schemaPicks);
-            } else if (expiration < now) {
-                  // get new picks
-                let endpoint = `/users/${auth.userId}/daily_puzzles/picks`;
-                let picks = await get(endpoint);
-                // map picks to modules and save
-                let schemaPicks = mutatePicks(picks);
-                // update daily modules in db
-                await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks);
+            } else if ((new Date(response[0].expiration)) < now) {
+                let endpoint = `/users/${auth.userId}/daily_puzzles/picks`; // get new picks
+                let {picks, alts} = await get(endpoint);
+                let schemaPicks = mutatePicks(picks, alts); // map picks to modules and save
+                await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
                 setDailyModules(schemaPicks);
-            
             } else {
                 setDailyModules(response);
+                console.log(response);
             }
 
         } catch (e) { 
             console.log(e);
+        } finally {
+            console.log('no longer loading')
+            setLoading(() => false);
         }
-        setLoading(false);
     }
 
-    const mutatePicks = (picks) => { 
+    const mutatePicks = (picks, alts) => { 
         let now = new Date();
-        picks = Modules.filter(element => {
+
+        console.log({picks: picks, alts: alts});
+        let selections = Modules.filter(element => {
             return picks.some(entry => entry === element.id)
         })
 
+        let alt_selections = alts.map(element => {
+            return Modules.find(entry => entry.id === element)
+        })
 
-        let mutatedPicks = picks.map(pick => {return {...pick, completed: false, locked: true, inserted_at: now.toString()}})
-        mutatedPicks[0].locked = false; // unlcocks first puzzle
+        selections = selections.map((pick, index) => {
+            if (index < alt_selections.length) {
+            return {...pick, completed: false, locked: true, inserted_at: now.toString(), alt_id: alts[index], alt_title: alt_selections[index].type_ref}
+            } else {
+                return {...pick, completed: false, locked: true, inserted_at: now.toString(), alt_id: null, alt_title: null}
+            }
+        })
+        selections[0].locked = false; // unlcocks first puzzle
 
-        console.log({picks: picks});
+        console.log({selection: selections});
         // expiration date is tomorrow at 12:00:00
         let expiration_date = new Date();
         expiration_date.setHours(24,0,0,0);
         expiration_date.toString();
 
-        let schemaPicks = mutatedPicks.map((pick, index) => {
+
+        console.log({alt_selections: alt_selections});
+        let schemaPicks = selections.map((pick, index) => {
             return {
             location: index,
             theme_id: pick.id,
@@ -290,9 +295,10 @@ const UserProvider = ({ children }) => {
             completed: pick.completed,
             locked: pick.locked,
             inserted_at: pick.inserted_at,
-            expiration: expiration_date
-          }
-        })
+            expiration: expiration_date,
+            alt_id: pick.alt_id,
+            alt_title: pick.alt_title
+        }})
         return schemaPicks;
     }
 
@@ -341,7 +347,7 @@ const UserProvider = ({ children }) => {
     //    return <Loader />
     //  }
     return (
-      <UserContext.Provider value={{userData, updateUserData, achievements, updateAchievements, themesData, updateThemesData, dailyModules, updateDailyModules}}>
+      <UserContext.Provider value={{contextLoading: loading, userData, updateUserData, achievements, updateAchievements, themesData, updateThemesData, dailyModules, updateDailyModules}}>
         {children}
       </UserContext.Provider>
     );
