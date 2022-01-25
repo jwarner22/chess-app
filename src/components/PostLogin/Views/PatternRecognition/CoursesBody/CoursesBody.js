@@ -41,6 +41,7 @@ const Body = (props, {activeMenuTile, inactiveMenuTile}) => {
         } 
     }
 
+
     useEffect(() => {
        if (showTacticTiles === true) {
            setShowEngameTiles(false);
