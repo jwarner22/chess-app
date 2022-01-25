@@ -4,29 +4,32 @@ import * as ChessJS from "chess.js";
 import { wait } from "../Utilities/helpers.js";
 import moveSoundFile from "../../../assets/public_sound_standard_Move.mp3";
 import {Howl} from 'howler'
-import { Fence } from "styled-icons/material-outlined";
+
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
 
-
-
 export default function Opening(props) {
+
+  // state
   const [fen, setFen] = useState();
   const [moveIndex, setMoveIndex] = useState(0);
   const [movable, setMovable] = useState(null);
-  //const [nextAttemptPrompt,setNextAttemptPrompt] = useState(false);
   const [next, setNext] = useState(false);
   const [game, setGame] = useState(new Chess(fen));
   const [color,setColor] = useState("");
-  const [inCheck, setInCheck] = useState(false);
+  //const [inCheck, setInCheck] = useState(false);
   const [lastMove, setLastMove] = useState([]);
+
+  // from props
   const incorrectCallback = props.incorrectCallback;
   const finishedCallback = props.finishedCallback;
-  const moveSound = new Howl({src: moveSoundFile});
   const moves = props.moves;
   const orientation = props.orientation;
   const count = props.count;
+
+  // sound
+  const moveSound = new Howl({src: moveSoundFile});
   
   
   useEffect(() => {
@@ -45,29 +48,43 @@ export default function Opening(props) {
   },[count]);
 
   useEffect(() => {
-    console.log('next')
     if (orientation === "black") {
       console.log('should trigger initial move')
       initialMove();
     }
   },[next]);
 
+  useEffect(() => {
+    if (moveIndex >= moves.length) {
+      setFen(game.fen());
+      finishedCallback();
+    }
+  } ,[moveIndex]);
+
+  useEffect(() => {
+    let movable = calcMovable();
+    setMovable(movable);
+  },[fen]);
+
+  useEffect(() => {
+    //if (props.triggerNext) {
+      nextAttempt();
+    //}
+  },[props.triggerNext])
+
+
   const initialMove = async () => {
     await makeMove(
       moves[0].substring(0, 2),
       moves[0].substring(2, 4)
     );
-    if (color === "white") {
-     setMoveIndex(() => moveIndex + 1);
-    }
+    setMoveIndex(1);
     let movable = calcMovable();
     setMovable(movable);
   }
 
-
   // calcs legal moves and returns chessground compatible object
   const calcMovable = () => {
-    //console.log('calced movable')
     //if (turnColor() === orientation) {
       const dests = new Map();
       game.SQUARES.forEach((s) => {
@@ -100,20 +117,9 @@ export default function Opening(props) {
     }
     playSound();
     game.move({ from: from, to: to });
-    //setFen(game.fen());
     verifyMove(from, to);
   }
 
-  useEffect(() => {
-    let movable = calcMovable();
-    setMovable(movable);
-  },[fen]);
-
-  useEffect(() => {
-    if (props.triggerNext) {
-      nextAttempt();
-    }
-  },[props.triggerNext])
 
   const nextAttempt = async () => {
     let newGame = new Chess();
@@ -130,53 +136,28 @@ export default function Opening(props) {
     const correctTarget = moves[moveIndex].substring(2, 4);
     // check correct move
     if ((to !== correctTarget) | (from !== correctSource)) {
-      console.log("Incorrect!");
       await wait(750);
       incorrectCallback(fen, moveIndex);
     } else {
-      console.log("Correct!");
-
       if (moveIndex < moves.length-1) {
         await makeMove(
           moves[moveIndex + 1].substring(0, 2),
           moves[moveIndex + 1].substring(2, 4)
         );
-            //setFen(game.fen());
+        //setFen(game.fen());
         setMoveIndex(() => moveIndex + 2);
-    
         setColor(() => turnColor());
       } else {
         await wait(750);
         setMoveIndex(() => moveIndex + 2);
       }
-      // if (moveIndex >= moves.length - 2){
-      //   await wait(750);
-      //   console.log('finished');
-      //   //finishedCallback();
-      // }
     }
   };
 
-  useEffect(() => {
-    if (moveIndex >= moves.length) {
-      setFen(game.fen());
-      finishedCallback();
-    }
-  } ,[moveIndex]);
-
-  // useEffect(() => {
-  //   let toMove = turnColor();
-  //   if ((toMove !== orientation) && (moveIndex > 2)) {
-  //     let from = moves[moveIndex - 1].substring(0, 2);
-  //     let to = moves[moveIndex - 1].substring(2, 4);
-  //     makeMove(from, to);
-  //   }
-  // },[moveIndex]);
 
   const makeMove = async (from, to) => {
 
     await wait(500);
-    
     playSound();
 
     game.move({
@@ -184,11 +165,13 @@ export default function Opening(props) {
       to: to
     });
   
-    setFen(game.fen());
     setLastMove([from, to]);
     setColor(() => turnColor());
   };
-
+  
+  useEffect(()=> {
+    setFen(game.fen());
+  }, [lastMove])
 
 
   const turnColor = () => {

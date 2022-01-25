@@ -1,6 +1,6 @@
-import React from "react"
 import styled from "styled-components"
-import { CgProfile } from "react-icons/cg";
+
+
 export const ProfilePanelHeader = styled.div`
     border-bottom: 2px solid #e5e5e5;
     display: flex;

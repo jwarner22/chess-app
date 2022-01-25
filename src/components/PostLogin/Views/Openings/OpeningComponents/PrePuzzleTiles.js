@@ -1,7 +1,6 @@
 import React from 'react'
-import {PuzzlePageContainer, 
+import { 
     PrePuzzleWrapper, 
-    PrePuzzleIconWrapper, 
     PrePuzzleTitle, 
     PrePuzzleSubheading, 
     PrePuzzleContentContainer, 
@@ -25,7 +24,6 @@ RightStatWrapper} from "../../../../PrePuzzle/PrePuzzleElements"
 import { StartButton } from '../../DailyPuzzle/ModalElements'
 
 const PrePuzzleTile = (props) => {
-    console.log(props)
 
     return (
         <div>
@@ -75,9 +73,14 @@ const PrePuzzleTile = (props) => {
                                 </TipDescriptionWrapper>
                             </TipsGrid>
                         </InstructionsWrapper>
-                        <StartButton onClick={props.onStartClick}>
-                            Start
+                        <div>
+                        <StartButton onClick={() => props.onStartClick('white')}>
+                            Train as White
                         </StartButton>
+                        <StartButton onClick={() => props.onStartClick('black')}>
+                            Train as Black
+                        </StartButton>
+                        </div>
                     </InstructionsContainer>
                 </PrePuzzleContentContainer>
             </PrePuzzleWrapper>

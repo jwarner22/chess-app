@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from "react";
-import { Circle, Line, ProgressProps } from "rc-progress";
+import { Circle, Line } from "rc-progress";
 import styled from "styled-components"
-import { GrFormClose } from "react-icons/gr";
-import BackButton from "../../BackButton";
-import {wait} from './helpers.js';
 // src: https://github.com/react-component/progress
 //class Example extends React.Component<ProgressProps, any> {
+
+import {useWindowSize} from '../../Hooks/UseWindowSize';
 
 function ProgressBar(props) {
     const [percent,setPercent] = useState(0);
     const [color,setColor] = useState('#247CF1')
     const [results, setResults] = useState([]);
-    const [windowDimension, setWindowDimension] = useState(null);
+    //const [windowDimension, setWindowDimension] = useState(null); 
+    const windowDimensions = useWindowSize();
+    const isMobile = windowDimensions[0] < 640;
+
     const baseColor = '#247CF1';
     const incorrectColor = '#F24F3D';
     const correctColor = '#30F218';
@@ -22,20 +24,20 @@ function ProgressBar(props) {
     const decrement = 10; // decrement for failed puzzle
     const trailColor = 'rgba(255, 255, 255, 0.3)'
 
-    useEffect(() => {
-        setWindowDimension(window.innerWidth);
-      }, []);
+    // useEffect(() => {
+    //     setWindowDimension(window.innerWidth);
+    //   }, []);
     
-      useEffect(() => {
-        function handleResize() {
-          setWindowDimension(window.innerWidth);
-        }
+    //   useEffect(() => {
+    //     function handleResize() {
+    //       setWindowDimension(window.innerWidth);
+    //     }
     
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-      }, []);
+    //     window.addEventListener("resize", handleResize);
+    //     return () => window.removeEventListener("resize", handleResize);
+    //   }, []);
     
-      const isMobile = windowDimension <= 640;
+    //   const isMobile = windowDimension <= 640;
 
     useEffect(() => {
             setDisplay(outcome)
@@ -44,7 +46,6 @@ function ProgressBar(props) {
     useEffect(() => {
       if (props.percent != null) {
       setPercent(props.percent)
-      console.log({props: props.outcome})
       if (props.outcome === true) {
         setColor(correctColor)
       } else if (props.outcome === false) {
@@ -54,7 +55,6 @@ function ProgressBar(props) {
     },[props.percent, props.outcome])
 
     useEffect(() => {
-      console.log(percent)
       returnPercent(percent)
     },[percent])
     
@@ -81,10 +81,6 @@ function ProgressBar(props) {
         setResults(prevResults => [...prevResults, result])
     }
 
-    const containerStyle = {
-        width: "480px"
-      };
-
     const progressHeight = {
         height: "8px"
     }
@@ -95,9 +91,6 @@ function ProgressBar(props) {
             {isMobile ? ( <Line style={progressHeight} percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor}/> ) : (
           <Circle percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor}/>)}
         </HeaderWrapper>
-        {/* <HeaderWrapper>
-        <NumericIndicator style={{position: 'relative', top: '10px'}} correct={props.correct}/>
-        </HeaderWrapper> */}
         </>
     )
 
@@ -105,34 +98,6 @@ function ProgressBar(props) {
 export default ProgressBar
 
 
-const NumericIndicator = (props) => {
-    const [visible, setVisible] = useState(false)
-    
-    useEffect(() => {
-      setVisible(true)
-      toggleVisible();
-    },[props.correct])
-  
-    const toggleVisible = async () => {
-      await wait(2000)
-      setVisible(prev => !prev)
-    }
-  if (visible) {
-    if (props.correct) {
-      return(
-        <div style={{color: '#30F218'}}> +20 </div>
-      )
-    } else if (props.correct == null) {
-      return(
-        <div></div>
-      )
-    } else {
-      return <div style={{color: '#F24F3D'}}>-10</div>
-    }
-  } else {
-    return <div style={{opacity: '0'}}>0</div>
-  }
-  }
 
 const HeaderWrapper = styled.div`
     display: flex;
@@ -140,12 +105,6 @@ const HeaderWrapper = styled.div`
     align-items: center;
     justify-content: center;
 `
-// const HeaderWrapper = styled.div`
-//     display: grid;
-//     width: 100%;
-//     grid-template-columns: min-content 1fr;
-//     align-items: center;
-// `
 
 export const BackButtonWrapper = styled.div`
     display: flex;

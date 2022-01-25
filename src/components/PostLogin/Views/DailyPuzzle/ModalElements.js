@@ -94,7 +94,7 @@ export const ModalBodyP = styled.p`
 export const StartButton = styled.button`
     white-space: nowrap;
     padding: 8px 16px;
-    margin: 16px 0px 24px 0px;
+    margin: 16px 4px 24px 4px;
     color: #fff;
     font-size: 22px;
     outline: none;

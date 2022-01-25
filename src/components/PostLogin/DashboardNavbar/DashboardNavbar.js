@@ -1,5 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
-import {IconContext} from 'react-icons/lib'
+import React, {useState, useEffect} from 'react'
 import {
      Nav, 
      NavbarContainer, 
@@ -13,17 +12,10 @@ import {
      NavItem,
      NavLinks
     } from './DashboardNavElements'
-import {NavLink} from "react-router-dom"
 import {animateScroll as scroll} from 'react-scroll'
-import firebaseConfig from "../../../config";
-import { Redirect } from "react-router-dom";
-//import { AuthContext } from "../../../index";
 import logo from "../../../Images/Elo-elevation-blue.png"
 import firebase from 'firebase/compat/app'
 require('firebase/auth')
-
-
-
 
 
 const DashNavbar = ({ toggle }) => {

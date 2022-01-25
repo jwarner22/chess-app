@@ -22,33 +22,22 @@ import {CoursesWrapper,
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
 import {HeadingWrapper, PatternRecognitionHeading} from "../PatternRecognition/PatternRecognition"
 
+import {useWindowSize} from '../../../Hooks/UseWindowSize'
+
+
 const Openings = () => {
   const [isOpen, setIsOpen] = useState(false);
   const openingData = Modules.filter(module => module.category === 'opening');
   const pageTitle = `Openings`
+  
+  // view
+  const windowDimension = useWindowSize();
+  const isMobile = windowDimension[0] <= 640;
 
-  //mobile navbar
-    const [windowDimension, setWindowDimension] = useState(null);
-
-  useEffect(() => {
-    setWindowDimension(window.innerWidth);
-  }, []);
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimension(window.innerWidth);
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-    //hamburger sidebar menu
-    const toggle = () => {
-      setIsOpen(!isOpen)
-    }
-
-  const isMobile = windowDimension <= 640;
+  //hamburger sidebar menu
+  const toggle = () => {
+    setIsOpen(!isOpen)
+  }
 
     return (
         <>

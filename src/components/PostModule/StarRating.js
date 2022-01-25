@@ -12,14 +12,11 @@ function StarRating(props) {
   const {post} = useFetch(baseURL);
   const userId = localStorage.getItem('userID');
 
-  console.log({starRatingProps: props})
-
   const handleRating = (rate) => {
     setRatingValue(rate)
   }
-  console.log({ratingValue})
+  
   const onClick = (e) => {
-      console.log({rating:e})
       handleRating(e)
       if (!posted) {
         // api call for rating goes here
@@ -42,7 +39,7 @@ function StarRating(props) {
 
   return (
       <>
-      <div> {posted ? 'How would you rate this module?' : 'Response submitted.  Thanks for your feedback!'}</div>
+      <div> {posted ? 'Response submitted.  Thanks for your feedback!' : 'How would you rate this module?'}</div>
     <Rating
     onClick={onClick}
     ratingValue={ratingValue}

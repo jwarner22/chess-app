@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 
 import PostOpeningPage from '../../PostLogin/Views/Openings/PostOpeningPage';
 import PreOpeningPage from '../../PostLogin/Views/Openings/PreOpeningPage';
@@ -9,20 +9,26 @@ import {getAnalytics, logEvent} from "firebase/analytics";
 
 // need to add to opening route and clean up props for child components and this componen
 export default function OpeningManager(props) {
+    
+    // state
     const [isFinished, setIsFinished] = useState(false);
     const [isStarted, setIsStarted] = useState(false);
     const [score, setScore] = useState(0);
     const [scoreData, setScoreData] = useState([]);
+    const [orientation, setOrientation] = useState('');
     const {get, put, post} = useFetch(baseURL);
+
+    // from props
     const openingData = props.location.state.module;
     const schemaPicks = props.location.state.schemaPicks;
     const isDaily = props.location.state.isDaily;
     const userID = localStorage.getItem('userID');
     const analytics = getAnalytics();
 
-    const togglePrePuzzleCallback = () => {
+    const togglePrePuzzleCallback = (color) => {
         setIsFinished(false);
         setIsStarted(true);
+        setOrientation(color);
         logEvent(analytics, 'opening_started', {'user': userID, 'isDaily': isDaily});
     }
 
@@ -187,7 +193,7 @@ export default function OpeningManager(props) {
             <PreOpeningPage togglePrePuzzleCallback={togglePrePuzzleCallback} openingData={openingData}/>
         )}
         {isStarted && !isFinished && (
-            <OpeningPage toggleFinished={toggleFinished} openingData={openingData}/>
+            <OpeningPage toggleFinished={toggleFinished} openingData={openingData} orientation={orientation}/>
         )}
         {isFinished && (
             <PostOpeningPage openingData={openingData} isDaily={isDaily} score={score} scoreData={scoreData}/>

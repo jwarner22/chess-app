@@ -1,18 +1,22 @@
-import ModuleManager from '../Puzzle/ModuleManager.js';
 import React, {useEffect, useState} from 'react';
-//import FetchWrapper from '../api/FetchWrapper.js';
-import {baseURL} from '../api/apiConfig';
+
+// custom fetch hook
 import useFetch from '../api/useFetch.js';
+import {baseURL} from '../api/apiConfig';
+
+// components
 import Loader from '../Loader.js';
+import ModuleManager from '../Puzzle/ModuleManager.js';
 import PrePuzzle from '../PrePuzzle/PrePuzzle.js';
 
 export default function Module(props) {
-    //const text = props.location.state.text;
     const [rating, setRating] = useState();
     const [loading, setLoading] = useState(true);
     const [prePuzzleToggle,setPrePuzzleToggle] = useState(true);
     const [highScore, setHighScore] = useState(0);
+
     const {get,post} = useFetch(baseURL);
+
     const theme = props.location.state.module.type_ref;
     const category = props.location.state.module.category;
     const id = props.location.state.module.id;
@@ -20,11 +24,9 @@ export default function Module(props) {
     const schemaPicks = props.location.state.schemaPicks;
 
     const userID = localStorage.getItem('userID');
+
     //load user data
     useEffect(() => {
-        //add if able to check for online status
-        //let data = JSON.parse(localStorage.getItem('userPublicData'));
-        //let themeRecord = data.themes.find(element=> element.title === theme)
         getModule()
     },[])
 
@@ -45,9 +47,7 @@ export default function Module(props) {
     const createModule = async () => {
         
         // gets initial rating for user
-        let initialRating = await get(`/users/${userID}/initial-rating`)
-        console.log({initialRating: initialRating})
-        
+        let initialRating = await get(`/users/${userID}/initial-rating`)        
         
         post(`/users/${userID}/themes`,{
                 title: theme,

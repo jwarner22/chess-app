@@ -1,18 +1,7 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import {CoursesWrapper, 
     ModuleWrapper, 
-    ModuleGrid, 
-    CategoryLabel,
-    CategoryLabelWrapper,
-    CategoryLabelContainer,
-    TacticsLabelWrapper,
-    CategoryLabelContainerTop,
-    CheckmatesLabelWrapper,
-    EndgamesLabelWrapper,
-    MenuWrapper,
-    MenuGrid,
-    MenuTile
+    ModuleGrid
 } from './CoursesElements'
 import CourseTile from '../CourseTiles/CourseTiles'
 import {Modules} from '../CourseTiles/Data';

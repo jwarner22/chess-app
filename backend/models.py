@@ -46,6 +46,7 @@ class DailyPuzzle(Base):
     title = Column(String, unique=False,index=True)
     completed = Column(Boolean, unique=False,index=True)
     locked = Column(Boolean, unique=False, index=True)
+    expiration = Column(String, unique=False, index=True)
     owner_id = Column(String, ForeignKey("user.user_id"))
     
 

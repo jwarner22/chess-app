@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect} from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import routes from "./routes.js";
@@ -8,10 +8,6 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import protectedRoutes from './components/protectedRoutes'
 import ProtectedRouteHoc from './components/protectedRoutesHoc'
 import {AuthProvider} from './components/Auth.js';
-import {TransitionGroup, CSSTransition} from "react-transition-group"
-import DashboardNavbar from "./components/PostLogin/DashboardNavbar/DashboardNavbar"
-import DashSidebar from "./components/PostLogin/DashboardSidebar/DashboardSidebar"
-import MobileNavbar from './components/PostLogin/MobileNavBar/MobileNavBar'
 import {UserProvider} from './GlobalState.js';
 
 require("firebase/auth");
@@ -24,28 +20,29 @@ require("firebase/auth");
 
 function App() {
 
-  const [windowDimension, setWindowDimension] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
+  //const [windowDimension, setWindowDimension] = useState(null);
+  //const [isOpen, setIsOpen] = useState(false);
   
   //hamburger sidebar menu
-  const toggle = () => {
-    setIsOpen(!isOpen)
-  }
+  // const toggle = () => {
+  //   setIsOpen(!isOpen)
+  // }
 
-  useEffect(() => {
-    setWindowDimension(window.innerWidth);
-  }, []);
+  // useEffect(() => {
+  //   setWindowDimension(window.innerWidth);
+  // }, []);
 
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimension(window.innerWidth);
-    }
+  // useEffect(() => {
+  //   function handleResize() {
+  //     setWindowDimension(window.innerWidth);
+  //   }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
+  //console.log('rendered app')
 
-  const isMobile = windowDimension <= 640;
+  //const isMobile = windowDimension <= 640;
 
   return(
     <>

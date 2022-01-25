@@ -1,24 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import PrePuzzleHeader from "./OpeningComponents/PrePuzzleHeader"
-import {DailyPuzzleIcon} from "../DailyPuzzle/DailyPuzzleElements"
-import { StartButton } from '../DailyPuzzle/ModalElements'
-import {Modules} from '../PatternRecognition/CourseTiles/Data';
-import puzzle from "../../../../Images/chessBoardHeader.png"
-import { PreOpeningsIconWrapper,
+import { 
 PreOpeningPageContainer } from './PreOpeningsPageElements';
 import PrePuzzleTile from './OpeningComponents/PrePuzzleTiles';
 import useFetch from '../../../api/useFetch';
 import {baseURL} from '../../../api/apiConfig';
 
 const PreOpeningPage = (props) => {
-    const img = Modules[3].img;
+    //const img = Modules[3].img;
     const {openingData, togglePrePuzzleCallback} = props;
     const {get, post} = useFetch(baseURL);
     const [loaded, setLoaded] = useState(false);
     const [userOpeningData, setUserOpeningData] = useState({});
 
-    function handleStartButtonClick() {
-        togglePrePuzzleCallback()
+    function handleStartButtonClick(color) {
+        togglePrePuzzleCallback(color)
     }
 
     useEffect(() => {
@@ -45,7 +41,6 @@ const PreOpeningPage = (props) => {
             } else {
                 setUserOpeningData(data);
                 sessionStorage.setItem('userOpeningData', JSON.stringify(data));
-                console.log(data);
             }
 
         } catch (error) {

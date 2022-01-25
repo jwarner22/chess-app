@@ -92,7 +92,7 @@ export default class Puzzle extends React.Component {
       from: this.props.correctMoves[0],
       to: this.props.correctMoves[1]
     });
-    console.log('set state')
+
     this.setState({
       fen: this.game.fen(), //,
       orientation: this.turnColor(),
@@ -200,13 +200,13 @@ export default class Puzzle extends React.Component {
     // play sounds
     try {
       if (this.game.move({to:to, from:from, verbose: true}).flags === 'c') {
-        return this.playSound('c')
+        this.captureSound.play()
+
       } else {
-        return this.playSound('n')
+        this.moveSound.play()
       }
     } catch (e) {
-      console.log(e)
-      return this.playSound('n')
+      this.moveSound.play()
     }
   }
 
@@ -304,17 +304,6 @@ export default class Puzzle extends React.Component {
       this.isFinished = false;
     }
   };
-
-  playSound = (moveType) => {
-    // Howler.volume(1.0)
-    if (moveType === 'c') {
-      this.captureSound.play()
-
-    } else if (moveType === 'n') {
-      this.moveSound.play()
-    }
-
-  }
 
   unlockNext = () => {
     this.props.unlockNext();

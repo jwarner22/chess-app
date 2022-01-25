@@ -12,54 +12,40 @@ import {Howl} from 'howler';
 import PuzzleNav from "./PuzzleNav"
 import styled from "styled-components"
 import {Modules} from "../../PostLogin/Views/PatternRecognition/CourseTiles/Data"
-import { StoreMallDirectory } from "@styled-icons/material";
 import PromotionalModal from "../../PostLogin/PromotionModal/PromotionalModal"
 import BackButton from "../../BackButton"
 import BlackIndicator from "./TurnIndicator/BlackIndicator"
 import WhiteIndicator from "./TurnIndicator/WhiteIndicator"
-import { Construction } from "@styled-icons/material-twotone";
 import {BackButtonWrapper} from "../Utilities/Progress"
 import Lives from "./Lives/Lives"
+<<<<<<< HEAD
 import MobilePuzzle from "./MobilePuzzle/MobilePuzzle";
 import { CSSTransition, TransitionGroup } from "react-transition-group"
 import { MobilePuzzleContainer, 
+=======
+
+import { 
+>>>>>>> 0ffeec9f306411f6604082ca2b3de2a3896a6e84
   MobilePuzzleWrapper, 
   MobileHeaderContainer, 
   MobileContent} from "./MobilePuzzle/MobilePuzzleElements";
 
+import { useWindowSize } from "../../Hooks/UseWindowSize";
+
 // import Stockfish from "./Stockfish";
 // move functions to utils file
 
-/*
-function NextButton(props) {
-  const handleClick = props.onClick;
 
-  return(
-    <div className={"next-button-container"}>
-      <button
-        id="next-button"
-        className={"next-button"}
-        onClick={handleClick}
-      >
-        {" "}
-        {"Next Puzzle"}{" "}
-      </button>
-    </div>
-  )
-}
-*/
 const getModuleTitle = (name) => {
   const module = Modules.find(module => module.type_ref === name)
   return module.headline
 }
 
-
-
-
 export default function PuzzlePage(props) {
-  const [moveColor, setMoveColor] = useState("")
+
   const puzzleData = props.puzzles;
-  // const [lives, setLives] = useState(3)
+
+  const [moveColor, setMoveColor] = useState("")
   const [count, setCount] = useState(0);
   const [fen, setFen] = useState(puzzleData[0].fen);
   const [progress, setProgress] = useState(0);
@@ -68,7 +54,6 @@ export default function PuzzlePage(props) {
   const [waiting, setWaiting] = useState(false);
   const [retry, setRetry] = useState(false);
   const [retryDisable, setRetryDisable] = useState(true);
-  const [puzzleType, setPuzzleType] = useState("") 
   const [correctMoves, setCorrectMoves] = useState(
     getMoves(puzzleData[0].moves)
   );
@@ -78,46 +63,33 @@ export default function PuzzlePage(props) {
   const [startTime, setStartTime] = useState(null);
   const [times, setTimes] = useState([]);
   const [toggleTimer, setToggleTimer] = useState(true)
-  const [windowDimension, setWindowDimension] = useState(null);
+  //const [windowDimension, setWindowDimension] = useState(null);
+  const [lives, setLives] = useState(3)
+  
   const confirmationSound = new Howl({src: confirmationSoundFile})
   const errorSound = new Howl({src: errorSoundFile})
   const buttonSound = new Howl({src: buttonSoundFile})
+
+  const windowDimensions = useWindowSize();
+  const isMobile = windowDimensions[0] < 640;
+
   const title = getModuleTitle(props.theme)
-  const [lives, setLives] = useState(3)
-  //const livesLost = outcomes.filter(entry => entry === false).length;
-  //const startingLives = 3
-  //const {...rest} = props
 
-  // console.log(livesLost)
 
-  useEffect(() => {
-    if (lives < 0){
-      setLives(0)
-    }
-  },[lives])
+  // useEffect(() => {
+  //   setWindowDimension(window.innerWidth);
+  // }, []);
 
-  useEffect(() => {
-    setWindowDimension(window.innerWidth);
-  }, []);
+  // useEffect(() => {
+  //   function handleResize() {
+  //     setWindowDimension(window.innerWidth);
+  //   }
 
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimension(window.innerWidth);
-    }
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const isMobile = windowDimension <= 640;
-
-  const handlePuzzleType = () => {
-    if (props.puzzles){
-      setPuzzleType("Puzzles")
-    } else {
-      setPuzzleType("Openings")
-    }
-  }
+  //const isMobile = windowDimension <= 640;
 
   useEffect(() => {
     // checks if user has missed 4 puzzles - if so route to fialure screen
@@ -138,6 +110,12 @@ export default function PuzzlePage(props) {
     }
   }, [progress])
 
+  useEffect(() => {
+    if (lives < 0){
+      setLives(0)
+    }
+  },[lives])
+
   // puzzle module is finished
   const finished = async () => {
     props.puzzleIsFinished(outcomes, 'succeed', times);
@@ -156,7 +134,6 @@ export default function PuzzlePage(props) {
   }
 
   const unlockNext = () => {
-    // legacy - used to unlock button. Saving for now 
     setWaiting(true);
   };
 
@@ -172,18 +149,14 @@ export default function PuzzlePage(props) {
 
   const displayOutcome = async (success) => {
     // end puzzle timer here
-    console.log('ended timer')
-    //handleTime('end')
     setToggleTimer(prev => !prev)
     // play sound to indicate success or failure
     if (success) {
       playSound("confirmation");
-      //confirmationSound.play()
       setRetryDisable(true)
       setCorrect(true)
     } else {
       playSound("error");
-      //errorSound.play()
       setRetryDisable(false)
       setCorrect(false)
       setLives(prev => prev - 1)
@@ -200,32 +173,15 @@ export default function PuzzlePage(props) {
       setStartTime(now)
     } else {
       setTimes(prevTimes => [...prevTimes, now - startTime])
-      console.log(times)
     }
   },[toggleTimer])
 
-  // const handleTime = (event) => {
-  //   // let now = Date.now();
-  //   // if (event === "start") {
-  //   //   // start timer here
-  //   //   console.log('started timer')
-  //   //   console.log({startTime: now})
-  //   //   setStartTime(() => now);
-  //   // } else {
-  //   //   // end timer here
-  //   //   console.log({startTime: startTime})
-  //   //   console.log({completionTime: `${((now-startTime) / 1000)} seconds`})
-  //   //   console.log({endTime: now})
-  //   //   setTimes(prevTimes => [...prevTimes, now - startTime]);
-  //   // }
-  // }
 
   const incrementCount = () => {
     setCount((count) => count + 1);
   };
   
   const returnPercent = (percent) => {
-    console.log('callback')
     setProgress(percent)
     if (percent >= 100) {
       finished()
@@ -238,7 +194,6 @@ export default function PuzzlePage(props) {
     setRetry(false)
     setWaiting(false)
     setRetryDisable(true)
-    //handleTime('start')
     setToggleTimer(prev => !prev)
   }
 
@@ -248,7 +203,6 @@ export default function PuzzlePage(props) {
     setFen(() => puzzleData[count].fen);
     setCorrectMoves(() => getMoves(puzzleData[count].moves));
     setRetryDisable(prev => !prev)
-    //handleTime('start')
     setToggleTimer(prev => !prev)
   }
 
@@ -257,28 +211,18 @@ export default function PuzzlePage(props) {
   }
 
   const handlePromotionSelection = (e) => {
-    console.log({promotion: e});
-    console.log("test")
     setPromotion(e)
     setOpenModal(false)
   }
 
   const moveIndicator = (color) => {
-    console.log(color)
     setMoveColor(color)
   }
-
-  // const livesRemaining = () => {
-  //   return startingLives - livesLost
-  // }
-  //const totalLives = livesRemaining()
-  // const percentComplete = returnPercent()
 
   return (
     <div>
       <PuzzlePageContainer>
         {isMobile ? (<>
-          {/* <MobilePuzzleContainer> */}
             <MobilePuzzleWrapper>
               <BackButtonWrapper>
                 <BackButton />
@@ -288,7 +232,6 @@ export default function PuzzlePage(props) {
                 </MobileHeaderContainer>
                 <div style={progressContainer}>
                       <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
-                      {/* <div percentComplete={percentComplete}>{percentComplete}</div> */}
                   </div>
                   <Lives lives={lives} isMobile={isMobile} />
                 <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
@@ -310,14 +253,9 @@ export default function PuzzlePage(props) {
                       <BlackIndicator />
                      )}
                 </IndicatorWrapper>
-            
-                {/* <LivesWrapper>
-                  <strong>{lives}</strong>&nbsp;Lives Remaining 
-              </LivesWrapper> */}
                   <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
                   </MobileContent>
                 </MobilePuzzleWrapper>
-              {/* </MobilePuzzleContainer> */}
           </>) : (
           <>
       <BackButtonWrapper>
@@ -355,6 +293,7 @@ export default function PuzzlePage(props) {
                   <BlackIndicator />
                 )}
                 </IndicatorWrapper>
+<<<<<<< HEAD
                 <TransitionGroup>
                   <CSSTransition
                     timeout={300}
@@ -366,6 +305,9 @@ export default function PuzzlePage(props) {
                 {/* <LivesWrapper>
                 <strong>{lives}</strong>&nbsp;Lives Remaining 
                 </LivesWrapper> */}
+=======
+                <Lives lives={lives} isMobile={isMobile} />
+>>>>>>> 0ffeec9f306411f6604082ca2b3de2a3896a6e84
             <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
             </RightPuzzlePanelContainer>
         </PuzzlePageGrid>
@@ -376,8 +318,6 @@ export default function PuzzlePage(props) {
     </div>
   );
 }
-
-
 
 // does it fuking work now
 // No, it doesn't fucking work. You dumb, stupid, weak, pathetic, white, white... uh, uh... guilt, white guilt, milquetoast piece of human garbage.

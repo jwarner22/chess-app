@@ -3,7 +3,6 @@ import {Container} from "../../../Login/LoginElements";
 import {LeaderboardContainer, LeaderboardHeaderContainer, LeaderboardHeaderWrapper, ComingSoonHeading, ComingSoonSubheading, LeaderboardSectionContainer} from "./LeaderboardElements"
 import LeaderboardLeagues from "./LeaderboardLeagues";
 import LeaderboardSection from './LeaderboardSection';
-import LeaderboardTiles from "./LeaderboardTiles";
 import {baseURL} from "../../../api/apiConfig";
 import useFetch from '../../../api/useFetch';
 import Loader from "../../../Loader";
@@ -12,11 +11,12 @@ import MobileNavbar from "../../MobileNavBar/MobileNavBar"
 import DashSidebar from "../../DashboardSidebar/DashboardSidebar"
 import PageHeader from '../../../PageHeaders/PageHeaders';
 
+import {useWindowSize} from '../../../Hooks/UseWindowSize'
 
 
 const LeaderboardsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const [totalScore, setTotalScore] = useState(0);
+    //const [totalScore, setTotalScore] = useState(0);
     const [profileData, setProfileData] = useState({});
     const [leaderboard, setLeaderboard] = useState([])
     const [isSorted, setIsSorted] = useState(false)
@@ -24,8 +24,12 @@ const LeaderboardsPage = () => {
     const userID = localStorage.getItem('userID');
     const leaderboardID = localStorage.getItem('leaderboardID')
     const [userPlacement, setUserPlacement] = useState();
-    const [windowDimension, setWindowDimension] = useState(null);
+    //const [windowDimension, setWindowDimension] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
+    
+    const windowDimensions = useWindowSize();
+    const isMobile = windowDimensions[0] <= 640;
+    
     const pageTitle = `Leaderboard`
 
     useEffect(() => {
@@ -39,7 +43,6 @@ const LeaderboardsPage = () => {
         let endpoint = `/users/${userID}`;
         let profileData = await get(endpoint)
         setProfileData(profileData)
-        console.log(profileData)
         setIsLoading(false)
       }
     
@@ -54,7 +57,6 @@ const LeaderboardsPage = () => {
               }
               return user
           })
-          console.log(leaderboard)
 
           setLeaderboard(leaderboard.sort(function(a, b) {
             return b.total_score - a.total_score
@@ -67,20 +69,20 @@ const LeaderboardsPage = () => {
             
         }
       
-        useEffect(() => {
-          setWindowDimension(window.innerWidth);
-        }, []);
+        // useEffect(() => {
+        //   setWindowDimension(window.innerWidth);
+        // }, []);
       
-        useEffect(() => {
-          function handleResize() {
-            setWindowDimension(window.innerWidth);
-          }
+        // useEffect(() => {
+        //   function handleResize() {
+        //     setWindowDimension(window.innerWidth);
+        //   }
       
-          window.addEventListener("resize", handleResize);
-          return () => window.removeEventListener("resize", handleResize);
-        }, []);
+        //   window.addEventListener("resize", handleResize);
+        //   return () => window.removeEventListener("resize", handleResize);
+        // }, []);
       
-        const isMobile = windowDimension <= 640;
+        //const isMobile = windowDimension <= 640;
 
         const toggle = () => {
           setIsOpen(!isOpen)

@@ -3,7 +3,6 @@ import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from '../../../PostModule/PostModuleElements'
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
 import Chart from '../../../PostModule/ScoreChart';
-//import Chart from './ScoreChart';
 
 const PostPuzzleMockup = (props) => {
     const img = Modules[3].img;

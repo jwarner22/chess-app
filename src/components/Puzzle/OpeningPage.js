@@ -7,10 +7,12 @@ import OpeningNav from './Opening/OpeningNav.js';
 import correctSound from "../../assets/public_sound_standard_Confirmation.mp3";
 import incorrectSound from "../../assets/public_sound_standard_Error.mp3";
 import styled from "styled-components";
+
 import {Howl} from 'howler'
 import {PuzzlePageContainer, PuzzlePageWrapper, PuzzlePageGrid, PuzzleBoardContainer, PuzzleBoardWrapper, RightPuzzlePanelContainer, PercentCompleted} from "../Puzzle/PuzzleComponents/PuzzlePage"
 import {MobileHeaderContainer, MobilePuzzleWrapper} from "../Puzzle/PuzzleComponents/MobilePuzzle/MobilePuzzleElements"
 import BackButton from "../BackButton.js";
+import {useWindowSize} from '../Hooks/UseWindowSize';
 
 export default function OpeningModule(props) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -20,32 +22,34 @@ export default function OpeningModule(props) {
   const [progress,setProgress] = useState(0);
   const [count,setCount] = useState(0);
   const [moves,setMoves] = useState();
-  const [orientation, setOrientation] = useState("");
+  //const [orientation, setOrientation] = useState("");
   const [continueDisabled, setContinueDisabled] = useState(true);
   const [retryDisabled, setRetryDisabled] = useState(true);
   const [showDisabled, setShowDisabled] = useState(true);
   const [score, setScore] = useState(0);
-  const [windowDimension, setWindowDimension] = useState(null);
+  //const [windowDimension, setWindowDimension] = useState(null);
   const [outcome, setOutcome] = useState(null);
   const [startedDemo, setStartedDemo] = useState(false);
   const [triggerNext, setTriggerNext] = useState(false);
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
+  const windowDimensions = useWindowSize();
+  const isMobile = windowDimensions[0] <= 640;
+  const orientation = props.orientation;
+  // useEffect(() => {
+  //   setWindowDimension(window.innerWidth);
+  // }, []);
 
-  useEffect(() => {
-    setWindowDimension(window.innerWidth);
-  }, []);
+  // useEffect(() => {
+  //   function handleResize() {
+  //     setWindowDimension(window.innerWidth);
+  //   }
 
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimension(window.innerWidth);
-    }
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const isMobile = windowDimension <= 640;
+  //const isMobile = windowDimension <= 640;
   
   useEffect(() => {
     getMoves();
@@ -59,7 +63,7 @@ export default function OpeningModule(props) {
 
   useEffect(() => {
     if (progress > 50) {
-      setOrientation("black")
+      //setOrientation("black")
     }
   },[progress])
 
@@ -71,7 +75,7 @@ export default function OpeningModule(props) {
     setMoveIndex(0);
     setProgress(0);
     setCount(0);
-    setOrientation("white");
+    //setOrientation("white");
     setIsLoaded(true);
   }
 
@@ -97,7 +101,7 @@ export default function OpeningModule(props) {
 
   const finishedCallback = async () => {
     await playSound('correct');
-    setProgress(prevProgress => prevProgress + ((1/4)*100.01));
+    setProgress(prevProgress => prevProgress + ((1/3)*100.01));
     setContinueDisabled(false);
     setScore(prev => prev + 100*(Math.floor(moves.length/2)));
     setOutcome(() => true);

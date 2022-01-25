@@ -38,6 +38,7 @@ class CreateDailyPuzzle(BaseModel):
     completed: bool
     locked: bool
     inserted_at: str
+    expiration: str
 
     class Config:
         orm_mode=True
@@ -50,6 +51,7 @@ class DailyPuzzle(BaseModel):
     completed: bool
     locked: bool
     inserted_at: str
+    expiration: str
     owner_id: str
 
     class Config:

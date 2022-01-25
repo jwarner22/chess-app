@@ -7,26 +7,28 @@ import {TileWrapper,
     TileHeader, 
     TileSubheadline,
     TileButton,
-    TileButtonWrap,
-    InfoModalIcon,
-    InfoModalWrapper
+    TileButtonWrap
 } from "./CourseTileElements";
-import info from "../../../../../Images/info.png"
-import InfoModal from "./InfoModal";
-
 
 
 function CourseTile(props){
+<<<<<<< HEAD
     //console.log(props)
   const [windowDimension, setWindowDimension] = useState(null);
   const [openModal, setOpenModal] = useState(false)
   const {headline, subheading, img, background} = props 
   console.log(props.type)
   
+=======
 
-  function handleOpenModal() {
-      setOpenModal(prev => !prev)
-  }
+    const [windowDimension, setWindowDimension] = useState(null);
+  //const [openModal, setOpenModal] = useState(false)
+  const {headline, subheading, img} = props
+>>>>>>> 0ffeec9f306411f6604082ca2b3de2a3896a6e84
+
+//   function handleOpenModal() {
+//       setOpenModal(prev => !prev)
+//   }
 
   useEffect(() => {
     setWindowDimension(window.innerWidth);
@@ -57,7 +59,6 @@ function CourseTile(props){
     )
     }
 
-// console.log(props)
 
   const isMobile = windowDimension <= 640;  
 
