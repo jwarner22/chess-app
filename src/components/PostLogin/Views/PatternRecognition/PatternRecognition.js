@@ -11,28 +11,14 @@ import {useWindowSize} from '../../../Hooks/UseWindowSize'
 const Dashboard = () => {
     //hamburger sidebar menu
   const [isOpen, setIsOpen] = useState(false)
-  //const [windowDimension, setWindowDimension] = useState(null);
+
   const pageTitle = `Puzzles`
   const windowDimension = useWindowSize();
   const isMobile = windowDimension[0] <= 640;
-  // useEffect(() => {
-  //   setWindowDimension(window.innerWidth);
-  // }, []);
-
-  // useEffect(() => {
-  //   function handleResize() {
-  //     setWindowDimension(window.innerWidth);
-  //   }
-
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
 
   const toggle = () => {
     setIsOpen(!isOpen)
   }
-
-  //const isMobile = windowDimension <= 640;
 
   return (
     <>

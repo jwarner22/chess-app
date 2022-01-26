@@ -36,20 +36,7 @@ export default function OpeningModule(props) {
   const windowDimensions = useWindowSize();
   const isMobile = windowDimensions[0] <= 640;
   const orientation = props.orientation;
-  // useEffect(() => {
-  //   setWindowDimension(window.innerWidth);
-  // }, []);
 
-  // useEffect(() => {
-  //   function handleResize() {
-  //     setWindowDimension(window.innerWidth);
-  //   }
-
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
-  //const isMobile = windowDimension <= 640;
   
   useEffect(() => {
     getMoves();

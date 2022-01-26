@@ -197,7 +197,7 @@ async def user_module_rating(user_id: str, opening_rating: schemas.OpeningRating
 ## DAILY PUZZLES
 
 # generate user's daily puzzles
-@app_v1.get('/users/{user_id}/daily_puzzles/picks', tags=["Daily"])
+@app_v1.get('/users/{user_id}/daily_puzzles/picks', response_model=schemas.DailyPicks, tags=["Daily"])
 async def get_daily_puzzle_picks():
     
     # generate daily puzzle module picks
@@ -208,13 +208,26 @@ async def get_daily_puzzle_picks():
         if pick not in daily_puzzles and pick not in excluded_ids: # checks that picks don't repeat and are not in excluded modules
             daily_puzzles.append(pick)
 
+    # generate alternative module picks
+    alts = []
+    while (len(alts) < 3): # we want three modules
+        pick = randint(1,38) # picks random module (how sophisticated!)
+        if pick not in alts and pick not in excluded_ids and pick not in daily_puzzles: # checks that picks don't repeat and are not in excluded modules
+            alts.append(pick)
+
+    # generate opening picks    
     excluded_ids = [0, 48, 49, 50] # exclude these modules
     opening_pick = 0
     while (opening_pick in excluded_ids): # ensures exluded ids are not picked
         opening_pick = randint(39,63) # picks random opening module
     daily_puzzles.append(randint(39,60)) # adds a random opening
     
-    return daily_puzzles
+    picks = {
+        "picks": daily_puzzles,
+        "alts": alts
+    }
+
+    return picks
 
 # get user's daily puzzles
 @app_v1.get('/users/{user_id}/daily_puzzles', tags=["Daily"])
@@ -252,11 +265,6 @@ async def create_daily_puzzles( user_id: str, puzzles: List[schemas.CreateDailyP
 
     if db_user is None:
          return None
-    
-    ## create daily puzzles
-    #picks = get_daily_puzzles()
-
-    ## post daily puzzles
 
     for puzzle in puzzles:
         db_daily_puzzle = models.DailyPuzzle(**puzzle.dict(), owner_id = user_id)
@@ -275,7 +283,7 @@ async def update_daily_puzzles(user_id: str, puzzles: List[schemas.CreateDailyPu
         return None
 
     for puzzle in puzzles:
-        stmt = (update(models.DailyPuzzle).where(models.DailyPuzzle.owner_id == user_id).where(models.DailyPuzzle.location == puzzle.location).values(theme_id=puzzle.theme_id, title=puzzle.title, locked=puzzle.locked, completed=puzzle.completed, inserted_at=puzzle.inserted_at, expiration=puzzle.expiration))
+        stmt = (update(models.DailyPuzzle).where(models.DailyPuzzle.owner_id == user_id).where(models.DailyPuzzle.location == puzzle.location).values(theme_id=puzzle.theme_id, title=puzzle.title, locked=puzzle.locked, completed=puzzle.completed, inserted_at=puzzle.inserted_at, expiration=puzzle.expiration, alt_id=puzzle.alt_id, alt_title=puzzle.alt_title))
         db.execute(stmt)
     
     db.commit()

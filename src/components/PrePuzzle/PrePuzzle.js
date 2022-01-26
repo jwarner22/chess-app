@@ -28,11 +28,15 @@ import { StartButton } from '../PostLogin/Views/DailyPuzzle/ModalElements'
 import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
 
 const PrePuzzlePage = (props) => {
-    const moduleId = props.moduleId;
-    const module = Modules.find(element => element.id === moduleId)
+    console.log({props: props})
+    const module = Modules.find(element => element.type_ref === props.moduleData.theme)
 
     function handleStartButtonClick() {
         props.togglePrePuzzleCallback()
+    }
+
+    function handleSwapButtonClick() {
+        props.swapModule();
     }
 
     return (
@@ -87,9 +91,14 @@ const PrePuzzlePage = (props) => {
                                             </TipDescriptionWrapper>
                                         </TipsGrid>
                                     </InstructionsWrapper>
+                                    <div>
                                     <StartButton onClick={handleStartButtonClick}>
                                         Start
                                     </StartButton>
+                                    {props.isDaily ? <StartButton onClick={handleSwapButtonClick}>
+                                        Swap
+                                    </StartButton> : null}
+                                    </div>
                                 </InstructionsContainer>
                             </PrePuzzleContentContainer>
                         </PrePuzzleWrapper>
