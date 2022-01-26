@@ -38,7 +38,7 @@ const PostPuzzleMockup = (props) => {
                     <ModuleExperience>
                         {`Score: ${props.score}`}
                     </ModuleExperience>
-                    <Link to={props.isDaily ? "/dailyPuzzle" : '/dashboard'}>
+                    <Link to={props.isDaily ? "/home/daily" : '/home/practice'}>
                     <FinishButton>
                         Return to {props.isDaily ? 'Daily Puzzles' : 'Dashboard'}
                     </FinishButton>

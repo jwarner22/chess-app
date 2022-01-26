@@ -22,7 +22,7 @@ const Dashboard = () => {
 
   return (
     <>
-    {isMobile ? (
+    {/* {isMobile ? (
       <>
       <PageHeader pageTitle={pageTitle}/>
     <MobileNavbar />
@@ -32,7 +32,7 @@ const Dashboard = () => {
           <DashSidebar isOpen={isOpen} toggle={toggle} />
       <DashNavbar toggle={toggle}/>
       </>
-    )}
+    )} */}
     <DashboardWrapper>
     <HeadingWrapper>
     <PatternRecognitionHeading>Choose a <br></br> <strong>Puzzle to Play</strong></PatternRecognitionHeading>

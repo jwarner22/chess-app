@@ -23,16 +23,16 @@ const DashSidebar = ({ isOpen, toggle}) => {
                 </Icon>
                 <SidebarWapper>
                     <SidebarMenu>
-                        <SidebarLink to='/dailyPuzzle' onClick={toggle}>
+                        <SidebarLink to='/home/daily' onClick={toggle}>
                             Today
                         </SidebarLink>
-                        <SidebarLink to='/dashboard' onClick={toggle}>
+                        <SidebarLink to='/home/practice' onClick={toggle}>
                             Pattern Recognition
                         </SidebarLink>
-                        <SidebarLink to='/openings' onClick={toggle}>
+                        <SidebarLink to='/home/openings' onClick={toggle}>
                             Openings
                         </SidebarLink>
-                        <SidebarLink to='/profile' onClick={toggle}>
+                        <SidebarLink to='/home/profile' onClick={toggle}>
                             Profile
                         </SidebarLink>
                     </SidebarMenu>

@@ -90,7 +90,7 @@ const LeaderboardsPage = () => {
 
     return (
         <>
-        {isMobile ? (
+        {/* {isMobile ? (
             <>
             <PageHeader pageTitle={pageTitle}/>
     <MobileNavbar />
@@ -100,7 +100,7 @@ const LeaderboardsPage = () => {
       <DashNavbar toggle={toggle}/>
       <DashSidebar isOpen={isOpen} toggle={toggle} />
       </>
-      )}
+      )} */}
         <Container>
             <LeaderboardHeaderContainer>
                 <LeaderboardHeaderWrapper>

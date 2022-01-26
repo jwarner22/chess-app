@@ -80,7 +80,7 @@ const ProfilePage = () => {
 
     return (
       <>
-      {isMobile ? (
+      {/* {isMobile ? (
         <>
       <PageHeader pageTitle={pageTitle}>
       </PageHeader>
@@ -91,7 +91,7 @@ const ProfilePage = () => {
       <DashNavbar toggle={toggle}/>
       <DashSidebar isOpen={isOpen} toggle={toggle} />
       </>
-      )}
+      )} */}
       {/* <Announcements {...AnnouncementOne} />  */}
       {(loaded) &&
 

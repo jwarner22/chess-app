@@ -54,7 +54,7 @@ const Login = ({history}) => {
     })
     if (currentUser && isLoggedIn && isSaved) {
       logEvent(analytics, "login", {'user': currentUser.uid});
-      history.push('/dailyPuzzle')
+      history.push('/home/daily')
     }
   }, [currentUser, isLoggedIn, isSaved])
 

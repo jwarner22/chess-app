@@ -74,7 +74,7 @@ const UserName = ({history}) => {
 
                 // pessimistic checks
                 if (response === 'username successfully updated') {
-                    history.push('/dailyPuzzle')
+                    history.push('/home/daily')
                 } else if (response === 'username already exists') {
                     swal('Username already exists')
                 } else {

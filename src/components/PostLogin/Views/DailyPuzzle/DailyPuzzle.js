@@ -96,7 +96,7 @@ export default function DailyPuzzzle() {
     
   }
 
-  if (contextLoading) {
+  if (contextLoading | dailyModules.length === 0) {
     return <Loader />
    }
 

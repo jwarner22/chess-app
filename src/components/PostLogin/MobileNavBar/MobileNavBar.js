@@ -17,15 +17,7 @@ const MobileNabar = () => {
         <>
         <MobileNavbarWrapper>
             <MobileNavbarItems>
-                <MobileNavLink to="/dashboard" activeStyle={{
-                    color:'#F4B062',
-                    fontWeight: "bold"
-                }}>
-                <MobileNavbarItem>                  
-                        <IoExtensionPuzzleOutline size={45} />                  
-                </MobileNavbarItem>
-                </MobileNavLink>
-                <MobileNavLink to="/dailyPuzzle" activeStyle={{
+                <MobileNavLink to="/home/daily" activeStyle={{
                     color:'#F4B062',
                     fontWeight: "bold"
                 }}>
@@ -33,15 +25,17 @@ const MobileNabar = () => {
                     <IoCalendarClearOutline size={45} />            
                 </MobileNavbarItem>
                 </MobileNavLink>
-                <MobileNavLink to="/leaderboards" activeStyle={{
+
+                <MobileNavLink to="/home/practice" activeStyle={{
                     color:'#F4B062',
                     fontWeight: "bold"
                 }}>
-                <MobileNavbarItem>        
-                    <MobileNavbarIcon src={leaderboard}/>              
+                <MobileNavbarItem>                  
+                        <IoExtensionPuzzleOutline size={45} />                  
                 </MobileNavbarItem>
                 </MobileNavLink>
-                <MobileNavLink to="/openings" activeStyle={{
+
+                <MobileNavLink to="/home/openings" activeStyle={{
                     color:'#F4B062',
                     fontWeight: "bold"
                 }}>
@@ -49,7 +43,17 @@ const MobileNabar = () => {
                     <IoBookOutline size={45} />
                 </MobileNavbarItem>
                 </MobileNavLink>
-                <MobileNavLink to="/profile" activeStyle={{
+
+                <MobileNavLink to="/home/leaderboards" activeStyle={{
+                    color:'#F4B062',
+                    fontWeight: "bold"
+                }}>
+                <MobileNavbarItem>        
+                    <MobileNavbarIcon src={leaderboard}/>              
+                </MobileNavbarItem>
+                </MobileNavLink>
+                
+                <MobileNavLink to="/home/profile" activeStyle={{
                     color:'#F4B062',
                     fontWeight: "bold"
                 }}>

@@ -23,7 +23,7 @@ const ProfilePanel = (props) => {
                   <ProfilePanelUsernameWrapper>
                       {props.username}
                   </ProfilePanelUsernameWrapper>
-                  <Link to='/dailyPuzzle'>
+                  <Link to='/home/daily'>
                   <ProfilePanelButton>
                       Todays Workout
                   </ProfilePanelButton>

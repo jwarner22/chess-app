@@ -63,7 +63,7 @@ export default function CompletedTraining(props) {
       </div>
       <div style={{padding: '0 0 0 0'}}>
       <FinishButtonContainer>
-        <Link to='/dashboard'>
+        <Link to='/home/practice'>
         <FinishButton onClick={handleClick}>
           Return to Practice Page
         </FinishButton>

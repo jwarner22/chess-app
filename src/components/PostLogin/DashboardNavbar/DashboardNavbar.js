@@ -71,35 +71,35 @@ const DashNavbar = ({ toggle }) => {
                         </MobileIcons>
                         <NavMenu>
                             <NavItem>
-                            <NavLinks to="/dailyPuzzle" activeStyle={{
+                            <NavLinks to="/home/daily" activeStyle={{
                             borderBottom: "3px solid #247cf1"
                             }}> 
                                    Today
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                            <NavLinks to="/dashboard" activeStyle={{
+                            <NavLinks to="/home/practice" activeStyle={{
                             borderBottom: "3px solid #247cf1"
                             }}> 
                                    Practice
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to="/leaderboards" activeStyle={{
+                                <NavLinks to="/home/leaderboards" activeStyle={{
                             borderBottom: "3px solid #247cf1"
                             }}> 
                                     Leaderboard
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to="/openings" activeStyle={{
+                                <NavLinks to="/home/openings" activeStyle={{
                             borderBottom: "3px solid #247cf1"
                             }}> 
                                    Openings 
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to="/profile" activeStyle={{
+                                <NavLinks to="/home/profile" activeStyle={{
                             borderBottom: "3px solid #247cf1"
                             }}> 
                                    Profile

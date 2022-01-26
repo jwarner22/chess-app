@@ -18,13 +18,13 @@ import Settings from './PostLogin/Views/Settings/Settings';
 import Home from './PostLogin/Views/Home';
 
 const protectedRoutes = [
-	{
-        name: 'dashboard',
-		exact: true,
-		path: '/dashboard',
-		main: props => <Dashboard {...props} />,
-		public: false,
-	},
+	// {
+    //     name: 'dashboard',
+	// 	exact: true,
+	// 	path: '/dashboard',
+	// 	main: props => <Dashboard {...props} />,
+	// 	public: false,
+	// },
 	{
 		name: 'module',
 		exact: true,
@@ -32,12 +32,12 @@ const protectedRoutes = [
 		main: props => <Module {...props} />,
 		public: false
 	},
-	{
-		name: "DailyPuzzle", 
-		path: "/dailyPuzzle", 
-		exact: true, 
-		main: () => <DailyPuzzle />
-	},
+	// {
+	// 	name: "DailyPuzzle", 
+	// 	path: "/dailyPuzzle", 
+	// 	exact: true, 
+	// 	main: () => <DailyPuzzle />
+	// },
 	{
 		name: "PostPuzzlePage",
 		path: "/PuzzleComplete",
@@ -48,17 +48,17 @@ const protectedRoutes = [
 		path: "/PuzzleInfo",
 		exact: true,
 		main: () => <PrePuzzlePage />
-	},{
-		name: "Openings",
-		path: "/openings",
-		exact: true,
-		main: () => <Openings />
-	},{	
-		name: "Profile",
-		path: "/profile",
-		exact: true,
-		main: () => <ProfilePage />
-	},
+	},//{
+	// 	name: "Openings",
+	// 	path: "/openings",
+	// 	exact: true,
+	// 	main: () => <Openings />
+	// },{	
+	// 	name: "Profile",
+	// 	path: "/profile",
+	// 	exact: true,
+	// 	main: () => <ProfilePage />
+	// },
 	{
 		name: "IntakeSurvey",
 		path: "/survey",
@@ -82,11 +82,11 @@ const protectedRoutes = [
 		exact: true,
 		main: props => <BrandPage />
 	},{
-		name: "Leaderboards",
-		path: "/leaderboards",
-		exact: true,
-		main: props => <LeaderboardsPage />
-	},{
+	// 	name: "Leaderboards",
+	// 	path: "/leaderboards",
+	// 	exact: true,
+	// 	main: props => <LeaderboardsPage />
+	 //},{
 		name: "SetUserName",
 		path: "/username",
 		exact: true,
