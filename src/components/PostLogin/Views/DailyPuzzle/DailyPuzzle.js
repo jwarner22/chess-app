@@ -114,14 +114,14 @@ export default function DailyPuzzzle() {
   return (
     <>
        <div className="page"> 
-   {isMobile ? (
+   {/* {isMobile ? (
     <MobileNavbar />
     ) : (
       <>
       <DashNavbar toggle={toggle}/>
       <DashSidebar isOpen={isOpen} toggle={toggle} />
       </>
-      )}
+      )} */}
    {(loaded) &&
    <Container>
    <DailyPuzzleWrapper>
