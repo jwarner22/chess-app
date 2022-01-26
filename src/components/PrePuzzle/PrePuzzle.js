@@ -29,7 +29,7 @@ import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
 
 const PrePuzzlePage = (props) => {
     console.log({props: props})
-    const module = Modules.find(element => element.id === props.moduleData.id)
+    const module = Modules.find(element => element.type_ref === props.moduleData.theme)
 
     function handleStartButtonClick() {
         props.togglePrePuzzleCallback()
