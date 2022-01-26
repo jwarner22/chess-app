@@ -8,6 +8,8 @@ import {Howl} from 'howler'
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
+  // sound
+  const moveSound = new Howl({src: moveSoundFile});
 
 export default function Opening(props) {
 
@@ -28,8 +30,6 @@ export default function Opening(props) {
   const orientation = props.orientation;
   const count = props.count;
 
-  // sound
-  const moveSound = new Howl({src: moveSoundFile});
   
   
   useEffect(() => {
@@ -43,11 +43,11 @@ export default function Opening(props) {
   useEffect(() => {
     if (count > 0) {
       nextAttempt();
-      //initialMove();
     }
   },[count]);
 
   useEffect(() => {
+
     if (orientation === "black") {
       console.log('should trigger initial move')
       initialMove();
@@ -55,6 +55,7 @@ export default function Opening(props) {
   },[next]);
 
   useEffect(() => {
+
     if (moveIndex >= moves.length) {
       setFen(game.fen());
       finishedCallback();
@@ -72,6 +73,11 @@ export default function Opening(props) {
     //}
   },[props.triggerNext])
 
+  useEffect(()=> {
+    console.log('lastMove')
+    setFen(game.fen());
+  }, [lastMove])
+
 
   const initialMove = async () => {
     await makeMove(
@@ -79,8 +85,7 @@ export default function Opening(props) {
       moves[0].substring(2, 4)
     );
     setMoveIndex(1);
-    let movable = calcMovable();
-    setMovable(movable);
+    //playSound();
   }
 
   // calcs legal moves and returns chessground compatible object
@@ -107,6 +112,7 @@ export default function Opening(props) {
   };
 
   const playSound = () => {
+    console.log('play sound')
     moveSound.play();
   }
 
@@ -115,6 +121,7 @@ export default function Opening(props) {
     if (moveIndex >= moves.length) {
       return;
     }
+    console.log('onMove')
     playSound();
     game.move({ from: from, to: to });
     verifyMove(from, to);
@@ -156,6 +163,7 @@ export default function Opening(props) {
 
 
   const makeMove = async (from, to) => {
+    console.log('makeMove')
 
     await wait(500);
     playSound();
@@ -169,9 +177,6 @@ export default function Opening(props) {
     setColor(() => turnColor());
   };
   
-  useEffect(()=> {
-    setFen(game.fen());
-  }, [lastMove])
 
 
   const turnColor = () => {
