@@ -113,7 +113,7 @@ export default function DailyPuzzzle() {
 
   return (
     <>
-       <div className="page"> 
+       {/* <div className="page">  */}
    {/* {isMobile ? (
     <MobileNavbar />
     ) : (
@@ -152,7 +152,7 @@ export default function DailyPuzzzle() {
    </DailyPuzzleWrapper>
    </Container>
   }
-     </div>
+     {/* </div> */}
    </>
   );
 
