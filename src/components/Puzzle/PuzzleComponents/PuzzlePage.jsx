@@ -69,18 +69,8 @@ export default function PuzzlePage(props) {
   const isMobile = windowDimensions[0] < 640;
 
   const title = getModuleTitle(props.theme)
-  const [counter, setCounter] = useState(0);
 
-  useEffect(() => {
-    if(toggleTimer){
-      const timeout = setTimeout(() => {
-        setCounter(counter + 1);
-      }, 1000);
-  
-      return () => {
-        clearTimeout(timeout);
-      };
-    }}, [counter])
+
 
 
   // useEffect(() => {
@@ -254,7 +244,7 @@ export default function PuzzlePage(props) {
                   </div>
                   <TimerAndLivesContainer>
                   <Lives lives={lives} isMobile={isMobile} />
-                  <Timer counter={counter}/>
+                  <Timer toggleTimer={toggleTimer}/>
                   </TimerAndLivesContainer>
                   <MobileContent>
                   <IndicatorWrapper>
