@@ -246,8 +246,8 @@ export default function PuzzlePage(props) {
                       <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
                   </div>
                   <TimerAndLivesContainer>
-                  <Lives lives={lives} isMobile={isMobile} />
                   <Timer toggleTimer={toggleTimer} count={count}/>
+                  <Lives lives={lives} isMobile={isMobile} />
                   </TimerAndLivesContainer>
                   <MobileContent>
                   <IndicatorWrapper>
@@ -296,11 +296,14 @@ export default function PuzzlePage(props) {
                   <BlackIndicator />
                 )}
                 </IndicatorWrapper>
-                <Lives lives={lives} isMobile={isMobile} />
-            <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
-            </RightPuzzlePanelContainer>
-        </PuzzlePageGrid>
-      </PuzzlePageWrapper>
+                  <TimerAndLivesContainer>
+                    <Timer toggleTimer={toggleTimer} count={count}/>
+                    <Lives lives={lives} isMobile={isMobile} />
+                  </TimerAndLivesContainer>
+                <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
+              </RightPuzzlePanelContainer>
+          </PuzzlePageGrid>
+        </PuzzlePageWrapper>
       </>
         )}
      </PuzzlePageContainer>

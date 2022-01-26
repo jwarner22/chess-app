@@ -3,7 +3,7 @@ import styled from "styled-components"
 export const LivesWrapper = styled.div`
  display: flex;
  width: 50%;
- justify-content: flex-start;
+ justify-content: flex-end;
  background: none;
  padding: 0px 12px;
 `
