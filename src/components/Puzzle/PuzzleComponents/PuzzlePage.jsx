@@ -60,6 +60,7 @@ export default function PuzzlePage(props) {
   const [toggleTimer, setToggleTimer] = useState(true)
   //const [windowDimension, setWindowDimension] = useState(null);
   const [lives, setLives] = useState(3)
+
   
   const confirmationSound = new Howl({src: confirmationSoundFile})
   const errorSound = new Howl({src: errorSoundFile})
@@ -87,6 +88,8 @@ export default function PuzzlePage(props) {
   // }, []);
 
   //const isMobile = windowDimension <= 640;
+
+
 
   useEffect(() => {
     // checks if user has missed 4 puzzles - if so route to fialure screen
@@ -244,7 +247,7 @@ export default function PuzzlePage(props) {
                   </div>
                   <TimerAndLivesContainer>
                   <Lives lives={lives} isMobile={isMobile} />
-                  <Timer toggleTimer={toggleTimer}/>
+                  <Timer toggleTimer={toggleTimer} count={count}/>
                   </TimerAndLivesContainer>
                   <MobileContent>
                   <IndicatorWrapper>

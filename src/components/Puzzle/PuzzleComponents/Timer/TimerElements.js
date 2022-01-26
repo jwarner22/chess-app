@@ -8,8 +8,16 @@ export const TimerWrapper = styled.div`
   align-items: center;
 `
 
+
+
 export const TimerSpan = styled.span`
+    display: inline;
     color: #fff;
     font-weight: 600;
     font-size: 16px;
+    letter-spacing: 0.36px;
+`
+
+export const TimerSpanBuffer = styled(TimerSpan)`
+  letter-spacing: 0.36px;
 `
