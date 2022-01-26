@@ -34,7 +34,6 @@ const Home = () => {
 
     return (<> {isMobile ? (
         <>
-        {/* <PageHeader pageTitle={pageTitle}/> */}
       <MobileNavbar />
       </>
       ) : (

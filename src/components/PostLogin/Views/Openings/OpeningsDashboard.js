@@ -22,15 +22,15 @@ import {
   MenuGrid,
   MenuTile,
   MenuContent,
-  MenuTitle,
-  MenuImg
+  MenuTitle
 } from '../PatternRecognition/CoursesBody/CoursesElements';
+
 
 import {CoursesWrapper, 
     ModuleWrapper
 } from '../PatternRecognition/CoursesBody/CoursesElements'
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
-import {HeadingWrapper, PatternRecognitionHeading} from "../PatternRecognition/PatternRecognition"
+import {HeadingWrapper, PatternRecognitionHeading, PatternRecognitionSubheading, DashboardWrapper} from "../PatternRecognition/PatternRecognition"
 
 import {useWindowSize} from '../../../Hooks/UseWindowSize'
 
@@ -65,8 +65,8 @@ function handleShowD4Tiles(){
 
     return (
         <>
-        <div className="page">
-        {isMobile ? (
+        {/* <div className="page"> */}
+        {/* {isMobile ? (
           <>
           <PageHeader pageTitle={pageTitle} />
           <MobileNavbar />  
@@ -77,12 +77,13 @@ function handleShowD4Tiles(){
             <DashSidebar isOpen={isOpen} toggle={toggle} />
             </>
         )
-    } 
+    }  */}
 
         <div>
+          <DashboardWrapper>
           <HeadingWrapper>
         <PatternRecognitionHeading>Choose an <br></br> <strong>Opening to Practice</strong></PatternRecognitionHeading>
-        {/* <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading> */}
+        <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading>
         </HeadingWrapper>
         <MenuWrapper>
             <MenuGrid className="menuGrid">
@@ -147,10 +148,12 @@ function handleShowD4Tiles(){
                 </OpeningsGrid>
             </ModuleWrapper>
         </CoursesWrapper> 
+        </DashboardWrapper>
         </div>
-        </div>
+        {/* </div> */}
         </>
     )
 }
 
 export default Openings
+

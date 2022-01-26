@@ -10,12 +10,9 @@ import { DailyPuzzleContainer,
 import headerImg from "./../../../../Images/DailyPuzzleIcon.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
 import {Modules} from "../../Views/PatternRecognition/CourseTiles/Data"
-import MobileNavbar from "../../../PostLogin/MobileNavBar/MobileNavBar"
-import DashNavbar from "../../../PostLogin/DashboardNavbar/DashboardNavbar"
-import DashSidebar from '../../../PostLogin/DashboardSidebar/DashboardSidebar'
 import Loader from '../../../Loader'
+
 // utilities
-import {useWindowSize} from '../../../Hooks/UseWindowSize'
 import {wait} from '../../../Puzzle/Utilities/helpers'
 
 // context
@@ -28,9 +25,6 @@ export default function DailyPuzzzle() {
   const [schemaPicks, setSchemaPicks] = useState([]);
   const [isMounted, setIsMounted] = useState(true);
   const [screenTimer, setScreenTimer] = useState(true);
-
-  const windowSize = useWindowSize();
-  const isMobile = windowSize[0] <= 640;
   
   const {dailyModules} = useContext(UserContext);
   const {contextLoading} = useContext(UserContext);
@@ -61,14 +55,6 @@ export default function DailyPuzzzle() {
     setDailyPicks(daily); // set data for display and module consumption
     setLoaded(true);
   }
-
-  //hamburger side menu 
-  const [isOpen, setIsOpen] = useState(false)
-
-  const toggle = () => {
-    setIsOpen(!isOpen)
-  }
-
 
   // displays "generating daily training" message and hides it after timer
   const setTimer = async () => {
@@ -113,23 +99,10 @@ export default function DailyPuzzzle() {
 
   return (
     <>
-       {/* <div className="page">  */}
-   {/* {isMobile ? (
-    <MobileNavbar />
-    ) : (
-      <>
-      <DashNavbar toggle={toggle}/>
-      <DashSidebar isOpen={isOpen} toggle={toggle} />
-      </>
-      )} */}
+       <Container>
    {(loaded) &&
-   <Container>
    <DailyPuzzleWrapper>
       <DailyPuzzleContainer>
-        {/* <DailyPuzzleHeaderImg src={headerImg}/>
-        <DailyPuzzleTitle>
-          Today's Training
-        </DailyPuzzleTitle> */}
         </DailyPuzzleContainer>
         <SelectionContainer>
         <PuzzleWrapper>
@@ -150,9 +123,8 @@ export default function DailyPuzzzle() {
         </PuzzleWrapper>
         </SelectionContainer>
    </DailyPuzzleWrapper>
-   </Container>
   }
-     {/* </div> */}
+     </Container>
    </>
   );
 

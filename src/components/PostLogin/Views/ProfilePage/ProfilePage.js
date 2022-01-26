@@ -93,13 +93,14 @@ const ProfilePage = () => {
       </>
       )} */}
       {/* <Announcements {...AnnouncementOne} />  */}
-      {(loaded) &&
-
       <ProfilePageContainer>
+      {(loaded) &&
+      <>
       <ProfilePanel username={userData.username} dailyStreak={dailyStreak} joinDate={joinDate}/>
        <AchievementTiles achievements={achievements} profileData={userData} isMobile={isMobile} overallRating={overallRating} dailyStreak={dailyStreak} totalScore={userData.total_score}/>
-       </ProfilePageContainer>
+       </>
       }
+      </ProfilePageContainer>
       </>
     ) 
   };
