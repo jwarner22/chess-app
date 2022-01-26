@@ -25,6 +25,7 @@ import {
   MobileContent} from "./MobilePuzzle/MobilePuzzleElements";
 
 import { useWindowSize } from "../../Hooks/UseWindowSize";
+import Timer from "./Timer/Timer";
 
 // import Stockfish from "./Stockfish";
 // move functions to utils file
@@ -68,6 +69,18 @@ export default function PuzzlePage(props) {
   const isMobile = windowDimensions[0] < 640;
 
   const title = getModuleTitle(props.theme)
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    if(toggleTimer){
+      const timeout = setTimeout(() => {
+        setCounter(counter + 1);
+      }, 1000);
+  
+      return () => {
+        clearTimeout(timeout);
+      };
+    }}, [counter])
 
 
   // useEffect(() => {
@@ -224,10 +237,6 @@ export default function PuzzlePage(props) {
               <MobileHeaderContainer>
                   <Header>{title}</Header>
                 </MobileHeaderContainer>
-                <div style={progressContainer}>
-                      <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
-                  </div>
-                  <Lives lives={lives} isMobile={isMobile} />
                 <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
                   <PuzzleBoard
                     fen={fen}
@@ -240,6 +249,13 @@ export default function PuzzlePage(props) {
                     onPromotion={handlePromotion}
                     moveIndicator={moveIndicator}
                   />
+                  <div >
+                      <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
+                  </div>
+                  <TimerAndLivesContainer>
+                  <Lives lives={lives} isMobile={isMobile} />
+                  <Timer counter={counter}/>
+                  </TimerAndLivesContainer>
                   <MobileContent>
                   <IndicatorWrapper>
                     {(moveColor === "white") ? (
@@ -307,8 +323,8 @@ const progressContainer = {
   justifyContent: "space-around",
   alignItems: "center",
   flexWrap: "wrap",
-  marginTop: 24,
-  marginBottom: 24
+  paddingTop: 24,
+  paddingBottom: 24
 };
 
 export const PercentCompleted = styled.div`
@@ -422,4 +438,9 @@ const LivesGrid = styled.div`
 `
 const LivesImg = styled.img`
   max-width: 30px;
+`
+
+const TimerAndLivesContainer = styled.div`
+  display: flex;
+  width: 100%;
 `

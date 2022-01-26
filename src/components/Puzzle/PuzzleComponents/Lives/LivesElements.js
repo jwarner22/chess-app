@@ -2,9 +2,10 @@ import styled from "styled-components"
 
 export const LivesWrapper = styled.div`
  display: flex;
- width: 100%;
- justify-content: center;
- 
+ width: 50%;
+ justify-content: flex-start;
+ background: none;
+ padding: 0px 12px;
 `
 
 export const LivesGrid = styled.ul`

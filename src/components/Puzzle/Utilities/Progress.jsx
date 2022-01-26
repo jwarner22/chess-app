@@ -82,13 +82,13 @@ function ProgressBar(props) {
     }
 
     const progressHeight = {
-        height: "8px"
+        height: "12px"
     }
 
     return(
         <>
         <HeaderWrapper >
-            {isMobile ? ( <Line style={progressHeight} percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor}/> ) : (
+            {isMobile ? ( <Line style={progressHeight} percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor} strokeLinecap="square"/> ) : (
           <Circle percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor}/>)}
         </HeaderWrapper>
         </>
@@ -101,7 +101,7 @@ export default ProgressBar
 
 const HeaderWrapper = styled.div`
     display: flex;
-    width: 60%;
+    width: 100%;
     align-items: center;
     justify-content: center;
 `
