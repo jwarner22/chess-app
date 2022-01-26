@@ -15,6 +15,7 @@ import LeaderboardsPage from './PostLogin/Views/Leaderboards/Leaderboards';
 import UserName from './PostLogin/Announcements/UserName';
 import CompletedTraining from './PostLogin/Views/DailyPuzzle/completedTraining';
 import Settings from './PostLogin/Views/Settings/Settings';
+import Home from './PostLogin/Views/Home';
 
 const protectedRoutes = [
 	{
@@ -101,6 +102,11 @@ const protectedRoutes = [
 		path: "/settings",
 		exact: true,
 		main: props => <Settings />
+	}, {
+		name: "Home",
+		path: "/home",
+		exact: false,
+		main: props => <Home />
 	}
 ];
 

@@ -1,12 +1,12 @@
 import React, {useState} from "react";
-import DashNavbar from '../../DashboardNavbar/DashboardNavbar'
-import DashSidebar from '../../DashboardSidebar/DashboardSidebar'
+import DashNavbar from '../../DashboardNavbar/DashboardNavbar';
+import DashSidebar from '../../DashboardSidebar/DashboardSidebar';
 import Body from "./CoursesBody/CoursesBody";
-import MobileNavbar from "../../MobileNavBar/MobileNavBar"
-import styled from "styled-components"
+import MobileNavbar from "../../MobileNavBar/MobileNavBar";
+import styled from "styled-components";
 import PageHeader from "../../../PageHeaders/PageHeaders";
 
-import {useWindowSize} from '../../../Hooks/UseWindowSize'
+import {useWindowSize} from '../../../Hooks/UseWindowSize';
 
 const Dashboard = () => {
     //hamburger sidebar menu
