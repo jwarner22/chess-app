@@ -6,7 +6,6 @@ export const MobilePuzzleContainer = styled.div`
     right: 0;
     bottom: 0;
     position: absolute;
-    background: linear-gradient(90deg, hsla(244, 36%, 52%, 1) 0%, hsla(214, 88%, 54%, 1) 100%);
 `
 export const MobilePuzzleWrapper = styled.div`
     display: flex;
@@ -14,7 +13,7 @@ export const MobilePuzzleWrapper = styled.div`
     width: 100%;
     height: auto;
     min-height: 100vh;
-    background: linear-gradient(90deg, hsla(244, 36%, 52%, 1) 0%, hsla(214, 88%, 54%, 1) 100%);
+    background-image: linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
 `
 export const MobileHeaderContainer = styled.div`
     display: flex;
@@ -29,6 +28,5 @@ export const MobileContent = styled.div`
     flex-direction: column;
     justify-content: space-evenly;
     background: rgba(255, 255, 255, 0.2);
-    flex-grow: 1
-
+    flex-grow: 1;
 `
