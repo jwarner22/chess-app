@@ -45,7 +45,6 @@ export default function Module(props) {
     const isDaily = props.location.state.isDaily;
     const location = props.location.state.location;
 
-    console.log({moduleData: moduleData})
     //load user data
     useEffect(() => {
         getModule();
