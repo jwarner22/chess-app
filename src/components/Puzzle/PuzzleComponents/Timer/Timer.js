@@ -6,7 +6,7 @@ const Timer = (props) => {
 
     const {toggleTimer, count} = props;
 
-    //resets counter if the count updates
+    //resets counter if the puzzle count changes
     useEffect(() => {
       setCounter(0)
     }, [count])
@@ -17,7 +17,6 @@ const Timer = (props) => {
           const timeout = setInterval(() => {
             setCounter((prevCount) => prevCount + 10)
           }, 10);
-          console.log(toggleTimer)
           return () => {
             clearInterval(timeout);
           };

@@ -296,11 +296,14 @@ export default function PuzzlePage(props) {
                   <BlackIndicator />
                 )}
                 </IndicatorWrapper>
-                <Lives lives={lives} isMobile={isMobile} />
-            <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
-            </RightPuzzlePanelContainer>
-        </PuzzlePageGrid>
-      </PuzzlePageWrapper>
+                  <TimerAndLivesContainer>
+                    <Timer toggleTimer={toggleTimer} count={count}/>
+                    <Lives lives={lives} isMobile={isMobile} />
+                  </TimerAndLivesContainer>
+                <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
+              </RightPuzzlePanelContainer>
+          </PuzzlePageGrid>
+        </PuzzlePageWrapper>
       </>
         )}
      </PuzzlePageContainer>
