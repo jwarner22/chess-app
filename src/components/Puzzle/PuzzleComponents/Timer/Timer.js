@@ -25,9 +25,9 @@ const Timer = (props) => {
 
   return <TimerWrapper>
           <TimerSpanBuffer>
-              <TimerSpan>{("0" + Math.floor((counter / 60000) % 60)).slice(-2)}:</TimerSpan>
-              <TimerSpan>{("0" + Math.floor((counter / 1000) % 60)).slice(-2)}:</TimerSpan>
-              <TimerSpan>{("0" + ((counter / 10) % 100)).slice(-2)}</TimerSpan>
+              {("0" + Math.floor((counter / 60000) % 60)).slice(-2)}:
+              {("0" + Math.floor((counter / 1000) % 60)).slice(-2)}
+             {/* {("0" + ((counter / 10) % 100)).slice(-2)} */}
             </TimerSpanBuffer>
             {/* <TimerSpan>
                 {counter}
