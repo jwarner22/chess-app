@@ -98,12 +98,20 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="User already registered")
     return crud.create_user(db=db, user=user)
 
-# get user
+# get user profile
 @app_v1.get('/users/{user_id}', response_model=schemas.UserProfile, tags=["User"])
 async def read_user(user_id: str, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
+    return db_user
+
+# get all user data
+@app_v1.get('/users/{user_id}/all', response_model=schemas.User, tags=["User"])
+async def read_user_all(user_id: str, db: Session=Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+    if db_user is None:
+        return None
     return db_user
 
 # update user

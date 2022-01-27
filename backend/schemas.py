@@ -125,23 +125,6 @@ class UserProfile(UserBase):
     class Config:
         orm_mode=True
 
-class User(UserBase):
-    id: int
-    overall_rating: Optional[int] = 1200
-    total_score: int
-    puzzles_completed: Optional[int] = 0
-    puzzles_correct: Optional[int] = 0
-    initial_rating: int
-    user_name: Optional[str] = None
-    daily_streak: Optional[int] = 0
-    last_daily: Optional[int]
-    themes: Optional[List[Theme]] = []
-    daily_puzzles: Optional[List[DailyPuzzle]] = []
-    achievements: Optional[List[Achievement]] = []
-
-    class Config:
-        orm_mode=True
-
 class Opening(BaseModel):
     id: int
     opening_id: str
@@ -196,6 +179,24 @@ class OpeningRating(BaseModel):
     user_id: str
     user_opening_rating: int
     user_score: int
+
+    class Config:
+        orm_mode=True
+
+
+class User(UserBase):
+    id: int
+    overall_rating: Optional[int] = 1200
+    total_score: int
+    puzzles_completed: Optional[int] = 0
+    puzzles_correct: Optional[int] = 0
+    initial_rating: int
+    user_name: Optional[str] = None
+    daily_streak: Optional[int] = 0
+    last_daily: Optional[int]
+    themes: Optional[List[Theme]] = []
+    daily_puzzles: Optional[List[DailyPuzzle]] = []
+    openings: Optional[List[Opening]] = []
 
     class Config:
         orm_mode=True

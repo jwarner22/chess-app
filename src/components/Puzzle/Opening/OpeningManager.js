@@ -1,11 +1,15 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 
 import PostOpeningPage from '../../PostLogin/Views/Openings/PostOpeningPage';
 import PreOpeningPage from '../../PostLogin/Views/Openings/PreOpeningPage';
 import OpeningPage from '../OpeningPage.js'
-import useFetch from '../../api/useFetch';
-import {baseURL} from '../../api/apiConfig';
+// import useFetch from '../../api/useFetch';
+
+// import {baseURL} from '../../api/apiConfig';
 import {getAnalytics, logEvent} from "firebase/analytics";
+
+// Global context
+import {UserContext} from '../../../GlobalState';
 
 // need to add to opening route and clean up props for child components and this componen
 export default function OpeningManager(props) {
@@ -16,7 +20,8 @@ export default function OpeningManager(props) {
     const [score, setScore] = useState(0);
     const [scoreData, setScoreData] = useState([]);
     const [orientation, setOrientation] = useState('');
-    const {get, put, post} = useFetch(baseURL);
+    const {openings, updateOpenings, updateDailyModules, userData, updateUserData, updateAchievements} = useContext(UserContext)
+    // const {get, put, post} = useFetch(baseURL);
 
     // from props
     const openingData = props.location.state.module;
@@ -33,10 +38,10 @@ export default function OpeningManager(props) {
     }
 
     const saveResults = async (result) => {
-        const userId = localStorage.getItem('userID')
         const openingId = openingData.id;
-        const userOpeningData = JSON.parse(sessionStorage.getItem('userOpeningData'));
-        
+        // const userOpeningData = JSON.parse(sessionStorage.getItem('userOpeningData'));
+        let userOpeningData = openings.find(opening => opening.opening_id === openingData.id)
+
         let completed = userOpeningData.completed + 1;
         let highScore = (result > userOpeningData.high_score) ? result : userOpeningData.high_score;
         
@@ -61,32 +66,37 @@ export default function OpeningManager(props) {
       
         setScoreData(score_data)
 
-        try {
-            // update database
-            await put(`/openings/${userId}/${openingId}`,{
-                ...userOpeningData,
-                score: result,
-                completed: completed,
-                high_score: highScore,
-                score_history: score_array.toString()
-            })
-            // save to session storage
-            sessionStorage.setItem('userOpeningData', JSON.stringify({
-                ...userOpeningData,
-                score: result,
-                completed: completed,
-                high_score: highScore,
-                score_history: score_array.toString()
-            }));
-
-            return
-        } catch (error) {
-            alert(error)
+        // update database
+        let data = {
+              ...userOpeningData,
+              score: result,
+              completed: completed,
+              high_score: highScore,
+              score_history: score_array.toString()
         }
+        
+        updateOpenings(openingId, data)
+            
+            //(`/openings/${userId}/${openingId}`,{
+            //     ...userOpeningData,
+            //     score: result,
+            //     completed: completed,
+            //     high_score: highScore,
+            //     score_history: score_array.toString()
+            // })
+
+            // save to session storage
+            // sessionStorage.setItem('userOpeningData', JSON.stringify({
+            //     ...userOpeningData,
+            //     score: result,
+            //     completed: completed,
+            //     high_score: highScore,
+            //     score_history: score_array.toString()
+            // }));
     }
 
     // update daily module
-    const updateDailyModules = async () => {
+    const putDailyModules = async () => {
         
         const mutatedPuzzles = schemaPicks.map(puzzle => {
           if (puzzle.theme_id === openingData.id) {
@@ -112,19 +122,22 @@ export default function OpeningManager(props) {
           // record daily training completion => firebase
           logEvent(analytics, 'daily_training_completed', {'user': userID});
 
-          // user profile endpoint
-          let endpoint = `/users/${userID}`;
-          //get user daily streak info
-          let userProfileData = await get(endpoint);
+
+          let userProfileData = {...userData};
 
           let now = new Date();
           // if new user, set daily streak to 1
           if (userProfileData.lastDaily == null) {
-            put(endpoint, {
+            updateUserData({              
               ...userProfileData,
               daily_streak: 1,
               last_daily: Date.now()
             })
+            // put(endpoint, {
+            //   ...userProfileData,
+            //   daily_streak: 1,
+            //   last_daily: Date.now()
+            // })
           }
     
           let lastDaily = new Date(userProfileData.last_daily);
@@ -132,18 +145,28 @@ export default function OpeningManager(props) {
           if (lastDaily.getDate() !== now.getDate()) { // ensure no same day streak increase
             if (lastDaily.getDate() === (now.getDate() - 1)) { // ensure last daily completion was yesterday
               // update streak (+1)
-              put(endpoint, {
+              updateUserData({
                 ...userProfileData,
                 daily_streak: userProfileData.daily_streak + 1,
                 last_daily: Date.now()
               })
+              // put(endpoint, {
+              //   ...userProfileData,
+              //   daily_streak: userProfileData.daily_streak + 1,
+              //   last_daily: Date.now()
+              // })
             } else {
               // reset streak to 1
-              put(endpoint, {
+              updateUserData({
                 ...userProfileData,
                 daily_streak: 1,
                 last_daily: Date.now()
               })
+              // put(endpoint, {
+              //   ...userProfileData,
+              //   daily_streak: 1,
+              //   last_daily: Date.now()
+              // })
             }
           }
         }
@@ -152,33 +175,34 @@ export default function OpeningManager(props) {
       }
     
       const saveDailyModules = async (mutatedPuzzles) => {
-        let userID = localStorage.getItem('userID');
-        // save daily puzzles to api here
-        let endpoint = `/users/${userID}/daily_puzzles`;
-        put(endpoint, mutatedPuzzles)
-        .catch(error => alert(error))
+        // let userID = localStorage.getItem('userID');
+        // // save daily puzzles to api here
+        // let endpoint = `/users/${userID}/daily_puzzles`;
+        // put(endpoint, mutatedPuzzles)
+        // .catch(error => alert(error))
+        updateDailyModules(mutatedPuzzles)
       }
     
     const SetAchievements = async (result) => {
-        let userID = localStorage.getItem('userID');
-        let endpoint = `/achievements/${userID}`;
-        let now = Date.now();
+        // let userID = localStorage.getItem('userID');
+        // let endpoint = `/achievements/${userID}`;
+        // let now = Date.now();
   
-        let achievement =  {
-          inserted_at: now,
-          category: 'high_score',
-          value: result,
-          theme: openingData.type_ref
-        }
+        // let achievement =  {
+        //   inserted_at: now,
+        //   category: 'high_score',
+        //   value: result,
+        //   theme: openingData.type_ref
+        // }
 
-        post(endpoint, achievement)
+        updateAchievements("high_score", result, 0, openingData.type_ref)
         .catch(error => alert(error))
     }
     
     const toggleFinished = async (result) => {
         await saveResults(result);
         if (isDaily) {
-          let updatedDailyModules = await updateDailyModules();
+          let updatedDailyModules = await putDailyModules();
           await saveDailyModules(updatedDailyModules);
         }
         setScore(result);

@@ -82,6 +82,7 @@ class User(Base):
     themes =  relationship("Theme", backref="user")
     daily_puzzles = relationship("DailyPuzzle", backref="user")
     achievements = relationship("Achievement", backref="user")
+    openings = relationship("Opening", backref="user")
     #themes = relationship("Theme", back_populates='owner')
 
     class Congif:
