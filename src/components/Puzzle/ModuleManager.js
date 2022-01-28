@@ -36,16 +36,15 @@ export default function Puzzle(props) {
   const {dailyModules, updateDailyModules} = useContext(UserContext);
   const {themesData, updateThemesData} = useContext(UserContext);
   const {updateAchievements} = useContext(UserContext);
-  const {loading} = useContext(UserContext);
+  const {loading, userId} = useContext(UserContext);
 
   const {theme,id, isDaily} = props.moduleData;
   const {rating, location} = props;
-  const userID = localStorage.getItem('userID')
 
   // called on component mount
   useEffect(()=>{
     fetchPuzzles(rating,theme);
-    logEvent(analytics, 'module_started', {'user': userID, 'isDaily': isDaily});
+    logEvent(analytics, 'module_started', {'user': userId, 'isDaily': isDaily});
   },[]);
   
   // fetches puzzles from api
@@ -126,7 +125,7 @@ export default function Puzzle(props) {
 
     if (mutatedPuzzles.every(puzzle => puzzle.completed === true)) {
       // record daily training completion => firebase
-      logEvent(analytics, 'daily_training_completed', {'user': userID});
+      logEvent(analytics, 'daily_training_completed', {'user': userId});
 
       let userProfileData = {...userData};
       let now = new Date();
@@ -153,7 +152,7 @@ export default function Puzzle(props) {
   // callback function when puzzle is finished (currently only success)
  const puzzleIsFinished = async (results, result, times) => {
    
-   logEvent(analytics, 'module_completed', {'user': userID, 'isDaily': isDaily}); // log module completion to firebase
+   logEvent(analytics, 'module_completed', {'user': userId, 'isDaily': isDaily}); // log module completion to firebase
 
    setSavingResults(true)
    setOutcomes(prevOutcomes => [...prevOutcomes,results])
