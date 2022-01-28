@@ -1,38 +1,11 @@
-import React, {useState} from "react";
-import DashNavbar from '../../DashboardNavbar/DashboardNavbar';
-import DashSidebar from '../../DashboardSidebar/DashboardSidebar';
 import Body from "./CoursesBody/CoursesBody";
-import MobileNavbar from "../../MobileNavBar/MobileNavBar";
 import styled from "styled-components";
-import PageHeader from "../../../PageHeaders/PageHeaders";
 
-import {useWindowSize} from '../../../Hooks/UseWindowSize';
 
 const Dashboard = () => {
-    //hamburger sidebar menu
-  const [isOpen, setIsOpen] = useState(false)
-
-  const pageTitle = `Puzzles`
-  const windowDimension = useWindowSize();
-  const isMobile = windowDimension[0] <= 640;
-
-  const toggle = () => {
-    setIsOpen(!isOpen)
-  }
 
   return (
     <>
-    {/* {isMobile ? (
-      <>
-      <PageHeader pageTitle={pageTitle}/>
-    <MobileNavbar />
-    </>
-    ) : (
-      <>
-          <DashSidebar isOpen={isOpen} toggle={toggle} />
-      <DashNavbar toggle={toggle}/>
-      </>
-    )} */}
     <DashboardWrapper>
     <HeadingWrapper>
     <PatternRecognitionHeading>Choose a <br></br> <strong>Puzzle to Play</strong></PatternRecognitionHeading>

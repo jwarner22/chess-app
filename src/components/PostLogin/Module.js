@@ -33,12 +33,8 @@ export default function Module(props) {
     }
 
     const [moduleData, setModuleData] = useState({...primaryData});
-    console.log({moduleData: moduleData})
     const {get,post} = useFetch(baseURL);
 
-    // const theme = props.location.state.module.type_ref;
-    // const category = props.location.state.module.category;
-    // const id = props.location.state.module.id;
     const isDaily = props.location.state.isDaily;
     const location = props.location.state.location;
 
@@ -67,9 +63,6 @@ export default function Module(props) {
 
     const createModule = async () => {
         
-        // // gets initial rating for user
-        // let initialRating = await get(`/users/${userId}/initial-rating`)        
-        // console.log({intialRating: initialRating})
         post(`/users/${userId}/themes`,{
                 title: moduleData.theme,
                 category: moduleData.category,
@@ -88,8 +81,6 @@ export default function Module(props) {
     
     const onSwapModule = () => {
         // change to alt module (daily only)
-        console.log('swapped module');
-        
         if (!moduleData.alt) {
             setModuleData(prev => {return {...prev, theme: altData.theme,id: altData.id, alt:true}})
         } else { 

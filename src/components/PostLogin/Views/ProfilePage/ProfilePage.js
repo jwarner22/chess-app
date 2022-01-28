@@ -1,15 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components"
-import DashNavbar from "../../DashboardNavbar/DashboardNavbar"
-import MobileNavbar from "../../MobileNavBar/MobileNavBar"
-import DashSidebar from "../../DashboardSidebar/DashboardSidebar"
 import ProfilePanel from "../../../ProfilePanel/ProfilePanel"
 import AchievementTiles from "../../../AchievementTiles/AchievementTiles"
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
-import PageHeader from "../../../PageHeaders/PageHeaders"
 
 import {UserContext} from '../../../../GlobalState'
-import {useWindowSize} from '../../../Hooks/UseWindowSize'
 
 
 const ProfilePage = () => {
@@ -19,25 +14,15 @@ const ProfilePage = () => {
   const [joinDate, setJoinDate] = useState('')
   const [loaded, setLoaded] = useState(false);
 
-  // display
-  const windowDimensions = useWindowSize();
-  const isMobile = windowDimensions[0] <= 640;
-  const [isOpen, setIsOpen] = useState(false); //hamburger sidebar menu
-
   // context
   const {userData} = useContext(UserContext);
   const {achievements} = useContext(UserContext);
   const {themesData} = useContext(UserContext);
-  const pageTitle = `Profile`;
 
   useEffect(() => {
       setLoaded(false);
       fetchProfileData();
   },[])
-
-    const toggle = () => {
-      setIsOpen(!isOpen)
-    }
   
 
   const fetchProfileData = async() => {
@@ -80,24 +65,11 @@ const ProfilePage = () => {
 
     return (
       <>
-      {/* {isMobile ? (
-        <>
-      <PageHeader pageTitle={pageTitle}>
-      </PageHeader>
-      <MobileNavbar />
-      </>
-    ) : (
-      <>
-      <DashNavbar toggle={toggle}/>
-      <DashSidebar isOpen={isOpen} toggle={toggle} />
-      </>
-      )} */}
-      {/* <Announcements {...AnnouncementOne} />  */}
       <ProfilePageContainer>
       {(loaded) &&
       <>
       <ProfilePanel username={userData.username} dailyStreak={dailyStreak} joinDate={joinDate}/>
-       <AchievementTiles achievements={achievements} profileData={userData} isMobile={isMobile} overallRating={overallRating} dailyStreak={dailyStreak} totalScore={userData.total_score}/>
+       <AchievementTiles achievements={achievements} profileData={userData} overallRating={overallRating} dailyStreak={dailyStreak} totalScore={userData.total_score}/>
        </>
       }
       </ProfilePageContainer>

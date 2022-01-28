@@ -6,17 +6,9 @@ import LeaderboardSection from './LeaderboardSection';
 import {baseURL} from "../../../api/apiConfig";
 import useFetch from '../../../api/useFetch';
 import Loader from "../../../Loader";
-import DashNavbar from "../../DashboardNavbar/DashboardNavbar"
-import MobileNavbar from "../../MobileNavBar/MobileNavBar"
-import DashSidebar from "../../DashboardSidebar/DashboardSidebar"
-import PageHeader from '../../../PageHeaders/PageHeaders';
-
-import {useWindowSize} from '../../../Hooks/UseWindowSize'
-
 
 const LeaderboardsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
-    //const [totalScore, setTotalScore] = useState(0);
     const [profileData, setProfileData] = useState({});
     const [leaderboard, setLeaderboard] = useState([])
     const [isSorted, setIsSorted] = useState(false)
@@ -24,13 +16,7 @@ const LeaderboardsPage = () => {
     const userID = localStorage.getItem('userID');
     const leaderboardID = localStorage.getItem('leaderboardID')
     const [userPlacement, setUserPlacement] = useState();
-    //const [windowDimension, setWindowDimension] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
-    
-    const windowDimensions = useWindowSize();
-    const isMobile = windowDimensions[0] <= 640;
-    
-    const pageTitle = `Leaderboard`
+
 
     useEffect(() => {
         fetchProfileData();
@@ -68,39 +54,10 @@ const LeaderboardsPage = () => {
             setIsSorted(true)
             
         }
-      
-        // useEffect(() => {
-        //   setWindowDimension(window.innerWidth);
-        // }, []);
-      
-        // useEffect(() => {
-        //   function handleResize() {
-        //     setWindowDimension(window.innerWidth);
-        //   }
-      
-        //   window.addEventListener("resize", handleResize);
-        //   return () => window.removeEventListener("resize", handleResize);
-        // }, []);
-      
-        //const isMobile = windowDimension <= 640;
 
-        const toggle = () => {
-          setIsOpen(!isOpen)
-        }
 
     return (
         <>
-        {/* {isMobile ? (
-            <>
-            <PageHeader pageTitle={pageTitle}/>
-    <MobileNavbar />
-    </>
-    ) : (
-      <>
-      <DashNavbar toggle={toggle}/>
-      <DashSidebar isOpen={isOpen} toggle={toggle} />
-      </>
-      )} */}
         <Container>
             <LeaderboardHeaderContainer>
                 <LeaderboardHeaderWrapper>

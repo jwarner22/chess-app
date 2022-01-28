@@ -24,21 +24,6 @@ function ProgressBar(props) {
     const decrement = 10; // decrement for failed puzzle
     const trailColor = 'rgba(255, 255, 255, 0.3)'
 
-    // useEffect(() => {
-    //     setWindowDimension(window.innerWidth);
-    //   }, []);
-    
-    //   useEffect(() => {
-    //     function handleResize() {
-    //       setWindowDimension(window.innerWidth);
-    //     }
-    
-    //     window.addEventListener("resize", handleResize);
-    //     return () => window.removeEventListener("resize", handleResize);
-    //   }, []);
-    
-    //   const isMobile = windowDimension <= 640;
-
     useEffect(() => {
             setDisplay(outcome)
     },[props.outcomes])

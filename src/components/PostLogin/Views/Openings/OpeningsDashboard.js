@@ -1,10 +1,6 @@
-import React, {useState, useEffect}from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import MobileNavbar from "../../MobileNavBar/MobileNavBar";
-import DashboardNavbar from "../../DashboardNavbar/DashboardNavbar";
-import DashSidebar from "../../DashboardSidebar/DashboardSidebar";
 import book from "../../../../Images/open-book.svg"
-import PageHeader from "../../../PageHeaders/PageHeaders"
 import {
   OpeningsGrid,
   OpeningsTileContainer,
@@ -36,11 +32,8 @@ import {useWindowSize} from '../../../Hooks/UseWindowSize'
 
 
 const Openings = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [shownCategory, setShownCategory] = useState("e4");
-
   const openingData = Modules.filter(module => module.category === 'opening');
-  const pageTitle = `Openings`
   // view
   const windowDimension = useWindowSize();
   const isMobile = windowDimension[0] <= 640;
@@ -58,27 +51,9 @@ function handleShowD4Tiles(){
         setShownCategory("d4")
   }
 
-  //hamburger sidebar menu
-  const toggle = () => {
-    setIsOpen(!isOpen)
-  }
 
     return (
         <>
-        {/* <div className="page"> */}
-        {/* {isMobile ? (
-          <>
-          <PageHeader pageTitle={pageTitle} />
-          <MobileNavbar />  
-          </>
-        ) : (
-          <>
-            <DashboardNavbar toggle={toggle}/>
-            <DashSidebar isOpen={isOpen} toggle={toggle} />
-            </>
-        )
-    }  */}
-
         <div>
           <DashboardWrapper>
           <HeadingWrapper>
@@ -150,7 +125,6 @@ function handleShowD4Tiles(){
         </CoursesWrapper> 
         </DashboardWrapper>
         </div>
-        {/* </div> */}
         </>
     )
 }
