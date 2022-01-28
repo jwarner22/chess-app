@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from './PostModuleElements'
 import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
@@ -6,8 +6,14 @@ import Chart from './ScoreChart';
 import StarRating from './StarRating'
 
 const PostPuzzleMockup = (props) => {
-
+    const [linkUrl, setLinkUrl] = useState('');
     const module = Modules.find(module => module.type_ref === props.userData.title)
+
+    useEffect(() =>{
+        if (props.completedTraining) setLinkUrl('completed-training');
+        else if (props.isDaily) setLinkUrl('/home/daily');
+        else setLinkUrl('/home/openings');
+    }, [])
 
     if (!props.savingResults) {
     return (
@@ -38,7 +44,7 @@ const PostPuzzleMockup = (props) => {
                     <ModuleExperience>
                         {`Score: ${props.score}`}
                     </ModuleExperience>
-                    <Link to={props.isDaily ? "/home/daily" : '/home/practice'}>
+                    <Link to={linkUrl}>
                     <FinishButton>
                         Return to {props.isDaily ? 'Daily Puzzles' : 'Dashboard'}
                     </FinishButton>

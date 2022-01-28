@@ -23,6 +23,7 @@ export default function Puzzle(props) {
   const [userThemeData, setUserThemeData] = useState({});
   const [score, setScore] = useState(0);
   const [scoreData, setScoreData] = useState([])
+  const [completedTraining, setCompletedTraining] = useState(false);
   
   // fetch Hook
   const {get} = useFetch(baseURL);
@@ -143,6 +144,7 @@ export default function Puzzle(props) {
           updateUserData({...userProfileData, daily_streak: 1, last_daily: Date.now()}); // reset streak to 1
         }
       }
+      setCompletedTraining(true);
     }
 
     return mutatedPuzzles
@@ -178,7 +180,7 @@ export default function Puzzle(props) {
  
  if (isFinished) {
    return(
-     <PostPuzzle perfect={perfect} failure ={failure} outcomes={outcomes} userData={userThemeData} score={score} isDaily={isDaily} scoreData={scoreData}/>
+     <PostPuzzle completedTraining={completedTraining} perfect={perfect} failure ={failure} outcomes={outcomes} userData={userThemeData} score={score} isDaily={isDaily} scoreData={scoreData}/>
    )
  }
 

@@ -13,28 +13,28 @@ import {UserContext} from '../../../GlobalState';
 
 // need to add to opening route and clean up props for child components and this componen
 export default function OpeningManager(props) {
-    
     // state
     const [isFinished, setIsFinished] = useState(false);
     const [isStarted, setIsStarted] = useState(false);
     const [score, setScore] = useState(0);
     const [scoreData, setScoreData] = useState([]);
     const [orientation, setOrientation] = useState('');
-    const {openings, updateOpenings, updateDailyModules, userData, updateUserData, updateAchievements} = useContext(UserContext)
-    // const {get, put, post} = useFetch(baseURL);
+    const [completedTraining, setCompletedTraining] = useState(false);
+    
+    // hooks
+    const {userId, openings, updateOpenings, updateDailyModules, userData, updateUserData, updateAchievements} = useContext(UserContext)
+    const analytics = getAnalytics();
 
     // from props
     const openingData = props.location.state.module;
     const schemaPicks = props.location.state.schemaPicks;
     const isDaily = props.location.state.isDaily;
-    const userID = localStorage.getItem('userID');
-    const analytics = getAnalytics();
 
     const togglePrePuzzleCallback = (color) => {
         setIsFinished(false);
         setIsStarted(true);
         setOrientation(color);
-        logEvent(analytics, 'opening_started', {'user': userID, 'isDaily': isDaily});
+        logEvent(analytics, 'opening_started', {'user': userId, 'isDaily': isDaily});
     }
 
     const saveResults = async (result) => {
@@ -121,7 +121,7 @@ export default function OpeningManager(props) {
         // check for completed daily training
         if (mutatedPuzzles.every(puzzle => puzzle.completed === true)) {
           // record daily training completion => firebase
-          logEvent(analytics, 'daily_training_completed', {'user': userID});
+          logEvent(analytics, 'daily_training_completed', {'user': userId});
 
 
           let userProfileData = {...userData};
@@ -134,11 +134,7 @@ export default function OpeningManager(props) {
               daily_streak: 1,
               last_daily: Date.now()
             })
-            // put(endpoint, {
-            //   ...userProfileData,
-            //   daily_streak: 1,
-            //   last_daily: Date.now()
-            // })
+
           }
     
           let lastDaily = new Date(userProfileData.last_daily);
@@ -151,11 +147,6 @@ export default function OpeningManager(props) {
                 daily_streak: userProfileData.daily_streak + 1,
                 last_daily: Date.now()
               })
-              // put(endpoint, {
-              //   ...userProfileData,
-              //   daily_streak: userProfileData.daily_streak + 1,
-              //   last_daily: Date.now()
-              // })
             } else {
               // reset streak to 1
               updateUserData({
@@ -163,13 +154,9 @@ export default function OpeningManager(props) {
                 daily_streak: 1,
                 last_daily: Date.now()
               })
-              // put(endpoint, {
-              //   ...userProfileData,
-              //   daily_streak: 1,
-              //   last_daily: Date.now()
-              // })
             }
           }
+          setCompletedTraining(true);
         }
 
         return mutatedPuzzles
@@ -209,7 +196,7 @@ export default function OpeningManager(props) {
         setScore(result);
         setIsFinished(true);
         setIsStarted(false);
-        logEvent(analytics, 'opening_completed', {'user': userID, 'isDaily': isDaily});
+        logEvent(analytics, 'opening_completed', {'user': userId, 'isDaily': isDaily});
     }
 
     return (
@@ -221,7 +208,7 @@ export default function OpeningManager(props) {
             <OpeningPage toggleFinished={toggleFinished} openingData={openingData} orientation={orientation}/>
         )}
         {isFinished && (
-            <PostOpeningPage openingData={openingData} isDaily={isDaily} score={score} scoreData={scoreData}/>
+            <PostOpeningPage completedTraining={completedTraining} openingData={openingData} isDaily={isDaily} score={score} scoreData={scoreData}/>
         )}
         </>
     )

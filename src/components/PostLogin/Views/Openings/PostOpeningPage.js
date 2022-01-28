@@ -1,12 +1,19 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from '../../../PostModule/PostModuleElements'
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
 import Chart from '../../../PostModule/ScoreChart';
 
-const PostPuzzleMockup = (props) => {
+const PostOpeningPage = (props) => {
+    const [linkUrl, setLinkUrl] = useState('');
     const img = Modules[3].img;
-    
+
+    useEffect(() =>{
+        if (props.completedTraining) setLinkUrl('completed-training');
+        else if (props.isDaily) setLinkUrl('/home/daily');
+        else setLinkUrl('/home/openings');
+    }, [])
+
     if (!props.savingResults) {
     return (
         <>
@@ -33,7 +40,7 @@ const PostPuzzleMockup = (props) => {
                     <ModuleExperience>
                         {`Score: ${props.score}`}
                     </ModuleExperience>
-                    <Link to={props.isDaily ? "/home/daily" : '/home/openings'}>
+                    <Link to={linkUrl}>
                     <FinishButton>
                         Return to {props.isDaily ? 'Daily Puzzles' : 'Openings'}
                     </FinishButton>
@@ -46,4 +53,4 @@ const PostPuzzleMockup = (props) => {
     return null;
 }
 
-export default PostPuzzleMockup
+export default PostOpeningPage
