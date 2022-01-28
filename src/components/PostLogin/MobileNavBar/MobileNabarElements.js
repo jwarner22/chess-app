@@ -6,6 +6,7 @@ export const MobileNavbarWrapper = styled.div`
     position: fixed;
     bottom: 0; 
     left: 0;
+    right:0;+
     transform: translateZ(0);
     background-color: #fff;
     /* margin-top: 8px 0px; */

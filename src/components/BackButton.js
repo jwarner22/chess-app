@@ -33,7 +33,7 @@ const BackButton = () => {
 
 export default BackButton
 
-const ClickBack = styled.div`
+export const ClickBack = styled.div`
     display: flex;
     cursor: pointer;
     position: absolute;

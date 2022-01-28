@@ -21,16 +21,17 @@ import {
     Tip1Description,
     LeftStatWrapper,
 RightStatWrapper} from "../../../../PrePuzzle/PrePuzzleElements"
+import { InfoBoxContainer, InfoBoxTitle } from '../../../../UI_Kit/InfoBox/InfoBoxElements'
 import { StartButton } from '../../DailyPuzzle/ModalElements'
 
 const PrePuzzleTile = (props) => {
 
     return (
         <div>
-    <PrePuzzleWrapper>
-        <PrePuzzleTitle>
+    <InfoBoxContainer>
+        <InfoBoxTitle>
             {props.openingData.headline}
-        </PrePuzzleTitle>
+        </InfoBoxTitle>
         <PrePuzzleSubheading>
             Opening Training
         </PrePuzzleSubheading>
@@ -83,7 +84,7 @@ const PrePuzzleTile = (props) => {
                         </div>
                     </InstructionsContainer>
                 </PrePuzzleContentContainer>
-            </PrePuzzleWrapper>
+            </InfoBoxContainer>
         </div>
     )
 }

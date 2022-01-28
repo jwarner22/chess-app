@@ -303,7 +303,7 @@ export default function PuzzlePage(props) {
                 <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
               </RightPuzzlePanelContainer>
           </PuzzlePageGrid>
-        </PuzzlePageWrapper>
+      </PuzzlePageWrapper>
       </>
         )}
      </PuzzlePageContainer>

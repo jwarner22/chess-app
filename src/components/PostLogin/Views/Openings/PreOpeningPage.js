@@ -5,6 +5,9 @@ PreOpeningPageContainer } from './PreOpeningsPageElements';
 import PrePuzzleTile from './OpeningComponents/PrePuzzleTiles';
 import useFetch from '../../../api/useFetch';
 import {baseURL} from '../../../api/apiConfig';
+import { PageContainer } from '../../../UI_Kit/Page';
+import InfoBox from '../../../UI_Kit/InfoBox/InfoBox';
+
 
 const PreOpeningPage = (props) => {
     //const img = Modules[3].img;
@@ -51,10 +54,16 @@ const PreOpeningPage = (props) => {
 
     if (loaded) {
     return (
-        <PreOpeningPageContainer>
-            <PrePuzzleHeader />
-            <PrePuzzleTile openingData={openingData} onStartClick={handleStartButtonClick} userOpeningData={userOpeningData}/>
-        </PreOpeningPageContainer>
+        <PageContainer>
+            <InfoBox 
+                title={openingData.headline} 
+                subtitle={openingData.subheading} 
+                image={openingData.img}
+                headlineOne={"Opening Mastery"}
+                headlineTwo={"Completed Puzzles"}
+                userData={userOpeningData}/> 
+            {/* <PrePuzzleTile openingData={openingData} onStartClick={handleStartButtonClick} userOpeningData={userOpeningData}/> */}
+        </PageContainer>
     )} else {
         return null;
     }
