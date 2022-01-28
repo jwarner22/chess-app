@@ -111,6 +111,9 @@ export default function Opening(props) {
     moveSound.play();
   }
 
+  useEffect(() => {
+    setFen(game.fen())
+  },[lastMove])
 
   async function onMove(from, to) {
     if (moveIndex >= moves.length) {
@@ -126,7 +129,7 @@ export default function Opening(props) {
   const nextAttempt = async () => {
     let newGame = new Chess();
     let newFen = newGame.fen();
-    
+
     setGame(newGame);
     setFen(newFen);
     setMoveIndex(0);

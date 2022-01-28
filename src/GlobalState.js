@@ -67,6 +67,12 @@ const UserProvider = ({ children }) => {
         let endpoint = `/users/${auth.userId}/themes`; 
         let response = await put(endpoint, data);
 
+        let newThemes = [...themesData];
+        newThemes = newThemes.map(theme => {
+            if (response.title === theme.title) return response;
+            return theme;
+        });
+
         setThemesData(response);
         setLoading(() => false);
     }
@@ -183,7 +189,14 @@ const UserProvider = ({ children }) => {
     const updateOpenings = async (openingId, data) => {
         setLoading(() => true);
         let response = await put(`/openings/${auth.userId}/${openingId}`, data);
-        setOpenings(response);
+        
+        let newOpenings = [...openings];
+        newOpenings = openings.map(opening => {
+            if (opening.opening_id === response.opening_id) return response;
+            return opening;
+        });
+        
+        setOpenings(newOpenings);
         setLoading(() => false);
     }
 
