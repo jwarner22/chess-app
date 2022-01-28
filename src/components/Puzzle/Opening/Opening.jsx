@@ -49,7 +49,6 @@ export default function Opening(props) {
   useEffect(() => {
 
     if (orientation === "black") {
-      console.log('should trigger initial move')
       initialMove();
     }
   },[next]);
@@ -73,10 +72,6 @@ export default function Opening(props) {
     //}
   },[props.triggerNext])
 
-  useEffect(()=> {
-    console.log('lastMove')
-    setFen(game.fen());
-  }, [lastMove])
 
 
   const initialMove = async () => {
@@ -121,9 +116,9 @@ export default function Opening(props) {
     if (moveIndex >= moves.length) {
       return;
     }
-    console.log('onMove')
     playSound();
     game.move({ from: from, to: to });
+    setFen(game.fen());
     verifyMove(from, to);
   }
 
@@ -131,6 +126,7 @@ export default function Opening(props) {
   const nextAttempt = async () => {
     let newGame = new Chess();
     let newFen = newGame.fen();
+    
     setGame(newGame);
     setFen(newFen);
     setMoveIndex(0);
@@ -163,7 +159,6 @@ export default function Opening(props) {
 
 
   const makeMove = async (from, to) => {
-    console.log('makeMove')
 
     await wait(500);
     playSound();
@@ -172,7 +167,8 @@ export default function Opening(props) {
       from: from,
       to: to
     });
-  
+    
+    setFen(game.fen());
     setLastMove([from, to]);
     setColor(() => turnColor());
   };
