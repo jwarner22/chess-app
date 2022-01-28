@@ -162,16 +162,22 @@ async def define_theme_ratings(user_id: str, theme: schemas.CreateTheme, db: Ses
 # update theme
 @app_v1.put("/users/{user_id}/themes", response_model = schemas.User, tags=["Themes"])
 async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = Depends(get_db)):
-    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+    #db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
-    if db_user is None:
-         return None
-    db.add(db_user)
+    # if db_user is None:
+    #      return None
+    
+    db_theme = db.query(models.Theme).filter(models.Theme.title == theme.title, models.Theme.owner_id==user_id).one_or_none()
+    
+    if db_theme is None:
+        return None
+        
     stmt = (update(models.Theme).where(models.Theme.owner_id == user_id).where(models.Theme.title == theme.title).values(rating=theme.rating, completed=theme.completed, high_score=theme.high_score, score_history=theme.score_history, high_rating=theme.high_rating))
     db.execute(stmt)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(db_theme)
+
+    return db_theme
 
 ## RATINGS
 @app_v1.post("/users/{user_id}/themes/ratings/{rating}", tags=["Ratings"])
@@ -278,25 +284,31 @@ async def create_daily_puzzles( user_id: str, puzzles: List[schemas.CreateDailyP
         db_daily_puzzle = models.DailyPuzzle(**puzzle.dict(), owner_id = user_id)
         db.add(db_daily_puzzle)
         db.commit()
-        db.refresh(db_daily_puzzle)
+    
+    db_daily = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).all()
         
-    return 'successful'
+    return db_daily
 
 # update user daily puzzles
 @app_v1.put("/users/{user_id}/daily_puzzles", tags=["Daily"])
 async def update_daily_puzzles(user_id: str, puzzles: List[schemas.CreateDailyPuzzle], db: Session = Depends(get_db)):
-    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+    # db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
-    if db_user is None:
+    # if db_user is None:
+    #     return None
+
+    db_daily = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).all()
+
+    if db_daily is None:
         return None
 
     for puzzle in puzzles:
         stmt = (update(models.DailyPuzzle).where(models.DailyPuzzle.owner_id == user_id).where(models.DailyPuzzle.location == puzzle.location).values(theme_id=puzzle.theme_id, title=puzzle.title, locked=puzzle.locked, completed=puzzle.completed, inserted_at=puzzle.inserted_at, expiration=puzzle.expiration, alt_id=puzzle.alt_id, alt_title=puzzle.alt_title))
         db.execute(stmt)
+        db.commit()
     
-    db.commit()
-    db.refresh(db_user)
-    return 'successfully updated'
+    db.refresh(db_daily)
+    return db_daily
 
 # remove daily puzzle
 @app_v1.delete('/users/{user_id}/daily_puzzles', tags=["Daily"])
@@ -381,16 +393,21 @@ async def add_opening(user_id: str, opening_id: str, opening: schemas.OpeningCre
 # update user opening data
 @app_v1.put('/openings/{user_id}/{opening_id}', tags=["Openings"])
 async def update_opening(user_id: str, opening_id: int, opening: schemas.Opening, db: Session = Depends(get_db)):
-    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+    # db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
-    if db_user is None:
-         return None
+    # if db_user is None:
+    #      return None
+    
+    db_opening= db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
+    
+    if db_opening is None:
+        return None
     
     stmt = (update(models.Opening).where(models.Opening.owner_id == user_id).where(models.Opening.opening_id == opening.opening_id).values(**opening.dict()))
     db.execute(stmt)
     db.commit()
-    db.refresh(db_user)
-    return {"opening successfully updated"}
+    db.refresh(db_opening)
+    return db_opening
 
 
 ## LEADERBOARD

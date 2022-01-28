@@ -11,7 +11,6 @@ import PrePuzzle from '../PrePuzzle/PrePuzzle.js';
 
 // context
 import {UserContext} from '../../GlobalState'
-import { Cpanel } from 'styled-icons/fa-brands';
 
 export default function Module(props) {
     const [rating, setRating] = useState();
@@ -19,9 +18,7 @@ export default function Module(props) {
     const [prePuzzleToggle,setPrePuzzleToggle] = useState(true);
     const [highScore, setHighScore] = useState(0);
 
-    const {userData} = useContext(UserContext);
-
-    const userId = userData.user_id;
+    const {userData, userId} = useContext(UserContext);
 
     const primaryData = {
         theme: props.location.state.module.type_ref,
@@ -36,7 +33,7 @@ export default function Module(props) {
     }
 
     const [moduleData, setModuleData] = useState({...primaryData});
-
+    console.log({moduleData: moduleData})
     const {get,post} = useFetch(baseURL);
 
     // const theme = props.location.state.module.type_ref;
@@ -70,13 +67,13 @@ export default function Module(props) {
 
     const createModule = async () => {
         
-        // gets initial rating for user
-        let initialRating = await get(`/users/${userId}/initial-rating`)        
-        
+        // // gets initial rating for user
+        // let initialRating = await get(`/users/${userId}/initial-rating`)        
+        // console.log({intialRating: initialRating})
         post(`/users/${userId}/themes`,{
                 title: moduleData.theme,
                 category: moduleData.category,
-                rating: moduleData.initialRating[0],
+                rating: userData.initialRating,
                 completed: 0,
                 high_score: 0,
                 score_history: '0,0,0,0,0,0,0'
