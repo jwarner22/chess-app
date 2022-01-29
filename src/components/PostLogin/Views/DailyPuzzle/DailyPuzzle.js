@@ -30,10 +30,7 @@ export default function DailyPuzzzle() {
   const {contextLoading} = useContext(UserContext);
 
   useEffect(() => {
-    console.log('effect ran')
     if (!contextLoading) {
-      console.log('if statement ran')
-
       setLoaded(false);
       transformDaily();
       setTimer();

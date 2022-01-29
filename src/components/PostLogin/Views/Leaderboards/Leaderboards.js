@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {Container} from "../../../Login/LoginElements";
 import {LeaderboardContainer, LeaderboardHeaderContainer, LeaderboardHeaderWrapper, ComingSoonHeading, ComingSoonSubheading, LeaderboardSectionContainer} from "./LeaderboardElements"
 import LeaderboardLeagues from "./LeaderboardLeagues";
@@ -6,45 +6,24 @@ import LeaderboardSection from './LeaderboardSection';
 import {baseURL} from "../../../api/apiConfig";
 import useFetch from '../../../api/useFetch';
 import Loader from "../../../Loader";
-import DashNavbar from "../../DashboardNavbar/DashboardNavbar"
-import MobileNavbar from "../../MobileNavBar/MobileNavBar"
-import DashSidebar from "../../DashboardSidebar/DashboardSidebar"
-import PageHeader from '../../../PageHeaders/PageHeaders';
 
-import {useWindowSize} from '../../../Hooks/UseWindowSize'
-
+import {UserContext} from '../../../../GlobalState'
 
 const LeaderboardsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
-    //const [totalScore, setTotalScore] = useState(0);
-    const [profileData, setProfileData] = useState({});
     const [leaderboard, setLeaderboard] = useState([])
-    const [isSorted, setIsSorted] = useState(false)
-    const {get} = useFetch(baseURL)
-    const userID = localStorage.getItem('userID');
-    const leaderboardID = localStorage.getItem('leaderboardID')
     const [userPlacement, setUserPlacement] = useState();
-    //const [windowDimension, setWindowDimension] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
-    
-    const windowDimensions = useWindowSize();
-    const isMobile = windowDimensions[0] <= 640;
-    
-    const pageTitle = `Leaderboard`
+
+    const {get} = useFetch(baseURL);
+
+    const {userId} = useContext(UserContext);
+    const leaderboardID = localStorage.getItem('leaderboardID')
+
 
     useEffect(() => {
-        fetchProfileData();
         fetchLeaderboard();
     },[])
 
-    
-    //fetches user data
-    async function fetchProfileData() {
-        let endpoint = `/users/${userID}`;
-        let profileData = await get(endpoint)
-        setProfileData(profileData)
-        setIsLoading(false)
-      }
     
       //fetches leaderboard data and sorts it decending by total_score
       async function fetchLeaderboard() {
@@ -61,46 +40,15 @@ const LeaderboardsPage = () => {
           setLeaderboard(leaderboard.sort(function(a, b) {
             return b.total_score - a.total_score
         }))
-        const userIndex = leaderboard.findIndex(user => user.user_id === userID);
+        const userIndex = leaderboard.findIndex(user => user.user_id === userId);
         const findUserPlacement = userIndex + 1;
         setUserPlacement(findUserPlacement);
             setIsLoading(false)
-            setIsSorted(true)
-            
         }
-      
-        // useEffect(() => {
-        //   setWindowDimension(window.innerWidth);
-        // }, []);
-      
-        // useEffect(() => {
-        //   function handleResize() {
-        //     setWindowDimension(window.innerWidth);
-        //   }
-      
-        //   window.addEventListener("resize", handleResize);
-        //   return () => window.removeEventListener("resize", handleResize);
-        // }, []);
-      
-        //const isMobile = windowDimension <= 640;
 
-        const toggle = () => {
-          setIsOpen(!isOpen)
-        }
 
     return (
         <>
-        {/* {isMobile ? (
-            <>
-            <PageHeader pageTitle={pageTitle}/>
-    <MobileNavbar />
-    </>
-    ) : (
-      <>
-      <DashNavbar toggle={toggle}/>
-      <DashSidebar isOpen={isOpen} toggle={toggle} />
-      </>
-      )} */}
         <Container>
             <LeaderboardHeaderContainer>
                 <LeaderboardHeaderWrapper>
@@ -116,7 +64,7 @@ const LeaderboardsPage = () => {
             <LeaderboardContainer>
                 <LeaderboardSectionContainer>
                 {isLoading ? ( <Loader /> ) : (
-                    <LeaderboardSection userPlacement={userPlacement} leaderboard={leaderboard} userID={userID} isLoading={isLoading}/>
+                    <LeaderboardSection userPlacement={userPlacement} leaderboard={leaderboard} userID={userId} isLoading={isLoading}/>
                 )}     
                 </LeaderboardSectionContainer>
             </LeaderboardContainer>

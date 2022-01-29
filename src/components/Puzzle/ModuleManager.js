@@ -23,6 +23,7 @@ export default function Puzzle(props) {
   const [userThemeData, setUserThemeData] = useState({});
   const [score, setScore] = useState(0);
   const [scoreData, setScoreData] = useState([])
+  const [completedTraining, setCompletedTraining] = useState(false);
   
   // fetch Hook
   const {get} = useFetch(baseURL);
@@ -35,16 +36,15 @@ export default function Puzzle(props) {
   const {dailyModules, updateDailyModules} = useContext(UserContext);
   const {themesData, updateThemesData} = useContext(UserContext);
   const {updateAchievements} = useContext(UserContext);
-  const {loading} = useContext(UserContext);
+  const {loading, userId} = useContext(UserContext);
 
   const {theme,id, isDaily} = props.moduleData;
   const {rating, location} = props;
-  const userID = localStorage.getItem('userID')
 
   // called on component mount
   useEffect(()=>{
     fetchPuzzles(rating,theme);
-    logEvent(analytics, 'module_started', {'user': userID, 'isDaily': isDaily});
+    logEvent(analytics, 'module_started', {'user': userId, 'isDaily': isDaily});
   },[]);
   
   // fetches puzzles from api
@@ -125,7 +125,7 @@ export default function Puzzle(props) {
 
     if (mutatedPuzzles.every(puzzle => puzzle.completed === true)) {
       // record daily training completion => firebase
-      logEvent(analytics, 'daily_training_completed', {'user': userID});
+      logEvent(analytics, 'daily_training_completed', {'user': userId});
 
       let userProfileData = {...userData};
       let now = new Date();
@@ -143,6 +143,7 @@ export default function Puzzle(props) {
           updateUserData({...userProfileData, daily_streak: 1, last_daily: Date.now()}); // reset streak to 1
         }
       }
+      setCompletedTraining(true);
     }
 
     return mutatedPuzzles
@@ -151,7 +152,7 @@ export default function Puzzle(props) {
   // callback function when puzzle is finished (currently only success)
  const puzzleIsFinished = async (results, result, times) => {
    
-   logEvent(analytics, 'module_completed', {'user': userID, 'isDaily': isDaily}); // log module completion to firebase
+   logEvent(analytics, 'module_completed', {'user': userId, 'isDaily': isDaily}); // log module completion to firebase
 
    setSavingResults(true)
    setOutcomes(prevOutcomes => [...prevOutcomes,results])
@@ -178,7 +179,7 @@ export default function Puzzle(props) {
  
  if (isFinished) {
    return(
-     <PostPuzzle perfect={perfect} failure ={failure} outcomes={outcomes} userData={userThemeData} score={score} isDaily={isDaily} scoreData={scoreData}/>
+     <PostPuzzle completedTraining={completedTraining} perfect={perfect} failure ={failure} outcomes={outcomes} userData={userThemeData} score={score} isDaily={isDaily} scoreData={scoreData}/>
    )
  }
 

@@ -36,7 +36,7 @@ const AchievementTiles = (props) => {
                 <AchievementTileWrapper>
                 {(achievements.length > 0) && achievements.map((achievement, index) => {
                     return(
-                        <SmallTile key={index} achievement={achievement} isMobile={props.isMobile}/>
+                        <SmallTile key={index} achievement={achievement} />
                     )
                 })}
             </AchievementTileWrapper>

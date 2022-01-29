@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useContext, useState} from 'react'
 import SmallTile from '../../../AchievementTiles/SmallTiles';
 import {Link} from 'react-router-dom';
 import {AchievementTileContainer, 
@@ -6,15 +6,15 @@ import {AchievementTileContainer,
   } from "../../../AchievementTiles/AchievementTilesElements"
 import ConfettiGenerator from 'confetti-js';
 import queenImg from '../../../Puzzle/chess/pieces/nova/wQ.svg';
-import useFetch from '../../../api/useFetch';
-import {baseURL} from '../../../api/apiConfig';
 import {FinishButton} from '../../../PostModule/PostModuleElements';
 import styled from "styled-components"
 
+// context
+import {UserContext} from '../../../../GlobalState'
+
 export default function CompletedTraining(props) {
-  const [achievements, setAchievements] = useState([])
-  const {get, loading} = useFetch(baseURL)
-  const userID = localStorage.getItem('userID')
+  const [loading, setLoading] = useState(true);
+  const {achievements} = useContext(UserContext);
 
     useEffect(() => {
       const confettiSettings = {
@@ -36,21 +36,12 @@ export default function CompletedTraining(props) {
         rotate: true
       };
       const confetti = new ConfettiGenerator(confettiSettings)
-      
-      fetchAchievements()
 
       confetti.render()
-
+      setLoading(false);
       return(() => confetti.clear());
     },[])
 
-    async function fetchAchievements() {
-      // fetch daily achievements here and display in list in return statement
-      let endpoint = `/achievements/${userID}/daily`
-      let achievements = await get(endpoint)
-      setAchievements(achievements)
-    }
-    
     const handleClick = () => {
       localStorage.setItem('completedTrainingDisplayed', 'true')
     }
@@ -63,9 +54,9 @@ export default function CompletedTraining(props) {
       </div>
       <div style={{padding: '0 0 0 0'}}>
       <FinishButtonContainer>
-        <Link to='/home/practice'>
+        <Link to='/home/daily'>
         <FinishButton onClick={handleClick}>
-          Return to Practice Page
+          Continue
         </FinishButton>
         </Link>
         </FinishButtonContainer>

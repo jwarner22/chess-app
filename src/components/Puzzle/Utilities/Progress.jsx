@@ -24,21 +24,6 @@ function ProgressBar(props) {
     const decrement = 10; // decrement for failed puzzle
     const trailColor = 'rgba(255, 255, 255, 0.3)'
 
-    // useEffect(() => {
-    //     setWindowDimension(window.innerWidth);
-    //   }, []);
-    
-    //   useEffect(() => {
-    //     function handleResize() {
-    //       setWindowDimension(window.innerWidth);
-    //     }
-    
-    //     window.addEventListener("resize", handleResize);
-    //     return () => window.removeEventListener("resize", handleResize);
-    //   }, []);
-    
-    //   const isMobile = windowDimension <= 640;
-
     useEffect(() => {
             setDisplay(outcome)
     },[props.outcomes])
@@ -81,14 +66,14 @@ function ProgressBar(props) {
         setResults(prevResults => [...prevResults, result])
     }
 
-    const progressHeight = {
-        height: "12px"
-    }
+    // const progressHeight = {
+    //     height: "0px"
+    // }
 
     return(
         <>
         <HeaderWrapper >
-            {isMobile ? ( <Line style={progressHeight} percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor} strokeLinecap="square"/> ) : (
+            {isMobile ? ( <Line  percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor} strokeLinecap="square"/> ) : (
           <Circle percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor}/>)}
         </HeaderWrapper>
         </>
