@@ -61,7 +61,10 @@ const PreOpeningPage = (props) => {
                 image={openingData.img}
                 headlineOne={"Opening Mastery"}
                 headlineTwo={"Completed Puzzles"}
-                userData={userOpeningData}/> 
+                userData={userOpeningData}
+                onStartClick={handleStartButtonClick}
+                buttonOneTitle={"Play as White"}
+                buttonTwoTitle={"Play as Black"}/> 
             {/* <PrePuzzleTile openingData={openingData} onStartClick={handleStartButtonClick} userOpeningData={userOpeningData}/> */}
         </PageContainer>
     )} else {

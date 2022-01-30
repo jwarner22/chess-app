@@ -5,7 +5,7 @@ export const InfoBoxContainer = styled.div`
     background: #fff;
     box-shadow:rgba(0, 0, 0, 0.2) 0px 10px 50px;
     width: 90%;
-    max-width: 1080px;
+    max-width: 780px;
     flex-direction: column;
     margin: auto;
     border-radius: 15px;

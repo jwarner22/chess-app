@@ -53,7 +53,7 @@ export const PatternRecognitionSubheading = styled.h2`
   opacity: 0.7;
   margin: 0px 0px 0px 24px;
   padding-bottom: 12px;
-  width: 378px;
+
   }
 `
 

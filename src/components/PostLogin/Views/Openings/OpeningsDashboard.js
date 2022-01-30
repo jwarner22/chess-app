@@ -26,7 +26,10 @@ import {CoursesWrapper,
     ModuleWrapper
 } from '../PatternRecognition/CoursesBody/CoursesElements'
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
-import {HeadingWrapper, PatternRecognitionHeading, PatternRecognitionSubheading, DashboardWrapper} from "../PatternRecognition/PatternRecognition"
+import {HeadingWrapper, 
+  PatternRecognitionHeading, 
+  PatternRecognitionSubheading, 
+  DashboardWrapper} from "../PatternRecognition/PatternRecognition"
 
 import {useWindowSize} from '../../../Hooks/UseWindowSize'
 
