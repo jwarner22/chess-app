@@ -227,14 +227,7 @@ const progressContainer = {
   marginTop: 16,
   marginBottom: 24
 };
-// const progressContainer = {
-//   display: "flex",
-//   justifyContent: "center",
-//   alignItems: "center",
-//   flexWrap: "wrap",
-//   margin: "0 auto",
-//   maxWidth: "1080px"
-// };
+
 
 const Header = styled.h2`
   color: rgba(255,255,255,0.8);
@@ -246,22 +239,3 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   padding: 16px;
 `
-
-// const PuzzlePageContainer = styled.div `
-//   display: flex;
-//   flex-direction: column;
-//   height: 100vh;
-//   grid-template-rows: min-content 1fr min-content;
-//   width: 100% !important;
-//   grid-gap: 24px;
-//   top: 0;
-//   padding: 24px 16px;
-//   position: absolute;
-//   overflow: hidden;
-//   `
-
-// const PuzzleBoardWrapper = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// `

@@ -29,7 +29,6 @@ const CreateUser = (props) => {
             puzzles_correct: 0,
             initial_rating: rating
         }).then(data => {
-            //localStorage.setItem('userPublicData', JSON.stringify(data))
             history.push('/username')
         })
     }

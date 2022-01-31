@@ -27,7 +27,6 @@ export default function OpeningManager(props) {
 
     // from props
     const openingData = props.location.state.module;
-    const schemaPicks = props.location.state.schemaPicks;
     const location = props.location.state.location;
     const isDaily = props.location.state.isDaily;
 
@@ -65,9 +64,9 @@ export default function OpeningManager(props) {
               }
             )
           });
-      
-        setScoreData(score_data)
 
+        setScoreData(score_data)
+        
         // update database
         let data = {
               ...userOpeningData,
@@ -76,25 +75,8 @@ export default function OpeningManager(props) {
               high_score: highScore,
               score_history: score_array.toString()
         }
-        
-        updateOpenings(openingId, data)
-            
-            //(`/openings/${userId}/${openingId}`,{
-            //     ...userOpeningData,
-            //     score: result,
-            //     completed: completed,
-            //     high_score: highScore,
-            //     score_history: score_array.toString()
-            // })
 
-            // save to session storage
-            // sessionStorage.setItem('userOpeningData', JSON.stringify({
-            //     ...userOpeningData,
-            //     score: result,
-            //     completed: completed,
-            //     high_score: highScore,
-            //     score_history: score_array.toString()
-            // }));
+        updateOpenings(openingId, data)
     }
 
     // update daily module
@@ -111,33 +93,12 @@ export default function OpeningManager(props) {
         return module;
       })
 
-        // const mutatedPuzzles = schemaPicks.map(puzzle => {
-        //   if (puzzle.theme_id === openingData.id) {
-        //     return {...puzzle, completed: true, locked: false}
-        //   } 
-        //   return puzzle
-        // })
-        
-        // // find module index
-        // const thisIndex = mutatedPuzzles.findIndex(puzzle => puzzle.theme_id === openingData.id)
-    
-        // // unlocks next module
-        // mutatedPuzzles.map(puzzle => {
-        //   if (puzzle.location === (mutatedPuzzles[thisIndex].location + 1)) {
-        //     return puzzle.locked = false;
-        //   } 
-        //   return puzzle
-        // })
-
-
         // check for completed daily training
         if (mutatedPuzzles.every(puzzle => puzzle.completed === true)) {
           // record daily training completion => firebase
           logEvent(analytics, 'daily_training_completed', {'user': userId});
 
-
           let userProfileData = {...userData};
-
           let now = new Date();
           // if new user, set daily streak to 1
           if (userProfileData.lastDaily == null) {
@@ -175,26 +136,10 @@ export default function OpeningManager(props) {
       }
     
       const saveDailyModules = async (mutatedPuzzles) => {
-        // let userID = localStorage.getItem('userID');
-        // // save daily puzzles to api here
-        // let endpoint = `/users/${userID}/daily_puzzles`;
-        // put(endpoint, mutatedPuzzles)
-        // .catch(error => alert(error))
         updateDailyModules(mutatedPuzzles)
       }
     
     const SetAchievements = async (result) => {
-        // let userID = localStorage.getItem('userID');
-        // let endpoint = `/achievements/${userID}`;
-        // let now = Date.now();
-  
-        // let achievement =  {
-        //   inserted_at: now,
-        //   category: 'high_score',
-        //   value: result,
-        //   theme: openingData.type_ref
-        // }
-
         updateAchievements("high_score", result, 0, openingData.type_ref)
         .catch(error => alert(error))
     }

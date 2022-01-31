@@ -116,12 +116,8 @@ export default function Puzzle(props) {
   // updates daily puzzle data based on completion
   const updateDailyPuzzles = async () => {
     
-    // console.log({dailyModules_old: dailyModules})
-    // console.log({location: location})
     let mutatedPuzzles = [...dailyModules]
-    // mutatedPuzzles[location].completed = true;
-    // mutatedPuzzles[location].title = theme;
-    //mutatedPuzzles[location].theme_id = id;
+
     mutatedPuzzles = mutatedPuzzles.map(module => {
       if (module.location === location) {
         module.completed = true;

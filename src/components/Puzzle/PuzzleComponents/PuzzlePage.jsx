@@ -58,7 +58,6 @@ export default function PuzzlePage(props) {
   const [startTime, setStartTime] = useState(null);
   const [times, setTimes] = useState([]);
   const [toggleTimer, setToggleTimer] = useState(true)
-  //const [windowDimension, setWindowDimension] = useState(null);
   const [lives, setLives] = useState(3)
 
   
@@ -70,25 +69,6 @@ export default function PuzzlePage(props) {
   const isMobile = windowDimensions[0] < 640;
 
   const title = getModuleTitle(props.theme)
-
-
-
-
-  // useEffect(() => {
-  //   setWindowDimension(window.innerWidth);
-  // }, []);
-
-  // useEffect(() => {
-  //   function handleResize() {
-  //     setWindowDimension(window.innerWidth);
-  //   }
-
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
-  //const isMobile = windowDimension <= 640;
-
 
 
   useEffect(() => {
@@ -416,24 +396,6 @@ const IndicatorWrapper = styled.div`
     display: flex;
     width: 100%;
     justify-content: center;
-`
-
-const LivesWrapper = styled.div`
-    padding: 16px;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    color: #fff;
-`
-
-const LivesGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 12px;
-  
-`
-const LivesImg = styled.img`
-  max-width: 30px;
 `
 
 const TimerAndLivesContainer = styled.div`

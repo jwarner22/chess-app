@@ -48,7 +48,6 @@ const UserProvider = ({ children }) => {
         delete user.daily_puzzles;
         delete user.id;
 
-        console.log(user);
         setUserId(auth.userId);
         setUserData(user);
         setThemesData(response.themes);
@@ -58,10 +57,8 @@ const UserProvider = ({ children }) => {
 
     const updateUserData = async (data) => { 
         setLoading(() => true);
-        console.log({oldData: userData, newData: data});
         let endpoint = `/users/${auth.userId}`; 
         let response = await put(endpoint, data);
-        console.log({response: response})
         setUserData(response);
         setLoading(() => false);
     }
