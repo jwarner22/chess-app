@@ -5,6 +5,7 @@ from sqlalchemy.sql.sqltypes import Boolean
 from starlette.status import HTTP_401_UNAUTHORIZED
 from utlities.security import check_token
 from fastapi import FastAPI, Depends, HTTPException, APIRouter
+from fastapi.encoders import jsonable_encoder
 import uvicorn
 from typing import Optional, List
 
@@ -160,7 +161,7 @@ async def define_theme_ratings(user_id: str, theme: schemas.CreateTheme, db: Ses
     return theme_ratings
 
 # update theme
-@app_v1.put("/users/{user_id}/themes", response_model = schemas.User, tags=["Themes"])
+@app_v1.put("/users/{user_id}/themes", response_model = schemas.Theme, tags=["Themes"])
 async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = Depends(get_db)):
     #db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
@@ -176,8 +177,8 @@ async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = 
     db.execute(stmt)
     db.commit()
     db.refresh(db_theme)
-
-    return db_theme
+    returned_theme = jsonable_encoder(db_theme)
+    return returned_theme
 
 ## RATINGS
 @app_v1.post("/users/{user_id}/themes/ratings/{rating}", tags=["Ratings"])
@@ -297,7 +298,7 @@ async def update_daily_puzzles(user_id: str, puzzles: List[schemas.CreateDailyPu
     # if db_user is None:
     #     return None
 
-    db_daily = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).all()
+    db_daily = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).first()
 
     if db_daily is None:
         return None
@@ -307,7 +308,9 @@ async def update_daily_puzzles(user_id: str, puzzles: List[schemas.CreateDailyPu
         db.execute(stmt)
         db.commit()
     
-    db.refresh(db_daily)
+    db_daily = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).all()
+
+    
     return db_daily
 
 # remove daily puzzle

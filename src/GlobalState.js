@@ -42,9 +42,13 @@ const UserProvider = ({ children }) => {
         let response = await get(endpoint);
 
         let user =  {...response};
-        let excluded = ['themes', "openings", "daily_puzzles"];
-        delete user[excluded];
-        
+
+        delete user.themes;
+        delete user.openings;
+        delete user.daily_puzzles;
+        delete user.id;
+
+        console.log(user);
         setUserId(auth.userId);
         setUserData(user);
         setThemesData(response.themes);
@@ -54,9 +58,10 @@ const UserProvider = ({ children }) => {
 
     const updateUserData = async (data) => { 
         setLoading(() => true);
+        console.log({oldData: userData, newData: data});
         let endpoint = `/users/${auth.userId}`; 
         let response = await put(endpoint, data);
-
+        console.log({response: response})
         setUserData(response);
         setLoading(() => false);
     }
@@ -147,10 +152,10 @@ const UserProvider = ({ children }) => {
 
     const updateDailyModules = async (data) => { 
         setLoading(() => true);
-        
+        console.log({oldData: dailyModules, newData: data});
         let endpoint = `/users/${auth.userId}/daily_puzzles`; 
         let response = await put(endpoint, data);
-
+        console.log({dailyResponse: response});
         setDailyModules(response);
         setLoading(() => false);
     }
