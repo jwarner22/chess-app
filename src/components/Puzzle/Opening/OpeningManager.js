@@ -22,12 +22,13 @@ export default function OpeningManager(props) {
     const [completedTraining, setCompletedTraining] = useState(false);
     
     // hooks
-    const {userId, openings, updateOpenings, updateDailyModules, userData, updateUserData, updateAchievements} = useContext(UserContext)
+    const {userId, openings, updateOpenings, dailyModules, updateDailyModules, userData, updateUserData, updateAchievements} = useContext(UserContext)
     const analytics = getAnalytics();
 
     // from props
     const openingData = props.location.state.module;
     const schemaPicks = props.location.state.schemaPicks;
+    const location = props.location.state.location;
     const isDaily = props.location.state.isDaily;
 
     const togglePrePuzzleCallback = (color) => {
@@ -99,23 +100,34 @@ export default function OpeningManager(props) {
     // update daily module
     const putDailyModules = async () => {
         
-        const mutatedPuzzles = schemaPicks.map(puzzle => {
-          if (puzzle.theme_id === openingData.id) {
-            return {...puzzle, completed: true, locked: false}
-          } 
-          return puzzle
-        })
+      let mutatedPuzzles = [...dailyModules]
+
+      mutatedPuzzles = mutatedPuzzles.map(module => {
+        if (module.location === location) {
+          module.completed = true;
+        } else if (module.location === location + 1) { 
+          module.locked = false;
+        }
+        return module;
+      })
+
+        // const mutatedPuzzles = schemaPicks.map(puzzle => {
+        //   if (puzzle.theme_id === openingData.id) {
+        //     return {...puzzle, completed: true, locked: false}
+        //   } 
+        //   return puzzle
+        // })
         
-        // find module index
-        const thisIndex = mutatedPuzzles.findIndex(puzzle => puzzle.theme_id === openingData.id)
+        // // find module index
+        // const thisIndex = mutatedPuzzles.findIndex(puzzle => puzzle.theme_id === openingData.id)
     
-        // unlocks next module
-        mutatedPuzzles.map(puzzle => {
-          if (puzzle.location === (mutatedPuzzles[thisIndex].location + 1)) {
-            return puzzle.locked = false;
-          } 
-          return puzzle
-        })
+        // // unlocks next module
+        // mutatedPuzzles.map(puzzle => {
+        //   if (puzzle.location === (mutatedPuzzles[thisIndex].location + 1)) {
+        //     return puzzle.locked = false;
+        //   } 
+        //   return puzzle
+        // })
 
 
         // check for completed daily training

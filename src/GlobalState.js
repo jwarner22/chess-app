@@ -78,7 +78,7 @@ const UserProvider = ({ children }) => {
             return theme;
         });
 
-        setThemesData(response);
+        setThemesData(newThemes);
         setLoading(() => false);
     }
 
