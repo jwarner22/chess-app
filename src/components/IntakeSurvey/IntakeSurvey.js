@@ -28,9 +28,10 @@ const IntakeOption = (props) => {
     )
 }
 
-const IntakeSurvey = () => {
+const IntakeSurvey = (props) => {
     const options = ["Beginner", "Novice", "Intermediate", "Expert", "Master"]
     const [windowDimension, setWindowDimension] = useState(null);
+    const userId = props.location.state.userId;
 
     useEffect(() => {
       setWindowDimension(window.innerWidth);
@@ -56,7 +57,7 @@ const IntakeSurvey = () => {
                 <SurveyAnswerGrid>
                         {options.map((option, index) => {
                             return(
-                                <AnswerLink key={index} to={{pathname: "/create-user", state: {index: index}}}>
+                                <AnswerLink key={index} to={{pathname: "/create-user", state: {index: index, userId: userId}}}>
                                 <IntakeOption text={option} />
                                 </AnswerLink>
                             )

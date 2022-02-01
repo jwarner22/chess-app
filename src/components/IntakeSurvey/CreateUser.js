@@ -6,6 +6,8 @@ import { baseURL } from '../api/apiConfig';
 
 const CreateUser = (props) => {
     const index = props.location.state.index;
+    let userId = props.location.state.userId;
+
     const ratings = [800,1000,1200,1400,1600];
     const {post} = useFetch(baseURL);
     const history = useHistory();
@@ -15,13 +17,12 @@ const CreateUser = (props) => {
     },[])
 
     // post new user to API
-    const createNewUser = () => {
-        let userID = localStorage.getItem('userID');
+    const createNewUser = (props) => {
         let rating = ratings[index];
         let currentDateTime = new Date().toString()
         
         post('/users', {
-            user_id: `${userID}`,
+            user_id: `${userId}`,
             overall_rating: rating,
             inserted_at: currentDateTime,
             total_score: 0,
@@ -29,7 +30,7 @@ const CreateUser = (props) => {
             puzzles_correct: 0,
             initial_rating: rating
         }).then(data => {
-            history.push('/username')
+            history.push({pathname: '/username', state: {userId: userId}});
         })
     }
 

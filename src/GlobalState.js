@@ -23,16 +23,17 @@ const UserProvider = ({ children }) => {
 
     useEffect(() => {
         if (auth.currentUser) {
-            setLoading(() => true);
-            fetchAllUserData();
-            fetchAchievements();
-            //fetchDailyModules();
-            //fetchThemesData();
-            //fetchUserData();
+            updateGlobalState();
             setIsMounted(true);
         }
-        
     },[auth.userId]);
+
+    const updateGlobalState = async () => {
+        setLoading(() => true);
+        await fetchAllUserData();
+        await fetchAchievements();
+        setLoading(() => false);
+    }
 
     // USER DATA
     const fetchAllUserData = async () => {
@@ -203,7 +204,7 @@ const UserProvider = ({ children }) => {
     }
 
     return (
-      <UserContext.Provider value={{userId, contextLoading: loading, userData, updateUserData, achievements, updateAchievements, openings, updateOpenings, themesData, updateThemesData, dailyModules, updateDailyModules}}>
+      <UserContext.Provider value={{updateGlobalState, userId, contextLoading: loading, userData, updateUserData, achievements, updateAchievements, openings, updateOpenings, themesData, updateThemesData, dailyModules, updateDailyModules}}>
         {children}
       </UserContext.Provider>
     );

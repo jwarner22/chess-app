@@ -53,7 +53,7 @@ class DailyPuzzle(BaseModel):
     completed: bool
     locked: bool
     inserted_at: str
-    expiration: str
+    expiration: Optional[str] = None
     owner_id: str
     alt_id: Optional[int] = None
     alt_title: Optional[str] = None
