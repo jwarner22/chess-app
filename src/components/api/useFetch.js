@@ -23,23 +23,7 @@ export default function useFetch(baseUrl) {
                 alert('not authenticated')
             }
         }
-    }
-
-        // let idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-        //       // store for later use  
-        //       sessionStorage.setItem('access_token', idToken)
-        //       sessionStorage.setItem('access_timeout', now.toString())
-        //       // pass this id token in headers
-        //       return idToken;
-
-        //   }).catch(function(error) {
-        //   // handle error
-        //   alert('not authenticated')
-        //   return
-        // })
-        // return idToken
-    
-    
+    }    
 
     async function get(url) {
 
