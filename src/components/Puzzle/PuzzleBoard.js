@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
 
-export default function PlayRandomMoveEngine(props) {
+export default function PuzzleBoard(props) {
   const [game, setGame] = useState(new Chess());
   const [piece, setPiece] = useState("");
   const [pieceSquare, setPieceSquare] = useState("");

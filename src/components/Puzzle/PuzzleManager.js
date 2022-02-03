@@ -4,7 +4,7 @@ import Board from "./chessboard.js";
 // should be replaced with props
 let initialMoves = ["e2e4", "e7e5", "g1f3", "b8c6", "f1b5"];
 
-export default function App() {
+export default function PuzzleManager() {
   const [history, setHistory] = useState([]);
   const [correctMove, setCorrectMove] = useState(initialMoves[0]);
   const [opposingMove, setOpposingMove] = useState(initialMoves[1]);
