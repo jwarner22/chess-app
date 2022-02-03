@@ -42,9 +42,9 @@ const Lives = (props) => {
         <>
         <LivesWrapper>
             <LivesGrid>
-                <LivesImg isMobile={props.isMobile} src={lifeOne ? heartIcon : xIcon}/>
-                <LivesImg isMobile={props.isMobile} src={lifeTwo ? heartIcon : xIcon}/>
-                <LivesImg isMobile={props.isMobile} src={lifeThree ? heartIcon : xIcon}/>
+                <LivesImg isMobile={props.isMobile} src={lifeOne ? heartIcon.img : xIcon.img}/>
+                <LivesImg isMobile={props.isMobile} src={lifeTwo ? heartIcon.img : xIcon.img}/>
+                <LivesImg isMobile={props.isMobile} src={lifeThree ? heartIcon.img : xIcon.img}/>
                 {/* <LifeOne>{lifeOne ? <LivesImg isMobile={props.isMobile} src={livesIcon}/> : <LivesImg isMobile={props.isMobile} src={lostLife}/>}</LifeOne>
                 <LifeTwo>{lifeTwo ? <LivesImg isMobile={props.isMobile} src={livesIcon}/> : <LivesImg isMobile={props.isMobile} src={lostLife}/>}</LifeTwo>
                 <LifeThree>

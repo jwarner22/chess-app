@@ -7,6 +7,10 @@ import { TiArrowBackOutline } from "react-icons/ti";
 import { AiOutlineRedo } from "react-icons/ai";
 import { GrFormNextLink, GrNext } from "react-icons/gr";
 import { GiCheckMark } from "react-icons/gi";
+import { FaPlay } from "react-icons/fa";
+import { BsPlay, BsFillReplyFill } from "react-icons/bs";
+import {ReactComponent as Retry} from "../../../Images/retry.svg"
+import {ReactComponent as Next} from "../../../Images/right-arrow.svg"
 import { MobileNavbarItem, 
     MobileNavbarItems, 
     MobileNavbarWrapper, 
@@ -39,14 +43,16 @@ const PuzzleNav = (props) => {
                     <BackButtonArrow onClick={() => handleClick()}>Back</BackButtonArrow>
                 </BackButtonWrapper>
                     <RetryButtonLink props={props} onClick={props.onRetryClick} disabled={props.retryDisable}>
-                        <RetryIcon>
-                            Redo
-                        </RetryIcon>
+                        <RetryIcon props={props}/>
+                            <RetryButtonSpan props={props}>
+                                Retry
+                            </RetryButtonSpan>
                     </RetryButtonLink>
                     <NextButtonLink props= {props} onClick={props.onContinueClick} disabled={props.disabled}>
-                        <NextIcon props={props}>
+                        <NextIcon props={props} />
+                        <NextButtonSpan props={props}>
                             Next
-                        </NextIcon>
+                        </NextButtonSpan>
                     </NextButtonLink>
             </PuzzleNavContainer>
         </MobileNavbarWrapper>
@@ -69,7 +75,7 @@ const PuzzleNavContainer = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     padding-bottom: 16px;
 
@@ -81,20 +87,25 @@ export const NavBtn = styled.nav `
 
 const NextButtonLink = styled.button`
     border-radius: 16px;
-    background: ${({props}) => ((props.disabled) ? 'transparent' : 'green')};
+    background: ${({props}) => ((props.disabled) ? 'transparent' : 'rgba(41,204,125)')};
     white-space: nowrap;
-    padding: 16px 16px;
-    font-size: 22px;
+    padding: 8px 16px;
     outline: none;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    min-width: 40px;
-    font-weight: 700;
-    width: 60%;
-    /* border: 2px solid black */
-`;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const NextButtonSpan = styled.span`
+    color: ${({props}) => ((props.disabled) ? 'null' : 'white')};
+    display: ${({props}) => ((props.disabled) ? 'none' : 'inline-block')};
+    font-size: 12px;
+    transition: all 0.2s ease-in-out;
+`
 // don't need hover with conditional styling
 // &:hover {
 //     transition: all 0.2s ease-in-out;
@@ -104,20 +115,27 @@ const NextButtonLink = styled.button`
 
 const RetryButtonLink = styled.button`
     border-radius: 16px;
-    background: ${({props}) => ((props.retryDisable) ? 'transparent' : 'red')};
+    background: ${({props}) => ((props.retryDisable) ? 'transparent' : 'rgb(253, 83, 72)')};
     white-space: nowrap;
-    padding: 16px 16px;
+    padding: 8px 16px;
     color: #000;
-    font-size: 22px;
     outline: none;
     border: ${({props}) => ((props.retryDisable) ? '2px solid rgba(255, 255, 255, 0.4)' : '2px solid #fff')};
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    text-decoration: none;
-    min-width: 120px;
-    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     /* border: 2px solid black */
 `
+
+const RetryButtonSpan = styled.span`
+    color: ${({props}) => ((props.retryDisable) ? 'null' : 'white')};
+    display: ${({props}) => ((props.retryDisable) ? 'none' : 'inline-block')};
+    font-size: 12px;
+    transition: all 0.2s ease-in-out;
+`
+
 
 const BackButtonWrapper = styled.div`
     border-radius: 16px;
@@ -129,26 +147,28 @@ const BackButtonWrapper = styled.div`
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    min-width: 120px;
     font-weight: 700;
     text-align: center;
 `
 
-const BackButtonArrow = styled(TiArrowBackOutline)`
-    fill: #9CA1BC;
+const BackButtonArrow = styled(BsFillReplyFill)`
+    fill: #242424;
     width: 32px;
     height: 32px;
+    transform: scaleX(-1);
 `
 
-const RetryIcon = styled(AiOutlineRedo)`
-    fill: #C4C5D4;
+const RetryIcon = styled(Retry)`
+    fill: ${({props}) => ((props.disabled) ? '#C4C5D4' : '#fff')};
     width: 32px;
     height: 32px;
+    transition: all 0.2s ease-in-out;
 `
 
-const NextIcon = styled(GiCheckMark)`
+const NextIcon = styled(Next)`
     fill: ${({props}) => ((props.disabled) ? '#C4C5D4' : '#fff')};
     width: 32px;
     height: 32px;
     stroke: none;
+    transition: all 0.2s ease-in-out;
 `

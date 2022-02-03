@@ -205,9 +205,6 @@ export default function PuzzlePage(props) {
       <PuzzlePageContainer>
         {isMobile ? (<>
             <MobilePuzzleWrapper>
-              <BackButtonWrapper>
-                <BackButton />
-              </BackButtonWrapper>
               <MobileHeaderContainer>
                   <Header>{title}</Header>
                 </MobileHeaderContainer>
@@ -242,9 +239,6 @@ export default function PuzzlePage(props) {
                 </MobilePuzzleWrapper>
           </>) : (
           <>
-      <BackButtonWrapper>
-                <BackButton />
-              </BackButtonWrapper>
         <PuzzlePageWrapper>
           <PuzzlePageGrid>
             <PuzzleBoardContainer>
