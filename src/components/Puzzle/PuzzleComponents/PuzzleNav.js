@@ -5,8 +5,12 @@ import {useHistory} from "react-router-dom"
 import swal from 'sweetalert';
 import { TiArrowBackOutline } from "react-icons/ti";
 import { AiOutlineRedo } from "react-icons/ai";
-import { GrFormNextLink } from "react-icons/gr";
-import { MobileNavbarItem, MobileNavbarItems, MobileNavbarWrapper, MobileNavLink } from '../../PostLogin/MobileNavBar/MobileNabarElements'
+import { GrFormNextLink, GrNext } from "react-icons/gr";
+import { GiCheckMark } from "react-icons/gi";
+import { MobileNavbarItem, 
+    MobileNavbarItems, 
+    MobileNavbarWrapper, 
+    MobileNavLink } from '../../PostLogin/MobileNavBar/MobileNabarElements'
 
 
 const PuzzleNav = (props) => {
@@ -30,23 +34,21 @@ const PuzzleNav = (props) => {
 
     return (
         <MobileNavbarWrapper>
-            <PuzzleNavbarItems>
             <PuzzleNavContainer>
                 <BackButtonWrapper>
-                    <TiArrowBackOutline size={32} onClick={() => handleClick()}>Back</TiArrowBackOutline>
+                    <BackButtonArrow onClick={() => handleClick()}>Back</BackButtonArrow>
                 </BackButtonWrapper>
                     <RetryButtonLink props={props} onClick={props.onRetryClick} disabled={props.retryDisable}>
-                        <AiOutlineRedo size={32}>
+                        <RetryIcon>
                             Redo
-                        </AiOutlineRedo>
+                        </RetryIcon>
                     </RetryButtonLink>
                     <NextButtonLink props= {props} onClick={props.onContinueClick} disabled={props.disabled}>
-                        <GrFormNextLink size={32}>
+                        <NextIcon props={props}>
                             Next
-                        </GrFormNextLink>
+                        </NextIcon>
                     </NextButtonLink>
             </PuzzleNavContainer>
-            </PuzzleNavbarItems>
         </MobileNavbarWrapper>
     )
 }
@@ -67,7 +69,7 @@ const PuzzleNavContainer = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     padding-bottom: 16px;
 
@@ -79,18 +81,18 @@ export const NavBtn = styled.nav `
 
 const NextButtonLink = styled.button`
     border-radius: 16px;
-    background: ${({props}) => ((props.disabled) ? 'transparent' : 'green')};;
+    background: ${({props}) => ((props.disabled) ? 'transparent' : 'green')};
     white-space: nowrap;
     padding: 16px 16px;
-    color: #247cf1;
     font-size: 22px;
     outline: none;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
-    min-width: 120px;
+    min-width: 40px;
     font-weight: 700;
+    width: 60%;
     /* border: 2px solid black */
 `;
 // don't need hover with conditional styling
@@ -130,4 +132,23 @@ const BackButtonWrapper = styled.div`
     min-width: 120px;
     font-weight: 700;
     text-align: center;
+`
+
+const BackButtonArrow = styled(TiArrowBackOutline)`
+    fill: #9CA1BC;
+    width: 32px;
+    height: 32px;
+`
+
+const RetryIcon = styled(AiOutlineRedo)`
+    fill: #C4C5D4;
+    width: 32px;
+    height: 32px;
+`
+
+const NextIcon = styled(GiCheckMark)`
+    fill: ${({props}) => ((props.disabled) ? '#C4C5D4' : '#fff')};
+    width: 32px;
+    height: 32px;
+    stroke: none;
 `
