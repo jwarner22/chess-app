@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {TileWrapper, 
     TileHeadline, 
@@ -10,29 +9,13 @@ import {TileWrapper,
     TileButtonWrap
 } from "./CourseTileElements";
 
+import {useWindowSize} from '../../../../Hooks/UseWindowSize';
 
 function CourseTile(props){
+    const windowSize = useWindowSize();
+    const isMobile = windowSize[0] <= 640;
 
-    const [windowDimension, setWindowDimension] = useState(null);
-  //const [openModal, setOpenModal] = useState(false)
-  const {headline, subheading, img} = props
-
-//   function handleOpenModal() {
-//       setOpenModal(prev => !prev)
-//   }
-
-  useEffect(() => {
-    setWindowDimension(window.innerWidth);
-  }, []);
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimension(window.innerWidth);
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    const {headline, subheading, img} = props
 
   const TileContent = () => { 
     return (
@@ -50,8 +33,6 @@ function CourseTile(props){
     )
     }
 
-
-  const isMobile = windowDimension <= 640;  
 
     return (
         <>
