@@ -30,15 +30,21 @@ const Lives = (props) => {
         }
     }, [lives])
 
-
+    const heartIcon = {
+        img: require('../../../../Images/heart.svg').default
+    }
+    
+      const xIcon = {
+        img: require('../../../../Images/close.svg').default
+      }
 
     return (
         <>
         <LivesWrapper>
             <LivesGrid>
-                <LivesImg isMobile={props.isMobile} src={lifeOne ? livesIcon : lostLife}/>
-                <LivesImg isMobile={props.isMobile} src={lifeTwo ? livesIcon : lostLife}/>
-                <LivesImg isMobile={props.isMobile} src={lifeThree ? livesIcon : lostLife}/>
+                <LivesImg isMobile={props.isMobile} src={lifeOne ? heartIcon : xIcon}/>
+                <LivesImg isMobile={props.isMobile} src={lifeTwo ? heartIcon : xIcon}/>
+                <LivesImg isMobile={props.isMobile} src={lifeThree ? heartIcon : xIcon}/>
                 {/* <LifeOne>{lifeOne ? <LivesImg isMobile={props.isMobile} src={livesIcon}/> : <LivesImg isMobile={props.isMobile} src={lostLife}/>}</LifeOne>
                 <LifeTwo>{lifeTwo ? <LivesImg isMobile={props.isMobile} src={livesIcon}/> : <LivesImg isMobile={props.isMobile} src={lostLife}/>}</LifeTwo>
                 <LifeThree>

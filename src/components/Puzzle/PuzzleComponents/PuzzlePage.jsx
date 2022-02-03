@@ -199,6 +199,7 @@ export default function PuzzlePage(props) {
     setMoveColor(color)
   }
 
+
   return (
     <div>
       <PuzzlePageContainer>
