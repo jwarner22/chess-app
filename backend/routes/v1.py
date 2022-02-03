@@ -5,6 +5,7 @@ from sqlalchemy.sql.sqltypes import Boolean
 from starlette.status import HTTP_401_UNAUTHORIZED
 from utlities.security import check_token
 from fastapi import FastAPI, Depends, HTTPException, APIRouter
+from fastapi.encoders import jsonable_encoder
 import uvicorn
 from typing import Optional, List
 
@@ -30,13 +31,6 @@ origins = [
     "http://localhost:3000",
 ]
 
-# app_v1.middleware(
-#     CORSMiddleware,
-#     allow_origins=origins,
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
 
 models.Base.metadata.create_all(engine_remote)
 models.Base.metadata.create_all(engine_local)
@@ -160,13 +154,9 @@ async def define_theme_ratings(user_id: str, theme: schemas.CreateTheme, db: Ses
     return theme_ratings
 
 # update theme
-@app_v1.put("/users/{user_id}/themes", response_model = schemas.User, tags=["Themes"])
+@app_v1.put("/users/{user_id}/themes", response_model = schemas.Theme, tags=["Themes"])
 async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = Depends(get_db)):
-    #db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
-    # if db_user is None:
-    #      return None
-    
     db_theme = db.query(models.Theme).filter(models.Theme.title == theme.title, models.Theme.owner_id==user_id).one_or_none()
     
     if db_theme is None:
@@ -176,8 +166,8 @@ async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = 
     db.execute(stmt)
     db.commit()
     db.refresh(db_theme)
-
-    return db_theme
+    returned_theme = jsonable_encoder(db_theme)
+    return returned_theme
 
 ## RATINGS
 @app_v1.post("/users/{user_id}/themes/ratings/{rating}", tags=["Ratings"])
@@ -267,8 +257,6 @@ async def get_daily_modules(user_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="daily puzzles not found")
     elif daily_puzzles[0].expiration is None: # check if daily puzzles aexpiration date has been set
         raise HTTPException(status_code=404, detail="daily puzzles expired")
-    # elif daily_puzzles[0].expiration < datetime.now(): # check if daily puzzles have expired
-    #     raise HTTPException(status_code=489, detail="daily puzzles expired")
 
     return daily_puzzles
 
@@ -292,12 +280,8 @@ async def create_daily_puzzles( user_id: str, puzzles: List[schemas.CreateDailyP
 # update user daily puzzles
 @app_v1.put("/users/{user_id}/daily_puzzles", tags=["Daily"])
 async def update_daily_puzzles(user_id: str, puzzles: List[schemas.CreateDailyPuzzle], db: Session = Depends(get_db)):
-    # db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
-    # if db_user is None:
-    #     return None
-
-    db_daily = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).all()
+    db_daily = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).first()
 
     if db_daily is None:
         return None
@@ -307,7 +291,9 @@ async def update_daily_puzzles(user_id: str, puzzles: List[schemas.CreateDailyPu
         db.execute(stmt)
         db.commit()
     
-    db.refresh(db_daily)
+    db_daily = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).all()
+
+    
     return db_daily
 
 # remove daily puzzle
@@ -393,11 +379,7 @@ async def add_opening(user_id: str, opening_id: str, opening: schemas.OpeningCre
 # update user opening data
 @app_v1.put('/openings/{user_id}/{opening_id}', tags=["Openings"])
 async def update_opening(user_id: str, opening_id: int, opening: schemas.Opening, db: Session = Depends(get_db)):
-    # db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
-    # if db_user is None:
-    #      return None
-    
     db_opening= db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
     
     if db_opening is None:

@@ -53,7 +53,7 @@ class DailyPuzzle(BaseModel):
     completed: bool
     locked: bool
     inserted_at: str
-    expiration: str
+    expiration: Optional[str] = None
     owner_id: str
     alt_id: Optional[int] = None
     alt_title: Optional[str] = None
@@ -111,7 +111,6 @@ class UserCreate(UserBase):
 
 
 class UserProfile(UserBase):
-    user_id: str
     overall_rating: int
     inserted_at: str
     total_score: Optional[int] = 0
@@ -186,6 +185,7 @@ class OpeningRating(BaseModel):
 
 class User(UserBase):
     id: int
+    inserted_at: str
     overall_rating: Optional[int] = 1200
     total_score: int
     puzzles_completed: Optional[int] = 0

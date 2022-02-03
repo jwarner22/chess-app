@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import styled from "styled-components"
 import {withRouter} from 'react-router-dom';
 import swal from 'sweetalert';
 import useFetch from '../../api/useFetch';
 import { baseURL } from '../../api/apiConfig';
 import {Container, Form, FormButton, FormH1, FormInput, FormLabel} from "../../Login/LoginElements"
+import {UserContext} from '../../../GlobalState';
+
 
 const ENTER_KEY = 13;
 const WAIT_INTERVAL = 1000;
@@ -15,6 +17,8 @@ const UserName = ({history}) => {
     const [message, setMessage] = useState(''); //message to display
     const [timer, setTimer] = useState(null); //timer for input
     const {get, post} = useFetch(baseURL);
+    const {updateGlobalState} = useContext(UserContext);
+    const userId = history.location.state.userId;
 
     useEffect(() => {
         if (confirmation) {
@@ -59,10 +63,7 @@ const UserName = ({history}) => {
     }
 
     const triggerChange = async (e) => {
-        // api call to check if username is valid
-
-        // get user id from local storage
-        let userID = localStorage.getItem('userID');
+        // api call to check if username is valid        
 
         // check that username is available
         let confirmation_response = await getUserNameValidation(value);
@@ -70,10 +71,11 @@ const UserName = ({history}) => {
         if (confirmation_response) {
             try {
                 // post username to database
-                const response = await post(`/users/username/${userID}/${value}`)
+                const response = await post(`/users/username/${userId}/${value}`)
 
                 // pessimistic checks
                 if (response === 'username successfully updated') {
+                    await updateGlobalState();
                     history.push('/home/daily')
                 } else if (response === 'username already exists') {
                     swal('Username already exists')

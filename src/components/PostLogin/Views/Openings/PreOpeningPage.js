@@ -1,56 +1,28 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import PrePuzzleHeader from "./OpeningComponents/PrePuzzleHeader"
-import { 
-PreOpeningPageContainer } from './PreOpeningsPageElements';
+import {PreOpeningPageContainer } from './PreOpeningsPageElements';
 import PrePuzzleTile from './OpeningComponents/PrePuzzleTiles';
-import useFetch from '../../../api/useFetch';
-import {baseURL} from '../../../api/apiConfig';
-import { PageContainer } from '../../../UI_Kit/Page';
-import InfoBox from '../../../UI_Kit/InfoBox/InfoBox';
+import InfoBox from "../../../UI_Kit/InfoBox/InfoBox"
+import {PageContainer} from "../../../UI_Kit/Page"
 
+import {UserContext} from '../../../../GlobalState'; // context
 
 const PreOpeningPage = (props) => {
-    //const img = Modules[3].img;
     const {openingData, togglePrePuzzleCallback} = props;
-    const {get, post} = useFetch(baseURL);
     const [loaded, setLoaded] = useState(false);
     const [userOpeningData, setUserOpeningData] = useState({});
+
+    const {openings} = useContext(UserContext);
 
     function handleStartButtonClick(color) {
         togglePrePuzzleCallback(color)
     }
 
     useEffect(() => {
-        const userId = localStorage.getItem('userID')
-        fetchUserOpeningData(userId);
-    },[])
-
-    const fetchUserOpeningData = async (userId) => {
-        let openingId = openingData.id;
-        try {
-            const data = await get(`/openings/${userId}/${openingId}`);
-            if (data.detail === 'opening not found') {
-                const initialData = {
-                    opening_id: openingId,
-                    opening_name: openingData.headline,
-                    owner_id: userId,
-                    completed: 0,
-                    high_score: 0,
-                    score_history: '0,0,0,0,0,0,0'
-                }
-                await post(`/openings/${userId}/${openingId}`, initialData);
-                sessionStorage.setItem('userOpeningData', JSON.stringify(initialData));
-                setUserOpeningData(initialData);
-            } else {
-                setUserOpeningData(data);
-                sessionStorage.setItem('userOpeningData', JSON.stringify(data));
-            }
-
-        } catch (error) {
-            console.log(error);
-        }
+        let opening = openings.find(opening => parseInt(opening.opening_id) === openingData.id);
+        setUserOpeningData(opening);
         setLoaded(true);
-    }
+    },[])
 
     if (loaded) {
     return (

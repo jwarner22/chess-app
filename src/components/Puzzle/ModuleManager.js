@@ -117,11 +117,17 @@ export default function Puzzle(props) {
   const updateDailyPuzzles = async () => {
     
     let mutatedPuzzles = [...dailyModules]
-    mutatedPuzzles[location].completed = true;
-    mutatedPuzzles[location].title = theme;
-    mutatedPuzzles[location].theme_id = id;
 
-    if (location < mutatedPuzzles.length - 1) mutatedPuzzles[location+1].locked = false;
+    mutatedPuzzles = mutatedPuzzles.map(module => {
+      if (module.location === location) {
+        module.completed = true;
+        module.title = theme;
+        module.theme_id = id;
+      } else if (module.location === location + 1) { 
+        module.locked = false;
+      }
+      return module;
+    })
 
     if (mutatedPuzzles.every(puzzle => puzzle.completed === true)) {
       // record daily training completion => firebase
@@ -145,7 +151,7 @@ export default function Puzzle(props) {
       }
       setCompletedTraining(true);
     }
-
+    // console.log({newDailyModules: mutatedPuzzles})
     return mutatedPuzzles
   }
 

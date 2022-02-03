@@ -86,10 +86,12 @@ export default function DailyPuzzzle() {
   if (!screenTimer) {
     return (
       <>
+        <DailyPuzzleContainer>
         <DailyPuzzleHeaderImg src={headerImg}/>
         <DailyPuzzleTitle>
           Generating Today's Training...
         </DailyPuzzleTitle>
+        </DailyPuzzleContainer>
       </>
     )
   }

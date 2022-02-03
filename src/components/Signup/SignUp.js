@@ -55,11 +55,8 @@ const SignUp = ({history}) => {
         .createUserWithEmailAndPassword(email, password)
         .then(res => {
           if (res.user) {
-            let userID = res.user.uid;
-            console.log({res:res})
-            localStorage.setItem('userID', userID)
-            history.push('/survey')
-            }
+            let userId = res.user.uid;
+            history.push({pathname: '/survey', state: {userId: userId}});            }
         })
         .catch(e => {
           setErrors(e.message);
@@ -80,9 +77,8 @@ const SignUp = ({history}) => {
         .signInWithPopup(provider)
         .then(res => {
           if (res.user) {
-          let userID = res.user.uid;
-          localStorage.setItem('userID', userID)
-          history.push('/survey')
+          let userId = res.user.uid;
+          history.push({pathname: '/survey', state: {userId: userId}});
           }
           //Auth.setLoggedIn(true)
           //setUserData(result)
