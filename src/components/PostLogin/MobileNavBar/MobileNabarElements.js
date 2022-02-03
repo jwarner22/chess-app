@@ -31,6 +31,7 @@ export const MobileNavbarWrapper = styled.ul`
     align-items: center;
     height: 70px;
     padding: 0 12px;
+    max-width: 784px;
 `
 // export const MobileNavbarItems = styled.ul`
 //     display: grid;
