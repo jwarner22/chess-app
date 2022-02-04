@@ -8,16 +8,18 @@ export const wait = (milliseconds) => {
 
 export const getMoves = (moves) => {
   let moveCouples = moves.split(" ");
-  let moveArray = [];
-  let move1;
-  let move2;
-  moveCouples.forEach((move) => {
-    move1 = move.substring(0, 2);
-    move2 = move.substring(2);
-    moveArray.push(move1);
-    moveArray.push(move2);
-  });
-  return moveArray;
+  console.log('got moves')
+  // let moveArray = [];
+  // let move1;
+  // let move2;
+  // console.log({ moveCouples: moveCouples });
+  // moveCouples.forEach((move) => {
+  //   move1 = move.substring(0, 2);
+  //   move2 = move.substring(2);
+  //   moveArray.push(move1);
+  //   moveArray.push(move2);
+  // });
+  return moveCouples;
 };
 
 export const getOpeningMoves = (moves) => {

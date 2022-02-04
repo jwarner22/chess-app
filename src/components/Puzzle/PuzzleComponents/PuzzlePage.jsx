@@ -1,23 +1,27 @@
 import React, { useState, useEffect} from "react";
-// import {Link} from 'react-router-dom';
-import PuzzleBoard from "./PuzzleBoard";
+
+//import PuzzleBoard from "./PuzzleBoard";
+import PuzzleBoard from "../PuzzleManager.js";
 import ProgressBar from "../Utilities/Progress";
 
-// import Swal from "sweetalert2";
 import {getMoves, wait} from '../Utilities/helpers.js';
 import confirmationSoundFile from "../../../assets/public_sound_standard_Confirmation.mp3";
 import errorSoundFile from "../../../assets/public_sound_standard_Error.mp3";
-import buttonSoundFile from "../../../assets/click_005.ogg";
+//import buttonSoundFile from "../../../assets/click_005.ogg";
 import {Howl} from 'howler';
 import PuzzleNav from "./PuzzleNav"
 import styled from "styled-components"
 import {Modules} from "../../PostLogin/Views/PatternRecognition/CourseTiles/Data"
-import PromotionalModal from "../../PostLogin/PromotionModal/PromotionalModal"
-import BackButton from "../../BackButton"
 import BlackIndicator from "./TurnIndicator/BlackIndicator"
 import WhiteIndicator from "./TurnIndicator/WhiteIndicator"
-import {BackButtonWrapper} from "../Utilities/Progress"
 import Lives from "./Lives/Lives"
+
+// import PromotionalModal from "../../PostLogin/PromotionModal/PromotionalModal"
+// import BackButton from "../../BackButton"
+// import {BackButtonWrapper} from "../Utilities/Progress"
+
+// import useDebugInformation from "../../Hooks/useDebugInformation";
+// import useRenderCount from "../../Hooks/useRenderCount";
 
 import { 
   MobilePuzzleWrapper, 
@@ -37,7 +41,8 @@ const getModuleTitle = (name) => {
 }
 
 export default function PuzzlePage(props) {
-
+  // useDebugInformation(PuzzlePage, props);
+  // const renderCount = useRenderCount();
   const puzzleData = props.puzzles;
 
   const [moveColor, setMoveColor] = useState("")
@@ -49,9 +54,7 @@ export default function PuzzlePage(props) {
   const [waiting, setWaiting] = useState(false);
   const [retry, setRetry] = useState(false);
   const [retryDisable, setRetryDisable] = useState(true);
-  const [correctMoves, setCorrectMoves] = useState(
-    getMoves(puzzleData[0].moves)
-  );
+  const [correctMoves, setCorrectMoves] = useState(null);
   const [correct, setCorrect] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [promotion, setPromotion] = useState("x");
@@ -59,17 +62,32 @@ export default function PuzzlePage(props) {
   const [times, setTimes] = useState([]);
   const [toggleTimer, setToggleTimer] = useState(true)
   const [lives, setLives] = useState(3)
-
-  
-  const confirmationSound = new Howl({src: confirmationSoundFile})
-  const errorSound = new Howl({src: errorSoundFile})
-  const buttonSound = new Howl({src: buttonSoundFile})
+  const [confirmationSound, setConfirmationSound] = useState(null);
+  const [errorSound, setErrorSound] = useState(null);
+  const [boardKey, setBoardKey] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+  // const confirmationSound = new Howl({src: confirmationSoundFile})
+  // const errorSound = new Howl({src: errorSoundFile})
+  // const buttonSound = new Howl({src: buttonSoundFile})
 
   const windowDimensions = useWindowSize();
   const isMobile = windowDimensions[0] < 640;
 
   const title = getModuleTitle(props.theme)
 
+  // set instances and cleanup to avoid memory leaks
+  useEffect(() => {
+    setConfirmationSound(() => new Howl({src: confirmationSoundFile}));
+    setErrorSound(() => new Howl({src: errorSoundFile}));
+    setCorrectMoves(() => getMoves(puzzleData[0].moves));
+    setLoaded(true);
+    return () => {
+      // confirmationSound.unload();
+      // errorSound.unload();
+      setConfirmationSound(() => null);
+      setErrorSound(() => null);
+    }
+  } , [])
 
   useEffect(() => {
     // checks if user has missed 4 puzzles - if so route to fialure screen
@@ -119,17 +137,20 @@ export default function PuzzlePage(props) {
 
   const playSound = (sound) => {
     if (sound === "confirmation") {
-      return confirmationSound.play();
+      confirmationSound.play();
     } else if (sound === "error") {
-      return errorSound.play();
+      errorSound.play();
     } else  if (sound === "button") {
       //return buttonSound.play();
     }
+    return null;
   }
 
   const displayOutcome = async (success) => {
     // end puzzle timer here
     setToggleTimer(prev => !prev)
+    console.log({displayedOutcome: success})
+    console.log({coutcome:outcomes})
     // play sound to indicate success or failure
     if (success) {
       playSound("confirmation");
@@ -175,41 +196,51 @@ export default function PuzzlePage(props) {
     setWaiting(false)
     setRetryDisable(true)
     setToggleTimer(prev => !prev)
+    setBoardKey(prev => prev + 1);
   }
 
   const handleRetryClick = async () => {
     //playSound("button")
-    setRetry(true)
+    setRetry(true);
     setFen(() => puzzleData[count].fen);
     setCorrectMoves(() => getMoves(puzzleData[count].moves));
     setRetryDisable(prev => !prev)
     setToggleTimer(prev => !prev)
-  }
-
-  const handlePromotion = () => {
-    setOpenModal(true)
-  }
-
-  const handlePromotionSelection = (e) => {
-    setPromotion(e)
-    setOpenModal(false)
+    setBoardKey(prev => prev + 1)
   }
 
   const moveIndicator = (color) => {
     setMoveColor(color)
   }
 
+  const handlePromotion = () => {
+    console.log('handle promotion')
+    setOpenModal(true)
+  }
+
+  // const handlePromotionSelection = (e) => {
+  //   setPromotion(e)
+  //   setOpenModal(false)
+  // }
+
+  if (!loaded) {
+    return (
+      <PuzzlePageContainer />
+    )
+  }
 
   return (
     <div>
       <PuzzlePageContainer>
+
         {isMobile ? (<>
             <MobilePuzzleWrapper>
               <MobileHeaderContainer>
                   <Header>{title}</Header>
                 </MobileHeaderContainer>
-                <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
+                {/* <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} /> */}
                   <PuzzleBoard
+                    key={boardKey}
                     fen={fen}
                     retry={retry}
                     correctMoves={correctMoves}
@@ -243,8 +274,9 @@ export default function PuzzlePage(props) {
           <PuzzlePageGrid>
             <PuzzleBoardContainer>
               <PuzzleBoardWrapper>
-                <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
+                {/* <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} /> */}
                   <PuzzleBoard
+                    key={boardKey}
                     fen={fen}
                     retry={retry}
                     correctMoves={correctMoves}
