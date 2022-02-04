@@ -54,13 +54,13 @@ export const MenuContent = styled.div`
     width: 100%;
 `
 
-export const MenuImg = styled.img`
+export const MenuImgWrapper = styled.div`
     width: 35%;
     padding-top: 8px;
 `
 
 export const MenuTitle = styled.span`
     font-size: 10px;
-    color: #010EFF;
+    color: ${(props) => props.textColor};
     padding: 8px 0;
 `

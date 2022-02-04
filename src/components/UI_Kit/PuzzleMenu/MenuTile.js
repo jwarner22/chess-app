@@ -7,7 +7,8 @@ import {
     MenuContent,
     MenuTitle,
     MenuImg,
-    TileWrapper
+    TileWrapper,
+    MenuImgWrapper
 } from './MenuTileElements'
 
 //add MenuWrapper and MenuGrid in the parent component
@@ -25,8 +26,8 @@ const MenuTile = (props) => {
                     offset={-160}
                             >
                     <MenuContent>
-                        <MenuImg src={props.tileImage}/>
-                        <MenuTitle>
+                            {props.children}
+                        <MenuTitle textColor={props.textColor}>
                             {props.categoryTitle}
                         </MenuTitle>
                     </MenuContent>

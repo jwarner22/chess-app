@@ -17,97 +17,97 @@ import tacticsImg from "../../../../../Images/TacticsIconBlue.svg"
 import checkmateImg from "../../../../../Images/checkmateIconBlue.svg"
 
 
-const Body = (props, {activeMenuTile, inactiveMenuTile}) => {
-    const [showEndgameTiles, setShowEngameTiles] = useState(true);
-    const [showTacticTiles, setShowTacticTiles] = useState(false);
-    const [showCheckmateTiles, setShowCheckmateTiles] = useState(false);
+// const Body = (props, {activeMenuTile, inactiveMenuTile}) => {
+//     const [showEndgameTiles, setShowEngameTiles] = useState(true);
+//     const [showTacticTiles, setShowTacticTiles] = useState(false);
+//     const [showCheckmateTiles, setShowCheckmateTiles] = useState(false);
 
-    function handleShowEngameTiles(){
-        if (showEndgameTiles === false) {
-            setShowEngameTiles(true)
+//     function handleShowEngameTiles(){
+//         if (showEndgameTiles === false) {
+//             setShowEngameTiles(true)
 
-        }
-    }
+//         }
+//     }
 
-    function handleShowTacticTiles(){
-        if (showTacticTiles === false) {
-            setShowTacticTiles(true)
-        }
-    }
+//     function handleShowTacticTiles(){
+//         if (showTacticTiles === false) {
+//             setShowTacticTiles(true)
+//         }
+//     }
 
-    function handleShowCheckmateTiles(){
-        if (showCheckmateTiles === false){
-            setShowCheckmateTiles(true)
-        } 
-    }
+//     function handleShowCheckmateTiles(){
+//         if (showCheckmateTiles === false){
+//             setShowCheckmateTiles(true)
+//         } 
+//     }
 
 
-    useEffect(() => {
-       if (showTacticTiles === true) {
-           setShowEngameTiles(false);
-           setShowCheckmateTiles(false)
-       }
-    }, [showTacticTiles]);
+//     useEffect(() => {
+//        if (showTacticTiles === true) {
+//            setShowEngameTiles(false);
+//            setShowCheckmateTiles(false)
+//        }
+//     }, [showTacticTiles]);
 
-    useEffect(() => {
-        if (showEndgameTiles === true) {
-            setShowTacticTiles(false);
-            setShowCheckmateTiles(false)
-        }
-    }, [showEndgameTiles]);
+//     useEffect(() => {
+//         if (showEndgameTiles === true) {
+//             setShowTacticTiles(false);
+//             setShowCheckmateTiles(false)
+//         }
+//     }, [showEndgameTiles]);
 
-    useEffect(() => {
-        if (showCheckmateTiles === true) {
-            setShowEngameTiles(false)
-            setShowTacticTiles(false)
-        }
-    }, [showCheckmateTiles])
+//     useEffect(() => {
+//         if (showCheckmateTiles === true) {
+//             setShowEngameTiles(false)
+//             setShowTacticTiles(false)
+//         }
+//     }, [showCheckmateTiles])
     
-    const endgameActive = showEndgameTiles;
-    const tacticActive = showTacticTiles;
-    const checkmateActive = showCheckmateTiles;
+//     const endgameActive = showEndgameTiles;
+//     const tacticActive = showTacticTiles;
+//     const checkmateActive = showCheckmateTiles;
 
 
-    return (
-        <>
-        <MenuWrapper>
-            <MenuGrid className="menuGrid">
-                <MenuTiles  className="endgameButton"onClick={handleShowEngameTiles}>
-                    <MenuContent>
-                        <MenuImg src={endgameImg} />
-                        <MenuTitle>
-                            Endgames
-                        </MenuTitle>
-                    </MenuContent>
-                </MenuTiles>
-                <MenuTiles className="tacticButton" onClick={handleShowTacticTiles}>
-                    <MenuContent>
-                        <MenuImg src={tacticsImg} />
-                            <MenuTitle>
-                                Tactics
-                        </MenuTitle>
-                    </MenuContent>
-                </MenuTiles>
-                <MenuTiles className="checkmateButton" onClick={handleShowCheckmateTiles}>
-                    <MenuContent>
-                        <MenuImg src={checkmateImg} />
-                            <MenuTitle>
-                                Checkmates
-                            </MenuTitle>
-                    </MenuContent>
-                </MenuTiles>
-            </MenuGrid>
-        </MenuWrapper>
-        </>
-    )
-}
+//     return (
+//         <>
+//         <MenuWrapper>
+//             <MenuGrid className="menuGrid">
+//                 <MenuTiles  className="endgameButton"onClick={handleShowEngameTiles}>
+//                     <MenuContent>
+//                         <MenuImg src={endgameImg} />
+//                         <MenuTitle>
+//                             Endgames
+//                         </MenuTitle>
+//                     </MenuContent>
+//                 </MenuTiles>
+//                 <MenuTiles className="tacticButton" onClick={handleShowTacticTiles}>
+//                     <MenuContent>
+//                         <MenuImg src={tacticsImg} />
+//                             <MenuTitle>
+//                                 Tactics
+//                         </MenuTitle>
+//                     </MenuContent>
+//                 </MenuTiles>
+//                 <MenuTiles className="checkmateButton" onClick={handleShowCheckmateTiles}>
+//                     <MenuContent>
+//                         <MenuImg src={checkmateImg} />
+//                             <MenuTitle>
+//                                 Checkmates
+//                             </MenuTitle>
+//                     </MenuContent>
+//                 </MenuTiles>
+//             </MenuGrid>
+//         </MenuWrapper>
+//         </>
+//     )
+// }
 
-export default Body
+// export default Body
 
-const ModalLink = styled(Link)`
-    position: relative;
-    z-index: 10;
-`
+// const ModalLink = styled(Link)`
+//     position: relative;
+//     z-index: 10;
+// `
 
 
 //backup old label container styling

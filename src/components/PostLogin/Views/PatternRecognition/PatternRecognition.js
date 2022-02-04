@@ -10,6 +10,7 @@ import checkmateImg from "../../../../Images/checkmateIconBlue.svg";
 import EndgameTiles from './CoursesBody/EngameTiles';
 import TacticTiles from './CoursesBody/TacticTiles';
 import CheckmateTiles from './CoursesBody/CheckmateTiles';
+import FooterBuffer from '../../../UI_Kit/FooterBuffer';
 
 
 
@@ -28,15 +29,13 @@ const Dashboard = () => {
       <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading>
         <MotifMenu 
         toggle={toggle}
-        endgameImg={endgameImg}
-        tacticsImg={tacticsImg}
-        checkmateImg={checkmateImg}
         />
         <PatternRecognitionHeading>Choose a <br></br> <strong>Puzzle to Play</strong></PatternRecognitionHeading>
       <EndgameTiles className="endgameTiles"/>
       <TacticTiles className="tacticTiles"/>
       <CheckmateTiles className="checkmateTiles"/>
     </DashboardWrapper>
+    <FooterBuffer />
       </>
   );
 };

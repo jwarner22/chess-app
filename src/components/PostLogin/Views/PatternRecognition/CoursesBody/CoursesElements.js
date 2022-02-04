@@ -104,7 +104,7 @@ export const CategoryLabel = styled.h2`
 export const CoursesWrapper = styled.div`
     display: flex;
     justify-content: center;
-    padding: 24px 0px 30% 0px;
+    padding: 24px 0px 24px 0px;
     background: #EEF0FF;
     height: 100%;
 `

@@ -15,13 +15,13 @@ export const TileWrapper = styled.li`
     /* flex-shrink: 1;
     flex-grow: 1; */
     transition: all 0.2s ease-in-out;
-    background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
+    background: #6344F8;
     ${props => {
         if (props.type === 'endgame') return`
-            background: linear-gradient(to right top, #5f3aff, #6e43ff, #7b4cff, #8755ff, #925eff);
+            background: #A347B5;
             `
         else if (props.type === 'midgame') return`
-        background: linear-gradient(to right top, #008b72, #01987e, #01a68b, #01b498, #00c2a6);
+        background: #FF8B59;
         `
     }}
     box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
