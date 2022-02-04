@@ -25,7 +25,6 @@ const Dashboard = () => {
   return (
     <>
     <DashboardWrapper>
-      <HeadingWrapper>
       <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading>
         <MotifMenu 
         toggle={toggle}
@@ -34,12 +33,10 @@ const Dashboard = () => {
         checkmateImg={checkmateImg}
         />
         <PatternRecognitionHeading>Choose a <br></br> <strong>Puzzle to Play</strong></PatternRecognitionHeading>
-      </HeadingWrapper>
       <EndgameTiles className="endgameTiles"/>
       <TacticTiles className="tacticTiles"/>
       <CheckmateTiles className="checkmateTiles"/>
     </DashboardWrapper>
-    <div id='test'>Test</div>
       </>
   );
 };

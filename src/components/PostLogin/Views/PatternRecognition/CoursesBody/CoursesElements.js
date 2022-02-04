@@ -18,7 +18,6 @@ export const MenuWrapper = styled.div`
     width: 100%;
     /* padding: 0 24px; */
     background: #EEF0FF;
-    overflow: hidden;
     padding-top: 12px;
     justify-content: center;
 `
@@ -26,9 +25,6 @@ export const MenuGrid = styled.ul`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 24px;
-    overflow-x: scroll;
-    -webkit-overflow-scrolling:touch;
-    -ms-overflow-style: none;
     padding: 0 24px 12px 24px;
 `
 export const MenuTiles = styled.li`

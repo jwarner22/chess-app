@@ -21,7 +21,8 @@ const MenuTile = (props) => {
                     duration={500}
                     spy={true}
                     exact='true'
-                    offset={-80}
+                    activeClass='active'
+                    offset={-160}
                             >
                     <MenuContent>
                         <MenuImg src={props.tileImage}/>
