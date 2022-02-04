@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {CoursesWrapper, 
     ModuleWrapper, 
     ModuleGrid
@@ -7,13 +7,17 @@ import CourseTile from '../CourseTiles/CourseTiles'
 import {Modules} from '../CourseTiles/Data';
 import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
 
-const CheckmateTiles = () => {
+import useOnScreen from '../../../../Hooks/useOnScreen';
 
+const CheckmateTiles = () => {
+    const checkmateRef = useRef();
+    const visible = useOnScreen(checkmateRef, '-100px');
     const checkmateModules = Modules.filter(module => module.type === "checkmate")
     
     return (
         <>
-            <CoursesWrapper id="checkmates">
+            <CoursesWrapper ref={checkmateRef} id="checkmates">
+            {visible && <>
                 <CategoryTitle>
                     Checkmates
                 </CategoryTitle>
@@ -27,7 +31,9 @@ const CheckmateTiles = () => {
                     )})}
                 </ModuleGrid>
             </ModuleWrapper>
+            </>}
         </CoursesWrapper>
+
         </>
     )
 }

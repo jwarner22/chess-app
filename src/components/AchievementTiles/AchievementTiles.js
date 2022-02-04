@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { ProfilePanelContainer } from '../ProfilePanel/ProfilePanelElements'
 import {AchievementTileContainer, 
 AchievementTileWrapper,
@@ -17,6 +17,12 @@ const AchievementTiles = (props) => {
     const {achievements, overallRating, dailyStreak, totalScore} = props;
     const statsSection = `Statistics`;
     const achievementSection = `Achievements`;
+    const [lazyVisible, setLazyVisible] = useState(false);
+
+    useEffect(() => {
+        let visible = setTimeout(() => setLazyVisible(true), 5);
+        return () => clearTimeout(visible);
+    },[])
 
     let accuracy = Math.floor((props.profileData.puzzles_correct/props.profileData.puzzles_completed)*100);
     return (
@@ -34,11 +40,13 @@ const AchievementTiles = (props) => {
                 </ProfilePanelContainer>
                 <AchievementSelectionContainer>
                 <AchievementTileWrapper>
+                    {lazyVisible && <>
                 {(achievements.length > 0) && achievements.map((achievement, index) => {
                     return(
                         <SmallTile key={index} achievement={achievement} />
                     )
                 })}
+                </>}
             </AchievementTileWrapper>
             </AchievementSelectionContainer>
             </AchievementTileContainer>
