@@ -78,7 +78,7 @@ export default function PuzzleBoard(props) {
         let g = new Chess(props.initialFen);
         return g.turn() === "w" ? "black" : "white";
       });
-      setTimeout(makeInitialMove, 1500);
+      setTimeout(makeInitialMove, 800);
   },[props.initialFen]);
 
   // INITIAL MOVE
@@ -224,7 +224,7 @@ export default function PuzzleBoard(props) {
 
     if (move === correctMove || move === correct) {
       outcomeCallback(true);
-      setTimeout(makeOpposingMove, 400);
+      setTimeout(makeOpposingMove, 600);
     } else if (game.in_checkmate()) { 
       outcomeCallback(true);
     } else {
