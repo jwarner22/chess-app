@@ -12,7 +12,7 @@ const CheckmateTiles = () => {
     
     return (
         <>
-            <CoursesWrapper>
+            <CoursesWrapper id="checkmates">
             <ModuleWrapper>
                 <ModuleGrid>
                     {checkmateModules.map((module, index) => {

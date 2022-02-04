@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {
     MenuWrapper,
     MenuGrid,
-    MenuTile,
+    MenuTiles,
     MenuContent,
     MenuTitle,
     MenuImg
@@ -72,35 +72,32 @@ const Body = (props, {activeMenuTile, inactiveMenuTile}) => {
         <>
         <MenuWrapper>
             <MenuGrid className="menuGrid">
-                <MenuTile  className="endgameButton"onClick={handleShowEngameTiles}>
+                <MenuTiles  className="endgameButton"onClick={handleShowEngameTiles}>
                     <MenuContent>
                         <MenuImg src={endgameImg} />
                         <MenuTitle>
                             Endgames
                         </MenuTitle>
                     </MenuContent>
-                </MenuTile>
-                <MenuTile className="tacticButton" onClick={handleShowTacticTiles}>
+                </MenuTiles>
+                <MenuTiles className="tacticButton" onClick={handleShowTacticTiles}>
                     <MenuContent>
                         <MenuImg src={tacticsImg} />
                             <MenuTitle>
                                 Tactics
                         </MenuTitle>
                     </MenuContent>
-                </MenuTile>
-                <MenuTile className="checkmateButton" onClick={handleShowCheckmateTiles}>
+                </MenuTiles>
+                <MenuTiles className="checkmateButton" onClick={handleShowCheckmateTiles}>
                     <MenuContent>
                         <MenuImg src={checkmateImg} />
                             <MenuTitle>
                                 Checkmates
                             </MenuTitle>
                     </MenuContent>
-                </MenuTile>
+                </MenuTiles>
             </MenuGrid>
         </MenuWrapper>
-        {endgameActive ? (<EngameTiles className="endgameTiles"/>) : (null)}
-        {tacticActive ? (<TacticTiles className="tacticTiles"/>) : (null)}
-        {checkmateActive ? (<CheckmateTiles className="checkmateTiles"/>) : (null)}
         </>
     )
 }

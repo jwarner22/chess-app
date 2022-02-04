@@ -1,18 +1,45 @@
+import {useState} from 'react'
 import Body from "./CoursesBody/CoursesBody";
 import styled from "styled-components";
+import { MenuTiles } from "../../../UI_Kit/PuzzleMenu/MenuTileElements";
+import MenuTile from "../../../UI_Kit/PuzzleMenu/MenuTile";
+import MotifMenu from "./MotifMenu/MotifMenu";
+import endgameImg from "../../../../Images/kingIconBlue.svg";
+import tacticsImg from "../../../../Images/TacticsIconBlue.svg";
+import checkmateImg from "../../../../Images/checkmateIconBlue.svg";
+import EndgameTiles from './CoursesBody/EngameTiles';
+import TacticTiles from './CoursesBody/TacticTiles';
+import CheckmateTiles from './CoursesBody/CheckmateTiles';
+
+
+
 
 
 const Dashboard = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  
+  const toggle = () => {
+    setIsOpen(!isOpen)
+  }
 
   return (
     <>
     <DashboardWrapper>
-    <HeadingWrapper>
-    <PatternRecognitionHeading>Choose a <br></br> <strong>Puzzle to Play</strong></PatternRecognitionHeading>
-    <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading>
-    </HeadingWrapper>
-      <Body/>
-      </DashboardWrapper>
+      <HeadingWrapper>
+      <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading>
+        <MotifMenu 
+        toggle={toggle}
+        endgameImg={endgameImg}
+        tacticsImg={tacticsImg}
+        checkmateImg={checkmateImg}
+        />
+        <PatternRecognitionHeading>Choose a <br></br> <strong>Puzzle to Play</strong></PatternRecognitionHeading>
+      </HeadingWrapper>
+      <EndgameTiles className="endgameTiles"/>
+      <TacticTiles className="tacticTiles"/>
+      <CheckmateTiles className="checkmateTiles"/>
+    </DashboardWrapper>
+    <div id='test'>Test</div>
       </>
   );
 };
@@ -44,7 +71,7 @@ export const PatternRecognitionSubheading = styled.h2`
   font-size: 18px;
   color: #010EFF;
   text-align: center;
-  padding-bottom: 12px;
+  padding: 24px 0px 12px 0px;
   font-weight: 200;
   
   @media screen and (max-width: 450px) {

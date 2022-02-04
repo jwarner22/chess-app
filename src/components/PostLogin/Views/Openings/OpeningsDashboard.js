@@ -16,7 +16,7 @@ import {
 import {
   MenuWrapper,
   MenuGrid,
-  MenuTile,
+  MenuTiles,
   MenuContent,
   MenuTitle
 } from '../PatternRecognition/CoursesBody/CoursesElements';
@@ -65,30 +65,30 @@ function handleShowD4Tiles(){
         </HeadingWrapper>
         <MenuWrapper>
             <MenuGrid className="menuGrid">
-                <MenuTile  className="e4Button"onClick={handleShowE4Tiles}>
+                <MenuTiles  className="e4Button"onClick={handleShowE4Tiles}>
                     <MenuContent>
                         {/* <MenuImg src={endgameImg} /> */}
                         <MenuTitle>
                             e4
                         </MenuTitle>
                     </MenuContent>
-                </MenuTile>
-                <MenuTile className="c4Button" onClick={handleShowC4Tiles}>
+                </MenuTiles>
+                <MenuTiles className="c4Button" onClick={handleShowC4Tiles}>
                     <MenuContent>
                         {/* <MenuImg src={tacticsImg} /> */}
                             <MenuTitle>
                                 c4
                         </MenuTitle>
                     </MenuContent>
-                </MenuTile>
-                <MenuTile className="d4Button" onClick={handleShowD4Tiles}>
+                </MenuTiles>
+                <MenuTiles className="d4Button" onClick={handleShowD4Tiles}>
                     <MenuContent>
                         {/* <MenuImg src={checkmateImg} /> */}
                             <MenuTitle>
                                 d4
                             </MenuTitle>
                     </MenuContent>
-                </MenuTile>
+                </MenuTiles>
             </MenuGrid>
         </MenuWrapper>
         <CoursesWrapper>

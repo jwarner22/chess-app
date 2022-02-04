@@ -25,7 +25,7 @@ const BackButton = () => {
     return (
         <div>
             <ClickBack>
-           <GrFormClose size={32} onClick={() => handleClick()}>Back</GrFormClose> 
+           <XIcon size={32} onClick={() => handleClick()}>Back</XIcon> 
            </ClickBack>
         </div>
     )
@@ -48,6 +48,12 @@ export const ClickBack = styled.div`
         padding-top: 12px;
         padding-left: 12px;
     }
+`
+
+export const XIcon = styled(GrFormClose)`
+    width: 32px;
+    height: 32px;
+    stroke: #9CA1BC;
 `
 
 

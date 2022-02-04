@@ -51,7 +51,7 @@ export const ProfilePanelWrapper = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     max-width: 704px;
-    width: 100%;
+    width: 90%;
 `
 export const ProfilePanelContent = styled.div`
     display: flex;

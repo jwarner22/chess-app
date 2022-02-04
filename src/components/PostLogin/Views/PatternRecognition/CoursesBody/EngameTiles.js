@@ -8,13 +8,13 @@ import {Modules} from '../CourseTiles/Data';
 
 
 
-const EngameTiles = (props) => {
+const EndgameTiles = (props) => {
 
     const endgameModules = Modules.filter(module => module.type === "endgame")
 
     return (
         <>
-        <CoursesWrapper >
+        <CoursesWrapper id="endgames">
             <ModuleWrapper>
                 <ModuleGrid>
                     {endgameModules.map((module, index) => {
@@ -30,4 +30,4 @@ const EngameTiles = (props) => {
     )
 }
 
-export default EngameTiles
+export default EndgameTiles

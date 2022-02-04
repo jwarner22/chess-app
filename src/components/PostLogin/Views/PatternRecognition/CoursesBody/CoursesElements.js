@@ -31,7 +31,7 @@ export const MenuGrid = styled.ul`
     -ms-overflow-style: none;
     padding: 0 24px 12px 24px;
 `
-export const MenuTile = styled.li`
+export const MenuTiles = styled.li`
     display: flex;
     width: 110px;
     height: 70px;

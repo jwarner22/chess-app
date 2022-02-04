@@ -26,6 +26,8 @@ PrePuzzleTileContainer} from "./PrePuzzleElements"
 import {DailyPuzzleIcon} from "../PostLogin/Views/DailyPuzzle/DailyPuzzleElements"
 import { StartButton } from '../PostLogin/Views/DailyPuzzle/ModalElements'
 import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
+import { BackButtonWrapper } from '../Puzzle/Utilities/Progress';
+import BackButton from '../BackButton';
 
 const PrePuzzlePage = (props) => {
     const module = Modules.find(element => element.type_ref === props.moduleData.theme)
@@ -40,6 +42,9 @@ const PrePuzzlePage = (props) => {
 
     return (
         <PuzzlePageContainer>
+            <BackButtonWrapper>
+                <BackButton />
+            </BackButtonWrapper>
                 <PrePuzzleIconWrapper>
                     <DailyPuzzleIcon src={module.img} />
                 </PrePuzzleIconWrapper>

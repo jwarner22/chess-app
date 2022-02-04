@@ -12,7 +12,7 @@ const TacticTiles = (props) => {
 
     return (
         <>
-            <CoursesWrapper >
+            <CoursesWrapper id="tactics">
                 <ModuleWrapper>
                     <ModuleGrid>
                         {tacticModules.map((module, index) => {
