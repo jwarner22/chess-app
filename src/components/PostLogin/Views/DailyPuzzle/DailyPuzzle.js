@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect, useLayoutEffect, useContext} from "react";
 import {Link} from 'react-router-dom'
 import { DailyPuzzleContainer, 
   DailyPuzzleTitle, 
@@ -29,7 +29,7 @@ export default function DailyPuzzzle() {
   const {dailyModules} = useContext(UserContext);
   const {contextLoading} = useContext(UserContext);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!contextLoading) {
       setLoaded(false);
       transformDaily();

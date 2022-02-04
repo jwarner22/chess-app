@@ -10,6 +10,7 @@ import UserName from './PostLogin/Announcements/UserName';
 import CompletedTraining from './PostLogin/Views/DailyPuzzle/completedTraining';
 import Settings from './PostLogin/Views/Settings/Settings';
 import Home from './PostLogin/Views/Home';
+import BoardDevTest from './Puzzle/PuzzleManager';
 
 const protectedRoutes = [
 	{
@@ -71,6 +72,11 @@ const protectedRoutes = [
 		path: "/home",
 		exact: false,
 		main: props => <Home />
+	}, {
+		name: "BoardDevTest",
+		path: "/board-dev-test",
+		exact: true,
+		main: () => <BoardDevTest />
 	}
 ];
 
