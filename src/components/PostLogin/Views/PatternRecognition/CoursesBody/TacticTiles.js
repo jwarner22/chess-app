@@ -5,6 +5,7 @@ import {CoursesWrapper,
 } from './CoursesElements'
 import CourseTile from '../CourseTiles/CourseTiles'
 import {Modules} from '../CourseTiles/Data';
+import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
 
 const TacticTiles = (props) => {
 
@@ -13,6 +14,9 @@ const TacticTiles = (props) => {
     return (
         <>
             <CoursesWrapper id="tactics">
+                <CategoryTitle>
+                    Tactics
+                </CategoryTitle>
                 <ModuleWrapper>
                     <ModuleGrid>
                         {tacticModules.map((module, index) => {

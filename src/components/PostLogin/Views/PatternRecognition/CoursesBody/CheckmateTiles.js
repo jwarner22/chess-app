@@ -5,6 +5,7 @@ import {CoursesWrapper,
 } from './CoursesElements'
 import CourseTile from '../CourseTiles/CourseTiles'
 import {Modules} from '../CourseTiles/Data';
+import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
 
 const CheckmateTiles = () => {
 
@@ -13,6 +14,9 @@ const CheckmateTiles = () => {
     return (
         <>
             <CoursesWrapper id="checkmates">
+                <CategoryTitle>
+                    Checkmates
+                </CategoryTitle>
             <ModuleWrapper>
                 <ModuleGrid>
                     {checkmateModules.map((module, index) => {

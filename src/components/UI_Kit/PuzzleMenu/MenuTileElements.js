@@ -30,14 +30,14 @@ export const MenuTiles = styled(LinkS)`
     display: flex;
     width: 110px;
     height: 70px;
-    box-shadow: 0px 5px 8px rgba(1, 14, 255, 0.25);
+    box-shadow: ${(props) => props.shadow};
     border-radius: 25px;
     list-style-type: none;
     cursor: pointer;
     background: #EEF0FF;
 
     &.active {
-        box-shadow: 0px 5px 8px rgba(1, 14, 255, 0.8);
+        box-shadow: ${(props) => props.activeShadow};
     }
 
     &.hover{
@@ -46,7 +46,7 @@ export const MenuTiles = styled(LinkS)`
     }
 
 `
-export const MenuContent = styled.div`
+export const MenuContent = styled.div` 
     display: flex;
     flex-direction: column;
     justify-content: center;

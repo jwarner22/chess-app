@@ -107,6 +107,8 @@ export const CoursesWrapper = styled.div`
     padding: 24px 0px 24px 0px;
     background: #EEF0FF;
     height: 100%;
+    flex-direction: column;
+    align-items: center;
 `
 
 export const ModuleWrapper = styled.div `

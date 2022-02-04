@@ -5,6 +5,7 @@ import {CoursesWrapper,
 } from './CoursesElements';
 import CourseTile from '../CourseTiles/CourseTiles'
 import {Modules} from '../CourseTiles/Data';
+import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
 
 
 
@@ -15,6 +16,9 @@ const EndgameTiles = (props) => {
     return (
         <>
         <CoursesWrapper id="endgames">
+            <CategoryTitle>
+                Endgames
+            </CategoryTitle>
             <ModuleWrapper>
                 <ModuleGrid>
                     {endgameModules.map((module, index) => {

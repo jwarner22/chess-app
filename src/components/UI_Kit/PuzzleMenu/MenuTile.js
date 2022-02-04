@@ -24,6 +24,8 @@ const MenuTile = (props) => {
                     exact='true'
                     activeClass='active'
                     offset={-160}
+                    shadow={props.shadow}
+                    activeShadow={props.activeShadow}
                             >
                     <MenuContent>
                             {props.children}
