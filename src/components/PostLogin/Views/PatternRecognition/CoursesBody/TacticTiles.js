@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {CoursesWrapper, 
     ModuleWrapper, 
     ModuleGrid
@@ -7,13 +7,18 @@ import CourseTile from '../CourseTiles/CourseTiles'
 import {Modules} from '../CourseTiles/Data';
 import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
 
-const TacticTiles = (props) => {
+import useOnScreen from '../../../../Hooks/useOnScreen';
 
+const TacticTiles = (props) => {
+    console.log(props)
+    const tacticRef = useRef();
+    const visible = useOnScreen(tacticRef, '-100px');
     const tacticModules = Modules.filter(module => module.type === "midgame")
 
     return (
         <>
-            <CoursesWrapper id="tactics">
+            <CoursesWrapper ref={tacticRef} id="tactics">
+            {visible && <>
                 <CategoryTitle>
                     Tactics
                 </CategoryTitle>
@@ -27,8 +32,8 @@ const TacticTiles = (props) => {
                         )})}
                     </ModuleGrid>
                 </ModuleWrapper>
+                </>}
             </CoursesWrapper>
-            
         </>
     )
 }

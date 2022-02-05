@@ -18,6 +18,9 @@ import {wait} from '../../../Puzzle/Utilities/helpers'
 // context
 import {UserContext} from '../../../../GlobalState'
 
+// Hooks
+import {useWindowSize} from '../../../Hooks/UseWindowSize'
+
 export default function DailyPuzzzle() {
   // state variables
   const [loaded,setLoaded] = useState(false);
@@ -29,6 +32,11 @@ export default function DailyPuzzzle() {
   const {dailyModules} = useContext(UserContext);
   const {contextLoading} = useContext(UserContext);
 
+  const windowSize = useWindowSize();
+  const isMobile = windowSize[0] < 640;
+  console.log(isMobile);
+  console.log(windowSize);
+  
   useLayoutEffect(() => {
     if (!contextLoading) {
       setLoaded(false);
@@ -48,6 +56,10 @@ export default function DailyPuzzzle() {
       let item = modules.find(entry => entry.id === locatedModule.theme_id)
       return {...item, ...locatedModule}
     })
+    
+    if (isMobile) {
+      daily.reverse();
+    }
 
     setDailyPicks(daily); // set data for display and module consumption
     setLoaded(true);

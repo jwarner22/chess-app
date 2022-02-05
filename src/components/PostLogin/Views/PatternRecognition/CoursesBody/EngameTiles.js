@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {CoursesWrapper, 
     ModuleWrapper, 
     ModuleGrid
@@ -6,16 +6,18 @@ import {CoursesWrapper,
 import CourseTile from '../CourseTiles/CourseTiles'
 import {Modules} from '../CourseTiles/Data';
 import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
-
+//import useOnScreen from '../../../../Hooks/useOnScreen';
 
 
 const EndgameTiles = (props) => {
-
+    //const endgameRef = useRef();
+    //const visible = useOnScreen(endgameRef, '-100px');
     const endgameModules = Modules.filter(module => module.type === "endgame")
 
     return (
         <>
         <CoursesWrapper id="endgames">
+        {/* {visible && <> */}
             <CategoryTitle>
                 Endgames
             </CategoryTitle>
@@ -29,6 +31,7 @@ const EndgameTiles = (props) => {
                     )})}
                 </ModuleGrid>
             </ModuleWrapper>
+            {/* </>} */}
         </CoursesWrapper>
         </>
     )
