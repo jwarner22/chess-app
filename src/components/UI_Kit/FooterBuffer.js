@@ -9,6 +9,6 @@ export default FooterBuffer;
 
 const FooterContainer = styled.div`
     width: 100%;
-    height: 150px;
+    height: 300px;
     background: #EEF0FF;
 `

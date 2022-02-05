@@ -15,10 +15,7 @@ export const MenuWrapper = styled.nav`
 export const MenuGrid = styled.ul`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 24px;
-    overflow-x: scroll;
-    -webkit-overflow-scrolling:touch;
-    -ms-overflow-style: none;
+    grid-gap: 12px;
     padding: 0 24px 12px 24px;
 `
 
@@ -28,16 +25,18 @@ export const TileWrapper = styled.li`
 
 export const MenuTiles = styled(LinkS)`
     display: flex;
-    width: 110px;
+    width: 104px;
     height: 70px;
     box-shadow: ${(props) => props.shadow};
     border-radius: 25px;
     list-style-type: none;
     cursor: pointer;
     background: #EEF0FF;
+    transition: all 0.2s ease-in-out;
 
     &.active {
         box-shadow: ${(props) => props.activeShadow};
+        transition: all 0.2s ease-in-out;
     }
 
     &.hover{

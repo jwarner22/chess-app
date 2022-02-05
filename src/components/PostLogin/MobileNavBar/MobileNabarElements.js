@@ -55,7 +55,7 @@ export const MobileNavLink = styled(NavLink)`
 
 
     &.active{
-        background: #5649B1;
+        background: #1161d4;
         color: #fff;
         border-radius: 20px;
         box-shadow: rgba(86, 73, 177, 0.15) 0px 5px 15px 0px;

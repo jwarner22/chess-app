@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components'
 
 const CategoryTitle = (props) => {
-  return (<div>
+  return (<Title>
       {props.children}
-  </div>
+  </Title>
   )};
 
 export default CategoryTitle;

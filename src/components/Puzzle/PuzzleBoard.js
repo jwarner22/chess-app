@@ -32,11 +32,15 @@ export default function PuzzleBoard(props) {
   const [openModal, setOpenModal] = useState(false);
   const [promotion, setPromotion] = useState("x");
 
+  const [width, setWidth] = useState(0)
+
   const prevPromotion = usePrevious(props.promotion);
   const prevCorrect = usePrevious(props.correctMove);
   const prevInitial = usePrevious(props.initialFen);
 
   const { correctMove, opposingMove, outcomeCallback} = props;
+
+  
 
   // EFFECTS
 
@@ -351,6 +355,18 @@ export default function PuzzleBoard(props) {
   }
 
 
+  console.log(window.innerWidth)
+
+  useEffect(() => {
+    if (window.innerWidth < 640){
+      setWidth(window.innerWidth)
+    } else if (window.innerWidth > 640 && window.innerWidth < 1300){
+        setWidth(window.innerWidth / 2)
+    } else if (window.innerWidth >= 1300) {
+        setWidth(650)
+    }
+  })
+
   if (loaded) {
   return (
     <>
@@ -371,6 +387,7 @@ export default function PuzzleBoard(props) {
         ...optionSquares,
         ...rightClickedSquares
       }}
+      boardWidth={width}
     />
     </>
   );
