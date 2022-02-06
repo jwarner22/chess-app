@@ -388,6 +388,7 @@ export default function PuzzleBoard(props) {
         ...rightClickedSquares
       }}
       boardWidth={width}
+      animationDuration={200}
     />
     </>
   );

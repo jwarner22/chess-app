@@ -57,9 +57,9 @@ export default function DailyPuzzzle() {
       return {...item, ...locatedModule}
     })
     
-    if (isMobile) {
-      daily.reverse();
-    }
+    // if (isMobile) {
+    //   daily.reverse();
+    // }
 
     setDailyPicks(daily); // set data for display and module consumption
     setLoaded(true);

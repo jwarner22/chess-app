@@ -12,7 +12,7 @@ const PostPuzzleMockup = (props) => {
     useEffect(() =>{
         if (props.completedTraining) setLinkUrl('completed-training');
         else if (props.isDaily) setLinkUrl('/home/daily');
-        else setLinkUrl('/home/openings');
+        else setLinkUrl('/home/practice');
     }, [])
 
     if (!props.savingResults) {
