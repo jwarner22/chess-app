@@ -26,7 +26,6 @@ const Dashboard = () => {
   return (
     <>
     <DashboardWrapper>
-      <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading>
         <MotifMenu 
         toggle={toggle}
         />
