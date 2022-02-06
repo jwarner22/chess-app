@@ -357,6 +357,8 @@ export default function PuzzleBoard(props) {
 
   console.log(window.innerWidth)
 
+  //sizes puzzle board relative to the window size. boardWidth props only takes integers. No css for dynamic sizing. 
+
   useEffect(() => {
     if (window.innerWidth < 640){
       setWidth(window.innerWidth)
