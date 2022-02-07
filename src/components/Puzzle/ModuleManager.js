@@ -77,8 +77,9 @@ export default function Puzzle(props) {
     }
     themeData.rating = newRating
     themeData.completed += 1; // adds 1 to number of puzzles completed
-    
+    console.log({outcome: outcomes, times: times, puzzles:puzzles})
     let score = calcScore(outcomes,puzzles, times) // calculate score
+    console.log({score: score})
     if (themeData.high_score < score) {
       let diff = score - themeData.high_score; // change from previous high score
       themeData.high_score = score; // new high score!
@@ -167,7 +168,7 @@ export default function Puzzle(props) {
    if (result === 'fail') setFailure(true);
 
     // update if daily puzzle
-    if (isDaily) {
+    if (isDaily && result !== 'fail') {
       let updatedDailyPuzzles = await updateDailyPuzzles();
       await updateDailyModules(updatedDailyPuzzles);
     }

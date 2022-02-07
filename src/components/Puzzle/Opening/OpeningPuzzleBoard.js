@@ -1,18 +1,16 @@
-
 import { useState, useEffect, useLayoutEffect } from "react";
 import * as ChessJS from "chess.js";
 import { Chessboard } from "react-chessboard";
 
-import PromotionalModal from "../PostLogin/PromotionModal/PromotionalModal"
+import PromotionalModal from "../../PostLogin/PromotionModal/PromotionalModal"
 
 
 import {Howl} from 'howler';
-import moveSoundFile from "../../assets/public_sound_standard_Move.mp3";
-import captureSoundFile from "../../assets/public_sound_standard_Capture.mp3";
+import moveSoundFile from "../../../assets/public_sound_standard_Move.mp3";
+import captureSoundFile from "../../../assets/public_sound_standard_Capture.mp3";
 
-import usePrevious from "../Hooks/usePrevious";
-import { useWindowSize } from "../Hooks/UseWindowSize";
-import { Cpanel } from "styled-icons/fa-brands";
+import usePrevious from "../../Hooks/usePrevious";
+import { useWindowSize } from "../../Hooks/UseWindowSize";
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
@@ -23,28 +21,27 @@ export default function PuzzleBoard(props) {
   const [optionSquares, setOptionSquares] = useState({});
   const [moveSquares, setMoveSquares] = useState({});
   const [rightClickedSquares, setRightClickedSquares] = useState({});
-  const [orientation, setOrientation] = useState(() => {
-    let g = new Chess(props.initialFen);
-    return g.turn() === "w" ? "black" : "white";
-  });
+  const [orientation, setOrientation] = useState(props.orientation);
   const [moveSound, setMoveSound] = useState();
   const [captureSound, setCaptureSound] = useState();
   const [loaded, setLoaded] = useState(false);
   const [pendingMove, setPendingMove] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [promotion, setPromotion] = useState("x");
-  const [moveHighlightSquare,setMoveHighlightSquare] = useState("");
+
   //const [width, setWidth] = useState(0)
   const windowSizeWidth = useWindowSize()[0];
   const [width, setWidth] = useState(windowSizeWidth);
-  
+
   const prevPromotion = usePrevious(props.promotion);
   const prevCorrect = usePrevious(props.correctMove);
   const prevInitial = usePrevious(props.initialFen);
-  
 
   const { correctMove, opposingMove, outcomeCallback} = props;
 
+  
+
+  // EFFECTS
   // manage board resize
   useEffect(() => {
     if (windowSizeWidth < 640){
@@ -57,7 +54,6 @@ export default function PuzzleBoard(props) {
     }
   }, [windowSizeWidth])
 
-  // EFFECTS
 
   // play initial move after all is rendered and timed delay for animation
   useLayoutEffect(() => {
@@ -65,13 +61,14 @@ export default function PuzzleBoard(props) {
     setMoveSound(new Howl({src: moveSoundFile}));
     setCaptureSound(new Howl({src: captureSoundFile}));
     setGame(() => new Chess(props.initialFen));
-    setTimeout(makeInitialMove, 1500);
     setLoaded(true);
+    if (props.orientation === "white") return;
+    setTimeout(makeInitialMove, 1500);
   },[]); 
 
   // cleanup to avoid memory leaks
   useEffect(() => {
-    props.moveIndicator(orientation);
+
     return () => {
       setMoveSound(null);
       setCaptureSound(null);
@@ -86,20 +83,15 @@ export default function PuzzleBoard(props) {
   },[promotion]);
 
   useLayoutEffect(() => {
-      console.log({propsinitial: props.initialFen})
-      console.log({prevInitial: prevInitial});
       if (prevInitial == null) return;
       if (props.initialFen === prevInitial) return;
 
       console.log('new puzzle')
       setGame(() => new Chess(props.initialFen));
       setOrientation(() => {
-        let g = new Chess(props.initialFen);
-        let orient = g.turn() === "w" ? "black" : "white";
-        props.moveIndicator(orient);
-        return orient;
+        return props.orientation;
       });
-      
+      if (props.orientation === "white") return;
       setTimeout(makeInitialMove, 800);
   },[props.initialFen]);
 
@@ -142,12 +134,10 @@ export default function PuzzleBoard(props) {
     // getMoveOptions(targetSquare); // need to figure out mobile move options
     setPieceSquare(targetSquare);
     // console.log(piece)
-    console.log({pieceSquare: pieceSquare, targetSquare: targetSquare})
-    console.log({moveHighlightSquare: moveHighlightSquare})
-
-    if (targetSquare !== moveHighlightSquare) {
+    if (piece === "") {
       getMoveOptions(targetSquare);
-    }
+      return;
+    };
     
     if (props.promotion !== "x") return;
     if (piece.substring(1) === "P") {
@@ -162,7 +152,6 @@ export default function PuzzleBoard(props) {
       //promotion: "q" // always promote to a queen for example simplicity
     });
     // if invalid, setMoveFrom and getMoveOptions
-    setPiece("");
     if (move === null) {
       return;
     }
@@ -174,7 +163,7 @@ export default function PuzzleBoard(props) {
     };
     setGame(gameCopy);
 
-    
+    setPiece("");
     validateMove(pieceSquare, targetSquare);
     setMoveSquares({
       [pieceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
@@ -185,7 +174,6 @@ export default function PuzzleBoard(props) {
   }
 
   function onPieceDrop(sourceSquare, targetSquare, piece) {
-    console.log({piece:piece})
     // check for pomotion
     if (piece.substring(1) === "P") {
       let promote = checkPromotion(sourceSquare,targetSquare)
@@ -226,8 +214,8 @@ export default function PuzzleBoard(props) {
 
   function validateMove(sourceSquare, targetSquare) {
     let move = sourceSquare + targetSquare;
-    // console.log({correctMove:correctMove, sourceSquare:sourceSquare, targetSquare:targetSquare})
-    // console.log({prevCorrect: prevCorrect})
+    console.log({correctMove:correctMove, sourceSquare:sourceSquare, targetSquare:targetSquare})
+    console.log({prevCorrect: prevCorrect})
     let correct ="";
 
     if (correctMove.length === 5) {
@@ -259,8 +247,8 @@ export default function PuzzleBoard(props) {
     return;
   }
 
-  function onPieceClick(selectedPiece) {
-    setPiece(() => selectedPiece);
+  function onPieceClick(piece) {
+    setPiece(piece);
   }
 
   // function onPieceDrop(piece) {
@@ -296,6 +284,7 @@ export default function PuzzleBoard(props) {
 
   function checkPromotion(from, to) {
     const moves = game.moves({verbose: true});
+    // console.log({moves: moves})
     for (let i = 0, len = moves.length; i < len; i++) {
         if (moves[i].flags.indexOf("p") !== -1 && moves[i].from === from && moves[i].to === to) {
           setPendingMove([from,to]);
@@ -372,10 +361,7 @@ export default function PuzzleBoard(props) {
       background: "rgba(255, 255, 0, 0.4)"
     };
     setOptionSquares(newSquares);
-    setMoveHighlightSquare(square);
   }
-
-
 
 
   if (loaded) {

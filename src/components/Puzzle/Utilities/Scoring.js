@@ -40,15 +40,17 @@ export const calcEloRating = (outcomes, puzzles, playerRating, completed) => {
     const diff_index = rating => (rating - 600)/(2600-600); // calcs difficulty index
 
     let target_time = 60000; // target time in ms
-    const time_factor = time => Math.max((1-0.5*Math.sqrt(time/target_time)), 0)
+    const time_factor = time => Math.max((1-0.5*Math.sqrt(time/target_time)), 0);
 
     // calcs score for each puzzle
     let scores = outcomes.map((outcome, index) => {
+      let time = times[index] ? times[index] : target_time;
+      let rating = ratings[index];
       if (outcome === true) {
-        let score = 100*(time_factor(times[index])+0.25)*diff_index(ratings[index]); // positive for correct
+        let score = 100*(time_factor(time)+0.25)*diff_index(rating); // positive for correct
         return score;
       } else {
-        let negScore = -(50*(1-time_factor(times[index]))*diff_index(ratings[index])); // penalty for incorrect
+        let negScore = -(50*(1-time_factor(time)*diff_index(rating))); // penalty for incorrect
         return negScore;
       }
     })

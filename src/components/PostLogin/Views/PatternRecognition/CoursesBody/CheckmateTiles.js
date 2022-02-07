@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {CoursesWrapper, 
     ModuleWrapper, 
     ModuleGrid
@@ -11,9 +11,16 @@ import useOnScreen from '../../../../Hooks/useOnScreen';
 
 const CheckmateTiles = () => {
     const checkmateRef = useRef();
-    const visible = useOnScreen(checkmateRef, '-100px');
+    const [visible, setVisible] = useState(false);
+    const load = useOnScreen(checkmateRef, '0px');
     const checkmateModules = Modules.filter(module => module.type === "checkmate")
     
+    useEffect(() => {
+        if (load && !visible) {
+            setVisible(true);
+        }
+    }, [load])
+
     return (
         <>
             <CoursesWrapper ref={checkmateRef} id="checkmates">

@@ -34,8 +34,7 @@ export default function DailyPuzzzle() {
 
   const windowSize = useWindowSize();
   const isMobile = windowSize[0] < 640;
-  console.log(isMobile);
-  console.log(windowSize);
+
   
   useLayoutEffect(() => {
     if (!contextLoading) {
@@ -120,13 +119,13 @@ export default function DailyPuzzzle() {
          {dailyPicks.map((module, index) => {
            if (module.category === 'opening') {
              return(
-              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/opening', state: {module: module, schemaPicks:schemaPicks, isDaily: true, location: index}}}>
+              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/opening', state: {module: module, schemaPicks:schemaPicks, isDaily: true, location: module.location}}}>
               <DailyPuzzleModuleContainer key={index} {...module} />
             </Link>
              )
            } else {
             return (
-              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/dashboard/module', state: {module: module, schemaPicks:schemaPicks, isDaily: true, location: index}}}>
+              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/dashboard/module', state: {module: module, schemaPicks:schemaPicks, isDaily: true, location: module.location}}}>
                 <DailyPuzzleModuleContainer key={index} {...module} />
               </Link>
             )
