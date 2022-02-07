@@ -32,7 +32,7 @@ export const LifeThree = styled.li`
   transition: all 0.7s ease-in-out;
 `
 
-export const LivesImg = styled.img`
+export const LivesImg = styled.div`
     max-width: ${( props ) => (props.isMobile ? '25px' : '30px')};
     transition: all 0.7s ease-in-out;
 `
