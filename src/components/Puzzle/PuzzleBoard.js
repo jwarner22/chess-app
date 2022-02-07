@@ -93,9 +93,11 @@ export default function PuzzleBoard(props) {
       setGame(() => new Chess(props.initialFen));
       setOrientation(() => {
         let g = new Chess(props.initialFen);
-        return g.turn() === "w" ? "black" : "white";
+        let orient = g.turn() === "w" ? "black" : "white";
+        props.moveIndicator(orient);
+        return orient;
       });
-      props.moveIndicator(orientation);
+      
       setTimeout(makeInitialMove, 800);
   },[props.initialFen]);
 
