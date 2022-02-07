@@ -6,6 +6,8 @@ import { wait } from "../Utilities/helpers.js";
 import moveSoundFile from "../../../assets/public_sound_standard_Move.mp3";
 import captureSoundFile from "../../../assets/public_sound_standard_Capture.mp3";
 
+import { useWindowSize } from "../../Hooks/UseWindowSize";
+
 import {Howl} from 'howler'
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
@@ -16,9 +18,26 @@ export default function DemoMoves(props) {
   const [lastMove, setLastMove] = useState([]);
   const [moveSound, setMoveSound] = useState(null)
   const [captureSound, setCaptureSound] = useState(null);
+
+  const windowSizeWidth = useWindowSize()[0];
+  const [width, setWidth] = useState(windowSizeWidth);
+
   const moves = props.moves.slice(props.moveIndex, props.moves.length);
   // const game = new Chess(fen);
   const orientation = props.orientation;
+
+
+    // manage board resize
+    useEffect(() => {
+      if (windowSizeWidth < 640){
+        setWidth(windowSizeWidth)
+        console.log('set width')
+      } else if (windowSizeWidth > 640 && windowSizeWidth < 1300){
+          setWidth(window.innerWidth / 2)
+      } else if (windowSizeWidth >= 1300) {
+          setWidth(650)
+      }
+    }, [windowSizeWidth])
 
   useEffect(() => {
     let isMounted = true; // note mutable flag
@@ -79,7 +98,7 @@ export default function DemoMoves(props) {
   return (
     <>
         {/* <Chessground fen={fen} orientation={orientation} lastMove={lastMove}/> */}
-        <Chessboard arePremovesAllowed={true} boardOrientation={orientation} position={game.fen()} areArrowsAllowed={true} animationDuration={200}/>
+        <Chessboard arePremovesAllowed={true} boardOrientation={orientation} position={game.fen()} areArrowsAllowed={true} animationDuration={200} boardWidth={width}/>
     </>
   );
 }

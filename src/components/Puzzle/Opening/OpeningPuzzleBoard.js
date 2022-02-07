@@ -10,6 +10,7 @@ import moveSoundFile from "../../../assets/public_sound_standard_Move.mp3";
 import captureSoundFile from "../../../assets/public_sound_standard_Capture.mp3";
 
 import usePrevious from "../../Hooks/usePrevious";
+import { useWindowSize } from "../../Hooks/UseWindowSize";
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
@@ -28,7 +29,9 @@ export default function PuzzleBoard(props) {
   const [openModal, setOpenModal] = useState(false);
   const [promotion, setPromotion] = useState("x");
 
-  const [width, setWidth] = useState(0)
+  //const [width, setWidth] = useState(0)
+  const windowSizeWidth = useWindowSize()[0];
+  const [width, setWidth] = useState(windowSizeWidth);
 
   const prevPromotion = usePrevious(props.promotion);
   const prevCorrect = usePrevious(props.correctMove);
@@ -39,6 +42,18 @@ export default function PuzzleBoard(props) {
   
 
   // EFFECTS
+  // manage board resize
+  useEffect(() => {
+    if (windowSizeWidth < 640){
+      setWidth(windowSizeWidth)
+      console.log('set width')
+    } else if (windowSizeWidth > 640 && windowSizeWidth < 1300){
+        setWidth(window.innerWidth / 2)
+    } else if (windowSizeWidth >= 1300) {
+        setWidth(650)
+    }
+  }, [windowSizeWidth])
+
 
   // play initial move after all is rendered and timed delay for animation
   useLayoutEffect(() => {
@@ -348,15 +363,6 @@ export default function PuzzleBoard(props) {
     setOptionSquares(newSquares);
   }
 
-  useEffect(() => {
-    if (window.innerWidth < 640){
-      setWidth(window.innerWidth)
-    } else if (window.innerWidth > 640 && window.innerWidth < 1300){
-        setWidth(window.innerWidth / 2)
-    } else if (window.innerWidth >= 1300) {
-        setWidth(650)
-    }
-  })
 
   if (loaded) {
   return (
