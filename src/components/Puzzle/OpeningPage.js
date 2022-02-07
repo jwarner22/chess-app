@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DemoMoves from "./Opening/DemoMoves.jsx";
-import Opening from "./Opening/Opening.jsx";
+//import Opening from "./Opening/Opening.jsx";
+import Opening from "./Opening/OpeningPuzzleManager";
 import {getOpeningMoves} from './Utilities/helpers.js';
 import Progress, { BackButtonWrapper } from './Utilities/Progress.jsx';
 import OpeningNav from './Opening/OpeningNav.js';
@@ -31,6 +32,7 @@ export default function OpeningModule(props) {
   const [outcome, setOutcome] = useState(null);
   const [startedDemo, setStartedDemo] = useState(false);
   const [triggerNext, setTriggerNext] = useState(false);
+  const [boardKey, setBoardKey] = useState(0);
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
   const windowDimensions = useWindowSize();
@@ -107,11 +109,13 @@ export default function OpeningModule(props) {
     setTriggerNext(prev=>!prev);
     setRetryDisabled(true);
     setShowDisabled(true);
+    setBoardKey(prev => prev + 1);
   };
 
   const handleContinueClick = () => {
     setCount(count => count + 1);
     setContinueDisabled(true);
+    setBoardKey(prev => prev + 1);
   }
   
   const handleShowMovesClick = () => {
@@ -150,7 +154,7 @@ export default function OpeningModule(props) {
                       />
                     )}
                     {isLoaded === true && demoIsFinished === true && (
-                      <Opening triggerNext={triggerNext}  count={count} moves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
+                      <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext}  count={count} correctMoves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
                     )}
                   </div>
                   </div>
@@ -182,7 +186,7 @@ export default function OpeningModule(props) {
               />
             )}
             {isLoaded === true && demoIsFinished === true && (
-              <Opening triggerNext={triggerNext} count={count} moves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
+              <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext} count={count} correctMoves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
             )}
           </div>
           </div>

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import Board from "./PuzzleBoard.js";
-
+import Board from "./OpeningPuzzleBoard.js";
 
 export default function PuzzleManager(props) {
   
@@ -17,16 +16,20 @@ export default function PuzzleManager(props) {
 
 
   useEffect(() => {
-    console.log('useEffect: PuzzleManager mounted');
-    // console.log({props: props});
 
     setMoves(() => {
       let moves = [...props.correctMoves]
-      moves.shift(); // remove initial move
+      if (props.orientation === "black") moves.shift(); // remove initial move
       return moves;
     });
-    setCorrectMove(props.correctMoves[1]);
-    setOpposingMove(props.correctMoves[2]);
+    if (props.orientation === "white") {
+        setCorrectMove(props.correctMoves[0]);
+        setOpposingMove(props.correctMoves[1]);
+    } else {
+        setCorrectMove(props.correctMoves[1]);
+        setOpposingMove(props.correctMoves[2]);
+    }
+
     setInitialFen(props.fen);
     setInitialMove(props.correctMoves[0]);
     setHistory([]);
@@ -38,8 +41,8 @@ export default function PuzzleManager(props) {
 
     if (outcome === false) {
       // do failed logic (callback?)
-      props.displayOutcome(false);
-      props.unlockNext();
+      props.incorrectCallback(false);
+      //props.unlockNext();
       return;
     }
 
@@ -56,22 +59,22 @@ export default function PuzzleManager(props) {
       prevHistory.push(newMove);
       let lastOpposingMove = movesCopy.shift();
       prevHistory.push(lastOpposingMove);
-      // console.log({ history: history });
+      console.log({ history: history });
       return prevHistory;
     });
 
     setMoves((prevMoves) => {
       prevMoves.shift();
       prevMoves.shift();
-      // console.log({ moves: moves });
+      console.log({ moves: moves });
       return prevMoves;
     });
 
     if (moves.length === 0) {
-      props.displayOutcome(true);
-      props.unlockNext();
+      props.finishedCallback(true);
+      //props.unlockNext();
     }
-
+    console.log({updatedMoves: moves})
     setCorrectMove(moves[0]);
     setOpposingMove(moves[1]);
   };
@@ -82,7 +85,7 @@ export default function PuzzleManager(props) {
       <Board
         correctMove={correctMove}
         opposingMove={opposingMove}
-        orientation={"white"}
+        orientation={props.orientation}
         outcomeCallback={handleOutcome}
         initialFen={initialFen}
         initialMove={initialMove}
