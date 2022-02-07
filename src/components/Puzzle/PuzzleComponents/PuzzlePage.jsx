@@ -82,8 +82,9 @@ export default function PuzzlePage(props) {
     setCorrectMoves(() => getMoves(puzzleData[0].moves));
     setLoaded(true);
     return () => {
-      // confirmationSound.unload();
-      // errorSound.unload();
+      if (confirmationSound) confirmationSound.unload();
+      if (errorSound) errorSound.unload();
+
       setConfirmationSound(() => null);
       setErrorSound(() => null);
     }
@@ -91,9 +92,12 @@ export default function PuzzlePage(props) {
 
   useEffect(() => {
     // checks if user has missed 4 puzzles - if so route to fialure screen
+    let failureTimeout = null;
+
     if (outcomes.filter(entry => entry === false).length > 2) {
-      fail()
+      failureTimeout = setTimeout(fail, 3000)
     }
+    return () => clearTimeout(failureTimeout); // clear timout on unmount
   }, [outcomes]);
 
   useEffect(() => {
@@ -135,11 +139,11 @@ export default function PuzzlePage(props) {
     setWaiting(true);
   };
 
-  const playSound = (sound) => {
+  const playSound = async (sound) => {
     if (sound === "confirmation") {
-      confirmationSound.play();
+      return confirmationSound.play();
     } else if (sound === "error") {
-      errorSound.play();
+      return errorSound.play();
     } else  if (sound === "button") {
       //return buttonSound.play();
     }
@@ -153,11 +157,11 @@ export default function PuzzlePage(props) {
     console.log({coutcome:outcomes})
     // play sound to indicate success or failure
     if (success) {
-      playSound("confirmation");
+      await playSound("confirmation");
       setRetryDisable(true)
       setCorrect(true)
     } else {
-      playSound("error");
+      await playSound("error");
       setRetryDisable(false)
       setCorrect(false)
       setLives(prev => prev - 1)
