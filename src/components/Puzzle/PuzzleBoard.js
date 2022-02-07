@@ -12,6 +12,7 @@ import captureSoundFile from "../../assets/public_sound_standard_Capture.mp3";
 
 import usePrevious from "../Hooks/usePrevious";
 import { useWindowSize } from "../Hooks/UseWindowSize";
+import { Cpanel } from "styled-icons/fa-brands";
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
@@ -32,7 +33,7 @@ export default function PuzzleBoard(props) {
   const [pendingMove, setPendingMove] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [promotion, setPromotion] = useState("x");
-
+  const [moveHighlightSquare,setMoveHighlightSquare] = useState("");
   //const [width, setWidth] = useState(0)
   const windowSizeWidth = useWindowSize()[0];
   const [width, setWidth] = useState(windowSizeWidth);
@@ -40,6 +41,7 @@ export default function PuzzleBoard(props) {
   const prevPromotion = usePrevious(props.promotion);
   const prevCorrect = usePrevious(props.correctMove);
   const prevInitial = usePrevious(props.initialFen);
+  
 
   const { correctMove, opposingMove, outcomeCallback} = props;
 
@@ -140,10 +142,12 @@ export default function PuzzleBoard(props) {
     // getMoveOptions(targetSquare); // need to figure out mobile move options
     setPieceSquare(targetSquare);
     // console.log(piece)
-    if (piece === "") {
+    console.log({pieceSquare: pieceSquare, targetSquare: targetSquare})
+    console.log({moveHighlightSquare: moveHighlightSquare})
+
+    if (targetSquare !== moveHighlightSquare) {
       getMoveOptions(targetSquare);
-      return;
-    };
+    }
     
     if (props.promotion !== "x") return;
     if (piece.substring(1) === "P") {
@@ -158,6 +162,7 @@ export default function PuzzleBoard(props) {
       //promotion: "q" // always promote to a queen for example simplicity
     });
     // if invalid, setMoveFrom and getMoveOptions
+    setPiece("");
     if (move === null) {
       return;
     }
@@ -169,7 +174,7 @@ export default function PuzzleBoard(props) {
     };
     setGame(gameCopy);
 
-    setPiece("");
+    
     validateMove(pieceSquare, targetSquare);
     setMoveSquares({
       [pieceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
@@ -254,8 +259,8 @@ export default function PuzzleBoard(props) {
     return;
   }
 
-  function onPieceClick(piece) {
-    setPiece(piece);
+  function onPieceClick(selectedPiece) {
+    setPiece(() => selectedPiece);
   }
 
   // function onPieceDrop(piece) {
@@ -291,7 +296,6 @@ export default function PuzzleBoard(props) {
 
   function checkPromotion(from, to) {
     const moves = game.moves({verbose: true});
-    console.log({moves: moves})
     for (let i = 0, len = moves.length; i < len; i++) {
         if (moves[i].flags.indexOf("p") !== -1 && moves[i].from === from && moves[i].to === to) {
           setPendingMove([from,to]);
@@ -368,6 +372,7 @@ export default function PuzzleBoard(props) {
       background: "rgba(255, 255, 0, 0.4)"
     };
     setOptionSquares(newSquares);
+    setMoveHighlightSquare(square);
   }
 
 
