@@ -89,6 +89,7 @@ export default function PuzzleManager(props) {
         count={props.count}
         onPromotion={props.onPromotion}
         promotion={props.promotion}
+        moveIndicator={props.moveIndicator}
       />
     </>
   );

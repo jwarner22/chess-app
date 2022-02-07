@@ -56,7 +56,7 @@ export default function PuzzleBoard(props) {
 
   // cleanup to avoid memory leaks
   useEffect(() => {
-
+    props.moveIndicator(orientation);
     return () => {
       setMoveSound(null);
       setCaptureSound(null);
@@ -82,6 +82,7 @@ export default function PuzzleBoard(props) {
         let g = new Chess(props.initialFen);
         return g.turn() === "w" ? "black" : "white";
       });
+      props.moveIndicator(orientation);
       setTimeout(makeInitialMove, 800);
   },[props.initialFen]);
 
@@ -354,8 +355,6 @@ export default function PuzzleBoard(props) {
     setOptionSquares(newSquares);
   }
 
-
-  console.log(window.innerWidth)
 
   useEffect(() => {
     if (window.innerWidth < 640){
