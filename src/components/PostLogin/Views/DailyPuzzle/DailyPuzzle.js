@@ -34,8 +34,7 @@ export default function DailyPuzzzle() {
 
   const windowSize = useWindowSize();
   const isMobile = windowSize[0] < 640;
-  console.log(isMobile);
-  console.log(windowSize);
+
   
   useLayoutEffect(() => {
     if (!contextLoading) {

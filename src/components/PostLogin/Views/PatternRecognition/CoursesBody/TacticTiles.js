@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import {useRef, useEffect, useState} from 'react'
 import {CoursesWrapper, 
     ModuleWrapper, 
     ModuleGrid
@@ -12,8 +12,16 @@ import useOnScreen from '../../../../Hooks/useOnScreen';
 const TacticTiles = (props) => {
     console.log(props)
     const tacticRef = useRef();
-    const visible = useOnScreen(tacticRef, '-100px');
+    const [visible, setVisible] = useState(false);
+    const load = useOnScreen(tacticRef, '0px');
     const tacticModules = Modules.filter(module => module.type === "midgame")
+    
+    useEffect(() => {
+        if (load && !visible) {
+            setVisible(true);
+        }
+    }, [load])
+
 
     return (
         <>
