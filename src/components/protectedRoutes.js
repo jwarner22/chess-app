@@ -11,6 +11,7 @@ import CompletedTraining from './PostLogin/Views/DailyPuzzle/completedTraining';
 import Settings from './PostLogin/Views/Settings/Settings';
 import Home from './PostLogin/Views/Home';
 import BoardDevTest from './Puzzle/PuzzleManager';
+import FeatureSuggestion from './PostLogin/Views/FeatureSuggestion/FeatureSuggestion.js';
 
 const protectedRoutes = [
 	{
@@ -77,6 +78,11 @@ const protectedRoutes = [
 		path: "/board-dev-test",
 		exact: true,
 		main: () => <BoardDevTest />
+	}, {
+		name: "FeatureSuggestion",
+		path: "/feature_suggestion",
+		exact: true,
+		main: () => <FeatureSuggestion />
 	}
 ];
 

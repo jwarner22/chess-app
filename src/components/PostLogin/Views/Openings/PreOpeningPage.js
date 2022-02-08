@@ -2,8 +2,8 @@ import React, {useEffect, useState, useContext} from 'react'
 import PrePuzzleHeader from "./OpeningComponents/PrePuzzleHeader"
 import {PreOpeningPageContainer } from './PreOpeningsPageElements';
 import PrePuzzleTile from './OpeningComponents/PrePuzzleTiles';
-import InfoBox from "../../../UI_Kit/InfoBox/InfoBox"
-import {PageContainer} from "../../../UI_Kit/Page"
+import InfoBox from "../../../UI_Kit/InfoBox/InfoBox";
+import {PageContainer} from "../../../UI_Kit/Page";
 
 import {UserContext} from '../../../../GlobalState'; // context
 
@@ -28,6 +28,7 @@ const PreOpeningPage = (props) => {
     return (
         <PageContainer>
             <InfoBox 
+                category={openingData.category}
                 title={openingData.headline} 
                 subtitle={openingData.subheading} 
                 image={openingData.img}

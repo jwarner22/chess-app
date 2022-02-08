@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-var primaryColor = '#5649b1'
+var primaryColor = '#1161d4'
 
 export const ButtonStyle = styled.button`
   background: ${props => props.primary ? primaryColor : '#EFEFFD'};

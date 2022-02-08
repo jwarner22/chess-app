@@ -9,12 +9,12 @@ export const OpeningData = [{
   category: "opening",
   headline: "Closed Spanish",
   pawn: "e4",
-  moves: "e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7 f1e1 b7b5 a4b3 d7d6 c2c3 e8g8 h2h3"
+  moves: "e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7 f1e1 b7b5 a4b3 d7d6 c2c3 e8g8 h2h3",
 },{
   id: 41,
   category: "opening",
   headline: "Open Spanish",
- pawn: "e4",
+  pawn: "e4",
   moves: "e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f6e4 d2d4" 
 },{
   id: 42,

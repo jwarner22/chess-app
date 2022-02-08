@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components'
 import Button from '../Button/Button';
 import { InfoBoxContainer, 
@@ -8,13 +8,19 @@ import { InfoBoxContainer,
     InfoBoxSubTitle, 
     InfoBoxTitle,
     InfoBoxStat,
-    InfoBoxStatContainer
+    InfoBoxStatContainer,
+    OpeningImage
  } from './InfoBoxElements';
  import StatBox from './StatBox';
  
 
 const InfoBox = (props) => {
-    // const {headline} = props;
+const [puzzleType, setPuzzleType] = useState(props.category)
+
+const isOpening = puzzleType === "opening";
+
+
+
 
   return (
   <>
@@ -32,6 +38,7 @@ const InfoBox = (props) => {
             <StatBox statTitle={props.headlineOne} statData={props.userData.high_score}/>
             <StatBox statTitle={props.headlineTwo} statData={props.userData.completed}/>
         </InfoBoxStatContainer>
+        {/* {isOpening ? <OpeningImage/> : null} */}
         <InfoBoxStatContainer>
         <InfoBoxButton primary onClick={() => props.onStartClick('white')}>
             {props.buttonOneTitle}
