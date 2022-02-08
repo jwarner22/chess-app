@@ -36,22 +36,11 @@ export default function PuzzleManager(props) {
   },[props]);
 
   const handleOutcome = (outcome) => {
-    // console.log({ outcome: outcome });
-
-
+    
     if (outcome === false) {
-      // do failed logic (callback?)
       props.incorrectCallback(false);
-      //props.unlockNext();
       return;
     }
-
-    // if (props.promotion !== "x" && outcome === true) {
-    //   props.displayOutcome(true);
-    //   props.unlockNext();
-    //   return;
-    // }
-
 
     setHistory((prevHistory) => {
       let movesCopy = [...moves];
@@ -59,22 +48,19 @@ export default function PuzzleManager(props) {
       prevHistory.push(newMove);
       let lastOpposingMove = movesCopy.shift();
       prevHistory.push(lastOpposingMove);
-      console.log({ history: history });
+      // console.log({ history: history });
       return prevHistory;
     });
 
     setMoves((prevMoves) => {
       prevMoves.shift();
       prevMoves.shift();
-      console.log({ moves: moves });
+      // console.log({ moves: moves });
       return prevMoves;
     });
 
-    if (moves.length === 0) {
-      props.finishedCallback(true);
-      //props.unlockNext();
-    }
-    console.log({updatedMoves: moves})
+    if (moves.length === 0) props.finishedCallback(true);
+
     setCorrectMove(moves[0]);
     setOpposingMove(moves[1]);
   };

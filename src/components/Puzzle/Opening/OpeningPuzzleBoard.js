@@ -33,7 +33,6 @@ export default function PuzzleBoard(props) {
   const windowSizeWidth = useWindowSize()[0];
   const [width, setWidth] = useState(windowSizeWidth);
 
-  const prevPromotion = usePrevious(props.promotion);
   const prevCorrect = usePrevious(props.correctMove);
   const prevInitial = usePrevious(props.initialFen);
 
@@ -131,9 +130,7 @@ export default function PuzzleBoard(props) {
 
   function onSquareClick(targetSquare) {
     setRightClickedSquares({});
-    // getMoveOptions(targetSquare); // need to figure out mobile move options
     setPieceSquare(targetSquare);
-    // console.log(piece)
     if (piece === "") {
       getMoveOptions(targetSquare);
       return;
@@ -224,17 +221,6 @@ export default function PuzzleBoard(props) {
       correct = prevCorrect.substring(0, 4);
     } 
 
-    // if (props.promotion != null && props.promotion !== "x") {
-    //   correct = (prevCorrect == null) ? null : prevCorrect.substring(0,4);
-    //   console.log({move: move, correct: correct})
-    //   if (move === correct) {
-    //     outcomeCallback(true);
-    //     return;
-    //   } else {
-    //     outcomeCallback(false);
-    //   }
-    // } 
-
     if (move === correctMove || move === correct) {
       outcomeCallback(true);
       setTimeout(makeOpposingMove, 600);
@@ -255,8 +241,6 @@ export default function PuzzleBoard(props) {
   //   setPiece(piece);
     
   // }
-
-
 
   // OPPOSING MOVE
 

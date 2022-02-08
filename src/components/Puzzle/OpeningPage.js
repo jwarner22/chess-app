@@ -23,20 +23,21 @@ export default function OpeningModule(props) {
   const [progress,setProgress] = useState(0);
   const [count,setCount] = useState(0);
   const [moves,setMoves] = useState();
-  //const [orientation, setOrientation] = useState("");
   const [continueDisabled, setContinueDisabled] = useState(true);
   const [retryDisabled, setRetryDisabled] = useState(true);
   const [showDisabled, setShowDisabled] = useState(true);
   const [score, setScore] = useState(0);
-  //const [windowDimension, setWindowDimension] = useState(null);
   const [outcome, setOutcome] = useState(null);
   const [startedDemo, setStartedDemo] = useState(false);
   const [triggerNext, setTriggerNext] = useState(false);
   const [boardKey, setBoardKey] = useState(0);
+
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
+
   const windowDimensions = useWindowSize();
   const isMobile = windowDimensions[0] <= 640;
+
   const orientation = props.orientation;
 
   
@@ -50,12 +51,6 @@ export default function OpeningModule(props) {
     }
   },[count])
 
-  useEffect(() => {
-    if (progress > 50) {
-      //setOrientation("black")
-    }
-  },[progress])
-
   const getMoves = async () => {
     let moves = props.openingData.moves;
     const openingMoves = getOpeningMoves(moves);
@@ -64,7 +59,6 @@ export default function OpeningModule(props) {
     setMoveIndex(0);
     setProgress(0);
     setCount(0);
-    //setOrientation("white");
     setIsLoaded(true);
   }
 
@@ -105,7 +99,6 @@ export default function OpeningModule(props) {
   }
 
   const handleRetryClick = () => {
-    //setDemoIsFinished(false);
     setTriggerNext(prev=>!prev);
     setRetryDisabled(true);
     setShowDisabled(true);
@@ -141,8 +134,8 @@ export default function OpeningModule(props) {
         </div>
             <PuzzleBoardWrapper>
               <div style={boardContainer}>
-                <div className="box">
-                  <div className="main-board green merida my-2">
+                {/* <div className="box">
+                  <div className="main-board green merida my-2"> */}
                     {isLoaded === true && demoIsFinished === false && (
                       <DemoMoves
                         moves={moves}
@@ -156,8 +149,8 @@ export default function OpeningModule(props) {
                     {isLoaded === true && demoIsFinished === true && (
                       <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext}  count={count} correctMoves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
                     )}
-                  </div>
-                  </div>
+                  {/* </div>
+                  </div> */}
               </div>
             </PuzzleBoardWrapper>
             <OpeningNav onShowMovesClick={handleShowMovesClick} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={retryDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo} showDisabled={showDisabled}/>
@@ -173,8 +166,8 @@ export default function OpeningModule(props) {
       <PuzzleBoardContainer>
         <PuzzleBoardWrapper>
         <div style={boardContainer}>
-        <div className="box">
-          <div className="main-board green merida my-2">
+        {/* <div className="box">
+          <div className="main-board green merida my-2"> */}
             {isLoaded === true && demoIsFinished === false && (
               <DemoMoves
                 moves={moves}
@@ -188,8 +181,8 @@ export default function OpeningModule(props) {
             {isLoaded === true && demoIsFinished === true && (
               <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext} count={count} correctMoves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
             )}
-          </div>
-          </div>
+          {/* </div>
+          </div> */}
         </div>
         </PuzzleBoardWrapper>
         </PuzzleBoardContainer>

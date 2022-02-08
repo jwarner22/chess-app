@@ -152,7 +152,6 @@ export default function Puzzle(props) {
       }
       setCompletedTraining(true);
     }
-    // console.log({newDailyModules: mutatedPuzzles})
     return mutatedPuzzles
   }
 

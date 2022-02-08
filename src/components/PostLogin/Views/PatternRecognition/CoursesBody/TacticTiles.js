@@ -10,7 +10,6 @@ import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
 import useOnScreen from '../../../../Hooks/useOnScreen';
 
 const TacticTiles = (props) => {
-    console.log(props)
     const tacticRef = useRef();
     const [visible, setVisible] = useState(false);
     const load = useOnScreen(tacticRef, '0px');
