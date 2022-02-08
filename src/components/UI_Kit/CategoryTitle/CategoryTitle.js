@@ -10,7 +10,7 @@ const CategoryTitle = (props) => {
 export default CategoryTitle;
 
 const Title = styled.h1`
-    color: #54606c;
+    color: #243862;
     padding: 24px 0px;
     text-align: center;
 `

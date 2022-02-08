@@ -74,3 +74,8 @@ export const InfoBoxStat= styled(InfoBoxTitle)`
     padding-top: 8px;
     margin-bottom: 24px;
 `
+
+export const OpeningImage = styled.img`
+    width: 120px;
+    height: 120px;
+`

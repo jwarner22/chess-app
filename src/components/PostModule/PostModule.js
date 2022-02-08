@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react'
+import styled from 'styled-components'
 import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from './PostModuleElements'
 import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
 import Chart from './ScoreChart';
 import StarRating from './StarRating'
+import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
+import { Rating } from 'react-simple-star-rating';
 
 const PostPuzzleMockup = (props) => {
     const [linkUrl, setLinkUrl] = useState('');
@@ -49,8 +52,17 @@ const PostPuzzleMockup = (props) => {
                         Return to {props.isDaily ? 'Daily Puzzles' : 'Dashboard'}
                     </FinishButton>
                     </Link>
+                    <RatingHeader>
+                        How would you rate this module?
+                    </RatingHeader>
                     <div>
-                    <StarRating {...props}/>
+                        <ThumbsUpButton>
+                            <ThumbsUp />
+                        </ThumbsUpButton>
+                        <ThumbsDownButton>
+                            <ThumbsDown />
+                        </ThumbsDownButton>
+                    {/* <StarRating {...props}/> */}
                     </div>
             </PostPuzzleGrid>
         </PostPuzzleWrapper>
@@ -61,3 +73,45 @@ const PostPuzzleMockup = (props) => {
 }
 
 export default PostPuzzleMockup
+
+const RatingHeader = styled.h2`
+    text-align: center;
+    color: #54606c;
+`
+
+const ThumbsUpButton = styled.button`
+    border: 0;
+    background: transparent;
+`
+
+const ThumbsUp = styled(FaThumbsUp)`
+    min-width: 40px;
+    min-height: 40px;
+    color: rgb(41, 204, 125);
+    margin: 12px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+`
+
+const ThumbsDownButton = styled.button`
+    border: 0;
+    background: transparent;
+`
+
+
+const ThumbsDown = styled(FaThumbsDown)`
+    min-width: 40px;
+    min-height: 40px;
+    color: rgb(253, 83, 72);
+    margin: 12px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+`

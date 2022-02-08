@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import {Link} from 'react-router-dom'
 import Body from "./CoursesBody/CoursesBody";
 import styled from "styled-components";
 import { MenuTiles } from "../../../UI_Kit/PuzzleMenu/MenuTileElements";
@@ -11,6 +12,7 @@ import EndgameTiles from './CoursesBody/EngameTiles';
 import TacticTiles from './CoursesBody/TacticTiles';
 import CheckmateTiles from './CoursesBody/CheckmateTiles';
 import FooterBuffer from '../../../UI_Kit/FooterBuffer';
+import Button from '../../../UI_Kit/Button/Button';
 
 
 
@@ -25,8 +27,12 @@ const Dashboard = () => {
 
   return (
     <>
+    <Link to="/feature_suggestion">
+    <FeatureSuggestionButton primary>
+      Suggest a Feature
+    </FeatureSuggestionButton>
+    </Link>
     <DashboardWrapper>
-      <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading>
         <MotifMenu 
         toggle={toggle}
         />
@@ -41,6 +47,12 @@ const Dashboard = () => {
 };
 export default Dashboard;
 
+export const FeatureSuggestionButton = styled(Button)`
+  font-size: 14px;
+  position: absolute;
+  cursor: pointer;
+  z-index: 9999;
+`
 
 export const DashboardWrapper =styled.div`
   display: flex;
