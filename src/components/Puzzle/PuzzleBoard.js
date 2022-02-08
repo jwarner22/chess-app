@@ -348,7 +348,9 @@ export default function PuzzleBoard(props) {
       console.log('in check')
       let square = getInCheckSquare();
       const newSquares = {};
-      newSquares[square] = { background: "rgba(255, 0, 0, 0.4)" };
+      //newSquares[square] = { background: "rgba(255, 0, 0, 0.8)" };
+      newSquares[square] = { background: "radial-gradient(circle, rgba(255,0,0,.8) 45%, transparent)" };
+      
       setInCheckSquare(newSquares);
     } else if (!game.in_check() && inCheckSquare !== {}) {
       setInCheckSquare({}); // reset in check square
