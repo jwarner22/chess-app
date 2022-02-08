@@ -27,8 +27,8 @@ export default function PuzzleBoard(props) {
     let g = new Chess(props.initialFen);
     return g.turn() === "w" ? "black" : "white";
   });
-  const [moveSound, setMoveSound] = useState(new Howl({src: moveSoundFile}));
-  const [captureSound, setCaptureSound] = useState(new Howl({src: captureSoundFile}));
+  const [moveSound, setMoveSound] = useState(() => new Howl({src: moveSoundFile}));
+  const [captureSound, setCaptureSound] = useState(() => new Howl({src: captureSoundFile}));
   const [loaded, setLoaded] = useState(false);
   const [pendingMove, setPendingMove] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -37,7 +37,7 @@ export default function PuzzleBoard(props) {
   //const [width, setWidth] = useState(0)
   const windowSizeWidth = useWindowSize()[0];
   const [width, setWidth] = useState(windowSizeWidth);
-  
+
   //const prevPromotion = usePrevious(props.promotion);
   const prevCorrect = usePrevious(props.correctMove);
   const prevInitial = usePrevious(props.initialFen);
@@ -73,8 +73,8 @@ export default function PuzzleBoard(props) {
   useEffect(() => {
     props.moveIndicator(orientation);
     return () => {
-      setMoveSound(null);
-      setCaptureSound(null);
+      if (captureSound !== null) captureSound.unload();
+      if(moveSound !== null) moveSound.unload(); 
     }
   },[])
 
@@ -163,8 +163,9 @@ export default function PuzzleBoard(props) {
       //promotion: "q" // always promote to a queen for example simplicity
     });
     // if invalid, setMoveFrom and getMoveOptions
-    setPiece("");
+    
     if (move === null) {
+      // setPiece("");
       return false;
     }
 
@@ -250,7 +251,8 @@ export default function PuzzleBoard(props) {
   }
 
   function onPieceClick(selectedPiece) {
-    setPiece(() => selectedPiece);
+    console.log(selectedPiece)
+    setPiece(selectedPiece);
   }
 
   // function onPieceDrop(piece) {
