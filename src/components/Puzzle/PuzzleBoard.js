@@ -65,7 +65,7 @@ export default function PuzzleBoard(props) {
     setMoveSound(new Howl({src: moveSoundFile}));
     setCaptureSound(new Howl({src: captureSoundFile}));
     setGame(() => new Chess(props.initialFen));
-    setTimeout(makeInitialMove, 1500);
+    //setTimeout(makeInitialMove, 1000);
     setLoaded(true);
   },[]); 
 
@@ -88,7 +88,10 @@ export default function PuzzleBoard(props) {
   useLayoutEffect(() => {
       // console.log({propsinitial: props.initialFen})
       // console.log({prevInitial: prevInitial});
-      if (prevInitial == null) return;
+      if (prevInitial == null) {
+        setTimeout(makeInitialMove, 1000);
+        return;
+      }
       if (props.initialFen === prevInitial) return;
 
       console.log('new puzzle')
@@ -100,7 +103,7 @@ export default function PuzzleBoard(props) {
         return orient;
       });
       
-      setTimeout(makeInitialMove, 800);
+      setTimeout(makeInitialMove, 1000);
   },[props.initialFen]);
 
   // INITIAL MOVE
