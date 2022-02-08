@@ -36,7 +36,6 @@ const Dashboard = () => {
         <MotifMenu 
         toggle={toggle}
         />
-        <PatternRecognitionHeading>Choose a <br></br> <strong>Puzzle to Play</strong></PatternRecognitionHeading>
       <EndgameTiles className="endgameTiles"/>
       <TacticTiles className="tacticTiles"/>
       <CheckmateTiles className="checkmateTiles"/>
