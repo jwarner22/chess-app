@@ -12,7 +12,6 @@ import captureSoundFile from "../../assets/public_sound_standard_Capture.mp3";
 
 import usePrevious from "../Hooks/usePrevious";
 import { useWindowSize } from "../Hooks/UseWindowSize";
-import { Cpanel } from "styled-icons/fa-brands";
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
@@ -22,13 +21,14 @@ export default function PuzzleBoard(props) {
   const [pieceSquare, setPieceSquare] = useState("");
   const [optionSquares, setOptionSquares] = useState({});
   const [moveSquares, setMoveSquares] = useState({});
+  const [inCheckSquare, setInCheckSquare] = useState({});
   const [rightClickedSquares, setRightClickedSquares] = useState({});
   const [orientation, setOrientation] = useState(() => {
     let g = new Chess(props.initialFen);
     return g.turn() === "w" ? "black" : "white";
   });
-  const [moveSound, setMoveSound] = useState();
-  const [captureSound, setCaptureSound] = useState();
+  const [moveSound, setMoveSound] = useState(new Howl({src: moveSoundFile}));
+  const [captureSound, setCaptureSound] = useState(new Howl({src: captureSoundFile}));
   const [loaded, setLoaded] = useState(false);
   const [pendingMove, setPendingMove] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -38,7 +38,7 @@ export default function PuzzleBoard(props) {
   const windowSizeWidth = useWindowSize()[0];
   const [width, setWidth] = useState(windowSizeWidth);
   
-  const prevPromotion = usePrevious(props.promotion);
+  //const prevPromotion = usePrevious(props.promotion);
   const prevCorrect = usePrevious(props.correctMove);
   const prevInitial = usePrevious(props.initialFen);
   
@@ -86,8 +86,8 @@ export default function PuzzleBoard(props) {
   },[promotion]);
 
   useLayoutEffect(() => {
-      console.log({propsinitial: props.initialFen})
-      console.log({prevInitial: prevInitial});
+      // console.log({propsinitial: props.initialFen})
+      // console.log({prevInitial: prevInitial});
       if (prevInitial == null) return;
       if (props.initialFen === prevInitial) return;
 
@@ -150,6 +150,7 @@ export default function PuzzleBoard(props) {
     }
     
     if (props.promotion !== "x") return;
+    console.log({piece_promotion: piece})
     if (piece.substring(1) === "P") {
       let promote = checkPromotion(pieceSquare,targetSquare)
       if (promote) return false;
@@ -164,7 +165,7 @@ export default function PuzzleBoard(props) {
     // if invalid, setMoveFrom and getMoveOptions
     setPiece("");
     if (move === null) {
-      return;
+      return false;
     }
 
     if (move.flags === "c") {
@@ -201,7 +202,7 @@ export default function PuzzleBoard(props) {
     });
     // if invalid, setMoveFrom and getMoveOptions
     if (move === null) {
-      return;
+      return false;
     }
 
     if (move.flags === "c") {
@@ -235,17 +236,6 @@ export default function PuzzleBoard(props) {
     } else if ((prevCorrect != null) && prevCorrect.length === 5 && props.promotion !== "x") {
       correct = prevCorrect.substring(0, 4);
     } 
-
-    // if (props.promotion != null && props.promotion !== "x") {
-    //   correct = (prevCorrect == null) ? null : prevCorrect.substring(0,4);
-    //   console.log({move: move, correct: correct})
-    //   if (move === correct) {
-    //     outcomeCallback(true);
-    //     return;
-    //   } else {
-    //     outcomeCallback(false);
-    //   }
-    // } 
 
     if (move === correctMove || move === correct) {
       outcomeCallback(true);
@@ -347,6 +337,40 @@ export default function PuzzleBoard(props) {
     });
   }
 
+  useEffect(() => {
+    if (game == null) return; // game not loaded yet
+    if (game.in_check()) {
+      console.log('in check')
+      let square = getInCheckSquare();
+      const newSquares = {};
+      newSquares[square] = { background: "rgba(255, 0, 0, 0.4)" };
+      setInCheckSquare(newSquares);
+    } else if (!game.in_check() && inCheckSquare !== {}) {
+      setInCheckSquare({}); // reset in check square
+    }
+  },[game])
+
+
+  function getInCheckSquare() {
+
+    let turn = game.turn(); // returns "w" or "b"
+
+    // loop through ranks and files and concatenate to get square
+    let files = ["a", "b", "c", "d", "e", "f", "g", "h"];
+    let ranks = ["1", "2", "3", "4", "5", "6", "7", "8"];
+    let square = "";
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        let piece = game.get(files[j] + ranks[i]);
+        if (piece == null) continue;
+        if (piece.color === turn && piece.type === "k") {
+          square = files[j] + ranks[i];
+          return square;
+        }
+      }
+    }
+  }
+
   function getMoveOptions(square) {
     const moves = game.moves({
       square,
@@ -396,7 +420,8 @@ export default function PuzzleBoard(props) {
       customSquareStyles={{
         ...moveSquares,
         ...optionSquares,
-        ...rightClickedSquares
+        ...rightClickedSquares,
+        ...inCheckSquare
       }}
       boardWidth={width}
       animationDuration={200}
