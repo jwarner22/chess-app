@@ -35,6 +35,24 @@ const UserProvider = ({ children }) => {
         setLoading(() => false);
     }
 
+    const getUserPreferrenceEmbedding = (data) => {
+        // create embedding vector from nb_plays entry of each theme
+        console.log({themedata: data})
+        let preference_embedding = data.map(item => {
+            return item.completed;
+        })
+        
+        let total_plays = preference_embedding.reduce((prev, curr) => prev + curr);
+        let baseline_prob = 1/preference_embedding.length;
+        preference_embedding = preference_embedding.map(item => (item/total_plays));
+        preference_embedding = preference_embedding.map(item => (baseline_prob+item));
+        let total_avgd = preference_embedding.reduce((prev,curr) => prev+curr);
+        preference_embedding = preference_embedding.map(item => (item/total_avgd));
+
+        console.log({embedding: preference_embedding})
+        return preference_embedding;
+    }
+
     // USER DATA
     const fetchAllUserData = async () => {
         console.log('big fetch request -> should only see this on start up');
@@ -48,6 +66,8 @@ const UserProvider = ({ children }) => {
         delete user.openings;
         delete user.daily_puzzles;
         delete user.id;
+
+        getUserPreferrenceEmbedding(response.themes)
 
         setUserId(auth.userId);
         setUserData(user);
