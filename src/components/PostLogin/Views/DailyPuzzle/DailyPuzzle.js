@@ -26,11 +26,10 @@ export default function DailyPuzzzle() {
   const [loaded,setLoaded] = useState(false);
   const [dailyPicks, setDailyPicks] = useState([]);
   const [schemaPicks, setSchemaPicks] = useState([]);
-  const [isMounted, setIsMounted] = useState(true);
+  // const [isMounted, setIsMounted] = useState(true);
   const [screenTimer, setScreenTimer] = useState(true);
   
   const {dailyModules} = useContext(UserContext);
-  const {contextLoading} = useContext(UserContext);
 
   const windowSize = useWindowSize();
   const isMobile = windowSize[0] < 640;
@@ -38,15 +37,11 @@ export default function DailyPuzzzle() {
 
   useLayoutEffect(() => {
     console.log('layout effect ran')
-    if (!contextLoading) {
-      console.log('context loaded')
       setLoaded(false);
       transformDaily();
       setTimer();
       setLoaded(true);
-    }
-    return () => setIsMounted(false) // componentDidUnMount
-  },[contextLoading])
+    },[])
 
   useEffect(() => {
     if (isMobile && windowSize[0] !== 0) {
@@ -96,7 +91,7 @@ export default function DailyPuzzzle() {
     
   }
   
-  if (contextLoading | !loaded | dailyPicks.length === 0) {
+  if (!loaded | dailyPicks.length === 0) {
     return <Loader />
   }
 
