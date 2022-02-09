@@ -4,12 +4,13 @@ import { baseURL } from "./components/api/apiConfig.js";
 import {AuthContext} from './components/Auth';
 
 import {Modules} from './components/PostLogin/Views/PatternRecognition/CourseTiles/Data';
+import { ThermometerSun } from "styled-icons/bootstrap";
 
 const UserContext = createContext();
 
 // USER CONTEXT
 const UserProvider = ({ children }) => {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState(null);
     const [achievements, setAchievements] = useState([]);
     const [themesData, setThemesData] = useState([]);
@@ -29,28 +30,51 @@ const UserProvider = ({ children }) => {
     },[auth.userId]);
 
     const updateGlobalState = async () => {
-        setLoading(() => true);
+        setLoading(true);
         await fetchAllUserData();
         await fetchAchievements();
-        setLoading(() => false);
+        setLoading(false);
     }
 
-    const getUserPreferrenceEmbedding = (data) => {
+    const getUserPreferrenceEmbedding = (themes, openings) => {
         // create embedding vector from nb_plays entry of each theme
-        console.log({themedata: data})
-        let preference_embedding = data.map(item => {
+
+        let embedding = Modules.map(module => {
+            let output = {}
+            if (module.category === 'opening') {
+                output = openings.find(theme => parseInt(theme.opening_id) === module.id);
+            } else { 
+                output = themes.find(theme => theme.title === module.type_ref);
+            }
+            if (output == null) return {id: module.id, completed: 0}
+            return {id: module.id, completed: output.completed};
+        })
+
+        let preference_embedding = embedding.map((item, index) => {
+            
             return item.completed;
         })
         
         let total_plays = preference_embedding.reduce((prev, curr) => prev + curr);
+        if (total_plays === 0) { // if no plays, set all to default prob
+            let default_prob = 1/preference_embedding.length
+            return embedding.map((module) => {
+                return {id: module.id, prob: default_prob};
+            });
+        }
+
         let baseline_prob = 1/preference_embedding.length;
         preference_embedding = preference_embedding.map(item => (item/total_plays));
         preference_embedding = preference_embedding.map(item => (baseline_prob+item));
+        
         let total_avgd = preference_embedding.reduce((prev,curr) => prev+curr);
         preference_embedding = preference_embedding.map(item => (item/total_avgd));
+        
+        embedding = embedding.map((item, index) => {
+            return {id: item.id, prob: preference_embedding[index]}
+        })
 
-        console.log({embedding: preference_embedding})
-        return preference_embedding;
+        return embedding;
     }
 
     // USER DATA
@@ -67,13 +91,13 @@ const UserProvider = ({ children }) => {
         delete user.daily_puzzles;
         delete user.id;
 
-        getUserPreferrenceEmbedding(response.themes)
+        let embedding = getUserPreferrenceEmbedding(response.themes, response.openings)
 
         setUserId(auth.userId);
         setUserData(user);
         setThemesData(response.themes);
         setOpenings(response.openings);
-        handleDailyModules(response.daily_puzzles)
+        handleDailyModules(response.daily_puzzles, embedding);
     }
 
     const updateUserData = async (data) => { 
@@ -101,24 +125,24 @@ const UserProvider = ({ children }) => {
     }
 
     // DAILY MODULES
-    const handleDailyModules = async (response) => {
-        console.log({response: response})
+    const handleDailyModules = async (response, embedding) => {
+
         let now = new Date();
         if (response.length === 0) { // no daily modules
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`;
-            let {picks, alts} = await get(endpoint); // get picks
+            let {picks, alts} = await put(endpoint, embedding); // get picks
             let schemaPicks = mutatePicks(picks, alts); // map picks to modules and save
             await post(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // post daily modules to db
             setDailyModules(schemaPicks); // set daily modules
         } else if (response.detail === "daily puzzles expired") { // daily modules expired
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`; // get new picks
-            let {picks, alts} = await get(endpoint); // get picks
+            let {picks, alts} = await put(endpoint, embedding); // get picks
             let schemaPicks = mutatePicks(picks, alts); // map picks to modules and save
             await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
             setDailyModules(schemaPicks);
         } else if ((new Date(response[0].expiration)) < now) {
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`; // get new picks
-            let {picks, alts} = await get(endpoint);
+            let {picks, alts} = await put(endpoint, embedding);
             let schemaPicks = mutatePicks(picks, alts); // map picks to modules and save
             await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
             setDailyModules(schemaPicks);
@@ -170,10 +194,8 @@ const UserProvider = ({ children }) => {
 
     const updateDailyModules = async (data) => { 
         setLoading(() => true);
-        console.log({oldData: dailyModules, newData: data});
         let endpoint = `/users/${auth.userId}/daily_puzzles`; 
         let response = await put(endpoint, data);
-        console.log({dailyResponse: response});
         setDailyModules(response);
         setLoading(() => false);
     }
@@ -186,7 +208,6 @@ const UserProvider = ({ children }) => {
         let response = await get(endpoint);
 
         setAchievements(response);
-        setLoading(false);
     }
 
     const updateAchievements = async (category, value, diff, theme) => { 
