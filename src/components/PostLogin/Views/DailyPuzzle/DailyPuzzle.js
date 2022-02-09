@@ -35,7 +35,7 @@ export default function DailyPuzzzle() {
   const isMobile = windowSize[0] < 640;
 
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     console.log('layout effect ran')
       setLoaded(false);
       transformDaily();
@@ -44,11 +44,12 @@ export default function DailyPuzzzle() {
     },[])
 
   useEffect(() => {
+    console.log({isMobie: isMobile, windowSize: windowSize})
     if (isMobile && windowSize[0] !== 0) {
       console.log('reverse')
       setDailyPicks(dailyPicks.reverse());
     }
-  } ,[])
+  } ,[windowSize])
 
   const transformDaily = async () => {
     console.log('transform daily')
