@@ -35,34 +35,40 @@ export default function DailyPuzzzle() {
   const windowSize = useWindowSize();
   const isMobile = windowSize[0] < 640;
 
-  
+
   useLayoutEffect(() => {
+    console.log('layout effect ran')
     if (!contextLoading) {
+      console.log('context loaded')
       setLoaded(false);
       transformDaily();
       setTimer();
+      setLoaded(true);
     }
     return () => setIsMounted(false) // componentDidUnMount
   },[contextLoading])
 
-  const transformDaily = () => {
+  useEffect(() => {
+    if (isMobile && windowSize[0] !== 0) {
+      console.log('reverse')
+      setDailyPicks(dailyPicks.reverse());
+    }
+  } ,[])
+
+  const transformDaily = async () => {
+    console.log('transform daily')
     let modules = [...Modules]; // copy of Modules
     let daily = [...dailyModules]; // copy of dailyModules
 
-    setSchemaPicks(daily); // set schema picks to daily
+    setSchemaPicks([...daily]); // set schema picks to daily
     daily = daily.map((module, index) => {
       let locatedModule = daily.find(item => item.location === index);
       let item = modules.find(entry => entry.id === locatedModule.theme_id)
       return {...item, ...locatedModule}
     })
-    
-    if (isMobile) {
-      daily.reverse();
-    }
-
-    setDailyPicks(daily); // set data for display and module consumption
-    setLoaded(true);
+    setDailyPicks([...daily]); // set data for display and module consumption
   }
+ 
 
   // displays "generating daily training" message and hides it after timer
   const setTimer = async () => {
@@ -89,10 +95,10 @@ export default function DailyPuzzzle() {
     }
     
   }
-
-  if (contextLoading | dailyModules.length === 0) {
+  
+  if (contextLoading | !loaded | dailyPicks.length === 0) {
     return <Loader />
-   }
+  }
 
   if (!screenTimer) {
     return (
@@ -110,7 +116,6 @@ export default function DailyPuzzzle() {
   return (
     <>
        <Container>
-   {(loaded) &&
    <DailyPuzzleWrapper>
       <DailyPuzzleContainer>
         </DailyPuzzleContainer>
@@ -133,7 +138,6 @@ export default function DailyPuzzzle() {
         </PuzzleWrapper>
         </SelectionContainer>
    </DailyPuzzleWrapper>
-  }
      </Container>
    </>
   );
