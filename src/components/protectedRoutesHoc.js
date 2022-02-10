@@ -12,10 +12,6 @@ const ProtectedRouteHoc = ({ component: Component, ...rest }) => {
 	const {contextLoading} = useContext(UserContext)
 	const {path} = rest;
 
-	if (contextLoading) {
-		return(<Loader />)
-	}
-
 	if (currentUser || rest.public) {
 		return (
 			<Route

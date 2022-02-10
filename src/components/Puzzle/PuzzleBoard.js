@@ -71,12 +71,15 @@ export default function PuzzleBoard(props) {
 
   // cleanup to avoid memory leaks
   useEffect(() => {
-    props.moveIndicator(orientation);
 
     return () => {
       if (captureSound !== null) captureSound.unload();
       if(moveSound !== null) moveSound.unload(); 
     }
+  },[])
+
+  useLayoutEffect(() =>{
+    props.moveIndicator(orientation);
   },[])
 
   useEffect(() => {
@@ -146,12 +149,9 @@ export default function PuzzleBoard(props) {
     // getMoveOptions(targetSquare); // need to figure out mobile move options
     setPieceSquare(targetSquare);
     // console.log(piece)
-    console.log({pieceSquare: pieceSquare, targetSquare: targetSquare})
-    console.log({moveHighlightSquare: moveHighlightSquare})
-
-    if (targetSquare !== moveHighlightSquare) {
-      getMoveOptions(targetSquare);
-    }
+    // console.log({pieceSquare: pieceSquare, targetSquare: targetSquare})
+    // console.log({moveHighlightSquare: moveHighlightSquare})
+    console.log({targetSquare: targetSquare, pieceSquare: pieceSquare, moveHighlightSquare: moveHighlightSquare});
     
     if (props.promotion !== "x") return;
     console.log({piece_promotion: piece})
@@ -169,8 +169,12 @@ export default function PuzzleBoard(props) {
     // if invalid, setMoveFrom and getMoveOptions
     
     if (move === null) {
-      // setPiece("");
+      // setPiece("")
       return false;
+    }
+
+    if (targetSquare !== moveHighlightSquare) {
+      getMoveOptions(targetSquare);
     }
 
     if (move.flags === "c") {

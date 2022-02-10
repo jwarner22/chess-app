@@ -11,6 +11,7 @@ import captureSoundFile from "../../../assets/public_sound_standard_Capture.mp3"
 
 import usePrevious from "../../Hooks/usePrevious";
 import { useWindowSize } from "../../Hooks/UseWindowSize";
+import { C } from "styled-icons/simple-icons";
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
@@ -22,12 +23,13 @@ export default function PuzzleBoard(props) {
   const [moveSquares, setMoveSquares] = useState({});
   const [rightClickedSquares, setRightClickedSquares] = useState({});
   const [orientation, setOrientation] = useState(props.orientation);
-  const [moveSound, setMoveSound] = useState();
-  const [captureSound, setCaptureSound] = useState();
+  const [moveSound, setMoveSound] = useState(() => new Howl({src: moveSoundFile}));
+  const [captureSound, setCaptureSound] = useState(() => new Howl({src: captureSoundFile}));
   const [loaded, setLoaded] = useState(false);
   const [pendingMove, setPendingMove] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [promotion, setPromotion] = useState("x");
+  const [moveHighlightSquare,setMoveHighlightSquare] = useState("");
 
   //const [width, setWidth] = useState(0)
   const windowSizeWidth = useWindowSize()[0];
@@ -69,8 +71,8 @@ export default function PuzzleBoard(props) {
   useEffect(() => {
 
     return () => {
-      setMoveSound(null);
-      setCaptureSound(null);
+      if (captureSound !== null) captureSound.unload();
+      if(moveSound !== null) moveSound.unload(); 
     }
   },[])
 
@@ -103,7 +105,7 @@ export default function PuzzleBoard(props) {
 
     safeGameMutate((game) => {
       let m = game.move({ from: from, to: to });
-      if (m === null) return;
+      if (m == null) return;
       if (m.flags === "c") { 
         captureSound.play();
       } else {
@@ -131,12 +133,9 @@ export default function PuzzleBoard(props) {
   function onSquareClick(targetSquare) {
     setRightClickedSquares({});
     setPieceSquare(targetSquare);
-    if (piece === "") {
-      getMoveOptions(targetSquare);
-      return;
-    };
-    
-    if (props.promotion !== "x") return;
+    console.log({targetSquare: targetSquare, pieceSquare: pieceSquare, moveHighlightSquare: moveHighlightSquare});
+    // console.log({promotion: props.promotion})
+    // if (props.promotion !== "x") return;
     if (piece.substring(1) === "P") {
       let promote = checkPromotion(pieceSquare,targetSquare)
       if (promote) return false;
@@ -149,8 +148,13 @@ export default function PuzzleBoard(props) {
       //promotion: "q" // always promote to a queen for example simplicity
     });
     // if invalid, setMoveFrom and getMoveOptions
-    if (move === null) {
-      return;
+    console.log({move:move})
+    if (move == null) {
+      return false;
+    }
+
+    if (targetSquare !== moveHighlightSquare) {
+      getMoveOptions(targetSquare);
     }
 
     if (move.flags === "c") {
@@ -160,7 +164,6 @@ export default function PuzzleBoard(props) {
     };
     setGame(gameCopy);
 
-    setPiece("");
     validateMove(pieceSquare, targetSquare);
     setMoveSquares({
       [pieceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
@@ -185,7 +188,7 @@ export default function PuzzleBoard(props) {
       promotion: "q" // always promote to a queen for example simplicity
     });
     // if invalid, setMoveFrom and getMoveOptions
-    if (move === null) {
+    if (move == null) {
       return;
     }
 
@@ -197,7 +200,7 @@ export default function PuzzleBoard(props) {
 
     setGame(gameCopy);
 
-    if (move === null) return false; // illegal move
+    if (move == null) return false; // illegal move
     validateMove(sourceSquare, targetSquare);
     setMoveSquares({
       [sourceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
@@ -233,8 +236,8 @@ export default function PuzzleBoard(props) {
     return;
   }
 
-  function onPieceClick(piece) {
-    setPiece(piece);
+  function onPieceClick(selectedPiece) {
+    setPiece(selectedPiece);
   }
 
   // function onPieceDrop(piece) {
@@ -345,6 +348,7 @@ export default function PuzzleBoard(props) {
       background: "rgba(255, 255, 0, 0.4)"
     };
     setOptionSquares(newSquares);
+    setMoveHighlightSquare(square);
   }
 
 
