@@ -18,10 +18,10 @@ export const LoginHeaderImg = styled.img`
   position: fixed;
   width: 530px;
   height: 530px;
-  left: -80px;
   top: -270px;
   transform: scaleX(-1);
   overflow: hidden;
+  margin: auto;
 `
 
 export const ImgOverlay = styled.div`
@@ -29,10 +29,10 @@ export const ImgOverlay = styled.div`
   position: fixed;
   width: 530px;
   height: 530px;
-  left: -80px;
   top: -270px;
   background: linear-gradient(341.33deg, rgba(0, 13, 255, 0.8) 20.21%, rgba(107, 115, 255, 0.8) 83.15%);
   overflow: hidden;
+  margin: auto;
 `
 
 export const LoginHeaderLogoWrapper = styled.div`

@@ -1,7 +1,9 @@
 import {HeroContainer, HeroBg, HeroContent, HeroP, HeroH1, HeroBtnWrapper, ArrowForward, ArrowRight} from './HeroElements';
 import React, { useState, useEffect } from "react";//import { AuthContext } from "../Auth";
-import {Button} from '../../ButtonElement'
+import styled from 'styled-components'
+import Button from '../../UI_Kit/Button/Button';
 import {NavBtnLink2} from "../NavBar/NavbarElements"
+import { NavBtnLink } from '../../PostLogin/DashboardNavbar/DashboardNavElements';
 
 const HeroSection = () => {
     // const { currentUser } = useContext(AuthContext);
@@ -40,14 +42,15 @@ const HeroSection = () => {
                     Made Simple.               
                 </HeroP>
                 <HeroBtnWrapper>
-                    <Button 
-                    to="/signUp" 
+                    <NavBtnLink2 to="/signUp" >
+                    <HeroButton 
                     onMouseEnter={onHover} 
                     onMouseLeave={onHover}
                     primary='true'
                     dark='true'>
                         Get Started {hover ? <ArrowForward/> : <ArrowRight/> }
-                    </Button>
+                    </HeroButton>
+                    </NavBtnLink2>
                 </HeroBtnWrapper>
                 {isMobile ? (
                         <NavBtnLink2 to="/login">Login</NavBtnLink2> ) : (
@@ -59,3 +62,9 @@ const HeroSection = () => {
 }
 
 export default HeroSection
+
+const HeroButton = styled(Button)`
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+`

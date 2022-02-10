@@ -16,6 +16,7 @@ import {
 import {animateScroll as scroll} from 'react-scroll'
 import logo from "../../../Images/EloElevation-2.png"
 import {BlueBars} from "../../PostLogin/DashboardNavbar/DashboardNavElements"
+import Button from '../../UI_Kit/Button/Button'
 
 const Navbar = ({ toggle }) => {
     const [scrollNav, setScrollNav] = useState(false)
@@ -85,11 +86,15 @@ const Navbar = ({ toggle }) => {
                             </NavItem>
                         </NavMenu>
                         <NavBtn>
-                            <NavBtnLink2 to="/login">
-                                Login
-                            </NavBtnLink2>
-                            <NavBtnLink to="/signup">
-                                Sign Up
+                            <NavBtnLink to="/login">
+                                <Button>
+                                    Login
+                                </Button>
+                            </NavBtnLink>
+                            <NavBtnLink primary to="/signup">
+                                <Button primary>
+                                    Sign Up
+                                </Button>
                             </NavBtnLink>
                         </NavBtn>
                     </NavbarContainer>

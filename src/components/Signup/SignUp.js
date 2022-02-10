@@ -32,6 +32,7 @@ import firebase from "firebase/compat/app";
 //import FetchWrapper from '../api/FetchWrapper'
 import {baseURL} from '../api/apiConfig'
 import useFetch from '../api/useFetch';
+import Button from "../UI_Kit/Button/Button";
 require("firebase/auth");
 
 
@@ -113,11 +114,11 @@ const SignUp = ({history}) => {
   return (
     <>
     <Container className="page">
-    <LoginHeaderImg src={headerImg}/>
-      <ImgOverlay />
         <FormWrap>
           <LoginHeaderLogoWrapper>
            <LoginHeaderLogo src={logo} />
+           <LoginHeaderImg src={headerImg}/>
+      <ImgOverlay />
           </LoginHeaderLogoWrapper>
       <FormContent>
       <Form onSubmit={e => handleForm(e)}>
@@ -154,7 +155,7 @@ const SignUp = ({history}) => {
           </GoogleButtonText>
           </GoogleButton>
         
-        <FormButton type="submit">Join</FormButton>
+        <Button primary type="submit">Join</Button>
         <FormText>Already have an account?<br/>
         Login <Link to='/login'>here</Link>
         </FormText>

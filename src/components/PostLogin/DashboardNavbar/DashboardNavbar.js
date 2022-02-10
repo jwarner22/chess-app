@@ -128,4 +128,6 @@ const NavBarButton = styled(Button)`
     font-size: 16px;
     padding: 6px 24px;
     font-weight: 200;
+    margin: 12px 24px;
+    max-width: 120px;
 `
