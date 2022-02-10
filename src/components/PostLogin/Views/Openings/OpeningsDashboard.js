@@ -32,42 +32,43 @@ import {HeadingWrapper,
   DashboardWrapper} from "../PatternRecognition/PatternRecognition"
 
 import {useWindowSize} from '../../../Hooks/UseWindowSize'
+import OpeningMenu from './OpeningMenu';
 
 
 const Openings = () => {
-  const [shownCategory, setShownCategory] = useState("e4");
+  // const [shownCategory, setShownCategory] = useState("e4");
   const openingData = Modules.filter(module => module.category === 'opening');
   // view
   const windowDimension = useWindowSize();
   const isMobile = windowDimension[0] <= 640;
 
 
-  function handleShowE4Tiles(){
-        setShownCategory("e4")
-  }
+//   function handleShowE4Tiles(){
+//         setShownCategory("e4")
+//   }
 
-  function handleShowC4Tiles(){
-        setShownCategory("c4")
-  }
+//   function handleShowC4Tiles(){
+//         setShownCategory("c4")
+//   }
 
-function handleShowD4Tiles(){
-        setShownCategory("d4")
-  }
+// function handleShowD4Tiles(){
+//         setShownCategory("d4")
+//   }
 
 
     return (
         <>
         <div>
           <DashboardWrapper>
-          <HeadingWrapper>
-        <PatternRecognitionHeading>Choose an <br></br> <strong>Opening to Practice</strong></PatternRecognitionHeading>
-        <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading>
-        </HeadingWrapper>
-        <MenuWrapper>
+        <OpeningMenu />
+        {/* <MenuWrapper>
             <MenuGrid className="menuGrid">
-                <MenuTiles  className="e4Button"onClick={handleShowE4Tiles}>
+              <MenuTile>
+
+              </MenuTile> */}
+                {/* <MenuTiles  className="e4Button"onClick={handleShowE4Tiles}>
                     <MenuContent>
-                        {/* <MenuImg src={endgameImg} /> */}
+                        <MenuImg src={endgameImg} />
                         <MenuTitle>
                             e4
                         </MenuTitle>
@@ -75,7 +76,7 @@ function handleShowD4Tiles(){
                 </MenuTiles>
                 <MenuTiles className="c4Button" onClick={handleShowC4Tiles}>
                     <MenuContent>
-                        {/* <MenuImg src={tacticsImg} /> */}
+                        <MenuImg src={tacticsImg} />
                             <MenuTitle>
                                 c4
                         </MenuTitle>
@@ -83,19 +84,18 @@ function handleShowD4Tiles(){
                 </MenuTiles>
                 <MenuTiles className="d4Button" onClick={handleShowD4Tiles}>
                     <MenuContent>
-                        {/* <MenuImg src={checkmateImg} /> */}
+                        <MenuImg src={checkmateImg} />
                             <MenuTitle>
                                 d4
                             </MenuTitle>
                     </MenuContent>
-                </MenuTiles>
-            </MenuGrid>
-        </MenuWrapper>
+                </MenuTiles> */}
+            {/* </MenuGrid>
+        </MenuWrapper> */}
         <CoursesWrapper>
             <ModuleWrapper>
                 <OpeningsGrid>
                     {openingData.map((module, index) => {
-                      if (module.pawn === shownCategory) {
                         return (
                     <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/opening', state: {module: module}}}>
                         {/* { <CourseTile key={index} {...module}/> } // need to comment this line out */}
@@ -118,11 +118,7 @@ function handleShowD4Tiles(){
                           </OpeningsTileLeftColumn>
                         </OpeningsTileContainer>
                     </Link>
-                    )} else {
-                      return null;
-                    }
-                    
-                    })}
+                    )})}
                 </OpeningsGrid>
             </ModuleWrapper>
         </CoursesWrapper> 

@@ -1,6 +1,4 @@
-import styled from 'styled-components'
-
-
+import styled from "styled-components"
 
 export const TileWrapper = styled.li`
     display: flex;
@@ -152,19 +150,3 @@ export const TileButton = styled.div`
         display: none;
     }
 `
-
-export const InfoModalWrapper = styled.div`
-    display: flex;
-    justify-content: flex-end;
-`
-
-export const InfoModalIcon = styled.img`
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    justify-content: flex-end;
-    z-index: 5555;
-    position: relative;
-    margin-right: 10px;
-`
-

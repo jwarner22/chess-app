@@ -13,6 +13,9 @@ import TacticTiles from './CoursesBody/TacticTiles';
 import CheckmateTiles from './CoursesBody/CheckmateTiles';
 import FooterBuffer from '../../../UI_Kit/FooterBuffer';
 import Button from '../../../UI_Kit/Button/Button';
+import {Modules} from './CourseTiles/Data';
+import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
+import CourseTile from './CourseTiles/CourseTiles';
 
 
 
@@ -20,6 +23,10 @@ import Button from '../../../UI_Kit/Button/Button';
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false)
+
+  const endgameModules = Modules.filter(module => module.type === "endgame")
+  const tacticModules = Modules.filter(module => module.type === "midgame")
+  const checkmateModules = Modules.filter(module => module.type === "checkmate")
   
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -36,9 +43,30 @@ const Dashboard = () => {
         <MotifMenu 
         toggle={toggle}
         />
-      <EndgameTiles className="endgameTiles"/>
-      <TacticTiles className="tacticTiles"/>
-      <CheckmateTiles className="checkmateTiles"/>
+      <PuzzleTileGrid className="endgameTiles" id={"endgames"} category={"Endgames"}>
+        {endgameModules.map((module, index) => {
+                          return(
+                          // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                          <CourseTile key={index} {...module} />
+                          // </ModalLink>
+                      )})}
+      </PuzzleTileGrid>
+      <PuzzleTileGrid className="tacticTiles" id={"tactics"} category={"Tactics"}>
+        {tacticModules.map((module, index) => {
+                          return(
+                          // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                          <CourseTile key={index} {...module} />
+                          // </ModalLink>
+                      )})}
+      </PuzzleTileGrid>
+      <PuzzleTileGrid className="checkmateTiles" id={"checkmates"} category={"Checkmates"}>
+        {checkmateModules.map((module, index) => {
+                          return(
+                          // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                          <CourseTile key={index} {...module} />
+                          // </ModalLink>
+                      )})}
+      </PuzzleTileGrid>
     </DashboardWrapper>
     <FooterBuffer />
       </>
