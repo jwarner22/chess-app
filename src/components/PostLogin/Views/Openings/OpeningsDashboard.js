@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import book from "../../../../Images/open-book.svg"
-import {
-  OpeningsGrid,
-  OpeningsTileContainer,
-  OpeningTileHeadline,
-  OpeningTileButton,
-  OpeningsTileLeftColumn,
-  OpeningsTileImage,
-  OpeningTileButtonWrapper,
-  OpeningTileSubheadline,
-  OpeningImgWrapper
-} from "./OpeningsElements";
+// import {
+//   OpeningsGrid,
+//   OpeningsTileContainer,
+//   OpeningTileHeadline,
+//   OpeningTileButton,
+//   OpeningsTileLeftColumn,
+//   OpeningsTileImage,
+//   OpeningTileButtonWrapper,
+//   OpeningTileSubheadline,
+//   OpeningImgWrapper
+// } from "./OpeningsElements";
 
 import {
   MenuWrapper,
@@ -36,6 +36,7 @@ import {useWindowSize} from '../../../Hooks/UseWindowSize'
 import OpeningMenu from './OpeningMenu';
 import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
 import CourseTile from '../PatternRecognition/CourseTiles/CourseTiles';
+import FooterBuffer from '../../../UI_Kit/FooterBuffer';
 
 
 const Openings = () => {
@@ -155,6 +156,7 @@ const Openings = () => {
         </DashboardWrapper>
         </div> */}
         </DashboardWrapper>
+        <FooterBuffer />
         </>
     )
 }
