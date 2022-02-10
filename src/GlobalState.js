@@ -42,7 +42,7 @@ const UserProvider = ({ children }) => {
         let embedding = Modules.map(module => {
             let output = {}
             if (module.category === 'opening') {
-                output = openings.find(theme => parseInt(theme.opening_id) === module.id);
+                output = openings.find(theme => theme.opening_id === module.id);
             } else { 
                 output = themes.find(theme => theme.title === module.type_ref);
             }
@@ -206,8 +206,11 @@ const UserProvider = ({ children }) => {
 
         let endpoint = `/achievements/${auth.userId}`; 
         let response = await get(endpoint);
-
-        setAchievements(response);
+        if (response.length === 0) { // no achievements
+            setAchievements([]);
+        } else {
+            setAchievements(response);
+        }
     }
 
     const updateAchievements = async (category, value, diff, theme) => { 
@@ -232,15 +235,32 @@ const UserProvider = ({ children }) => {
     // OPENINGS
     const updateOpenings = async (openingId, data) => {
         setLoading(() => true);
-        let response = await put(`/openings/${auth.userId}/${openingId}`, data);
+        console.log({openings: openings, openingId: openingId, data:data});
+        // check if opening is already in openings array
+        if (openings.some(opening => opening.opening_id === openingId)) {
+            let endpoint = `/openings/${auth.userId}/${openingId}`; 
+            let response = await put(endpoint, data);
+            setOpenings(current => current.map(opening => {
+                if (opening.opening_id === openingId) return response;
+                return opening;
+            }));
+        } else {
+            // if opening is not in openings array, post new opening
+            let endpoint = `/openings/${auth.userId}/${openingId}`;
+            let response = await post(endpoint, data);
+            setOpenings(current => [...current, response]);
+        }
+
+
+        // let response = await put(`/openings/${auth.userId}/${openingId}`, data);
         
-        let newOpenings = [...openings];
-        newOpenings = openings.map(opening => {
-            if (opening.opening_id === response.opening_id) return response;
-            return opening;
-        });
+        // let newOpenings = [...openings];
+        // newOpenings = openings.map(opening => {
+        //     if (opening.opening_id === response.opening_id) return response;
+        //     return opening;
+        // // });
         
-        setOpenings(newOpenings);
+        // setOpenings(newOpenings);
         setLoading(() => false);
     }
 

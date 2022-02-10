@@ -30,6 +30,8 @@ export default function OpeningManager(props) {
     const location = props.location.state.location;
     const isDaily = props.location.state.isDaily;
 
+    console.log({openingData: openingData})
+
     const togglePrePuzzleCallback = (color) => {
         setIsFinished(false);
         setIsStarted(true);
@@ -41,7 +43,7 @@ export default function OpeningManager(props) {
         const openingId = openingData.id;
         // const userOpeningData = JSON.parse(sessionStorage.getItem('userOpeningData'));
         console.log({openings: openings, openingData: openingData})
-        let userOpeningData = openings.find(opening => parseInt(opening.opening_id) === openingData.id)
+        let userOpeningData = openings.find(opening => opening.opening_id === openingData.id)
 
         let completed = userOpeningData.completed + 1;
         let highScore = (result > userOpeningData.high_score) ? result : userOpeningData.high_score;

@@ -148,7 +148,6 @@ export default function PuzzleBoard(props) {
       //promotion: "q" // always promote to a queen for example simplicity
     });
     // if invalid, setMoveFrom and getMoveOptions
-    console.log({move:move})
     if (move == null) {
       return false;
     }
@@ -226,7 +225,7 @@ export default function PuzzleBoard(props) {
 
     if (move === correctMove || move === correct) {
       outcomeCallback(true);
-      setTimeout(makeOpposingMove, 600);
+      setTimeout(makeOpposingMove, 400);
     } else if (game.in_checkmate()) { 
       outcomeCallback(true);
     } else {

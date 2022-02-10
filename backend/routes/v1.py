@@ -393,7 +393,7 @@ async def get_achievements(user_id: str, db: Session = Depends(get_db)):
 
 # get user opening data
 @app_v1.get('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
-async def get_opening(user_id: str, opening_id: str, db: Session = Depends(get_db)):
+async def get_opening(user_id: str, opening_id: int, db: Session = Depends(get_db)):
     opening = db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
     if opening is None:
         raise HTTPException(status_code=404, detail="opening not found")
@@ -401,18 +401,20 @@ async def get_opening(user_id: str, opening_id: str, db: Session = Depends(get_d
         return opening
 
 # create user opening 
-@app_v1.post('/openings/{user_id}/{opening_id}', tags=["Openings"])
-async def add_opening(user_id: str, opening_id: str, opening: schemas.OpeningCreate, db: Session = Depends(get_db)):
-    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+@app_v1.post('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
+async def add_opening(user_id: str, opening_id: int, opening: schemas.OpeningCreate, db: Session = Depends(get_db)):
+    # db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
-    if db_user is None:
-         return None
+    # if db_user is None:
+    #      return None
     
     db_opening= models.Opening(**opening.dict(), owner_id = user_id)
     db.add(db_opening)
     db.commit()
     db.refresh(db_opening)
-    return {"opening successfully created"}
+    opening = db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
+
+    return opening
 
 # update user opening data
 @app_v1.put('/openings/{user_id}/{opening_id}', tags=["Openings"])
