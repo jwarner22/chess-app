@@ -15,16 +15,17 @@ export const TileWrapper = styled.li`
     /* flex-shrink: 1;
     flex-grow: 1; */
     transition: all 0.2s ease-in-out;
-    background: #7365f1;
-    ${props => {
+    background: ${props => {
         if (props.type === 'endgame') return`
-            background: #00a6a6;
+            #00a6a6;
             `
         else if (props.type === 'midgame') return`
-        background: #ff5074;
+            #ff5074;
         `
-        else return `background: #7F3AD4`
-    }}
+        else if (props.type === 'checkmate') return`
+            #7365f1;`
+        else return `#F85c37`
+    }};
     box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
     `
 

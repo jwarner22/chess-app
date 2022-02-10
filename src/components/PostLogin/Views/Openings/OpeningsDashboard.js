@@ -22,6 +22,7 @@ import {
 } from '../PatternRecognition/CoursesBody/CoursesElements';
 
 
+
 import {CoursesWrapper, 
     ModuleWrapper
 } from '../PatternRecognition/CoursesBody/CoursesElements'
@@ -33,11 +34,16 @@ import {HeadingWrapper,
 
 import {useWindowSize} from '../../../Hooks/UseWindowSize'
 import OpeningMenu from './OpeningMenu';
+import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
+import CourseTile from '../PatternRecognition/CourseTiles/CourseTiles';
 
 
 const Openings = () => {
   // const [shownCategory, setShownCategory] = useState("e4");
   const openingData = Modules.filter(module => module.category === 'opening');
+  const e4Openings = Modules.filter(module => module.pawn === 'e4');
+  const d4Openings = Modules.filter(module => module.pawn === 'd4');
+  const c4Openings = Modules.filter(module => module.pawn === 'c4');
   // view
   const windowDimension = useWindowSize();
   const isMobile = windowDimension[0] <= 640;
@@ -58,8 +64,7 @@ const Openings = () => {
 
     return (
         <>
-        <div>
-          <DashboardWrapper>
+        <DashboardWrapper>
         <OpeningMenu />
         {/* <MenuWrapper>
             <MenuGrid className="menuGrid">
@@ -92,13 +97,38 @@ const Openings = () => {
                 </MenuTiles> */}
             {/* </MenuGrid>
         </MenuWrapper> */}
-        <CoursesWrapper>
+
+        <PuzzleTileGrid className="e4Tiles" id={"e4"} category={'E4 Openings'}>
+        {e4Openings.map((module, index) => {
+                          return(
+                          // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                          <CourseTile key={index} {...module} />
+                          // </ModalLink>
+                      )})}
+        </PuzzleTileGrid>
+        <PuzzleTileGrid className="d4Tiles" id={"d4"} category={'D4 Openings'}>
+        {d4Openings.map((module, index) => {
+                          return(
+                          // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                          <CourseTile key={index} {...module} />
+                          // </ModalLink>
+                      )})}
+        </PuzzleTileGrid>
+        <PuzzleTileGrid className="c4Tiles" id={"c4"} category={'C4 Openings'}>
+        {c4Openings.map((module, index) => {
+                          return(
+                          // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                          <CourseTile key={index} {...module} />
+                          // </ModalLink>
+                      )})}
+        </PuzzleTileGrid>
+        {/* <CoursesWrapper>
             <ModuleWrapper>
                 <OpeningsGrid>
                     {openingData.map((module, index) => {
                         return (
                     <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/opening', state: {module: module}}}>
-                        {/* { <CourseTile key={index} {...module}/> } // need to comment this line out */}
+          
                         <OpeningsTileContainer>
                           <OpeningsTileLeftColumn>
                             <OpeningImgWrapper>
@@ -123,7 +153,8 @@ const Openings = () => {
             </ModuleWrapper>
         </CoursesWrapper> 
         </DashboardWrapper>
-        </div>
+        </div> */}
+        </DashboardWrapper>
         </>
     )
 }
