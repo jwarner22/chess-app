@@ -72,6 +72,7 @@ export default function PuzzleBoard(props) {
   // cleanup to avoid memory leaks
   useEffect(() => {
     props.moveIndicator(orientation);
+
     return () => {
       if (captureSound !== null) captureSound.unload();
       if(moveSound !== null) moveSound.unload(); 

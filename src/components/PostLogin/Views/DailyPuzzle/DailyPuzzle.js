@@ -45,9 +45,11 @@ export default function DailyPuzzzle() {
 
   useEffect(() => {
     console.log({isMobie: isMobile, windowSize: windowSize})
-    if (isMobile && windowSize[0] !== 0) {
+    console.log(dailyPicks)
+
+    if (isMobile && windowSize[0] !== 0 && dailyPicks[0].location === 0) {
       console.log('reverse')
-      setDailyPicks(dailyPicks.reverse());
+      setDailyPicks([...dailyPicks.reverse()]);
     }
   } ,[windowSize])
 
