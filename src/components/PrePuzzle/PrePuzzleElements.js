@@ -12,7 +12,17 @@ export const PuzzlePageContainer = styled.div`
   height: 100vh;
 `
 export const PrePuzzleIconWrapper = styled.div`
-    background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
+    background:${props => {
+        if (props.type === 'endgame') return`
+            #00a6a6;
+            `
+        else if (props.type === 'midgame') return`
+            #ff5074;
+        `
+        else if (props.type === 'checkmate') return`
+            #7365f1;`
+        else return `#F85c37`
+    }};
     text-align: center;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     margin-bottom: 3px;
@@ -75,12 +85,12 @@ export const StatsGrid = styled.div`
     min-width: 300px;
     justify-content: center;
     align-items: center; 
-    border-top: 2px #247cf1 solid;
+    border-top: 2px rgb(122,150,191) solid;
 `
 export const LeftStatWrapper = styled.div`
     display: flex;
     justify-content: center;
-    border-right: 1px #247cf1 solid;
+    border-right: 1px rgb(122,150,191) solid;
     height: 100%;
     width: 100%;
 
@@ -89,7 +99,7 @@ export const LeftStatWrapper = styled.div`
 export const RightStatWrapper = styled.div`
     display: flex;
     justify-content: center;
-    border-left: 1px #247cf1 solid;
+    border-left: 1px rgb(122,150,191) solid;
     grid-column: 2;
     grid-row: 1;
     height: 100%;
@@ -100,7 +110,17 @@ export const PuzzleEloTitle = styled.h1`
     text-align: center;
     grid-column: 1;
     font-size: 1rem;
-    color: #247cf1;
+    color: ${props => {
+        if (props.type === 'endgame') return`
+            #00a6a6;
+            `
+        else if (props.type === 'midgame') return`
+            #ff5074;
+        `
+        else if (props.type === 'checkmate') return`
+            #7365f1;`
+        else return `#F85c37`
+    }};
     padding: 4px 8px;
     margin: 4px 8px;
 `
@@ -115,7 +135,17 @@ export const HighScoreTitle = styled.h1`
     text-align: center;
     font-size: 1rem;
     grid-row: 1;
-    color: #247cf1;
+    color: ${props => {
+        if (props.type === 'endgame') return`
+            #00a6a6;
+            `
+        else if (props.type === 'midgame') return`
+            #ff5074;
+        `
+        else if (props.type === 'checkmate') return`
+            #7365f1;`
+        else return `#F85c37`
+    }};
     padding: 4px 8px;
     margin: 4px 8px;
 `
@@ -169,7 +199,7 @@ export const TipImageWrap = styled.div`
 `
 
 export const Tip1Image = styled(GoSearch) `
-    color: #247cf1;
+    color: rgb(122,150,191);
     min-height: 40px;
     min-width: 40px;
     grid-column: 1;
