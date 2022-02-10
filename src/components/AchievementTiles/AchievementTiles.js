@@ -20,7 +20,7 @@ const AchievementTiles = (props) => {
     const [lazyVisible, setLazyVisible] = useState(false);
 
     useEffect(() => {
-        let visible = setTimeout(() => setLazyVisible(true), 5);
+        let visible = setTimeout(() => setLazyVisible(true), 2);
         return () => clearTimeout(visible);
     },[])
 
