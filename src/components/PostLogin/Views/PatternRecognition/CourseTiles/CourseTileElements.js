@@ -117,15 +117,17 @@ export const TileButtonWrap = styled.div`
 `
 
 export const TileButton = styled.div`
-    color: #7365f1;
-    ${props => {
+    color:  ${props => {
         if (props.type === 'endgame') return`
             color: #00a6a6;
             `
         else if (props.type === 'midgame') return`
-            color: #ff5074;
+            #ff5074;
         `
-    }}
+        else if (props.type === 'checkmate') return`
+            #7365f1;`
+        else return `#F85c37`
+    }};
     background: #fff;
     border-radius: 16px;
     white-space: nowrap;

@@ -29,18 +29,21 @@ const OpeningMenu = (props) => {
                     shadow={'0px 5px 8px rgba(248, 92, 55, 0.25)'}
                     activeShadow={'0px 5px 8px rgba(248, 92, 55, 0.75)'}
                     scrollTo={"e4"} 
+                    textColor={"F85c37"}
                     />
                 <MenuTile 
                     categoryTitle={"D4"}
                     shadow={'0px 5px 8px rgba(248, 92, 55, 0.25)'}
                     activeShadow={'0px 5px 8px rgba(248, 92, 55, 0.75)'}
                     scrollTo={"d4"} 
+                    textColor={"F85c37"}
                 />
                 <MenuTile 
                     categoryTitle={"C4"}
                     shadow={'0px 5px 8px rgba(248, 92, 55, 0.25)'}
                     activeShadow={'0px 5px 8px rgba(248, 92, 55, 0.75)'}
                     scrollTo={"c4"} 
+                    textColor={"F85c37"}
                 />
             </MenuGrid>
   </MenuWrapper>;
