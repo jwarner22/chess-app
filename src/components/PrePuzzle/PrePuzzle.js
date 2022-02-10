@@ -117,5 +117,8 @@ const PrePuzzlePage = (props) => {
 export default PrePuzzlePage
 
 const PrePuzzleButton = styled(Button)`
-
+    margin: 24px;
+    padding: 12px 24px;
+    font-size: 24px;
+    font-weight: 600;
 `
