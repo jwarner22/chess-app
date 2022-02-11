@@ -1,4 +1,4 @@
-import {useRef, useEffect, useState} from 'react'
+import {useState} from 'react'
 import {CoursesWrapper, 
     ModuleWrapper, 
     ModuleGrid
@@ -7,25 +7,13 @@ import CourseTile from '../CourseTiles/CourseTiles'
 import {Modules} from '../CourseTiles/Data';
 import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
 
-import useOnScreen from '../../../../Hooks/useOnScreen';
 
 const TacticTiles = (props) => {
-    const tacticRef = useRef();
-    const [visible, setVisible] = useState(false);
-    const load = useOnScreen(tacticRef, '0px');
     const tacticModules = Modules.filter(module => module.type === "midgame")
     
-    useEffect(() => {
-        if (load && !visible) {
-            setVisible(true);
-        }
-    }, [load])
-
-
     return (
         <>
-            <CoursesWrapper ref={tacticRef} id="tactics">
-            {visible && <>
+            <CoursesWrapper id="tactics">
                 <CategoryTitle>
                     Tactics
                 </CategoryTitle>
@@ -39,7 +27,6 @@ const TacticTiles = (props) => {
                         )})}
                     </ModuleGrid>
                 </ModuleWrapper>
-                </>}
             </CoursesWrapper>
         </>
     )

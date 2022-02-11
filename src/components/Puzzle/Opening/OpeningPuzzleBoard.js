@@ -133,7 +133,6 @@ export default function PuzzleBoard(props) {
   function onSquareClick(targetSquare) {
     setRightClickedSquares({});
     setPieceSquare(targetSquare);
-    console.log({targetSquare: targetSquare, pieceSquare: pieceSquare, moveHighlightSquare: moveHighlightSquare});
     // console.log({promotion: props.promotion})
     // if (props.promotion !== "x") return;
     if (piece.substring(1) === "P") {
@@ -213,8 +212,8 @@ export default function PuzzleBoard(props) {
 
   function validateMove(sourceSquare, targetSquare) {
     let move = sourceSquare + targetSquare;
-    console.log({correctMove:correctMove, sourceSquare:sourceSquare, targetSquare:targetSquare})
-    console.log({prevCorrect: prevCorrect})
+    // console.log({correctMove:correctMove, sourceSquare:sourceSquare, targetSquare:targetSquare})
+    // console.log({prevCorrect: prevCorrect})
     let correct ="";
 
     if (correctMove.length === 5) {
