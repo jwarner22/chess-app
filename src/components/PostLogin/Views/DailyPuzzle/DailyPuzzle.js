@@ -71,7 +71,7 @@ export default function DailyPuzzzle() {
   // displays "generating daily training" message and hides it after timer
   const setTimer = async () => {
     // get last display of screen time
-    let lastScreenTime = new Date(parseInt(localStorage.getItem('lastDailySplashScreenTime')));
+    let lastScreenTime = new Date(parseInt(sessionStorage.getItem('lastDailySplashScreenTime')));
     let now = new Date();
     // check if we need to display the message
     try {
@@ -81,7 +81,7 @@ export default function DailyPuzzzle() {
         await wait(2000);
         setScreenTimer(prev => !prev) // hide splash screen
         // update localStorage
-        localStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
+        sessionStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
       }
     } catch (e) { //just in case
       // show splash screen
@@ -89,7 +89,7 @@ export default function DailyPuzzzle() {
       await wait(2000)
       setScreenTimer(prev => !prev)
       // update localStorage
-      localStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
+      sessionStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
     }
     
   }

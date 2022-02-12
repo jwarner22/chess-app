@@ -119,7 +119,7 @@ export default function PuzzleBoard(props) {
 
     safeGameMutate((game) => {
       let m = game.move({ from: from, to: to });
-      if (m === null) return;
+      if (m == null) return;
       if (m.flags === "c") { 
         captureSound.play();
       } else {
@@ -152,9 +152,8 @@ export default function PuzzleBoard(props) {
     // console.log({pieceSquare: pieceSquare, targetSquare: targetSquare})
     // console.log({moveHighlightSquare: moveHighlightSquare})
     console.log({targetSquare: targetSquare, pieceSquare: pieceSquare, moveHighlightSquare: moveHighlightSquare});
-    
+    console.log({promotion: promotion})
     if (props.promotion !== "x") return;
-    console.log({piece_promotion: piece})
     if (piece.substring(1) === "P") {
       let promote = checkPromotion(pieceSquare,targetSquare)
       if (promote) return false;
@@ -167,14 +166,16 @@ export default function PuzzleBoard(props) {
       //promotion: "q" // always promote to a queen for example simplicity
     });
     // if invalid, setMoveFrom and getMoveOptions
+    console.log({move: move})
+    if (targetSquare !== moveHighlightSquare) {
+
+      console.log(' got moves')
+      getMoveOptions(targetSquare);
+    }
     
-    if (move === null) {
+    if (move == null) {
       // setPiece("")
       return false;
-    }
-
-    if (targetSquare !== moveHighlightSquare) {
-      getMoveOptions(targetSquare);
     }
 
     if (move.flags === "c") {
@@ -210,7 +211,7 @@ export default function PuzzleBoard(props) {
       promotion: "q" // always promote to a queen for example simplicity
     });
     // if invalid, setMoveFrom and getMoveOptions
-    if (move === null) {
+    if (move == null) {
       return false;
     }
 
@@ -222,7 +223,7 @@ export default function PuzzleBoard(props) {
 
     setGame(gameCopy);
 
-    if (move === null) return false; // illegal move
+    if (move == null) return false; // illegal move
     validateMove(sourceSquare, targetSquare);
     setMoveSquares({
       [sourceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
@@ -325,15 +326,15 @@ export default function PuzzleBoard(props) {
 
   // GRAPHICS
 
-  function onMouseOverSquare(square) {
-    getMoveOptions(square);
-  }
+  // function onMouseOverSquare(square) {
+  //   getMoveOptions(square);
+  // }
 
-  // Only set squares to {} if not already set to {}
-  function onMouseOutSquare() {
-    if (piece !== "") return;
-    if (Object.keys(optionSquares).length !== 0) setOptionSquares({});
-  }
+  // // Only set squares to {} if not already set to {}
+  // function onMouseOutSquare() {
+  //   if (piece !== "") return;
+  //   if (Object.keys(optionSquares).length !== 0) setOptionSquares({});
+  // }
 
   function onSquareRightClick(square) {
     const colour = "rgba(0, 0, 255, 0.4)";
@@ -427,8 +428,8 @@ export default function PuzzleBoard(props) {
       onPieceClick={onPieceClick}
       onSquareClick={onSquareClick}
       onSquareRightClick={onSquareRightClick}
-      onMouseOverSquare={onMouseOverSquare}
-      onMouseOutSquare={onMouseOutSquare}
+      // onMouseOverSquare={onMouseOverSquare}
+      // onMouseOutSquare={onMouseOutSquare}
       customSquareStyles={{
         ...moveSquares,
         ...optionSquares,

@@ -11,7 +11,6 @@ import captureSoundFile from "../../../assets/public_sound_standard_Capture.mp3"
 
 import usePrevious from "../../Hooks/usePrevious";
 import { useWindowSize } from "../../Hooks/UseWindowSize";
-import { C } from "styled-icons/simple-icons";
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
@@ -41,7 +40,6 @@ export default function PuzzleBoard(props) {
   const { correctMove, opposingMove, outcomeCallback} = props;
 
   
-
   // EFFECTS
   // manage board resize
   useEffect(() => {
@@ -147,12 +145,13 @@ export default function PuzzleBoard(props) {
       //promotion: "q" // always promote to a queen for example simplicity
     });
     // if invalid, setMoveFrom and getMoveOptions
-    if (move == null) {
-      return false;
-    }
-
+    
     if (targetSquare !== moveHighlightSquare) {
       getMoveOptions(targetSquare);
+    }
+    
+    if (move == null) {
+      return false;
     }
 
     if (move.flags === "c") {
@@ -299,15 +298,15 @@ export default function PuzzleBoard(props) {
 
   // GRAPHICS
 
-  function onMouseOverSquare(square) {
-    getMoveOptions(square);
-  }
+  // function onMouseOverSquare(square) {
+  //   getMoveOptions(square);
+  // }
 
-  // Only set squares to {} if not already set to {}
-  function onMouseOutSquare() {
-    if (piece !== "") return;
-    if (Object.keys(optionSquares).length !== 0) setOptionSquares({});
-  }
+  // // Only set squares to {} if not already set to {}
+  // function onMouseOutSquare() {
+  //   if (piece !== "") return;
+  //   if (Object.keys(optionSquares).length !== 0) setOptionSquares({});
+  // }
 
   function onSquareRightClick(square) {
     const colour = "rgba(0, 0, 255, 0.4)";
@@ -363,8 +362,8 @@ export default function PuzzleBoard(props) {
       onPieceClick={onPieceClick}
       onSquareClick={onSquareClick}
       onSquareRightClick={onSquareRightClick}
-      onMouseOverSquare={onMouseOverSquare}
-      onMouseOutSquare={onMouseOutSquare}
+      // onMouseOverSquare={onMouseOverSquare}
+      // onMouseOutSquare={onMouseOutSquare}
       customSquareStyles={{
         ...moveSquares,
         ...optionSquares,

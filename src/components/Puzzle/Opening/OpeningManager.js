@@ -112,6 +112,8 @@ export default function OpeningManager(props) {
 
           }
     
+
+          debugger;
           let lastDaily = new Date(userProfileData.last_daily);
           // update user daily streak info
           if (lastDaily.getDate() !== now.getDate()) { // ensure no same day streak increase
@@ -122,6 +124,7 @@ export default function OpeningManager(props) {
                 daily_streak: userProfileData.daily_streak + 1,
                 last_daily: Date.now()
               })
+              console.log('streak increased')
             } else {
               // reset streak to 1
               updateUserData({
@@ -129,6 +132,7 @@ export default function OpeningManager(props) {
                 daily_streak: 1,
                 last_daily: Date.now()
               })
+              console.log('streak reset')
             }
           }
           setCompletedTraining(true);
