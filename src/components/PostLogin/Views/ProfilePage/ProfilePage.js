@@ -68,7 +68,7 @@ const ProfilePage = () => {
       <ProfilePageContainer>
       {(loaded) &&
       <>
-      <ProfilePanel username={userData.username} dailyStreak={dailyStreak} joinDate={joinDate}/>
+      <ProfilePanel username={userData.user_name} dailyStreak={dailyStreak} joinDate={joinDate}/>
        <AchievementTiles achievements={achievements} profileData={userData} overallRating={overallRating} dailyStreak={dailyStreak} totalScore={userData.total_score}/>
        </>
       }
