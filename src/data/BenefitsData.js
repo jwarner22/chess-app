@@ -1,5 +1,5 @@
-const benefitsData = [{
-        id: 0
+export const BenefitsData = [{
+        id: 0,
         type: 'benefits',
         category: 'tactics',
         text: "Identify tactics more quickly through repetition training.",
@@ -9,7 +9,7 @@ const benefitsData = [{
         id: 1,
         type: "benefits",
         category: "tactics",
-        text: "Improve your calculation skills."
+        text: "Improve your calculation skills.",
         img: "",
         pieces: "variable"
     },{
@@ -59,7 +59,7 @@ const benefitsData = [{
         id: 8,
         type: "benefits",
         category: "tactics",
-        text: "Improve your calculation skills."
+        text: "Improve your calculation skills.",
         img: "",
         pieces: "variable"
     },{

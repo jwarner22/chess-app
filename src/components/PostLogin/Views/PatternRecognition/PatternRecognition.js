@@ -27,6 +27,8 @@ const Dashboard = () => {
   const endgameModules = Modules.filter(module => module.type === "endgame")
   const tacticModules = Modules.filter(module => module.type === "midgame")
   const checkmateModules = Modules.filter(module => module.type === "checkmate")
+
+  console.log(Modules.type)
   
   const toggle = () => {
     setIsOpen(!isOpen)

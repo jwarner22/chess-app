@@ -28,12 +28,15 @@ import Button from "../UI_Kit/Button/Button"
 import {DailyPuzzleIcon} from "../PostLogin/Views/DailyPuzzle/DailyPuzzleElements"
 import { StartButton } from '../PostLogin/Views/DailyPuzzle/ModalElements'
 import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
+import {BenefitsData} from "../../data/BenefitsData"
 import { BackButtonWrapper } from '../Puzzle/Utilities/Progress';
 import BackButton from '../BackButton';
 import BenefitsContainer from '../UI_Kit/Boxes/Containers/BenefitsContainer';
 
 const PrePuzzlePage = (props) => {
     const module = Modules.find(element => element.type_ref === props.moduleData.theme)
+
+    
 
     function handleStartButtonClick() {
         props.togglePrePuzzleCallback()
@@ -82,7 +85,7 @@ const PrePuzzlePage = (props) => {
                             </StatsGrid>
                         </StatsWrapper>
                         <InstructionsContainer>
-                            <BenefitsContainer />
+                            <BenefitsContainer text={"test"} moduleType={module.type} benefitsData={BenefitsData}/>
                                     <div>
                                     <PrePuzzleButton primary onClick={handleStartButtonClick}>
                                         Start
