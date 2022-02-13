@@ -19,22 +19,23 @@ import {wait} from '../../../Puzzle/Utilities/helpers'
 import {UserContext} from '../../../../GlobalState'
 
 // Hooks
-import {useWindowSize} from '../../../Hooks/UseWindowSize'
+// import {useWindowSize} from '../../../Hooks/UseWindowSize'
 
-export default function DailyPuzzzle() {
+export default function DailyPuzzzle(props) {
   // state variables
   const [loaded,setLoaded] = useState(false);
   const [dailyPicks, setDailyPicks] = useState([]);
   const [schemaPicks, setSchemaPicks] = useState([]);
+  // const [reversed, setReversed] = useState(false);
   // const [isMounted, setIsMounted] = useState(true);
   const [screenTimer, setScreenTimer] = useState(true);
   
   const {dailyModules} = useContext(UserContext);
+  const {isMobile} = props;
+  // const windowSize = useWindowSize();
+//   const isMobile = windowSize[0] < 640;
 
-  const windowSize = useWindowSize();
-  const isMobile = windowSize[0] < 640;
-
-
+// console.log(windowSize)
   useEffect(() => {
     console.log('layout effect ran')
       setLoaded(false);
@@ -43,15 +44,18 @@ export default function DailyPuzzzle() {
       setLoaded(true);
     },[])
 
-  useEffect(() => {
-    console.log({isMobie: isMobile, windowSize: windowSize})
-    console.log(dailyPicks)
-
-    if (isMobile && windowSize[0] !== 0 && dailyPicks[0].location === 0) {
-      console.log('reverse')
-      setDailyPicks([...dailyPicks.reverse()]);
-    }
-  } ,[windowSize])
+  // useEffect(() => {
+    
+  //   if (isMobile && windowSize[0] !== 0 && dailyPicks[0].location === 0 && !reversed) {
+  //     console.log('reverse')
+  //     setDailyPicks([...dailyPicks.reverse()]);
+  //     setReversed(true);
+  //   } else if (reversed && !isMobile) { 
+  //     console.log('reverse')
+  //     setDailyPicks([...dailyPicks.reverse()]);
+  //     setReversed(false);
+  //   }
+  // } ,[windowSize])
 
   const transformDaily = async () => {
     console.log('transform daily')
@@ -64,7 +68,12 @@ export default function DailyPuzzzle() {
       let item = modules.find(entry => entry.id === locatedModule.theme_id)
       return {...item, ...locatedModule}
     })
-    setDailyPicks([...daily]); // set data for display and module consumption
+    setDailyPicks(() => {
+      if (isMobile) {
+        return [...daily.reverse()]
+      };
+      return [...daily];  
+    }); // set data for display and module consumption
   }
  
 

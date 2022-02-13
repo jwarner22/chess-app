@@ -44,7 +44,7 @@ const Home = () => {
       <>
       <Switch>
         <Route exact path="/home/daily">
-          <Daily />
+          <Daily isMobile={isMobile}/>
         </Route>
         <Route exact path = "/home/practice">
           <Practice />

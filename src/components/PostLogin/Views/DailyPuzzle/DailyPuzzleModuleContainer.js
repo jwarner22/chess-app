@@ -12,7 +12,6 @@ CompletedCheck
 import check from "../../../../Images/check.png"
 
 const DailyPuzzleModuleContainer = (props) => {
-    console.log(props)
     
     return (
         <>
