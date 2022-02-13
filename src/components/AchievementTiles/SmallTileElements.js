@@ -54,7 +54,17 @@ export const SmallTileIconContainer = styled.div`
 `
 
 export const SmallTileIconWrapper = styled.div`
-    background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);
+    background:  ${props => {
+        if (props.type === 'endgame') return`
+            #00a6a6;
+            `
+        else if (props.type === 'midgame') return`
+            #ff5074;
+        `
+        else if (props.type === 'checkmate') return`
+            #7365f1;`
+        else return `#F85c37`
+    }};;
     display: flex;
     width: 75px;
     height: 75px;

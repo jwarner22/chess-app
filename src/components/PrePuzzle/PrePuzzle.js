@@ -30,6 +30,7 @@ import { StartButton } from '../PostLogin/Views/DailyPuzzle/ModalElements'
 import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
 import { BackButtonWrapper } from '../Puzzle/Utilities/Progress';
 import BackButton from '../BackButton';
+import BenefitsContainer from '../UI_Kit/Boxes/Containers/BenefitsContainer';
 
 const PrePuzzlePage = (props) => {
     const module = Modules.find(element => element.type_ref === props.moduleData.theme)
@@ -81,23 +82,7 @@ const PrePuzzlePage = (props) => {
                             </StatsGrid>
                         </StatsWrapper>
                         <InstructionsContainer>
-                            <InstructionsWrapper>
-                                <TipsTitleWrapper>
-                                        <TipsTitle>
-                                            Instructions:
-                                        </TipsTitle>
-                                    </TipsTitleWrapper>
-                                        <TipsGrid>
-                                            <TipImageWrap>
-                                                <Tip1Image />
-                                            </TipImageWrap>
-                                            <TipDescriptionWrapper>
-                                                <Tip1Description>
-                                                    {module.instructions} 
-                                                </Tip1Description>
-                                            </TipDescriptionWrapper>
-                                        </TipsGrid>
-                                    </InstructionsWrapper>
+                            <BenefitsContainer />
                                     <div>
                                     <PrePuzzleButton primary onClick={handleStartButtonClick}>
                                         Start

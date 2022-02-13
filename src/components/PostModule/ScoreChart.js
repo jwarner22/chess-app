@@ -12,3 +12,5 @@ export default function Chart({data}) {
 }
 
 //<ResponsiveContainer width='100%' height='100%'>
+
+
