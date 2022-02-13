@@ -10,7 +10,8 @@ export const ButtonStyle = styled.button`
   border: none;
   cursor: pointer;
   padding: 12px 24px;
-  font-size: 24px;
-  font-weight: 600;
-  margin: 12px;
+  font-size: 16px;
+  font-weight: 400;
+  white-space: nowrap;
+
 `

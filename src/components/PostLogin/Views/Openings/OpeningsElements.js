@@ -30,7 +30,7 @@ export const OpeningsTileContainer = styled.li`
     display: flex;
     min-height: 170px;
     list-style-type: none;
-    background: linear-gradient(360deg, #8E2DE2 0%, #4A00E0 100%);
+    background: #F85c37;
     border-radius: 35px;
     transition: all 0.2s ease-in-out;
     box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
@@ -91,7 +91,7 @@ export const OpeningTileButtonWrapper = styled.div`
 `
 
  export const OpeningTileButton = styled.div`
-     color: #8E2DE2;
+     color: #F85c37;
     background: #fff;
     border-radius: 16px;
     white-space: nowrap;

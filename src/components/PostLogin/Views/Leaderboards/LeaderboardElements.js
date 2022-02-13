@@ -52,7 +52,7 @@ export const LeaguesIcon = styled.img`
 export const ComingSoonHeading = styled.div`
     display: flex;
     padding-top: 12px;
-    color: #010EFF;
+    color:  #243862;
     font-size: 24px;
     font-weight: 600;
     text-align: center;
@@ -61,7 +61,7 @@ export const ComingSoonHeading = styled.div`
 export const ComingSoonSubheading = styled.div`
     display: flex;
     padding-top: 8px;
-    color: #010EFF;
+    color: #243862;
     font-size: 18px;;
     text-align: center;
     margin-bottom: 24px;

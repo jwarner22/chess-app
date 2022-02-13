@@ -1,6 +1,4 @@
-import styled from 'styled-components'
-
-
+import styled from "styled-components"
 
 export const TileWrapper = styled.li`
     display: flex;
@@ -15,17 +13,16 @@ export const TileWrapper = styled.li`
     /* flex-shrink: 1;
     flex-grow: 1; */
     transition: all 0.2s ease-in-out;
-    background: ${props => {
+    background: #7365f1;
+    ${props => {
         if (props.type === 'endgame') return`
-            #00a6a6;
+            background: #00a6a6;
             `
         else if (props.type === 'midgame') return`
-            #ff5074;
+        background: #ff5074;
         `
-        else if (props.type === 'checkmate') return`
-            #7365f1;`
-        else return `#F85c37`
-    }};
+        else return `background: #7F3AD4`
+    }}
     box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
     `
 
@@ -117,17 +114,15 @@ export const TileButtonWrap = styled.div`
 `
 
 export const TileButton = styled.div`
-    color:  ${props => {
+    color: #7365f1;
+    ${props => {
         if (props.type === 'endgame') return`
             color: #00a6a6;
             `
         else if (props.type === 'midgame') return`
-            #ff5074;
+            color: #ff5074;
         `
-        else if (props.type === 'checkmate') return`
-            #7365f1;`
-        else return `#F85c37`
-    }};
+    }}
     background: #fff;
     border-radius: 16px;
     white-space: nowrap;
@@ -155,19 +150,3 @@ export const TileButton = styled.div`
         display: none;
     }
 `
-
-export const InfoModalWrapper = styled.div`
-    display: flex;
-    justify-content: flex-end;
-`
-
-export const InfoModalIcon = styled.img`
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    justify-content: flex-end;
-    z-index: 5555;
-    position: relative;
-    margin-right: 10px;
-`
-

@@ -10,8 +10,15 @@ import incorrectSound from "../../assets/public_sound_standard_Error.mp3";
 import styled from "styled-components";
 
 import {Howl} from 'howler'
-import {PuzzlePageContainer, PuzzlePageWrapper, PuzzlePageGrid, PuzzleBoardContainer, PuzzleBoardWrapper, RightPuzzlePanelContainer, PercentCompleted} from "../Puzzle/PuzzleComponents/PuzzlePage"
-import {MobileHeaderContainer, MobilePuzzleWrapper} from "../Puzzle/PuzzleComponents/MobilePuzzle/MobilePuzzleElements"
+import {PuzzlePageContainer, 
+  PuzzlePageWrapper, 
+  PuzzlePageGrid, 
+  PuzzleBoardContainer, 
+  PuzzleBoardWrapper, 
+  RightPuzzlePanelContainer, 
+  PercentCompleted} from "../Puzzle/PuzzleComponents/PuzzlePage"
+import {MobileHeaderContainer, 
+  MobilePuzzleWrapper} from "../Puzzle/PuzzleComponents/MobilePuzzle/MobilePuzzleElements"
 import BackButton from "../BackButton.js";
 import {useWindowSize} from '../Hooks/UseWindowSize';
 

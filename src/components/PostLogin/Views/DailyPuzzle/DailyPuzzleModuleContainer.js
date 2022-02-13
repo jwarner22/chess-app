@@ -12,11 +12,15 @@ CompletedCheck
 import check from "../../../../Images/check.png"
 
 const DailyPuzzleModuleContainer = (props) => {
+    console.log(props)
     
     return (
         <>
         {/* <PuzzleWrapper> */}
-            <DailyPuzzleModuleStyle props={props}>
+            <DailyPuzzleModuleStyle 
+            locked={props.locked}
+            type={props.type}
+            >
             <DailyPuzzleIconWrapper>
                 <DailyPuzzleIcon src={props.img}/>
             </DailyPuzzleIconWrapper>

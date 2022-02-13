@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from "styled-components"
 import {PuzzlePageContainer, 
     PrePuzzleWrapper, 
     PrePuzzleIconWrapper, 
@@ -22,12 +23,14 @@ import {PuzzlePageContainer,
     Tip1Description,
     LeftStatWrapper,
 RightStatWrapper,
-PrePuzzleTileContainer} from "./PrePuzzleElements"
+PrePuzzleTileContainer} from "./PrePuzzleElements";
+import Button from "../UI_Kit/Button/Button"
 import {DailyPuzzleIcon} from "../PostLogin/Views/DailyPuzzle/DailyPuzzleElements"
 import { StartButton } from '../PostLogin/Views/DailyPuzzle/ModalElements'
 import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
 import { BackButtonWrapper } from '../Puzzle/Utilities/Progress';
 import BackButton from '../BackButton';
+import BenefitsContainer from '../UI_Kit/Boxes/Containers/BenefitsContainer';
 
 const PrePuzzlePage = (props) => {
     const module = Modules.find(element => element.type_ref === props.moduleData.theme)
@@ -39,13 +42,14 @@ const PrePuzzlePage = (props) => {
     function handleSwapButtonClick() {
         props.swapModule();
     }
+    console.log(props.moduleData)
 
     return (
         <PuzzlePageContainer>
             <BackButtonWrapper>
                 <BackButton />
             </BackButtonWrapper>
-                <PrePuzzleIconWrapper>
+                <PrePuzzleIconWrapper type={module.type}>
                     <DailyPuzzleIcon src={module.img} />
                 </PrePuzzleIconWrapper>
                 <PrePuzzleTileContainer>
@@ -54,13 +58,13 @@ const PrePuzzlePage = (props) => {
                         {module.headline}
                     </PrePuzzleTitle>
                     <PrePuzzleSubheading>
-                        Pattern Recognition
+                        {module.subheading}
                     </PrePuzzleSubheading>
                     <PrePuzzleContentContainer>
                         <StatsWrapper>
                             <StatsGrid>
                                 <LeftStatWrapper>
-                                <PuzzleEloTitle>
+                                <PuzzleEloTitle type={module.type}>
                                     Rating
                                 </PuzzleEloTitle>
                                 </LeftStatWrapper>
@@ -68,7 +72,7 @@ const PrePuzzlePage = (props) => {
                                     {props.rating}
                                 </PuzzleElo>
                                 <RightStatWrapper>
-                                <HighScoreTitle>
+                                <HighScoreTitle type={module.type}>
                                     High Score
                                 </HighScoreTitle>
                                 </RightStatWrapper>
@@ -78,30 +82,14 @@ const PrePuzzlePage = (props) => {
                             </StatsGrid>
                         </StatsWrapper>
                         <InstructionsContainer>
-                            <InstructionsWrapper>
-                                <TipsTitleWrapper>
-                                        <TipsTitle>
-                                            Instructions:
-                                        </TipsTitle>
-                                    </TipsTitleWrapper>
-                                        <TipsGrid>
-                                            <TipImageWrap>
-                                                <Tip1Image />
-                                            </TipImageWrap>
-                                            <TipDescriptionWrapper>
-                                                <Tip1Description>
-                                                    {module.instructions} 
-                                                </Tip1Description>
-                                            </TipDescriptionWrapper>
-                                        </TipsGrid>
-                                    </InstructionsWrapper>
+                            <BenefitsContainer />
                                     <div>
-                                    <StartButton onClick={handleStartButtonClick}>
+                                    <PrePuzzleButton primary onClick={handleStartButtonClick}>
                                         Start
-                                    </StartButton>
-                                    {props.isDaily ? <StartButton onClick={handleSwapButtonClick}>
+                                    </PrePuzzleButton>
+                                    {props.isDaily ? <PrePuzzleButton onClick={handleSwapButtonClick}>
                                         Swap
-                                    </StartButton> : null}
+                                    </PrePuzzleButton> : null}
                                     </div>
                                 </InstructionsContainer>
                             </PrePuzzleContentContainer>
@@ -112,3 +100,10 @@ const PrePuzzlePage = (props) => {
 }
 
 export default PrePuzzlePage
+
+const PrePuzzleButton = styled(Button)`
+    margin: 24px;
+    padding: 12px 24px;
+    font-size: 24px;
+    font-weight: 600;
+`

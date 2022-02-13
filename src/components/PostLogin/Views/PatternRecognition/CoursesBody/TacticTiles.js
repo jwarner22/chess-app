@@ -8,28 +8,42 @@ import {Modules} from '../CourseTiles/Data';
 import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
 
 
-const TacticTiles = (props) => {
-    const tacticModules = Modules.filter(module => module.type === "midgame")
-    
-    return (
-        <>
-            <CoursesWrapper id="tactics">
-                <CategoryTitle>
-                    Tactics
-                </CategoryTitle>
-                <ModuleWrapper>
-                    <ModuleGrid>
-                        {tacticModules.map((module, index) => {
-                            return(
-                            // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
-                            <CourseTile key={index} {...module} />
-                            // </ModalLink>
-                        )})}
-                    </ModuleGrid>
-                </ModuleWrapper>
-            </CoursesWrapper>
-        </>
-    )
-}
+//CONDENSED INTO PUZZLEGRID.JS
 
-export default TacticTiles
+// const TacticTiles = (props) => {
+//     const tacticRef = useRef();
+//     const [visible, setVisible] = useState(false);
+//     const load = useOnScreen(tacticRef, '0px');
+//     const tacticModules = Modules.filter(module => module.type === "midgame")
+    
+//     useEffect(() => {
+//         if (load && !visible) {
+//             setVisible(true);
+//         }
+//     }, [load])
+
+
+//     return (
+//         <>
+//             <CoursesWrapper ref={tacticRef} id="tactics">
+//             {visible && <>
+//                 <CategoryTitle>
+//                     Tactics
+//                 </CategoryTitle>
+//                 <ModuleWrapper>
+//                     <ModuleGrid>
+//                         {tacticModules.map((module, index) => {
+//                             return(
+//                             // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+//                             <CourseTile key={index} {...module} />
+//                             // </ModalLink>
+//                         )})}
+//                     </ModuleGrid>
+//                 </ModuleWrapper>
+//                 </>}
+//             </CoursesWrapper>
+//         </>
+//     )
+// }
+
+// export default TacticTiles

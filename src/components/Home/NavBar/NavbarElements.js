@@ -108,7 +108,7 @@ export const NavBtn = styled.nav `
 `;
 
 export const NavBtnLink = styled(LinkR)`
-    border-radius: 50px;
+    /* border-radius: 50px;
     background: #247cf1;
     white-space: nowrap;
     padding: 10px 22px;
@@ -124,11 +124,11 @@ export const NavBtnLink = styled(LinkR)`
         transition: all 0.2s ease-in-out;
         background: #0e65d8;
         color: #fff;
-    }
+    } */
 `;
 
 export const NavBtnLink2 = styled(LinkR)`
-    border-radius: 50px;
+    /* border-radius: 50px;
     background: transparent;
     white-space: nowrap;
     padding: 10px 22px;
@@ -146,7 +146,7 @@ export const NavBtnLink2 = styled(LinkR)`
         transition: all 0.2s ease-in-out;
         background: #fff;
         color: #247cf1;
-    }
+    } */
 `;
 
 

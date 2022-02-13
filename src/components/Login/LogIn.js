@@ -23,7 +23,7 @@ import {
 } from './LoginElements';
 import firebase from "firebase/compat/app";
 import {AuthContext} from '../Auth.js';
-
+import Button from "../UI_Kit/Button/Button";
 import useFetch from "../api/useFetch";
 import {baseURL} from '../api/apiConfig';
 
@@ -134,11 +134,11 @@ const Login = ({history}) => {
   return (
     <>
     <Container className="page">
-      <LoginHeaderImg src={headerImg}/>
-      <ImgOverlay />
       <FormWrap>
         <LoginHeaderLogoWrapper>
           <LoginHeaderLogo src={logo} />
+          <LoginHeaderImg src={headerImg}/>
+      <ImgOverlay />
         </LoginHeaderLogoWrapper>
         <FormContent>
           <Form onSubmit={e => handleForm(e)}>
@@ -169,7 +169,7 @@ const Login = ({history}) => {
           Login With Google
           </GoogleButtonText>
         </GoogleButton>
-        <FormButton type="submit">Login</FormButton>
+        <Button primary type="submit">Login</Button>
         <FormText>Don't have an account?<br/>
         Sign up <Link to='/signup'>here</Link>
         </FormText>

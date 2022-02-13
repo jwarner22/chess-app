@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import styled from 'styled-components'
 import {
      Nav, 
      NavbarContainer, 
@@ -11,7 +12,8 @@ import {
      BlueBars,
      NavItem,
      NavLinks
-    } from './DashboardNavElements'
+    } from './DashboardNavElements';
+import Button from "../../UI_Kit/Button/Button"
 import {animateScroll as scroll} from 'react-scroll'
 import logo from "../../../Images/Elo-elevation-blue.png"
 import firebase from 'firebase/compat/app'
@@ -72,45 +74,45 @@ const DashNavbar = ({ toggle }) => {
                         <NavMenu>
                             <NavItem>
                             <NavLinks to="/home/daily" activeStyle={{
-                            borderBottom: "3px solid #247cf1"
+                            borderBottom: "3px solid #1161d4"
                             }}> 
                                    Today
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
                             <NavLinks to="/home/practice" activeStyle={{
-                            borderBottom: "3px solid #247cf1"
+                            borderBottom: "3px solid #1161d4"
                             }}> 
                                    Practice
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
                                 <NavLinks to="/home/leaderboards" activeStyle={{
-                            borderBottom: "3px solid #247cf1"
+                            borderBottom: "3px solid #1161d4"
                             }}> 
                                     Leaderboard
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
                                 <NavLinks to="/home/openings" activeStyle={{
-                            borderBottom: "3px solid #247cf1"
+                            borderBottom: "3px solid #1161d4"
                             }}> 
                                    Openings 
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
                                 <NavLinks to="/home/profile" activeStyle={{
-                            borderBottom: "3px solid #247cf1"
+                            borderBottom: "3px solid #1161d4"
                             }}> 
                                    Profile
                                 </NavLinks>
                             </NavItem>
                         </NavMenu>
-                        <NavBtn>
+                        <NavBarButton primary>
                             <NavBtnLink to='/login' onClick={() => handleLogout()}>
                                 Sign Out
                             </NavBtnLink>
-                        </NavBtn>
+                        </NavBarButton>
                     </NavbarContainer>
                 </Nav>
                 </div>
@@ -120,3 +122,12 @@ const DashNavbar = ({ toggle }) => {
 };
 
 export default DashNavbar
+
+const NavBarButton = styled(Button)`
+    color: #fff;
+    font-size: 16px;
+    padding: 6px 24px;
+    font-weight: 200;
+    margin: 12px 24px;
+    max-width: 120px;
+`

@@ -11,6 +11,7 @@ import target from "../../Images/targetSVG.svg"
 import crown from "../../Images/crownSVG.svg"
 import rook from "../../Images/rookSVG.svg"
 import SectionHeader from '../SectionHeaders/SectionHeader'
+import CategoryTitle from '../UI_Kit/CategoryTitle/CategoryTitle'
 
 
 const AchievementTiles = (props) => {
@@ -27,7 +28,9 @@ const AchievementTiles = (props) => {
     let accuracy = Math.floor((props.profileData.puzzles_correct/props.profileData.puzzles_completed)*100);
     return (
         <>
-            <SectionHeader sectionTitle={statsSection} />
+            <CategoryTitle>
+                Statistics
+            </CategoryTitle>
             <AchievementTileContainer>
             <AchievementTileWrapper>
                 <LargeTile value={dailyStreak} title={'Daily Streak'} image={flame}/> 
@@ -36,7 +39,9 @@ const AchievementTiles = (props) => {
                 <LargeTile value={totalScore} title={'Total Score'} image={crown}/>
                 </AchievementTileWrapper>
                 <ProfilePanelContainer> 
-                <SectionHeader sectionTitle={achievementSection} />
+                <CategoryTitle>
+                    Achievements
+                </CategoryTitle>
                 </ProfilePanelContainer>
                 <AchievementSelectionContainer>
                 <AchievementTileWrapper>

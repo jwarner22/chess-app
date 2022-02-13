@@ -37,6 +37,7 @@ export const MenuTiles = styled(LinkS)`
     &.active {
         box-shadow: ${(props) => props.activeShadow};
         transition: all 0.2s ease-in-out;
+        background: #fff;
     }
 
     &.hover{

@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import book from "../../../../Images/open-book.svg"
-import {
-  OpeningsGrid,
-  OpeningsTileContainer,
-  OpeningTileHeadline,
-  OpeningTileButton,
-  OpeningsTileLeftColumn,
-  OpeningsTileImage,
-  OpeningTileButtonWrapper,
-  OpeningTileSubheadline,
-  OpeningImgWrapper
-} from "./OpeningsElements";
+// import {
+//   OpeningsGrid,
+//   OpeningsTileContainer,
+//   OpeningTileHeadline,
+//   OpeningTileButton,
+//   OpeningsTileLeftColumn,
+//   OpeningsTileImage,
+//   OpeningTileButtonWrapper,
+//   OpeningTileSubheadline,
+//   OpeningImgWrapper
+// } from "./OpeningsElements";
 
 import {
   MenuWrapper,
@@ -20,6 +20,7 @@ import {
   MenuContent,
   MenuTitle
 } from '../PatternRecognition/CoursesBody/CoursesElements';
+
 
 
 import {CoursesWrapper, 
@@ -32,42 +33,48 @@ import {HeadingWrapper,
   DashboardWrapper} from "../PatternRecognition/PatternRecognition"
 
 import {useWindowSize} from '../../../Hooks/UseWindowSize'
+import OpeningMenu from './OpeningMenu';
+import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
+import CourseTile from '../PatternRecognition/CourseTiles/CourseTiles';
+import FooterBuffer from '../../../UI_Kit/FooterBuffer';
 
 
 const Openings = () => {
-  const [shownCategory, setShownCategory] = useState("e4");
+  // const [shownCategory, setShownCategory] = useState("e4");
   const openingData = Modules.filter(module => module.category === 'opening');
+  const e4Openings = Modules.filter(module => module.pawn === 'e4');
+  const d4Openings = Modules.filter(module => module.pawn === 'd4');
+  const c4Openings = Modules.filter(module => module.pawn === 'c4');
   // view
   const windowDimension = useWindowSize();
   const isMobile = windowDimension[0] <= 640;
 
 
-  function handleShowE4Tiles(){
-        setShownCategory("e4")
-  }
+//   function handleShowE4Tiles(){
+//         setShownCategory("e4")
+//   }
 
-  function handleShowC4Tiles(){
-        setShownCategory("c4")
-  }
+//   function handleShowC4Tiles(){
+//         setShownCategory("c4")
+//   }
 
-function handleShowD4Tiles(){
-        setShownCategory("d4")
-  }
+// function handleShowD4Tiles(){
+//         setShownCategory("d4")
+//   }
 
 
     return (
         <>
-        <div>
-          <DashboardWrapper>
-          <HeadingWrapper>
-        <PatternRecognitionHeading>Choose an <br></br> <strong>Opening to Practice</strong></PatternRecognitionHeading>
-        <PatternRecognitionSubheading>Categories</PatternRecognitionSubheading>
-        </HeadingWrapper>
-        <MenuWrapper>
+        <DashboardWrapper>
+        <OpeningMenu />
+        {/* <MenuWrapper>
             <MenuGrid className="menuGrid">
-                <MenuTiles  className="e4Button"onClick={handleShowE4Tiles}>
+              <MenuTile>
+
+              </MenuTile> */}
+                {/* <MenuTiles  className="e4Button"onClick={handleShowE4Tiles}>
                     <MenuContent>
-                        {/* <MenuImg src={endgameImg} /> */}
+                        <MenuImg src={endgameImg} />
                         <MenuTitle>
                             e4
                         </MenuTitle>
@@ -75,7 +82,7 @@ function handleShowD4Tiles(){
                 </MenuTiles>
                 <MenuTiles className="c4Button" onClick={handleShowC4Tiles}>
                     <MenuContent>
-                        {/* <MenuImg src={tacticsImg} /> */}
+                        <MenuImg src={tacticsImg} />
                             <MenuTitle>
                                 c4
                         </MenuTitle>
@@ -83,22 +90,46 @@ function handleShowD4Tiles(){
                 </MenuTiles>
                 <MenuTiles className="d4Button" onClick={handleShowD4Tiles}>
                     <MenuContent>
-                        {/* <MenuImg src={checkmateImg} /> */}
+                        <MenuImg src={checkmateImg} />
                             <MenuTitle>
                                 d4
                             </MenuTitle>
                     </MenuContent>
-                </MenuTiles>
-            </MenuGrid>
-        </MenuWrapper>
-        <CoursesWrapper>
+                </MenuTiles> */}
+            {/* </MenuGrid>
+        </MenuWrapper> */}
+
+        <PuzzleTileGrid className="e4Tiles" id={"e4"} category={'E4 Openings'}>
+        {e4Openings.map((module, index) => {
+                          return(
+                          // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                          <CourseTile key={index} {...module} />
+                          // </ModalLink>
+                      )})}
+        </PuzzleTileGrid>
+        <PuzzleTileGrid className="d4Tiles" id={"d4"} category={'D4 Openings'}>
+        {d4Openings.map((module, index) => {
+                          return(
+                          // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                          <CourseTile key={index} {...module} />
+                          // </ModalLink>
+                      )})}
+        </PuzzleTileGrid>
+        <PuzzleTileGrid className="c4Tiles" id={"c4"} category={'C4 Openings'}>
+        {c4Openings.map((module, index) => {
+                          return(
+                          // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                          <CourseTile key={index} {...module} />
+                          // </ModalLink>
+                      )})}
+        </PuzzleTileGrid>
+        {/* <CoursesWrapper>
             <ModuleWrapper>
                 <OpeningsGrid>
                     {openingData.map((module, index) => {
-                      if (module.pawn === shownCategory) {
                         return (
                     <Link key={index} style={{textDecoration: 'none'}} to={{pathname: '/opening', state: {module: module}}}>
-                        {/* { <CourseTile key={index} {...module}/> } // need to comment this line out */}
+          
                         <OpeningsTileContainer>
                           <OpeningsTileLeftColumn>
                             <OpeningImgWrapper>
@@ -118,16 +149,14 @@ function handleShowD4Tiles(){
                           </OpeningsTileLeftColumn>
                         </OpeningsTileContainer>
                     </Link>
-                    )} else {
-                      return null;
-                    }
-                    
-                    })}
+                    )})}
                 </OpeningsGrid>
             </ModuleWrapper>
         </CoursesWrapper> 
         </DashboardWrapper>
-        </div>
+        </div> */}
+        </DashboardWrapper>
+        <FooterBuffer />
         </>
     )
 }

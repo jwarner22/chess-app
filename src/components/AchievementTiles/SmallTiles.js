@@ -90,7 +90,7 @@ const SmallTile = (props) => {
                 <SmallTileWrapper>
                     <SmallTileContent>
                         <SmallTileIconContainer>
-                        <SmallTileIconWrapper>
+                        <SmallTileIconWrapper type={module.type}>
                             <SmallTileIcon src={module.img}/>
                         </SmallTileIconWrapper>
                         </SmallTileIconContainer>

@@ -41,12 +41,26 @@ export const DailyPuzzleTitle = styled.h1`
 `
 
 export const DailyPuzzleModuleStyle = styled.div`
-    margin: 16px 32px ;
-    background: ${({props}) => ((props.locked) ? 'rgba(218, 218, 218, 0.7)' : 'linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%)')};
+    margin: 16px 32px;
+    background: ${props => {
+        if (props.locked) return`
+        rgba(218, 218, 218, 0.7)
+        `
+        else if (props.type === 'endgame') return`
+            #00a6a6;
+            `
+        else if (props.type === 'midgame') return`
+            #ff5074;
+        `
+        else if (props.type === 'checkmate') return`
+            #7365f1;`
+        else return `
+        #F85c37`
+    }};
     display: grid;
     grid-template-columns: min-content 1fr min-content;
     border-radius: 35px;
-    box-shadow: ${({props}) => ((props.locked) ? 'rgba(1, 14, 255, 0.24) 0px 8px 15px' : "rgba(1, 14, 255, 0.24) 0px 8px 15px" )};
+    box-shadow: ${props => props.locked ? 'rgba(1, 14, 255, 0.24) 0px 8px 15px' : "rgba(1, 14, 255, 0.24) 0px 8px 15px" };
     transition: all 0.2s ease-in-out;
     max-width: 800px;
     grid-gap: 8px;

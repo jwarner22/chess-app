@@ -14,7 +14,7 @@ import {useWindowSize} from '../../../../Hooks/UseWindowSize';
 function CourseTile(props){
     const windowSize = useWindowSize();
     const isMobile = windowSize[0] <= 640;
-    const {headline, subheading, img} = props
+    const {headline, subheading, img, pawn} = props
 
   const TileContent = () => { 
     return (
