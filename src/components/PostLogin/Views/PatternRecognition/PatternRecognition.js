@@ -23,10 +23,10 @@ const Dashboard = () => {
     setIsOpen(!isOpen)
   }
 
-  useEffect(() => {
-    let loadTimeout = setTimeout(() => setVisible(true),30);
-    return () => clearTimeout(loadTimeout);
-  },[])
+  // useEffect(() => {
+  //   let loadTimeout = setTimeout(() => setVisible(true),30);
+  //   return () => clearTimeout(loadTimeout);
+  // },[])
 
   return (
     <>
