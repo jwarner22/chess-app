@@ -119,13 +119,13 @@ export default function PuzzlePage(props) {
   },[lives])
 
   // puzzle module is finished
-  const finished = async () => {
+  const finished = () => {
     props.puzzleIsFinished(outcomes, 'succeed', times);
   }
 
   // module failed
-  const fail = async () => {
-    await wait(1000)
+  const fail = () => {
+    // await wait(1000)
     props.puzzleIsFinished(outcomes, 'fail', times)
   }
 
@@ -139,7 +139,7 @@ export default function PuzzlePage(props) {
     setWaiting(true);
   };
 
-  const playSound = async (sound) => {
+  const playSound = (sound) => {
     if (sound === "confirmation") {
       return confirmationSound.play();
     } else if (sound === "error") {
@@ -150,18 +150,18 @@ export default function PuzzlePage(props) {
     return null;
   }
 
-  const displayOutcome = async (success) => {
+  const displayOutcome = (success) => {
     // end puzzle timer here
     setToggleTimer(prev => !prev)
     console.log({displayedOutcome: success})
     console.log({coutcome:outcomes})
     // play sound to indicate success or failure
     if (success) {
-      await playSound("confirmation");
+      playSound("confirmation");
       setRetryDisable(true)
       setCorrect(true)
     } else {
-      await playSound("error");
+      playSound("error");
       setRetryDisable(false)
       setCorrect(false)
       setLives(prev => prev - 1)
@@ -193,7 +193,7 @@ export default function PuzzlePage(props) {
     }
   }
 
-  async function handleContinueClick() {
+  function handleContinueClick() {
     //playSound("button")
     incrementCount()
     setRetry(false)
@@ -203,7 +203,7 @@ export default function PuzzlePage(props) {
     setBoardKey(prev => prev + 1);
   }
 
-  const handleRetryClick = async () => {
+  const handleRetryClick = () => {
     //playSound("button")
     setRetry(true);
     setFen(() => puzzleData[count].fen);

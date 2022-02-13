@@ -27,7 +27,7 @@ export const Modules = [
         description: 'A mixture of all endgame strategies',
         img: require("../../../../../Images/Endgame_shuffle.svg").default
     },{
-        id: 2, // `eventually use random str as modules will be dynamic for each user and may change over time
+        id: 64, // `eventually use random str as modules will be dynamic for each user and may change over time
         category: 'puzzle',
         type: 'endgame',
         type_ref: 'bishopEndgame',
@@ -598,7 +598,7 @@ export const Modules = [
           moves: "d2d4 g8f6 c2c4 g7g6 b1c3 f8g7 e2e4 d7d6 g1f3 e8g8 f1e2 e2e5 e1g1",
             img: require("../../../../../Images/open-book.svg").default
     },{
-        id: 64, // `eventually use random str as modules will be dynamic for each user and may change over time
+        id: 2, // `eventually use random str as modules will be dynamic for each user and may change over time
         category: 'puzzle',
         type: 'midgame',
         type_ref: 'mix',

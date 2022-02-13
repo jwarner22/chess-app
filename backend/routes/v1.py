@@ -1,5 +1,4 @@
 
-
 from datetime import datetime
 from sqlalchemy.sql.sqltypes import Boolean
 from starlette.status import HTTP_401_UNAUTHORIZED
@@ -7,7 +6,7 @@ from utlities.security import check_token
 from fastapi import FastAPI, Depends, HTTPException, APIRouter
 from fastapi.encoders import jsonable_encoder
 import uvicorn
-from typing import Optional, List
+from typing import Optional, List, Dict
 
 from sqlalchemy.orm import Session
 from sqlalchemy import update, insert, delete
@@ -21,7 +20,7 @@ import time
 
 from fastapi.middleware.cors import CORSMiddleware
 
-from random import randint
+from random import randint, choices
 
 app_v1 = APIRouter()
 
@@ -201,37 +200,76 @@ async def user_module_rating(user_id: str, opening_rating: schemas.OpeningRating
 ## DAILY PUZZLES
 
 # generate user's daily puzzles
-@app_v1.get('/users/{user_id}/daily_puzzles/picks', response_model=schemas.DailyPicks, tags=["Daily"])
-async def get_daily_puzzle_picks():
-    
+@app_v1.put('/users/{user_id}/daily_puzzles/picks', response_model=schemas.DailyPicks, tags=["Daily"])
+async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: str, db: Session = Depends(get_db)):
+
     # generate daily puzzle module picks
     daily_puzzles = []
-    excluded_ids = [2] # exclude these moduless
-    while (len(daily_puzzles) < 3): # we want three modules
-        pick = randint(1,38) # picks random module (how sophisticated!)
-        if pick not in daily_puzzles and pick not in excluded_ids: # checks that picks don't repeat and are not in excluded modules
-            daily_puzzles.append(pick)
+    excluded_ids = [] # exclude these moduless
+
+    module_options = []
+    for module in embedding:
+        if module.id < 39:
+            module_options.append(module.id)
+    module_options = [x for x in module_options if x not in excluded_ids]
+
+    module_weights = []
+    for module in embedding:
+        if module.id in module_options:
+            module_weights.append(module.prob)
+
+    # while (len(daily_puzzles) < 3): # we want three modules
+    #     pick = randint(1,38) # picks random module (how sophisticated!)
+    #     pick = choices(module_options, weights=module_weights,k=1)
+    #     if pick not in daily_puzzles and pick not in excluded_ids: # checks that picks don't repeat and are not in excluded modules
+    #         daily_puzzles.append(pick)
+
+    picks = choices(module_options, weights=module_weights,k=3) # selects three modules based on user preference embedding
 
     # generate alternative module picks
-    alts = []
-    while (len(alts) < 3): # we want three modules
-        pick = randint(1,38) # picks random module (how sophisticated!)
-        if pick not in alts and pick not in excluded_ids and pick not in daily_puzzles: # checks that picks don't repeat and are not in excluded modules
-            alts.append(pick)
+    module_options = [x for x in module_options if x not in picks]
+    module_weights = []
+    for module in embedding:
+        if module.id in module_options:
+            module_weights.append(module.prob)
+
+    alts = choices(module_options,k=3) # picks three alternative modules randomly 
+
+    # while (len(alts) < 3): # we want three modules
+    #     pick = randint(1,38) # picks random module (how sophisticated!)
+    #     if pick not in alts and pick not in excluded_ids and pick not in picks: # checks that picks don't repeat and are not in excluded modules
+    #         alts.append(pick)
+
 
     # generate opening picks    
-    excluded_ids = [0, 48, 49, 50] # exclude these modules
-    opening_pick = 0
-    while (opening_pick in excluded_ids): # ensures exluded ids are not picked
-        opening_pick = randint(39,63) # picks random opening module
-    daily_puzzles.append(randint(39,60)) # adds a random opening
+    excluded_ids = [0, 48, 49, 50, 64] # exclude these modules
+
+    module_options = []
+    for module in embedding:
+        if module.id > 38:
+            module_options.append(module.id)
+    module_options = [x for x in module_options if x not in excluded_ids]
+
+    module_weights = []
+    for module in embedding:
+        if module.id in module_options:
+            module_weights.append(module.prob)
+
+    #opening_pick = 0
+    #while (opening_pick in excluded_ids): # ensures exluded ids are not picked
+    opening_pick = choices(module_options, weights=module_weights,k=1) # picks random opening module
     
-    picks = {
-        "picks": daily_puzzles,
+    picks.append(opening_pick[0]) # adds opening to picks
+    
+    print(picks)
+    print(alts)
+    
+    picks_response = {
+        "picks": picks,
         "alts": alts
     }
 
-    return picks
+    return picks_response
 
 # get user's daily puzzles
 @app_v1.get('/users/{user_id}/daily_puzzles', tags=["Daily"])
@@ -355,7 +393,7 @@ async def get_achievements(user_id: str, db: Session = Depends(get_db)):
 
 # get user opening data
 @app_v1.get('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
-async def get_opening(user_id: str, opening_id: str, db: Session = Depends(get_db)):
+async def get_opening(user_id: str, opening_id: int, db: Session = Depends(get_db)):
     opening = db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
     if opening is None:
         raise HTTPException(status_code=404, detail="opening not found")
@@ -363,18 +401,20 @@ async def get_opening(user_id: str, opening_id: str, db: Session = Depends(get_d
         return opening
 
 # create user opening 
-@app_v1.post('/openings/{user_id}/{opening_id}', tags=["Openings"])
-async def add_opening(user_id: str, opening_id: str, opening: schemas.OpeningCreate, db: Session = Depends(get_db)):
-    db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+@app_v1.post('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
+async def add_opening(user_id: str, opening_id: int, opening: schemas.OpeningCreate, db: Session = Depends(get_db)):
+    # db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
-    if db_user is None:
-         return None
+    # if db_user is None:
+    #      return None
     
     db_opening= models.Opening(**opening.dict(), owner_id = user_id)
     db.add(db_opening)
     db.commit()
     db.refresh(db_opening)
-    return {"opening successfully created"}
+    opening = db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
+
+    return opening
 
 # update user opening data
 @app_v1.put('/openings/{user_id}/{opening_id}', tags=["Openings"])

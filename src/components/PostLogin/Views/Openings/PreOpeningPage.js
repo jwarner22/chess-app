@@ -12,19 +12,30 @@ const PreOpeningPage = (props) => {
     const [loaded, setLoaded] = useState(false);
     const [userOpeningData, setUserOpeningData] = useState({});
 
-    const {openings} = useContext(UserContext);
+    const {openings, updateOpenings, contextLoading} = useContext(UserContext);
 
     function handleStartButtonClick(color) {
         togglePrePuzzleCallback(color)
     }
 
     useEffect(() => {
-        let opening = openings.find(opening => parseInt(opening.opening_id) === openingData.id);
+        let opening = openings.find(opening => opening.opening_id === openingData.id);
+        if (opening == null) {
+            opening = {
+                opening_id: openingData.id,
+                completed: 0,
+                high_score: 0,
+                opening_name: openingData.headline,
+                score_history:'0,0,0,0,0,0,0'
+        }
+        updateOpenings(openingData.id, opening);
+    }
         setUserOpeningData(opening);
+        console.log(opening);
         setLoaded(true);
     },[])
 
-    if (loaded) {
+    if (loaded && !contextLoading) {
     return (
         <PageContainer>
             <InfoBox 

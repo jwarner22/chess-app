@@ -1,13 +1,7 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
-import Body from "./CoursesBody/CoursesBody";
 import styled from "styled-components";
-import { MenuTiles } from "../../../UI_Kit/PuzzleMenu/MenuTileElements";
-import MenuTile from "../../../UI_Kit/PuzzleMenu/MenuTile";
 import MotifMenu from "./MotifMenu/MotifMenu";
-import endgameImg from "../../../../Images/kingIconBlue.svg";
-import tacticsImg from "../../../../Images/TacticsIconBlue.svg";
-import checkmateImg from "../../../../Images/checkmateIconBlue.svg";
 import EndgameTiles from './CoursesBody/EngameTiles';
 import TacticTiles from './CoursesBody/TacticTiles';
 import CheckmateTiles from './CoursesBody/CheckmateTiles';
@@ -16,9 +10,6 @@ import Button from '../../../UI_Kit/Button/Button';
 import {Modules} from './CourseTiles/Data';
 import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
 import CourseTile from './CourseTiles/CourseTiles';
-
-
-
 
 
 const Dashboard = () => {
@@ -31,6 +22,11 @@ const Dashboard = () => {
   const toggle = () => {
     setIsOpen(!isOpen)
   }
+
+  useEffect(() => {
+    let loadTimeout = setTimeout(() => setVisible(true),30);
+    return () => clearTimeout(loadTimeout);
+  },[])
 
   return (
     <>

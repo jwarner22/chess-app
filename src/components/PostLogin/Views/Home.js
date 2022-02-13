@@ -22,7 +22,6 @@ const Home = () => {
     const windowDimension = useWindowSize();
     const isMobile = windowDimension[0] <= 640;
 
-    console.log({loading: contextLoading});
     const toggle = () => {
         setIsOpen(!isOpen)
       }

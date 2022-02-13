@@ -10,7 +10,9 @@ import ModuleManager from '../Puzzle/ModuleManager.js';
 import PrePuzzle from '../PrePuzzle/PrePuzzle.js';
 
 // context
-import {UserContext} from '../../GlobalState'
+import {UserContext} from '../../GlobalState';
+
+import usePrevious from "../Hooks/usePrevious";
 
 export default function Module(props) {
     const [rating, setRating] = useState();
@@ -38,13 +40,19 @@ export default function Module(props) {
     const isDaily = props.location.state.isDaily;
     const location = props.location.state.location;
 
+    const prevModuleData = usePrevious(moduleData);
+
     //load user data
     useEffect(() => {
         getModule();
     },[])
 
     useEffect(() => {
-        getModule();
+        if (prevModuleData == null) return;
+        if (prevModuleData.theme !== moduleData.theme) {
+            console.log('get module in module.js: this should not be happening rn')
+            getModule();
+        }
     },[moduleData.theme])
 
     const getModule = () => {

@@ -1,4 +1,4 @@
-import {useRef, useEffect, useState} from 'react'
+import {useState} from 'react'
 import {CoursesWrapper, 
     ModuleWrapper, 
     ModuleGrid
@@ -7,7 +7,6 @@ import CourseTile from '../CourseTiles/CourseTiles'
 import {Modules} from '../CourseTiles/Data';
 import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
 
-import useOnScreen from '../../../../Hooks/useOnScreen';
 
 //CONDENSED INTO PUZZLEGRID.JS
 
