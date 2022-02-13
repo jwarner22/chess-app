@@ -111,29 +111,16 @@ export default function OpeningManager(props) {
             })
 
           }
-    
 
-          debugger;
           let lastDaily = new Date(userProfileData.last_daily);
           // update user daily streak info
           if (lastDaily.getDate() !== now.getDate()) { // ensure no same day streak increase
-            if (lastDaily.getDate() === (now.getDate() - 1)) { // ensure last daily completion was yesterday
-              // update streak (+1)
-              updateUserData({
-                ...userProfileData,
-                daily_streak: userProfileData.daily_streak + 1,
-                last_daily: Date.now()
-              })
-              console.log('streak increased')
-            } else {
-              // reset streak to 1
-              updateUserData({
-                ...userProfileData,
-                daily_streak: 1,
-                last_daily: Date.now()
-              })
-              console.log('streak reset')
-            }
+            updateUserData({
+              ...userProfileData,
+              daily_streak: userProfileData.daily_streak + 1,
+              last_daily: Date.now()
+            })
+            console.log('streak increased')
           }
           setCompletedTraining(true);
         }
