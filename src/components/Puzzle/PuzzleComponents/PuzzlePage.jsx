@@ -4,7 +4,7 @@ import React, { useState, useEffect} from "react";
 import PuzzleBoard from "../PuzzleManager.js";
 import ProgressBar from "../Utilities/Progress";
 
-import {getMoves, wait} from '../Utilities/helpers.js';
+import {getMoves} from '../Utilities/helpers.js';
 import confirmationSoundFile from "../../../assets/public_sound_standard_Confirmation.mp3";
 import errorSoundFile from "../../../assets/public_sound_standard_Error.mp3";
 //import buttonSoundFile from "../../../assets/click_005.ogg";
