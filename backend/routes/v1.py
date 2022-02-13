@@ -205,7 +205,7 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
 
     # generate daily puzzle module picks
     daily_puzzles = []
-    excluded_ids = [2] # exclude these moduless
+    excluded_ids = [] # exclude these moduless
 
     module_options = []
     for module in embedding:
@@ -242,7 +242,7 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
 
 
     # generate opening picks    
-    excluded_ids = [0, 48, 49, 50] # exclude these modules
+    excluded_ids = [0, 48, 49, 50, 64] # exclude these modules
 
     module_options = []
     for module in embedding:
