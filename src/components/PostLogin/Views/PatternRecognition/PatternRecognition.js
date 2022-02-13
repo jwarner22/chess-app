@@ -14,7 +14,7 @@ import CourseTile from './CourseTiles/CourseTiles';
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false)
-
+  const [visible, setVisible] = useState(false)
   const endgameModules = Modules.filter(module => module.type === "endgame")
   const tacticModules = Modules.filter(module => module.type === "midgame")
   const checkmateModules = Modules.filter(module => module.type === "checkmate")
@@ -23,10 +23,10 @@ const Dashboard = () => {
     setIsOpen(!isOpen)
   }
 
-  // useEffect(() => {
-  //   let loadTimeout = setTimeout(() => setVisible(true),30);
-  //   return () => clearTimeout(loadTimeout);
-  // },[])
+  useEffect(() => {
+    let loadTimeout = setTimeout(() => setVisible(true),30);
+    return () => clearTimeout(loadTimeout);
+  },[])
 
   return (
     <>
@@ -47,6 +47,7 @@ const Dashboard = () => {
                           // </ModalLink>
                       )})}
       </PuzzleTileGrid>
+      {visible && <>
       <PuzzleTileGrid className="tacticTiles" id={"tactics"} category={"Tactics"}>
         {tacticModules.map((module, index) => {
                           return(
@@ -63,6 +64,7 @@ const Dashboard = () => {
                           // </ModalLink>
                       )})}
       </PuzzleTileGrid>
+      </>}
     </DashboardWrapper>
     <FooterBuffer />
       </>
