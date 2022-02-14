@@ -2,11 +2,11 @@ import React from 'react'
 
 const Benefits = (props) => {
 
-    const {text, category} = props; 
+    const {text, category, id} = props; 
     console.log(props)
 
   return (
-    <div>{category}</div>
+    <div>{id}</div>
   )
 }
 
