@@ -21,7 +21,7 @@ const AchievementTiles = (props) => {
     const [lazyVisible, setLazyVisible] = useState(false);
 
     useEffect(() => {
-        let visible = setTimeout(() => setLazyVisible(true), 5);
+        let visible = setTimeout(() => setLazyVisible(true), 1);
         return () => clearTimeout(visible);
     },[])
 
@@ -33,7 +33,7 @@ const AchievementTiles = (props) => {
             </CategoryTitle>
             <AchievementTileContainer>
             <AchievementTileWrapper>
-                <LargeTile value={dailyStreak} title={'Daily Streak'} image={flame}/>
+                <LargeTile value={dailyStreak} title={'Daily Streak'} image={flame}/> 
                 <LargeTile value={isNaN(accuracy) ? 0 : accuracy} title={'Accuracy'} image={target}/>
                 <LargeTile value={overallRating} title={'Overall Rating'} image={rook}/>
                 <LargeTile value={totalScore} title={'Total Score'} image={crown}/>

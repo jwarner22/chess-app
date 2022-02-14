@@ -126,7 +126,7 @@ class UserProfile(UserBase):
 
 class Opening(BaseModel):
     id: int
-    opening_id: str
+    opening_id: int
     opening_name: str
     completed: Optional[int] = 0
     high_score: Optional[int] = 0
@@ -137,7 +137,7 @@ class Opening(BaseModel):
         orm_mode=True
 
 class OpeningCreate(BaseModel):
-    opening_id: str
+    opening_id: int
     opening_name: str
     completed: Optional[int] = 0
     high_score: Optional[int] = 0
@@ -200,3 +200,7 @@ class User(UserBase):
 
     class Config:
         orm_mode=True
+
+class Embedding(BaseModel):
+    id: int
+    prob: float

@@ -14,7 +14,7 @@ import placeholder from "../../Images/user.png"
 import clock from "../../Images/clockSVG.svg"
 
 const ProfilePanel = (props) => {
-
+    console.log(props)
     return (
         <>
           <ProfilePanelContainer>

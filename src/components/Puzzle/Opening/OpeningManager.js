@@ -30,6 +30,8 @@ export default function OpeningManager(props) {
     const location = props.location.state.location;
     const isDaily = props.location.state.isDaily;
 
+    console.log({openingData: openingData})
+
     const togglePrePuzzleCallback = (color) => {
         setIsFinished(false);
         setIsStarted(true);
@@ -41,7 +43,7 @@ export default function OpeningManager(props) {
         const openingId = openingData.id;
         // const userOpeningData = JSON.parse(sessionStorage.getItem('userOpeningData'));
         console.log({openings: openings, openingData: openingData})
-        let userOpeningData = openings.find(opening => parseInt(opening.opening_id) === openingData.id)
+        let userOpeningData = openings.find(opening => opening.opening_id === openingData.id)
 
         let completed = userOpeningData.completed + 1;
         let highScore = (result > userOpeningData.high_score) ? result : userOpeningData.high_score;
@@ -109,25 +111,16 @@ export default function OpeningManager(props) {
             })
 
           }
-    
+
           let lastDaily = new Date(userProfileData.last_daily);
           // update user daily streak info
           if (lastDaily.getDate() !== now.getDate()) { // ensure no same day streak increase
-            if (lastDaily.getDate() === (now.getDate() - 1)) { // ensure last daily completion was yesterday
-              // update streak (+1)
-              updateUserData({
-                ...userProfileData,
-                daily_streak: userProfileData.daily_streak + 1,
-                last_daily: Date.now()
-              })
-            } else {
-              // reset streak to 1
-              updateUserData({
-                ...userProfileData,
-                daily_streak: 1,
-                last_daily: Date.now()
-              })
-            }
+            updateUserData({
+              ...userProfileData,
+              daily_streak: userProfileData.daily_streak + 1,
+              last_daily: Date.now()
+            })
+            console.log('streak increased')
           }
           setCompletedTraining(true);
         }

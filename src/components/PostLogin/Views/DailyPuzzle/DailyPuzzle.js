@@ -19,55 +19,68 @@ import {wait} from '../../../Puzzle/Utilities/helpers'
 import {UserContext} from '../../../../GlobalState'
 
 // Hooks
-import {useWindowSize} from '../../../Hooks/UseWindowSize'
+// import {useWindowSize} from '../../../Hooks/UseWindowSize'
 
-export default function DailyPuzzzle() {
+export default function DailyPuzzzle(props) {
   // state variables
   const [loaded,setLoaded] = useState(false);
   const [dailyPicks, setDailyPicks] = useState([]);
   const [schemaPicks, setSchemaPicks] = useState([]);
-  const [isMounted, setIsMounted] = useState(true);
+  // const [reversed, setReversed] = useState(false);
+  // const [isMounted, setIsMounted] = useState(true);
   const [screenTimer, setScreenTimer] = useState(true);
   
   const {dailyModules} = useContext(UserContext);
-  const {contextLoading} = useContext(UserContext);
+  const {isMobile} = props;
+  // const windowSize = useWindowSize();
+//   const isMobile = windowSize[0] < 640;
 
-  const windowSize = useWindowSize();
-  const isMobile = windowSize[0] < 640;
-
-  
-  useLayoutEffect(() => {
-    if (!contextLoading) {
+// console.log(windowSize)
+  useEffect(() => {
+    console.log('layout effect ran')
       setLoaded(false);
       transformDaily();
       setTimer();
-    }
-    return () => setIsMounted(false) // componentDidUnMount
-  },[contextLoading])
+      setLoaded(true);
+    },[])
 
-  const transformDaily = () => {
+  // useEffect(() => {
+    
+  //   if (isMobile && windowSize[0] !== 0 && dailyPicks[0].location === 0 && !reversed) {
+  //     console.log('reverse')
+  //     setDailyPicks([...dailyPicks.reverse()]);
+  //     setReversed(true);
+  //   } else if (reversed && !isMobile) { 
+  //     console.log('reverse')
+  //     setDailyPicks([...dailyPicks.reverse()]);
+  //     setReversed(false);
+  //   }
+  // } ,[windowSize])
+
+  const transformDaily = async () => {
+    console.log('transform daily')
     let modules = [...Modules]; // copy of Modules
     let daily = [...dailyModules]; // copy of dailyModules
 
-    setSchemaPicks(daily); // set schema picks to daily
+    setSchemaPicks([...daily]); // set schema picks to daily
     daily = daily.map((module, index) => {
       let locatedModule = daily.find(item => item.location === index);
       let item = modules.find(entry => entry.id === locatedModule.theme_id)
       return {...item, ...locatedModule}
     })
-    
-    if (isMobile) {
-      daily.reverse();
-    }
-
-    setDailyPicks(daily); // set data for display and module consumption
-    setLoaded(true);
+    setDailyPicks(() => {
+      if (isMobile) {
+        return [...daily.reverse()]
+      };
+      return [...daily];  
+    }); // set data for display and module consumption
   }
+ 
 
   // displays "generating daily training" message and hides it after timer
   const setTimer = async () => {
     // get last display of screen time
-    let lastScreenTime = new Date(parseInt(localStorage.getItem('lastDailySplashScreenTime')));
+    let lastScreenTime = new Date(parseInt(sessionStorage.getItem('lastDailySplashScreenTime')));
     let now = new Date();
     // check if we need to display the message
     try {
@@ -77,7 +90,7 @@ export default function DailyPuzzzle() {
         await wait(2000);
         setScreenTimer(prev => !prev) // hide splash screen
         // update localStorage
-        localStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
+        sessionStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
       }
     } catch (e) { //just in case
       // show splash screen
@@ -85,14 +98,14 @@ export default function DailyPuzzzle() {
       await wait(2000)
       setScreenTimer(prev => !prev)
       // update localStorage
-      localStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
+      sessionStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
     }
     
   }
-
-  if (contextLoading | dailyModules.length === 0) {
+  
+  if (!loaded | dailyPicks.length === 0) {
     return <Loader />
-   }
+  }
 
   if (!screenTimer) {
     return (
@@ -110,7 +123,6 @@ export default function DailyPuzzzle() {
   return (
     <>
        <Container>
-   {(loaded) &&
    <DailyPuzzleWrapper>
       <DailyPuzzleContainer>
         </DailyPuzzleContainer>
@@ -133,7 +145,6 @@ export default function DailyPuzzzle() {
         </PuzzleWrapper>
         </SelectionContainer>
    </DailyPuzzleWrapper>
-  }
      </Container>
    </>
   );

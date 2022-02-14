@@ -22,7 +22,6 @@ const Home = () => {
     const windowDimension = useWindowSize();
     const isMobile = windowDimension[0] <= 640;
 
-    console.log({loading: contextLoading});
     const toggle = () => {
         setIsOpen(!isOpen)
       }
@@ -45,7 +44,7 @@ const Home = () => {
       <>
       <Switch>
         <Route exact path="/home/daily">
-          <Daily />
+          <Daily isMobile={isMobile}/>
         </Route>
         <Route exact path = "/home/practice">
           <Practice />
