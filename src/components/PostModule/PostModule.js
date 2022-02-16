@@ -7,6 +7,7 @@ import Chart from './ScoreChart';
 import StarRating from './StarRating'
 import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import { Rating } from 'react-simple-star-rating';
+import Button from '../UI_Kit/Button/Button';
 
 const PostPuzzleMockup = (props) => {
     const [linkUrl, setLinkUrl] = useState('');
@@ -23,7 +24,7 @@ const PostPuzzleMockup = (props) => {
         <>
         <PostPuzzleWrapper>
             <PostPuzzleGrid>
-                <IconWrap>
+                <IconWrap type={props.type}>
                     <PostPuzzleHeaderImg src={module.img}/>
                 </IconWrap>
                     <ModuleExperience>
@@ -48,9 +49,9 @@ const PostPuzzleMockup = (props) => {
                         {`Score: ${props.score}`}
                     </ModuleExperience>
                     <Link to={linkUrl}>
-                    <FinishButton>
+                    <PostPuzzleButton primary>
                         Return to {props.isDaily ? 'Daily Puzzles' : 'Dashboard'}
-                    </FinishButton>
+                    </PostPuzzleButton>
                     </Link>
                     <RatingHeader>
                         How would you rate this module?
@@ -73,6 +74,11 @@ const PostPuzzleMockup = (props) => {
 }
 
 export default PostPuzzleMockup
+
+const PostPuzzleButton = styled(Button)`
+    font-weight: 600;
+    margin: 24px 0px;
+`
 
 const RatingHeader = styled.h2`
     text-align: center;

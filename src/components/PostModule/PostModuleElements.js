@@ -28,9 +28,19 @@ export const PostPuzzleHeaderImg = styled.img`
     margin: 10px;
 `
 export const IconWrap = styled.div`
-    background: linear-gradient(143.66deg, #000DFF 21.19%, #6B73FF 78.81%);;
+    background: ${props => {
+        if (props.type === 'endgame') return`
+            #00a6a6;
+            `
+        else if (props.type === 'midgame') return`
+            #ff5074;
+        `
+        else if (props.type === 'checkmate') return`
+            #7365f1;`
+        else return `#F85c37`
+    }};
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 35px;
     margin: 10px;
     
 `
