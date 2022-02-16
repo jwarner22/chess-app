@@ -85,7 +85,7 @@ const PrePuzzlePage = (props) => {
                             </StatsGrid>
                         </StatsWrapper>
                         <BenefitsContainer moduleType={module.type} benefitsData={BenefitsData}/>
-                        <InstructionsContainer>
+                             <InstructionsContainer>
                                     <div>
                                     <PrePuzzleButton primary onClick={handleStartButtonClick}>
                                         Start
@@ -105,8 +105,7 @@ const PrePuzzlePage = (props) => {
 export default PrePuzzlePage
 
 const PrePuzzleButton = styled(Button)`
-    margin: 24px;
+    margin: 12px;
     padding: 12px 24px;
-    font-size: 24px;
-    font-weight: 600;
+    font-weight: 400;
 `

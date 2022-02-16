@@ -161,7 +161,6 @@ export const InstructionsContainer = styled.div`
     max-width: 1140px;
     /* border: 2px solid blue; */
     align-items: center;
-    flex-direction: column;
 `
 
 export const InstructionsWrapper = styled.div`
