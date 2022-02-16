@@ -204,3 +204,19 @@ class User(UserBase):
 class Embedding(BaseModel):
     id: int
     prob: float
+
+class OpeningQueryRecord(BaseModel):
+    moves: str
+
+class Openings(BaseModel):
+    id: int
+    eco: str
+    name: str
+    pgn: str
+    uci: str
+    epd: str
+    np_lichess: Optional[int] = None
+    np_master: Optional[int] = None
+
+    class Config:
+        orm_mode=True

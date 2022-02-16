@@ -6,7 +6,7 @@ from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import column
 from sqlalchemy.sql.sqltypes import TIMESTAMP
-from database import Base, LocalBase
+from database import Base, LocalBase, LocalBaseOpenings
 
 class Puzzles(LocalBase):
     __tablename__ = "labels_raw"
@@ -135,3 +135,23 @@ class OpeningRating(Base):
     user_id = Column(String, unique=False, index=True)
     user_opening_rating = Column(Integer, unique=False, index=True)
     user_score = Column(Integer, unique=False)
+
+class Openings(LocalBaseOpenings):
+    __tablename__ = "openings"
+
+    id = Column(Integer, primary_key=True, index=True)
+    eco = Column(String, unique=False, index=True)
+    name = Column(String, unique=False, index=True)
+    pgn = Column(String, unique=False, index=True)
+    uci = Column(String, unique=False, index=True)
+    epd = Column(String, unique=False, index=True)
+    np_lichess = Column(Integer, unique=False, index=True)
+    np_master = Column(Integer, unique=False, index=True)
+
+class OpeningQueryRecord(LocalBaseOpenings):
+    __tablename__ = "opening_query_record"
+
+    id = Column(Integer, primary_key=True, index=True)
+    moves = Column(String, unique=True, index=True)
+    
+    

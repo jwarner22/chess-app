@@ -4,9 +4,7 @@ import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from './PostModuleElements'
 import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
 import Chart from './ScoreChart';
-import StarRating from './StarRating'
 import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
-import { Rating } from 'react-simple-star-rating';
 
 const PostPuzzleMockup = (props) => {
     const [linkUrl, setLinkUrl] = useState('');
