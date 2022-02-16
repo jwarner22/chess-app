@@ -2,9 +2,8 @@ import styled from "styled-components"
 
 export const BenefitsWrapper = styled.div`
     display: flex;
-    max-width: 1140px;
+    max-width: 648px;
     flex-direction: column;
-    width: 684px;
     /* border: 2px solid blue; */
 `
 
@@ -33,4 +32,5 @@ export const BenefitsFlexbox = styled.div`
     display: flex;
     align-items: center;
     margin: 12px 6px;
+    padding: 0 24px;
 `
