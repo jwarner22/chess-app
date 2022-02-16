@@ -34,7 +34,7 @@ export const InfoBoxSubTitle = styled.span`
 `
 export const InfoBoxImageContainer = styled.div`
     position: absolute;
-    background: #5649B1;
+    background: #F85c37;
     display: flex;
     justify-content: center;
     border-radius: 50px;
@@ -64,7 +64,7 @@ export const InfoBoxHeadline = styled.span`
 export const InfoBoxStatContainer = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 100%;
 `
 

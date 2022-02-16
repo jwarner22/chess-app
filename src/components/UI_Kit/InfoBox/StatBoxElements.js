@@ -24,5 +24,5 @@ export const InfoBoxStat= styled(InfoBoxTitle)`
     font-size: 22px;
     margin-top: 0px;
     padding-top: 8px;
-    margin-bottom: 24px;
+
     `

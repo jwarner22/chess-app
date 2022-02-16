@@ -6,6 +6,8 @@ import InfoBox from "../../../UI_Kit/InfoBox/InfoBox";
 import {PageContainer} from "../../../UI_Kit/Page";
 
 import {UserContext} from '../../../../GlobalState'; // context
+import { BackButtonWrapper } from '../../../Puzzle/Utilities/Progress';
+import BackButton from '../../../BackButton';
 
 const PreOpeningPage = (props) => {
     const {openingData, togglePrePuzzleCallback} = props;
@@ -38,6 +40,9 @@ const PreOpeningPage = (props) => {
     if (loaded && !contextLoading) {
     return (
         <PageContainer>
+            <BackButtonWrapper>
+                <BackButton />
+            </BackButtonWrapper>
             <InfoBox 
                 category={openingData.category}
                 title={openingData.headline} 

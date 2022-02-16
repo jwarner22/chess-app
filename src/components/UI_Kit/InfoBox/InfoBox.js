@@ -12,16 +12,16 @@ import { InfoBoxContainer,
     OpeningImage
  } from './InfoBoxElements';
  import StatBox from './StatBox';
+ import {BenefitsData} from "../../../data/BenefitsData"
+import BenefitsContainer from '../Boxes/Containers/BenefitsContainer';
  
 
 const InfoBox = (props) => {
-const [puzzleType, setPuzzleType] = useState(props.category)
 
-const isOpening = puzzleType === "opening";
-
+const modifiedCategory = `${props.category}s`
 
 
-
+console.log(props)
   return (
   <>
     <InfoBoxContainer>
@@ -38,6 +38,7 @@ const isOpening = puzzleType === "opening";
             <StatBox statTitle={props.headlineOne} statData={props.userData.high_score}/>
             <StatBox statTitle={props.headlineTwo} statData={props.userData.completed}/>
         </InfoBoxStatContainer>
+        <BenefitsContainer moduleType={modifiedCategory}/>
         {/* {isOpening ? <OpeningImage/> : null} */}
         <InfoBoxStatContainer>
         <InfoBoxButton primary onClick={() => props.onStartClick('white')}>
@@ -56,5 +57,5 @@ export default InfoBox;
 
 const InfoBoxButton = styled(Button)`
     position: relative;
-    top: 40px;
+    top: 20px;
 `
