@@ -45,7 +45,6 @@ export default function PuzzleBoard(props) {
   useEffect(() => {
     if (windowSizeWidth < 640){
       setWidth(windowSizeWidth)
-      console.log('set width')
     } else if (windowSizeWidth > 640 && windowSizeWidth < 1300){
         setWidth(window.innerWidth / 2)
     } else if (windowSizeWidth >= 1300) {
@@ -56,7 +55,6 @@ export default function PuzzleBoard(props) {
 
   // play initial move after all is rendered and timed delay for animation
   useLayoutEffect(() => {
-    console.log('layout effect')
     setMoveSound(new Howl({src: moveSoundFile}));
     setCaptureSound(new Howl({src: captureSoundFile}));
     setGame(() => new Chess(props.initialFen));
@@ -76,7 +74,6 @@ export default function PuzzleBoard(props) {
 
   useEffect(() => {
     if (promotion !== "x") {
-      console.log('promotion');
       handlePromotion(promotion);
     }
   },[promotion]);
@@ -84,8 +81,6 @@ export default function PuzzleBoard(props) {
   useLayoutEffect(() => {
       if (prevInitial == null) return;
       if (props.initialFen === prevInitial) return;
-
-      console.log('new puzzle')
       setGame(() => new Chess(props.initialFen));
       setOrientation(() => {
         return props.orientation;
@@ -97,7 +92,6 @@ export default function PuzzleBoard(props) {
   // INITIAL MOVE
 
   function makeInitialMove() {
-    console.log("initialMove");
     let from = props.initialMove.substring(0,2);
     let to = props.initialMove.substring(2);
 
@@ -131,8 +125,7 @@ export default function PuzzleBoard(props) {
   function onSquareClick(targetSquare) {
     setRightClickedSquares({});
     setPieceSquare(targetSquare);
-    // console.log({promotion: props.promotion})
-    // if (props.promotion !== "x") return;
+
     if (piece.substring(1) === "P") {
       let promote = checkPromotion(pieceSquare,targetSquare)
       if (promote) return false;
@@ -145,7 +138,6 @@ export default function PuzzleBoard(props) {
       //promotion: "q" // always promote to a queen for example simplicity
     });
     // if invalid, setMoveFrom and getMoveOptions
-    
     if (targetSquare !== moveHighlightSquare) {
       getMoveOptions(targetSquare);
     }
@@ -211,10 +203,8 @@ export default function PuzzleBoard(props) {
 
   function validateMove(sourceSquare, targetSquare) {
     let move = sourceSquare + targetSquare;
-    // console.log({correctMove:correctMove, sourceSquare:sourceSquare, targetSquare:targetSquare})
-    // console.log({prevCorrect: prevCorrect})
     let correct ="";
-
+    
     if (correctMove.length === 5) {
       correct = correctMove.substring(0, 4);
     } else if ((prevCorrect != null) && prevCorrect.length === 5 && props.promotion !== "x") {
@@ -245,14 +235,12 @@ export default function PuzzleBoard(props) {
   // OPPOSING MOVE
 
   function makeOpposingMove() {
-    // console.log({ opposingMove: opposingMove });
     if (opposingMove == null) return;
 
     let from = opposingMove.substring(0, 2);
     let to = opposingMove.substring(2, 4);
     let promotion = opposingMove.substring(4);
 
-    // console.log({ from: from, to: to });
     safeGameMutate((game) => {
       let move = game.move({ from: from, to: to, promotion: promotion });
       if (move.flags === "c") { 
@@ -268,7 +256,6 @@ export default function PuzzleBoard(props) {
 
   function checkPromotion(from, to) {
     const moves = game.moves({verbose: true});
-    // console.log({moves: moves})
     for (let i = 0, len = moves.length; i < len; i++) {
         if (moves[i].flags.indexOf("p") !== -1 && moves[i].from === from && moves[i].to === to) {
           setPendingMove([from,to]);

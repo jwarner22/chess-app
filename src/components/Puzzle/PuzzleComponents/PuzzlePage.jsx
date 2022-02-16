@@ -153,8 +153,6 @@ export default function PuzzlePage(props) {
   const displayOutcome = (success) => {
     // end puzzle timer here
     setToggleTimer(prev => !prev)
-    console.log({displayedOutcome: success})
-    console.log({coutcome:outcomes})
     // play sound to indicate success or failure
     if (success) {
       playSound("confirmation");
@@ -218,14 +216,8 @@ export default function PuzzlePage(props) {
   }
 
   const handlePromotion = () => {
-    console.log('handle promotion')
     setOpenModal(true)
   }
-
-  // const handlePromotionSelection = (e) => {
-  //   setPromotion(e)
-  //   setOpenModal(false)
-  // }
 
   if (!loaded) {
     return (
