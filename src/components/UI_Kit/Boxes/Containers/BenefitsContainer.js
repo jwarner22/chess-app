@@ -15,6 +15,9 @@ const BenefitsContainer = (props) => {
     const tacticBenefits = BenefitsData.filter(benefit => benefit.category === "tactics");
     const endgameBenefits = BenefitsData.filter(benefit => benefit.category === "endgames");
     const checkmateBenefits = BenefitsData.filter(benefit => benefit.category === "checkmates");
+    const lockedBenefits = BenefitsData.filter(benefit => benefit.pieces !== 'variable');
+
+    console.log(lockedBenefits)
 
     //randomize arrays of benefits without repeating benefits
     function shuffleBenefits(array){

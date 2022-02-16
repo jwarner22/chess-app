@@ -52,64 +52,64 @@ export const BenefitsData = [{
         type: "benefits",
         category: "checkmates",
         text: "Identify checkmates more quickly through repetition training.",
-        img: require("../Images/chessClock_purple.svg").default,
+        img: require("../Images/quick_purple.svg").default,
         pieces: "variable"
-
     },{
         id: 8,
         type: "benefits",
         category: "endgames",
         text: "Identify endgames patterns to secure more wins.",
-        img: require("../Images/pattern_purple.svg").default,
+        img: require("../Images/tactics_green.svg").default,
         pieces: "variable"
     },{
         id: 9,
         type: "benefits",
         category: "endgames",
         text: "Decrease time-to-move by improving your intuition.",
-        img: "",
+        img: require("../Images/third-eye.svg").default,
         pieces: "variable"
     },{
         id: 10,
         type: "benefits",
         category: "endgames",
-        text: "Learn to use the bishop to secure the advantage.",
-        img: "",
-        pieces: "bishop"
-    },{
-        id: 11,
-        type: "benefits",
-        category: "endgames",
-        text: "Learn to use the knight to secure the advantage.",
-        img: "",
-        pieces: "knight"
-    },{
-        id: 12,
-        type: "benefits",
-        category: "endgames",
-        text: "Learn to use the pawns to secure the advantage.",
-        img: "",
-        pieces: "pawn"
-    },{
-        id: 13,
-        type: "benefits",
-        category: "endgames",
-        text: "Learn to use the rook to secure the advantage.",
-        img: "",
-        pieces: "rook"
-    },{
-        id: 14,
-        type: "benefits",
-        category: "endgames",
-        text: "Learn to use the queen to secure the advantage.",
-        img: "",
-        pieces: "queen"
-    },{
-        id: 15,
-        type: "benefits",
-        category: "endgames",
-        text: "Learn to use the queen and rook to secure the advantage.",
-        img: "",
-        pieces: "queen and rook"
+        text: "Improve your visualization skills.",
+        img: require("../Images/magnifying-glass-green.svg").default,
+        pieces: "variable"
     }
+    // },{
+    //     id: 11,
+    //     type: "benefits",
+    //     category: "endgames",
+    //     text: "Learn to use the knight to secure the advantage.",
+    //     img: "",
+    //     pieces: "knight"
+    // },{
+    //     id: 12,
+    //     type: "benefits",
+    //     category: "endgames",
+    //     text: "Learn to use the pawns to secure the advantage.",
+    //     img: "",
+    //     pieces: "pawn"
+    // },{
+    //     id: 13,
+    //     type: "benefits",
+    //     category: "endgames",
+    //     text: "Learn to use the rook to secure the advantage.",
+    //     img: "",
+    //     pieces: "rook"
+    // },{
+    //     id: 14,
+    //     type: "benefits",
+    //     category: "endgames",
+    //     text: "Learn to use the queen to secure the advantage.",
+    //     img: "",
+    //     pieces: "queen"
+    // },{
+    //     id: 15,
+    //     type: "benefits",
+    //     category: "endgames",
+    //     text: "Learn to use the queen and rook to secure the advantage.",
+    //     img: "",
+    //     pieces: "queen and rook"
+    // }
 ]
