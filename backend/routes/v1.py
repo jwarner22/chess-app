@@ -130,9 +130,8 @@ async def get_lichess_explorer_data(moves: str, db: Session = Depends(get_local_
 
 # get module puzzles
 @app_v1.get('/puzzles/', tags=["Puzzles"])
-def read_puzzles(rating: int, theme: str, depth: str, db: Session = Depends(get_local_db)):
+def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
    puzzle = get_puzzles(db,rating, theme)
-
 
    if puzzle is None:
        raise HTTPException(status_code=404, detail='puzzle not found')
