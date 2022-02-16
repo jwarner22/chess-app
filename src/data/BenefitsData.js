@@ -75,22 +75,20 @@ export const BenefitsData = [{
         text: "Improve your visualization skills.",
         img: require("../Images/magnifying-glass-green.svg").default,
         pieces: "variable"
+    },{
+        id: 11,
+        type: "benefits",
+        category: "openings",
+        text: "Strengthen your opening repertoire.",
+        img: require("../Images/Wall.svg").default
+    },{
+        id: 12,
+        type: "benefits",
+        category: "openings",
+        text: "Master opening lines.",
+        img: require("../Images/Master.svg").default,
+        pieces: "pawn"
     }
-    // },{
-    //     id: 11,
-    //     type: "benefits",
-    //     category: "endgames",
-    //     text: "Learn to use the knight to secure the advantage.",
-    //     img: "",
-    //     pieces: "knight"
-    // },{
-    //     id: 12,
-    //     type: "benefits",
-    //     category: "endgames",
-    //     text: "Learn to use the pawns to secure the advantage.",
-    //     img: "",
-    //     pieces: "pawn"
-    // },{
     //     id: 13,
     //     type: "benefits",
     //     category: "endgames",
