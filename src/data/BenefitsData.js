@@ -3,35 +3,35 @@ export const BenefitsData = [{
         type: 'benefits',
         category: 'tactics',
         text: "Identify tactics more quickly through repetition training.",
-        img: "",
+        img: require("../Images/chessClock_red.svg").default,
         pieces: "variable"
     },{
         id: 1,
         type: "benefits",
         category: "tactics",
         text: "Improve your calculation skills.",
-        img: "",
+        img: require("../Images/Abacus_1_.svg").default,
         pieces: "variable"
     },{
         id: 2,
         type: 'benefits',
         category: "tactics",
         text: "Identify subtle tactics to capitalize on the position.",
-        img: "",
+        img: require("../Images/move.svg").default,
         pieces: "variable"
     },{
         id: 3,
         type: 'benefits',
         category: "tactics",
         text: "Improve your tactical vision.",
-        img: "",
+        img: require("../Images/vision_red.svg").default,
         pieces: "variable"
     },{
         id: 4,
         type: "benefits",
         category: "tactics",
         text: "Improve your visualization skills.",
-        img: "",
+        img: require("../Images/chessClock_red.svg").default,
         pieces: "variable"
     },{
         id: 5,
@@ -60,7 +60,7 @@ export const BenefitsData = [{
         type: "benefits",
         category: "tactics",
         text: "Improve your calculation skills.",
-        img: "",
+        img: require("../Images/chessClock_red.svg").default,
         pieces: "variable"
     },{
         id: 9,

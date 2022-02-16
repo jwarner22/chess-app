@@ -8,6 +8,7 @@ import { end } from 'chessground/drag';
 
 const BenefitsContainer = (props) => {
 
+    //puzzle category of module
     const puzzleType = props.moduleType
 
     //create new arrays that sort by benefits by category
@@ -45,34 +46,31 @@ const BenefitsContainer = (props) => {
 
     function returnBenefits(){
         if (puzzleType === "endgame") {
-            return (
-                <BenefitsTitle>
+            return (<>
                 {slicedEndgameBenefits.map((benefit, index) => {
                     return(
                        <Benefits key={index} {...benefit}/> 
                     )
                 })}
-                </BenefitsTitle>
+                </>
             )
         } else if (puzzleType === "midgame") {
-            return (
-                <BenefitsTitle>
+            return (<>
                 {slicedTacticBenefits.map((benefit, index) => {
                     return(
                        <Benefits key={index} {...benefit}/> 
                     )
                 })}
-                </BenefitsTitle>
+                </>
             )
         } else if (puzzleType === "checkmate") {
-            return (
-                <BenefitsTitle>
+            return (<>
                 {slicedCheckmateBenefits.map((benefit, index) => {
                     return(
                        <Benefits key={index} {...benefit}/> 
                     )
                 })}
-                </BenefitsTitle>
+                </> 
             )
         }
     }
@@ -82,9 +80,14 @@ const renderBenefits = returnBenefits()
 
   
     return (
-    <BenefitsWrapper>
-        {renderBenefits}
-    </BenefitsWrapper>
+        <>
+            <BenefitsTitle>
+                Benefits:
+            </BenefitsTitle>
+            <BenefitsWrapper>
+                {renderBenefits}
+            </BenefitsWrapper>
+    </>
   )
 }
 

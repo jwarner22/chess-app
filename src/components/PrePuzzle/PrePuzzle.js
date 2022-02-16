@@ -84,8 +84,8 @@ const PrePuzzlePage = (props) => {
                                 </HighScore>
                             </StatsGrid>
                         </StatsWrapper>
+                        <BenefitsContainer text={"test"} moduleType={module.type} benefitsData={BenefitsData}/>
                         <InstructionsContainer>
-                            <BenefitsContainer text={"test"} moduleType={module.type} benefitsData={BenefitsData}/>
                                     <div>
                                     <PrePuzzleButton primary onClick={handleStartButtonClick}>
                                         Start

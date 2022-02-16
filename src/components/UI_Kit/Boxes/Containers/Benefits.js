@@ -1,12 +1,18 @@
 import React from 'react'
+import { BenefitsFlexbox, BenefitsImg, BenefitsText } from './BenefitsContainerElements';
 
 const Benefits = (props) => {
 
-    const {text, category, id} = props; 
+    const {text, category, id, img} = props; 
     console.log(props)
 
   return (
-    <div>{id}</div>
+    <>
+      <BenefitsFlexbox>
+        <BenefitsImg src={img}/>
+        <BenefitsText>{text}</BenefitsText>
+      </BenefitsFlexbox>
+    </>
   )
 }
 
