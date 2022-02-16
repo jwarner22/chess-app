@@ -31,7 +31,7 @@ export const BenefitsData = [{
         type: "benefits",
         category: "tactics",
         text: "Improve your visualization skills.",
-        img: require("../Images/chessClock_red.svg").default,
+        img: require("../Images/magnifying-glass.svg").default,
         pieces: "variable"
     },{
         id: 5,
@@ -58,61 +58,54 @@ export const BenefitsData = [{
     },{
         id: 8,
         type: "benefits",
-        category: "tactics",
-        text: "Improve your calculation skills.",
-        img: require("../Images/chessClock_red.svg").default,
-        pieces: "variable"
-    },{
-        id: 9,
-        type: "benefits",
         category: "endgames",
         text: "Identify endgames patterns to secure more wins.",
         img: "",
         pieces: "variable"
     },{
-        id: 10,
+        id: 9,
         type: "benefits",
         category: "endgames",
         text: "Decrease time-to-move by improving your intuition.",
         img: "",
         pieces: "variable"
     },{
-        id: 11,
+        id: 10,
         type: "benefits",
         category: "endgames",
         text: "Learn to use the bishop to secure the advantage.",
         img: "",
         pieces: "bishop"
     },{
-        id: 12,
+        id: 11,
         type: "benefits",
         category: "endgames",
         text: "Learn to use the knight to secure the advantage.",
         img: "",
         pieces: "knight"
     },{
-        id: 13,
+        id: 12,
         type: "benefits",
         category: "endgames",
         text: "Learn to use the pawns to secure the advantage.",
         img: "",
         pieces: "pawn"
     },{
-        id: 14,
+        id: 13,
         type: "benefits",
         category: "endgames",
         text: "Learn to use the rook to secure the advantage.",
         img: "",
         pieces: "rook"
     },{
-        id: 15,
+        id: 14,
         type: "benefits",
         category: "endgames",
         text: "Learn to use the queen to secure the advantage.",
         img: "",
         pieces: "queen"
     },{
-        id: 16,
+        id: 15,
         type: "benefits",
         category: "endgames",
         text: "Learn to use the queen and rook to secure the advantage.",
