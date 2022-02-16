@@ -38,21 +38,21 @@ export const BenefitsData = [{
         type: "benefits",
         category: "checkmates",
         text: "Reduced the number of missed wins.",
-        img: "",
+        img: require("../Images/win_purple.svg").default,
         pieces: "variable"
     },{
         id: 6,
         type: "benefits",
         category: "checkmates",
         text: "Finish games when you have the advantage.",
-        img: "",
+        img: require("../Images/finish_line.svg").default,
         pieces: "variable"
     },{
         id: 7,
         type: "benefits",
         category: "checkmates",
         text: "Identify checkmates more quickly through repetition training.",
-        img: "",
+        img: require("../Images/chessClock_purple.svg").default,
         pieces: "variable"
 
     },{
@@ -60,7 +60,7 @@ export const BenefitsData = [{
         type: "benefits",
         category: "endgames",
         text: "Identify endgames patterns to secure more wins.",
-        img: "",
+        img: require("../Images/pattern_purple.svg").default,
         pieces: "variable"
     },{
         id: 9,
