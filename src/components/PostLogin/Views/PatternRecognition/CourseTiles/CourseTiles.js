@@ -15,8 +15,9 @@ function CourseTile(props){
     const windowSize = useWindowSize();
     const isMobile = windowSize[0] <= 640;
     const {headline, subheading, img, pawn} = props
+    const linkUrl = (props.category === 'opening') ? `/opening` : `/dashboard/module`
 
-  const TileContent = () => { 
+    const TileContent = () => { 
     return (
         <>
         <TileIconWrap>
@@ -32,16 +33,15 @@ function CourseTile(props){
     )
     }
 
-
     return (
         <>
         <TileWrapper type={props.type}>
             <TileHeader>
-                {isMobile ? (<Link style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: props}, isDaily: false}}>
+                {isMobile ? (<Link style={{textDecoration: 'none'}} to={{pathname: linkUrl, state: {module: props}, isDaily: false}}>
 <TileContent /></Link>) : (<TileContent />)}
                 {isMobile ? ( null ) : (
                 <TileButtonWrap>
-                <Link style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: props}, isDaily: false}}>
+                <Link style={{textDecoration: 'none'}} to={{pathname: linkUrl, state: {module: props}, isDaily: false}}>
                     <TileButton type={props.type}>
                         Start
                     </TileButton>

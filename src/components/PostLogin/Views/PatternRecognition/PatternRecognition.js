@@ -36,6 +36,11 @@ const Dashboard = () => {
     <FeatureSuggestionButton primary>
       Suggest a Feature
     </FeatureSuggestionButton>
+    </Link>
+    {/* <Link to='/openings-dashboard-test/e2e4 e7e5'>
+    <FeatureSuggestionButton primary>
+      openings test
+    </FeatureSuggestionButton>
     </Link> */}
     <DashboardWrapper>
         <MotifMenu 

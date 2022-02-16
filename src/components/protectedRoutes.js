@@ -10,8 +10,8 @@ import UserName from './PostLogin/Announcements/UserName';
 import CompletedTraining from './PostLogin/Views/DailyPuzzle/completedTraining';
 import Settings from './PostLogin/Views/Settings/Settings';
 import Home from './PostLogin/Views/Home';
-import BoardDevTest from './Puzzle/PuzzleManager';
 import FeatureSuggestion from './PostLogin/Views/FeatureSuggestion/FeatureSuggestion.js';
+import OpeningsDashboardTest from './PostLogin/Views/Openings/OpeningsDashboardTest.js'; 
 
 const protectedRoutes = [
 	{
@@ -73,16 +73,16 @@ const protectedRoutes = [
 		path: "/home",
 		exact: false,
 		main: props => <Home />
-	}, {
-		name: "BoardDevTest",
-		path: "/board-dev-test",
-		exact: true,
-		main: () => <BoardDevTest />
-	}, {
+	},{
 		name: "FeatureSuggestion",
 		path: "/feature_suggestion",
 		exact: true,
 		main: () => <FeatureSuggestion />
+	},{
+		name: "OpeningsDashboardTest",
+		path: "/openings-dashboard-test/:moves",
+		exact: false,
+		main: () => <OpeningsDashboardTest />
 	}
 ];
 

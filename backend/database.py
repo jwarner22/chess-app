@@ -27,9 +27,12 @@ Base = declarative_base()
 
 # Local puzzle database
 LOCAL_DATABASE_URL = 'sqlite:///./database/UserBase.sqlite'
-
 engine_local = create_engine(LOCAL_DATABASE_URL, connect_args={"check_same_thread": False})
-
 SessionLocal = sessionmaker(bind=engine_local, autocommit=False, autoflush=False)
-
 LocalBase = declarative_base()
+
+# local openings database
+LOCAL_DATABASE_URL_OPENINGS = 'sqlite:///./database/OpeningDB.sqlite'
+engine_local_openings = create_engine(LOCAL_DATABASE_URL_OPENINGS, connect_args={"check_same_thread": False})
+SessionLocalOpenings = sessionmaker(bind=engine_local_openings, autocommit=False, autoflush=False)
+LocalBaseOpenings = declarative_base()

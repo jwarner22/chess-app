@@ -1,18 +1,20 @@
 
 from datetime import datetime
+from pickle import FALSE
 from sqlalchemy.sql.sqltypes import Boolean
+from sqlalchemy.sql.expression import func
 from starlette.status import HTTP_401_UNAUTHORIZED
 from utlities.security import check_token
 from fastapi import FastAPI, Depends, HTTPException, APIRouter
 from fastapi.encoders import jsonable_encoder
 import uvicorn
 from typing import Optional, List, Dict
-
+import requests
 from sqlalchemy.orm import Session
-from sqlalchemy import update, insert, delete
+from sqlalchemy import null, update, insert, delete
 
 import models
-from database import engine_local,engine_remote, SessionLocal, SessionRemote
+from database import engine_local,engine_remote, engine_local_openings, SessionLocal, SessionRemote, SessionLocalOpenings
 from read_puzzles import get_puzzles
 import schemas
 import crud
@@ -33,6 +35,7 @@ origins = [
 
 models.Base.metadata.create_all(engine_remote)
 models.Base.metadata.create_all(engine_local)
+models.Base.metadata.create_all(engine_local_openings)
 
 # Dependency
 def get_db():
@@ -49,19 +52,25 @@ def get_local_db():
     finally:
         db.close()
 
+def get_local_opening_db():
+    db = SessionLocalOpenings()
+    try:
+        yield db
+    finally:
+        db.close()
 
 ## TESTING
 
-# testing
-@app_v1.get('/', tags=["Testing"])
-def read_root():
-        return {'Hello': 'world'}
+# # testing
+# @app_v1.get('/', tags=["Testing"])
+# def read_root():
+#         return {'Hello': 'world'}
 
-# get 100 ratings (testing)
-@app_v1.get('/users/themes/', response_model=List[schemas.Theme], tags=["Testing"])
-def read_ratings(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
-    ratings = crud.get_all_ratings(db, skip=skip, limit=limit)
-    return ratings
+# # get 100 ratings (testing)
+# @app_v1.get('/users/themes/', response_model=List[schemas.Theme], tags=["Testing"])
+# def read_ratings(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
+#     ratings = crud.get_all_ratings(db, skip=skip, limit=limit)
+#     return ratings
 
 # get users
 @app_v1.get('/users', tags=["Testing"])
@@ -70,12 +79,61 @@ def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
     return users
 
 
+## OPENING DATA
+@app_v1.get('/openings-data/', response_model=List[schemas.Openings], tags=["Openings"]) # get opening data
+def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
+    moves_length = len(moves)
+    # limit to two moves ahead
+    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 10)) & (models.Openings.uci.contains(moves))).all()
+    return openings
+
+
+@app_v1.get('/openings-data/lichess-explorer/', tags=["Openings"]) # request lichess explorer data for moves
+async def get_lichess_explorer_data(moves: str, db: Session = Depends(get_local_opening_db)):
+    moves_length = len(moves)
+    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 10)) & (models.Openings.uci.contains(moves))).all()
+
+    # concatenate moves from spaces to commas
+    moves_comma = ','.join(moves.split(' '))
+
+    r = requests.get('https://explorer.lichess.ovh/lichess?play=' + moves_comma)
+    r = r.json()
+
+    for opening in openings:
+        if opening.uci == moves:
+            np_lichess = r['white'] + r['draws'] + r['black']
+            stmt = update(models.Openings).where(models.Openings.uci == moves).values(np_lichess=np_lichess)
+            db.execute(stmt)
+            db.commit()
+    
+    next_moves = []
+    next_moves_plays = []
+    for move in r['moves']:
+        next_move = moves + ' ' + move['uci']
+        next_moves.append(next_move)
+        next_moves_plays.append(move['white'] + move['draws'] + move['black'])
+    
+    for opening in openings:
+        if (opening.uci in next_moves) and (opening.np_lichess is None):
+            print('updated np plays for ' + opening.uci)
+            index = next_moves.index(opening.uci)
+            np_lichess = next_moves_plays[index]
+            stmt = update(models.Openings).where(models.Openings.uci == opening.uci).values(np_lichess=np_lichess)
+            db.execute(stmt)
+            db.commit()
+
+    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 10)) & (models.Openings.uci.contains(moves))).all()
+    return openings
+
+
 ## PUZZLES
 
 # get module puzzles
 @app_v1.get('/puzzles/', tags=["Puzzles"])
-def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
+def read_puzzles(rating: int, theme: str, depth: str, db: Session = Depends(get_local_db)):
    puzzle = get_puzzles(db,rating, theme)
+
+
    if puzzle is None:
        raise HTTPException(status_code=404, detail='puzzle not found')
    return puzzle
