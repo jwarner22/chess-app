@@ -18,7 +18,6 @@ export default function PuzzleManager(props) {
 
   useEffect(() => {
     console.log('useEffect: PuzzleManager mounted');
-    // console.log({props: props});
 
     setMoves(() => {
       let moves = [...props.correctMoves]
@@ -33,8 +32,6 @@ export default function PuzzleManager(props) {
   },[props]);
 
   const handleOutcome = (outcome) => {
-    // console.log({ outcome: outcome });
-
 
     if (outcome === false) {
       // do failed logic (callback?)
@@ -42,13 +39,6 @@ export default function PuzzleManager(props) {
       props.unlockNext();
       return;
     }
-
-    // if (props.promotion !== "x" && outcome === true) {
-    //   props.displayOutcome(true);
-    //   props.unlockNext();
-    //   return;
-    // }
-
 
     setHistory((prevHistory) => {
       let movesCopy = [...moves];

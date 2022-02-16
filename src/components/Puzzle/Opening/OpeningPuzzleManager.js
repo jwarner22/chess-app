@@ -35,6 +35,7 @@ export default function PuzzleManager(props) {
     setHistory([]);
   },[props]);
 
+  // handles puzzle outcome
   const handleOutcome = (outcome) => {
     
     if (outcome === false) {

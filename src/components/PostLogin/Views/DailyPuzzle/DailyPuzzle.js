@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useLayoutEffect, useContext} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {Link} from 'react-router-dom'
 import { DailyPuzzleContainer, 
   DailyPuzzleTitle, 
@@ -18,9 +18,6 @@ import {wait} from '../../../Puzzle/Utilities/helpers'
 // context
 import {UserContext} from '../../../../GlobalState'
 
-// Hooks
-// import {useWindowSize} from '../../../Hooks/UseWindowSize'
-
 export default function DailyPuzzzle(props) {
   // state variables
   const [loaded,setLoaded] = useState(false);
@@ -37,28 +34,14 @@ export default function DailyPuzzzle(props) {
 
 // console.log(windowSize)
   useEffect(() => {
-    console.log('layout effect ran')
       setLoaded(false);
       transformDaily();
       setTimer();
       setLoaded(true);
     },[])
 
-  // useEffect(() => {
-    
-  //   if (isMobile && windowSize[0] !== 0 && dailyPicks[0].location === 0 && !reversed) {
-  //     console.log('reverse')
-  //     setDailyPicks([...dailyPicks.reverse()]);
-  //     setReversed(true);
-  //   } else if (reversed && !isMobile) { 
-  //     console.log('reverse')
-  //     setDailyPicks([...dailyPicks.reverse()]);
-  //     setReversed(false);
-  //   }
-  // } ,[windowSize])
 
   const transformDaily = async () => {
-    console.log('transform daily')
     let modules = [...Modules]; // copy of Modules
     let daily = [...dailyModules]; // copy of dailyModules
 
