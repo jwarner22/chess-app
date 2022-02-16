@@ -119,7 +119,7 @@ const Openings = () => {
         {c4Openings.map((module, index) => {
                           return(
                           // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
-                          <CourseTile key={index} {...module} />
+                          <CourseTile key={index} {...module}/>
                           // </ModalLink>
                       )})}
         </PuzzleTileGrid>

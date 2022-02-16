@@ -15,6 +15,7 @@ const BenefitsContainer = (props) => {
     const tacticBenefits = BenefitsData.filter(benefit => benefit.category === "tactics");
     const endgameBenefits = BenefitsData.filter(benefit => benefit.category === "endgames");
     const checkmateBenefits = BenefitsData.filter(benefit => benefit.category === "checkmates");
+    const openingBenefits = BenefitsData.filter(benefit => benefit.category === "openings");
     const lockedBenefits = BenefitsData.filter(benefit => benefit.pieces !== 'variable');
 
     console.log(lockedBenefits)
@@ -40,11 +41,13 @@ const BenefitsContainer = (props) => {
     const shuffledTactics = shuffleBenefits(tacticBenefits);
     const shuffledEndgames = shuffleBenefits(endgameBenefits);
     const shuffledCheckmates = shuffleBenefits(checkmateBenefits);
+    const shuffledOpenings = shuffleBenefits(openingBenefits);
 
     //return the first 2 elements of the shuffled arrays
     const slicedTacticBenefits = shuffledTactics.slice(0,2);
     const slicedEndgameBenefits = shuffledEndgames.slice(0,2);
     const slicedCheckmateBenefits = shuffledCheckmates.slice(0,2);
+    const slicedOpeningBenefits = shuffledOpenings.slice(0,2);
 
 
     function returnBenefits(){
@@ -69,6 +72,15 @@ const BenefitsContainer = (props) => {
         } else if (puzzleType === "checkmate") {
             return (<>
                 {slicedCheckmateBenefits.map((benefit, index) => {
+                    return(
+                       <Benefits key={index} {...benefit}/> 
+                    )
+                })}
+                </> 
+            )
+        } else if (puzzleType === "openings") {
+            return (<>
+                {slicedOpeningBenefits.map((benefit, index) => {
                     return(
                        <Benefits key={index} {...benefit}/> 
                     )

@@ -10,7 +10,11 @@ export const MenuWrapper = styled.nav`
     justify-content: center;
     position: sticky;
     z-index: 10;
-    top: 80px;  
+    top: 80px; 
+    
+    @media screen and (max-width: 640px) {
+        top: 24px;
+    }
 `
 export const MenuGrid = styled.ul`
     display: grid;

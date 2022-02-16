@@ -32,11 +32,11 @@ const Dashboard = () => {
 
   return (
     <>
-    <Link to="/feature_suggestion">
+    {/* <Link to="/feature_suggestion">
     <FeatureSuggestionButton primary>
       Suggest a Feature
     </FeatureSuggestionButton>
-    </Link>
+    </Link> */}
     <DashboardWrapper>
         <MotifMenu 
         toggle={toggle}
