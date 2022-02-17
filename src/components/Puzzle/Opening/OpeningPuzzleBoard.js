@@ -60,7 +60,7 @@ export default function PuzzleBoard(props) {
     setGame(() => new Chess(props.initialFen));
     setLoaded(true);
     if (props.orientation === "white") return;
-    setTimeout(makeInitialMove, 1500);
+    setTimeout(makeInitialMove, 800);
   },[]); 
 
   // cleanup to avoid memory leaks
@@ -86,7 +86,7 @@ export default function PuzzleBoard(props) {
         return props.orientation;
       });
       if (props.orientation === "white") return;
-      setTimeout(makeInitialMove, 800);
+      setTimeout(() => makeInitialMove, 800);
   },[props.initialFen]);
 
   // INITIAL MOVE
@@ -210,10 +210,10 @@ export default function PuzzleBoard(props) {
     } else if ((prevCorrect != null) && prevCorrect.length === 5 && props.promotion !== "x") {
       correct = prevCorrect.substring(0, 4);
     } 
-
-    if (move === correctMove || move === correct) {
+    if ((move === correctMove || move === correct) & (opposingMove != null)) {
+      setTimeout(makeOpposingMove, 400); //
+    } else if (move === correctMove || move === correct) {
       outcomeCallback(true);
-      setTimeout(makeOpposingMove, 400);
     } else if (game.in_checkmate()) { 
       outcomeCallback(true);
     } else {
@@ -240,7 +240,7 @@ export default function PuzzleBoard(props) {
     let from = opposingMove.substring(0, 2);
     let to = opposingMove.substring(2, 4);
     let promotion = opposingMove.substring(4);
-
+    outcomeCallback(true); 
     safeGameMutate((game) => {
       let move = game.move({ from: from, to: to, promotion: promotion });
       if (move.flags === "c") { 
@@ -250,6 +250,7 @@ export default function PuzzleBoard(props) {
       }
       return move;
     });
+
   }
 
   // PROMOTION
