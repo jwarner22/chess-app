@@ -61,6 +61,10 @@ const PuzzleNav = (props) => {
 
 export default PuzzleNav
 
+const PuzzleNavbarWrapper = styled(MobileNavbarWrapper)`
+    position: relative;
+`
+
 export const PuzzleNavbarItems = styled.ul`
     display: grid;
     grid-template-columns: auto;

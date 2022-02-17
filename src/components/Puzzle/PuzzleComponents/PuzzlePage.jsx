@@ -303,9 +303,9 @@ export default function PuzzlePage(props) {
                     <Timer toggleTimer={toggleTimer} count={count}/>
                     <Lives lives={lives} isMobile={isMobile} />
                   </TimerAndLivesContainer>
-                <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
               </RightPuzzlePanelContainer>
           </PuzzlePageGrid>
+          <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
       </PuzzlePageWrapper>
       </>
         )}
@@ -358,6 +358,7 @@ export const PuzzlePageWrapper = styled.div`
     background-image: linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
     height: 100%;
     justify-content: center;
+    flex-direction: column;
 `
 
 export const PuzzlePageGrid = styled.div `
@@ -369,6 +370,7 @@ export const PuzzlePageGrid = styled.div `
     justify-content: center;
     grid-template-rows: minmax(300px, auto);
     align-items: center;
+    margin-bottom: 36px;
 
   /* @media screen and (max-width: 900px){
     grid-template-columns: minmax(250px, 600px);
