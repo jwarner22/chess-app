@@ -42,8 +42,10 @@ export default function OpeningModule(props) {
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
 
-  const windowDimensions = useWindowSize();
-  const isMobile = windowDimensions[0] <= 640;
+
+  const windowSizeWidth = useWindowSize()[0];
+  const [width, setWidth] = useState(windowSizeWidth);
+  const isMobile = windowSizeWidth <= 640;
 
   const orientation = props.orientation;
 
@@ -57,6 +59,17 @@ export default function OpeningModule(props) {
       setTimeout(props.toggleFinished(score), 3000);
     }
   },[count])
+
+    // manage board resize
+    useEffect(() => {
+      if (windowSizeWidth < 640){
+        setWidth(windowSizeWidth)
+      } else if (windowSizeWidth > 640 && windowSizeWidth < 1300){
+          setWidth(window.innerWidth / 2)
+      } else if (windowSizeWidth >= 1300) {
+          setWidth(650)
+      }
+    }, [windowSizeWidth])
 
   const getMoves = async () => {
     let moves = props.openingData.moves;
@@ -186,7 +199,7 @@ export default function OpeningModule(props) {
               />
             )}
             {isLoaded === true && demoIsFinished === true && (
-              <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext} count={count} correctMoves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
+              <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext} count={count} correctMoves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} boardWidth={width} />
             )}
           {/* </div>
           </div> */}
@@ -223,15 +236,17 @@ const boardContainer = {
   marginTop: 16,
   marginBottom: 24
 };
+
 const progressContainer = {
   display: "flex",
-  justifyContent: "space-around",
+  justifyContent: "center",
   alignItems: "center",
   flexWrap: "wrap",
-  marginTop: 16,
-  marginBottom: 24
-};
-
+  paddingTop: 24,
+  paddingBottom: 24,
+  width: "80%",
+  margin: "auto"
+};;
 
 const Header = styled.h2`
   color: rgba(255,255,255,0.8);
