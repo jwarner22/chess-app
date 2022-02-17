@@ -74,8 +74,8 @@ export default function PuzzleBoard(props) {
     return () => {
       // if (captureSound. !== null) captureSound.unload();
       // if(moveSound !== null) moveSound.unload(); 
-      if (sound.move.playing()) sound.move.stop();
-      if (sound.capture.playing()) sound.capture.stop();
+      if (sound.move.playing()) sound.move.unload();
+      if (sound.capture.playing()) sound.capture.unload();
     }
   },[])
 
