@@ -314,16 +314,16 @@ export default function PuzzlePage(props) {
   );
 }
 
-// does it fuking work now
-// No, it doesn't fucking work. You dumb, stupid, weak, pathetic, white, white... uh, uh... guilt, white guilt, milquetoast piece of human garbage.
 
 const progressContainer = {
   display: "flex",
-  justifyContent: "space-around",
+  justifyContent: "center",
   alignItems: "center",
   flexWrap: "wrap",
   paddingTop: 24,
-  paddingBottom: 24
+  paddingBottom: 24,
+  width: "80%",
+  margin: "auto"
 };
 
 export const PercentCompleted = styled.div`
