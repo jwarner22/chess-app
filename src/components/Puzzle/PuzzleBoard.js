@@ -237,9 +237,11 @@ export default function PuzzleBoard(props) {
       correct = prevCorrect.substring(0, 4);
     } 
 
-    if (move === correctMove || move === correct) {
+    if ((move === correctMove || move === correct) & (opposingMove != null)) {
+      setTimeout(makeOpposingMove, 400); //
+    } else if (move === correctMove || move === correct) {
       outcomeCallback(true);
-      setTimeout(makeOpposingMove, 600);
+      //setTimeout(makeOpposingMove, 600);
     } else if (game.in_checkmate()) { 
       outcomeCallback(true);
     } else {
@@ -269,6 +271,7 @@ export default function PuzzleBoard(props) {
     let to = opposingMove.substring(2, 4);
     let promotion = opposingMove.substring(4);
 
+    outcomeCallback(true);
     // console.log({ from: from, to: to });
     safeGameMutate((game) => {
       let move = game.move({ from: from, to: to, promotion: promotion });

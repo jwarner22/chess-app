@@ -58,7 +58,8 @@ export default function PuzzleManager(props) {
     });
 
     if (moves.length === 0) {
-      props.displayOutcome(true);
+      console.log('finished correct')
+      setTimeout(() => props.displayOutcome(true),  800);
       props.unlockNext();
     }
 
