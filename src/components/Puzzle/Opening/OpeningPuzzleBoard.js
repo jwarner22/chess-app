@@ -60,7 +60,7 @@ export default function PuzzleBoard(props) {
     setGame(() => new Chess(props.initialFen));
     setLoaded(true);
     if (props.orientation === "white") return;
-    setTimeout(makeInitialMove, 1500);
+    setTimeout(makeInitialMove, 800);
   },[]); 
 
   // cleanup to avoid memory leaks
@@ -86,7 +86,7 @@ export default function PuzzleBoard(props) {
         return props.orientation;
       });
       if (props.orientation === "white") return;
-      setTimeout(makeInitialMove, 800);
+      setTimeout(() => makeInitialMove, 800);
   },[props.initialFen]);
 
   // INITIAL MOVE

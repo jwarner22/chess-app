@@ -60,7 +60,7 @@ export default function PuzzleManager(props) {
       return prevMoves;
     });
 
-    if (moves.length === 0) props.finishedCallback(true);
+    if (moves.length === 0) setTimeout(() => props.finishedCallback(true), 600);
 
     setCorrectMove(moves[0]);
     setOpposingMove(moves[1]);
