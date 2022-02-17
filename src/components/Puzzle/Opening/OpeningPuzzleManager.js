@@ -70,6 +70,7 @@ export default function PuzzleManager(props) {
     <>
       <div className="App"></div>
       <Board
+        correctMoves={props.correctMoves}
         correctMove={correctMove}
         opposingMove={opposingMove}
         orientation={props.orientation}

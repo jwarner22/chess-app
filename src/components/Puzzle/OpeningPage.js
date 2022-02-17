@@ -54,7 +54,7 @@ export default function OpeningModule(props) {
 
   useEffect(() => {
     if (count === 3) {
-      props.toggleFinished(score);
+      setTimeout(props.toggleFinished(score), 3000);
     }
   },[count])
 
@@ -75,9 +75,9 @@ export default function OpeningModule(props) {
 
   const playSound = async (type) => {
     if (type === 'correct') {
-      return correctSoundPlayer.play();
+      correctSoundPlayer.play();
     } else {
-      return incorrectSoundPlayer.play();
+      incorrectSoundPlayer.play();
     }
   }
 
