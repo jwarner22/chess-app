@@ -59,7 +59,7 @@ export default function PuzzleManager(props) {
 
     if (moves.length === 0) {
       console.log('finished correct')
-      setTimeout(() => props.displayOutcome(true),  720);
+      setTimeout(() => props.displayOutcome(true),  540);
       props.unlockNext();
     }
 
