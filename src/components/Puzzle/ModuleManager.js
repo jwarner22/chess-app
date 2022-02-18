@@ -36,7 +36,7 @@ export default function Puzzle(props) {
   const {dailyModules, updateDailyModules} = useContext(UserContext);
   const {themesData, updateThemesData} = useContext(UserContext);
   const {updateAchievements} = useContext(UserContext);
-  const {loading, userId} = useContext(UserContext);
+  const {loading, userId, contextLoading} = useContext(UserContext);
 
   const {theme,id, isDaily} = props.moduleData;
   const {rating, location} = props;
@@ -177,7 +177,7 @@ export default function Puzzle(props) {
  }
  
 // render if saving to API
- if (savingResults | loading) {
+ if (savingResults | loading | contextLoading) {
    return(
     <Loader />
    )

@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import * as ChessJS from "chess.js";
 import { Chessboard } from "react-chessboard";
 
@@ -14,7 +14,14 @@ import { useWindowSize } from "../../Hooks/UseWindowSize";
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
+const sound = {
+  move: new Howl({ src: [moveSoundFile] }),
+  capture: new Howl({ src: [captureSoundFile] })
+}
+
 export default function PuzzleBoard(props) {
+  const isMounted = useRef(false);
+
   const [game, setGame] = useState(null);
   const [piece, setPiece] = useState("");
   const [pieceSquare, setPieceSquare] = useState("");
@@ -22,8 +29,8 @@ export default function PuzzleBoard(props) {
   const [moveSquares, setMoveSquares] = useState({});
   const [rightClickedSquares, setRightClickedSquares] = useState({});
   const [orientation, setOrientation] = useState(props.orientation);
-  const [moveSound, setMoveSound] = useState(() => new Howl({src: moveSoundFile}));
-  const [captureSound, setCaptureSound] = useState(() => new Howl({src: captureSoundFile}));
+  // const [moveSound, setMoveSound] = useState(() => new Howl({src: moveSoundFile}));
+  // const [captureSound, setCaptureSound] = useState(() => new Howl({src: captureSoundFile}));
   const [loaded, setLoaded] = useState(false);
   const [pendingMove, setPendingMove] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -54,21 +61,21 @@ export default function PuzzleBoard(props) {
 
 
   // play initial move after all is rendered and timed delay for animation
-  useLayoutEffect(() => {
-    setMoveSound(new Howl({src: moveSoundFile}));
-    setCaptureSound(new Howl({src: captureSoundFile}));
-    setGame(() => new Chess(props.initialFen));
-    setLoaded(true);
-    if (props.orientation === "white") return;
-    setTimeout(makeInitialMove, 800);
+  //useLayoutEffect(() => {
+  useEffect(() => {  
+      setGame(() => new Chess(props.initialFen));
+      setLoaded(true);
+      if (props.orientation === "white") return;
+      setTimeout(makeInitialMove, 800);
   },[]); 
 
   // cleanup to avoid memory leaks
   useEffect(() => {
-
     return () => {
-      if (captureSound !== null) captureSound.unload();
-      if(moveSound !== null) moveSound.unload(); 
+      // if (captureSound. !== null) captureSound.unload();
+      // if(moveSound !== null) moveSound.unload(); 
+      if (sound.move.playing()) sound.move.unload();
+      if (sound.capture.playing()) sound.capture.unload();
     }
   },[])
 
@@ -99,9 +106,11 @@ export default function PuzzleBoard(props) {
       let m = game.move({ from: from, to: to });
       if (m == null) return;
       if (m.flags === "c") { 
-        captureSound.play();
+        //captureSound.play();
+        sound.capture.play();
       } else {
-        moveSound.play();
+        //moveSound.play();
+        sound.move.play();
       }
       return m;
     });
@@ -147,9 +156,11 @@ export default function PuzzleBoard(props) {
     }
 
     if (move.flags === "c") {
-      captureSound.play();
+      //captureSound.play();
+      sound.capture.play();
     } else {
-      moveSound.play();
+      //moveSound.play();
+      sound.move.play();
     };
     setGame(gameCopy);
 
@@ -182,9 +193,11 @@ export default function PuzzleBoard(props) {
     }
 
     if (move.flags === "c") {
-      captureSound.play();
+      //captureSound.play();
+      sound.capture.play();
     } else {
-      moveSound.play();
+      //moveSound.play();
+      sound.move.play();
     };
 
     setGame(gameCopy);
@@ -204,12 +217,16 @@ export default function PuzzleBoard(props) {
   function validateMove(sourceSquare, targetSquare) {
     let move = sourceSquare + targetSquare;
     let correct ="";
-    
+
+    if (props.finished) return; // exit if puzzle is over (prevents false negatives)
+
     if (correctMove.length === 5) {
       correct = correctMove.substring(0, 4);
     } else if ((prevCorrect != null) && prevCorrect.length === 5 && props.promotion !== "x") {
       correct = prevCorrect.substring(0, 4);
     } 
+    //console.log({correct: correct, correctMove: correctMove, opposingMove: opposingMove})
+ 
     if ((move === correctMove || move === correct) & (opposingMove != null)) {
       setTimeout(makeOpposingMove, 400); //
     } else if (move === correctMove || move === correct) {
@@ -244,9 +261,11 @@ export default function PuzzleBoard(props) {
     safeGameMutate((game) => {
       let move = game.move({ from: from, to: to, promotion: promotion });
       if (move.flags === "c") { 
-        captureSound.play();
+        //captureSound.play();
+        sound.capture.play();
       } else {
-        moveSound.play();
+        //moveSound.play();
+        sound.move.play();
       }
       return move;
     });

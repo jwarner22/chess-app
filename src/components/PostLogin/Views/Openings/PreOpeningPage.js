@@ -33,7 +33,6 @@ const PreOpeningPage = (props) => {
         updateOpenings(openingData.id, opening);
     }
         setUserOpeningData(opening);
-        console.log(opening);
         setLoaded(true);
     },[])
 

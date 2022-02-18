@@ -40,6 +40,11 @@ const getModuleTitle = (name) => {
   return module.headline
 }
 
+const sound = {
+  confirmation: new Howl({src: [confirmationSoundFile]}),
+  error: new Howl({src: [errorSoundFile]})
+}
+
 export default function PuzzlePage(props) {
   // useDebugInformation(PuzzlePage, props);
   // const renderCount = useRenderCount();
@@ -62,8 +67,8 @@ export default function PuzzlePage(props) {
   const [times, setTimes] = useState([]);
   const [toggleTimer, setToggleTimer] = useState(true)
   const [lives, setLives] = useState(3)
-  const [confirmationSound, setConfirmationSound] = useState(null);
-  const [errorSound, setErrorSound] = useState(null);
+  // const [confirmationSound, setConfirmationSound] = useState(null);
+  // const [errorSound, setErrorSound] = useState(null);
   const [boardKey, setBoardKey] = useState(0);
   const [loaded, setLoaded] = useState(false);
   // const confirmationSound = new Howl({src: confirmationSoundFile})
@@ -77,16 +82,16 @@ export default function PuzzlePage(props) {
 
   // set instances and cleanup to avoid memory leaks
   useEffect(() => {
-    setConfirmationSound(() => new Howl({src: confirmationSoundFile}));
-    setErrorSound(() => new Howl({src: errorSoundFile}));
+    // setConfirmationSound(() => new Howl({src: confirmationSoundFile}));
+    // setErrorSound(() => new Howl({src: errorSoundFile}));
     setCorrectMoves(() => getMoves(puzzleData[0].moves));
     setLoaded(true);
     return () => {
-      if (confirmationSound) confirmationSound.unload();
-      if (errorSound) errorSound.unload();
+      if (sound.confirmation.playing()) sound.confirmation.unload();
+      if (sound.error.playing()) sound.error.unload();
 
-      setConfirmationSound(() => null);
-      setErrorSound(() => null);
+      // setConfirmationSound(() => null);
+      // setErrorSound(() => null);
     }
   } , [])
 
@@ -139,12 +144,12 @@ export default function PuzzlePage(props) {
     setWaiting(true);
   };
 
-  const playSound = (sound) => {
-    if (sound === "confirmation") {
-      return confirmationSound.play();
-    } else if (sound === "error") {
-      return errorSound.play();
-    } else  if (sound === "button") {
+  const playSound = (category) => {
+    if (category === "confirmation") {
+      sound.confirmation.play();
+    } else if (category === "error") {
+      sound.error.play();
+    } else  if (category === "button") {
       //return buttonSound.play();
     }
     return null;

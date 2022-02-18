@@ -13,6 +13,7 @@ export default function PuzzleManager(props) {
   });
   const [initialFen, setInitialFen] = useState(props.fen);
   const [initialMove, setInitialMove] = useState(props.correctMoves[0]);
+  const [finished, setFinished] = useState(false);
 
 
   useEffect(() => {
@@ -60,7 +61,10 @@ export default function PuzzleManager(props) {
       return prevMoves;
     });
 
-    if (moves.length === 0) setTimeout(() => props.finishedCallback(true), 600);
+    if (moves.length === 0) {
+      setTimeout(() => props.finishedCallback(true), 600);
+      setFinished(true);
+    }
 
     setCorrectMove(moves[0]);
     setOpposingMove(moves[1]);
@@ -80,6 +84,7 @@ export default function PuzzleManager(props) {
         count={props.count}
         onPromotion={props.onPromotion}
         promotion={props.promotion}
+        finished={finished}
       />
     </>
   );

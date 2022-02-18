@@ -20,7 +20,7 @@ export default function Module(props) {
     const [prePuzzleToggle,setPrePuzzleToggle] = useState(true);
     const [highScore, setHighScore] = useState(0);
 
-    const {userData, userId} = useContext(UserContext);
+    const {userData, userId, contextLoading} = useContext(UserContext);
 
     const primaryData = {
         theme: props.location.state.module.type_ref,
@@ -43,9 +43,15 @@ export default function Module(props) {
     const prevModuleData = usePrevious(moduleData);
 
     //load user data
+    // useEffect(() => {
+    //     getModule();
+    // },[])
+
     useEffect(() => {
-        getModule();
-    },[])
+        if (!contextLoading) {
+            getModule();
+        }
+    },[contextLoading]) 
 
     useEffect(() => {
         if (prevModuleData == null) return;
@@ -56,6 +62,10 @@ export default function Module(props) {
     },[moduleData.theme])
 
     const getModule = () => {
+        console.log({userId: userId})
+        console.log('got moduleData')
+        if (userId === '') return;
+        console.log('actually fetched')
         get(`/users/${userId}/themes/${moduleData.theme}`)
         .then(data => {
             if (data.detail === "Theme not found") {
@@ -96,9 +106,11 @@ export default function Module(props) {
         }
     }
 
-    if (loading) {
+    if (loading | contextLoading) {
         return <Loader />
-    }  else if (prePuzzleToggle) {
+    }  
+    
+    if (prePuzzleToggle) {
         return(
             <PrePuzzle moduleData={moduleData} isDaily={isDaily} swapModule={onSwapModule} togglePrePuzzleCallback={togglePrePuzzle} rating={rating} highScore={highScore}/>
         )

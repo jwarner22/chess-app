@@ -18,8 +18,6 @@ const BenefitsContainer = (props) => {
     const openingBenefits = BenefitsData.filter(benefit => benefit.category === "openings");
     const lockedBenefits = BenefitsData.filter(benefit => benefit.pieces !== 'variable');
 
-    console.log(lockedBenefits)
-
     //randomize arrays of benefits without repeating benefits
     function shuffleBenefits(array){
         var i = array.length,
