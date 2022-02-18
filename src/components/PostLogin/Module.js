@@ -106,7 +106,7 @@ export default function Module(props) {
         }
     }
 
-    if (loading | contextLoading) {
+    if (loading ) {
         return <Loader />
     }  
     

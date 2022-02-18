@@ -177,7 +177,7 @@ export default function Puzzle(props) {
  }
  
 // render if saving to API
- if (savingResults | loading | contextLoading) {
+ if (savingResults | loading) {
    return(
     <Loader />
    )

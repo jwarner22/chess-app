@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react'
 import { BenefitsTitle, BenefitsWrapper } from './BenefitsContainerElements';
 import {BenefitsData} from "../../../../data/BenefitsData"
 import Benefits from './Benefits';
-import { end } from 'chessground/drag';
-
 
 
 const BenefitsContainer = (props) => {

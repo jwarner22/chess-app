@@ -19,7 +19,6 @@ const Dashboard = () => {
   const tacticModules = Modules.filter(module => module.type === "midgame")
   const checkmateModules = Modules.filter(module => module.type === "checkmate")
 
-  console.log(Modules.type)
   
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -38,11 +37,11 @@ const Dashboard = () => {
     </FeatureSuggestionButton>
     </Link>
     */}
-    <Link to='/openings-dashboard-test/e2e4 e7e5'>
+    {/* <Link to='/openings-dashboard-test/e2e4 e7e5'>
     <FeatureSuggestionButton primary>
       openings test
     </FeatureSuggestionButton>
-    </Link>
+    </Link> */}
     <DashboardWrapper>
         <MotifMenu 
         toggle={toggle}
