@@ -50,7 +50,7 @@ const Navbar = ({ toggle }) => {
                             <BlueBars />
                         </MobileIcons>
                         <NavMenu>
-                            <NavItem>
+                            {/* <NavItem>
                                 <NavLinks 
                                 to='about' 
                                 smooth={true}
@@ -83,7 +83,7 @@ const Navbar = ({ toggle }) => {
                                 offset={-80}>
                                     Services
                                 </NavLinks>
-                            </NavItem>
+                            </NavItem> */}
                         </NavMenu>
                         <NavBtn>
                             <NavBtnLink to="/login">
