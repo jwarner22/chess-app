@@ -16,13 +16,14 @@ const PostPuzzleMockup = (props) => {
         else if (props.isDaily) setLinkUrl('/home/daily');
         else setLinkUrl('/home/practice');
     }, [])
+    console.log(props)  
 
     if (!props.savingResults) {
     return (
         <>
         <PostPuzzleWrapper>
             <PostPuzzleGrid>
-                <IconWrap type={props.type}>
+                <IconWrap type={module.type}>
                     <PostPuzzleHeaderImg src={module.img}/>
                 </IconWrap>
                     <ModuleExperience>
