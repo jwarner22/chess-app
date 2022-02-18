@@ -100,9 +100,13 @@ const UserProvider = ({ children }) => {
         let today = new Date().getDate();
         let lastDaily = new Date(user.last_daily);
         console.log({lastDaily: lastDaily.getDate(), today: today, yesterday: yesterday});
-        if (lastDaily.getDate() !== (yesterday) && lastDaily.getDate() !== today) user.daily_streak = 0;
+        if (lastDaily.getDate() !== (yesterday) && lastDaily.getDate() !== today) {
+            user.daily_streak = 0;
+            updateUserData(user);
+        } else {
+            setUserData(user);
+        }
 
-        setUserData(user);
         setThemesData(response.themes);
         setOpenings(response.openings);
         handleDailyModules(response.daily_puzzles, embedding);
