@@ -4,6 +4,7 @@ import PostOpeningPage from '../../PostLogin/Views/Openings/PostOpeningPage';
 import PreOpeningPage from '../../PostLogin/Views/Openings/PreOpeningPage';
 import OpeningPage from '../OpeningPage.js'
 // import useFetch from '../../api/useFetch';
+import Loader from '../../Loader.js';
 
 // import {baseURL} from '../../api/apiConfig';
 import {getAnalytics, logEvent} from "firebase/analytics";
@@ -22,7 +23,7 @@ export default function OpeningManager(props) {
     const [completedTraining, setCompletedTraining] = useState(false);
     
     // hooks
-    const {userId, openings, updateOpenings, dailyModules, updateDailyModules, userData, updateUserData, updateAchievements} = useContext(UserContext)
+    const {contextLoading, userId, openings, updateOpenings, dailyModules, updateDailyModules, userData, updateUserData, updateAchievements} = useContext(UserContext)
     const analytics = getAnalytics();
 
     // from props
@@ -145,6 +146,11 @@ export default function OpeningManager(props) {
         setIsStarted(false);
         logEvent(analytics, 'opening_completed', {'user': userId, 'isDaily': isDaily});
     }
+
+    if (contextLoading) {
+        return <Loader />
+    }
+  
 
     return (
         <>

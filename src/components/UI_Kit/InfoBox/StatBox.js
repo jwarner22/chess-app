@@ -3,7 +3,6 @@ import { InfoBoxStat, StatBoxHeadline, StatContainer } from './StatBoxElements';
 
 const StatBox = (props) => {
 
-    console.log(props)
   return (
 <>
     <StatContainer>

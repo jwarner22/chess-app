@@ -20,8 +20,6 @@ const InfoBox = (props) => {
 
 const modifiedCategory = `${props.category}s`
 
-
-console.log(props)
   return (
   <>
     <InfoBoxContainer>

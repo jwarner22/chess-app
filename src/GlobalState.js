@@ -82,9 +82,8 @@ const UserProvider = ({ children }) => {
 
         let endpoint = `/users/${auth.userId}/all`;
         let response = await get(endpoint);
-        console.log({response:response});
+
         let user =  {...response};
-        console.log({user:user})
 
         delete user.themes;
         delete user.openings;
@@ -99,7 +98,7 @@ const UserProvider = ({ children }) => {
         let yesterday = new Date((new Date().valueOf() - (24 * 60 * 60 * 1000))).getDate();
         let today = new Date().getDate();
         let lastDaily = new Date(user.last_daily);
-        console.log({lastDaily: lastDaily.getDate(), today: today, yesterday: yesterday});
+        // console.log({lastDaily: lastDaily.getDate(), today: today, yesterday: yesterday});
         if (lastDaily.getDate() !== (yesterday) && lastDaily.getDate() !== today) {
             user.daily_streak = 0;
             updateUserData(user);

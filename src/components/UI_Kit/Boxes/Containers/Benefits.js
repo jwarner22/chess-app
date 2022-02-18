@@ -4,7 +4,6 @@ import { BenefitsFlexbox, BenefitsImg, BenefitsText } from './BenefitsContainerE
 const Benefits = (props) => {
 
     const {text, category, id, img} = props; 
-    console.log(props)
 
   return (
     <>
