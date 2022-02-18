@@ -17,16 +17,10 @@ const OpeningsDashboardTest = () => {
 
     const fetchOpenings = async () => {
         // fetch data from opening-data endpoint
-        // let moves = 'e2e4 e7e5'
-        // moves = moves.replace(/\s/g, '%');
-        console.log(moves)
         let endpoint = '/openings-data/'
         let queryParams = `?moves=${moves}`
-        console.log(endpoint+queryParams)
         let openings = await get(endpoint+queryParams);
-        console.log(openings)
         let main = openings.filter(opening => opening.uci === moves)[0];
-        console.log(main)
         // check if nb plays exists for mainline
         if (main != null) {
             console.log(main.np_lichess)
@@ -36,8 +30,9 @@ const OpeningsDashboardTest = () => {
              openings = await get(endpoint+queryParams);  
             }
         }
-        openings = openings.filter(opening => opening.np_lichess != null)
-        openings = openings.sort((a,b) => b.np_lichess - a.np_lichess)
+        openings = openings.filter(opening => opening.np_lichess != null) // filter out openings with no nb plays
+        openings = openings.sort((a,b) => b.np_lichess - a.np_lichess) // sort by nb plays
+        openings = openings.slice(0,5) //choose a max of 5 openings
         setOpeningModules(openings);
     }
 

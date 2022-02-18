@@ -82,8 +82,9 @@ const UserProvider = ({ children }) => {
 
         let endpoint = `/users/${auth.userId}/all`;
         let response = await get(endpoint);
-
+        console.log({response:response});
         let user =  {...response};
+        console.log({user:user})
 
         delete user.themes;
         delete user.openings;
@@ -95,11 +96,12 @@ const UserProvider = ({ children }) => {
         setUserId(auth.userId);
 
         // reset daily streak if it's been more than a day
-        let yesterday = new Date((new Date().valueOf() - (24 * 60 * 60 * 1000)));
-        let today = new Date();
+        let yesterday = new Date((new Date().valueOf() - (24 * 60 * 60 * 1000))).getDate();
+        let today = new Date().getDate();
         let lastDaily = new Date(user.last_daily);
+        console.log({lastDaily: lastDaily.getDate(), today: today, yesterday: yesterday});
         if (lastDaily.getDate() !== (yesterday) && lastDaily.getDate() !== today) user.daily_streak = 0;
-        
+
         setUserData(user);
         setThemesData(response.themes);
         setOpenings(response.openings);
