@@ -108,7 +108,8 @@ export const TileButtonWrap = styled.div`
     height: 100%;
     padding: 4px 10px 10px 10px;
     grid-template-columns: 1fr 1fr;
-    margin-left: 10px;
+    margin: 0px 10px;
+    grid-gap: 8px;
 
 
     @media screen and (max-height: 640px) {
@@ -154,6 +155,28 @@ export const TileButton = styled.div`
     @media screen and (max-height: 640px) {
         display: none;
     }
+`
+
+export const MotifTileStatWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.2);
+    height: 60px;
+    border-radius: 25px;
+    align-items: center;
+    justify-content: space-evenly;
+    box-shadow: rgba(255, 255, 255, 0.06) 0px 2px 4px 0px inset;
+`
+
+export const MotifStatTitle = styled.span`
+    color: #fff;
+    font-weight: 300;
+    font-style: italic ;
+`
+
+export const MotifStat = styled.span`
+    color: #fff;
+    font-weight: 600;
 `
 
 export const InfoModalWrapper = styled.div`

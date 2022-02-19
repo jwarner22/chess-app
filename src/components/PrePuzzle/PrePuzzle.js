@@ -45,7 +45,7 @@ const PrePuzzlePage = (props) => {
     function handleSwapButtonClick() {
         props.swapModule();
     }
-    console.log(props.moduleData)
+    console.log(props)
 
     return (
         <PuzzlePageContainer>

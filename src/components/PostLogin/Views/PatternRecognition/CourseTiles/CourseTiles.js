@@ -6,7 +6,10 @@ import {TileWrapper,
     TileHeader, 
     TileSubheadline,
     TileButton,
-    TileButtonWrap
+    TileButtonWrap,
+    MotifTileStatWrapper,
+    MotifStatTitle,
+    MotifStat
 } from "./CourseTileElements";
 
 import {useWindowSize} from '../../../../Hooks/UseWindowSize';
@@ -16,6 +19,8 @@ function CourseTile(props){
     const isMobile = windowSize[0] <= 640;
     const {headline, subheading, img, pawn} = props
     const linkUrl = (props.category === 'opening') ? `/opening` : `/dashboard/module`
+
+    console.log(props)
 
     const TileContent = () => { 
     return (
@@ -50,6 +55,14 @@ function CourseTile(props){
                         <InfoModalIcon src={info} onClick={handleOpenModal}/>
                         <InfoModal openModal={openModal} setOpenModal={setOpenModal} />
                     </InfoModalWrapper> */}
+                    <MotifTileStatWrapper>
+                        <MotifStatTitle>
+                            Motif Elo 
+                        </MotifStatTitle>
+                        <MotifStat>
+                            1241
+                        </MotifStat>
+                    </MotifTileStatWrapper>
                 </TileButtonWrap>
 
                 )}

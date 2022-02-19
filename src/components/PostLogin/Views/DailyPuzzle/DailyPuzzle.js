@@ -26,7 +26,7 @@ export default function DailyPuzzzle(props) {
   const [schemaPicks, setSchemaPicks] = useState([]);
   // const [reversed, setReversed] = useState(false);
   // const [isMounted, setIsMounted] = useState(true);
-  const [screenTimer, setScreenTimer] = useState(false);
+  const [screenTimer, setScreenTimer] = useState(true);
   
   const {dailyModules, generating, updateGenerating} = useContext(UserContext);
   const {isMobile} = props;
