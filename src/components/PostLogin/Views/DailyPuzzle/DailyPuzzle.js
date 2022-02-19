@@ -6,7 +6,8 @@ import { DailyPuzzleContainer,
   DailyPuzzleHeaderImg,
   PuzzleWrapper,
   Container,
-  SelectionContainer} from "./DailyPuzzleElements";
+  SelectionContainer,
+  GeneratingTrainingContainer} from "./DailyPuzzleElements";
 import headerImg from "./../../../../Images/DailyPuzzleIcon.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
 import {Modules} from "../../Views/PatternRecognition/CourseTiles/Data"
@@ -25,7 +26,7 @@ export default function DailyPuzzzle(props) {
   const [schemaPicks, setSchemaPicks] = useState([]);
   // const [reversed, setReversed] = useState(false);
   // const [isMounted, setIsMounted] = useState(true);
-  const [screenTimer, setScreenTimer] = useState(true);
+  const [screenTimer, setScreenTimer] = useState(false);
   
   const {dailyModules, generating, updateGenerating} = useContext(UserContext);
   const {isMobile} = props;
@@ -111,12 +112,12 @@ export default function DailyPuzzzle(props) {
   if (!screenTimer) {
     return (
       <>
-        <DailyPuzzleContainer>
+        <GeneratingTrainingContainer>
         <DailyPuzzleHeaderImg src={headerImg}/>
         <DailyPuzzleTitle>
           Generating Today's Training...
         </DailyPuzzleTitle>
-        </DailyPuzzleContainer>
+        </GeneratingTrainingContainer>
       </>
     )
   }

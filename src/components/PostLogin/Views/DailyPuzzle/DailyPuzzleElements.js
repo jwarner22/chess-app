@@ -35,7 +35,7 @@ export const DailyPuzzleHeaderImg = styled.img`
 `
 
 export const DailyPuzzleTitle = styled.h1`
-    color: #010EFF;
+    color: #243862;
     text-align: center;
     grid-column: 1 / span 2;
 `
@@ -174,4 +174,12 @@ export const SelectionContainer = styled.div`
     @media screen and (max-width: 425px) {
         padding-bottom: 80px;
     }
+`
+
+export const GeneratingTrainingContainer = styled.div`
+    display: flex;
+    height: calc(100vh - 80px);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 `
