@@ -101,7 +101,7 @@ export default function OpeningManager(props) {
           let userProfileData = {...userData};
           let now = new Date();
           // if new user, set daily streak to 1
-          if (userProfileData.lastDaily == null) {
+          if (userProfileData.last_daily == null) {
             updateUserData({              
               ...userProfileData,
               daily_streak: 1,

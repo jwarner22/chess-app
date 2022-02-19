@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
+import {useState, useEffect, useContext} from "react";
 import {Link} from 'react-router-dom'
 import { DailyPuzzleContainer, 
   DailyPuzzleTitle, 
@@ -29,18 +29,18 @@ export default function DailyPuzzzle(props) {
   const [screenTimer, setScreenTimer] = useState(true);
   
   const {dailyModules, generating, updateGenerating} = useContext(UserContext);
-  const {isMobile} = props;
-  // const windowSize = useWindowSize();
-//   const isMobile = windowSize[0] < 640;
+  const {isMobile, windowDimension} = props;
 
-// console.log(windowSize)
   useEffect(() => {
+    if (windowDimension[0] === 0) return;
       setLoaded(false);
       transformDaily();
       setLoaded(true);
-    },[])
+
+    },[props])
 
   useEffect(() => {
+    if (windowDimension[0] === 0) return;
     if (dailyPicks.length === 0) {
       setLoaded(false);
       transformDaily();
@@ -64,6 +64,7 @@ export default function DailyPuzzzle(props) {
       let item = modules.find(entry => entry.id === locatedModule.theme_id)
       return {...item, ...locatedModule}
     })
+
     setDailyPicks(() => {
       if (isMobile) {
         return [...daily.reverse()]
@@ -72,32 +73,9 @@ export default function DailyPuzzzle(props) {
     }); // set data for display and module consumption
   }
  
-
   // displays "generating daily training" message and hides it after timer
   const setTimer = async () => {
-    // get last display of screen time
-    // let lastScreenTime = new Date(parseInt(sessionStorage.getItem('lastDailySplashScreenTime')));
-    // let now = new Date();
-    // // check if we need to display the message
-    // try {
-    //   if (lastScreenTime.getDate() !== (now.getDate())) {
-    //     // show splash screen
-    //     setScreenTimer(prev => !prev)
-    //     await wait(2000);
-    //     setScreenTimer(prev => !prev) // hide splash screen
-    //     // update localStorage
-    //     sessionStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
-    //   }
-    // } catch (e) { //just in case
-    //   // show splash screen
-    //   setScreenTimer(prev => !prev)
-    //   await wait(2000)
-    //   setScreenTimer(prev => !prev)
-    //   // update localStorage
-    //   sessionStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
-    // }
     console.log('daily render')
-    
     // update generating state
       setScreenTimer(prev => !prev)
       await wait(2000)
