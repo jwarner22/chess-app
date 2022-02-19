@@ -141,12 +141,13 @@ def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
 ## USER
 
 # create user
-@app_v1.post('/users', response_model=schemas.User, tags=["User"])
+@app_v1.post('/users', tags=["User"])
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(db, user_id=user.user_id)
     if db_user:
         raise HTTPException(status_code=400, detail="User already registered")
-    return crud.create_user(db=db, user=user)
+    db_user = crud.create_user(db, user=user)
+    return {'user created'}
 
 # get user profile
 @app_v1.get('/users/{user_id}', response_model=schemas.UserProfile, tags=["User"])
@@ -426,12 +427,7 @@ async def add_achievement(user_id: str, achievement: schemas.AchievementCreate, 
 @app_v1.get('/achievements/{user_id}', response_model=List[schemas.Achievement], tags=["Achievements"])
 async def get_achievements(user_id: str, db: Session = Depends(get_db), limit: int = 20):
     achievements = db.query(models.Achievement).filter(models.Achievement.owner_id == user_id).order_by(models.Achievement.id.desc()).limit(limit).all()
-
-    if achievements is None:
-        raise HTTPException(status_code=404, detail="daily puzzles not found")
-    elif len(achievements) == 0:
-        raise HTTPException(status_code=404, detail="daily puzzles not found")
-
+    
     return achievements
 
 # get user daily achievements

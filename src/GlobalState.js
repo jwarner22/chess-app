@@ -18,8 +18,11 @@ const UserProvider = ({ children }) => {
     const [userId, setUserId] = useState('');
     const [isMounted, setIsMounted] = useState(false);
     const [openings, setOpenings] = useState([]);
+    const [generating, setGenerating] = useState(false);
     const {get, put, post} = useFetch(baseURL);
 
+    console.log('global state render')
+    console.log({loading: loading})
     const auth = useContext(AuthContext);
 
     useEffect(() => {
@@ -146,7 +149,7 @@ const UserProvider = ({ children }) => {
             await post(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // post daily modules to db
             setDailyModules(schemaPicks); // set daily modules
             setLoading(false);
-
+            updateGenerating(true);
         } else if (response.detail === "daily puzzles expired") { // daily modules expired
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`; // get new picks
             let {picks, alts} = await put(endpoint, embedding); // get picks
@@ -154,6 +157,7 @@ const UserProvider = ({ children }) => {
             await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
             setDailyModules(schemaPicks);
             setLoading(false);
+            updateGenerating(true);
 
         } else if ((new Date(response[0].expiration)) < now) {
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`; // get new picks
@@ -162,12 +166,19 @@ const UserProvider = ({ children }) => {
             await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
             setDailyModules(schemaPicks);
             setLoading(false);
+            updateGenerating(true);
 
         } else {
             setDailyModules(response);
             setLoading(false);
+            updateGenerating(false);
+
         }
 
+    }
+
+    const updateGenerating = (bool) => { 
+        setGenerating(() => bool);
     }
 
  
@@ -222,14 +233,9 @@ const UserProvider = ({ children }) => {
     // ACHIEVEMENTS
     const fetchAchievements = async () => {
         console.log('fetching achievement data');
-
         let endpoint = `/achievements/${auth.userId}`; 
         let response = await get(endpoint);
-        if (response.length === 0) { // no achievements
-            setAchievements([]);
-        } else {
-            setAchievements(response);
-        }
+        setAchievements(response);
     }
 
     const updateAchievements = async (category, value, diff, theme) => { 
@@ -284,7 +290,7 @@ const UserProvider = ({ children }) => {
     }
 
     return (
-      <UserContext.Provider value={{updateGlobalState, userId, contextLoading: loading, userData, updateUserData, achievements, updateAchievements, openings, updateOpenings, themesData, updateThemesData, dailyModules, updateDailyModules}}>
+      <UserContext.Provider value={{generating, updateGenerating, updateGlobalState, userId, contextLoading: loading, userData, updateUserData, achievements, updateAchievements, openings, updateOpenings, themesData, updateThemesData, dailyModules, updateDailyModules}}>
         {children}
       </UserContext.Provider>
     );

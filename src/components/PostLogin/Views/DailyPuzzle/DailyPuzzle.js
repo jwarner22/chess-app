@@ -27,7 +27,7 @@ export default function DailyPuzzzle(props) {
   // const [isMounted, setIsMounted] = useState(true);
   const [screenTimer, setScreenTimer] = useState(true);
   
-  const {dailyModules} = useContext(UserContext);
+  const {dailyModules, generating, updateGenerating} = useContext(UserContext);
   const {isMobile} = props;
   // const windowSize = useWindowSize();
 //   const isMobile = windowSize[0] < 640;
@@ -36,10 +36,22 @@ export default function DailyPuzzzle(props) {
   useEffect(() => {
       setLoaded(false);
       transformDaily();
-      setTimer();
       setLoaded(true);
     },[])
 
+  useEffect(() => {
+    if (dailyPicks.length === 0) {
+      setLoaded(false);
+      transformDaily();
+      setLoaded(true);
+    }
+  },[dailyModules])
+
+  useEffect(() => {
+    if (generating) {
+      setTimer();
+    }
+  },[generating])
 
   const transformDaily = async () => {
     let modules = [...Modules]; // copy of Modules
@@ -63,27 +75,33 @@ export default function DailyPuzzzle(props) {
   // displays "generating daily training" message and hides it after timer
   const setTimer = async () => {
     // get last display of screen time
-    let lastScreenTime = new Date(parseInt(sessionStorage.getItem('lastDailySplashScreenTime')));
-    let now = new Date();
-    // check if we need to display the message
-    try {
-      if (lastScreenTime.getDate() !== (now.getDate())) {
-        // show splash screen
-        setScreenTimer(prev => !prev)
-        await wait(2000);
-        setScreenTimer(prev => !prev) // hide splash screen
-        // update localStorage
-        sessionStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
-      }
-    } catch (e) { //just in case
-      // show splash screen
+    // let lastScreenTime = new Date(parseInt(sessionStorage.getItem('lastDailySplashScreenTime')));
+    // let now = new Date();
+    // // check if we need to display the message
+    // try {
+    //   if (lastScreenTime.getDate() !== (now.getDate())) {
+    //     // show splash screen
+    //     setScreenTimer(prev => !prev)
+    //     await wait(2000);
+    //     setScreenTimer(prev => !prev) // hide splash screen
+    //     // update localStorage
+    //     sessionStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
+    //   }
+    // } catch (e) { //just in case
+    //   // show splash screen
+    //   setScreenTimer(prev => !prev)
+    //   await wait(2000)
+    //   setScreenTimer(prev => !prev)
+    //   // update localStorage
+    //   sessionStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
+    // }
+    console.log('daily render')
+    
+    // update generating state
       setScreenTimer(prev => !prev)
       await wait(2000)
       setScreenTimer(prev => !prev)
-      // update localStorage
-      sessionStorage.setItem('lastDailySplashScreenTime', Date.now().toString())
-    }
-    
+      updateGenerating(false)
   }
   
   if (!loaded | dailyPicks.length === 0) {

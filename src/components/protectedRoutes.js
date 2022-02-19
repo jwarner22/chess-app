@@ -34,7 +34,7 @@ const protectedRoutes = [
 		name: "IntakeSurvey",
 		path: "/survey",
 		exact: true,
-		main: () => <IntakeSurvey />
+		main: props => <IntakeSurvey {...props} />
 	},
 	{
 		name: "CreateUser",

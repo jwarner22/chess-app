@@ -114,16 +114,19 @@ const Login = ({history}) => {
 
   // fetches backend and persists user data across app
   const setUserData = async (response, userId) => {
-
+    console.log({userId: userId})
     if (response.additionalUserInfo.isNewUser) {
-      history.push('/survey')
+      history.push({pathname: '/survey', state: {userId: userId}});
+      console.log('new user')
     } else {
     get(`/users/${userId}`)
     .then(data => {
       if (data.detail === 'User not found') {
-        history.push('/survey')
+        console.log('user not found')
+        history.push({pathname: '/survey', state: {userId: userId}});
       } else if (data.user_name == null) {
         history.push({pathname: '/username', state: {userId: userId}});
+        console.log('no username')
       } 
       })
     .catch(error => {
