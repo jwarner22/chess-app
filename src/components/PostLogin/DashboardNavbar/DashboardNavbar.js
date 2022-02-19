@@ -108,11 +108,13 @@ const DashNavbar = ({ toggle }) => {
                                 </NavLinks>
                             </NavItem>
                         </NavMenu>
-                        <NavBarButton primary>
-                            <NavBtnLink to='/login' onClick={() => handleLogout()}>
+                        <NavBtn>
+                        <NavBtnLink to='/login' onClick={() => handleLogout()}>
+                        <Button primary>
                                 Sign Out
-                            </NavBtnLink>
-                        </NavBarButton>
+                        </Button>
+                        </NavBtnLink>
+                        </NavBtn>
                     </NavbarContainer>
                 </Nav>
                 </div>
