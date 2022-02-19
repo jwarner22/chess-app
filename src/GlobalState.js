@@ -21,8 +21,6 @@ const UserProvider = ({ children }) => {
     const [generating, setGenerating] = useState(false);
     const {get, put, post} = useFetch(baseURL);
 
-    console.log('global state render')
-    console.log({loading: loading})
     const auth = useContext(AuthContext);
 
     useEffect(() => {
