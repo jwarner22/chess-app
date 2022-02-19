@@ -34,6 +34,11 @@ function CourseTile(props){
         <TileSubheadline>
             {subheading}
         </TileSubheadline>
+        {isMobile ? (
+                <TileSubheadline>
+                    Motif Elo: 1241
+                </TileSubheadline>
+        ) : ( null )}
         </>
     )
     }
