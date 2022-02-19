@@ -296,7 +296,7 @@ export default function PuzzlePage(props) {
                 </HeaderContainer>
                    <div style={progressContainer}>
                       <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
-                      <PercentCompleted>{Math.trunc(progress)}/100</PercentCompleted>
+                      <PercentCompleted>{Math.trunc(progress)}%</PercentCompleted>
                   </div>
               <IndicatorWrapper>
             {(moveColor === "white") ? (
