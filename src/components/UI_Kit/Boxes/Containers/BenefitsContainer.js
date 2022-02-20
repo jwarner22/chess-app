@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react'
-import { BenefitsTitle, BenefitsWrapper } from './BenefitsContainerElements';
-import {BenefitsData} from "../../../../data/BenefitsData"
-import Benefits from './Benefits';
+// import React, {useEffect, useState} from 'react'
+// import { BenefitsTitle, BenefitsWrapper } from './BenefitsContainerElements';
+// import {BenefitsData} from "../../../../data/BenefitsData"
+// import Benefits from './Benefits';
 
 
 // const BenefitsContainer = (props) => {
