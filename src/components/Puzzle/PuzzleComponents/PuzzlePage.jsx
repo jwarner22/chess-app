@@ -252,9 +252,9 @@ export default function PuzzlePage(props) {
                     onPromotion={handlePromotion}
                     moveIndicator={moveIndicator}
                   />
-                  <div >
+                  <ProgressContainer>
                       <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
-                  </div>
+                  </ProgressContainer>
                   <TimerAndLivesContainer>
                   <Timer toggleTimer={toggleTimer} count={count}/>
                   <Lives lives={lives} isMobile={isMobile} />
@@ -294,10 +294,10 @@ export default function PuzzlePage(props) {
                 <HeaderContainer>
                   <Header>{title}</Header>
                 </HeaderContainer>
-                   <div style={progressContainer}>
+                   <ProgressContainer>
                       <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
                       <PercentCompleted>{Math.trunc(progress)}%</PercentCompleted>
-                  </div>
+                  </ProgressContainer>
               <IndicatorWrapper>
             {(moveColor === "white") ? (
                 <WhiteIndicator /> ) : (
@@ -320,16 +320,11 @@ export default function PuzzlePage(props) {
 }
 
 
-const progressContainer = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  flexWrap: "wrap",
-  paddingTop: 24,
-  paddingBottom: 24,
-  width: "80%",
-  margin: "auto"
-};
+const ProgressContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  padding: 0px 12px;
+` 
 
 export const PercentCompleted = styled.div`
   position: absolute;
