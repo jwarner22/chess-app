@@ -25,16 +25,10 @@ function CourseTile(props){
     const linkUrl = (props.category === 'opening') ? `/opening` : `/dashboard/module`;
     const {themesData, contextLoading, userData} = useContext(UserContext);
     const [rating, setRating] = useState(0);
-    //console.log(props)
-    // let theme = themesData.find(theme => {
-    //     return theme.title === props.type_ref
-    // });
-    // console.log(theme.title)
+
     useEffect(() => {
         if (!contextLoading) {
-            console.log('use effect')
             if (!themesData.some(theme => theme.title === props.type_ref)) {
-                console.log(userData.initial_rating)
                 setRating(userData.initial_rating);
                 return;
             }

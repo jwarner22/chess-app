@@ -20,7 +20,7 @@ export default function Module(props) {
     const [prePuzzleToggle,setPrePuzzleToggle] = useState(true);
     const [highScore, setHighScore] = useState(0);
 
-    const {userData, userId, contextLoading} = useContext(UserContext);
+    const {userData, userId, contextLoading, themesData} = useContext(UserContext);
 
     const primaryData = {
         theme: props.location.state.module.type_ref,
@@ -42,10 +42,6 @@ export default function Module(props) {
 
     const prevModuleData = usePrevious(moduleData);
 
-    //load user data
-    // useEffect(() => {
-    //     getModule();
-    // },[])
 
     useEffect(() => {
         if (!contextLoading) {
@@ -62,8 +58,16 @@ export default function Module(props) {
     },[moduleData.theme])
 
     const getModule = () => {
-        console.log({userId: userId})
-        console.log('got moduleData')
+        let exists = themesData.some(theme => theme.title === moduleData.theme);
+        if (exists) {
+            let theme = themesData.find(theme => theme.title === moduleData.theme);
+            setRating(theme.rating);
+            setHighScore(theme.high_score);
+
+            setLoading(false);
+            return;
+        }
+
         if (userId === '') return;
         console.log('actually fetched')
         get(`/users/${userId}/themes/${moduleData.theme}`)

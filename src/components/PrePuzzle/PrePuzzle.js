@@ -11,22 +11,13 @@ import {PuzzlePageContainer,
     PuzzleElo, 
     HighScore, 
     InstructionsContainer, 
-    InstructionsWrapper, 
     PuzzleEloTitle, 
     HighScoreTitle,
-    TipsTitleWrapper,
-    TipsTitle,
-    TipsGrid,
-    TipImageWrap,
-    Tip1Image,
-    TipDescriptionWrapper,
-    Tip1Description,
     LeftStatWrapper,
 RightStatWrapper,
 PrePuzzleTileContainer} from "./PrePuzzleElements";
 import Button from "../UI_Kit/Button/Button"
 import {DailyPuzzleIcon} from "../PostLogin/Views/DailyPuzzle/DailyPuzzleElements"
-import { StartButton } from '../PostLogin/Views/DailyPuzzle/ModalElements'
 import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
 import {BenefitsData} from "../../data/BenefitsData"
 import { BackButtonWrapper } from '../Puzzle/Utilities/Progress';
@@ -45,7 +36,6 @@ const PrePuzzlePage = (props) => {
     function handleSwapButtonClick() {
         props.swapModule();
     }
-    console.log(props)
 
     return (
         <PuzzlePageContainer>
