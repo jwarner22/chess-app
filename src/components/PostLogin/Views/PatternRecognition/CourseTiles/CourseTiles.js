@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {TileWrapper, 
     TileHeadline, 
@@ -14,13 +15,40 @@ import {TileWrapper,
 
 import {useWindowSize} from '../../../../Hooks/UseWindowSize';
 
+import { useContext } from "react";
+import { UserContext } from "../../../../../GlobalState";
+
 function CourseTile(props){
     const windowSize = useWindowSize();
     const isMobile = windowSize[0] <= 640;
     const {headline, subheading, img, pawn} = props
-    const linkUrl = (props.category === 'opening') ? `/opening` : `/dashboard/module`
-
-    // console.log(props)
+    const linkUrl = (props.category === 'opening') ? `/opening` : `/dashboard/module`;
+    const {themesData, contextLoading, userData} = useContext(UserContext);
+    const [rating, setRating] = useState(0);
+    //console.log(props)
+    // let theme = themesData.find(theme => {
+    //     return theme.title === props.type_ref
+    // });
+    // console.log(theme.title)
+    useEffect(() => {
+        if (!contextLoading) {
+            console.log('use effect')
+            if (!themesData.some(theme => theme.title === props.type_ref)) {
+                console.log(userData.initial_rating)
+                setRating(userData.initial_rating);
+                return;
+            }
+            let theme = themesData.find(theme => {
+                if(theme.title === props.type_ref) {
+                    return theme
+                } else {
+                    return null;
+                }
+            });
+            console.log(theme.rating)
+            setRating(theme.rating);
+        }
+    },[props])
 
     const TileContent = () => { 
     return (
@@ -36,7 +64,7 @@ function CourseTile(props){
         </TileSubheadline>
         {isMobile ? (
                 <TileSubheadline>
-                    Motif Elo: 1241
+                    Elo Rating: {contextLoading ? null:rating}
                 </TileSubheadline>
         ) : ( null )}
         </>
@@ -62,10 +90,10 @@ function CourseTile(props){
                     </InfoModalWrapper> */}
                     <MotifTileStatWrapper>
                         <MotifStatTitle>
-                            Motif Elo 
+                            Elo Rating
                         </MotifStatTitle>
                         <MotifStat>
-                            1241
+                            {contextLoading ? null: rating}
                         </MotifStat>
                     </MotifTileStatWrapper>
                 </TileButtonWrap>

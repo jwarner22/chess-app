@@ -58,7 +58,7 @@ function Progress(props) {
             setPercent(prevPercent => prevPercent + increment)
         } else if (result === false && percent > 0) {
             setColor(incorrectColor)
-            setPercent(prevPercent => prevPercent - decrement)
+            // setPercent(prevPercent => prevPercent - decrement)
         } else if (percent >= 100 && result === true){
             setColor(correctColor)
             setPercent(100)
