@@ -135,6 +135,7 @@ export default function OpeningModule(props) {
     setDemoIsFinished(false);
     setShowDisabled(true);
     setRetryDisabled(true);
+    setBoardKey(prev => prev + 1);
   }
 
   if (isLoaded) {
@@ -158,6 +159,7 @@ export default function OpeningModule(props) {
                   <div className="main-board green merida my-2"> */}
                     {isLoaded === true && demoIsFinished === false && (
                       <DemoMoves
+                      key={boardKey}
                         moves={moves}
                         demoFinished={demoFinished}
                         fen={fen}
@@ -190,6 +192,7 @@ export default function OpeningModule(props) {
           <div className="main-board green merida my-2"> */}
             {isLoaded === true && demoIsFinished === false && (
               <DemoMoves
+              key={boardKey}
                 moves={moves}
                 demoFinished={demoFinished}
                 fen={fen}
@@ -212,7 +215,7 @@ export default function OpeningModule(props) {
         </HeaderContainer>
         <div style={progressContainer}>
         <Progress returnPercent={returnPercent} outcome={outcome} percent={progress} count={count} />
-        <PercentCompleted>{Math.trunc(progress)}/100</PercentCompleted>
+        <PercentCompleted>{Math.trunc(progress)}%</PercentCompleted>
         </div>
         <OpeningNav onShowMovesClick={handleShowMovesClick}  onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={retryDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo} showDisabled={showDisabled}/>
         </RightPuzzlePanelContainer>

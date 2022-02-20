@@ -66,13 +66,13 @@ const NewBenefits = (props) => {
         <BenefitsWrapper>
             {benefits.map((benefit, index) => {
               return(
-                <>
+                <div key={index}>
           <BenefitsFlexbox>
 
                 <BenefitsImg src={benefit.img}/>
                 <BenefitsText>{benefit.text}</BenefitsText>
                 </BenefitsFlexbox>
-                </>
+                </div>
               )
             })}
                          

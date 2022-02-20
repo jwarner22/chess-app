@@ -608,7 +608,7 @@ export const Modules = [
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         img: require("../../../../../Images/Books.svg").default
     },{
-        id: 70,
+        id: 0,
         category: 'puzzle',
         type: 'checkmate',
         type_ref: 'anastasiaMate',

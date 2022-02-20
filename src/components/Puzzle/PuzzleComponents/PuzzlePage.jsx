@@ -87,8 +87,8 @@ export default function PuzzlePage(props) {
     setCorrectMoves(() => getMoves(puzzleData[0].moves));
     setLoaded(true);
     return () => {
-      if (sound.confirmation.playing()) sound.confirmation.unload();
-      if (sound.error.playing()) sound.error.unload();
+      if (sound.confirmation.playing()) sound.confirmation.stop();
+      if (sound.error.playing()) sound.error.stop();
 
       // setConfirmationSound(() => null);
       // setErrorSound(() => null);
@@ -146,6 +146,7 @@ export default function PuzzlePage(props) {
 
   const playSound = (category) => {
     if (category === "confirmation") {
+      console.log("confirmation sound")
       sound.confirmation.play();
     } else if (category === "error") {
       sound.error.play();
