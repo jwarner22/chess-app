@@ -22,12 +22,10 @@ import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data';
 import {BenefitsData} from "../../data/BenefitsData"
 import { BackButtonWrapper } from '../Puzzle/Utilities/Progress';
 import BackButton from '../BackButton';
-import BenefitsContainer from '../UI_Kit/Boxes/Containers/BenefitsContainer';
+import BenefitsContainer from '../UI_Kit/Boxes/Containers/Benefits';
 
 const PrePuzzlePage = (props) => {
-    const module = Modules.find(element => element.type_ref === props.moduleData.theme)
-
-    
+    const module = Modules.find(element => element.type_ref === props.moduleData.theme);    
 
     function handleStartButtonClick() {
         props.togglePrePuzzleCallback()
@@ -74,7 +72,7 @@ const PrePuzzlePage = (props) => {
                                 </HighScore>
                             </StatsGrid>
                         </StatsWrapper>
-                        <BenefitsContainer moduleType={module.type} benefitsData={BenefitsData}/>
+                        <BenefitsContainer headline={module.headline} category={module.type} />
                              <InstructionsContainer>
                                     <div>
                                     <PrePuzzleButton primary onClick={handleStartButtonClick}>

@@ -39,7 +39,6 @@ function CourseTile(props){
                     return null;
                 }
             });
-            console.log(theme.rating)
             setRating(theme.rating);
         }
     },[props])

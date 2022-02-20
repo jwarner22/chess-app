@@ -13,7 +13,7 @@ import { InfoBoxContainer,
  } from './InfoBoxElements';
  import StatBox from './StatBox';
  import {BenefitsData} from "../../../data/BenefitsData"
-import BenefitsContainer from '../Boxes/Containers/BenefitsContainer';
+import BenefitsContainer from '../Boxes/Containers/Benefits';
  
 
 const InfoBox = (props) => {
@@ -36,7 +36,7 @@ const modifiedCategory = `${props.category}s`
             <StatBox statTitle={props.headlineOne} statData={props.userData.high_score}/>
             <StatBox statTitle={props.headlineTwo} statData={props.userData.completed}/>
         </InfoBoxStatContainer>
-        <BenefitsContainer moduleType={modifiedCategory}/>
+        <BenefitsContainer moduleType={modifiedCategory} category={modifiedCategory} />
         {/* {isOpening ? <OpeningImage/> : null} */}
         <InfoBoxStatContainer>
         <InfoBoxButton primary onClick={() => props.onStartClick('white')}>
