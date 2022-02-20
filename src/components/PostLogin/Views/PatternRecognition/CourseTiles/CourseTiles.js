@@ -20,7 +20,7 @@ function CourseTile(props){
     const {headline, subheading, img, pawn} = props
     const linkUrl = (props.category === 'opening') ? `/opening` : `/dashboard/module`
 
-    console.log(props)
+    // console.log(props)
 
     const TileContent = () => { 
     return (

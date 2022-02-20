@@ -1,12 +1,17 @@
 import React, {useEffect, useState} from "react";
 import { Circle, Line } from "rc-progress";
 import styled from "styled-components"
+import "react-step-progress-bar/styles.css";
+import {ProgressBar, Step} from 'react-step-progress-bar';
+// import rook svg from Images
+import Rook from '../../../Images/chess.svg';
+
 // src: https://github.com/react-component/progress
 //class Example extends React.Component<ProgressProps, any> {
 
 import {useWindowSize} from '../../Hooks/UseWindowSize';
 
-function ProgressBar(props) {
+function Progress(props) {
     const [percent,setPercent] = useState(0);
     const [color,setColor] = useState('#247CF1')
     const [results, setResults] = useState([]);
@@ -72,15 +77,26 @@ function ProgressBar(props) {
 
     return(
         <>
-        <HeaderWrapper >
-            {isMobile ? ( <Line  percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor} strokeLinecap="square"/> ) : (
-          <Circle percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor}/>)}
+            {isMobile ? (
+              <HeaderWrapperMobile>
+            <ProgressBar  width={'100%'} height={15} percent={percent} filledBackground='linear-gradient(to right, #fefb72, #f0bb31'>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{display:'none', filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
+              </ProgressBar>
+              </HeaderWrapperMobile>) : (
+          <HeaderWrapper >
+          <Circle percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor}/>
         </HeaderWrapper>
+        )}
         </>
     )
 
 }
-export default ProgressBar
+export default Progress
 
 
 
@@ -89,6 +105,15 @@ const HeaderWrapper = styled.div`
     width: 100%;
     align-items: center;
     justify-content: center;
+`
+
+const HeaderWrapperMobile = styled.div`
+    display: flex;
+    width: 95%;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    margin-top: 8px;
 `
 
 export const BackButtonWrapper = styled.div`
