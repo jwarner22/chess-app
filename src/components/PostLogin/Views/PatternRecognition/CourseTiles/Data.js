@@ -607,6 +607,16 @@ export const Modules = [
         instructions: 'A healthy mix of puzzles from all categories and themes.',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         img: require("../../../../../Images/Books.svg").default
+    },{
+        id: 70,
+        category: 'puzzle',
+        type: 'checkmate',
+        type_ref: 'anastasiaMate',
+        headline: `Anastasia's Mate`,
+        subheading: "Pattern Recognition",
+        instructions: `The knight defends the opposing king's flight squares while the rook delivers checkmate in the style of a back rank mate`,
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../../Images/AnastasiaMate.svg").default
     }
 ]
 
@@ -708,16 +718,6 @@ const excludedModules = [{
         headline: 'Castling',
         subheading: "Pattern Recognition",
         instructions: 'Castling is typically used to acheive king safety. In rare cases, it can also be used in the offensive.',
-        description: 'Lorem ipsum mah brudda',
-        img: ''
-    },{
-        id: 70,
-        category: 'puzzle',
-        type: 'checkmate',
-        type_ref: 'anastasiaMate',
-        headline: `Anastasia's Mate`,
-        subheading: "Pattern Recognition",
-        instructions: `The knight defends the opposing king's flight squares while the rook delivers checkmate in the style of a back rank mate`,
         description: 'Lorem ipsum mah brudda',
         img: ''
     },{

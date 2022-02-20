@@ -116,7 +116,7 @@ const UserProvider = ({ children }) => {
         setLoading(() => true);
         let endpoint = `/users/${auth.userId}`; 
         let response = await put(endpoint, data);
-        setUserData(response);
+        setUserData(response); 
         setLoading(() => false);
     }
     
