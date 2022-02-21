@@ -27,9 +27,13 @@ export default function DailyPuzzzle(props) {
   // const [reversed, setReversed] = useState(false);
   // const [isMounted, setIsMounted] = useState(true);
   const [screenTimer, setScreenTimer] = useState(true);
-  
+  const [completedModules, setCompletedModules] = useState([])
+  const [percent, setPercent] = useState(0)
   const {dailyModules, generating, updateGenerating} = useContext(UserContext);
   const {isMobile, windowDimension} = props;
+
+
+  
 
   useEffect(() => {
     if (windowDimension[0] === 0) return;
@@ -72,6 +76,25 @@ export default function DailyPuzzzle(props) {
       return [...daily];  
     }); // set data for display and module consumption
   }
+
+  //initial module completion check. Creates state for completedModules
+  useEffect(() => {
+    let completedArr = dailyPicks.map(pick  => {
+      if (pick.completed) {
+        return "Completed"
+      }
+    return "Incomplete"
+  })
+    setCompletedModules(completedArr)
+    console.log(completedModules)
+  }, [dailyPicks])
+
+//returns the completion percentage of modules to 
+  useEffect(() => {
+    let completedPercentage = completedModules.filter(item => item === "Completed").length / 4 * 100;
+    console.log(completedPercentage)
+    setPercent(completedPercentage)
+  },[completedModules])
  
   // displays "generating daily training" message and hides it after timer
   const setTimer = async () => {
