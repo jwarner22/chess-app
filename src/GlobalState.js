@@ -85,7 +85,8 @@ const UserProvider = ({ children }) => {
         let response = await get(endpoint);
 
         let user =  {...response};
-
+        if (user.detail === 'User not found') return; // pessimistic check
+        console.log(user)
         delete user.themes;
         delete user.openings;
         delete user.daily_puzzles;
@@ -127,10 +128,14 @@ const UserProvider = ({ children }) => {
         let response = await put(endpoint, data);
 
         let newThemes = [...themesData];
-        newThemes = newThemes.map(theme => {
-            if (response.title === theme.title) return response;
-            return theme;
-        });
+        if (newThemes.some(theme => theme.title === response.title)) {
+            newThemes = newThemes.map(theme => {
+                if (response.title === theme.title) return response;
+                return theme;
+            });
+        } else {
+            newThemes = [...newThemes, response]; // if theme doesn't exist, add it
+        }
 
         setThemesData(newThemes);
         setLoading(() => false);

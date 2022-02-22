@@ -5,7 +5,7 @@ import settings from "../../Images/settings.png"
 
 const PageHeader = (props) => {
     
-    const isProfile = props.pageTitle == "Profile"
+    const isProfile = props.pageTitle === "Profile"
     
     return (
         <PageHeaderContainer>

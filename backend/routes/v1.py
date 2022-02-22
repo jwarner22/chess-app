@@ -162,7 +162,7 @@ async def read_user(user_id: str, db: Session = Depends(get_db)):
 async def read_user_all(user_id: str, db: Session=Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
     if db_user is None:
-        return None
+        raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
 # update user

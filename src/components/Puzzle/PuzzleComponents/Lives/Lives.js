@@ -2,11 +2,8 @@ import React, {useState, useEffect}from 'react'
 import styled from "styled-components"
 import {LivesWrapper,
 LivesGrid,
-LivesImg,
-LifeOne, 
-LifeTwo,
-LifeThree} from "./LivesElements"
-import { CSSTransition } from "react-transition-group"
+LivesImg} from "./LivesElements"
+// import { CSSTransition } from "react-transition-group"
 import { ReactComponent as HeartIcon } from "../../../../Images/heart.svg"
 import { ReactComponent as XIcon } from "../../../../Images/close.svg"
 
@@ -29,13 +26,13 @@ const Lives = (props) => {
         }
     }, [lives])
 
-    const heartIcon = {
-        img: require('../../../../Images/heart.svg').default
-    }
+    // const heartIcon = {
+    //     img: require('../../../../Images/heart.svg').default
+    // }
     
-      const xIcon = {
-        img: require('../../../../Images/close.svg').default
-      }
+    //   const xIcon = {
+    //     img: require('../../../../Images/close.svg').default
+    //   }
 
     return (
         <>

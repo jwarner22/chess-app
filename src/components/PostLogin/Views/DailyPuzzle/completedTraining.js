@@ -14,8 +14,14 @@ import {UserContext} from '../../../../GlobalState'
 
 export default function CompletedTraining(props) {
   const [loading, setLoading] = useState(true);
-  const {achievements} = useContext(UserContext);
-
+  let {achievements} = useContext(UserContext);
+  // create sorted array of achievements by insterted_at
+  let sortedAchievements = achievements.sort((a,b) => { return a.inserted_at - b.inserted_at });
+  // fileter achievements by inserted_at as current day
+  let todayAchievements = sortedAchievements.filter(achievement => { return new Date(achievement.inserted_at).toDateString() === new Date().toDateString() });
+  // map achievements to maximum of 20 
+  todayAchievements = todayAchievements.slice(0,20);
+  
     useEffect(() => {
       const confettiSettings = {
         target: 'my-canvas',
@@ -66,7 +72,7 @@ export default function CompletedTraining(props) {
       <>
       <AchievementTileContainer>
         <AchievementTileWrapper>
-        {achievements && achievements.map((achievement, index) => {
+        {todayAchievements && todayAchievements.map((achievement, index) => {
             return(
                 <SmallTile key={index} achievement={achievement} isMobile={props.isMobile}/>
             )

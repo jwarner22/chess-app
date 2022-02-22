@@ -17,6 +17,16 @@ export const AllEndgames = [
 
 export const Modules = [
     {
+        id: 0,
+        category: 'puzzle',
+        type: 'checkmate',
+        type_ref: 'anastasiaMate',
+        headline: `Anastasia's Mate`,
+        subheading: "Pattern Recognition",
+        instructions: `The knight defends the opposing king's flight squares while the rook delivers checkmate in the style of a back rank mate`,
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../../Images/AnastasiaMate.svg").default
+    },{
         id: 1,
         category: 'puzzle',
         type: 'endgame',
@@ -27,15 +37,15 @@ export const Modules = [
         description: 'A mixture of all endgame strategies',
         img: require("../../../../../Images/Endgame_shuffle.svg").default
     },{
-        id: 64, // `eventually use random str as modules will be dynamic for each user and may change over time
+        id: 2, // `eventually use random str as modules will be dynamic for each user and may change over time
         category: 'puzzle',
-        type: 'endgame',
-        type_ref: 'bishopEndgame',
-        headline: 'Bishop Endgame',
-        subheading: "Endgame Tactics",
-        instructions: 'Depending on the color of the bishop, it can often guard a promotional square',
+        type: 'midgame',
+        type_ref: 'mix',
+        headline: 'Healthy Mix',
+        subheading: "Pattern Recognition",
+        instructions: 'A healthy mix of puzzles from all categories and themes.',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-        img: require("../../../../../Images/Bishop.png").default
+        img: require("../../../../../Images/Books.svg").default
     },
     {
         id: 3,
@@ -382,13 +392,13 @@ export const Modules = [
     {
         id: 37,
         category: 'puzzle',
-        type: 'midgame',
-        type_ref: 'promotion',
-        headline: 'Promotion',
-        subheading: "Midgame Tactics",
-        instructions: 'Push a pawn over the edge to seal your opponents fate.',
+        type: 'checkmate',
+        type_ref: 'arabianMate',
+        headline: 'Arabian Mate',
+        subheading: "Checkmates",
+        instructions: 'The knight often removes a flight square while the rook delivers checkmate in this classic motif.',
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../../Images/Promotion.svg").default
+        img: require("../../../../../Images/arabianMate.svg").default
     },{
         id: 38,
         category: 'puzzle',
@@ -598,25 +608,15 @@ export const Modules = [
           moves: "d2d4 g8f6 c2c4 g7g6 b1c3 f8g7 e2e4 d7d6 g1f3 e8g8 f1e2 e2e5 e1g1",
             img: require("../../../../../Images/open-book.svg").default
     },{
-        id: 2, // `eventually use random str as modules will be dynamic for each user and may change over time
+        id: 64, // `eventually use random str as modules will be dynamic for each user and may change over time
         category: 'puzzle',
-        type: 'midgame',
-        type_ref: 'mix',
-        headline: 'Healthy Mix',
-        subheading: "Pattern Recognition",
-        instructions: 'A healthy mix of puzzles from all categories and themes.',
+        type: 'endgame',
+        type_ref: 'bishopEndgame',
+        headline: 'Bishop Endgame',
+        subheading: "Endgame Tactics",
+        instructions: 'Depending on the color of the bishop, it can often guard a promotional square',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-        img: require("../../../../../Images/Books.svg").default
-    },{
-        id: 70,
-        category: 'puzzle',
-        type: 'checkmate',
-        type_ref: 'anastasiaMate',
-        headline: `Anastasia's Mate`,
-        subheading: "Pattern Recognition",
-        instructions: `The knight defends the opposing king's flight squares while the rook delivers checkmate in the style of a back rank mate`,
-        description: 'Lorem ipsum mah brudda',
-        img: require("../../../../../Images/AnastasiaMate.svg").default
+        img: require("../../../../../Images/Bishop.png").default
     }
 ]
 
@@ -740,6 +740,17 @@ const excludedModules = [{
         instructions: 'In rare and exciting situtations, a Queen is less favorable than other pieces for sealing the game.',
         description: 'Lorem ipsum mah brudda',
         img: ''
+    },
+    {
+        id: 37,
+        category: 'puzzle',
+        type: 'midgame',
+        type_ref: 'promotion',
+        headline: 'Promotion',
+        subheading: "Midgame Tactics",
+        instructions: 'Push a pawn over the edge to seal your opponents fate.',
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../../Images/Promotion.svg").default
     }
 ]
 

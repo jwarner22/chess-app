@@ -1,10 +1,6 @@
 import {useState, useEffect} from 'react'
-import {Link} from 'react-router-dom'
 import styled from "styled-components";
 import MotifMenu from "./MotifMenu/MotifMenu";
-import EndgameTiles from './CoursesBody/EngameTiles';
-import TacticTiles from './CoursesBody/TacticTiles';
-import CheckmateTiles from './CoursesBody/CheckmateTiles';
 import FooterBuffer from '../../../UI_Kit/FooterBuffer';
 import Button from '../../../UI_Kit/Button/Button';
 import {Modules} from './CourseTiles/Data';

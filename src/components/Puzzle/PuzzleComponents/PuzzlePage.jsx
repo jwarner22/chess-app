@@ -87,8 +87,8 @@ export default function PuzzlePage(props) {
     setCorrectMoves(() => getMoves(puzzleData[0].moves));
     setLoaded(true);
     return () => {
-      if (sound.confirmation.playing()) sound.confirmation.unload();
-      if (sound.error.playing()) sound.error.unload();
+      if (sound.confirmation.playing()) sound.confirmation.stop();
+      if (sound.error.playing()) sound.error.stop();
 
       // setConfirmationSound(() => null);
       // setErrorSound(() => null);
@@ -113,7 +113,7 @@ export default function PuzzlePage(props) {
 
   useEffect(() => {
     if (progress >= 100) {
-      finished()
+      setTimeout(finished(), 2000);
     }
   }, [progress])
 
@@ -146,6 +146,7 @@ export default function PuzzlePage(props) {
 
   const playSound = (category) => {
     if (category === "confirmation") {
+      console.log("confirmation sound")
       sound.confirmation.play();
     } else if (category === "error") {
       sound.error.play();
@@ -252,9 +253,9 @@ export default function PuzzlePage(props) {
                     onPromotion={handlePromotion}
                     moveIndicator={moveIndicator}
                   />
-                  <ProgressContainer>
-                      <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
-                  </ProgressContainer>
+                  <div >
+                      <ProgressBar category={"puzzle"} outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
+                  </div>
                   <TimerAndLivesContainer>
                   <Timer toggleTimer={toggleTimer} count={count}/>
                   <Lives lives={lives} isMobile={isMobile} />
@@ -266,7 +267,7 @@ export default function PuzzlePage(props) {
                       <BlackIndicator />
                      )}
                 </IndicatorWrapper>
-                  <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
+                  <PuzzleNav category={"puzzle"} disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
                   </MobileContent>
                 </MobilePuzzleWrapper>
           </>) : (
@@ -294,10 +295,10 @@ export default function PuzzlePage(props) {
                 <HeaderContainer>
                   <Header>{title}</Header>
                 </HeaderContainer>
-                   <ProgressContainer>
-                      <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
+                   <div style={progressContainer}>
+                      <ProgressBar category={"puzzle"} outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
                       <PercentCompleted>{Math.trunc(progress)}%</PercentCompleted>
-                  </ProgressContainer>
+                  </div>
               <IndicatorWrapper>
             {(moveColor === "white") ? (
                 <WhiteIndicator /> ) : (
@@ -320,7 +321,7 @@ export default function PuzzlePage(props) {
 }
 
 
-const ProgressContainer = styled.div`
+const progressContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   padding: 0px 12px;

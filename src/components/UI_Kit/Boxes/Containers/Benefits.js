@@ -3,22 +3,8 @@ import { BenefitsFlexbox, BenefitsImg, BenefitsText } from './BenefitsContainerE
 import { BenefitsTitle, BenefitsWrapper } from './BenefitsContainerElements';
 import {BenefitsData} from "../../../../data/BenefitsData"
 
-// const Benefits = (props) => {
-//     const {text, category, id, img} = props; 
 
-//   return (
-//     <>
-//       <BenefitsFlexbox>
-//         <BenefitsImg src={img}/>
-//         <BenefitsText>{text}</BenefitsText>
-//       </BenefitsFlexbox>
-//     </>
-//   )
-// }
-
-// export default Benefits
-
-const NewBenefits = (props) => {
+const Benefits = (props) => {
   const [benefits, setBenefits] = useState([]);
   const {category, headline} = props;
   const [headlineData, setHeadlineData] = useState([]);
@@ -66,13 +52,13 @@ const NewBenefits = (props) => {
         <BenefitsWrapper>
             {benefits.map((benefit, index) => {
               return(
-                <>
+                <div key={index}>
           <BenefitsFlexbox>
 
                 <BenefitsImg src={benefit.img}/>
                 <BenefitsText>{benefit.text}</BenefitsText>
                 </BenefitsFlexbox>
-                </>
+                </div>
               )
             })}
                          
@@ -81,4 +67,4 @@ const NewBenefits = (props) => {
   </>
   )
 }
-export default NewBenefits;
+export default Benefits;

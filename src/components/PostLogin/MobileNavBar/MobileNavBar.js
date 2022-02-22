@@ -1,25 +1,15 @@
 import React from 'react'
-import { IoCalendarClearOutline } from "react-icons/io5"
-import { IoBookOutline,IoCalendar } from "react-icons/io5"
-import { AiOutlineUser } from "react-icons/ai";
-import { IoExtensionPuzzleOutline, IoRibbonSharp } from "react-icons/io5";
-import { MdLeaderboard } from "react-icons/md";
+import { IoCalendar } from "react-icons/io5"
+import {  IoRibbonSharp } from "react-icons/io5";
 import { HiPuzzle } from "react-icons/hi";
 import { FaBookOpen,FaUser } from "react-icons/fa";
-import { BsFillCalendar3Fill } from "react-icons/bs";
 import {MobileNavbarWrapper, 
-    MobileNavbarItems,  
-    MobileNavbarItem, 
-    MobileNavbarIcon, 
     MobileNavLink,    
-    CenterIcon,
     NavItemTitle
 } from "./MobileNabarElements"
 
 
-
-
-const MobileNabar = () => {
+const MobileNavbar = () => {
 
     const style = {
         paddingBottom: "10px"
@@ -62,4 +52,4 @@ const MobileNabar = () => {
     )
 }
 
-export default MobileNabar
+export default MobileNavbar
