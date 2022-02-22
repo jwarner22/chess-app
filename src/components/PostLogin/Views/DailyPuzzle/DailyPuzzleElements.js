@@ -165,6 +165,10 @@ export const PuzzleDescripton = styled.p`
 export const PuzzleWrapper = styled.div`
     display: flex; 
     flex-direction: column;
+
+    @media screen and (max-width: 640px){
+        flex-direction: column-reverse;
+    }
 `
 
 export const SelectionContainer = styled.div`

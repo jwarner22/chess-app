@@ -71,7 +71,7 @@ export default function DailyPuzzzle(props) {
 
     setDailyPicks(() => {
       if (isMobile) {
-        return [...daily.reverse()]
+        return [...daily]
       };
       return [...daily];  
     }); // set data for display and module consumption
