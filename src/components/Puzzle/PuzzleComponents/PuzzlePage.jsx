@@ -254,7 +254,7 @@ export default function PuzzlePage(props) {
                     moveIndicator={moveIndicator}
                   />
                   <div >
-                      <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
+                      <ProgressBar category={"puzzle"} outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
                   </div>
                   <TimerAndLivesContainer>
                   <Timer toggleTimer={toggleTimer} count={count}/>
@@ -296,7 +296,7 @@ export default function PuzzlePage(props) {
                   <Header>{title}</Header>
                 </HeaderContainer>
                    <div style={progressContainer}>
-                      <ProgressBar outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
+                      <ProgressBar category={"puzzle"} outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
                       <PercentCompleted>{Math.trunc(progress)}%</PercentCompleted>
                   </div>
               <IndicatorWrapper>
