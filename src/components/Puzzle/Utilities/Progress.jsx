@@ -74,7 +74,7 @@ function Progress(props) {
     // const progressHeight = {
     //     height: "0px"
     // }
-
+    if (props.category === "puzzle") {
     return(
         <>
             {isMobile ? (
@@ -94,7 +94,28 @@ function Progress(props) {
         )}
         </>
     )
+              } 
+    if (props.category === "opening") {
+      return(
+        <>
+        {isMobile ? (
+          <HeaderWrapperMobile>
+        <ProgressBar  width={'100%'} height={15} percent={percent} filledBackground='linear-gradient(to right, #fefb72, #f0bb31'>
+          <Step transition="scale">{({accomplished})=> (<img alt='' style={{display:'none', filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
+          <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
+          <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
+          <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
+          </ProgressBar>
+          </HeaderWrapperMobile>) : (
+      <HeaderWrapper >
+      <Circle percent={percent} strokeWidth={3} strokeColor={color} trailWidth={3} trailColor={trailColor}/>
+    </HeaderWrapper>
+    )}
+    </>
+      )
+    }
 
+    return null;
 }
 export default Progress
 

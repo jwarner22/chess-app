@@ -20,7 +20,7 @@ export default function Module(props) {
     const [prePuzzleToggle,setPrePuzzleToggle] = useState(true);
     const [highScore, setHighScore] = useState(0);
 
-    const {userData, userId, contextLoading, themesData} = useContext(UserContext);
+    const {userData, userId, contextLoading, themesData, updateThemesData} = useContext(UserContext);
 
     const primaryData = {
         theme: props.location.state.module.type_ref,
@@ -84,17 +84,19 @@ export default function Module(props) {
     }
 
     const createModule = async () => {
-        
+        console.log({userData: userData})
         post(`/users/${userId}/themes`,{
                 title: moduleData.theme,
                 category: moduleData.category,
-                rating: userData.initialRating,
+                rating: userData.initial_rating,
                 completed: 0,
                 high_score: 0,
-                score_history: '0,0,0,0,0,0,0'
+                score_history: '0,0,0,0,0,0,0',
                 }).then(data => {
                     setRating(data.rating)
+                    updateThemesData(data)
                 }).catch(e => console.log(e))
+    
     }
 
     const togglePrePuzzle = () => {

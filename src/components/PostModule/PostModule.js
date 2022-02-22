@@ -16,7 +16,6 @@ const PostPuzzleMockup = (props) => {
         else if (props.isDaily) setLinkUrl('/home/daily');
         else setLinkUrl('/home/practice');
     }, [])
-    console.log(props)  
 
     if (!props.savingResults) {
     return (

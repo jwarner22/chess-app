@@ -113,7 +113,7 @@ export default function PuzzlePage(props) {
 
   useEffect(() => {
     if (progress >= 100) {
-      finished()
+      setTimeout(finished(), 2000);
     }
   }, [progress])
 
@@ -267,7 +267,7 @@ export default function PuzzlePage(props) {
                       <BlackIndicator />
                      )}
                 </IndicatorWrapper>
-                  <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
+                  <PuzzleNav category={"puzzle"} disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
                   </MobileContent>
                 </MobilePuzzleWrapper>
           </>) : (

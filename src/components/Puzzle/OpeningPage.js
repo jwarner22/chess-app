@@ -150,11 +150,9 @@ export default function OpeningModule(props) {
             <MobileHeaderContainer>
               <Header>{props.openingData.headline}</Header> 
             </MobileHeaderContainer>
-            <div style={progressContainer}>
-        <Progress returnPercent={returnPercent} outcome={outcome} percent={progress} count={count}  />
-        </div>
+           
             <PuzzleBoardWrapper>
-              <div style={boardContainer}>
+              <div>
                 {/* <div className="box">
                   <div className="main-board green merida my-2"> */}
                     {isLoaded === true && demoIsFinished === false && (
@@ -171,10 +169,14 @@ export default function OpeningModule(props) {
                     {isLoaded === true && demoIsFinished === true && (
                       <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext}  count={count} correctMoves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
                     )}
+
                   {/* </div>
                   </div> */}
               </div>
             </PuzzleBoardWrapper>
+            <div>
+        <Progress category={"opening"} returnPercent={returnPercent} outcome={outcome} percent={progress} count={count}  />
+        </div>
             <OpeningNav onShowMovesClick={handleShowMovesClick} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={retryDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo} showDisabled={showDisabled}/>
           </MobilePuzzleWrapper>
           </>

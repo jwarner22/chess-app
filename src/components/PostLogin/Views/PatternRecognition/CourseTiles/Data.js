@@ -382,13 +382,13 @@ export const Modules = [
     {
         id: 37,
         category: 'puzzle',
-        type: 'midgame',
-        type_ref: 'promotion',
-        headline: 'Promotion',
-        subheading: "Midgame Tactics",
-        instructions: 'Push a pawn over the edge to seal your opponents fate.',
+        type: 'checkmate',
+        type_ref: 'arabianMate',
+        headline: 'Arabian Mate',
+        subheading: "Checkmates",
+        instructions: 'The knight often removes a flight square while the rook delivers checkmate in this classic motif.',
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../../Images/Promotion.svg").default
+        img: require("../../../../../Images/arabianMate.svg").default
     },{
         id: 38,
         category: 'puzzle',
@@ -740,6 +740,17 @@ const excludedModules = [{
         instructions: 'In rare and exciting situtations, a Queen is less favorable than other pieces for sealing the game.',
         description: 'Lorem ipsum mah brudda',
         img: ''
+    },
+    {
+        id: 37,
+        category: 'puzzle',
+        type: 'midgame',
+        type_ref: 'promotion',
+        headline: 'Promotion',
+        subheading: "Midgame Tactics",
+        instructions: 'Push a pawn over the edge to seal your opponents fate.',
+        description: 'Lorem ipsum mah brudda',
+        img: require("../../../../../Images/Promotion.svg").default
     }
 ]
 
