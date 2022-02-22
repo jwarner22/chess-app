@@ -1,18 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from 'styled-components'
 import Button from '../Button/Button';
 import { InfoBoxContainer, 
-    InfoBoxHeadline, 
     InfoBoxImageContainer, 
     InfoBoxImg, 
     InfoBoxSubTitle, 
     InfoBoxTitle,
-    InfoBoxStat,
     InfoBoxStatContainer,
-    OpeningImage
  } from './InfoBoxElements';
  import StatBox from './StatBox';
- import {BenefitsData} from "../../../data/BenefitsData"
 import BenefitsContainer from '../Boxes/Containers/Benefits';
  
 

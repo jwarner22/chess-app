@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Circle, Line } from "rc-progress";
+import { Circle } from "rc-progress";
 import styled from "styled-components"
 import "react-step-progress-bar/styles.css";
 import {ProgressBar, Step} from 'react-step-progress-bar';
