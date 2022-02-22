@@ -1,14 +1,14 @@
-import {CoursesWrapper, 
-    ModuleWrapper, 
-    ModuleGrid
-} from './CoursesElements'
-import CourseTile from '../CourseTiles/CourseTiles'
-import {Modules} from '../CourseTiles/Data';
-import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
+// import {CoursesWrapper, 
+//     ModuleWrapper, 
+//     ModuleGrid
+// } from './CoursesElements'
+// import CourseTile from '../CourseTiles/CourseTiles'
+// import {Modules} from '../CourseTiles/Data';
+// import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
 
-import useOnScreen from '../../../../Hooks/useOnScreen';
+// import useOnScreen from '../../../../Hooks/useOnScreen';
 
-//CONDENSED INTO PUZZLEGRID.JS
+// //CONDENSED INTO PUZZLEGRID.JS
 
 // const CheckmateTiles = () => {
 //     const checkmateRef = useRef();

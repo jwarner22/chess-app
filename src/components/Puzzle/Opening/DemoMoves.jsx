@@ -12,12 +12,17 @@ import {Howl} from 'howler'
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
+const sound = {
+  move: new Howl({ src: [moveSoundFile] }),
+  capture: new Howl({ src: [captureSoundFile] })
+}
+
 export default function DemoMoves(props) {
   const [fen, setFen] = useState(props.fen);
-  const [game, setGame] = useState(() => new Chess());
+  const [game, setGame] = useState(new Chess());
   const [lastMove, setLastMove] = useState([]);
-  const [moveSound, setMoveSound] = useState(null)
-  const [captureSound, setCaptureSound] = useState(null);
+  // const [moveSound, setMoveSound] = useState(null)
+  // const [captureSound, setCaptureSound] = useState(null);
 
   const windowSizeWidth = useWindowSize()[0];
   const [width, setWidth] = useState(windowSizeWidth);
@@ -25,7 +30,7 @@ export default function DemoMoves(props) {
   const moves = props.moves.slice(props.moveIndex, props.moves.length);
   // const game = new Chess(fen);
   const orientation = props.orientation;
-
+  
 
     // manage board resize
     useEffect(() => {
@@ -41,12 +46,14 @@ export default function DemoMoves(props) {
 
   useEffect(() => {
     let isMounted = true; // note mutable flag
-
-    setMoveSound(new Howl({src: moveSoundFile}));
-    setCaptureSound(new Howl({src: captureSoundFile}));
+    
+    // setMoveSound(new Howl({src: moveSoundFile}));
+    // setCaptureSound(new Howl({src: captureSoundFile}));
 
     return () => {
       isMounted = false;
+      if (sound.capture.playing()) sound.capture.stop();
+      if (sound.move.playing()) sound.move.stop();
     }; // use cleanup to toggle value, if unmounted
   }, []);
 
@@ -64,21 +71,21 @@ export default function DemoMoves(props) {
   }
 
   function playMoveSound() {
-    moveSound.play()
+    sound.move.play()
   }
 
   function nextMove(move) {
     // playMoveSound();
     let from = move.substring(0, 2);
     let to = move.substring(2, 5);
-        
-    // game.move({ to: to, from: from });
+
     safeGameMutate((game) => {
       let move = game.move({ from: from, to: to, promotion: "q" });
+      if (move == null) return;
       if (move.flags === "c") { 
-        captureSound.play();
+        sound.capture.play();
       } else {
-        moveSound.play();
+        sound.move.play();
       }
       return move;
     });

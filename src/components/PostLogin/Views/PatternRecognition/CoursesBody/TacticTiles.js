@@ -1,11 +1,11 @@
-import {useState} from 'react'
-import {CoursesWrapper, 
-    ModuleWrapper, 
-    ModuleGrid
-} from './CoursesElements'
-import CourseTile from '../CourseTiles/CourseTiles'
-import {Modules} from '../CourseTiles/Data';
-import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
+// import {useState} from 'react'
+// import {CoursesWrapper, 
+//     ModuleWrapper, 
+//     ModuleGrid
+// } from './CoursesElements'
+// import CourseTile from '../CourseTiles/CourseTiles'
+// import {Modules} from '../CourseTiles/Data';
+// import CategoryTitle from '../../../../UI_Kit/CategoryTitle/CategoryTitle';
 
 
 //CONDENSED INTO PUZZLEGRID.JS

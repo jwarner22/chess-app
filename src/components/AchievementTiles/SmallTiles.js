@@ -84,6 +84,8 @@ const SmallTile = (props) => {
         
     }
 
+    if (typeof module === 'undefined') return null;
+    
     return (
         <>
             <SmallTileContainer>

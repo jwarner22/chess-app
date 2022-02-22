@@ -1,14 +1,10 @@
 import React from 'react';
 
 import {
-    MenuWrapper,
-    MenuGrid,
     MenuTiles,
     MenuContent,
     MenuTitle,
-    MenuImg,
-    TileWrapper,
-    MenuImgWrapper
+    TileWrapper
 } from './MenuTileElements'
 
 //add MenuWrapper and MenuGrid in the parent component

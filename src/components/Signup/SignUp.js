@@ -1,24 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 //import { AuthContext } from "../../index";
 import logo from '../../Images/eloElevationWhite.png'
 import headerImg from "../../Images/realChessHeader.jpg"
-import { Link, Redirect } from "react-router-dom";
-import firebaseConfig from "../../config"
+import { Link } from "react-router-dom";
 import {  
   FormWrap, 
-  Icon, 
   FormContent, 
-  FormH1, 
   FormLabel, 
-  FormInput, 
-  Text, 
-  GoogleLoginButton} from "./SignupElements";
+  FormInput 
+  } from "./SignupElements";
 import {Container, 
-  NavLogo, 
-  Img, 
   GoogleButton, 
   GoogleButtonText, 
-  FormButton, 
   FormText,
   Form,
   LoginHeaderImg,
@@ -29,9 +22,6 @@ import {Container,
 import "./Signup.css"
 import { withRouter } from 'react-router-dom';
 import firebase from "firebase/compat/app";
-//import FetchWrapper from '../api/FetchWrapper'
-import {baseURL} from '../api/apiConfig'
-import useFetch from '../api/useFetch';
 import Button from "../UI_Kit/Button/Button";
 require("firebase/auth");
 
@@ -40,8 +30,8 @@ const SignUp = ({history}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setErrors] = useState("");
-  const [confirmPassword, passwordIsConfirmed] = useState("");
-  const {get,post} = useFetch(baseURL);
+  //const [confirmPassword, passwordIsConfirmed] = useState("");
+  //const {get,post} = useFetch(baseURL);
   //const Auth = useContext(AuthContext);
 
   const handleForm = e => {
@@ -89,26 +79,6 @@ const SignUp = ({history}) => {
  
   }
 
-    // // fetches backend and persists user data across app
-    // const setUserData = (response) => {
-    //   let userID = response.additionalUserInfo.profile.id;
-    //   localStorage.setItem('userID', userID)
-    //   if (response.additionalUserInfo.isNewUser) {
-    //     console.log('post new user to API')
-    //     post('/users', {
-    //       user_id: userID,
-    //       overall_rating: 1200
-    //     }).then(data => {
-    //       localStorage.setItem('userPublicData', JSON.stringify(data))
-    //     })
-    //   } else {
-    //   get(`/users/${userID}`)
-    //   .then(data => {localStorage.setItem('userPublicData', JSON.stringify(data))})
-    //   .catch(error => {
-    //     console.log(error)
-    //   })
-    // }
-    // }
 
 
   return (
@@ -171,90 +141,3 @@ const SignUp = ({history}) => {
 export default withRouter(SignUp);
 
 
-// const SignUp = () => {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [displayName, setDisplayName] = useState('');
-//   const [error, setError] = useState(null);
-//   const createUserWithEmailAndPasswordHandler = (event, email, password) => {
-//     event.preventDefault();
-//     setEmail('');
-//     setPassword('');
-//     setDisplayName('');
-//   };
-
-//   const onChangeHandler = event => {
-//     const {name, value} = event.currentTarget;
-//     if (name === "userEmail") {
-//       setEmail(value);
-//     } else if (name === "userPassword") {
-//       setPassword(value);
-//     } else if (name === "displayName") {
-//       setDisplayName(value)
-//     }
-//   };
-//   return (
-//     <>
-//       <Container>
-//         <FormWrap>
-//           <NavLogo>
-//             <Link to="/" >
-//             <Img src={logo}/>
-//             </Link>
-//           </NavLogo>
-//             <FormContent>
-//               <Form>  {error !== null && (
-//           <div className="py-4 bg-red-600 w-full text-white text-center mb-3">
-//             {error}
-//           </div>
-//         )}
-//                 <FormH1>Sign Up</FormH1>
-//                 <FormLabel>Display Name</FormLabel>
-//                 <FormInput
-//                 type='text'
-//                 value={displayName}
-//                 placeholder="E.g: Joe_is_a_Dickface"
-//                 id="displayName"
-//                 name='displayName'
-//                 onChange={event => onChangeHandler(event)}
-//                 >
-//                 </FormInput>
-//                 <FormLabel>Email</FormLabel>
-//                 <FormInput 
-//                 type="email" 
-//                 name="userEmail" 
-//                 value={email}
-//                 placeholder="Email"
-//                 id="userEmail"
-//                 onChange={event => onChangeHandler(event)} />
-//                 <FormLabel>Password</FormLabel>
-//                 <FormInput 
-//                 type="password" 
-//                 name="userPassword" 
-//                 value={password}
-//                 id="userPassword"
-//                 placeholder="Password"
-//                 onChange={event => onChangeHandler(event)} />
-//                 <FormButton  onClick={event => {
-//               createUserWithEmailAndPasswordHandler(event, email, password);
-//             }}>
-//               Submit</FormButton>
-//               </Form>
-//                      <Text>or</Text>
-//                 <GoogleLoginButton>               
-//                   Sign In with Google
-//                   </GoogleLoginButton>
-//              <Text className="orSignup">
-//                 Already have an account?{" "}
-//                   <Link to="Login" className="text-blue-500 hover:text-blue-600">
-//                     Sign in here
-//                   </Link>
-//             </Text>
-//             </FormContent>
-//           </FormWrap>
-//       </Container>
-//     </>
-//   );
-// };
-
-// export default SignUp;

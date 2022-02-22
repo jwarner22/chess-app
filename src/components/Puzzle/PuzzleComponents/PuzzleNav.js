@@ -1,20 +1,11 @@
 import React from 'react'
 import styled from "styled-components"
-import { ClickBack } from '../../BackButton';
 import {useHistory} from "react-router-dom"
 import swal from 'sweetalert';
-import { TiArrowBackOutline } from "react-icons/ti";
-import { AiOutlineRedo } from "react-icons/ai";
-import { GrFormNextLink, GrNext } from "react-icons/gr";
-import { GiCheckMark } from "react-icons/gi";
-import { FaPlay } from "react-icons/fa";
-import { BsPlay, BsFillReplyFill } from "react-icons/bs";
+import { BsFillReplyFill } from "react-icons/bs";
 import {ReactComponent as Retry} from "../../../Images/retry.svg"
 import {ReactComponent as Next} from "../../../Images/right-arrow.svg"
-import { MobileNavbarItem, 
-    MobileNavbarItems, 
-    MobileNavbarWrapper, 
-    MobileNavLink } from '../../PostLogin/MobileNavBar/MobileNabarElements'
+import {MobileNavbarWrapper} from '../../PostLogin/MobileNavBar/MobileNabarElements'
 
 
 const PuzzleNav = (props) => {
@@ -61,9 +52,9 @@ const PuzzleNav = (props) => {
 
 export default PuzzleNav
 
-const PuzzleNavbarWrapper = styled(MobileNavbarWrapper)`
-    position: relative;
-`
+// const PuzzleNavbarWrapper = styled(MobileNavbarWrapper)`
+//     position: relative;
+// `
 
 export const PuzzleNavbarItems = styled.ul`
     display: grid;
