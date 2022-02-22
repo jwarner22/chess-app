@@ -186,7 +186,7 @@ export const GeneratingTrainingContainer = styled.div`
     display: flex;
     height: calc(100vh - 80px);
     justify-content: center;
-    align-items: center;
+    align-items: center; 
     flex-direction: column;
 `
 
