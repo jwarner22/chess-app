@@ -25,7 +25,7 @@ export const Modules = [
         subheading: "Pattern Recognition",
         instructions: `The knight defends the opposing king's flight squares while the rook delivers checkmate in the style of a back rank mate`,
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../../Images/AnastasiaMate.svg").default
+        img: require("../../../../../Images/Anastasia_mate_figma.svg").default
     },{
         id: 1,
         category: 'puzzle',
@@ -398,7 +398,7 @@ export const Modules = [
         subheading: "Checkmates",
         instructions: 'The knight often removes a flight square while the rook delivers checkmate in this classic motif.',
         description: 'Lorem ipsum mah brudda',
-        img: require("../../../../../Images/arabianMate.svg").default
+        img: require("../../../../../Images/Arabian_mate_figma.svg").default
     },{
         id: 38,
         category: 'puzzle',
