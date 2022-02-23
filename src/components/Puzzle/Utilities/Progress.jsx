@@ -74,7 +74,6 @@ function Progress(props) {
     // const progressHeight = {
     //     height: "0px"
     // }
-    console.log(props.category)
     if (props.category === "puzzle") {
     return(
         <>

@@ -177,7 +177,7 @@ export default function OpeningModule(props) {
             <div>
         <Progress category={"opening"} returnPercent={returnPercent} outcome={outcome} percent={progress} count={count}  />
         </div>
-            <OpeningNav category={"opening"} onShowMovesClick={handleShowMovesClick} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={retryDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo} showDisabled={showDisabled}/>
+            <OpeningNav onShowMovesClick={handleShowMovesClick} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={retryDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo} showDisabled={showDisabled}/>
           </MobilePuzzleWrapper>
           </>
         ) : (
@@ -216,7 +216,7 @@ export default function OpeningModule(props) {
           <Header>{props.openingData.headline}</Header>
         </HeaderContainer>
         <div style={progressContainer}>
-        <Progress category={"opening"} returnPercent={returnPercent} outcome={outcome} percent={progress} count={count} />
+        <Progress returnPercent={returnPercent} outcome={outcome} percent={progress} count={count} />
         <PercentCompleted>{Math.trunc(progress)}%</PercentCompleted>
         </div>
         <OpeningNav onShowMovesClick={handleShowMovesClick}  onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} retryDisabled={retryDisabled} continueDisabled={continueDisabled} demoIsFinished={demoIsFinished} startDemo={startDemo} startedDemo={startedDemo} showDisabled={showDisabled}/>
