@@ -57,7 +57,7 @@ function CourseTile(props){
         </TileSubheadline>
         {isMobile ? (
                 <TileSubheadline>
-                    Elo Rating: {contextLoading ? null:rating}
+                    <em>Elo Rating:</em> <strong>{contextLoading ? null:rating}</strong>
                 </TileSubheadline>
         ) : ( null )}
         </>

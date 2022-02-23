@@ -10,8 +10,11 @@ Col2Row3,
 CompletedCheck
 } from "./DailyPuzzleElements"
 import check from "../../../../Images/check.png"
+import {ProgressBar, Step} from 'react-step-progress-bar';
 
 const DailyPuzzleModuleContainer = (props) => {
+
+    console.log(props)
     
     return (
         <>

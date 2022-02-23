@@ -7,11 +7,13 @@ import { DailyPuzzleContainer,
   PuzzleWrapper,
   Container,
   SelectionContainer,
-  GeneratingTrainingContainer} from "./DailyPuzzleElements";
+  GeneratingTrainingContainer,
+  ProgressBarContainer} from "./DailyPuzzleElements";
 import headerImg from "./../../../../Images/DailyPuzzleIcon.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
 import {Modules} from "../../Views/PatternRecognition/CourseTiles/Data"
 import Loader from '../../../Loader'
+import {ProgressBar, Step} from 'react-step-progress-bar';
 
 // utilities
 import {wait} from '../../../Puzzle/Utilities/helpers'
@@ -27,9 +29,13 @@ export default function DailyPuzzzle(props) {
   // const [reversed, setReversed] = useState(false);
   // const [isMounted, setIsMounted] = useState(true);
   const [screenTimer, setScreenTimer] = useState(true);
-  
+  const [completedModules, setCompletedModules] = useState([])
+  const [percent, setPercent] = useState(0)
   const {dailyModules, generating, updateGenerating} = useContext(UserContext);
   const {isMobile, windowDimension} = props;
+
+
+  
 
   useEffect(() => {
     if (windowDimension[0] === 0) return;
@@ -67,11 +73,30 @@ export default function DailyPuzzzle(props) {
 
     setDailyPicks(() => {
       if (isMobile) {
-        return [...daily.reverse()]
+        return [...daily]
       };
       return [...daily];  
     }); // set data for display and module consumption
   }
+
+  //initial module completion check. Creates state for completedModules
+  useEffect(() => {
+    let completedArr = dailyPicks.map(pick  => {
+      if (pick.completed) {
+        return "Completed"
+      }
+    return "Incomplete"
+  })
+    setCompletedModules(completedArr)
+    console.log(completedModules)
+  }, [dailyPicks])
+
+//returns the completion percentage of modules to 
+  useEffect(() => {
+    let completedPercentage = completedModules.filter(item => item === "Completed").length / 3 * 100;
+    console.log(completedPercentage)
+    setPercent(completedPercentage)
+  },[completedModules])
  
   // displays "generating daily training" message and hides it after timer
   const setTimer = async () => {
@@ -108,6 +133,14 @@ export default function DailyPuzzzle(props) {
         </DailyPuzzleContainer>
         <SelectionContainer>
         <PuzzleWrapper>
+        <ProgressBarContainer>
+          <ProgressBar width={'100%'} height={15} percent={percent} filledBackground='linear-gradient(to right, #fefb72, #f0bb31'>
+          <Step transition="scale">{({accomplished})=> (<img alt='' style={{display:'none', filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30"/>)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="25"/>)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="25"/>)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="25"/>)}</Step>
+          </ProgressBar>
+          </ProgressBarContainer>
          {dailyPicks.map((module, index) => {
            if (module.category === 'opening') {
              return(

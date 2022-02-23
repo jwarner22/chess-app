@@ -607,7 +607,8 @@ export const Modules = [
           pawn: "d4",
           moves: "d2d4 g8f6 c2c4 g7g6 b1c3 f8g7 e2e4 d7d6 g1f3 e8g8 f1e2 e2e5 e1g1",
             img: require("../../../../../Images/open-book.svg").default
-    },{
+    }
+    ,{
         id: 64, // `eventually use random str as modules will be dynamic for each user and may change over time
         category: 'puzzle',
         type: 'endgame',

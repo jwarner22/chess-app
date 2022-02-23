@@ -144,10 +144,11 @@ export default function Puzzle(props) {
       let lastDaily = new Date(userProfileData.last_daily);
       // update user daily streak info
       if (lastDaily.getDate() !== now.getDate()) { // ensure no same day streak increase
-          updateUserData({...userProfileData, 
-            daily_streak: userData.daily_streak + 1, 
-            last_daily: Date.now()
-          }); // update streak (+1)
+        if (lastDaily.getDate() === (now.getDate() - 1)) { // ensure last daily completion was yesterday
+          updateUserData({...userProfileData, daily_streak: userData.daily_streak + 1, last_daily: Date.now()}); // update streak (+1)
+        } else {
+          updateUserData({...userProfileData, daily_streak: 1, last_daily: Date.now()}); // reset streak to 1
+        }
       }
       setCompletedTraining(true);
     }
