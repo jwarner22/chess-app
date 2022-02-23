@@ -2,3 +2,7 @@ fastapi
 uvicorn
 typing
 sqlalchemy
+starlette
+firebase-admin
+typing
+psycopg2
