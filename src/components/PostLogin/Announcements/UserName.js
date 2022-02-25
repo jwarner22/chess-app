@@ -5,7 +5,7 @@ import swal from 'sweetalert';
 import useFetch from '../../api/useFetch';
 import { baseURL } from '../../api/apiConfig';
 import {Container, Form, FormButton, FormH1, FormInput, FormLabel} from "../../Login/LoginElements"
-import {UserContext} from '../../../GlobalState';
+import {UserContext} from '../../../providers/GlobalState';
 
 
 const ENTER_KEY = 13;

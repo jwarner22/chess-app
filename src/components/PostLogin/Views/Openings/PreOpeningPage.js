@@ -5,7 +5,7 @@ import PrePuzzleTile from './OpeningComponents/PrePuzzleTiles';
 import InfoBox from "../../../UI_Kit/InfoBox/InfoBox";
 import {PageContainer} from "../../../UI_Kit/Page";
 
-import {UserContext} from '../../../../GlobalState'; // context
+import {UserContext} from '../../../../providers/GlobalState'; // context
 import { BackButtonWrapper } from '../../../Puzzle/Utilities/Progress';
 import BackButton from '../../../BackButton';
 

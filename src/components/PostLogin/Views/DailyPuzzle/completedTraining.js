@@ -10,7 +10,7 @@ import {FinishButton} from '../../../PostModule/PostModuleElements';
 import styled from "styled-components"
 
 // context
-import {UserContext} from '../../../../GlobalState'
+import {UserContext} from '../../../../providers/GlobalState'
 
 export default function CompletedTraining(props) {
   const [loading, setLoading] = useState(true);

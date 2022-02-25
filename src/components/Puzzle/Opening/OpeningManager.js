@@ -10,7 +10,7 @@ import Loader from '../../Loader.js';
 import {getAnalytics, logEvent} from "firebase/analytics";
 
 // Global context
-import {UserContext} from '../../../GlobalState';
+import {UserContext} from '../../../providers/GlobalState';
 
 // need to add to opening route and clean up props for child components and this componen
 export default function OpeningManager(props) {

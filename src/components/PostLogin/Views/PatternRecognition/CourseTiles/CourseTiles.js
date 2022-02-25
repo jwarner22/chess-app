@@ -16,7 +16,7 @@ import {TileWrapper,
 import {useWindowSize} from '../../../../Hooks/UseWindowSize';
 
 import { useContext } from "react";
-import { UserContext } from "../../../../../GlobalState";
+import { UserContext } from "../../../../../providers/GlobalState";
 
 function CourseTile(props){
     const windowSize = useWindowSize();

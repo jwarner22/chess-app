@@ -17,7 +17,7 @@ import Loader from '../../../Loader'
 import {wait} from '../../../Puzzle/Utilities/helpers'
 
 // context
-import {UserContext} from '../../../../GlobalState'
+import {UserContext} from '../../../../providers/GlobalState'
 
 export default function DailyPuzzzle(props) {
   // state variables

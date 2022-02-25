@@ -7,7 +7,7 @@ import {baseURL} from "../../../api/apiConfig";
 import useFetch from '../../../api/useFetch';
 import Loader from "../../../Loader";
 
-import {UserContext} from '../../../../GlobalState'
+import {UserContext} from '../../../../providers/GlobalState'
 
 const LeaderboardsPage = () => {
     const [isLoading, setIsLoading] = useState(true);

@@ -22,7 +22,7 @@ import {
   LoginHeaderLogo
 } from './LoginElements';
 import firebase from "firebase/compat/app";
-import {AuthContext} from '../Auth.js';
+import {AuthContext} from '../../providers/Auth.js';
 import Button from "../UI_Kit/Button/Button";
 import useFetch from "../api/useFetch";
 import {baseURL} from '../api/apiConfig';

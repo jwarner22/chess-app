@@ -10,7 +10,7 @@ import ModuleManager from '../Puzzle/ModuleManager.js';
 import PrePuzzle from '../PrePuzzle/PrePuzzle.js';
 
 // context
-import {UserContext} from '../../GlobalState';
+import {UserContext} from '../../providers/GlobalState';
 
 import usePrevious from "../Hooks/usePrevious";
 

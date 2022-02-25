@@ -10,7 +10,7 @@ import Loader from '../Loader';
 import {getAnalytics, logEvent} from "firebase/analytics";
 
 // Global context
-import {UserContext} from '../../GlobalState'
+import {UserContext} from '../../providers/GlobalState'
 
 
 export default function Puzzle(props) {

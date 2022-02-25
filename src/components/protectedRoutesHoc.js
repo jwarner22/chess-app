@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import { bool, any, object } from 'prop-types';
-import {AuthContext} from './Auth.js';
+import {AuthContext} from '../providers/Auth.js';
 // import {UserContext} from '../GlobalState'
 
 //This component checks to see if the user is logged in or not. 

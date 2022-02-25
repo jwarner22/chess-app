@@ -7,8 +7,8 @@ import './App.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import protectedRoutes from './components/protectedRoutes'
 import ProtectedRouteHoc from './components/protectedRoutesHoc'
-import {AuthProvider} from './components/Auth.js';
-import {UserProvider} from './GlobalState.js';
+import {AuthProvider} from './providers/Auth.js';
+import {UserProvider} from './providers/GlobalState.js';
 
 require("firebase/auth");
 

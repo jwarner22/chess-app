@@ -4,7 +4,7 @@ import ProfilePanel from "../../../ProfilePanel/ProfilePanel"
 import AchievementTiles from "../../../AchievementTiles/AchievementTiles"
 import {Modules} from '../PatternRecognition/CourseTiles/Data';
 
-import {UserContext} from '../../../../GlobalState'
+import {UserContext} from '../../../../providers/GlobalState'
 
 
 const ProfilePage = () => {

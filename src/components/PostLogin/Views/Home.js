@@ -11,7 +11,7 @@ import Openings from "./Openings/OpeningsDashboard";
 import Profile from "./ProfilePage/ProfilePage";
 import Leaderboards from "./Leaderboards/Leaderboards";
 import {useWindowSize} from '../../Hooks/UseWindowSize';
-import {UserContext} from '../../../GlobalState';
+import {UserContext} from '../../../providers/GlobalState';
 import Loader from '../../Loader';
 
 const Home = () => {
