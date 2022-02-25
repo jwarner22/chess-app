@@ -2,11 +2,11 @@
 import React, {useEffect} from "react";
 import ReactDOM from "react-dom";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
-import routes from "./routes.js";
+import routes from "./routes/routes.js";
 import './App.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import protectedRoutes from './components/protectedRoutes'
-import ProtectedRouteHoc from './components/protectedRoutesHoc'
+import protectedRoutes from './routes/protectedRoutes'
+import ProtectedRouteHoc from './routes/protectedRoutesHoc'
 import {AuthProvider} from './providers/Auth.js';
 import {UserProvider} from './providers/GlobalState.js';
 

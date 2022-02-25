@@ -1,8 +1,8 @@
 import React from "react";
-import LogIn from "./components/Login/LogIn";
-import SignUp from "./components/Signup/SignUp";
-import Home from "./components/Home/Home"
-import Loader from './components/Loader'
+import LogIn from "../components/Login/LogIn";
+import SignUp from "../components/Signup/SignUp";
+import Home from "../components/Home/Home"
+import Loader from '../components/Loader'
 
 const routes = [
   { name: "Home", path: "/", exact: true, main: () => <Home />},
