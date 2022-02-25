@@ -1,8 +1,8 @@
 //const options = ["Beginner", "Novice", "Intermediate", "Expert", "Master"]
 import {useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
-import useFetch from '../api/useFetch';
-import { baseURL } from '../api/apiConfig';
+import useFetch from '../../api/useFetch';
+import { baseURL } from '../../api/apiConfig';
 
 const CreateUser = (props) => {
     const index = props.location.state.index;

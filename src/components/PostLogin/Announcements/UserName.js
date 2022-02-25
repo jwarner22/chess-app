@@ -2,8 +2,8 @@ import React, {useEffect, useState, useContext} from 'react';
 import styled from "styled-components"
 import {withRouter} from 'react-router-dom';
 import swal from 'sweetalert';
-import useFetch from '../../api/useFetch';
-import { baseURL } from '../../api/apiConfig';
+import useFetch from '../../../api/useFetch';
+import { baseURL } from '../../../api/apiConfig';
 import {Container, Form, FormButton, FormH1, FormInput, FormLabel} from "../../Login/LoginElements"
 import {UserContext} from '../../../providers/GlobalState';
 

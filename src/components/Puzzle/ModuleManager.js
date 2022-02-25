@@ -2,10 +2,10 @@ import React, { useEffect, useState, useContext } from "react";
 import "./style.css";
 // import registerServiceWorker from "./registerServiceWorker";
 import PuzzlePage from "./PuzzleComponents/PuzzlePage";
-import {baseURL} from "../api/apiConfig";
+import {baseURL} from "../../api/apiConfig";
 import {calcScore, calcEloRating} from './Utilities/Scoring';
 import PostPuzzle from '../PostModule/PostModule';
-import useFetch from '../api/useFetch';
+import useFetch from '../../api/useFetch';
 import Loader from '../Loader';
 import {getAnalytics, logEvent} from "firebase/analytics";
 

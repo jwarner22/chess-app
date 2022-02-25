@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
-import useFetch from '../../../api/useFetch';
-import {baseURL} from '../../../api/apiConfig';
+import useFetch from '../../../../api/useFetch';
+import {baseURL} from '../../../../api/apiConfig';
 
 const OpeningsDashboardTest = () => {
     const {get} = useFetch(baseURL);

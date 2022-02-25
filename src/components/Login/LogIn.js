@@ -24,8 +24,8 @@ import {
 import firebase from "firebase/compat/app";
 import {AuthContext} from '../../providers/Auth.js';
 import Button from "../UI_Kit/Button/Button";
-import useFetch from "../api/useFetch";
-import {baseURL} from '../api/apiConfig';
+import useFetch from "../../api/useFetch";
+import {baseURL} from '../../api/apiConfig';
 
 import {getAnalytics, logEvent} from "firebase/analytics";
 

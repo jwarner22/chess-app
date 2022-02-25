@@ -1,6 +1,6 @@
 import React, { useEffect, useState, createContext, useContext } from "react";
-import useFetch from '../components/api/useFetch.js';
-import { baseURL } from "../components/api/apiConfig.js";
+import useFetch from '../api/useFetch.js';
+import { baseURL } from "../api/apiConfig.js";
 import {AuthContext} from '../providers/Auth';
 
 import {Modules} from '../data/ModuleData';

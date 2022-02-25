@@ -1,8 +1,8 @@
 import React, {useEffect, useState, useContext} from 'react';
 
 // custom fetch hook
-import useFetch from '../api/useFetch.js';
-import {baseURL} from '../api/apiConfig';
+import useFetch from '../../api/useFetch.js';
+import {baseURL} from '../../api/apiConfig';
 
 // components
 import Loader from '../Loader.js';

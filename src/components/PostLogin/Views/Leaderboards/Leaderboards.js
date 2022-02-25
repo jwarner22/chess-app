@@ -3,8 +3,8 @@ import {Container} from "../../../Login/LoginElements";
 import {LeaderboardContainer, LeaderboardHeaderContainer, LeaderboardHeaderWrapper, ComingSoonHeading, ComingSoonSubheading, LeaderboardSectionContainer} from "./LeaderboardElements"
 import LeaderboardLeagues from "./LeaderboardLeagues";
 import LeaderboardSection from './LeaderboardSection';
-import {baseURL} from "../../../api/apiConfig";
-import useFetch from '../../../api/useFetch';
+import {baseURL} from "../../../../api/apiConfig";
+import useFetch from '../../../../api/useFetch';
 import Loader from "../../../Loader";
 
 import {UserContext} from '../../../../providers/GlobalState'
