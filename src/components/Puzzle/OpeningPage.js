@@ -3,7 +3,7 @@ import DemoMoves from "./Opening/DemoMoves.jsx";
 //import Opening from "./Opening/Opening.jsx";
 import Opening from "./Opening/OpeningPuzzleManager";
 import {getOpeningMoves} from './Utilities/helpers.js';
-import Progress, { BackButtonWrapper } from './Utilities/Progress.jsx';
+import Progress, { BackButtonWrapper } from './Utilities/Progress.js';
 import OpeningNav from './Opening/OpeningNav.js';
 import correctSound from "../../assets/public_sound_standard_Confirmation.mp3";
 import incorrectSound from "../../assets/public_sound_standard_Error.mp3";
