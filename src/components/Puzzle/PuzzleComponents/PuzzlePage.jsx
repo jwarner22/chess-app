@@ -11,7 +11,7 @@ import errorSoundFile from "../../../assets/public_sound_standard_Error.mp3";
 import {Howl} from 'howler';
 import PuzzleNav from "./PuzzleNav"
 import styled from "styled-components"
-import {Modules} from "../../../data/Data"
+import {Modules} from "../../../data/ModuleData"
 import BlackIndicator from "./TurnIndicator/BlackIndicator"
 import WhiteIndicator from "./TurnIndicator/WhiteIndicator"
 import Lives from "./Lives/Lives"

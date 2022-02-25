@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from '../../../PostModule/PostModuleElements'
-import {Modules} from '../../../../data/Data';
+import {Modules} from '../../../../data/ModuleData';
 import Chart from '../../../PostModule/ScoreChart';
 
 const PostOpeningPage = (props) => {

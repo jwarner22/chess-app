@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from './PostModuleElements'
-import {Modules} from '../../data/Data';
+import {Modules} from '../../data/ModuleData';
 import Chart from './ScoreChart';
 import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import Button from '../UI_Kit/Button/Button';

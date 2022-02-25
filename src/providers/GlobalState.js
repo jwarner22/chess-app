@@ -3,7 +3,7 @@ import useFetch from '../components/api/useFetch.js';
 import { baseURL } from "../components/api/apiConfig.js";
 import {AuthContext} from '../providers/Auth';
 
-import {Modules} from '../data/Data';
+import {Modules} from '../data/ModuleData';
 
 const UserContext = createContext();
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components"
 import ProfilePanel from "../../../ProfilePanel/ProfilePanel"
 import AchievementTiles from "../../../AchievementTiles/AchievementTiles"
-import {Modules} from '../../../../data/Data';
+import {Modules} from '../../../../data/ModuleData';
 
 import {UserContext} from '../../../../providers/GlobalState'
 

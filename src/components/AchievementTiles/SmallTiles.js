@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Modules} from '../../data/Data'
+import {Modules} from '../../data/ModuleData'
 import {SmallTileContainer, 
     SmallTileWrapper, 
     SmallTileContent, 
