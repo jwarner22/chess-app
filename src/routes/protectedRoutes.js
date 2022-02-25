@@ -1,5 +1,5 @@
 import React from 'react';
-import Module from '../components/PostLogin/Module.js';
+import Module from '../components/Puzzle/Module.js';
 import PostPuzzleMockup from '../components/PostModule/PostModule';
 import PrePuzzlePage from "../components/PrePuzzle/PrePuzzle"
 import IntakeSurvey from '../components/IntakeSurvey/IntakeSurvey';

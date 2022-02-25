@@ -6,7 +6,7 @@ import {baseURL} from '../../api/apiConfig';
 
 // components
 import Loader from '../Loader.js';
-import ModuleManager from '../Puzzle/ModuleManager.js';
+import ModuleManager from './ModuleManager.js';
 import PrePuzzle from '../PrePuzzle/PrePuzzle.js';
 
 // context
