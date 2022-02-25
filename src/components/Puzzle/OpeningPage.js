@@ -20,7 +20,7 @@ import {PuzzlePageContainer,
 import {MobileHeaderContainer, 
   MobilePuzzleWrapper} from "../Puzzle/PuzzleComponents/MobilePuzzle/MobilePuzzleElements"
 import BackButton from "../BackButton.js";
-import {useWindowSize} from '../Hooks/UseWindowSize';
+import {useWindowSize} from '../../hooks/UseWindowSize';
 
 export default function OpeningModule(props) {
   const [isLoaded, setIsLoaded] = useState(false);

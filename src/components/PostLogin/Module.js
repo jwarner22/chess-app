@@ -12,7 +12,7 @@ import PrePuzzle from '../PrePuzzle/PrePuzzle.js';
 // context
 import {UserContext} from '../../providers/GlobalState';
 
-import usePrevious from "../Hooks/usePrevious";
+import usePrevious from "../../hooks/usePrevious";
 
 export default function Module(props) {
     const [rating, setRating] = useState();

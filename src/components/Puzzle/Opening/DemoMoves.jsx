@@ -6,7 +6,7 @@ import { wait } from "../Utilities/helpers.js";
 import moveSoundFile from "../../../assets/public_sound_standard_Move.mp3";
 import captureSoundFile from "../../../assets/public_sound_standard_Capture.mp3";
 
-import { useWindowSize } from "../../Hooks/UseWindowSize";
+import { useWindowSize } from "../../../hooks/UseWindowSize";
 
 import {Howl} from 'howler'
 

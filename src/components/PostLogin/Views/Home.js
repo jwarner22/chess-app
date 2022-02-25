@@ -10,7 +10,7 @@ import Practice from "./PatternRecognition/PatternRecognition";
 import Openings from "./Openings/OpeningsDashboard";
 import Profile from "./ProfilePage/ProfilePage";
 import Leaderboards from "./Leaderboards/Leaderboards";
-import {useWindowSize} from '../../Hooks/UseWindowSize';
+import {useWindowSize} from '../../../hooks/UseWindowSize';
 import {UserContext} from '../../../providers/GlobalState';
 import Loader from '../../Loader';
 

@@ -28,7 +28,7 @@ import {
   MobileHeaderContainer, 
   MobileContent} from "./MobilePuzzle/MobilePuzzleElements";
 
-import { useWindowSize } from "../../Hooks/UseWindowSize";
+import { useWindowSize } from "../../../hooks/UseWindowSize";
 import Timer from "./Timer/Timer";
 
 // import Stockfish from "./Stockfish";

@@ -13,7 +13,7 @@ import {TileWrapper,
     MotifStat
 } from "./CourseTileElements";
 
-import {useWindowSize} from '../../../../Hooks/UseWindowSize';
+import {useWindowSize} from '../../../../../hooks/UseWindowSize';
 
 import { useContext } from "react";
 import { UserContext } from "../../../../../providers/GlobalState";

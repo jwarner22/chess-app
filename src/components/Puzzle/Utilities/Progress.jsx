@@ -9,7 +9,7 @@ import Rook from '../../../Images/chess.svg';
 // src: https://github.com/react-component/progress
 //class Example extends React.Component<ProgressProps, any> {
 
-import {useWindowSize} from '../../Hooks/UseWindowSize';
+import {useWindowSize} from '../../../hooks/UseWindowSize';
 
 function Progress(props) {
     const [percent,setPercent] = useState(0);
