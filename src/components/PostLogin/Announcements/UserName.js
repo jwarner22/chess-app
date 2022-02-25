@@ -21,26 +21,38 @@ const UserName = ({history}) => {
     const userId = history.location.state.userId;
 
     useEffect(() => {
-        if (confirmation) {
-            setMessage('Username is available')
-        } else if (confirmation == null) {
-            setMessage('')
-        } else {
-            setMessage('Username is already been taken')
+        // if (confirmation) {
+        //     setMessage('Username is available')
+        // } else if (confirmation == null) {
+        //     setMessage('')
+        // } else {
+        //     setMessage('Username is already been taken')
+        // }
+        if (confirmation ===  '') {
+            return setMessage('')
         }
     },[confirmation])
 
     const getUserNameValidation = async (value) => {
+        
+        if (value.length < 3) { 
+            setConfirmation(false);
+            setMessage('Username must be at least 3 characters long')
+            return false
+        }
         // check if username is available
         let response = await get('/users/username/' + value)
 
         if (response === 'username is available') {
             // render username available message
+            setMessage('Username is available')
             setConfirmation(true);
             return true;
         
         } else if (response === 'username already exists') {
             // render username taken message
+            setMessage('Username is already been taken')
+
             setConfirmation(false);
             return false;
         } 
