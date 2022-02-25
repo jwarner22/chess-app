@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {useEffect} from "react";
 import ReactDOM from "react-dom";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import routes from "./routes.js";
@@ -20,30 +20,9 @@ require("firebase/auth");
 
 function App() {
 
-  //const [windowDimension, setWindowDimension] = useState(null);
-  //const [isOpen, setIsOpen] = useState(false);
-  
-  //hamburger sidebar menu
-  // const toggle = () => {
-  //   setIsOpen(!isOpen)
-  // }
-
-  // useEffect(() => {
-  //   setWindowDimension(window.innerWidth);
-  // }, []);
-
-  // useEffect(() => {
-  //   function handleResize() {
-  //     setWindowDimension(window.innerWidth);
-  //   }
-
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-  //console.log('rendered app')
-
-  //const isMobile = windowDimension <= 640;
-
+  useEffect(() => {
+    document.title = " Elo Elevation";
+  },[])
   return(
     <>
     <AuthProvider>
@@ -51,15 +30,6 @@ function App() {
       {/*Is logged in? {JSON.stringify(isLoggedIn)}*/}
       {/*console.log({isloggedin: JSON.stringify(isLoggedIn)})*/}
         <Router>
-        {/* {isMobile ? (
-          <MobileNavbar />  
-        ) : (
-          <>
-            <DashboardNavbar toggle={toggle}/>
-            <DashSidebar isOpen={isOpen} toggle={toggle} />
-            </>
-        )
-    }  */}
           <Route render={({location}) => (
             // <TransitionGroup>
             // <CSSTransition
