@@ -3,7 +3,7 @@ import styled from "styled-components";
 import MotifMenu from "./MotifMenu/MotifMenu";
 import FooterBuffer from '../../../UI_Kit/FooterBuffer';
 import Button from '../../../UI_Kit/Button/Button';
-import {Modules} from './CourseTiles/Data';
+import {Modules} from '../../../../data/Data';
 import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
 import CourseTile from './CourseTiles/CourseTiles';
 

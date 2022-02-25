@@ -10,7 +10,7 @@ import { DailyPuzzleContainer,
   GeneratingTrainingContainer} from "./DailyPuzzleElements";
 import headerImg from "./../../../../Images/DailyPuzzleIcon.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
-import {Modules} from "../../Views/PatternRecognition/CourseTiles/Data"
+import {Modules} from "../../../../data/Data"
 import Loader from '../../../Loader'
 
 // utilities

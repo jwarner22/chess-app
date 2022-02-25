@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Modules} from '../PostLogin/Views/PatternRecognition/CourseTiles/Data'
+import {Modules} from '../../data/Data'
 import {SmallTileContainer, 
     SmallTileWrapper, 
     SmallTileContent, 
