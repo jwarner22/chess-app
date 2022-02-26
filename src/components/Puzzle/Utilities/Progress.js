@@ -3,11 +3,9 @@ import { Circle } from "rc-progress";
 import styled from "styled-components"
 import "react-step-progress-bar/styles.css";
 import {ProgressBar, Step} from 'react-step-progress-bar';
-// import rook svg from Images
-import Rook from '../../../Images/chess.svg';
+import Checkpoint from '../../../Images/chess.svg';
 
 // src: https://github.com/react-component/progress
-//class Example extends React.Component<ProgressProps, any> {
 
 import {useWindowSize} from '../../../hooks/UseWindowSize';
 
@@ -81,12 +79,12 @@ function Progress(props) {
             {isMobile ? (
               <HeaderWrapperMobile>
             <ProgressBar  width={'100%'} height={15} percent={percent} filledBackground='linear-gradient(to right, #fefb72, #f0bb31'>
-              <Step transition="scale">{({accomplished})=> (<img alt='' style={{display:'none', filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
-              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
-              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
-              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
-              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
-              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{display:'none', filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Checkpoint} />)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Checkpoint} />)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Checkpoint} />)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Checkpoint} />)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Checkpoint} />)}</Step>
+              <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Checkpoint} />)}</Step>
               </ProgressBar>
               </HeaderWrapperMobile>) : (
           <HeaderWrapper >
@@ -102,10 +100,10 @@ function Progress(props) {
         {isMobile ? (
           <HeaderWrapperMobile>
         <ProgressBar  width={'100%'} height={15} percent={percent} filledBackground='linear-gradient(to right, #fefb72, #f0bb31'>
-          <Step transition="scale">{({accomplished})=> (<img alt='' style={{display:'none', filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
-          <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
-          <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
-          <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Rook} />)}</Step>
+          <Step transition="scale">{({accomplished})=> (<img alt='' style={{display:'none', filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Checkpoint} />)}</Step>
+          <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Checkpoint} />)}</Step>
+          <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Checkpoint} />)}</Step>
+          <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30" src={Checkpoint} />)}</Step>
           </ProgressBar>
           </HeaderWrapperMobile>) : (
       <HeaderWrapper >

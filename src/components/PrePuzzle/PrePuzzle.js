@@ -25,7 +25,7 @@ import BenefitsContainer from '../UI_Kit/Boxes/Containers/Benefits';
 
 const PrePuzzlePage = (props) => {
     const module = Modules.find(element => element.type_ref === props.moduleData.theme);    
-
+    console.log({prepuzzle: props})
     function handleStartButtonClick() {
         props.togglePrePuzzleCallback()
     }

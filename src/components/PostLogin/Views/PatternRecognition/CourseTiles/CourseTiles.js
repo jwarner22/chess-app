@@ -28,6 +28,7 @@ function CourseTile(props){
 
     useEffect(() => {
         if (!contextLoading) {
+
             if (!themesData.some(theme => theme.title === props.type_ref)) {
                 setRating(userData.initial_rating);
                 return;
@@ -81,6 +82,7 @@ function CourseTile(props){
                         <InfoModalIcon src={info} onClick={handleOpenModal}/>
                         <InfoModal openModal={openModal} setOpenModal={setOpenModal} />
                     </InfoModalWrapper> */}
+                    {props.category !== 'opening' &&
                     <MotifTileStatWrapper>
                         <MotifStatTitle>
                             Elo Rating
@@ -89,6 +91,7 @@ function CourseTile(props){
                             {contextLoading ? null: rating}
                         </MotifStat>
                     </MotifTileStatWrapper>
+                }
                 </TileButtonWrap>
 
                 )}
