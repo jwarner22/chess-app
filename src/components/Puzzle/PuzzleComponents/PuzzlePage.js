@@ -384,7 +384,6 @@ export const PuzzlePageGrid = styled.div `
     grid-template-rows: min-content;
     align-items: center;
     padding: 60px 4px 0px 4px; */
-  }
   `
 
 export const PuzzleBoardContainer = styled.div`
