@@ -65,8 +65,9 @@ export default function PuzzlePage(props) {
   const [promotion, setPromotion] = useState("x");
   const [startTime, setStartTime] = useState(null);
   const [times, setTimes] = useState([]);
-  const [toggleTimer, setToggleTimer] = useState(true)
-  const [lives, setLives] = useState(3)
+  const [toggleTimer, setToggleTimer] = useState(true);
+  const [lives, setLives] = useState(3);
+  const [chessboardSize, setChessboardSize] = useState(0);
   // const [confirmationSound, setConfirmationSound] = useState(null);
   // const [errorSound, setErrorSound] = useState(null);
   const [boardKey, setBoardKey] = useState(0);
@@ -79,6 +80,21 @@ export default function PuzzlePage(props) {
   const isMobile = windowDimensions[0] < 640;
 
   const title = getModuleTitle(props.theme)
+
+//sets the size of the chessboard
+  // useEffect(() => {
+  //   function handleResize() {
+  //     const display = document.getElementsByClassName('container')[0];
+  //     console.log(display)
+  //     setChessboardSize(display.offsetWidth - 20);
+  //     console.log('board dimemensions set')
+  //   }
+
+  //   window.addEventListener('resize', handleResize);
+  //   handleResize();
+  //   return () => window.removeEventListener('resize', handleResize);
+  // },[]);
+
 
   // set instances and cleanup to avoid memory leaks
   useEffect(() => {
@@ -239,9 +255,9 @@ export default function PuzzlePage(props) {
             <MobilePuzzleWrapper>
               <MobileHeaderContainer>
                   <Header>{title}</Header>
-                </MobileHeaderContainer>
+                </MobileHeaderContainer >
                 {/* <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} /> */}
-                  <PuzzleBoard
+                  <PuzzleBoard className="container"
                     key={boardKey}
                     fen={fen}
                     retry={retry}
@@ -275,7 +291,7 @@ export default function PuzzlePage(props) {
         <PuzzlePageWrapper>
           <PuzzlePageGrid>
             <PuzzleBoardContainer>
-              <PuzzleBoardWrapper>
+              <PuzzleBoardWrapper className='container'>
                 {/* <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} /> */}
                   <PuzzleBoard
                     key={boardKey}
