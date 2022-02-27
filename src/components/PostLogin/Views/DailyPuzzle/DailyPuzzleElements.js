@@ -44,7 +44,7 @@ export const DailyPuzzleModuleStyle = styled.div`
     margin: 16px 32px;
     background: ${props => {
         if (props.locked) return`
-        rgba(218, 218, 218, 0.7)
+        rgba(218, 218, 218, 1)
         `
         else if (props.type === 'endgame') return`
             #00a6a6;
@@ -65,6 +65,8 @@ export const DailyPuzzleModuleStyle = styled.div`
     max-width: 800px;
     grid-gap: 8px;
     grid-template-rows: min-content min-content;
+    z-index: 999;
+    position: relative;
 
 
     &:hover {
@@ -165,8 +167,11 @@ export const PuzzleDescripton = styled.p`
 export const PuzzleWrapper = styled.div`
     display: flex; 
     flex-direction: column;
-`
 
+    @media screen and (max-width: 640px){
+        flex-direction: column-reverse;
+    }
+`
 export const SelectionContainer = styled.div`
     display: flex;
     padding-bottom: 40px;
@@ -182,4 +187,18 @@ export const GeneratingTrainingContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+`
+
+export const ProgressBarContainer = styled.div`
+    position: relative;
+    transform: rotate(90deg);
+    align-items: center;
+    bottom: -50%;
+    left: -28%;
+    z-index: 1;
+
+    @media screen and (max-width: 640px) {
+        bottom: 50%;
+        transform: rotate(270deg);
+    }
 `
