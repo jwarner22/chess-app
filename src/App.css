@@ -52,7 +52,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px;
+  max-width: 550px;
   margin: auto;
   width: 100%;
 }

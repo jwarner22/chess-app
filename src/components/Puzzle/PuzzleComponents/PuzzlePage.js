@@ -382,7 +382,7 @@ export const PuzzlePageGrid = styled.div `
     grid-template-columns: 2fr 1fr;
     max-width: 1080px;
     grid-gap: 16px;
-    padding: 24px 16px;
+    padding: 80px 16px 0px 16px;
     justify-content: center;
     grid-template-rows: minmax(300px, auto);
     align-items: center;
@@ -423,7 +423,7 @@ export const RightPuzzlePanelContainer = styled.div`
     height: auto;
     min-width: 300px;
     justify-content: center;
-    padding: 60px 0;
+    padding-top: 60px;
 
     /* @media screen and (max-width: 900px){
     grid-column: 1;
