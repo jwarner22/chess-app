@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import * as ChessJS from "chess.js";
 import { Chessboard } from "react-chessboard";
 
@@ -39,28 +39,50 @@ export default function PuzzleBoard(props) {
   const [openModal, setOpenModal] = useState(false);
   const [promotion, setPromotion] = useState("x");
   const [moveHighlightSquare,setMoveHighlightSquare] = useState("");
+  const [chessboardSize, setChessboardSize] = useState(0);
+  const [sendWidth, setSendWidth] = useState(0)
   //const [width, setWidth] = useState(0)
   const windowSizeWidth = useWindowSize()[0];
-  const [width, setWidth] = useState(windowSizeWidth);
 
   //const prevPromotion = usePrevious(props.promotion);
   const prevCorrect = usePrevious(props.correctMove);
   const prevInitial = usePrevious(props.initialFen);
   
 
-  const { correctMove, opposingMove, outcomeCallback} = props;
+  const { correctMove, opposingMove, outcomeCallback, boardWidth} = props;
 
-  // manage board resize
+
+  const boardRef = useRef();
+
+
   useEffect(() => {
-    if (windowSizeWidth < 640){
-      setWidth(windowSizeWidth)
-    } else if (windowSizeWidth > 640 && windowSizeWidth < 1300){
-        setWidth(window.innerWidth / 2)
-    } else if (windowSizeWidth >= 1300) {
-        setWidth(650)
+    if( loaded === true ) {
+    function handleResize() {
+      const display = document.getElementsByClassName('container')[0];
+      console.log(display)
+      setChessboardSize(display.offsetWidth - 20);
+      console.log('board dimemensions set')
     }
-  }, [windowSizeWidth])
 
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }},[loaded]);
+
+  // useEffect(() => {
+  //   if (chessboardSize != 0 && loaded === true){
+  //     setSendWidth(chessboardSize)
+  //   }
+  //   else {
+  //     return null
+  //   }
+  //   console.log(sendWidth)
+  // },)
+
+
+  const width = boardWidth
+  // manage board resize
+  console.log(width)
   // EFFECTS
 
   // play initial move after all is rendered and timed delay for animation
@@ -424,6 +446,7 @@ export default function PuzzleBoard(props) {
   if (loaded) {
   return (
     <>
+    <div className="container">
     <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} />
     <Chessboard
       position={game.fen()}
@@ -442,12 +465,14 @@ export default function PuzzleBoard(props) {
         ...rightClickedSquares,
         ...inCheckSquare
       }}
-      boardWidth={width}
+      boardWidth={chessboardSize}
       animationDuration={200}
     />
+    </div>
     </>
   );
     } else {
       return null;
     }
 }
+

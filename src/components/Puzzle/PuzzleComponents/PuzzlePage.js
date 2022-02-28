@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useRef} from "react";
 
 //import PuzzleBoard from "./PuzzleBoard";
 import PuzzleBoard from "../PuzzleManager.js";
@@ -15,6 +15,7 @@ import {Modules} from "../../../data/ModuleData"
 import BlackIndicator from "./TurnIndicator/BlackIndicator"
 import WhiteIndicator from "./TurnIndicator/WhiteIndicator"
 import Lives from "./Lives/Lives"
+import '../../../App.css'
 
 // import PromotionalModal from "../../PostLogin/PromotionModal/PromotionalModal"
 // import BackButton from "../../BackButton"
@@ -68,6 +69,7 @@ export default function PuzzlePage(props) {
   const [toggleTimer, setToggleTimer] = useState(true);
   const [lives, setLives] = useState(3);
   const [chessboardSize, setChessboardSize] = useState(0);
+  const [sendWidth, setSendWidth] = useState(0)
   // const [confirmationSound, setConfirmationSound] = useState(null);
   // const [errorSound, setErrorSound] = useState(null);
   const [boardKey, setBoardKey] = useState(0);
@@ -80,21 +82,46 @@ export default function PuzzlePage(props) {
   const isMobile = windowDimensions[0] < 640;
 
   const title = getModuleTitle(props.theme)
+  
 
-//sets the size of the chessboard
+  const boardRef = useRef();
+
+
   // useEffect(() => {
-  //   function handleResize() {
-  //     const display = document.getElementsByClassName('container')[0];
-  //     console.log(display)
-  //     setChessboardSize(display.offsetWidth - 20);
-  //     console.log('board dimemensions set')
-  //   }
+  //   if( loaded === true ){
+  //     const boardWidth = ("width", boardRef.current.offsetWidth); 
+  //     return boardWidth
+  // }}, [loaded])
 
-  //   window.addEventListener('resize', handleResize);
-  //   handleResize();
-  //   return () => window.removeEventListener('resize', handleResize);
-  // },[]);
+  // useEffect(() => {
+  //   window.addEventListener("resize", getBoardSize)
+  // },[])
 
+// console.log(chessboardSize)
+// //sets the size of the chessboard
+//   useEffect(() => {
+//     if( loaded === true ) {
+//     function handleResize() {
+//       const display = document.getElementsByClassName('container')[0];
+//       console.log(display)
+//       setChessboardSize(display.offsetWidth - 20);
+//       console.log('board dimemensions set')
+//     }
+
+//     window.addEventListener('resize', handleResize);
+//     handleResize();
+//     return () => window.removeEventListener('resize', handleResize);
+//   }},[loaded]);
+
+//   useEffect(() => {
+//     if (chessboardSize != 0 && loaded === true){
+//       setSendWidth(chessboardSize)
+//     }
+//     else {
+//       return null
+//     }
+//     console.log(sendWidth)
+//   }, [chessboardSize, loaded])
 
   // set instances and cleanup to avoid memory leaks
   useEffect(() => {
@@ -257,7 +284,8 @@ export default function PuzzlePage(props) {
                   <Header>{title}</Header>
                 </MobileHeaderContainer >
                 {/* <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} /> */}
-                  <PuzzleBoard className="container"
+                  <div className="container" ref={boardRef}>
+                  <PuzzleBoard 
                     key={boardKey}
                     fen={fen}
                     retry={retry}
@@ -269,6 +297,7 @@ export default function PuzzlePage(props) {
                     onPromotion={handlePromotion}
                     moveIndicator={moveIndicator}
                   />
+                  </div>
                   <div >
                       <ProgressBar category={"puzzle"} outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
                   </div>
@@ -291,8 +320,9 @@ export default function PuzzlePage(props) {
         <PuzzlePageWrapper>
           <PuzzlePageGrid>
             <PuzzleBoardContainer>
-              <PuzzleBoardWrapper className='container'>
+              <PuzzleBoardWrapper>
                 {/* <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} /> */}
+                  <div className="container" ref={boardRef}>
                   <PuzzleBoard
                     key={boardKey}
                     fen={fen}
@@ -305,6 +335,7 @@ export default function PuzzlePage(props) {
                     onPromotion={handlePromotion}
                     moveIndicator={moveIndicator}
                   />
+                  </div>
               </PuzzleBoardWrapper>
             </PuzzleBoardContainer>
               <RightPuzzlePanelContainer>
@@ -381,19 +412,18 @@ export const PuzzlePageWrapper = styled.div`
     height: 100%;
     justify-content: center;
     flex-direction: column;
+    align-items: center;
 `
 
 export const PuzzlePageGrid = styled.div `
     display: grid;
-    grid-template-columns: minmax(300px, auto) min-content;
-    max-width: 100%;
+    grid-template-columns: 2fr 1fr;
+    max-width: 1080px;
     grid-gap: 16px;
     padding: 24px 16px;
     justify-content: center;
     grid-template-rows: minmax(300px, auto);
     align-items: center;
-    margin-bottom: 36px;
-
   /* @media screen and (max-width: 900px){
     grid-template-columns: minmax(250px, 600px);
     flex-direction: column;

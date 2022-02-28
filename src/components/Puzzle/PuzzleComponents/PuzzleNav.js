@@ -28,7 +28,7 @@ const PuzzleNav = (props) => {
     }
 
     return (
-        <MobileNavbarWrapper>
+        <PuzzleNavbarWrapper>
             <PuzzleNavContainer>
                 <BackButtonWrapper>
                     <BackButtonArrow onClick={() => handleClick()}>Back</BackButtonArrow>
@@ -46,15 +46,16 @@ const PuzzleNav = (props) => {
                         </NextButtonSpan>
                     </NextButtonLink>
             </PuzzleNavContainer>
-        </MobileNavbarWrapper>
+        </PuzzleNavbarWrapper>
     )
 }
 
 export default PuzzleNav
 
-// const PuzzleNavbarWrapper = styled(MobileNavbarWrapper)`
-//     position: relative;
-// `
+const PuzzleNavbarWrapper = styled(MobileNavbarWrapper)`
+    position: relative;
+    min-height: 70px;
+`
 
 export const PuzzleNavbarItems = styled.ul`
     display: grid;
