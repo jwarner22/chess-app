@@ -6,7 +6,7 @@ import InfoBox from "../../../UI_Kit/InfoBox/InfoBox";
 import {PageContainer} from "../../../UI_Kit/Page";
 
 import {UserContext} from '../../../../providers/GlobalState'; // context
-import { BackButtonWrapper } from '../../../Puzzle/Utilities/Progress';
+import { BackButtonWrapper } from '../../../Module/Utilities/Progress';
 import BackButton from '../../../BackButton';
 
 const PreOpeningPage = (props) => {

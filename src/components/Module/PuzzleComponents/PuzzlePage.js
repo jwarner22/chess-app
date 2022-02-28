@@ -3,22 +3,18 @@ import React, { useState, useEffect, useRef} from "react";
 import PuzzleBoard from "../PuzzleManager.js";
 import ProgressBar from "../Utilities/Progress";
 
-import {getMoves} from '../Utilities/helpers.js';
 import confirmationSoundFile from "../../../assets/public_sound_standard_Confirmation.mp3";
 import errorSoundFile from "../../../assets/public_sound_standard_Error.mp3";
-//import buttonSoundFile from "../../../assets/click_005.ogg";
 import {Howl} from 'howler';
-import PuzzleNav from "./PuzzleNav"
-import styled from "styled-components"
-import BlackIndicator from "./TurnIndicator/BlackIndicator"
-import WhiteIndicator from "./TurnIndicator/WhiteIndicator"
-import Lives from "./Lives/Lives"
-import '../../../App.css'
+import PuzzleNav from "./PuzzleNav";
+import styled from "styled-components";
+import BlackIndicator from "./TurnIndicator/BlackIndicator";
+import WhiteIndicator from "./TurnIndicator/WhiteIndicator";
+import Lives from "./Lives/Lives";
+import '../../../App.css';
 
+import {getMoves} from '../Utilities/helpers.js';
 import {getModuleTitle} from "../Utilities/helpers.js"
-// import PromotionalModal from "../../PostLogin/PromotionModal/PromotionalModal"
-// import BackButton from "../../BackButton"
-// import {BackButtonWrapper} from "../Utilities/Progress"
 
 // import useDebugInformation from "../../Hooks/useDebugInformation";
 // import useRenderCount from "../../Hooks/useRenderCount";

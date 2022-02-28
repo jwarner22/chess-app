@@ -10,10 +10,10 @@ import {PromoModalContainer,
     PromoBishopImg,
     PromoKnightImg
 } from "./PromotionalModalElements"
-import queen from "../../Puzzle/chess/pieces/nova/wQ.svg";
-import rook from "../../Puzzle/chess/pieces/nova/wR.svg";
-import bishop from "../../Puzzle/chess/pieces/nova/wB.svg"
-import knight from "../../Puzzle/chess/pieces/nova/wN.svg"
+import queen from "../../Module/chess/pieces/nova/wQ.svg";
+import rook from "../../Module/chess/pieces/nova/wR.svg";
+import bishop from "../../Module/chess/pieces/nova/wB.svg"
+import knight from "../../Module/chess/pieces/nova/wN.svg"
 
 function PromotionalModal(props) {
     const {openModal, onPromotionSelection} = props;

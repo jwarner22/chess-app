@@ -16,7 +16,7 @@ import Loader from '../../../Loader';
 import {ProgressBar, Step} from 'react-step-progress-bar';
 
 // utilities
-import {wait} from '../../../Puzzle/Utilities/helpers'
+import {wait} from '../../../Module/Utilities/helpers'
 
 // context
 import {UserContext} from '../../../../providers/GlobalState'

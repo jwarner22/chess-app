@@ -16,9 +16,9 @@ import {PuzzlePageContainer,
   PuzzleBoardContainer, 
   PuzzleBoardWrapper, 
   RightPuzzlePanelContainer, 
-  PercentCompleted} from "../Puzzle/PuzzleComponents/PuzzlePage"
+  PercentCompleted} from "../Module/PuzzleComponents/PuzzlePage"
 import {MobileHeaderContainer, 
-  MobilePuzzleWrapper} from "../Puzzle/PuzzleComponents/MobilePuzzle/MobilePuzzleElements"
+  MobilePuzzleWrapper} from "../Module/PuzzleComponents/MobilePuzzle/MobilePuzzleElements"
 import BackButton from "../BackButton.js";
 import {useWindowSize} from '../../hooks/UseWindowSize';
 
