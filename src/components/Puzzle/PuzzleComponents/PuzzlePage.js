@@ -68,8 +68,6 @@ export default function PuzzlePage(props) {
   const [times, setTimes] = useState([]);
   const [toggleTimer, setToggleTimer] = useState(true);
   const [lives, setLives] = useState(3);
-  const [chessboardSize, setChessboardSize] = useState(0);
-  const [sendWidth, setSendWidth] = useState(0)
   // const [confirmationSound, setConfirmationSound] = useState(null);
   // const [errorSound, setErrorSound] = useState(null);
   const [boardKey, setBoardKey] = useState(0);
@@ -86,42 +84,6 @@ export default function PuzzlePage(props) {
 
   const boardRef = useRef();
 
-
-  // useEffect(() => {
-  //   if( loaded === true ){
-  //     const boardWidth = ("width", boardRef.current.offsetWidth); 
-  //     return boardWidth
-  // }}, [loaded])
-
-  // useEffect(() => {
-  //   window.addEventListener("resize", getBoardSize)
-  // },[])
-
-// console.log(chessboardSize)
-// //sets the size of the chessboard
-//   useEffect(() => {
-//     if( loaded === true ) {
-//     function handleResize() {
-//       const display = document.getElementsByClassName('container')[0];
-//       console.log(display)
-//       setChessboardSize(display.offsetWidth - 20);
-//       console.log('board dimemensions set')
-//     }
-
-//     window.addEventListener('resize', handleResize);
-//     handleResize();
-//     return () => window.removeEventListener('resize', handleResize);
-//   }},[loaded]);
-
-//   useEffect(() => {
-//     if (chessboardSize != 0 && loaded === true){
-//       setSendWidth(chessboardSize)
-//     }
-//     else {
-//       return null
-//     }
-//     console.log(sendWidth)
-//   }, [chessboardSize, loaded])
 
   // set instances and cleanup to avoid memory leaks
   useEffect(() => {

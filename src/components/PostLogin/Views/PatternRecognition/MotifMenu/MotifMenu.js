@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import MenuTile from '../../../../UI_Kit/PuzzleMenu/MenuTile';
 import styled from 'styled-components'
-import { Link as LinkS } from "react-scroll"
-import {animateScroll as scroll} from 'react-scroll'
 import { MenuGrid, 
     MenuWrapper } from '../../../../UI_Kit/PuzzleMenu/MenuTileElements';
 import {ReactComponent as Endgame} from "../../../../../Images/kingIconBlue.svg";

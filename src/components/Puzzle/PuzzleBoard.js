@@ -11,7 +11,6 @@ import moveSoundFile from "../../assets/public_sound_standard_Move.mp3";
 import captureSoundFile from "../../assets/public_sound_standard_Capture.mp3";
 
 import usePrevious from "../../hooks/usePrevious";
-import { useWindowSize } from "../../hooks/UseWindowSize";
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
@@ -40,9 +39,6 @@ export default function PuzzleBoard(props) {
   const [promotion, setPromotion] = useState("x");
   const [moveHighlightSquare,setMoveHighlightSquare] = useState("");
   const [chessboardSize, setChessboardSize] = useState(0);
-  const [sendWidth, setSendWidth] = useState(0)
-  //const [width, setWidth] = useState(0)
-  const windowSizeWidth = useWindowSize()[0];
 
   //const prevPromotion = usePrevious(props.promotion);
   const prevCorrect = usePrevious(props.correctMove);

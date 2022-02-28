@@ -21,7 +21,7 @@ import { UserContext } from "../../../../../providers/GlobalState";
 function CourseTile(props){
     const windowSize = useWindowSize();
     const isMobile = windowSize[0] <= 640;
-    const {headline, subheading, img, pawn} = props
+    const {headline, subheading, img} = props
     const linkUrl = (props.category === 'opening') ? `/opening` : `/dashboard/module`;
     const {themesData, contextLoading, userData} = useContext(UserContext);
     const [rating, setRating] = useState(0);

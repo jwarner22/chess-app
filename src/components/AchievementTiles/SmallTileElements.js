@@ -1,4 +1,3 @@
-import React from "react"
 import styled from "styled-components"
 
 export const SmallTileContainer = styled.li`
@@ -85,7 +84,7 @@ export const SmallTileIcon = styled.img`
 export const SmallTileTitle = styled.div`
     font-style: normal;
     font-weight: bold;
-    font-size: 12px
+    font-size: 12px;
     line-height: 14px;
     display: flex;
     align-items: center;
@@ -103,7 +102,7 @@ export const ProgressBarWrapper = styled.div`
     margin-left: 20px;
     margin-right: 8px;
     min-height: 8px;
-    grid-column: 2
+    grid-column: 2;
     grid-row: 2;
 `
 

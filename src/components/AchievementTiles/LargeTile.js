@@ -1,20 +1,10 @@
-import React from 'react'
-import {LargeTileContainer, 
-    TileIcon, 
-    LargeTileWrapper, 
-    LargeTileContent, 
-    LargeTileIconWrapper, 
-    LargeTileTitle, 
-    LargeTileData, 
-    LargeTileTip, 
+import {
     StatContainer, 
     StatWrapper, 
     StatImage, 
     StatTitle,
 StatContentWrapper,
 Stat} from "./LargeTileElements"
-import icon from "../../Images/Aim.png"
-import icon2 from "../../Images/rating.png"
 
 
 

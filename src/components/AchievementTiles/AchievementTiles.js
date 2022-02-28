@@ -10,14 +10,11 @@ import flame from "../../Images/fireSVG.svg"
 import target from "../../Images/targetSVG.svg"
 import crown from "../../Images/crownSVG.svg"
 import rook from "../../Images/rookSVG.svg"
-import SectionHeader from '../SectionHeaders/SectionHeader'
 import CategoryTitle from '../UI_Kit/CategoryTitle/CategoryTitle'
 
 
 const AchievementTiles = (props) => {
     const {achievements, overallRating, dailyStreak, totalScore} = props;
-    const statsSection = `Statistics`;
-    const achievementSection = `Achievements`;
     const [lazyVisible, setLazyVisible] = useState(false);
 
     useEffect(() => {

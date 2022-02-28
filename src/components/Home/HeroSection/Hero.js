@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";//import { AuthContext } from
 import styled from 'styled-components'
 import Button from '../../UI_Kit/Button/Button';
 import {NavBtnLink2} from "../NavBar/NavbarElements"
-import { NavBtnLink } from '../../PostLogin/DashboardNavbar/DashboardNavElements';
 
 const HeroSection = () => {
     // const { currentUser } = useContext(AuthContext);
