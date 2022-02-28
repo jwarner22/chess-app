@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef} from "react";
 
-//import PuzzleBoard from "./PuzzleBoard";
 import PuzzleBoard from "../PuzzleManager.js";
 import ProgressBar from "../Utilities/Progress";
 
@@ -11,12 +10,12 @@ import errorSoundFile from "../../../assets/public_sound_standard_Error.mp3";
 import {Howl} from 'howler';
 import PuzzleNav from "./PuzzleNav"
 import styled from "styled-components"
-import {Modules} from "../../../data/ModuleData"
 import BlackIndicator from "./TurnIndicator/BlackIndicator"
 import WhiteIndicator from "./TurnIndicator/WhiteIndicator"
 import Lives from "./Lives/Lives"
 import '../../../App.css'
 
+import {getModuleTitle} from "../Utilities/helpers.js"
 // import PromotionalModal from "../../PostLogin/PromotionModal/PromotionalModal"
 // import BackButton from "../../BackButton"
 // import {BackButtonWrapper} from "../Utilities/Progress"
@@ -36,10 +35,11 @@ import Timer from "./Timer/Timer";
 // move functions to utils file
 
 
-const getModuleTitle = (name) => {
-  const module = Modules.find(module => module.type_ref === name)
-  return module.headline
-}
+// const getModuleTitle = (name) => {
+//   const module = Modules.find(module => module.type_ref === name)
+//   return module.headline
+// }
+
 
 const sound = {
   confirmation: new Howl({src: [confirmationSoundFile]}),
@@ -68,8 +68,10 @@ export default function PuzzlePage(props) {
   const [times, setTimes] = useState([]);
   const [toggleTimer, setToggleTimer] = useState(true);
   const [lives, setLives] = useState(3);
+  const [bonuses, setBonuses] = useState([]);
+  const [currentBonus, setCurrentBonus] = useState(null);
   // const [confirmationSound, setConfirmationSound] = useState(null);
-  // const [errorSound, setErrorSound] = useState(null);
+  //const [errorSound, setErrorSound] = useState(null);
   const [boardKey, setBoardKey] = useState(0);
   const [loaded, setLoaded] = useState(false);
   // const confirmationSound = new Howl({src: confirmationSoundFile})
@@ -87,16 +89,12 @@ export default function PuzzlePage(props) {
 
   // set instances and cleanup to avoid memory leaks
   useEffect(() => {
-    // setConfirmationSound(() => new Howl({src: confirmationSoundFile}));
-    // setErrorSound(() => new Howl({src: errorSoundFile}));
+
     setCorrectMoves(() => getMoves(puzzleData[0].moves));
     setLoaded(true);
     return () => {
       if (sound.confirmation.playing()) sound.confirmation.stop();
       if (sound.error.playing()) sound.error.stop();
-
-      // setConfirmationSound(() => null);
-      // setErrorSound(() => null);
     }
   } , [])
 
@@ -128,9 +126,28 @@ export default function PuzzlePage(props) {
     }
   },[lives])
 
+  useEffect(() => {
+    console.log('times effect')
+    console.log({times: times})
+    // calculate score bonus based on time with <30 seconds = full bonus of 100
+    // calculate score bonus based on time with 30 seconds < time < 60 seconds = bonus of 50
+    // calculate score bonus based on time with 60 seconds < time < 120 seconds = bonus of 25
+    // calculate score bonus based on time with 120 seconds < time < 180 seconds = bonus of 10
+    if (times.length > 0 && bonuses.length < times.length) { // only calculate if there are times to compare
+      let timesCopy = [...times];
+      const currentTime = timesCopy.pop()/1000; // puzzle completion time in seconds
+      console.log(currentTime)
+      const bonus = currentTime < 30 ? 50 : currentTime < 60 ? 25 : currentTime < 120 ? 10 : currentTime < 180 ? 5 : 0;
+      console.log({bonus: bonus})
+      console.log({bonuses: bonuses})
+      setCurrentBonus(bonus);
+      setBonuses(prev => [...prev, bonus])
+    }
+  },[times])
+
   // puzzle module is finished
   const finished = () => {
-    props.puzzleIsFinished(outcomes, 'succeed', times);
+    props.puzzleIsFinished(outcomes, 'succeed', times, bonuses);
   }
 
   // module failed
