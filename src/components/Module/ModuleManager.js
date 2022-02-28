@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./style.css";
 // import registerServiceWorker from "./registerServiceWorker";
-import PuzzlePage from "./PuzzleComponents/PuzzlePage";
+import PuzzlePage from "./Puzzle/PuzzlePage";
 import {baseURL} from "../../api/apiConfig";
 import {calcScore, calcEloRating} from './Utilities/Scoring';
 import PostPuzzle from '../PostModule/PostModule';

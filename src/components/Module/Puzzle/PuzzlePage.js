@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef} from "react";
 
-import PuzzleBoard from "../PuzzleManager.js";
+import PuzzleBoard from "./PuzzleManager.js";
 import ProgressBar from "../Utilities/Progress";
 
 import confirmationSoundFile from "../../../assets/public_sound_standard_Confirmation.mp3";
