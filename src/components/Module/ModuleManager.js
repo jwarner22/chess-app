@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./style.css";
 // import registerServiceWorker from "./registerServiceWorker";
-import PuzzlePage from "./PuzzleComponents/PuzzlePage";
+import PuzzlePage from "./Puzzle/PuzzlePage";
 import {baseURL} from "../../api/apiConfig";
 import {calcScore, calcEloRating} from './Utilities/Scoring';
 import PostPuzzle from '../PostModule/PostModule';
@@ -55,7 +55,7 @@ export default function Puzzle(props) {
   }
 
   // updates theme data and sends to API
-  async function saveResults(outcomes, times) {
+  async function saveResults(outcomes, times, bonuses) {
 
     // score change
     if (outcomes.every(result => result === true)) {
@@ -79,7 +79,10 @@ export default function Puzzle(props) {
     themeData.completed += 1; // adds 1 to number of puzzles completed
     console.log({outcome: outcomes, times: times, puzzles:puzzles})
     let score = calcScore(outcomes,puzzles, times) // calculate score
+    let bonus = bonuses.reduce((a,b) => a+b, 0) // sum bonuses
+    score = score + bonus; // add bonuses to score
     console.log({score: score})
+    
     if (themeData.high_score < score) {
       let diff = score - themeData.high_score; // change from previous high score
       themeData.high_score = score; // new high score!
@@ -155,13 +158,13 @@ export default function Puzzle(props) {
   }
 
   // callback function when puzzle is finished (currently only success)
- const puzzleIsFinished = async (results, result, times) => {
+ const puzzleIsFinished = async (results, result, times, bonuses) => {
    
    logEvent(analytics, 'module_completed', {'user': userId, 'isDaily': isDaily}); // log module completion to firebase
-
+    console.log({bonuses: bonuses})
    setSavingResults(true)
    setOutcomes(prevOutcomes => [...prevOutcomes,results])
-   await saveResults(results, times);
+   await saveResults(results, times, bonuses);
 
    if (result === 'fail') setFailure(true);
 

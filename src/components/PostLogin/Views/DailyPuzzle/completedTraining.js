@@ -5,7 +5,7 @@ import {AchievementTileContainer,
   AchievementTileWrapper
   } from "../../../AchievementTiles/AchievementTilesElements"
 import ConfettiGenerator from 'confetti-js';
-import queenImg from '../../../Puzzle/chess/pieces/nova/wQ.svg';
+import queenImg from '../../../Module/chess/pieces/nova/wQ.svg';
 import {FinishButton} from '../../../PostModule/PostModuleElements';
 import styled from "styled-components"
 

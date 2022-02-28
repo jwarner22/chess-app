@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import DemoMoves from "./Opening/DemoMoves.jsx";
+import DemoMoves from "./DemoMoves.jsx";
 //import Opening from "./Opening/Opening.jsx";
-import Opening from "./Opening/OpeningPuzzleManager";
-import {getOpeningMoves} from './Utilities/helpers.js';
-import Progress, { BackButtonWrapper } from './Utilities/Progress.js';
-import OpeningNav from './Opening/OpeningNav.js';
-import correctSound from "../../assets/public_sound_standard_Confirmation.mp3";
-import incorrectSound from "../../assets/public_sound_standard_Error.mp3";
+import Opening from "./OpeningPuzzleManager";
+import {getOpeningMoves} from '../Utilities/helpers.js';
+import Progress, { BackButtonWrapper } from '../Utilities/Progress.js';
+import OpeningNav from './OpeningNav.js';
+import correctSound from "../../../assets/public_sound_standard_Confirmation.mp3";
+import incorrectSound from "../../../assets/public_sound_standard_Error.mp3";
 import styled from "styled-components";
 
 import {Howl} from 'howler'
@@ -16,11 +16,11 @@ import {PuzzlePageContainer,
   PuzzleBoardContainer, 
   PuzzleBoardWrapper, 
   RightPuzzlePanelContainer, 
-  PercentCompleted} from "../Puzzle/PuzzleComponents/PuzzlePage"
+  PercentCompleted} from "../Puzzle/PuzzlePage"
 import {MobileHeaderContainer, 
-  MobilePuzzleWrapper} from "../Puzzle/PuzzleComponents/MobilePuzzle/MobilePuzzleElements"
-import BackButton from "../BackButton.js";
-import {useWindowSize} from '../../hooks/UseWindowSize';
+  MobilePuzzleWrapper} from "../Puzzle/MobilePuzzle/MobilePuzzleElements"
+import BackButton from "../../BackButton.js";
+import {useWindowSize} from '../../../hooks/UseWindowSize';
 
 export default function OpeningModule(props) {
   const [isLoaded, setIsLoaded] = useState(false);

@@ -19,7 +19,7 @@ PrePuzzleTileContainer} from "./PrePuzzleElements";
 import Button from "../UI_Kit/Button/Button"
 import {DailyPuzzleIcon} from "../PostLogin/Views/DailyPuzzle/DailyPuzzleElements"
 import {Modules} from '../../data/ModuleData';
-import { BackButtonWrapper } from '../Puzzle/Utilities/Progress';
+import { BackButtonWrapper } from '../Module/Utilities/Progress';
 import BackButton from '../BackButton';
 import BenefitsContainer from '../UI_Kit/Boxes/Containers/Benefits';
 

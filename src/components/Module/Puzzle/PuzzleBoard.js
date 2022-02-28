@@ -3,14 +3,14 @@ import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import * as ChessJS from "chess.js";
 import { Chessboard } from "react-chessboard";
 
-import PromotionalModal from "../PostLogin/PromotionModal/PromotionalModal"
+import PromotionalModal from "../../PostLogin/PromotionModal/PromotionalModal"
 
 
 import {Howl} from 'howler';
-import moveSoundFile from "../../assets/public_sound_standard_Move.mp3";
-import captureSoundFile from "../../assets/public_sound_standard_Capture.mp3";
+import moveSoundFile from "../../../assets/public_sound_standard_Move.mp3";
+import captureSoundFile from "../../../assets/public_sound_standard_Capture.mp3";
 
-import usePrevious from "../../hooks/usePrevious";
+import usePrevious from "../../../hooks/usePrevious";
 
 const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 

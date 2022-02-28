@@ -2,7 +2,7 @@ import {useState, useContext} from 'react'
 
 import PostOpeningPage from '../../PostLogin/Views/Openings/PostOpeningPage';
 import PreOpeningPage from '../../PostLogin/Views/Openings/PreOpeningPage';
-import OpeningPage from '../OpeningPage.js'
+import OpeningPage from './OpeningPage.js'
 // import useFetch from '../../api/useFetch';
 import Loader from '../../Loader.js';
 

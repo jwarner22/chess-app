@@ -161,6 +161,8 @@ async def read_user(user_id: str, db: Session = Depends(get_db)):
 @app_v1.get('/users/{user_id}/all', response_model=schemas.User, tags=["User"])
 async def read_user_all(user_id: str, db: Session=Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+    print(db_user)
+    
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
