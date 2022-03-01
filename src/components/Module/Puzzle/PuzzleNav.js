@@ -151,7 +151,7 @@ const BackButtonArrow = styled(BsFillReplyFill)`
     fill: #242424;
     width: 32px;
     height: 32px;
-    transform: scaleX(-1);
+    /* transform: scaleX(-1); */
 `
 
 const RetryIcon = styled(Retry)`
