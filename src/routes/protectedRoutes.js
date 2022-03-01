@@ -1,17 +1,18 @@
 import React from 'react';
-import Module from '../components/Module/Module.js';
-import PostPuzzleMockup from '../components/PostModule/PostModule';
-import PrePuzzlePage from "../components/PrePuzzle/PrePuzzle"
 import IntakeSurvey from '../components/IntakeSurvey/IntakeSurvey';
 import CreateUser from '../components/IntakeSurvey/CreateUser';
-import Opening from '../components/Module/Opening/OpeningManager';
 import BrandPage from '../components/BrandPage/BrandPage';
 import UserName from '../components/PostLogin/Announcements/UserName';
 import CompletedTraining from '../components/PostLogin/Views/DailyPuzzle/completedTraining';
 import Settings from '../components/PostLogin/Views/Settings/Settings';
-import Home from '../components/PostLogin/Views/Home';
 import FeatureSuggestion from '../components/PostLogin/Views/FeatureSuggestion/FeatureSuggestion.js';
 import OpeningsDashboardTest from '../components/PostLogin/Views/Openings/OpeningsDashboardTest.js'; 
+import Module from "../components/Module/Module"
+
+const PrePuzzlePage = React.lazy(() => import('../components/PrePuzzle/PrePuzzle'));
+const Opening = React.lazy(() => import('../components/Module/Opening/OpeningManager'));
+const Home = React.lazy(() => import('../components/PostLogin/Views/Home'));
+
 
 const protectedRoutes = [
 	{

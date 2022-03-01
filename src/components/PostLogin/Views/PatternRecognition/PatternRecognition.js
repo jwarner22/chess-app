@@ -6,6 +6,7 @@ import Button from '../../../UI_Kit/Button/Button';
 import {Modules} from '../../../../data/ModuleData';
 import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
 import CourseTile from './CourseTiles/CourseTiles';
+import {Link} from 'react-router-dom'
 
 
 const Dashboard = () => {
@@ -33,11 +34,11 @@ const Dashboard = () => {
     </FeatureSuggestionButton>
     </Link>
     */}
-    {/* <Link to='/openings-dashboard-test/e2e4 e7e5'>
+    <Link to='/openings-dashboard-test/e2e4 e7e5'>
     <FeatureSuggestionButton primary>
       openings test
     </FeatureSuggestionButton>
-    </Link> */}
+    </Link>
     <DashboardWrapper>
         <MotifMenu 
         toggle={toggle}

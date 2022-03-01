@@ -11,6 +11,10 @@
   font-family: 'Encode Sans Expanded', sans-serif;
 }
 
+iframe{
+  pointer-events: none;
+}
+
 a {
   color: #54606c;
 }
