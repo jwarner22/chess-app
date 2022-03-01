@@ -1,14 +1,6 @@
-import React from "react"
 import {NavLink} from "react-router-dom"
 import styled from "styled-components"
-import { IoCalendarClearOutline } from "react-icons/io5"
-import { IoBookOutline,IoCalendar } from "react-icons/io5"
-import { AiOutlineUser } from "react-icons/ai";
-import { IoExtensionPuzzleOutline, IoRibbonSharp } from "react-icons/io5";
-import { MdLeaderboard } from "react-icons/md";
-import { HiPuzzle } from "react-icons/hi";
-import { FaBookOpen,FaUser } from "react-icons/fa";
-import { BsFillCalendar3Fill } from "react-icons/bs";
+
 
 export const MobileNavbarWrapper = styled.ul`
     position: fixed;
@@ -20,7 +12,7 @@ export const MobileNavbarWrapper = styled.ul`
     /* margin-top: 8px 0px; */
     z-index: 9999;
     width: 95%;
-    margin: auto;
+    margin: 24px auto;
     margin-bottom: 18px;
     border-radius: 35px;
     box-shadow:rgba(0, 0, 0, 0.2) 0px 10px 50px;

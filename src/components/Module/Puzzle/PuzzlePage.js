@@ -255,7 +255,7 @@ export default function PuzzlePage(props) {
   }
 
   return (
-    <div>
+    <>
       <PuzzlePageContainer>
 
         {isMobile ? (<>
@@ -292,9 +292,10 @@ export default function PuzzlePage(props) {
                       <BlackIndicator />
                      )}
                 </IndicatorWrapper>
-                  <PuzzleNav category={"puzzle"} disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
                   </MobileContent>
+                  <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
                 </MobilePuzzleWrapper>
+                
           </>) : (
           <>
         <PuzzlePageWrapper>
@@ -343,7 +344,7 @@ export default function PuzzlePage(props) {
       </>
         )}
      </PuzzlePageContainer>
-    </div>
+    </>
   );
 }
 
@@ -384,11 +385,11 @@ export const PuzzlePageContainer = styled.div`
     top: 0; 
     position: absolute;
     height: 100%;
+    background-image: linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
 `
 export const PuzzlePageWrapper = styled.div`
     display: flex;
     width: 100%;
-    background-image: linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
     height: 100%;
     justify-content: center;
     flex-direction: column;
