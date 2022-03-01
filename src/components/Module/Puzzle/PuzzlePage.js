@@ -149,7 +149,7 @@ export default function PuzzlePage(props) {
   // module failed
   const fail = () => {
     // await wait(1000)
-    props.puzzleIsFinished(outcomes, 'fail', times)
+    props.puzzleIsFinished(outcomes, 'fail', times, bonuses);
   }
 
   // track next puzzle
