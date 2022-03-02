@@ -85,7 +85,7 @@ const UserProvider = ({ children }) => {
 
         let user =  {...response};
         if (user.detail === 'User not found') return; // pessimistic check
-        console.log(user)
+
         delete user.themes;
         delete user.openings;
         delete user.daily_puzzles;
@@ -262,7 +262,6 @@ const UserProvider = ({ children }) => {
     // OPENINGS
     const updateOpenings = async (openingId, data) => {
         setLoading(() => true);
-        console.log({openings: openings, openingId: openingId, data:data});
         // check if opening is already in openings array
         if (openings.some(opening => opening.opening_id === openingId)) {
             let endpoint = `/openings/${auth.userId}/${openingId}`; 

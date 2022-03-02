@@ -7,7 +7,7 @@ const OpeningsDashboardTest = () => {
     const {get} = useFetch(baseURL);
     const [openingModules, setOpeningModules] = useState([]);
     const {moves} = useParams();
-    console.log({moves: moves});
+
     useEffect(() => {
         console.log('fetch new openings')
         fetchOpenings();

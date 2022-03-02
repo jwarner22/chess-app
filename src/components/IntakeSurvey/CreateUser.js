@@ -7,7 +7,6 @@ import { baseURL } from '../../api/apiConfig';
 const CreateUser = (props) => {
     const index = props.location.state.index;
     let userId = props.location.state.userId;
-    console.log(props)
     const ratings = [800,1000,1200,1400,1600];
     const {post} = useFetch(baseURL);
     const history = useHistory();
@@ -20,7 +19,6 @@ const CreateUser = (props) => {
     const createNewUser = (props) => {
         let rating = ratings[index];
         let currentDateTime = new Date().toString()
-        console.log(userId, rating, currentDateTime)
         post('/users', {
             user_id: `${userId}`,
             overall_rating: rating,

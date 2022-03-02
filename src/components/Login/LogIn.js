@@ -47,11 +47,6 @@ const Login = ({history}) => {
   //const Auth = useContext(AuthContext);
 
   useEffect(() => {
-    console.log({
-      currentUser: currentUser,
-      isLoggedIn: isLoggedIn,
-      isSaved: isSaved
-    })
     if (currentUser && isLoggedIn && isSaved) {
       logEvent(analytics, "login", {'user': currentUser.uid});
       history.push('/home/daily')
@@ -114,7 +109,6 @@ const Login = ({history}) => {
 
   // fetches backend and persists user data across app
   const setUserData = async (response, userId) => {
-    console.log({userId: userId})
     if (response.additionalUserInfo.isNewUser) {
       history.push({pathname: '/survey', state: {userId: userId}});
       console.log('new user')

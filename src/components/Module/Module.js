@@ -84,7 +84,6 @@ export default function Module(props) {
     }
 
     const createModule = async () => {
-        console.log({userData: userData})
         post(`/users/${userId}/themes`,{
                 title: moduleData.theme,
                 category: moduleData.category,

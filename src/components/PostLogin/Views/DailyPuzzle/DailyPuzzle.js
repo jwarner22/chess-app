@@ -86,13 +86,13 @@ export default function DailyPuzzzle(props) {
     return "Incomplete"
   })
     setCompletedModules(completedArr)
-    console.log(completedModules)
+
   }, [dailyPicks])
 
 //returns the completion percentage of modules to 
   useEffect(() => {
     let completedPercentage = completedModules.filter(item => item === "Completed").length / 3 * 100;
-    console.log(completedPercentage)
+
     setPercent(completedPercentage)
   },[completedModules])
 

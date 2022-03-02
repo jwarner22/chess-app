@@ -77,11 +77,10 @@ export default function Puzzle(props) {
     }
     themeData.rating = newRating
     themeData.completed += 1; // adds 1 to number of puzzles completed
-    console.log({outcome: outcomes, times: times, puzzles:puzzles})
+
     let score = calcScore(outcomes,puzzles, times) // calculate score
     let bonus = bonuses.reduce((a,b) => a+b, 0) // sum bonuses
     score = score + bonus; // add bonuses to score
-    console.log({score: score})
     
     if (themeData.high_score < score) {
       let diff = score - themeData.high_score; // change from previous high score
@@ -161,7 +160,7 @@ export default function Puzzle(props) {
  const puzzleIsFinished = async (results, result, times, bonuses) => {
    
    logEvent(analytics, 'module_completed', {'user': userId, 'isDaily': isDaily}); // log module completion to firebase
-    console.log({bonuses: bonuses})
+
    setSavingResults(true)
    setOutcomes(prevOutcomes => [...prevOutcomes,results])
    await saveResults(results, times, bonuses);

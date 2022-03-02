@@ -26,7 +26,7 @@ const ProfilePage = () => {
   
 
   const fetchProfileData = async() => {
-    console.log({userData})
+
     await calcOverallRating(userData);     // get overall rating
     const streak = userData.daily_streak; // set values for profile page
     let date = new Date(userData.inserted_at); // set join date

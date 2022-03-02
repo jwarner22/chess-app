@@ -55,7 +55,6 @@ export default function PuzzleBoard(props) {
     if( loaded === true ) {
     function handleResize() {
       const display = document.getElementsByClassName('container')[0];
-      console.log(display)
       setChessboardSize(display.offsetWidth - 20);
       console.log('board dimemensions set')
     }
@@ -78,7 +77,6 @@ export default function PuzzleBoard(props) {
 
   const width = boardWidth
   // manage board resize
-  console.log(width)
   // EFFECTS
 
   // play initial move after all is rendered and timed delay for animation
