@@ -24,12 +24,14 @@ const protectedRoutes = [
 		path: '/dashboard/module',
 		main: props => <Module {...props} />,
 		public: false
-	},{
-		name: "PostPuzzlePage",
-		path: "/PuzzleComplete",
-		exact: true,
-		main: () => <PostPuzzleMockup />
-	}, {
+	}
+	//,{
+	// 	name: "PostPuzzlePage",
+	// 	path: "/PuzzleComplete",
+	// 	exact: true,
+	// 	main: () => <PostPuzzleMockup />
+	// }
+	, {
 		name: "PrePuzzlePage",
 		path: "/PuzzleInfo",
 		exact: true,

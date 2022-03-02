@@ -35,7 +35,9 @@ async def middleware(request: Request, call_next):
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "https://chess-app-frontend.vercel.app"
+    "https://chess-app-frontend.vercel.app",
+    "https://eloelevation.com",
+    "https://www.eloelevation.com"
 ]
 
 app.add_middleware(
