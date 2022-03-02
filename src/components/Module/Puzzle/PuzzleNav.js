@@ -2,7 +2,7 @@ import React from 'react'
 import styled from "styled-components"
 import {useHistory} from "react-router-dom"
 import swal from 'sweetalert';
-import { BsFillReplyFill } from "react-icons/bs";
+import { BsBoxArrowInLeft } from "react-icons/bs";
 import {ReactComponent as Retry} from "../../../Images/retry.svg"
 import {ReactComponent as Next} from "../../../Images/right-arrow.svg"
 import {MobileNavbarWrapper} from '../../PostLogin/MobileNavBar/MobileNabarElements'
@@ -147,7 +147,7 @@ const BackButtonWrapper = styled.div`
     text-align: center;
 `
 
-const BackButtonArrow = styled(BsFillReplyFill)`
+const BackButtonArrow = styled(BsBoxArrowInLeft)`
     fill: #242424;
     width: 32px;
     height: 32px;

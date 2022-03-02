@@ -7,11 +7,14 @@ import CompletedTraining from '../components/PostLogin/Views/DailyPuzzle/complet
 import Settings from '../components/PostLogin/Views/Settings/Settings';
 import FeatureSuggestion from '../components/PostLogin/Views/FeatureSuggestion/FeatureSuggestion.js';
 import OpeningsDashboardTest from '../components/PostLogin/Views/Openings/OpeningsDashboardTest.js'; 
-import Module from "../components/Module/Module"
+import Module from "../components/Module/Module";
+import PrePuzzlePage from '../components/PrePuzzle/PrePuzzle';
+import Opening from "../components/Module/Opening/OpeningManager";
+import Home from "../components/PostLogin/Views/Home"
 
-const PrePuzzlePage = React.lazy(() => import('../components/PrePuzzle/PrePuzzle'));
-const Opening = React.lazy(() => import('../components/Module/Opening/OpeningManager'));
-const Home = React.lazy(() => import('../components/PostLogin/Views/Home'));
+// const PrePuzzlePage = React.lazy(() => import('../components/PrePuzzle/PrePuzzle'));
+// const Opening = React.lazy(() => import('../components/Module/Opening/OpeningManager'));
+// const Home = React.lazy(() => import('../components/PostLogin/Views/Home'));
 
 
 const protectedRoutes = [

@@ -29,7 +29,7 @@ function App() {
       <UserProvider>
       {/*Is logged in? {JSON.stringify(isLoggedIn)}*/}
       {/*console.log({isloggedin: JSON.stringify(isLoggedIn)})*/}
-      <React.Suspense fallback={<span>Loading...</span>}>
+      {/* <React.Suspense fallback={<span>Loading...</span>}> */}
         <Router>
           <Route render={({location}) => (
             // <TransitionGroup>
@@ -61,7 +61,7 @@ function App() {
           // </TransitionGroup>
           )} />
         </Router>
-        </React.Suspense>
+        {/* </React.Suspense> */}
         </UserProvider>
     </AuthProvider>
     </>
