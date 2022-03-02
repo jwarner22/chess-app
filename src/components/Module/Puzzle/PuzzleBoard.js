@@ -74,14 +74,15 @@ export default function PuzzleBoard(props) {
   //   console.log(sendWidth)
   // },)
 
-
-  const width = boardWidth
   // manage board resize
   // EFFECTS
 
   // play initial move after all is rendered and timed delay for animation
   useLayoutEffect(() => {
-
+    setOrientation(() => {
+      let g = new Chess(props.initialFen);
+      return g.turn() === "w" ? "black" : "white";
+    })
     // setMoveSound(new Howl({src: moveSoundFile}));
     // setCaptureSound(new Howl({src: captureSoundFile}));
     setGame(() => new Chess(props.initialFen));
@@ -137,9 +138,16 @@ export default function PuzzleBoard(props) {
     console.log("initialMove");
     let from = props.initialMove.substring(0,2);
     let to = props.initialMove.substring(2);
+    let promotion = "q";
+    if (props.initialMove.length === 5) { 
+      to = props.initialMove.substring(2,4);
+      promotion = props.initialMove.substring(4); 
+    }
 
     safeGameMutate((game) => {
-      let m = game.move({ from: from, to: to });
+      console.log(from, to, promotion);
+      let m = game.move({ from: from, to: to, promotion: promotion});
+      console.log(m);
       if (m == null) return;
       if (m.flags === "c") { 
         // captureSound.play();
