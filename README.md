@@ -11,8 +11,14 @@ In an effort to learn full-stack development to gain a better understanding of m
 
 
 # Project Screenshots
-
 ![Readme_recording2](https://user-images.githubusercontent.com/68365410/156669773-4118bfc0-115d-47bd-8eaa-085b15803da1.gif)
 
-Try it out!
-[Beta Site](https://chess-app-frontend.vercel.app/)
+
+# Product Features
+* Personized daily workouts generated specifically for you!
+* Over 1.5 million puzzles categorized by type and motif. 
+* Elo rating for individual motifs. 
+* Opening memorization modules. 
+* Daily streak tracker. 
+* Achievements for each motif. 
+* A leaderboard so you can compare your total score to other beta testers. 
