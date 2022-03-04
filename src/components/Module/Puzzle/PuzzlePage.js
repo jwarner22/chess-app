@@ -317,7 +317,7 @@ export default function PuzzlePage(props) {
     let now = Date.now();
     if (toggleTimer) {
       dispatch({ type: "START_TIMER", payload: now });
-      setStartTime(now)
+      setStartTime(now);
     } else {
       setTimes(prevTimes => [...prevTimes, now - startTime])
     }
@@ -427,7 +427,7 @@ export default function PuzzlePage(props) {
                   <div className="container" ref={boardRef}>
                   <PuzzleBoard
                     key={boardKey}
-                    fen={state.fen}
+                    fen={fen}
                     retry={retry}
                     correctMoves={correctMoves}
                     unlockNext={unlockNext}
