@@ -24,6 +24,7 @@ import {
 
 import { useWindowSize } from "../../../hooks/UseWindowSize";
 import Timer from "./Timer/Timer";
+import Score from "./ScoreAnimation.js";
 
 // import useDebugInformation from "../../Hooks/useDebugInformation";
 // import useRenderCount from "../../Hooks/useRenderCount";
@@ -181,7 +182,10 @@ export default function PuzzlePage(props) {
   const [toggleTimer, setToggleTimer] = useState(true);
   const [lives, setLives] = useState(3);
   const [bonuses, setBonuses] = useState([]);
-  const [currentBonus, setCurrentBonus] = useState(null);
+  const [currentBonus, setCurrentBonus] = useState(0);
+  const [score, setScore] = useState(0);
+  // const [confirmationSound, setConfirmationSound] = useState(null);
+  //const [errorSound, setErrorSound] = useState(null);
   const [boardKey, setBoardKey] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
@@ -240,17 +244,39 @@ export default function PuzzlePage(props) {
 
   useEffect(() => {
     if (times.length > 0 && bonuses.length < times.length) { // only calculate if there are times to compare
-      const bonus = bonusCalc(times);
+      // const bonus = bonusCalc(times);
 
-      setCurrentBonus(bonus);
+      // setCurrentBonus(bonus);
+      let timesCopy = [...times];
+      const currentTime = timesCopy.pop()/1000; // puzzle completion time in seconds
+      console.log(currentTime)
+      const bonus = currentTime < 30 ? 50 : currentTime < 60 ? 25 : currentTime < 120 ? 10 : currentTime < 180 ? 5 : 0;
+      console.log({bonus: bonus})
+      console.log({bonuses: bonuses})
       setBonuses(prev => [...prev, bonus])
     }
   },[times])
 
+  //if a bonus has been added to the bonuses array, set current bonus to the last element in the array (the most recent bonus)
   useEffect(() => {
-    
-  }, [currentBonus])
+    if (bonuses.length > 0)
+    setCurrentBonus(bonuses[bonuses.length -1]);
+    resetCurrentBonus()
+  }, [bonuses])
 
+  //resets current bonus back to 0
+  const resetCurrentBonus = () => {
+    setTimeout(() => {
+      setCurrentBonus(0)
+    }, 3000);
+  }
+  // async function resetCurrentBonus() {
+  //   let bonusReset = new Promise(function(resolve) {
+  //     setTimeout(function() {resolve(setCurrentBonus(0), 3000)})
+  //   })
+  //   await bonusReset;
+
+  // }
 
   // puzzle module is finished
   const finished = () => {
@@ -407,6 +433,11 @@ export default function PuzzlePage(props) {
                   <Lives lives={lives} isMobile={isMobile} />
                   </TimerAndLivesContainer>
                   <MobileContent>
+                    
+                  <Score currentBonus={currentBonus}>
+                    {currentBonus}
+                  </Score> 
+                
                   <IndicatorWrapper>
                     {(moveColor === "white") ? (
                       <WhiteIndicator /> ) : (
@@ -458,6 +489,11 @@ export default function PuzzlePage(props) {
                     <Timer toggleTimer={toggleTimer} count={count}/>
                     <Lives lives={lives} isMobile={isMobile} />
                   </TimerAndLivesContainer>
+                  
+                  <Score currentBonus={currentBonus}>
+                    {currentBonus}
+                  </Score> 
+                  
               </RightPuzzlePanelContainer>
           </PuzzlePageGrid>
           <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
