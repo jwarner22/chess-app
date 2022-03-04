@@ -22,3 +22,14 @@ In an effort to learn full-stack development to gain a better understanding of m
 * Daily streak tracker. 
 * Achievements for each motif. 
 * A leaderboard so you can compare your total score to other beta testers. 
+
+## Intended future additions
+* Integrate the content deliver algorithms into Lichess.org and Chess.com's APIs to get more a more granular user profile by using in-game positions and data. 
+* More in-depth analytics and data visualization.  
+* Peer to peer messaging.
+* An in-game reward system.
+* List on the Apple App Store. 
+* Profile picture upload.
+* Dark mode. 
+* Increase the complexity and accuracy of the scoring algorithms.
+* Opening tree 'mastery' roadmap. 
