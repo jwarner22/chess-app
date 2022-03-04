@@ -376,7 +376,7 @@ export default function PuzzlePage(props) {
 
   const handleRetryClick = () => {
 
-    dispatch({ type: "RETRY" });
+    dispatch({ type: "RETRY", payload: puzzleData[count] });
 
     //playSound("button")
     setRetry(true);
