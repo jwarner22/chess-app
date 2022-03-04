@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { Link } from "react-router-dom";
 import {TileWrapper, 
     TileHeadline, 
@@ -49,7 +49,7 @@ function CourseTile(props){
     return (
         <>
         <TileIconWrap>
-            <TileIconImg src={img} loading={'lazy'}/>
+            <TileIconImg src={img} loading={'over-eager'}/>
         </TileIconWrap>
         <TileHeadline>
             {headline}
@@ -108,4 +108,4 @@ function CourseTile(props){
 }
 
 
-export default CourseTile
+export default React.memo(CourseTile)

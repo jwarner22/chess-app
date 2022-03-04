@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { BenefitsFlexbox, BenefitsImg, BenefitsText } from './BenefitsContainerElements';
 import { BenefitsTitle, BenefitsWrapper } from './BenefitsContainerElements';
 import {BenefitsData} from "../../../../data/BenefitsData"
@@ -9,7 +9,7 @@ const Benefits = (props) => {
   const {category, headline} = props;
   const [headlineData, setHeadlineData] = useState([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getBenefits();
   },[headline]) 
 

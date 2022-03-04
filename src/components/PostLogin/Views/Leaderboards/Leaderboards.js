@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useLayoutEffect, useContext} from 'react'
 import {Container} from "../../../Login/LoginElements";
 import {LeaderboardContainer, LeaderboardHeaderContainer, LeaderboardHeaderWrapper, ComingSoonHeading, ComingSoonSubheading, LeaderboardSectionContainer} from "./LeaderboardElements"
 import LeaderboardLeagues from "./LeaderboardLeagues";
@@ -19,7 +19,7 @@ const LeaderboardsPage = () => {
     const {userId} = useContext(UserContext);
 
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         fetchLeaderboard();
     },[])
 

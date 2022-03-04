@@ -21,7 +21,7 @@ import {DailyPuzzleIcon} from "../PostLogin/Views/DailyPuzzle/DailyPuzzleElement
 import {Modules} from '../../data/ModuleData';
 import { BackButtonWrapper } from '../Module/Utilities/Progress';
 import BackButton from '../BackButton';
-import BenefitsContainer from '../UI_Kit/Boxes/Containers/Benefits';
+import Benefits from '../UI_Kit/Boxes/Containers/Benefits';
 
 const PrePuzzlePage = (props) => {
     const module = Modules.find(element => element.type_ref === props.moduleData.theme);    
@@ -71,7 +71,7 @@ const PrePuzzlePage = (props) => {
                                 </HighScore>
                             </StatsGrid>
                         </StatsWrapper>
-                        <BenefitsContainer headline={module.headline} category={module.type} />
+                        <Benefits headline={module.headline} category={module.type} />
                              <InstructionsContainer>
                                     <div>
                                     <PrePuzzleButton primary onClick={handleStartButtonClick}>
