@@ -33,3 +33,11 @@ export const getModuleTitle = (name) => {
   const module = Modules.find(module => module.type_ref === name)
   return module.headline
 }
+
+export function bonusCalc(times) {
+  let timesCopy = [...times];
+  const currentTime = timesCopy.pop() / 1000; // puzzle completion time in seconds
+
+  const bonus = currentTime < 30 ? 50 : currentTime < 60 ? 25 : currentTime < 120 ? 10 : currentTime < 180 ? 5 : 0;
+  return bonus;
+}

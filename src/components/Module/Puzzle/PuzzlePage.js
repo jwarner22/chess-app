@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef, useReducer} from "react";
 
 import PuzzleBoard from "./PuzzleManager.js";
 import ProgressBar from "../Utilities/Progress";
@@ -15,9 +15,7 @@ import '../../../App.css';
 
 import {getMoves} from '../Utilities/helpers.js';
 import {getModuleTitle} from "../Utilities/helpers.js"
-
-// import useDebugInformation from "../../Hooks/useDebugInformation";
-// import useRenderCount from "../../Hooks/useRenderCount";
+import { bonusCalc } from "../Utilities/helpers.js";
 
 import { 
   MobilePuzzleWrapper, 
@@ -27,14 +25,13 @@ import {
 import { useWindowSize } from "../../../hooks/UseWindowSize";
 import Timer from "./Timer/Timer";
 
+// import useDebugInformation from "../../Hooks/useDebugInformation";
+// import useRenderCount from "../../Hooks/useRenderCount";
+
+
 // import Stockfish from "./Stockfish";
 // move functions to utils file
 
-
-// const getModuleTitle = (name) => {
-//   const module = Modules.find(module => module.type_ref === name)
-//   return module.headline
-// }
 
 
 const sound = {
@@ -42,10 +39,129 @@ const sound = {
   error: new Howl({src: [errorSoundFile]})
 }
 
+// create a reducer and refactor PuzzlePage to use it
+const puzzlePageReducer = (state, action) => {
+  switch (action.type) {
+
+    case "SET_MOVES": {
+      let moves = getMoves(action.payload);
+      return {
+        ...state,
+        correctMoves: moves
+      };
+    }
+    
+    case "SET_PROGRESS":
+      return {
+        ...state,
+        progress: action.payload
+      };
+
+    case "START_TIMER":
+      return {
+        ...state,
+        startTime: action.payload
+      };
+
+    case "FAIL": {
+      let newLives = state.lives - 1;
+      if (newLives < 0) newLives = 0;
+      return {
+        ...state,
+        retryDisable: false,
+        continueDisable: false,
+        correct: false,
+        lives: newLives,
+        outcome: false,
+        outcomes: [...state.outcomes, false]
+      };
+    }
+    case "SUCCESS": {
+
+      let newTimes = [...state.times, action.payload - state.startTime];
+      let bonus = bonusCalc(newTimes);
+
+      return {
+        ...state,
+        retryDisable: true,
+        continueDisable: false,
+        correct: true,
+        outcome: true,
+        outcomes: [...state.outcomes, true],
+        times: newTimes,
+        currentBonus: bonus,
+        bonuses: [...state.bonuses, bonus],
+        waiting: true
+      };
+    } 
+    case "RESET":
+      return {
+        ...state,
+        retryDisable: true,
+        continueDisable: true,
+      };
+
+    case "NEXT": 
+      // puzzleData[count+1] should be action.payload
+      return {
+        ...state,
+        count: state.count + 1,
+        retry: false,
+        waiting: false,
+        retryDisable: true,
+        toggleTimer: !state.toggleTimer,
+        boardKey: state.boardKey + 1,
+        fen: action.payload.fen,
+        correctMoves: action.payload.moves
+      };
+
+    case "RETRY":
+      // puzzleData[state.count] should be the action.payload
+      return {
+        ...state,
+        retry: true,
+        fen: action.payload.fen,
+        boardKey: state.boardKey + 1,
+        correctMoves: action.payload.moves,
+        retryDisable: true,
+        continueDisable: true,
+        toggleTimer: !state.toggleTimer,
+      };
+
+    default:
+      return state;
+  }
+};
+
+
+
+
 export default function PuzzlePage(props) {
   // useDebugInformation(PuzzlePage, props);
   // const renderCount = useRenderCount();
   const puzzleData = props.puzzles;
+  
+  const initialState = {
+    count: 0,
+    correctMoves: [],
+    progress: 0,
+    startTime: 0,
+    lives: 3,
+    outcome: false,
+    outcomes: [],
+    times: [],
+    currentBonus: 0,
+    waiting: false,
+    retry: false,
+    retryDisable: true,
+    continueDisable: true,
+    toggleTimer: false,
+    boardKey: 0,
+    fen: puzzleData[0].fen,
+    bonuses: []
+  };
+
+  const [state, dispatch] = useReducer(puzzlePageReducer, initialState);
 
   const [moveColor, setMoveColor] = useState("")
   const [count, setCount] = useState(0);
@@ -66,13 +182,8 @@ export default function PuzzlePage(props) {
   const [lives, setLives] = useState(3);
   const [bonuses, setBonuses] = useState([]);
   const [currentBonus, setCurrentBonus] = useState(null);
-  // const [confirmationSound, setConfirmationSound] = useState(null);
-  //const [errorSound, setErrorSound] = useState(null);
   const [boardKey, setBoardKey] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  // const confirmationSound = new Howl({src: confirmationSoundFile})
-  // const errorSound = new Howl({src: errorSoundFile})
-  // const buttonSound = new Howl({src: buttonSoundFile})
 
   const windowDimensions = useWindowSize();
   const isMobile = windowDimensions[0] < 640;
@@ -87,6 +198,9 @@ export default function PuzzlePage(props) {
   useEffect(() => {
 
     setCorrectMoves(() => getMoves(puzzleData[0].moves));
+
+    dispatch({type: "SET_MOVES", payload: puzzleData[0].moves});
+
     setLoaded(true);
     return () => {
       if (sound.confirmation.playing()) sound.confirmation.stop();
@@ -94,8 +208,10 @@ export default function PuzzlePage(props) {
     }
   } , [])
 
+  
+
   useEffect(() => {
-    // checks if user has missed 4 puzzles - if so route to fialure screen
+    // checks if user has missed 3 puzzles - if so route to fialure screen
     let failureTimeout = null;
 
     if (outcomes.filter(entry => entry === false).length > 2) {
@@ -124,10 +240,7 @@ export default function PuzzlePage(props) {
 
   useEffect(() => {
     if (times.length > 0 && bonuses.length < times.length) { // only calculate if there are times to compare
-      let timesCopy = [...times];
-      const currentTime = timesCopy.pop()/1000; // puzzle completion time in seconds
-
-      const bonus = currentTime < 30 ? 50 : currentTime < 60 ? 25 : currentTime < 120 ? 10 : currentTime < 180 ? 5 : 0;
+      const bonus = bonusCalc(times);
 
       setCurrentBonus(bonus);
       setBonuses(prev => [...prev, bonus])
@@ -152,6 +265,9 @@ export default function PuzzlePage(props) {
 
   // track next puzzle
   const nextPuzzle = () => {
+   
+    //dispatch({ type: "NEXT", payload: puzzleData[count + 1] });
+    
     setFen(() => puzzleData[count].fen);
     setCorrectMoves(() => getMoves(puzzleData[count].moves));
   }
@@ -162,7 +278,6 @@ export default function PuzzlePage(props) {
 
   const playSound = (category) => {
     if (category === "confirmation") {
-      console.log("confirmation sound")
       sound.confirmation.play();
     } else if (category === "error") {
       sound.error.play();
@@ -177,10 +292,16 @@ export default function PuzzlePage(props) {
     setToggleTimer(prev => !prev)
     // play sound to indicate success or failure
     if (success) {
+      
+      dispatch({ type: "SUCCESS", payload: Date.now() });
+
       playSound("confirmation");
       setRetryDisable(true)
       setCorrect(true)
     } else {
+      
+      dispatch({ type: "FAIL" });
+
       playSound("error");
       setRetryDisable(false)
       setCorrect(false)
@@ -191,10 +312,11 @@ export default function PuzzlePage(props) {
     setOutcomes(prevOutcomes => [...prevOutcomes, success]);
   };
 
-
+  console.log(state)
   useEffect(() => {
     let now = Date.now();
     if (toggleTimer) {
+      dispatch({ type: "START_TIMER", payload: now });
       setStartTime(now)
     } else {
       setTimes(prevTimes => [...prevTimes, now - startTime])
@@ -207,6 +329,7 @@ export default function PuzzlePage(props) {
   };
   
   const returnPercent = (percent) => {
+    dispatch({ type: "SET_PROGRESS", payload: percent });
     setProgress(percent)
     if (percent >= 100) {
       finished()
@@ -215,6 +338,8 @@ export default function PuzzlePage(props) {
 
   function handleContinueClick() {
     //playSound("button")
+    dispatch({ type: "NEXT", payload: puzzleData[count + 1] });
+
     incrementCount()
     setRetry(false)
     setWaiting(false)
@@ -224,6 +349,9 @@ export default function PuzzlePage(props) {
   }
 
   const handleRetryClick = () => {
+
+    dispatch({ type: "RETRY" });
+
     //playSound("button")
     setRetry(true);
     setFen(() => puzzleData[count].fen);
@@ -299,7 +427,7 @@ export default function PuzzlePage(props) {
                   <div className="container" ref={boardRef}>
                   <PuzzleBoard
                     key={boardKey}
-                    fen={fen}
+                    fen={state.fen}
                     retry={retry}
                     correctMoves={correctMoves}
                     unlockNext={unlockNext}
@@ -452,3 +580,5 @@ const TimerAndLivesContainer = styled.div`
   display: flex;
   width: 100%;
 `
+
+
