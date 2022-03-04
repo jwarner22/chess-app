@@ -11,7 +11,7 @@ import {TileWrapper,
 
 import {useWindowSize} from '../../../../Hooks/UseWindowSize';
 
-const PuzzleTiles = (props) => {\
+const PuzzleTiles = (props) => {
     const windowSize = useWindowSize();
     const isMobile = windowSize[0] <= 640;
     const {headline, subheading, img} = props

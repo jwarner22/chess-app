@@ -22,7 +22,7 @@ export const TileWrapper = styled.li`
         background: #ff5074;
         `
         else return `background: #7F3AD4`
-    }}
+    }};
     box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
     `
 
@@ -59,6 +59,7 @@ export const TileHeadline = styled.h3`
     margin-left: 10px;
     margin-right: 2px;
     padding-left: 8px;
+    text-decoration: none;
     /* margin-top: 5px; */
     @media screen and (max-width: 768px) {
         margin-top: 8px;

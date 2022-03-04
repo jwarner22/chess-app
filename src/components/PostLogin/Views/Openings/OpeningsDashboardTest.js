@@ -2,6 +2,11 @@ import {useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import useFetch from '../../../../api/useFetch';
 import {baseURL} from '../../../../api/apiConfig';
+import OpeningTreeTiles from '../../../UI_Kit/Tiles/OpeningTreeTiles';
+import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
+import { PageContainer } from '../../../UI_Kit/Page';
+import BackButton from '../../../BackButton';
+import PreviousSelection from '../../../UI_Kit/PreviousSelection';
 
 const OpeningsDashboardTest = () => {
     const {get} = useFetch(baseURL);
@@ -38,21 +43,22 @@ const OpeningsDashboardTest = () => {
 
     return(
         <>
+        <PageContainer>
         <div>
             <h1>Openings Dashboard Test</h1>
         </div>
+        <PreviousSelection />
+        <PuzzleTileGrid>
         {(openingModules.length > 0) && openingModules.map(opening => {
             let linkUrl = `/openings-dashboard-test/${opening.uci}`
             return(
                 <Link to={linkUrl}>
-                <div>
-                    <h1>{opening.uci}</h1>
-                    <h2>{opening.name}</h2>
-                    <h3>{opening.np_lichess}</h3>
-                </div>
+                <OpeningTreeTiles moves={opening.uci} name={opening.name} popularity={opening.np_lichess} />
                 </Link>
             )
         })}
+        </PuzzleTileGrid>
+        </PageContainer>
         </>
     )
 }
