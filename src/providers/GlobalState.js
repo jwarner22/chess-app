@@ -4,6 +4,7 @@ import { baseURL } from "../api/apiConfig.js";
 import {AuthContext} from '../providers/Auth';
 
 import {Modules} from '../data/ModuleData';
+import { ChromeDimensions } from "@styled-icons/boxicons-logos/Chrome";
 
 const UserContext = createContext();
 
@@ -33,6 +34,7 @@ const UserProvider = ({ children }) => {
         setLoading(true);
         await fetchAllUserData();
         await fetchAchievements();
+        setLoading(false);
     }
 
     const getUserPreferrenceEmbedding = (themes, openings) => {
@@ -102,8 +104,10 @@ const UserProvider = ({ children }) => {
         // console.log({lastDaily: lastDaily.getDate(), today: today, yesterday: yesterday});
         if (lastDaily.getDate() !== (yesterday) && lastDaily.getDate() !== today) {
             user.daily_streak = 0;
+
             updateUserData(user);
         } else {
+            console.log('set user data');
             setUserData(user);
         }
 
@@ -117,7 +121,7 @@ const UserProvider = ({ children }) => {
         let endpoint = `/users/${auth.userId}`; 
         let response = await put(endpoint, data);
         setUserData(response); 
-        setLoading(() => false);
+        setLoading(() => false); 
     }
     
     // THEME DATA
@@ -150,15 +154,14 @@ const UserProvider = ({ children }) => {
             let schemaPicks = mutatePicks(picks, alts); // map picks to modules and save
             await post(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // post daily modules to db
             setDailyModules(schemaPicks); // set daily modules
-            setLoading(false);
             updateGenerating(true);
+
         } else if (response.detail === "daily puzzles expired") { // daily modules expired
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`; // get new picks
             let {picks, alts} = await put(endpoint, embedding); // get picks
             let schemaPicks = mutatePicks(picks, alts); // map picks to modules and save
             await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
             setDailyModules(schemaPicks);
-            setLoading(false);
             updateGenerating(true);
 
         } else if ((new Date(response[0].expiration)) < now) {
@@ -167,12 +170,10 @@ const UserProvider = ({ children }) => {
             let schemaPicks = mutatePicks(picks, alts); // map picks to modules and save
             await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
             setDailyModules(schemaPicks);
-            setLoading(false);
             updateGenerating(true);
 
         } else {
             setDailyModules(response);
-            setLoading(false);
             updateGenerating(false);
 
         }

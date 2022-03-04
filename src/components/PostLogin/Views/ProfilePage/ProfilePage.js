@@ -15,19 +15,19 @@ const ProfilePage = () => {
   const [loaded, setLoaded] = useState(false);
 
   // context
-  const {userData} = useContext(UserContext);
-  const {achievements} = useContext(UserContext);
-  const {themesData} = useContext(UserContext);
+  const {userData, achievements, themesData, contextLoading} = useContext(UserContext);
 
   useEffect(() => {
+    if (!contextLoading) {
       setLoaded(false);
       fetchProfileData();
-  },[])
+    }
+  },[contextLoading])
   
 
   const fetchProfileData = async() => {
 
-    await calcOverallRating(userData);     // get overall rating
+    await calcOverallRating();     // get overall rating
     const streak = userData.daily_streak; // set values for profile page
     let date = new Date(userData.inserted_at); // set join date
  
@@ -45,7 +45,7 @@ const ProfilePage = () => {
   }
 
 
-  async function calcOverallRating(data) {
+  async function calcOverallRating() {
 
     // sum all them ratings
     let profileThemesData = [...themesData];
@@ -55,7 +55,7 @@ const ProfilePage = () => {
 
     // backfill any missing themes with initial rating
     if (profileThemesData.length < Modules.length) {
-      ratingSum += (Modules.length - profileThemesData.length) * data.initial_rating;
+      ratingSum += (Modules.length - profileThemesData.length) * userData.initial_rating;
     }
 
     // overall rating = average of all theme ratings
