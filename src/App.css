@@ -96,6 +96,9 @@ a {
     transform: rotate(-1deg) translateY(0)
   }
   90%{
+    opacity: 1;
+  }
+  100%{
     opacity: 0;
   }
 }

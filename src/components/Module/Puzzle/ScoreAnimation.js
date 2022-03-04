@@ -19,18 +19,32 @@ export default function Score(props) {
 
 const ScoreContainer = styled.div`
     display: flex;
-    height: 24px;
+    height: 36px;
     color: #fff;
     margin-left: 24px;
+    padding-right: 8px;
+    font-weight: 600;
+    align-items: center;
+    margin-bottom: 12px;
+
+    @media screen and (max-width: 640px){
+        margin-left: 0px;
+        justify-content: flex-start;
+        width: 175px;
+        height: 40px;
+        align-items: center;
+    }
 
 `
 
 
 const ScoreValue = styled.span`
-    background: green;
+    background: #47B24A;
     width: min-content;
-    padding: 4px;
+    padding: 8px 12px;
     color: white;
-    line-height: 16px;
-    border-radius: 20px;
+    border-radius: 10px;
+    margin: auto 4px;
+    justify-self: flex-end;
+    box-shadow: rgba(255, 255, 255, 0.08) 0px 5px 10px, rgba(255, 255, 255, 0.15) 0px 3px 3px;;
 `
