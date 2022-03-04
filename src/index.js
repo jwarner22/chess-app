@@ -9,6 +9,7 @@ import protectedRoutes from './routes/protectedRoutes'
 import ProtectedRouteHoc from './routes/protectedRoutesHoc'
 import {AuthProvider} from './providers/Auth.js';
 import {UserProvider} from './providers/GlobalState.js';
+import Loader from "./components/Loader.js";
 
 require("firebase/auth");
 
@@ -29,7 +30,7 @@ function App() {
       <UserProvider>
       {/*Is logged in? {JSON.stringify(isLoggedIn)}*/}
       {/*console.log({isloggedin: JSON.stringify(isLoggedIn)})*/}
-      {/* <React.Suspense fallback={<span>Loading...</span>}> */}
+      <React.Suspense fallback={<span><Loader/></span>}>
         <Router>
           <Route render={({location}) => (
             // <TransitionGroup>
@@ -61,7 +62,7 @@ function App() {
           // </TransitionGroup>
           )} />
         </Router>
-        {/* </React.Suspense> */}
+        </React.Suspense>
         </UserProvider>
     </AuthProvider>
     </>

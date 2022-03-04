@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { GoSearch } from "react-icons/go";
+import { GoSearch } from "@react-icons/all-files/go/GoSearch";
 
 export const PuzzlePageContainer = styled.div`
    min-height: 692px;

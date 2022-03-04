@@ -9,10 +9,6 @@ const Benefits = (props) => {
   const {category, headline} = props;
   const [headlineData, setHeadlineData] = useState([]);
 
-  useLayoutEffect(() => {
-    getBenefits();
-  },[headline]) 
-
   const getBenefits = () => {
     if (headlineData.some(item => item.headline === headline)) {
       let newHeadline = headlineData.filter(item => item.headline === headline);
@@ -43,6 +39,10 @@ const Benefits = (props) => {
     }
     return array;
   }
+
+  useLayoutEffect(() => {
+    getBenefits();
+  },[headline]) 
 
   return (
     <>

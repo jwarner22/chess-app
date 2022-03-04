@@ -1,8 +1,9 @@
 import React from 'react'
-import { IoCalendar } from "react-icons/io5"
-import {  IoRibbonSharp } from "react-icons/io5";
-import { HiPuzzle } from "react-icons/hi";
-import { FaBookOpen,FaUser } from "react-icons/fa";
+import { IoCalendar } from "@react-icons/all-files/io5/IoCalendar"
+import {  IoRibbonSharp } from "@react-icons/all-files/io5/IoRibbonSharp";
+import { HiPuzzle } from "@react-icons/all-files/hi/HiPuzzle";
+import { FaBookOpen } from "@react-icons/all-files/fa/FaBookOpen";
+import { FaUser } from '@react-icons/all-files/fa/FaUser';
 import {MobileNavbarWrapper, 
     MobileNavLink,    
     NavItemTitle

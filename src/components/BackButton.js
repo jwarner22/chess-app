@@ -1,7 +1,7 @@
 
 import styled from "styled-components"
 import {useHistory} from "react-router-dom"
-import { GrFormClose } from "react-icons/gr";
+import { GrFormClose } from "@react-icons/all-files/gr/GrFormClose";
 import swal from 'sweetalert';
 
 const BackButton = () => {
@@ -14,7 +14,7 @@ const BackButton = () => {
             icon: "warning",
             dangerMode: true,
             buttons: true        
-          })
+          }) 
           .then(willDelete => {
             if (willDelete) {
                 history.goBack()

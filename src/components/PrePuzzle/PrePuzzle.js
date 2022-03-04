@@ -21,7 +21,7 @@ import {DailyPuzzleIcon} from "../PostLogin/Views/DailyPuzzle/DailyPuzzleElement
 import {Modules} from '../../data/ModuleData';
 import { BackButtonWrapper } from '../Module/Utilities/Progress';
 import BackButton from '../BackButton';
-import Benefits from '../UI_Kit/Boxes/Containers/Benefits';
+const Benefits = React.lazy(() => import('../UI_Kit/Boxes/Containers/Benefits'));
 
 const PrePuzzlePage = (props) => {
     const module = Modules.find(element => element.type_ref === props.moduleData.theme);    

@@ -4,7 +4,8 @@ import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from './PostModuleElements'
 import {Modules} from '../../data/ModuleData';
 import Chart from './ScoreChart';
-import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
+import { FaThumbsDown } from "@react-icons/all-files/fa/FaThumbsDown";
+import {FaThumbsUp} from"@react-icons/all-files/fa/FaThumbsUp"
 import Button from '../UI_Kit/Button/Button';
 
 const PostPuzzleMockup = (props) => {

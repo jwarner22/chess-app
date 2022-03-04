@@ -2,7 +2,7 @@ import React from 'react'
 import styled from "styled-components"
 import {useHistory} from "react-router-dom"
 import swal from 'sweetalert';
-import { BsBoxArrowInLeft } from "react-icons/bs";
+import { BsBoxArrowInLeft } from "@react-icons/all-files/bs/BsBoxArrowInLeft";
 import {ReactComponent as Retry} from "../../../Images/retry.svg"
 import {ReactComponent as Next} from "../../../Images/right-arrow.svg"
 import {MobileNavbarWrapper} from '../../PostLogin/MobileNavBar/MobileNabarElements'
