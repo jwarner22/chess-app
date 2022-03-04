@@ -30,7 +30,8 @@ function CourseTile(props){
         if (!contextLoading) {
 
             if (!themesData.some(theme => theme.title === props.type_ref)) {
-                setRating(userData.initial_rating);
+                if (userData == null) return; // if userData is null, don't do anything
+                setRating(userData.initial_rating); // if userData is not null, set the rating to the initial rating
                 return;
             }
             let theme = themesData.find(theme => {
