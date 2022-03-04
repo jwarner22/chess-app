@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useLayoutEffect, useState, useContext } from "react";
 import styled from "styled-components"
 import ProfilePanel from "../../../ProfilePanel/ProfilePanel"
 import AchievementTiles from "../../../AchievementTiles/AchievementTiles"
@@ -16,13 +16,6 @@ const ProfilePage = () => {
 
   // context
   const {userData, achievements, themesData, contextLoading} = useContext(UserContext);
-
-  useEffect(() => {
-    if (!contextLoading) {
-      setLoaded(false);
-      fetchProfileData();
-    }
-  },[contextLoading])
   
 
   const fetchProfileData = async() => {
@@ -62,6 +55,13 @@ const ProfilePage = () => {
     let overallRating = Math.round(ratingSum / Modules.length);
     setOverallRating(overallRating);
   }
+
+  useLayoutEffect(() => {
+    if (!contextLoading) {
+      setLoaded(false);
+      fetchProfileData();
+    }
+  },[contextLoading])
 
     return (
       <>

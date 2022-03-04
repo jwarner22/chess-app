@@ -19,6 +19,36 @@ const Dashboard = () => {
   const tacticModules = Modules.filter(module => module.type === "midgame")
   const checkmateModules = Modules.filter(module => module.type === "checkmate")
 
+  const TileList = () => {
+    return (<>
+                       <PuzzleTileGrid className="endgameTiles" id={"endgames"} category={"Endgames"}>
+               {endgameModules.map((module, index) => {
+                                 return(
+                                 // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                                 <CourseTile key={index} {...module} />
+                                 // </ModalLink>
+                             )})}
+             </PuzzleTileGrid>
+             <PuzzleTileGrid className="tacticTiles" id={"tactics"} category={"Tactics"}>
+               {tacticModules.map((module, index) => {
+                                 return(
+                                 // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                                 <CourseTile key={index} {...module} />
+                                 // </ModalLink>
+                             )})}
+             </PuzzleTileGrid>
+             <PuzzleTileGrid className="checkmateTiles" id={"checkmates"} category={"Checkmates"}>
+               {checkmateModules.map((module, index) => {
+                                 return(
+                                 // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
+                                 <CourseTile key={index} {...module} />
+                                 // </ModalLink>
+                             )})}
+             </PuzzleTileGrid>
+    </>)
+  }
+  
+
   
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -53,32 +83,7 @@ const Dashboard = () => {
         toggle={toggle}
         />
         {isLoading ? (<Loader />) : (
-          <>
-               <PuzzleTileGrid className="endgameTiles" id={"endgames"} category={"Endgames"}>
-               {endgameModules.map((module, index) => {
-                                 return(
-                                 // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
-                                 <CourseTile key={index} {...module} />
-                                 // </ModalLink>
-                             )})}
-             </PuzzleTileGrid>
-             <PuzzleTileGrid className="tacticTiles" id={"tactics"} category={"Tactics"}>
-               {tacticModules.map((module, index) => {
-                                 return(
-                                 // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
-                                 <CourseTile key={index} {...module} />
-                                 // </ModalLink>
-                             )})}
-             </PuzzleTileGrid>
-             <PuzzleTileGrid className="checkmateTiles" id={"checkmates"} category={"Checkmates"}>
-               {checkmateModules.map((module, index) => {
-                                 return(
-                                 // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
-                                 <CourseTile key={index} {...module} />
-                                 // </ModalLink>
-                             )})}
-             </PuzzleTileGrid>
-             </>
+          <TileList />
         )}
  
     </DashboardWrapper>
