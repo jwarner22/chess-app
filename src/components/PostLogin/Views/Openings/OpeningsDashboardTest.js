@@ -7,6 +7,7 @@ import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
 import { PageContainer } from '../../../UI_Kit/Page';
 import BackButton from '../../../BackButton';
 import PreviousSelection from '../../../UI_Kit/PreviousSelection';
+import CategoryTitle from '../../../UI_Kit/CategoryTitle/CategoryTitle';
 
 const OpeningsDashboardTest = () => {
     const {get} = useFetch(baseURL);
@@ -44,9 +45,7 @@ const OpeningsDashboardTest = () => {
     return(
         <>
         <PageContainer>
-        <div>
-            <h1>Openings Dashboard Test</h1>
-        </div>
+        <CategoryTitle>Opening Mastery Tree</CategoryTitle>
         <PreviousSelection />
         <PuzzleTileGrid>
         {(openingModules.length > 0) && openingModules.map(opening => {
