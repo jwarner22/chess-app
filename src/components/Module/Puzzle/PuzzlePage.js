@@ -245,14 +245,14 @@ export default function PuzzlePage(props) {
   useEffect(() => {
     if (times.length > 0 && bonuses.length < times.length) { // only calculate if there are times to compare
       // const bonus = bonusCalc(times);
-
+      
       // setCurrentBonus(bonus);
       let timesCopy = [...times];
       const currentTime = timesCopy.pop()/1000; // puzzle completion time in seconds
-      console.log(currentTime)
+      //console.log(currentTime)
       const bonus = currentTime < 30 ? 50 : currentTime < 60 ? 25 : currentTime < 120 ? 10 : currentTime < 180 ? 5 : 0;
-      console.log({bonus: bonus})
-      console.log({bonuses: bonuses})
+      // console.log({bonus: bonus})
+      // console.log({bonuses: bonuses})
       setBonuses(prev => [...prev, bonus])
     }
   },[times])
@@ -301,7 +301,7 @@ export default function PuzzlePage(props) {
   const unlockNext = () => {
     setWaiting(true);
   };
-
+  console.log(correct)
   const playSound = (category) => {
     if (category === "confirmation") {
       sound.confirmation.play();
@@ -338,7 +338,7 @@ export default function PuzzlePage(props) {
     setOutcomes(prevOutcomes => [...prevOutcomes, success]);
   };
 
-  console.log(state)
+  // console.log(state)
   useEffect(() => {
     let now = Date.now();
     if (toggleTimer) {
@@ -434,9 +434,9 @@ export default function PuzzlePage(props) {
                   </TimerAndLivesContainer>
                   <MobileContent>
                     
-                  <Score currentBonus={currentBonus}>
+                 {correct && <Score currentBonus={currentBonus}>
                     {currentBonus}
-                  </Score> 
+                  </Score>}
                 
                   <IndicatorWrapper>
                     {(moveColor === "white") ? (
@@ -490,9 +490,9 @@ export default function PuzzlePage(props) {
                     <Lives lives={lives} isMobile={isMobile} />
                   </TimerAndLivesContainer>
                   
-                  <Score currentBonus={currentBonus}>
+                  {correct && <Score currentBonus={currentBonus}>
                     {currentBonus}
-                  </Score> 
+                  </Score>}
                   
               </RightPuzzlePanelContainer>
           </PuzzlePageGrid>

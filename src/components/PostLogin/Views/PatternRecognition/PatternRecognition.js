@@ -19,6 +19,13 @@ const Dashboard = () => {
   const tacticModules = Modules.filter(module => module.type === "midgame")
   const checkmateModules = Modules.filter(module => module.type === "checkmate")
 
+  useEffect(() => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 100)
+  },[])
+
   const TileList = () => {
     return (<>
                        <PuzzleTileGrid className="endgameTiles" id={"endgames"} category={"Endgames"}>
@@ -29,7 +36,8 @@ const Dashboard = () => {
                                  // </ModalLink>
                              )})}
              </PuzzleTileGrid>
-             <PuzzleTileGrid className="tacticTiles" id={"tactics"} category={"Tactics"}>
+             {!isLoading && <>
+               <PuzzleTileGrid className="tacticTiles" id={"tactics"} category={"Tactics"}>
                {tacticModules.map((module, index) => {
                                  return(
                                  // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
@@ -45,6 +53,7 @@ const Dashboard = () => {
                                  // </ModalLink>
                              )})}
              </PuzzleTileGrid>
+             </>}
     </>)
   }
   
@@ -73,11 +82,11 @@ const Dashboard = () => {
     </FeatureSuggestionButton>
     </Link>
     */}
-    <Link to='/openings-dashboard-test/e2e4 e7e5'>
+    {/* <Link to='/openings-dashboard-test/e2e4 e7e5'>
     <FeatureSuggestionButton primary>
       openings test
     </FeatureSuggestionButton>
-    </Link>
+    </Link> */}
     <DashboardWrapper>
         <MotifMenu 
         toggle={toggle}

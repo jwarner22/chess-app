@@ -48,10 +48,10 @@ const OpeningsDashboardTest = () => {
         <CategoryTitle>Opening Mastery Tree</CategoryTitle>
         <PreviousSelection />
         <PuzzleTileGrid>
-        {(openingModules.length > 0) && openingModules.map(opening => {
+        {(openingModules.length > 0) && openingModules.map((opening, index) => {
             let linkUrl = `/openings-dashboard-test/${opening.uci}`
             return(
-                <Link to={linkUrl}>
+                <Link key={index} to={linkUrl}>
                 <OpeningTreeTiles moves={opening.uci} name={opening.name} popularity={opening.np_lichess} />
                 </Link>
             )
