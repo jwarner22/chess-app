@@ -1,5 +1,6 @@
 {
     "name": "Elo Elevation",
+    "short_name": "Elo Elevation",
     "theme_color": "#247cf1",
     "background_color": "#ffffff",
     "display": "standalone",
@@ -9,7 +10,7 @@
   "icons": [
     {
       "src": "maskable.png", 
-      "sizes": "196x196",
+      "sizes": "196x196 384x384 512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
@@ -38,5 +39,38 @@
       "type": "image/png",
       "sizes": "512x512"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Puzzle Module Screen"
+    },
+    {
+      "src": "screenshot2.png",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Daily Training"
+    },
+    {
+      "src": "screenshot3.png",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Dynamic Difficulty and Progress Tracking"
+    },
+    {
+      "src": "screenshot4.png",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Profile Page"
+
+    }
+  ],
+  "categories": [
+    "games",
+    "strategy",
+    "education",
+    "puzzle"
   ]
 }
