@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import {IconContext} from 'react-icons/lib'
 import {
      Nav, 
      NavbarContainer, 
@@ -40,7 +39,6 @@ const Navbar = ({ toggle }) => {
 
     return (
         <>
-            <IconContext.Provider value={{color: '#fff'}}>
                 <Nav scrollNav={scrollNav}>
                     <NavbarContainer>
                         <NavLogo onClick={toggleHome} to='/'>
@@ -99,7 +97,6 @@ const Navbar = ({ toggle }) => {
                         </NavBtn>
                     </NavbarContainer>
                 </Nav>
-            </IconContext.Provider>
         </>
     );
 };
