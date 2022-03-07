@@ -268,6 +268,8 @@ export default function PuzzleBoard(props) {
     // console.log({prevCorrect: prevCorrect})
     let correct ="";
 
+    if (props.finished) return;
+
     if (correctMove.length === 5) {
       correct = correctMove.substring(0, 4);
     } else if ((prevCorrect != null) && prevCorrect.length === 5 && props.promotion !== "x") {

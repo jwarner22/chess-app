@@ -14,6 +14,7 @@ export default function PuzzleManager(props) {
   });
   const [initialFen, setInitialFen] = useState(props.fen);
   const [initialMove, setInitialMove] = useState(props.correctMoves[0]);
+  const [finished, setFinished] = useState(false);
 
 
   useEffect(() => {
@@ -60,6 +61,7 @@ export default function PuzzleManager(props) {
     if (moves.length === 0) {
       console.log('finished correct')
       setTimeout(() => props.displayOutcome(true),  600);
+      setFinished(true);
       props.unlockNext();
     }
 
@@ -81,6 +83,7 @@ export default function PuzzleManager(props) {
         onPromotion={props.onPromotion}
         promotion={props.promotion}
         moveIndicator={props.moveIndicator}
+        finished={finished}
       />
     </>
   );
