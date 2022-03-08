@@ -7,9 +7,9 @@ export default class ErrorBoundary extends React.Component {
     static getDerivedStateFromError(error) {
         return {hasError: true}
     }
-    componentDidCatch(error, errorInfo) {
+    componentDidCatch(error,errorInfo) {
         //logErrorToMyService(error, errorInfo)
-        console.log(error)
+        console.log('Error Boundary', error, errorInfo)
     }
     render() {
         if(this.state.hasError) {
