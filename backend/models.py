@@ -88,8 +88,6 @@ class User(Base):
     class Congif:
         orm_mode = True
 
-
-
 class Opening(Base):
     __tablename__ = "opening"
 
@@ -103,6 +101,15 @@ class Opening(Base):
 
     class Congif:
         orm_mode = True
+
+class OpeningCompletions(Base):
+    __tablename__ = "opening_completions"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    opening_id = Column(Integer, unique = False, index=True)
+    completions = Column(Integer, unique=False, index=True)
+
+    owner_id = Column(String, ForeignKey("user.user_id"))
 
 class ThemeRating(Base):
     __tablename__ = "theme_ratings"

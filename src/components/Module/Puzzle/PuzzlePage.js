@@ -15,7 +15,7 @@ import '../../../App.css';
 
 import {getMoves} from '../Utilities/helpers.js';
 import {getModuleTitle} from "../Utilities/helpers.js"
-import { bonusCalc } from "../Utilities/helpers.js";
+import { bonusCalc } from "../Utilities/Scoring";
 
 import { 
   MobilePuzzleWrapper, 

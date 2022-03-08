@@ -1,5 +1,8 @@
 import React, {useEffect, useState, useContext} from 'react';
 
+// Erorr Boundary
+import ErrorBoundary from '../UI_Kit/ErrorBoundary.js';
+
 // custom fetch hook
 import useFetch from '../../api/useFetch.js';
 import {baseURL} from '../../api/apiConfig';
@@ -117,13 +120,17 @@ export default function Module(props) {
     
     if (prePuzzleToggle) {
         return(
+            <ErrorBoundary>
             <PrePuzzle moduleData={moduleData} isDaily={isDaily} swapModule={onSwapModule} togglePrePuzzleCallback={togglePrePuzzle} rating={rating} highScore={highScore}/>
+            </ErrorBoundary>
         )
     }
 
     return(
         <>
+        <ErrorBoundary>
         <ModuleManager moduleData={moduleData} location={location} rating={rating} isDaily={isDaily} />
+        </ErrorBoundary>
         </>
     )
 }

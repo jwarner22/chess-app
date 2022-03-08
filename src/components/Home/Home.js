@@ -8,7 +8,7 @@ import Sidebar from './Sidebar/Sidebar'
 // import { homeObjOne, homeObjTwo, homeObjThree } from "./InfoSection/Data";
 // import Services  from '../Services/Index'
 import Footer from './Footer/Footer'
-
+import ErrorBoundary from '../UI_Kit/ErrorBoundary.js';
 
 
 const Home = () => {
@@ -19,6 +19,7 @@ const Home = () => {
   }
   return (
     <>
+    <ErrorBoundary>
       <Navbar toggle={toggle}/>
       <Sidebar isOpen={isOpen} toggle={toggle}/>
       <HeroSection />
@@ -37,6 +38,7 @@ const Home = () => {
           </p>
         )} */}
       <Footer />
+      </ErrorBoundary>
     </>
   );
 };
