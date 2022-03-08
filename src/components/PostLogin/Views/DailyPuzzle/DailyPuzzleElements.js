@@ -1,7 +1,7 @@
 import styled from "styled-components"
-import {BsFillQuestionSquareFill} from "@react-icons/all-files/bs/BsFillQuestionSquareFill"
+import {BsQuestionCircle} from "@react-icons/all-files/bs/BsQuestionCircle"
 
-export const QuestionIcon = styled(BsFillQuestionSquareFill)`
+export const QuestionIcon = styled(BsQuestionCircle)`
     max-width: 90px;
     max-height: 90px;
     width: 90px;
@@ -9,7 +9,7 @@ export const QuestionIcon = styled(BsFillQuestionSquareFill)`
     grid-row: span 2;
     grid-column: 1;
     margin: 1rem 8px 1rem 1rem;
-    opacity: 0.2;
+    color: #fff;
     @media screen and (max-width: 425px) {
         grid-row: 1;
         width: 60px;
@@ -58,7 +58,7 @@ export const DailyPuzzleTitle = styled.h1`
 `
 
 export const DailyPuzzleModuleStyle = styled.div`
-    margin: 16px 32px;
+    margin: 16px 48px;
     background: ${props => {
         if (props.locked) return`
         rgba(218, 218, 218, 1)
@@ -77,7 +77,7 @@ export const DailyPuzzleModuleStyle = styled.div`
     display: grid;
     grid-template-columns: min-content 1fr min-content;
     border-radius: 35px;
-    box-shadow: ${props => props.locked ? 'rgba(1, 14, 255, 0.24) 0px 8px 15px' : "rgba(1, 14, 255, 0.24) 0px 8px 15px" };
+    box-shadow: ${props => props.locked ? '#DADADA' : "rgba(1, 14, 255, 0.24) 0px 8px 15px" };
     transition: all 0.2s ease-in-out;
     max-width: 800px;
     grid-gap: 8px;
@@ -211,7 +211,7 @@ export const ProgressBarContainer = styled.div`
     transform: rotate(90deg);
     align-items: center;
     bottom: -50%;
-    left: -28%;
+    left: -23%;
     z-index: 1;
 
     @media screen and (max-width: 640px) {
