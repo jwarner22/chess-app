@@ -47,13 +47,21 @@ export const calcEloRating = (outcomes, puzzles, playerRating, completed) => {
       let time = times[index] ? times[index] : target_time;
       let rating = ratings[index];
       if (outcome === true) {
-        let score = 100*(time_factor(time)+0.25)*diff_index(rating); // positive for correct
+        let score = 200*(time_factor(time)+0.25)*diff_index(rating); // positive for correct
         return score;
       } else {
-        let negScore = -(50*(1-time_factor(time)*diff_index(rating))); // penalty for incorrect
+        let negScore = -(100*(1-time_factor(time)*diff_index(rating))); // penalty for incorrect
         return negScore;
       }
     })
     let score = parseInt(scores.reduce((accum,current) => accum + current),10); // sums scores
     return score
+  }
+
+  export function bonusCalc(times) {
+    let timesCopy = [...times];
+    const currentTime = timesCopy.pop() / 1000; // puzzle completion time in seconds
+  
+    const bonus = currentTime < 5 ? 100 : currentTime < 10 ? 75 : currentTime < 20 ? 50 : currentTime < 30 ? 25 : currentTime < 45 ? 10 : 0;
+    return bonus;
   }
