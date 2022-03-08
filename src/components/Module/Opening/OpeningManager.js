@@ -1,5 +1,8 @@
 import {useState, useContext} from 'react'
 
+//Erorr Boundary
+import ErrorBoundary from '../../UI_Kit/ErrorBoundary.js';
+
 import PostOpeningPage from '../../PostLogin/Views/Openings/PostOpeningPage';
 import PreOpeningPage from '../../PostLogin/Views/Openings/PreOpeningPage';
 import OpeningPage from './OpeningPage.js'
@@ -155,13 +158,19 @@ export default function OpeningManager(props) {
     return (
         <>
         {!isStarted && !isFinished && (
+          <ErrorBoundary>
             <PreOpeningPage togglePrePuzzleCallback={togglePrePuzzleCallback} openingData={openingData}/>
+          </ErrorBoundary>
         )}
         {isStarted && !isFinished && (
+          <ErrorBoundary>
             <OpeningPage toggleFinished={toggleFinished} openingData={openingData} orientation={orientation}/>
+          </ErrorBoundary>
         )}
         {isFinished && (
+          <ErrorBoundary>
             <PostOpeningPage completedTraining={completedTraining} openingData={openingData} isDaily={isDaily} score={score} scoreData={scoreData}/>
+            </ErrorBoundary>
         )}
         </>
     )

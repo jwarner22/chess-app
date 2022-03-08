@@ -10,7 +10,7 @@ import ProtectedRouteHoc from './routes/protectedRoutesHoc'
 import {AuthProvider} from './providers/Auth.js';
 import {UserProvider} from './providers/GlobalState.js';
 import Loader from "./components/Loader.js";
-
+import ErrorBoundary from './components/UI_Kit/ErrorBoundary.js';
 require("firebase/auth");
 
 // If you want to start measuring performance in your app, pass a function
@@ -26,6 +26,7 @@ function App() {
   },[])
   return(
     <>
+    <ErrorBoundary>
     <AuthProvider>
       <UserProvider>
       {/*Is logged in? {JSON.stringify(isLoggedIn)}*/}
@@ -65,6 +66,7 @@ function App() {
         </React.Suspense>
         </UserProvider>
     </AuthProvider>
+    </ErrorBoundary>
     </>
   );
 }
