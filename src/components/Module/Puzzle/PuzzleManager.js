@@ -30,6 +30,7 @@ export default function PuzzleManager(props) {
     setInitialFen(props.fen);
     setInitialMove(props.correctMoves[0]);
     setHistory([]);
+    console.log('debugging data:', props.fen, props.correctMoves);
   },[props]);
 
   const handleOutcome = (outcome) => {

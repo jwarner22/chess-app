@@ -66,17 +66,17 @@ export default function Puzzle(props) {
     // filter relevant theme from user themes data
     let userThemesData = [...themesData]
     let themeData = userThemesData.filter(item => item.title === theme)[0];
-
+    themeData.completed += 1; 
     // update theme data
+    console.log(outcomes, puzzles, themeData.rating, themeData.completed)
     let newRating = calcEloRating(outcomes,puzzles,themeData.rating, themeData.completed);
-
+    console.log('new rating: ', newRating);
     if (newRating > themeData.high_rating) {
       let diff = newRating - themeData.high_rating; // change from previous high rating
       themeData.high_rating = newRating;     // new high rating
       updateAchievements("high_rating", newRating, diff, theme);
     }
-    themeData.rating = newRating
-    themeData.completed += 1; // adds 1 to number of puzzles completed
+    themeData.rating = newRating // adds 1 to number of puzzles completed
 
     let score = calcScore(outcomes,puzzles, times) // calculate score
     let bonus = bonuses.reduce((a,b) => a+b, 0) // sum bonuses
@@ -158,7 +158,7 @@ export default function Puzzle(props) {
 
   // callback function when puzzle is finished (currently only success)
  const puzzleIsFinished = async (results, result, times, bonuses) => {
-   
+    console.log('puzzle is finished')
    logEvent(analytics, 'module_completed', {'user': userId, 'isDaily': isDaily}); // log module completion to firebase
 
    setSavingResults(true)

@@ -1,7 +1,7 @@
 
 // calculates new elo rating
 export const calcEloRating = (outcomes, puzzles, playerRating, completed) => {
-
+ 
   let k = Math.max(10, 800/(completed*10)); // calibration factor. Adjusts based on number of puzzles/modules completed. in the future this should be based on exact number of puzzles
   let maxDiff = 400; // max rating change
 
@@ -11,10 +11,10 @@ export const calcEloRating = (outcomes, puzzles, playerRating, completed) => {
     // expected outcome, formula: E = 1/1 + 10^((PR-PlayerRating)/400)
     const expected = (playerRating, puzzleRating) => 1/(1+Math.pow(10, ratingDifference(puzzleRating,playerRating))/maxDiff);
     
-    let puzzleRatings = puzzles.map(puzzle => puzzle.rating); // extracts ratings
+    let puzzleRatings = puzzles.map(puzzle => parseInt(puzzle.rating)); // extracts ratings
     
     //let k = 20; // calibration factor, default 20
-    
+    console.log(puzzleRatings)
     // calc rating changes
     let ratingChanges = outcomes.map((outcome,index) => {
       
@@ -23,10 +23,10 @@ export const calcEloRating = (outcomes, puzzles, playerRating, completed) => {
       
       return ratingChange;
     })
-  
+    console.log(ratingChanges)
     // sum rating changes
     let ratingChange = ratingChanges.reduce((accum, current) => accum + current) // sum rating changes
-    
+    console.log(ratingChange)
     let newRating = playerRating + ratingChange; // apply changes
     
     return newRating;

@@ -126,6 +126,7 @@ const UserProvider = ({ children }) => {
     
     // THEME DATA
     const updateThemesData = async (data) => { 
+        console.log('should update themes')
         setLoading(() => true);
         let endpoint = `/users/${auth.userId}/themes`; 
         let response = await put(endpoint, data);
@@ -139,7 +140,7 @@ const UserProvider = ({ children }) => {
         } else {
             newThemes = [...newThemes, response]; // if theme doesn't exist, add it
         }
-
+        console.log(newThemes, response, data)
         setThemesData(newThemes);
         setLoading(() => false);
     }
