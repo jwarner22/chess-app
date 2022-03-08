@@ -8,6 +8,7 @@ import Settings from '../components/PostLogin/Views/Settings/Settings';
 import FeatureSuggestion from '../components/PostLogin/Views/FeatureSuggestion/FeatureSuggestion.js';
 import OpeningsDashboardTest from '../components/PostLogin/Views/Openings/OpeningsDashboardTest.js'; 
 import Module from "../components/Module/Module";
+import TestModule from '../testing/TestModule';
 
 const PrePuzzlePage = React.lazy(() => import('../components/PrePuzzle/PrePuzzle'));
 const Opening = React.lazy(() => import('../components/Module/Opening/OpeningManager'));
@@ -86,6 +87,12 @@ const protectedRoutes = [
 		path: "/openings-dashboard-test/:moves",
 		exact: false,
 		main: () => <OpeningsDashboardTest />
+	},
+	{
+		name: "ModuleTest",
+		path: "/module-test",
+		exact: true,
+		main: () => <TestModule />
 	}
 ];
 

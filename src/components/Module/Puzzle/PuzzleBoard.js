@@ -145,9 +145,8 @@ export default function PuzzleBoard(props) {
     }
 
     safeGameMutate((game) => {
-      console.log(from, to, promotion);
+      
       let m = game.move({ from: from, to: to, promotion: promotion});
-      console.log(m);
       if (m == null) return;
       if (m.flags === "c") { 
         // captureSound.play();

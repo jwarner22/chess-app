@@ -66,16 +66,18 @@ export default function Puzzle(props) {
     // filter relevant theme from user themes data
     let userThemesData = [...themesData]
     let themeData = userThemesData.filter(item => item.title === theme)[0];
-    themeData.completed += 1; 
+    
+    themeData.completed += 1; // increment completed count
+
     // update theme data
-    console.log(outcomes, puzzles, themeData.rating, themeData.completed)
     let newRating = calcEloRating(outcomes,puzzles,themeData.rating, themeData.completed);
-    console.log('new rating: ', newRating);
+
     if (newRating > themeData.high_rating) {
       let diff = newRating - themeData.high_rating; // change from previous high rating
       themeData.high_rating = newRating;     // new high rating
       updateAchievements("high_rating", newRating, diff, theme);
     }
+    
     themeData.rating = newRating // adds 1 to number of puzzles completed
 
     let score = calcScore(outcomes,puzzles, times) // calculate score
@@ -189,7 +191,6 @@ export default function Puzzle(props) {
      <PostPuzzle completedTraining={completedTraining} perfect={perfect} failure ={failure} outcomes={outcomes} userData={userThemeData} score={score} isDaily={isDaily} scoreData={scoreData}/>
    )
  }
-
  // render puzzle module
   return (
     <div>
