@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { PageContainer } from "../Page"
 
 const OpeningTreeTiles = (props) => {
+  console.log(props)
   return (
     <OpeningTreeTileWrapper>
         <TileHeader>
@@ -16,6 +17,10 @@ const OpeningTreeTiles = (props) => {
 
 export default OpeningTreeTiles
 
-const OpeningTreeTileWrapper = styled(TileWrapper)`
-    background: #F85c37
+export const OpeningTreeTileWrapper = styled(TileWrapper)`
+    background: ${props => props.current ? '#fff' : '#F85c37'};
+    max-width: ${props => props.current ? '1080px' : null};
+    margin: ${props => props.current ? '0px auto' : null};
+    justify-content: center;
+    display: flex;
 `

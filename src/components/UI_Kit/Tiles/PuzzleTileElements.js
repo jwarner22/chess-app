@@ -26,12 +26,14 @@ export const TileWrapper = styled.li`
     box-shadow: 0px 8px 15px rgba(1, 14, 255, 0.24);
     `
 
-
 export const TileHeader = styled.div`
     padding: 2px;
     display: flex;
     flex-direction: column;
-    min-width: 100%;
+    width: 100%;
+    color: ${props => props.current ? '#243862' : '#fff'};
+    align-items: center;
+    justify-content: center;
 `
 
 export const TileIconWrap = styled.div`
@@ -54,11 +56,10 @@ export const TileHeadline = styled.h3`
     line-height: 1.1;
     font-weight: 600;
     color: #fff;
-    text-align: left;
-    margin-bottom: 2px;
+    /* margin-bottom: 2px;
     margin-left: 10px;
-    margin-right: 2px;
-    padding-left: 8px;
+    margin-right: 2px; */
+    padding: 8px;
     text-decoration: none;
     /* margin-top: 5px; */
     @media screen and (max-width: 768px) {
@@ -72,11 +73,9 @@ export const TileSubheadline = styled.p`
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.14;
-    color: #fff;
+    color: ${props => props.current ? '#243862' : '#fff'};
     text-align: left;
     margin-bottom: 10px;
-    padding-left: 8px;
-    margin-left: 10px;
 
     @media screen and (max-width: 768px) {
         /* display: none; */
@@ -150,4 +149,13 @@ export const TileButton = styled.div`
     @media screen and (max-height: 640px) {
         display: none;
     }
+`
+
+export const CurrentHeadlineWrapper = styled.div`
+    display: flex;
+    background: #FF8B59;
+    justify-content: flex-start;
+    border-radius: 35px 0px 0px 35px;
+    align-items: center;
+    text-align: center;
 `

@@ -2,12 +2,10 @@ import styled from 'styled-components'
 
 export const CoursesWrapper = styled.div`
     display: flex;
-    justify-content: center;
-    padding: 24px 0px 24px 0px;
-    background: #EEF0FF;
-    height: 100%;
-    flex-direction: column;
+    justify-content: ${props => props.opening ? "flex-start" : "center"};
+    padding: ${props => props.opening ? '0px' : '24px 0px 24px 0px'};
     align-items: center;
+    flex-direction: column;
 `
 
 export const ModuleGrid = styled.ul`

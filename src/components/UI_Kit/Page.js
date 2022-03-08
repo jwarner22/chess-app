@@ -7,7 +7,7 @@ export const PageContainer = styled.div`
     top: 0;
     z-index: 0;
     overflow: hidden;
-    background-color: #fff;
+    background-color: #EEF0FF;
     height: 100vh;
 `
 
