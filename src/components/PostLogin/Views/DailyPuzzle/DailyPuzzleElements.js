@@ -1,4 +1,21 @@
 import styled from "styled-components"
+import {BsFillQuestionSquareFill} from "@react-icons/all-files/bs/BsFillQuestionSquareFill"
+
+export const QuestionIcon = styled(BsFillQuestionSquareFill)`
+    max-width: 90px;
+    max-height: 90px;
+    width: 90px;
+    height: 90px;
+    grid-row: span 2;
+    grid-column: 1;
+    margin: 1rem 8px 1rem 1rem;
+    opacity: 0.2;
+    @media screen and (max-width: 425px) {
+        grid-row: 1;
+        width: 60px;
+        height: 60px;
+        }
+`
 
 export const Container = styled.div`
     min-height: 100vh;

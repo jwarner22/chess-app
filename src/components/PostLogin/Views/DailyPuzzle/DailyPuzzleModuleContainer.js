@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {DailyPuzzleModuleStyle,
 DailyPuzzleIconWrapper,
 DailyPuzzleIcon,
@@ -9,10 +9,13 @@ Col2Row2,
 Col2Row3,
 CompletedCheck
 } from "./DailyPuzzleElements"
+
 import check from "../../../../Images/check.png"
+import {QuestionIcon} from "./DailyPuzzleElements"
+
 
 const DailyPuzzleModuleContainer = (props) => {
-    
+
     return (
         <>
         {/* <PuzzleWrapper> */}
@@ -21,19 +24,19 @@ const DailyPuzzleModuleContainer = (props) => {
             type={props.type}
             >
             <DailyPuzzleIconWrapper>
-                <DailyPuzzleIcon src={props.img}/>
+                {props.locked ? <QuestionIcon />:<DailyPuzzleIcon src={props.img}/>}
             </DailyPuzzleIconWrapper>
             <Col2Row1 props={props}>
             {props.completed ? <CompletedCheck src={check} /> : null}
             </Col2Row1>
             <Col2Row2>
             <PuzzleModuleTitle>
-                {props.headline}
+                {!props.locked && props.headline}
             </PuzzleModuleTitle>
             </Col2Row2>
             <Col2Row3>
             <PuzzleDescripton>
-                {props.subheading}
+                {!props.locked && props.subheading}
             </PuzzleDescripton>
             </Col2Row3>
             </DailyPuzzleModuleStyle>
