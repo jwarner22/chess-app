@@ -1,6 +1,7 @@
 
 from datetime import datetime
 from pickle import FALSE
+from this import d
 from sqlalchemy.sql.sqltypes import Boolean
 from sqlalchemy.sql.expression import func
 from starlette.status import HTTP_401_UNAUTHORIZED
@@ -80,12 +81,52 @@ def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
 
 
 ## OPENING DATA
+
+# get opening for ui
 @app_v1.get('/openings-data/', response_model=List[schemas.Openings], tags=["Openings"]) # get opening data
 def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
     moves_length = len(moves)
     # limit to two moves ahead
     openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 10)) & (models.Openings.uci.contains(moves))).all()
     return openings
+
+# add opening data for user
+@app_v1.post('/openings-data/{user_id}/{opening_id}', tags=["Openings"]) # add opening data
+def add_opening(user_id: int, opening_id: int, db: Session = Depends(get_db)):
+    opening = models.OpeningCompletions(user_id=user_id, opening_id=opening_id, completions=1)
+    db.add(opening)
+    db.commit()
+    return 'opening successfully added'
+
+# get opening completions
+@app_v1.get('/openings-completions/{user_id}/{opening_id}', response_model=List[schemas.Openings], tags=["Openings"]) # get opening data
+def get_opening_completions(user_id: int, opening_id: int, moves: str, db_openings: Session = Depends(get_local_opening_db), db: Session = Depends(get_db)):
+    moves_length = len(moves)
+    # query local db for opening id 
+    openings = db_openings.query(models.Openings).filter((func.length(models.Openings.uci) <= (moves_length)) & (models.Openings.uci.contains(moves))).all()
+    opening_ids = []
+    for opening in openings:
+        opening_ids.append(opening.id)
+
+    # query remote db for opening ids
+    openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.Openings.id.in_(opening_ids)).all()
+    opening_completions = 0
+    for opening in openings:
+        opening_completions += openings.completions
+    return {"completions": opening_completions}
+
+# update opening completions
+@app_v1.put('/openings-data/{user_id}/{opening_id}', response_model=List[schemas.Openings], tags=["Openings"]) # update opening data for user
+def update_opening_data(user_id: int, opening_id: int, moves: str, db: Session = Depends(get_db)):
+    opening = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id == opening_id).first()
+    
+    if opening is None:
+        raise HTTPException(status_code=404, detail="Opening not found")
+    
+    opening.completions += 1
+    db.update(opening)
+    db.commit()
+    return opening
 
 
 @app_v1.get('/openings-data/lichess-explorer/', tags=["Openings"]) # request lichess explorer data for moves
