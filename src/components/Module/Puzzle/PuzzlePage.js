@@ -301,7 +301,7 @@ export default function PuzzlePage(props) {
   const unlockNext = () => {
     setWaiting(true);
   };
-  console.log(correct)
+
   const playSound = (category) => {
     if (category === "confirmation") {
       sound.confirmation.play();
