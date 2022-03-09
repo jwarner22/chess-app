@@ -532,8 +532,8 @@ async def update_opening(user_id: str, opening_id: int, opening: schemas.Opening
 # get user leaderboard data
 @app_v1.get('/leaderboard/{leaderboard_id}', tags=["Leaderboard"])
 async def get_leaderboard(leaderboard_id: str, limit: int = 100, skip: int = 0, db: Session = Depends(get_db)):
-    users = db.query(models.User).offset(skip).limit(limit).all()
-
+    #users = db.query(models.User).offset(skip).limit(limit).all()
+    users = db.query(models.User).order_by(models.User.total_score.desc()).limit(limit).all() # select * from users order by score desc limit 100
     leaderboard = []
     if users is None:
         return 'leaderboard not found'

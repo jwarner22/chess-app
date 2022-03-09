@@ -32,11 +32,15 @@ const LeaderboardsPage = () => {
           if (now < expiration) { // if leaderboard is still valid
                 console.log('pull from local storage')
                 let leaderboard = JSON.parse(localStorage.getItem('leaderboard'));
-                const userIndex = leaderboard.findIndex(user => user.user_id === userId);
-
-                setLeaderboard(leaderboard);
-                setUserPlacement(userIndex + 1);
-                setIsLoading(false)
+                let userIndex = 0;
+                if (!leaderboard.some(user => user.id === userId)) { // if user is not in the leaderboard   
+                      userIndex = leaderboard.length + 1;
+                  } else {
+                      userIndex = leaderboard.findIndex(user => user.user_id === userId);
+                  }
+                  setLeaderboard(leaderboard);
+                  setUserPlacement(userIndex + 1);
+                  setIsLoading(false)
                 return
           }
           
@@ -59,9 +63,14 @@ const LeaderboardsPage = () => {
           localStorage.setItem('leaderboard_exp', now)
 
           setLeaderboard(sortedLeaderboard)
-          const userIndex = leaderboard.findIndex(user => user.user_id === userId);
-          setUserPlacement(userIndex + 1);
-          setIsLoading(false)
+          let userIndex = 0;
+          if (!leaderboard.some(user => user.id === userId)) { // if user is not in the leaderboard   
+                userIndex = leaderboard.length + 1;
+            } else {
+                userIndex = leaderboard.findIndex(user => user.user_id === userId);
+            }
+            setUserPlacement(userIndex + 1);
+            setIsLoading(false)
         }
 
 
