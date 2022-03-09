@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useLayoutEffect, useState} from 'react';
 import styled from 'styled-components'
 import {Link, useParams} from 'react-router-dom';
 import useFetch from '../../../../api/useFetch';
@@ -9,7 +9,6 @@ import { PageContainer } from '../../../UI_Kit/Page';
 import PreviousSelection from '../../../UI_Kit/PreviousSelection';
 import CategoryTitle from '../../../UI_Kit/CategoryTitle/CategoryTitle';
 import CurrentOpeningTreeTile from '../../../UI_Kit/Tiles/CurrentOpeningTreeTile';
-import Subtitle from '../../../UI_Kit/CategoryTitle/Subtitle';
 
 const OpeningsDashboardTest = () => {
     const {get} = useFetch(baseURL);
@@ -17,7 +16,7 @@ const OpeningsDashboardTest = () => {
     const [currentOpening, SetCurrentOpening] = useState({});
     const {moves} = useParams();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         console.log('fetch new openings')
         fetchOpenings();
     },[moves])
