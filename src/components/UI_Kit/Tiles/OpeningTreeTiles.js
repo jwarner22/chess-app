@@ -9,7 +9,7 @@ const OpeningTreeTiles = (props) => {
         <TileHeader>
          <TileHeadline>{props.name}</TileHeadline>
         <TileSubheadline>{props.moves}</TileSubheadline>
-        <h3>{props.popularity}</h3>
+        <TileSubheadline>{props.popularity}</TileSubheadline>
         </TileHeader>
     </OpeningTreeTileWrapper>
   )
@@ -19,8 +19,7 @@ export default OpeningTreeTiles
 
 export const OpeningTreeTileWrapper = styled(TileWrapper)`
     background: ${props => props.current ? '#fff' : '#F85c37'};
-    max-width: ${props => props.current ? '1080px' : null};
-    margin: ${props => props.current ? '0px auto' : null};
+    width: ${props => props.current ? '640px' : null};
     justify-content: center;
     display: flex;
 `

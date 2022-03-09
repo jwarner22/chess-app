@@ -65,7 +65,7 @@ export const Form = styled.form`
 
 export const FormH1 = styled.h1`
   margin-bottom: 30px;
-  color: #247cf1;
+  color: #243862;
   font-size: 20px;
   font-weight: 600;
   text-align: center;
@@ -74,7 +74,7 @@ export const FormH1 = styled.h1`
 export const FormLabel = styled.label`
   margin-bottom: 8px;
   font-size: 14px;
-  color: #247cf1;
+  color: #243862;
 `;
 export const FormInput = styled.input`
   padding: 16px 16px;
@@ -83,6 +83,10 @@ export const FormInput = styled.input`
   border-radius: 4px;
   box-shadow: rgba(36, 124, 241, 0.3) 0px 3px 8px;
   background-color: #e9f1fc;
+
+  &:focus {
+    outline: 2px solid rgba(36, 124, 241, 0.7)
+  }
 `;
 
 export const FormButton = styled.button`

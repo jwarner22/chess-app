@@ -1,6 +1,7 @@
 import React from "react";
 import Home from "../components/Home/Home";
 import Loader from '../components/Loader';
+import ForgotPassword from "../Pages/Login-Signup/ForgotPassword";
 
 
 
@@ -11,7 +12,8 @@ const routes = [
   { name: "Home", path: "/", exact: true, main: () => <Home />},
   { name: "SignUp", path: "/signup", exact: true, main: () => <SignUp /> },
   { name: "LogIn", path: "/login", exact: true, main: () => <LogIn /> },
-  { name: "LoadingTest", path: "/test", exact: true, main: () => <Loader /> }
+  { name: "LoadingTest", path: "/test", exact: true, main: () => <Loader /> },
+  {	name: "ForgotPassword", path: "/forgotpassword", exact: true, main: () => <ForgotPassword />}
 ];
 
 export default routes;

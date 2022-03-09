@@ -3,6 +3,7 @@ import React, {useState, useContext, useEffect, useRef } from "react";
 import {Link, withRouter } from 'react-router-dom'
 //import { AuthContext } from "../../index";
 //import firebaseConfig from "../../config.js";
+import styled from 'styled-components'
 import logo from '../../Images/eloElevationWhite.png'
 import headerImg from "../../Images/realChessHeader.jpg"
 import {  
@@ -40,10 +41,15 @@ const Login = ({history}) => {
   const [error, setErrors] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSaved,setIsSaved] = useState(false)
-  const {currentUser} = useContext(AuthContext)
+  const {currentUser, resetPassword} = useContext(AuthContext)
   const {get, post} = useFetch(baseURL)
   const _isMounted = useRef(true)
   const analytics = getAnalytics();
+
+
+  const emailRef = useRef();
+
+ 
   //const Auth = useContext(AuthContext);
 
   useEffect(() => {
@@ -58,6 +64,24 @@ const Login = ({history}) => {
       _isMounted.current =  false;
     }
   },[])
+
+
+
+  // const forgotPasswordHandler = () => {
+  //   const userEmail = emailRef.current.value
+  //   if(userEmail) resetPassword(userEmail).then(() => emailRef.current.value = ""
+  //   )}
+  const handlePasswordReset = async (e) => {
+    e.preventDefault()
+    await firebase.auth().sendPasswordResetEmail(email)
+        .then(() => {
+            alert('Check your Mail!')
+        })
+        .catch((err) => {
+            alert(err.message)
+        })
+}
+
 
   //login with email
   const handleForm = e => {
@@ -147,6 +171,7 @@ const Login = ({history}) => {
           name="email"
           type="email"
           placeholder="email"
+          ref={emailRef}
         />
         <FormLabel>Password</FormLabel>
         <FormInput
@@ -170,6 +195,7 @@ const Login = ({history}) => {
         <FormText>Don't have an account?<br/>
         Sign up <Link to='/signup'>here</Link>
         </FormText>
+        <ForgotPasswordLink to='/forgotpassword'>Forgot Password</ForgotPasswordLink>
         <span>{error}</span>
             </Form>
           </FormContent>
@@ -181,5 +207,8 @@ const Login = ({history}) => {
 
 export default withRouter(Login);
 
-   
+const ForgotPasswordLink = styled(Link)`
+  text-align: center;
+  padding: 12px;
+`
 
