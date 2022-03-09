@@ -150,10 +150,10 @@ export default function PuzzleBoard(props) {
       if (m == null) return;
       if (m.flags === "c") { 
         // captureSound.play();
-        //sound.capture.play();
+        sound.capture.play();
       } else {
         //moveSound.play();
-        //sound.move.play();
+        sound.move.play();
       }
       return m;
     });
