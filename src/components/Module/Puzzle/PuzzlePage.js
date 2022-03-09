@@ -247,8 +247,7 @@ export default function PuzzlePage(props) {
 
       let timesCopy = [...times];
       const currentTime = timesCopy.pop()/1000; // puzzle completion time in seconds
-      const bonus = currentTime < 30 ? 50 : currentTime < 60 ? 25 : currentTime < 120 ? 10 : currentTime < 180 ? 5 : 0;
-
+      const bonus = currentTime < 5 ? 100 : currentTime < 10 ? 75 : currentTime < 20 ? 50 : currentTime < 30 ? 25 : currentTime < 45 ? 10 : 0;
       setBonuses(prev => [...prev, bonus])
     }
   },[times])

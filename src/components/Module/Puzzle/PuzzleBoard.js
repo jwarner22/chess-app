@@ -145,7 +145,7 @@ export default function PuzzleBoard(props) {
     }
 
     safeGameMutate((game) => {
-      
+
       let m = game.move({ from: from, to: to, promotion: promotion});
       if (m == null) return;
       if (m.flags === "c") { 
@@ -274,17 +274,24 @@ export default function PuzzleBoard(props) {
     } else if ((prevCorrect != null) && prevCorrect.length === 5 && props.promotion !== "x") {
       correct = prevCorrect.substring(0, 4);
     } 
+    console.debug({correct: correct, move: move, correctMove: correctMove})
 
+    // first check for checkmate
+    if (game.in_checkmate()) {
+      console.debug("checkmate");
+      outcomeCallback(true, true); //outcome=true, checkmate=true
+      return;
+    }
+
+    // check move
     if ((move === correctMove || move === correct) & (opposingMove != null)) {
       setTimeout(makeOpposingMove, 400); //
     } else if (move === correctMove || move === correct) {
-      outcomeCallback(true);
-      //setTimeout(makeOpposingMove, 600);
-    } else if (game.in_checkmate()) { 
-      outcomeCallback(true);
+      outcomeCallback(true, false); //outcome=true, checkmate=false
+      console.debug('premove')
     } else {
-      outcomeCallback(false);
-      // color incorrect square?
+      outcomeCallback(false, false); //outcome=false, checkmate=false
+      console.debug('incorrect')
     }
     return;
   }
