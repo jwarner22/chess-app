@@ -38,14 +38,14 @@ const OpeningsDashboardTest = () => {
             let endpoint = '/openings-data/'
             let queryParams = `?moves=${moves}`
             let openings = await get(endpoint+queryParams);
-            console.log({response: openings})
+            // console.log({response: openings})
             if (openings.length === 1) {
                 SetCurrentOpening(openings[0]); // if no variatins, set current opening to the opening
                 setOpeningModules([]); // set the opening modules to the variations
                 return;
             }
             let main = openings.filter(opening => opening.uci === moves)[0];
-            console.log({main: main})
+            // console.log({main: main})
             // check if nb plays exists for mainline
             if (main != null) {
                 console.log(main.np_lichess)
@@ -56,10 +56,10 @@ const OpeningsDashboardTest = () => {
                 }
             }
             openings = openings.filter(opening => opening.np_lichess != null) // filter out openings with no nb plays
-            console.log({openings: openings})
+            // console.log({openings: openings})
             openings = openings.sort((a,b) => b.np_lichess - a.np_lichess) // sort by nb plays
             openings = openings.slice(0,5) //choose a max of 5 openings
-            console.log({sortedOpenings: openings})
+            // console.log({sortedOpenings: openings})
             let selectedOpening = openings[0];
             setOpeningModules(openings.slice(1,6));
             SetCurrentOpening(selectedOpening)
