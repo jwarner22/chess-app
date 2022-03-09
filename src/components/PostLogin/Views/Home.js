@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import {Link, BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import DashNavbar from '../DashboardNavbar/DashboardNavbar';
 import DashSidebar from '../DashboardSidebar/DashboardSidebar';
@@ -13,14 +13,23 @@ import Leaderboards from "./Leaderboards/Leaderboards";
 import {useWindowSize} from '../../../hooks/UseWindowSize';
 import {UserContext} from '../../../providers/GlobalState';
 import Loader from '../../Loader';
+import DiscordModal from "../../DiscordModal/DiscordModal";
 
 const Home = () => {
      //hamburger sidebar menu
     const [isOpen, setIsOpen] = useState(false)
-    
+    const [isVisible, setIsVisible] = useState(localStorage.getItem('discord-modal') === 'true')
     const {contextLoading} = useContext(UserContext);
     const windowDimension = useWindowSize();
     const isMobile = windowDimension[0] <= 640;
+
+  useEffect(() => {
+    localStorage.setItem('discord-modal', isVisible);
+  }, [isVisible])
+
+  const discordToggle = () => {
+    setIsVisible(false)
+  }
 
     const toggle = () => {
         setIsOpen(!isOpen)
@@ -37,8 +46,9 @@ const Home = () => {
       </>
       ) : (
         <>
-            <DashSidebar isOpen={isOpen} toggle={toggle} />
+        <DashSidebar isOpen={isOpen} toggle={toggle} />
         <DashNavbar toggle={toggle}/>
+        <DiscordModal isVisible={isVisible} toggle={discordToggle}/>
         </>
       )}
       <>

@@ -13,7 +13,6 @@ import {
   Form, 
   FormLabel, 
   FormInput, 
-  FormButton,
   FormText,
   GoogleButton,
   GoogleButtonText,
@@ -64,24 +63,6 @@ const Login = ({history}) => {
       _isMounted.current =  false;
     }
   },[])
-
-
-
-  // const forgotPasswordHandler = () => {
-  //   const userEmail = emailRef.current.value
-  //   if(userEmail) resetPassword(userEmail).then(() => emailRef.current.value = ""
-  //   )}
-  const handlePasswordReset = async (e) => {
-    e.preventDefault()
-    await firebase.auth().sendPasswordResetEmail(email)
-        .then(() => {
-            alert('Check your Mail!')
-        })
-        .catch((err) => {
-            alert(err.message)
-        })
-}
-
 
   //login with email
   const handleForm = e => {
