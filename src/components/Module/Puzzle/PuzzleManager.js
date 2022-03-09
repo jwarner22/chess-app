@@ -18,8 +18,6 @@ export default function PuzzleManager(props) {
 
 
   useEffect(() => {
-    console.log('useEffect: PuzzleManager mounted');
-
     setMoves(() => {
       let moves = [...props.correctMoves]
       moves.shift(); // remove initial move
@@ -33,7 +31,8 @@ export default function PuzzleManager(props) {
     console.log('debugging data:', props.fen, props.correctMoves);
   },[props]);
 
-  const handleOutcome = (outcome) => {
+  const handleOutcome = (outcome, checkmate) => {
+
 
     if (outcome === false) {
       // do failed logic (callback?)
@@ -55,12 +54,11 @@ export default function PuzzleManager(props) {
     setMoves((prevMoves) => {
       prevMoves.shift();
       prevMoves.shift();
-      // console.log({ moves: moves });
       return prevMoves;
     });
+    console.debug({ moves: moves });
 
-    if (moves.length === 0) {
-      console.log('finished correct')
+    if (moves.length === 0 || checkmate) {
       setTimeout(() => props.displayOutcome(true),  600);
       setFinished(true);
       props.unlockNext();

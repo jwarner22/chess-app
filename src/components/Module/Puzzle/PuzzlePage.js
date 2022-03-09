@@ -244,15 +244,10 @@ export default function PuzzlePage(props) {
 
   useEffect(() => {
     if (times.length > 0 && bonuses.length < times.length) { // only calculate if there are times to compare
-      // const bonus = bonusCalc(times);
-      
-      // setCurrentBonus(bonus);
+
       let timesCopy = [...times];
       const currentTime = timesCopy.pop()/1000; // puzzle completion time in seconds
-      //console.log(currentTime)
-      const bonus = currentTime < 30 ? 50 : currentTime < 60 ? 25 : currentTime < 120 ? 10 : currentTime < 180 ? 5 : 0;
-      // console.log({bonus: bonus})
-      // console.log({bonuses: bonuses})
+      const bonus = currentTime < 5 ? 100 : currentTime < 10 ? 75 : currentTime < 20 ? 50 : currentTime < 30 ? 25 : currentTime < 45 ? 10 : 0;
       setBonuses(prev => [...prev, bonus])
     }
   },[times])
@@ -338,7 +333,6 @@ export default function PuzzlePage(props) {
     setOutcomes(prevOutcomes => [...prevOutcomes, success]);
   };
 
-  // console.log(state)
   useEffect(() => {
     let now = Date.now();
     if (toggleTimer) {

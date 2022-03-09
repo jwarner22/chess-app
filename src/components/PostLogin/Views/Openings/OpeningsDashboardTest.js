@@ -28,6 +28,12 @@ const OpeningsDashboardTest = () => {
         let endpoint = '/openings-data/'
         let queryParams = `?moves=${moves}`
         let openings = await get(endpoint+queryParams);
+        console.log({response: openings})
+        if (openings.length === 1) {
+            SetCurrentOpening(openings[0]); // if no variatins, set current opening to the opening
+            setOpeningModules([]); // set the opening modules to the variations
+            return;
+        }
         let main = openings.filter(opening => opening.uci === moves)[0];
         // check if nb plays exists for mainline
         if (main != null) {
@@ -41,13 +47,13 @@ const OpeningsDashboardTest = () => {
         openings = openings.filter(opening => opening.np_lichess != null) // filter out openings with no nb plays
         openings = openings.sort((a,b) => b.np_lichess - a.np_lichess) // sort by nb plays
         openings = openings.slice(1,6) //choose a max of 5 openings
-        console.log(openings.slice(1,6))
+
         let selectedOpening = openings[0];
         setOpeningModules(openings.slice(1,6));
         SetCurrentOpening(selectedOpening)
-        console.log(selectedOpening)
-        console.log(openings)
+
     }
+    console.log({currentOpening: currentOpening})
 
     return(
         <>
@@ -55,16 +61,18 @@ const OpeningsDashboardTest = () => {
         <CategoryTitle>Opening Mastery Tree</CategoryTitle>
         <PreviousSelection />
         <CurrentOpeningTreeTile moves={currentOpening.uci} name={currentOpening.name} popularity={currentOpening.np_lichess}/>
+        {(openingModules.length > 0) && 
+
         <PuzzleTileGrid opening category={"Variations"}>
-        {(openingModules.length > 0) && openingModules.map((opening, index) => {
+         {openingModules.map((opening, index) => {
             let linkUrl = `/openings-dashboard-test/${opening.uci}`
             return(
                 <OpeningLink key={index} to={linkUrl}>
                 <OpeningTreeTiles moves={opening.uci} name={opening.name} popularity={opening.np_lichess} />
                 </OpeningLink>
-            )
-        })}
-        </PuzzleTileGrid>
+            )})}
+        </PuzzleTileGrid>     
+        }
         </PageContainer>
         </>
     )

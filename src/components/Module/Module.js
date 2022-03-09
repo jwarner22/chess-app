@@ -64,7 +64,12 @@ export default function Module(props) {
         let exists = themesData.some(theme => theme.title === moduleData.theme);
         if (exists) {
             let theme = themesData.find(theme => theme.title === moduleData.theme);
-            setRating(theme.rating);
+            if (theme.rating == null) {
+                setRating(userData.initial_rating); // pessimistic bc I'm a fuck up
+            } else {
+                setRating(theme.rating);
+            }
+
             setHighScore(theme.high_score);
 
             setLoading(false);

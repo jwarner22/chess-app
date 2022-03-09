@@ -14,7 +14,7 @@ export const calcEloRating = (outcomes, puzzles, playerRating, completed) => {
     let puzzleRatings = puzzles.map(puzzle => parseInt(puzzle.rating)); // extracts ratings
     
     //let k = 20; // calibration factor, default 20
-    console.log(puzzleRatings)
+
     // calc rating changes
     let ratingChanges = outcomes.map((outcome,index) => {
       
@@ -23,10 +23,10 @@ export const calcEloRating = (outcomes, puzzles, playerRating, completed) => {
       
       return ratingChange;
     })
-    console.log(ratingChanges)
+
     // sum rating changes
     let ratingChange = ratingChanges.reduce((accum, current) => accum + current) // sum rating changes
-    console.log(ratingChange)
+
     let newRating = playerRating + ratingChange; // apply changes
     
     return newRating;
