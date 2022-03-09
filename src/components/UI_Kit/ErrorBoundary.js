@@ -1,4 +1,11 @@
 import React from 'react';
+import { FormWrap } from '../Login/LoginElements';
+import { PageContainer } from './Page';
+import error from '../../Images/ErrorBoundary.svg'
+import styled from 'styled-components'
+import CategoryTitle from './CategoryTitle/CategoryTitle';
+
+
 export default class ErrorBoundary extends React.Component {
     constructor(props) {
         super(props);
@@ -13,8 +20,28 @@ export default class ErrorBoundary extends React.Component {
     }
     render() {
         if(this.state.hasError) {
-            return <h1>Something went wrong.</h1>
+            return <PageContainer>
+                        <FormWrap>
+                            <ErrorContainer>
+                                <CategoryTitle>
+                                    Oops...Something went wrong.
+                                </CategoryTitle>
+                                <img src={error} 
+                                style={{height: '50%', width: '100%'}}
+                                />
+                            </ErrorContainer>
+                        </FormWrap>
+                    </PageContainer>
         }
         return this.props.children
     }
 }
+
+const ErrorContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+    margin: 24px;
+`

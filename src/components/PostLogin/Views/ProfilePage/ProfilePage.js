@@ -17,7 +17,7 @@ const ProfilePage = () => {
   // context
   const {userData, achievements, themesData, contextLoading} = useContext(UserContext);
   
-
+useLayoutEffect(() => {
   const fetchProfileData = async() => {
 
     await calcOverallRating();     // get overall rating
@@ -36,6 +36,9 @@ const ProfilePage = () => {
     setJoinDate(reformattedDate)
     setLoaded(true)
   }
+  fetchProfileData()
+}, [])
+ 
 
 
   async function calcOverallRating() {
