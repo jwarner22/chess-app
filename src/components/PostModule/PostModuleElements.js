@@ -58,6 +58,7 @@ export const RewardH2 = styled.h2`
 `
 export const ModuleExperience = styled.h1`
   color: #54606c;
+  text-align: center;
 `
 
 export const FinishButton = styled.button`
@@ -86,4 +87,8 @@ export const FinishButton = styled.button`
     &:active {
       box-shadow: none;
     }
+`
+export const RewardContentContainer = styled.div`
+  width: 100%;
+  min-height: 200px;
 `

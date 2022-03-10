@@ -73,6 +73,7 @@ export default function Module(props) {
             setHighScore(theme.high_score);
 
             setLoading(false);
+            console.log(userData.initial_rating)
             return;
         }
 

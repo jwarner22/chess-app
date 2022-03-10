@@ -7,16 +7,28 @@ import Chart from './ScoreChart';
 import { FaThumbsDown } from "@react-icons/all-files/fa/FaThumbsDown";
 import {FaThumbsUp} from"@react-icons/all-files/fa/FaThumbsUp"
 import Button from '../UI_Kit/Button/Button';
+import RewardSlideOne from './RewardSlideOne';
+import EloRewards from './RewardSlideTwo';
 
 const PostPuzzleMockup = (props) => {
     const [linkUrl, setLinkUrl] = useState('');
+    const [rewardsSlide, setRewardsSlide] = useState(1)
     const module = Modules.find(module => module.type_ref === props.userData.title)
+    const {perfect, failure, scoreData, score, isDaily, initialRating, newRating} = props
 
     useEffect(() =>{
         if (props.completedTraining) setLinkUrl('completed-training');
         else if (props.isDaily) setLinkUrl('/home/daily');
         else setLinkUrl('/home/practice');
     }, [])
+
+    const handleSlide = () => {
+        setRewardsSlide(prev => prev + 1)
+    }
+
+    const isFirstSlide = rewardsSlide === 1
+
+    console.log(props)
 
     if (!props.savingResults) {
     return (
@@ -29,29 +41,33 @@ const PostPuzzleMockup = (props) => {
                     <ModuleExperience>
                         {module.headline}
                     </ModuleExperience>
-                    <div>
-
-
-                    </div>
-                    <RewardH1>
-                        {props.perfect && 'Congrats!'}
-                        {(!props.failure && !props.perfect) && 'Nice Job!'}
-                    </RewardH1>
-                    <RewardH2 props={props}>
-
-                        {props.perfect && 'perfect run!'}
-                        {(!props.failure && !props.perfect) && 'you passed'}
-                        {(props.failure) && 'module failed'}
-                    </RewardH2>
-                    <Chart data={props.scoreData}/>
-                    <ModuleExperience>
-                        {`Score: ${props.score}`}
-                    </ModuleExperience>
-                    <Link to={linkUrl}>
-                    <PostPuzzleButton primary>
-                        Return to {props.isDaily ? 'Daily Puzzles' : 'Dashboard'}
-                    </PostPuzzleButton>
-                    </Link>
+                        {isFirstSlide ? (
+                        <>
+                        <RewardSlideOne 
+                        perfect={perfect} 
+                        failure={failure} 
+                        data={scoreData} 
+                        score={score}
+                        />
+                        <Button onClick={handleSlide}>
+                            Next
+                        </Button>
+                        </>) : ( <> 
+                            <EloRewards 
+                            perfect={perfect} 
+                            failure={failure} 
+                            data={scoreData} 
+                            score={score}
+                            initialRating={initialRating}
+                            newRating={newRating}
+                            />
+                        <Link to={linkUrl}>
+                            <PostPuzzleButton primary>
+                                Return to {props.isDaily ? 'Daily Puzzles' : 'Dashboard'}
+                            </PostPuzzleButton>
+                         </Link>
+                         </>
+                         )}
                     <RatingHeader>
                         How would you rate this module?
                     </RatingHeader>
@@ -79,7 +95,7 @@ const PostPuzzleButton = styled(Button)`
     margin: 24px 0px;
 `
 
-const RatingHeader = styled.h2`
+const RatingHeader = styled.h4`
     text-align: center;
     color: #54606c;
 `

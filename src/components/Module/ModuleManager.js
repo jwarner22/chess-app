@@ -20,10 +20,14 @@ export default function Puzzle(props) {
   const [savingResults, setSavingResults] = useState(false);
   const [failure, setFailure] = useState(false);
   const [perfect, setPerfect] = useState(false);
+  const [initialRating, setInitialRating] = useState('')
   const [userThemeData, setUserThemeData] = useState({});
   const [score, setScore] = useState(0);
   const [scoreData, setScoreData] = useState([])
   const [completedTraining, setCompletedTraining] = useState(false);
+  const [updatedRating, setUpdatedRating] = useState({})
+
+  console.log(props)
   
   // fetch Hook
   const {get} = useFetch(baseURL);
@@ -72,6 +76,9 @@ export default function Puzzle(props) {
     // update theme data
     let newRating = calcEloRating(outcomes,puzzles,themeData.rating, themeData.completed);
 
+    setInitialRating(themeData.rating)
+    setUpdatedRating(newRating)
+
     if (newRating > themeData.high_rating) {
       let diff = newRating - themeData.high_rating; // change from previous high rating
       themeData.high_rating = newRating;     // new high rating
@@ -79,6 +86,8 @@ export default function Puzzle(props) {
     }
     
     themeData.rating = newRating // adds 1 to number of puzzles completed
+
+
 
     let score = calcScore(outcomes,puzzles, times) // calculate score
     let bonus = bonuses.reduce((a,b) => a+b, 0) // sum bonuses
@@ -188,7 +197,7 @@ export default function Puzzle(props) {
  
  if (isFinished) {
    return(
-     <PostPuzzle completedTraining={completedTraining} perfect={perfect} failure ={failure} outcomes={outcomes} userData={userThemeData} score={score} isDaily={isDaily} scoreData={scoreData}/>
+     <PostPuzzle completedTraining={completedTraining} perfect={perfect} failure ={failure} outcomes={outcomes} userData={userThemeData} score={score} isDaily={isDaily} scoreData={scoreData} initialRating={initialRating} newRating={props.rating}/>
    )
  }
  // render puzzle module
