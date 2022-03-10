@@ -27,7 +27,7 @@ const DailyPuzzleModuleContainer = (props) => {
                 {props.locked ? <QuestionIcon />:<DailyPuzzleIcon src={props.img}/>}
             </DailyPuzzleIconWrapper>
             <Col2Row1 props={props}>
-            {props.completed ? <CompletedCheck src={check} /> : null}
+            <CompletedCheck src={check} completed={props.completed}/> 
             </Col2Row1>
             <Col2Row2>
             <PuzzleModuleTitle>

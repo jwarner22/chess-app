@@ -137,6 +137,7 @@ export const Col2Row1 = styled.div`
 export const CompletedCheck = styled.img`
     max-height: 30px;
     max-width: 30px;
+    opacity: ${props => props.completed ? '1' : '0'};
 `
 
 export const Col2Row2 = styled.div`
