@@ -1,9 +1,10 @@
 import React from 'react'
-import { RewardH1, RewardH2, ModuleExperience } from './PostModuleElements'
+import { RewardH1, RewardH2, ModuleExperience, SlideContentWrapper, ChartContainer } from './PostModuleElements'
 import Chart from './ScoreChart'
 
 const RewardSlideOne = (props) => {
   return ( <>
+
             <RewardH1>
                 {props.perfect && 'Congrats!'}
                 {(!props.failure && !props.perfect) && 'Nice Job!'}

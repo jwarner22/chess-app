@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import {Link} from "react-router-dom"
-import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from './PostModuleElements'
+import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, ModuleTitle, SlideContentWrapper } from './PostModuleElements'
 import {Modules} from '../../data/ModuleData';
-import Chart from './ScoreChart';
 import { FaThumbsDown } from "@react-icons/all-files/fa/FaThumbsDown";
 import {FaThumbsUp} from"@react-icons/all-files/fa/FaThumbsUp"
 import Button from '../UI_Kit/Button/Button';
 import RewardSlideOne from './RewardSlideOne';
 import EloRewards from './RewardSlideTwo';
+import { PageContainer } from '../UI_Kit/Page';
 
 const PostPuzzleMockup = (props) => {
     const [linkUrl, setLinkUrl] = useState('');
@@ -33,14 +33,15 @@ const PostPuzzleMockup = (props) => {
     if (!props.savingResults) {
     return (
         <>
+        <PageContainer>
         <PostPuzzleWrapper>
-            <PostPuzzleGrid>
-                <IconWrap type={module.type}>
+        <IconWrap type={module.type}>
                     <PostPuzzleHeaderImg src={module.img}/>
-                </IconWrap>
-                    <ModuleExperience>
+                    <ModuleTitle>
                         {module.headline}
-                    </ModuleExperience>
+                    </ModuleTitle>
+                </IconWrap>
+            <PostPuzzleGrid>
                         {isFirstSlide ? (
                         <>
                         <RewardSlideOne 
@@ -49,9 +50,9 @@ const PostPuzzleMockup = (props) => {
                         data={scoreData} 
                         score={score}
                         />
-                        <Button onClick={handleSlide}>
+                        <PostPuzzleButton primary onClick={handleSlide}>
                             Next
-                        </Button>
+                        </PostPuzzleButton>
                         </>) : ( <> 
                             <EloRewards 
                             perfect={perfect} 
@@ -68,6 +69,8 @@ const PostPuzzleMockup = (props) => {
                          </Link>
                          </>
                          )}
+                    </PostPuzzleGrid>
+                    <RatingFeedbackContainer>
                     <RatingHeader>
                         How would you rate this module?
                     </RatingHeader>
@@ -80,8 +83,9 @@ const PostPuzzleMockup = (props) => {
                         </ThumbsDownButton>
                     {/* <StarRating {...props}/> */}
                     </div>
-            </PostPuzzleGrid>
+                    </RatingFeedbackContainer>
         </PostPuzzleWrapper>
+        </PageContainer>
         </>
     )
     }
@@ -93,6 +97,15 @@ export default PostPuzzleMockup
 const PostPuzzleButton = styled(Button)`
     font-weight: 600;
     margin: 24px 0px;
+`
+
+const RatingFeedbackContainer = styled.div`
+    height: 120px;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 `
 
 const RatingHeader = styled.h4`

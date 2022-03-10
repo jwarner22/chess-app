@@ -18,7 +18,6 @@ const DailyPuzzleModuleContainer = (props) => {
 
     return (
         <>
-        {/* <PuzzleWrapper> */}
             <DailyPuzzleModuleStyle 
             locked={props.locked}
             type={props.type}
@@ -40,7 +39,6 @@ const DailyPuzzleModuleContainer = (props) => {
             </PuzzleDescripton>
             </Col2Row3>
             </DailyPuzzleModuleStyle>
-        {/* </PuzzleWrapper> */}
         </>
     )
 }

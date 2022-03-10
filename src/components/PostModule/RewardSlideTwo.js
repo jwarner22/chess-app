@@ -9,14 +9,16 @@ const EloRewards = (props) => {
     return (<>
     <RewardContentContainer>
         <EloHeadline>
-            Elo Rewards
+            Motif Elo
         </EloHeadline>
+        <EloContainer>
         <FastCounter 
-        delay={0}
+        delay={1}
         startNumber={props.initialRating}
         to={props.newRating}
         style={{color:'#54606c', fontWeight: '400', fontSize: '48px', textAlign: 'center'}}
         />
+        </EloContainer>
     </RewardContentContainer>
     </>
     )
@@ -24,8 +26,16 @@ const EloRewards = (props) => {
   
   export default EloRewards
 
-  const EloHeadline = styled.h2`
+  const EloHeadline = styled.h1`
     color: #54606c;
     text-align: center;
     margin-bottom: 20px;
+  `
+
+  const EloContainer = styled.div`
+    display: flex;
+    width: 100%;
+    height: 200px;
+    align-items: center;
+    justify-content: center;
   `

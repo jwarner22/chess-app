@@ -1,18 +1,13 @@
 import styled from "styled-components"
 
 export const PostPuzzleWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  background-color: #fff;
 `
 export const PostPuzzleGrid = styled.div`
     max-width: 800px;
-    height: auto;
     width: 100%;
     display: flex;
     grid-template-columns: 1fr;
@@ -20,6 +15,7 @@ export const PostPuzzleGrid = styled.div`
     padding: 10px 22px;
     flex-direction: column;
     align-items: center;
+    min-height: 60%;
 `
 export const PostPuzzleHeaderImg = styled.img`
     height: 100px;
@@ -28,6 +24,9 @@ export const PostPuzzleHeaderImg = styled.img`
     margin: 10px;
 `
 export const IconWrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: ${props => {
         if (props.type === 'endgame') return`
             #00a6a6;
@@ -41,7 +40,6 @@ export const IconWrap = styled.div`
     }};
     padding: 20px;
     border-radius: 35px;
-    margin: 10px;
     
 `
 export const RewardH1 = styled.h1`
@@ -58,6 +56,11 @@ export const RewardH2 = styled.h2`
 `
 export const ModuleExperience = styled.h1`
   color: #54606c;
+  text-align: center;
+`
+
+export const ModuleTitle = styled.h1`
+  color: #fff;
   text-align: center;
 `
 
@@ -91,4 +94,10 @@ export const FinishButton = styled.button`
 export const RewardContentContainer = styled.div`
   width: 100%;
   min-height: 200px;
+`
+export const SlideContentWrapper = styled.div`
+  width: 100%;
+`
+export const ChartContainer = styled.div`
+  height: 200px;
 `
