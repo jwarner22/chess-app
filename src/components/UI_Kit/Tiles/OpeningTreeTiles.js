@@ -3,13 +3,13 @@ import styled from 'styled-components'
 import { PageContainer } from "../Page"
 
 const OpeningTreeTiles = (props) => {
-  console.log(props)
+
   return (
     <OpeningTreeTileWrapper>
         <TileHeader>
          <TileHeadline>{props.name}</TileHeadline>
         <TileSubheadline>{props.moves}</TileSubheadline>
-        <TileSubheadline>{props.popularity}</TileSubheadline>
+        <TileSubheadline>{props.popularity}%</TileSubheadline>
         </TileHeader>
     </OpeningTreeTileWrapper>
   )

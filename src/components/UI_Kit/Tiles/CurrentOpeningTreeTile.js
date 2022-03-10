@@ -10,7 +10,7 @@ const CurrentOpeningTreeTile = (props) => {
     <OpeningTreeTileWrapper current>
         <CurrentHeadlineWrapper>
         <TileHeadline current>{props.name}</TileHeadline>
-        <TileSubheadline >Popularity: {props.popularity}</TileSubheadline>
+        <TileSubheadline >Popularity: {props.popularity}%</TileSubheadline>
         </CurrentHeadlineWrapper>
         <TileHeader current>
                 <TileSubheadline current>Move Sequence: {props.moves}</TileSubheadline>
