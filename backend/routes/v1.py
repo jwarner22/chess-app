@@ -87,7 +87,7 @@ def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
 def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
     moves_length = len(moves)
     # limit to two moves ahead
-    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 10)) & (models.Openings.uci.contains(moves))).all()
+    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
     return openings
 
 # add opening data for user
@@ -131,38 +131,23 @@ def update_opening_data(user_id: str, opening_id: int, db: Session = Depends(get
 @app_v1.get('/openings-data/lichess-explorer/', tags=["Openings"]) # request lichess explorer data for moves
 async def get_lichess_explorer_data(moves: str, db: Session = Depends(get_local_opening_db)):
     moves_length = len(moves)
-    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 10)) & (models.Openings.uci.contains(moves))).all()
-
-    # concatenate moves from spaces to commas
-    moves_comma = ','.join(moves.split(' '))
-
-    r = requests.get('https://explorer.lichess.ovh/lichess?play=' + moves_comma)
-    r = r.json()
+    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
 
     for opening in openings:
-        if opening.uci == moves:
+        if opening.np_lichess is None:
+            moves_comma = ','.join(opening.uci.split(' '))
+            r = requests.get('https://explorer.lichess.ovh/lichess?play=' + moves_comma + '&variant=standard'+ '&topGames=0' + '&recentGames=0')  #+'&moves=0'
+            r = r.json()
+            print('request')
             np_lichess = r['white'] + r['draws'] + r['black']
-            stmt = update(models.Openings).where(models.Openings.uci == moves).values(np_lichess=np_lichess)
-            db.execute(stmt)
-            db.commit()
-    
-    next_moves = []
-    next_moves_plays = []
-    for move in r['moves']:
-        next_move = moves + ' ' + move['uci']
-        next_moves.append(next_move)
-        next_moves_plays.append(move['white'] + move['draws'] + move['black'])
-    
-    for opening in openings:
-        if (opening.uci in next_moves) and (opening.np_lichess is None):
-            print('updated np plays for ' + opening.uci)
-            index = next_moves.index(opening.uci)
-            np_lichess = next_moves_plays[index]
             stmt = update(models.Openings).where(models.Openings.uci == opening.uci).values(np_lichess=np_lichess)
             db.execute(stmt)
             db.commit()
-
-    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 10)) & (models.Openings.uci.contains(moves))).all()
+            time.sleep(0.05)
+    
+    # query updated openings and return
+    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
+    
     return openings
 
 
