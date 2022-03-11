@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import useLocalStorage from "../../../hooks/useLocalStorage.js";
 import DemoMoves from "./DemoMoves.jsx";
 //import Opening from "./Opening/Opening.jsx";
 import Opening from "./OpeningPuzzleManager";
@@ -40,10 +41,21 @@ export default function OpeningModule(props) {
   const [triggerNext, setTriggerNext] = useState(false);
   const [boardKey, setBoardKey] = useState(0);
   const [isOpen, setIsOpen] = useState(true)
-  const [dontShowModal, setDontShowModal] = useState(false)
+  const [disableModal, setDisableModal] = useLocalStorage('disable_modal', 'false')
+
+
+  useLayoutEffect(() => {
+    if(disableModal === true) {
+      setIsOpen(false)
+    }
+  }, [])
 
   const toggle = () => {
     setIsOpen(prev => !prev)
+  }
+
+  const handleDisableModal = () => {
+    setDisableModal(!disableModal)
   }
 
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
@@ -150,7 +162,7 @@ export default function OpeningModule(props) {
       <>
       <PuzzlePageContainer>
         <Modal isOpen={isOpen} toggle={toggle}>
-          <OpeningModalContent isOpen={isOpen} toggle={toggle} dontShow={dontShowModal}/>
+          <OpeningModalContent isOpen={isOpen} toggle={toggle} handleDisableModal={handleDisableModal} disableModal={disableModal}/>
         </Modal>
         {isMobile ? ( <>
           <MobilePuzzleWrapper>

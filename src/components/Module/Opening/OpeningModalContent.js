@@ -8,7 +8,9 @@ import headerImg from "../../../Images/ModalHeaderImg.svg"
 const OpeningModalContent = (props) => {
 
 
-const {isOpen, toggle} = props
+
+
+const {toggle, disableModal, handleDisableModal} = props
 
   return (<>
   <ModalImg src={headerImg}/>
@@ -30,7 +32,7 @@ const {isOpen, toggle} = props
     <OpeningModalFooter>
     <Button primary onClick={toggle}>Got it!</Button>
     <CheckBoxWrapper>
-    <CheckBox type='checkbox' />
+    <CheckBox type='checkbox' onChange={handleDisableModal} checked={disableModal}/>
     Don't show this again.
     </CheckBoxWrapper>
     </OpeningModalFooter>
