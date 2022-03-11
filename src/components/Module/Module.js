@@ -66,6 +66,7 @@ export default function Module(props) {
             let theme = themesData.find(theme => theme.title === moduleData.theme);
             if (theme.rating == null) {
                 setRating(userData.initial_rating); // pessimistic bc I'm a fuck up
+                updateThemesData({...theme, rating: userData.initial_rating});
             } else {
                 setRating(theme.rating);
             }
