@@ -44,16 +44,19 @@ export default function OpeningModule(props) {
   const [disableModal, setDisableModal] = useLocalStorage('disable_modal', 'false')
 
 
+  //if the instructions modal is disabled in localstorage, don't show modal
   useLayoutEffect(() => {
     if(disableModal === true) {
       setIsOpen(false)
     }
   }, [])
 
+  //toggle the opening stat of the instructions modal
   const toggle = () => {
     setIsOpen(prev => !prev)
   }
 
+  //changes the state of disableModal via an event handler on the checkbox, uses the useLocalStorage hook. 
   const handleDisableModal = () => {
     setDisableModal(!disableModal)
   }
