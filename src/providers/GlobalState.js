@@ -111,7 +111,14 @@ const UserProvider = ({ children }) => {
             setUserData(user);
         }
 
-        setThemesData(response.themes);
+        let themes = response.themes.map(theme => {
+            if (theme.rating == null) theme.rating = user.initial_rating;
+            if (theme.rating === 0) theme.rating = user.initial_rating;
+            if (theme.rating < 0) theme.rating = user.initial_rating;
+            return theme;
+        });
+
+        setThemesData(themes);
         setOpenings(response.openings);
         handleDailyModules(response.daily_puzzles, embedding);
     }

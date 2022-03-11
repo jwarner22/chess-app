@@ -72,19 +72,20 @@ export default function Puzzle(props) {
     let themeData = userThemesData.filter(item => item.title === theme)[0];
     
     themeData.completed += 1; // increment completed count
-
+    console.debug(themeData.rating)
     // update theme data
     let newRating = calcEloRating(outcomes,puzzles,themeData.rating, themeData.completed);
 
     setInitialRating(themeData.rating)
     setUpdatedRating(newRating)
 
+    console.debug(newRating)
     if (newRating > themeData.high_rating) {
       let diff = newRating - themeData.high_rating; // change from previous high rating
       themeData.high_rating = newRating;     // new high rating
       updateAchievements("high_rating", newRating, diff, theme);
     }
-    
+    console.debug({newRating: newRating, themeData: themeData})
     themeData.rating = newRating // adds 1 to number of puzzles completed
 
 
