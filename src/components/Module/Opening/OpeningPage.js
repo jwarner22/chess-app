@@ -8,7 +8,7 @@ import OpeningNav from './OpeningNav.js';
 import correctSound from "../../../assets/public_sound_standard_Confirmation.mp3";
 import incorrectSound from "../../../assets/public_sound_standard_Error.mp3";
 import styled from "styled-components";
-
+import Modal from "../../UI_Kit/Modals/Modal.js";
 import {Howl} from 'howler'
 import {PuzzlePageContainer, 
   PuzzlePageWrapper, 
@@ -21,6 +21,7 @@ import {MobileHeaderContainer,
   MobilePuzzleWrapper} from "../Puzzle/MobilePuzzle/MobilePuzzleElements"
 import BackButton from "../../BackButton.js";
 import {useWindowSize} from '../../../hooks/UseWindowSize';
+import OpeningModalContent from "./OpeningModalContent.js";
 
 export default function OpeningModule(props) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -38,6 +39,12 @@ export default function OpeningModule(props) {
   const [startedDemo, setStartedDemo] = useState(false);
   const [triggerNext, setTriggerNext] = useState(false);
   const [boardKey, setBoardKey] = useState(0);
+  const [isOpen, setIsOpen] = useState(true)
+  const [dontShowModal, setDontShowModal] = useState(false)
+
+  const toggle = () => {
+    setIsOpen(prev => !prev)
+  }
 
   const incorrectSoundPlayer = new Howl({src: incorrectSound});
   const correctSoundPlayer = new Howl({src: correctSound});
@@ -142,6 +149,9 @@ export default function OpeningModule(props) {
     return (
       <>
       <PuzzlePageContainer>
+        <Modal isOpen={isOpen} toggle={toggle}>
+          <OpeningModalContent isOpen={isOpen} toggle={toggle} dontShow={dontShowModal}/>
+        </Modal>
         {isMobile ? ( <>
           <MobilePuzzleWrapper>
             <BackButtonWrapper>
@@ -167,7 +177,7 @@ export default function OpeningModule(props) {
                       />
                     )}
                     {isLoaded === true && demoIsFinished === true && (
-                      <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext}  count={count} correctMoves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} orientation={orientation} />
+                      <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext}  count={count} correctMoves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} />
                     )}
 
                   {/* </div>

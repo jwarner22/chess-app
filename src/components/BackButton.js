@@ -54,6 +54,7 @@ export const XIcon = styled(GrFormClose)`
     width: 32px;
     height: 32px;
     stroke: #9CA1BC;
+    cursor: pointer;
 `
 
 
