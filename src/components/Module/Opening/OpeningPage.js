@@ -17,7 +17,7 @@ import {PuzzlePageContainer,
   PuzzleBoardContainer, 
   PuzzleBoardWrapper, 
   RightPuzzlePanelContainer, 
-  PercentCompleted} from "../Puzzle/PuzzlePage"
+  PercentCompleted} from "../Puzzle/PuzzlePageElements"
 import {MobileHeaderContainer, 
   MobilePuzzleWrapper} from "../Puzzle/MobilePuzzle/MobilePuzzleElements"
 import BackButton from "../../BackButton.js";

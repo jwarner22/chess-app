@@ -18,7 +18,10 @@ import {useWindowSize} from '../../../../../hooks/UseWindowSize';
 import { useContext } from "react";
 import { UserContext } from "../../../../../providers/GlobalState";
 
-function CourseTile(props){
+const INITIAL_RATING = 600;
+
+
+function CourseTile (props){
     const windowSize = useWindowSize();
     const isMobile = windowSize[0] <= 640;
     const {headline, subheading, img} = props
@@ -31,7 +34,7 @@ function CourseTile(props){
 
             if (!themesData.some(theme => theme.title === props.type_ref)) {
                 if (userData == null) return; // if userData is null, don't do anything
-                setRating(userData.initial_rating); // if userData is not null, set the rating to the initial rating
+                setRating(INITIAL_RATING); // if userData is not null, set the rating to the initial rating
                 return;
             }
             let theme = themesData.find(theme => {

@@ -15,7 +15,11 @@ import PrePuzzle from '../PrePuzzle/PrePuzzle.js';
 // context
 import {UserContext} from '../../providers/GlobalState';
 
+// hooks
 import usePrevious from "../../hooks/usePrevious";
+
+const INITIAL_RATING = 600;
+
 
 export default function Module(props) {
     const [rating, setRating] = useState();
@@ -65,8 +69,8 @@ export default function Module(props) {
         if (exists) {
             let theme = themesData.find(theme => theme.title === moduleData.theme);
             if (theme.rating == null) {
-                setRating(userData.initial_rating); // pessimistic bc I'm a fuck up
-                updateThemesData({...theme, rating: userData.initial_rating});
+                setRating(INITIAL_RATING); // pessimistic bc I'm a fuck up
+                updateThemesData({...theme, rating: INITIAL_RATING});
             } else {
                 setRating(theme.rating);
             }
@@ -97,7 +101,7 @@ export default function Module(props) {
         post(`/users/${userId}/themes`,{
                 title: moduleData.theme,
                 category: moduleData.category,
-                rating: userData.initial_rating,
+                rating: INITIAL_RATING,
                 completed: 0,
                 high_score: 0,
                 score_history: '0,0,0,0,0,0,0',

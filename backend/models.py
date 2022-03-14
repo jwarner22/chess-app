@@ -19,7 +19,8 @@ class Puzzles(LocalBase):
     nb_plays = Column(Integer, unique=False, index=True)
     themes = Column(String, unique=False, index=True)
     game_url = Column(String, unique=False, index=True)
-
+    class Congif:
+        orm_mode = True
 
 class Theme(Base):
     __tablename__ = "themes"

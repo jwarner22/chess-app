@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useReducer} from "react";
+import React, { useState, useEffect, useRef, useReducer, useContext} from "react";
 
 import PuzzleBoard from "./PuzzleManager.js";
 import ProgressBar from "../Utilities/Progress";
@@ -7,15 +7,12 @@ import confirmationSoundFile from "../../../assets/public_sound_standard_Confirm
 import errorSoundFile from "../../../assets/public_sound_standard_Error.mp3";
 import {Howl} from 'howler';
 import PuzzleNav from "./PuzzleNav";
-import styled from "styled-components";
 import BlackIndicator from "./TurnIndicator/BlackIndicator";
 import WhiteIndicator from "./TurnIndicator/WhiteIndicator";
 import Lives from "./Lives/Lives";
 import '../../../App.css';
 
-import {getMoves} from '../Utilities/helpers.js';
 import {getModuleTitle} from "../Utilities/helpers.js"
-import { bonusCalc } from "../Utilities/Scoring";
 
 import { 
   MobilePuzzleWrapper, 
@@ -26,6 +23,11 @@ import { useWindowSize } from "../../../hooks/UseWindowSize";
 import Timer from "./Timer/Timer";
 import Score from "./ScoreAnimation.js";
 
+import {baseURL} from "../../../api/apiConfig";
+import useFetch from '../../../api/useFetch';
+import { puzzlePageReducer } from "./puzzlePageReducer";
+import { PuzzlePageContainer, Header, TimerAndLivesContainer, IndicatorWrapper, PuzzlePageWrapper, PuzzlePageGrid, PuzzleBoardContainer, PuzzleBoardWrapper, RightPuzzlePanelContainer, HeaderContainer, progressContainer, PercentCompleted } from "./PuzzlePageElements";
+import { UserContext } from "../../../providers/GlobalState.js";
 // import useDebugInformation from "../../Hooks/useDebugInformation";
 // import useRenderCount from "../../Hooks/useRenderCount";
 
@@ -33,109 +35,41 @@ import Score from "./ScoreAnimation.js";
 // import Stockfish from "./Stockfish";
 // move functions to utils file
 
+const calcSingleElo = (outcome, puzzleData, playerRating, np) => {
 
+    let k = Math.max(800/np,40); // calibration factor. 40 because first time completing module
+    let maxDiff = 400; // max rating diff
+    let puzzleRating = parseInt(puzzleData.rating);
+    // calculates rating difference capped at 400
+      //const ratingDifference = (puzzleRating, playerRating) => Math.max((puzzleRating-playerRating),-maxDiff); 
+      
+      // expected outcome, formula: E = 1/1 + 10^((PR-PlayerRating)/400)
+      //const expected = (playerRating, puzzleRating) => 1/(1+Math.pow(10, (ratingDifference(puzzleRating,playerRating))/maxDiff));
+
+    const Qa = Math.pow(10, playerRating/400);     //calculate QA of elo
+    const Qb = Math.pow(10, (puzzleRating/400)); //calculate QB of puzzle rating
+    const Ea = Qa/(Qa+Qb);  //calculate expected outcome
+    const Sa = outcome ? 1 : 0; //calculate actual outcome
+    let ratingDiff = k*(Sa - Ea); //calculate ratingDiff
+
+    if  (Math.abs(ratingDiff) > maxDiff) ratingDiff = ratingDiff > 0 ? maxDiff : -maxDiff; //cap rating diff
+    
+    const newRating = parseInt(playerRating + ratingDiff); //calculate new rating
+
+
+      // let playerExpected = expected(elo, data.rating);
+      // let actual = outcome ? 1 : -1;
+      // let ratingChange = parseInt(k * (actual - playerExpected), 10);
+      // console.log(actual, ratingChange, playerExpected, elo, data.rating)
+      // let newRating = elo + ratingChange; // apply changes
+      console.log({newRating: newRating, outcome: outcome, puzzleData: puzzleData, playerRating: playerRating, ratingDiff: ratingDiff})
+      return newRating
+}
 
 const sound = {
   confirmation: new Howl({src: [confirmationSoundFile]}),
   error: new Howl({src: [errorSoundFile]})
 }
-
-// create a reducer and refactor PuzzlePage to use it
-const puzzlePageReducer = (state, action) => {
-  switch (action.type) {
-
-    case "SET_MOVES": {
-      let moves = getMoves(action.payload);
-      return {
-        ...state,
-        correctMoves: moves
-      };
-    }
-    
-    case "SET_PROGRESS":
-      return {
-        ...state,
-        progress: action.payload
-      };
-
-    case "START_TIMER":
-      return {
-        ...state,
-        startTime: action.payload
-      };
-
-    case "FAIL": {
-      let newLives = state.lives - 1;
-      if (newLives < 0) newLives = 0;
-      return {
-        ...state,
-        retryDisable: false,
-        continueDisable: false,
-        correct: false,
-        lives: newLives,
-        outcome: false,
-        outcomes: [...state.outcomes, false]
-      };
-    }
-    case "SUCCESS": {
-
-      let newTimes = [...state.times, action.payload - state.startTime];
-      let bonus = bonusCalc(newTimes);
-
-      return {
-        ...state,
-        retryDisable: true,
-        continueDisable: false,
-        correct: true,
-        outcome: true,
-        outcomes: [...state.outcomes, true],
-        times: newTimes,
-        currentBonus: bonus,
-        bonuses: [...state.bonuses, bonus],
-        waiting: true
-      };
-    } 
-    case "RESET":
-      return {
-        ...state,
-        retryDisable: true,
-        continueDisable: true,
-      };
-
-    case "NEXT": 
-      // puzzleData[count+1] should be action.payload
-      return {
-        ...state,
-        count: state.count + 1,
-        retry: false,
-        waiting: false,
-        retryDisable: true,
-        toggleTimer: !state.toggleTimer,
-        boardKey: state.boardKey + 1,
-        fen: action.payload.fen,
-        correctMoves: action.payload.moves
-      };
-
-    case "RETRY":
-      // puzzleData[state.count] should be the action.payload
-      return {
-        ...state,
-        retry: true,
-        fen: action.payload.fen,
-        boardKey: state.boardKey + 1,
-        correctMoves: action.payload.moves,
-        retryDisable: true,
-        continueDisable: true,
-        toggleTimer: !state.toggleTimer,
-      };
-
-    default:
-      return state;
-  }
-};
-
-
-
 
 export default function PuzzlePage(props) {
   // useDebugInformation(PuzzlePage, props);
@@ -165,47 +99,57 @@ export default function PuzzlePage(props) {
   const [state, dispatch] = useReducer(puzzlePageReducer, initialState);
 
   const [moveColor, setMoveColor] = useState("")
-  const [count, setCount] = useState(0);
-  const [fen, setFen] = useState(puzzleData[0].fen);
-  const [progress, setProgress] = useState(0);
-  const [outcome, setOutcome] = useState(null)
-  const [outcomes,setOutcomes] = useState([]);
-  const [waiting, setWaiting] = useState(false);
-  const [retry, setRetry] = useState(false);
-  const [retryDisable, setRetryDisable] = useState(true);
-  const [correctMoves, setCorrectMoves] = useState(null);
-  const [correct, setCorrect] = useState(null);
-  const [openModal, setOpenModal] = useState(false);
-  const [promotion, setPromotion] = useState("x");
-  const [startTime, setStartTime] = useState(null);
-  const [times, setTimes] = useState([]);
-  const [toggleTimer, setToggleTimer] = useState(true);
-  const [lives, setLives] = useState(3);
-  const [bonuses, setBonuses] = useState([]);
-  const [currentBonus, setCurrentBonus] = useState(0);
-  const [score, setScore] = useState(0);
+  const [puzzle, setPuzzle] = useState();
+  const [elo, setElo] = useState(props.themeData.rating);
+  const [eloDev, setEloDev] = useState(0);
+  const [idHistory, setIdHistory] = useState([]);
+  // const [count, setCount] = useState(0);}
+  // const [fen, setFen] = useState(puzzleData[0].fen);
+  // const [progress, setProgress] = useState(0);
+  // const [outcome, setOutcome] = useState(null)
+  // const [outcomes,setOutcomes] = useState([]);
+  // const [waiting, setWaiting] = useState(false);
+  // const [retry, setRetry] = useState(false);
+  // const [retryDisable, setRetryDisable] = useState(true);
+  // const [correctMoves, setCorrectMoves] = useState(null);
+  // const [correct, setCorrect] = useState(null);
+  // const [openModal, setOpenModal] = useState(false);
+  // const [promotion, setPromotion] = useState("x");
+  // const [startTime, setStartTime] = useState(null);
+  // const [times, setTimes] = useState([]);
+  // const [toggleTimer, setToggleTimer] = useState(true);
+  // const [lives, setLives] = useState(3);
+  // const [bonuses, setBonuses] = useState([]);
+  // const [currentBonus, setCurrentBonus] = useState(0);
+  // const [score, setScore] = useState(0);
   // const [confirmationSound, setConfirmationSound] = useState(null);
   //const [errorSound, setErrorSound] = useState(null);
-  const [boardKey, setBoardKey] = useState(0);
+  // const [boardKey, setBoardKey] = useState(0);
   const [loaded, setLoaded] = useState(false);
+
+  const {themesData, updateThemesData} = useContext(UserContext);
+
 
   const windowDimensions = useWindowSize();
   const isMobile = windowDimensions[0] < 640;
 
   const title = getModuleTitle(props.theme)
   
+    // fetch Hook
+    const {get} = useFetch(baseURL);
 
   const boardRef = useRef();
 
 
   // set instances and cleanup to avoid memory leaks
   useEffect(() => {
-
-    setCorrectMoves(() => getMoves(puzzleData[0].moves));
-
-    dispatch({type: "SET_MOVES", payload: puzzleData[0].moves});
-
-    setLoaded(true);
+    // if first time doing modile, get single puzzle
+    //if (props.initial) getSinglePuzzle(800);
+    //setCorrectMoves(() => getMoves(puzzleData[0].moves));
+    initializePuzzle();
+    // dispatch({type: "SET_MOVES", payload: puzzleData[0].moves});
+    // setPuzzle(puzzleData[0]);
+    // setLoaded(true);
     return () => {
       if (sound.confirmation.playing()) sound.confirmation.stop();
       if (sound.error.playing()) sound.error.stop();
@@ -213,58 +157,104 @@ export default function PuzzlePage(props) {
   } , [])
 
   
-
   useEffect(() => {
     // checks if user has missed 3 puzzles - if so route to fialure screen
     let failureTimeout = null;
-
-    if (outcomes.filter(entry => entry === false).length > 2) {
-      failureTimeout = setTimeout(fail, 3000)
+    if (state.lives === 0) {  // if lives = 0, then user has failed
+      failureTimeout = setTimeout(fail, 1500); // wait 1.5 seconds before going to failure screen
     }
     return () => clearTimeout(failureTimeout); // clear timout on unmount
-  }, [outcomes]);
+  }, [state.lives]);
 
   useEffect(() => {
-    if (progress < 100) {
-      nextPuzzle();
+    let now = Date.now();
+    if (state.toggleTimer) {
+      dispatch({ type: "START_TIMER", payload: now });
+      //setStartTime(now);
     }
-  }, [count])
+    //  else {
+    //   //setTimes(prevTimes => [...prevTimes, now - startTime])
+    // }
+  },[state.toggleTimer])
 
-  useEffect(() => {
-    if (progress >= 100) {
-      setTimeout(finished(), 2000);
-    }
-  }, [progress])
+  const initializePuzzle = async () => {
 
-  useEffect(() => {
-    if (lives < 0){
-      setLives(0)
-    }
-  },[lives])
+    let initialPuzzle = await getSinglePuzzle();
+    console.log(initialPuzzle)
+    setPuzzle(initialPuzzle);
+    dispatch({type: "INITIALIZE", payload: initialPuzzle});
+    // dispatch({type: "SET_MOVES", payload: initialPuzzle.moves});
+    // dispatch({type: "SET_FEN", payload: initialPuzzle.fen});
+    setLoaded(true);
+    return;
+  }
 
-  useEffect(() => {
-    if (times.length > 0 && bonuses.length < times.length) { // only calculate if there are times to compare
+  // useEffect(() => {
+  //   if (progress < 100) {
+  //     //nextPuzzle();
+  //   }
+  // }, [count])
 
-      let timesCopy = [...times];
-      const currentTime = timesCopy.pop()/1000; // puzzle completion time in seconds
-      const bonus = currentTime < 5 ? 100 : currentTime < 10 ? 75 : currentTime < 20 ? 50 : currentTime < 30 ? 25 : currentTime < 45 ? 10 : 0;
-      setBonuses(prev => [...prev, bonus])
-    }
-  },[times])
+  // useEffect(() => {
+  //   if (progress >= 100) {
+  //     setTimeout(finished(), 2000);
+  //   }
+  // }, [progress])
+
+  // useEffect(() => {
+  //   if (lives < 0){
+  //     setLives(0)
+  //   }
+  // },[lives])
+
+  // useEffect(() => {
+  //   if (times.length > 0 && bonuses.length < times.length) { // only calculate if there are times to compare
+
+  //     let timesCopy = [...times];
+  //     const currentTime = timesCopy.pop()/1000; // puzzle completion time in seconds
+  //     const bonus = currentTime < 5 ? 100 : currentTime < 10 ? 75 : currentTime < 20 ? 50 : currentTime < 30 ? 25 : currentTime < 45 ? 10 : 0;
+  //     setBonuses(prev => [...prev, bonus])
+  //   }
+  // },[times])
 
   //if a bonus has been added to the bonuses array, set current bonus to the last element in the array (the most recent bonus)
-  useEffect(() => {
-    if (bonuses.length > 0)
-    setCurrentBonus(bonuses[bonuses.length -1]);
-    resetCurrentBonus()
-  }, [bonuses])
+  // useEffect(() => {
+  //  // if (state.bonuses.length > 0) resetCurrentBonus()
+  //   //setCurrentBonus(bonuses[bonuses.length -1]);
+  // }, [state.bonuses.length])
 
-  //resets current bonus back to 0
-  const resetCurrentBonus = () => {
-    setTimeout(() => {
-      setCurrentBonus(0)
-    }, 3000);
+
+  const getSinglePuzzle = async () => {
+    let delta = parseInt(eloDev)
+    let fetchElo = parseInt(elo + delta); // add 20% to elo to allow for progression
+    console.log({elo: elo, fetchElo: fetchElo, delta: delta})
+    const puzzles = await get(`/puzzle/${props.theme}/${fetchElo}`)
+    //dispatch({type: "SET_FEN", payload: puzzle[0].fen});
+    //dispatch({type: "SET_MOVES", payload: puzzle[0].moves});
+    console.log({singlePuzzle: puzzles});
+    let puzzle = puzzles.find(p => !idHistory.some(id => id === p.puzzle_id)) // check if puzzle has already been played
+    if (puzzle == null) return puzzles[0]; // if all puzzles have been played, return first puzzle (backup plan)
+    setIdHistory(prev => [...prev, puzzle.puzzle_id]) // add puzzle id to history
+    return puzzle;
   }
+
+  const calcRatingDev = (outcome) => {
+
+    let np = (props.themeData.completed*5 + state.count)*0.5;
+    np = np > 10 ? 10 : np; // cap np at 10
+    np = np === 0 ? 1 : np; // if np is 0, set to 1 (prevent divide by zero)
+    let delta = 0; //200/np;
+    if (!outcome) return delta/2 
+    return delta
+  }
+  //resets current bonus back to 0
+  // const resetCurrentBonus = () => {
+  //   setTimeout(() => {
+  //     //setCurrentBonus(0)
+  //     console.log('reset bonus')
+  //     dispatch('RESET_BONUS') 
+  //   }, 3000);
+  // }
   // async function resetCurrentBonus() {
   //   let bonusReset = new Promise(function(resolve) {
   //     setTimeout(function() {resolve(setCurrentBonus(0), 3000)})
@@ -275,27 +265,27 @@ export default function PuzzlePage(props) {
 
   // puzzle module is finished
   const finished = () => {
-    props.puzzleIsFinished(outcomes, 'succeed', times, bonuses);
+    props.moduleIsFinished(state.outcomes, 'succeed', state.times, state.bonuses, state.ratings, elo);
   }
 
   // module failed
   const fail = () => {
     // await wait(1000)
-    props.puzzleIsFinished(outcomes, 'fail', times, bonuses);
+    props.moduleIsFinished(state.outcomes, 'fail', state.times, state.bonuses, state.ratings, elo);
   }
 
   // track next puzzle
-  const nextPuzzle = () => {
+  // const nextPuzzle = () => {
    
-    //dispatch({ type: "NEXT", payload: puzzleData[count + 1] });
+  //   //dispatch({ type: "NEXT", payload: puzzleData[count + 1] });
     
-    setFen(() => puzzleData[count].fen);
-    setCorrectMoves(() => getMoves(puzzleData[count].moves));
-  }
+  //   setFen(() => puzzleData[count].fen);
+  //   setCorrectMoves(() => getMoves(puzzleData[count].moves));
+  // }
 
-  const unlockNext = () => {
-    setWaiting(true);
-  };
+  // const unlockNext = () => {
+  //   //setWaiting(true);
+  // };
 
   const playSound = (category) => {
     if (category === "confirmation") {
@@ -310,90 +300,101 @@ export default function PuzzlePage(props) {
 
   const displayOutcome = (success) => {
     // end puzzle timer here
-    setToggleTimer(prev => !prev)
+    //setToggleTimer(prev => !prev)
     // play sound to indicate success or failure
     if (success) {
-      
       dispatch({ type: "SUCCESS", payload: Date.now() });
-
       playSound("confirmation");
-      setRetryDisable(true)
-      setCorrect(true)
+      // setRetryDisable(true)
+      // setCorrect(true)
     } else {
-      
       dispatch({ type: "FAIL" });
-
       playSound("error");
-      setRetryDisable(false)
-      setCorrect(false)
-      setLives(prev => prev - 1)
+      // setRetryDisable(false)
+      // setCorrect(false)
+      // setLives(prev => prev - 1)
     }
-    setPromotion("x")
-    setOutcome(success);
-    setOutcomes(prevOutcomes => [...prevOutcomes, success]);
+    //if (props.initial) {
+      // if (success) {
+      //   setElo(prev => parseInt(prev + eloDev)); // add elo deviation to user elo
+      // } else {
+      //   setElo(prev => parseInt(prev - (eloDev*0.5))); // subtract half of elo deviation from user elo
+      //   setEloDev(prev => parseInt(prev * 0.5)); // halve elo deviation
+      // }
+    let np = props.themeData.completed*5 + state.count;
+    let newElo = calcSingleElo(success, puzzle, elo, np);
+    setElo(newElo);
+    let newRatingDev = calcRatingDev(success)
+    setEloDev(newRatingDev)
+      //let newElo = calcSingleElo(success, puzzle, elo)
+      //setElo(newElo);
+
+    //}
+    //setPromotion("x")
+    // setOutcome(success);
+    // setOutcomes(prevOutcomes => [...prevOutcomes, success]);
   };
 
-  useEffect(() => {
-    let now = Date.now();
-    if (toggleTimer) {
-      dispatch({ type: "START_TIMER", payload: now });
-      setStartTime(now);
-    } else {
-      setTimes(prevTimes => [...prevTimes, now - startTime])
-    }
-  },[toggleTimer])
 
-
-  const incrementCount = () => {
-    setCount((count) => count + 1);
-  };
+  // const incrementCount = () => {
+  //   setCount((count) => count + 1);
+  // };
   
   const returnPercent = (percent) => {
     dispatch({ type: "SET_PROGRESS", payload: percent });
-    setProgress(percent)
+    //setProgress(percent)
     if (percent >= 100) {
-      finished()
+      setTimeout(finished(), 1000);
     }
   }
 
-  function handleContinueClick() {
+  async function handleContinueClick() {
     //playSound("button")
-    dispatch({ type: "NEXT", payload: puzzleData[count + 1] });
+    // newPuzzleData = puzzleData[state.count + 1];
+    //if (props.initial) {
+    let newPuzzleData = await getSinglePuzzle(elo);
+    console.log({puzzle: newPuzzleData})
+      //console.log(newPuzzleData_single)
+    //}
+    setPuzzle(newPuzzleData)
+    //dispatch({ type: "NEXT", payload: puzzleData[state.count + 1] });
+    dispatch({ type: "NEXT", payload: newPuzzleData});
 
-    incrementCount()
-    setRetry(false)
-    setWaiting(false)
-    setRetryDisable(true)
-    setToggleTimer(prev => !prev)
-    setBoardKey(prev => prev + 1);
+    //incrementCount()
+    // setRetry(false)
+    // setWaiting(false)
+    // setRetryDisable(true)
+    // setToggleTimer(prev => !prev)
+    // setBoardKey(prev => prev + 1);
   }
 
   const handleRetryClick = () => {
 
-    dispatch({ type: "RETRY", payload: puzzleData[count] });
+    dispatch({ type: "RETRY", payload: puzzle });
 
     //playSound("button")
-    setRetry(true);
-    setFen(() => puzzleData[count].fen);
-    setCorrectMoves(() => getMoves(puzzleData[count].moves));
-    setRetryDisable(prev => !prev)
-    setToggleTimer(prev => !prev)
-    setBoardKey(prev => prev + 1)
+    // setRetry(true);
+    // setFen(() => puzzleData[count].fen);
+    // setCorrectMoves(() => getMoves(puzzleData[count].moves));
+    // setRetryDisable(prev => !prev)
+    // setToggleTimer(prev => !prev)
+    // setBoardKey(prev => prev + 1)
   }
 
   const moveIndicator = (color) => {
     setMoveColor(color)
   }
 
-  const handlePromotion = () => {
-    setOpenModal(true)
-  }
+  // const handlePromotion = () => {
+  //   setOpenModal(true)
+  // }
 
   if (!loaded) {
     return (
       <PuzzlePageContainer />
     )
   }
+
 
   return (
     <>
@@ -407,29 +408,23 @@ export default function PuzzlePage(props) {
                 {/* <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} /> */}
                   <div className="container" ref={boardRef}>
                   <PuzzleBoard 
-                    key={boardKey}
-                    fen={fen}
-                    retry={retry}
-                    correctMoves={correctMoves}
-                    unlockNext={unlockNext}
-                    count={count}
+                    state={state}
+                    key={state.boardKey}
                     displayOutcome={displayOutcome}
-                    promotion={promotion}
-                    onPromotion={handlePromotion}
                     moveIndicator={moveIndicator}
                   />
                   </div>
                   <div >
-                      <ProgressBar category={"puzzle"} outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
+                      <ProgressBar category={"puzzle"} outcomes={state.outcomes.length} outcome={state.outcome} returnPercent={returnPercent} count={state.count} correct={state.correct}/>
                   </div>
                   <TimerAndLivesContainer>
-                  <Timer toggleTimer={toggleTimer} count={count}/>
-                  <Lives lives={lives} isMobile={isMobile} />
+                  <Timer toggleTimer={state.toggleTimer} count={state.count}/>
+                  <Lives lives={state.lives} isMobile={isMobile} />
                   </TimerAndLivesContainer>
                   <MobileContent>
                     
-                 {correct && <Score currentBonus={currentBonus}>
-                    {currentBonus}
+                 {state.correct && <Score currentBonus={state.currentBonus}>
+                    {state.currentBonus}
                   </Score>}
                 
                   <IndicatorWrapper>
@@ -439,7 +434,7 @@ export default function PuzzlePage(props) {
                      )}
                 </IndicatorWrapper>
                   </MobileContent>
-                  <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
+                  <PuzzleNav disabled={!state.waiting} retryDisable={state.retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
                 </MobilePuzzleWrapper>
                 
           </>) : (
@@ -451,15 +446,9 @@ export default function PuzzlePage(props) {
                 {/* <PromotionalModal openModal={openModal} onPromotionSelection={handlePromotionSelection} /> */}
                   <div className="container" ref={boardRef}>
                   <PuzzleBoard
-                    key={boardKey}
-                    fen={fen}
-                    retry={retry}
-                    correctMoves={correctMoves}
-                    unlockNext={unlockNext}
-                    count={count}
+                    state={state}
+                    key={state.boardKey}
                     displayOutcome={displayOutcome}
-                    promotion={promotion}
-                    onPromotion={handlePromotion}
                     moveIndicator={moveIndicator}
                   />
                   </div>
@@ -470,8 +459,8 @@ export default function PuzzlePage(props) {
                   <Header>{title}</Header>
                 </HeaderContainer>
                    <div style={progressContainer}>
-                      <ProgressBar category={"puzzle"} outcomes={outcomes.length} outcome={outcome} returnPercent={returnPercent} count={count} correct={correct}/>
-                      <PercentCompleted>{Math.trunc(progress)}%</PercentCompleted>
+                      <ProgressBar category={"puzzle"} outcomes={state.outcomes.length} outcome={state.outcome} returnPercent={returnPercent} count={state.count} correct={state.correct} retry={state.retry} />
+                      <PercentCompleted>{Math.trunc(state.progress)}%</PercentCompleted>
                   </div>
               <IndicatorWrapper>
             {(moveColor === "white") ? (
@@ -480,17 +469,17 @@ export default function PuzzlePage(props) {
                 )}
                 </IndicatorWrapper>
                   <TimerAndLivesContainer>
-                    <Timer toggleTimer={toggleTimer} count={count}/>
-                    <Lives lives={lives} isMobile={isMobile} />
+                    <Timer toggleTimer={state.toggleTimer} count={state.count}/>
+                    <Lives lives={state.lives} isMobile={isMobile} />
                   </TimerAndLivesContainer>
                   
-                  {correct && <Score currentBonus={currentBonus}>
-                    {currentBonus}
+                  {state.correct && <Score currentBonus={state.currentBonus}>
+                    {state.currentBonus}
                   </Score>}
                   
               </RightPuzzlePanelContainer>
           </PuzzlePageGrid>
-          <PuzzleNav disabled={!waiting} retryDisable={retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
+          <PuzzleNav disabled={!state.waiting} retryDisable={state.retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />
       </PuzzlePageWrapper>
       </>
         )}
@@ -499,116 +488,5 @@ export default function PuzzlePage(props) {
   );
 }
 
-
-const progressContainer = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  flexWrap: "wrap",
-  paddingTop: 24,
-  paddingBottom: 24,
-  width: "80%",
-  margin: "auto"
-};
-
-export const PercentCompleted = styled.div`
-  position: absolute;
-  color: #fff;
-  font-size: 24px;
-  font-weight: 600;
-`
-
-const Header = styled.h2`
-  color: rgba(255,255,255,0.8);
-`
-const HeaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 16px;
-`
-
-export const PuzzlePageContainer = styled.div`
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 0; 
-    position: absolute;
-    height: 100%;
-    background-image: linear-gradient( 135deg, #6B73FF 10%, #000DFF 100%);
-`
-export const PuzzlePageWrapper = styled.div`
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-`
-
-export const PuzzlePageGrid = styled.div `
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    max-width: 1080px;
-    grid-gap: 16px;
-    padding: 80px 16px 0px 16px;
-    justify-content: center;
-    grid-template-rows: minmax(300px, auto);
-    align-items: center;
-  /* @media screen and (max-width: 900px){
-    grid-template-columns: minmax(250px, 600px);
-    flex-direction: column;
-    grid-template-rows: min-content;
-    align-items: center;
-    padding: 60px 4px 0px 4px; */
-  `
-
-export const PuzzleBoardContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-column: 1;
-    /* position: relative; */
-
-
-  @media screen and (max-width: 900px){
-
-  }
-`
-
-export const PuzzleBoardWrapper = styled.div`
-    position: relative;
-    width: 100%;
-    margin: 24px 0px;
-    height: minmax(300px, auto);
-`
-
-export const RightPuzzlePanelContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    grid-column: 2;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    height: auto;
-    min-width: 300px;
-    justify-content: center;
-    padding-top: 60px;
-
-    /* @media screen and (max-width: 900px){
-    grid-column: 1;
-  } */
-`
-
-const IndicatorWrapper = styled.div`
-    display: flex;
-    width: 100%;
-    justify-content: center;
-`
-
-const TimerAndLivesContainer = styled.div`
-  display: flex;
-  width: 100%;
-`
 
 

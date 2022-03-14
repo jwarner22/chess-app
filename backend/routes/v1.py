@@ -12,7 +12,7 @@ import uvicorn
 from typing import Optional, List, Dict
 import requests
 from sqlalchemy.orm import Session
-from sqlalchemy import null, update, insert, delete
+from sqlalchemy import Integer, cast, null, update, insert, delete
 
 import models
 from database import engine_local,engine_remote, engine_local_openings, SessionLocal, SessionRemote, SessionLocalOpenings
@@ -162,6 +162,53 @@ def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
        raise HTTPException(status_code=404, detail='puzzle not found')
    return puzzle
 
+# get single puzzle (for new user)
+@app_v1.get('/puzzle/{theme}/{rating}', tags=["Puzzles"])
+def read_puzzle(rating: int, theme: str, limit: int = 5, db: Session = Depends(get_local_db)):
+    upperBound = rating + 50
+    lowerBound = rating - 50
+    
+    #puzzle = db.query(models.Puzzles).filter(models.Puzzles.rating == rating).first()
+    puzzle = []
+    i=1
+    while len(puzzle) == 0:
+        # puzzle = db.query(models.Puzzles).filter(models.Puzzles.themes.contains(theme)).filter(models.Puzzles.rating >= lowerBound).filter(models.Puzzles.rating <= upperBound).limit(3).all()
+        print(lowerBound)
+        puzzle = db.query(models.Puzzles).filter(models.Puzzles.themes.contains(theme)).filter(cast(models.Puzzles.rating, Integer) >= lowerBound).filter(cast(models.Puzzles.rating, Integer) <= upperBound).limit(limit).all()
+
+        upperBound += 50*i
+        lowerBound -= 50*i
+        if lowerBound < 0:
+            lowerBound = rating
+
+        i+=1
+        
+        #pull random puzzles from the database based on theme and rating
+    # print(rating)
+    # if theme != 'mix':
+    #     puzzle = db.query(models.Puzzles).filter(models.Puzzles.themes.contains(theme)).limit(limit)
+    #     # .filter(models.Puzzles.rating > rating) \
+    #     # .order_by(models.Puzzles.rating.desc()) \
+    #     #.limit(limit) # .first() # .limit(10)
+    # else: # healthy mix of puzzles from all themes and categories for a specific rating
+    #     puzzle = db.query(models.Puzzles).filter(models.Puzzles.rating > rating).order_by(models.Puzzles.rating.desc()).first() # .first() # .limit(10)
+
+    # print(puzzle)
+    # if puzzle is None:
+    #     if theme != 'mix':
+    #         puzzle = db.query(models.Puzzles).filter((models.Puzzles.rating < rating) & (models.Puzzles.themes.contains(theme))).order_by(models.Puzzles.rating.desc()).limit(limit) # .first() # .limit(10)
+    #     else: # healthy mix of puzzles from all themes and categories for a specific rating
+    #         puzzle = db.query(models.Puzzles).filter(models.Puzzles.rating < rating).order_by(models.Puzzles.rating.desc()).limit(limit) # .first() # .limit(10)
+
+    # while (upperBound < 2500 and len(puzzle) == 0):
+    #     upperBound += 50
+    #     lowerBound -= 50
+        
+    #     if theme != 'mix':
+    #         puzzle = db.query(models.Puzzles).filter((models.Puzzles.rating > lowerBound) & (models.Puzzles.rating < upperBound) & (models.Puzzles.themes.contains(theme))).order_by(func.random()).limit(limit).all() # .first() # .limit(10)
+    #     else:
+            # puzzle = db.query(models.Puzzles).filter((models.Puzzles.rating > lowerBound) & (models.Puzzles.rating < upperBound)).order_by(func.random()).limit(limit).all()
+    return puzzle
 
 ## USER
 

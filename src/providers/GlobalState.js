@@ -112,9 +112,9 @@ const UserProvider = ({ children }) => {
         }
 
         let themes = response.themes.map(theme => {
-            if (theme.rating == null) theme.rating = user.initial_rating;
-            if (theme.rating === 0) theme.rating = user.initial_rating;
-            if (theme.rating < 0) theme.rating = user.initial_rating;
+            if (theme.rating == null) theme.rating = 600;
+            if (theme.rating === 0) theme.rating = 600;
+            if (theme.rating < 0) theme.rating = 600;
             return theme;
         });
 

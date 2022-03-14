@@ -11,9 +11,10 @@ import {getAnalytics, logEvent} from "firebase/analytics";
 
 // Global context
 import {UserContext} from '../../providers/GlobalState'
+import { EightK } from "styled-icons/material";
 
 
-export default function Puzzle(props) {
+export default function ModuleManager(props) {
   const [puzzles,setPuzzles] = useState([]);
   const [isFinished,setIsFinished] = useState(false);
   const [outcomes, setOutcomes] = useState([]);
@@ -27,8 +28,6 @@ export default function Puzzle(props) {
   const [completedTraining, setCompletedTraining] = useState(false);
   const [updatedRating, setUpdatedRating] = useState({})
 
-  console.log(props)
-  
   // fetch Hook
   const {get} = useFetch(baseURL);
   
@@ -41,13 +40,16 @@ export default function Puzzle(props) {
   const {themesData, updateThemesData} = useContext(UserContext);
   const {updateAchievements} = useContext(UserContext);
   const {loading, userId, contextLoading} = useContext(UserContext);
-
   const {theme,id, isDaily} = props.moduleData;
   const {rating, location} = props;
 
   // called on component mount
   useEffect(()=>{
     fetchPuzzles(rating,theme);
+    let userThemesData = [...themesData]
+    let themeData = userThemesData.filter(item => item.title === theme)[0];
+
+    setUserThemeData(themeData);
     logEvent(analytics, 'module_started', {'user': userId, 'isDaily': isDaily});
   },[]);
   
@@ -55,11 +57,12 @@ export default function Puzzle(props) {
   function fetchPuzzles(rating, theme) {
     let endpoint = '/puzzles/'
     let queryParams = `?rating=${rating}&theme=${theme}`
-    get(endpoint+queryParams).then(data => setPuzzles(data))
+    //get(endpoint+queryParams).then(data => setPuzzles(data))
+    setPuzzles([1,2])
   }
 
   // updates theme data and sends to API
-  async function saveResults(outcomes, times, bonuses) {
+  async function saveResults(outcomes, times, bonuses, ratings, elo) {
 
     // score change
     if (outcomes.every(result => result === true)) {
@@ -72,28 +75,25 @@ export default function Puzzle(props) {
     let themeData = userThemesData.filter(item => item.title === theme)[0];
     
     themeData.completed += 1; // increment completed count
-    console.debug(themeData.rating)
     // update theme data
-    let newRating = calcEloRating(outcomes,puzzles,themeData.rating, themeData.completed);
+    //let elo = calcEloRating(outcomes,puzzles,themeData.rating, themeData.completed);
+    const prevRating = (themeData.rating == null) ? 0 : themeData.rating;
 
-    setInitialRating(themeData.rating)
-    setUpdatedRating(newRating)
+    setInitialRating(prevRating)
+    setUpdatedRating(elo)
 
-    console.debug(newRating)
-    if (newRating > themeData.high_rating) {
-      let diff = newRating - themeData.high_rating; // change from previous high rating
-      themeData.high_rating = newRating;     // new high rating
-      updateAchievements("high_rating", newRating, diff, theme);
+    if (elo > themeData.high_rating) {
+      let diff = elo - themeData.high_rating; // change from previous high rating
+      themeData.high_rating = elo;     // new high rating
+      updateAchievements("high_rating", elo, diff, theme);
     }
-    console.debug({newRating: newRating, themeData: themeData})
-    themeData.rating = newRating // adds 1 to number of puzzles completed
 
+    themeData.rating = elo // update theme rating
 
-
-    let score = calcScore(outcomes,puzzles, times) // calculate score
+    let score = calcScore(outcomes,ratings, times) // calculate score
     let bonus = bonuses.reduce((a,b) => a+b, 0) // sum bonuses
     score = score + bonus; // add bonuses to score
-    
+
     if (themeData.high_score < score) {
       let diff = score - themeData.high_score; // change from previous high score
       themeData.high_score = score; // new high score!
@@ -169,18 +169,18 @@ export default function Puzzle(props) {
   }
 
   // callback function when puzzle is finished (currently only success)
- const puzzleIsFinished = async (results, result, times, bonuses) => {
-    console.log('puzzle is finished')
-   logEvent(analytics, 'module_completed', {'user': userId, 'isDaily': isDaily}); // log module completion to firebase
+ const moduleIsFinished = async (results, outcome, times, bonuses, ratings, elo) => {
+
+  logEvent(analytics, 'module_completed', {'user': userId, 'isDaily': isDaily}); // log module completion to firebase
 
    setSavingResults(true)
    setOutcomes(prevOutcomes => [...prevOutcomes,results])
-   await saveResults(results, times, bonuses);
+   await saveResults(results, times, bonuses, ratings, elo);
 
-   if (result === 'fail') setFailure(true);
+   if (outcome === 'fail') setFailure(true);
 
     // update if daily puzzle
-    if (isDaily && result !== 'fail') {
+    if (isDaily && outcome !== 'fail') {
       let updatedDailyPuzzles = await updateDailyPuzzles();
       await updateDailyModules(updatedDailyPuzzles);
     }
@@ -198,13 +198,13 @@ export default function Puzzle(props) {
  
  if (isFinished) {
    return(
-     <PostPuzzle completedTraining={completedTraining} perfect={perfect} failure ={failure} outcomes={outcomes} userData={userThemeData} score={score} isDaily={isDaily} scoreData={scoreData} initialRating={initialRating} newRating={props.rating}/>
+     <PostPuzzle completedTraining={completedTraining} perfect={perfect} failure ={failure} outcomes={outcomes} userData={userThemeData} score={score} isDaily={isDaily} scoreData={scoreData} initialRating={initialRating} newRating={updatedRating}/>
    )
  }
  // render puzzle module
   return (
     <div>
-      {(puzzles.length > 0) && <PuzzlePage puzzles={puzzles} puzzleIsFinished={puzzleIsFinished} isDaily={isDaily} theme={theme}/>}
+      {(puzzles.length > 0) && <PuzzlePage themeData={userThemeData} puzzles={puzzles} moduleIsFinished={moduleIsFinished} isDaily={isDaily} theme={theme}/>}
     </div>
   );
 }

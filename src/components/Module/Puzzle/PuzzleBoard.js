@@ -179,7 +179,7 @@ export default function PuzzleBoard(props) {
 
     setPieceSquare(targetSquare);
 
-    if (props.promotion !== "x") return;
+    //if (props.promotion !== "x") return;
     if (piece.substring(1) === "P") {
       let promote = checkPromotion(pieceSquare,targetSquare)
       if (promote) return false;
@@ -266,12 +266,12 @@ export default function PuzzleBoard(props) {
     // console.log({correctMove:correctMove, sourceSquare:sourceSquare, targetSquare:targetSquare})
     // console.log({prevCorrect: prevCorrect})
     let correct ="";
-
+    console.log({move: move, finished: props.finished})
     if (props.finished) return;
 
     if (correctMove.length === 5) {
       correct = correctMove.substring(0, 4);
-    } else if ((prevCorrect != null) && prevCorrect.length === 5 && props.promotion !== "x") {
+    } else if ((prevCorrect != null) && prevCorrect.length === 5) { // && props.promotion !== "x") {
       correct = prevCorrect.substring(0, 4);
     } 
     console.debug({correct: correct, move: move, correctMove: correctMove})
@@ -423,6 +423,7 @@ export default function PuzzleBoard(props) {
   }
 
   function getMoveOptions(square) {
+    console.log(square)
     const moves = game.moves({
       square,
       verbose: true

@@ -33,9 +33,9 @@ export const calcEloRating = (outcomes, puzzles, playerRating, completed) => {
   }
 
   // calculates module score
-  export const calcScore = (outcomes, puzzles, times) => {
+  export const calcScore = (outcomes, ratings, times) => {
 
-    let ratings = puzzles.map(puzzle => puzzle.rating); // extracts ratings
+    //let ratings = puzzles.map(puzzle => puzzle.rating); // extracts ratings
     
     const diff_index = rating => (rating - 600)/(2600-600); // calcs difficulty index
 

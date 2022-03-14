@@ -28,8 +28,6 @@ const PostPuzzleMockup = (props) => {
 
     const isFirstSlide = rewardsSlide === 1
 
-    console.log(props)
-
     if (!props.savingResults) {
     return (
         <>
