@@ -94,6 +94,12 @@ const protectedRoutes = [
 		exact: true,
 		main: () => <TestModule />
 	}
+	// {
+	// 	name: "PreOpeningTest",
+	// 	path: "/pre-opening-test/:moves",
+	// 	exact: false,
+	// 	main: (props) => <PreOpeningTest {...props} />
+	// }
 ];
 
 export default protectedRoutes;

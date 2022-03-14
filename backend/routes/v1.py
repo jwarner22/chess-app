@@ -99,7 +99,7 @@ def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db)):
     return 'opening successfully added'
 
 # get opening completions
-@app_v1.get('/openings-completions/{user_id}/{moves}', tags=["Openings"]) # get opening data
+@app_v1.get('/opening-completions/{user_id}/{moves}', tags=["Openings"]) # get opening data
 def get_opening_completions(user_id: str, moves: str, db_openings: Session = Depends(get_local_opening_db), db: Session = Depends(get_db)):
     moves_length = len(moves)
     # query local db for opening ids
@@ -116,7 +116,7 @@ def get_opening_completions(user_id: str, moves: str, db_openings: Session = Dep
     return {"completions": opening_completions}
 
 # update opening completions
-@app_v1.put('/openings-data/{user_id}/{opening_id}', tags=["Openings"]) # update opening data for user
+@app_v1.put('/opening-completions/{user_id}/{opening_id}', tags=["Openings"]) # update opening data for user
 def update_opening_data(user_id: str, opening_id: int, db: Session = Depends(get_db)):
     opening = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id == opening_id).first()
     

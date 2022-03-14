@@ -112,37 +112,37 @@ class OpeningCompletions(Base):
 
     owner_id = Column(String, ForeignKey("user.user_id"))
 
-class ThemeRating(Base):
-    __tablename__ = "theme_ratings"
+# class ThemeRating(Base):
+#     __tablename__ = "theme_ratings"
 
-    id = Column(Integer, primary_key=True, index=True)
-    user_rating = Column(Integer, unique=False, index=True)
-    title = Column(String, unique=False, index=True)
-    rating = Column(Float, index=True, unique=False)
-    failure = Column(Boolean, index=True, unique=False)
-    isDaily = Column(Boolean, index=True, unique=False)
-    perfect = Column(Boolean, index=True, unique=False)
-    score = Column(Integer, index=True, unique=False)
-    category = Column(String, index=True, unique=False)
-    completed = Column(Integer, index=True, unique=False)
-    theme_id = Column(Integer, index=True, unique=False)
-    rating = Column(Integer, index=True, unique=False)
-    high_score = Column(Integer, index=True, unique=False)
-    high_rating = Column(Integer, index=True, unique=False)
-    score_history = Column(String, index=True, unique=False)
-    inserted_at = Column(Integer, index=True, unique=False)
+#     id = Column(Integer, primary_key=True, index=True)
+#     user_rating = Column(Integer, unique=False, index=True)
+#     title = Column(String, unique=False, index=True)
+#     rating = Column(Float, index=True, unique=False)
+#     failure = Column(Boolean, index=True, unique=False)
+#     isDaily = Column(Boolean, index=True, unique=False)
+#     perfect = Column(Boolean, index=True, unique=False)
+#     score = Column(Integer, index=True, unique=False)
+#     category = Column(String, index=True, unique=False)
+#     completed = Column(Integer, index=True, unique=False)
+#     theme_id = Column(Integer, index=True, unique=False)
+#     rating = Column(Integer, index=True, unique=False)
+#     high_score = Column(Integer, index=True, unique=False)
+#     high_rating = Column(Integer, index=True, unique=False)
+#     score_history = Column(String, index=True, unique=False)
+#     inserted_at = Column(Integer, index=True, unique=False)
 
-    owner_id = Column(String, ForeignKey("user.user_id"))
+#     owner_id = Column(String, ForeignKey("user.user_id"))
 
-class OpeningRating(Base):
-    __tablename__ = "opening_ratings"
+# class OpeningRating(Base):
+#     __tablename__ = "opening_ratings"
 
-    id = Column(Integer, primary_key=True, index=True)
-    opening_id = Column(Integer, unique=False, index=True)
-    rating = Column(Float, index=True, unique=False)
-    user_id = Column(String, unique=False, index=True)
-    user_opening_rating = Column(Integer, unique=False, index=True)
-    user_score = Column(Integer, unique=False)
+#     id = Column(Integer, primary_key=True, index=True)
+#     opening_id = Column(Integer, unique=False, index=True)
+#     rating = Column(Float, index=True, unique=False)
+#     user_id = Column(String, unique=False, index=True)
+#     user_opening_rating = Column(Integer, unique=False, index=True)
+#     user_score = Column(Integer, unique=False)
 
 class Openings(LocalBaseOpenings):
     __tablename__ = "openings"
@@ -156,10 +156,10 @@ class Openings(LocalBaseOpenings):
     np_lichess = Column(Integer, unique=False, index=True)
     np_master = Column(Integer, unique=False, index=True)
 
-class OpeningQueryRecord(LocalBaseOpenings):
-    __tablename__ = "opening_query_record"
+# class OpeningQueryRecord(LocalBaseOpenings):
+#     __tablename__ = "opening_query_record"
 
-    id = Column(Integer, primary_key=True, index=True)
-    moves = Column(String, unique=True, index=True)
+#     id = Column(Integer, primary_key=True, index=True)
+#     moves = Column(String, unique=True, index=True)
     
     
