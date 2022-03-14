@@ -23,7 +23,7 @@ const PostOpeningPage = (props) => {
                     <PostPuzzleHeaderImg src={img}/>
                 </IconWrap>
                     <ModuleExperience>
-                        {props.openingData.headline}
+                        {props.location.state.currentOpening.name}
                     </ModuleExperience>
                     <RewardH1>
                         {/* {props.perfect && 'Congrats!'}
@@ -36,13 +36,13 @@ const PostOpeningPage = (props) => {
                         {(!props.failure && !props.perfect) && 'you passed'}
                         {(props.failure) && 'module failed'}
                     </RewardH2> */}
-                    <Chart data={props.scoreData}/>
+                    {/* <Chart data={props.scoreData}/> */}
                     <ModuleExperience>
-                        {`Score: ${props.score}`}
+                        {`Score: ${props.location.state.score}`}
                     </ModuleExperience>
                     <Link to={linkUrl}>
                     <FinishButton>
-                        Return to {props.isDaily ? 'Daily Puzzles' : 'Openings'}
+                        Return to {props.location.state.isDaily ? 'Daily Puzzles' : 'Openings'}
                     </FinishButton>
                     </Link>
             </PostPuzzleGrid>

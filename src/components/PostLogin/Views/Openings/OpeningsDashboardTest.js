@@ -131,12 +131,13 @@ const OpeningsDashboardTest = () => {
 
         <PuzzleTileGrid opening category={"Variations"}>
          {openingModules.map((opening, index) => {
-            let linkUrl = `/openings-dashboard-test/${opening.uci}`
+            const linkUrl = `/openings-dashboard-test/${opening.uci}`
             let popularity = round(((opening.np_lichess/currentOpening.np_lichess)*100),0);
             if (popularity < 1) return null;
+            const locked = (completions === 0) ? true : false;
             return(
-                <OpeningLink key={index} to={linkUrl}>
-                <OpeningTreeTiles moves={opening.variationUci} name={opening.name} popularity={popularity} />
+                <OpeningLink key={index} to={locked ? '#' : linkUrl}>
+                <OpeningTreeTiles locked={locked} moves={opening.variationUci} name={opening.name} popularity={popularity} />
                 </OpeningLink>
             )})}
         </PuzzleTileGrid>     

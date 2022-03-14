@@ -29,8 +29,8 @@ const modifiedCategory = `${props.category}s`
             {props.subtitle}
         </InfoBoxSubTitle>
         <InfoBoxStatContainer>
-            <StatBox statTitle={props.headlineOne} statData={props.userData.high_score}/>
-            <StatBox statTitle={props.headlineTwo} statData={props.userData.completed}/>
+            <StatBox statTitle={props.headlineOne} statData={props.dataOne}/>
+            <StatBox statTitle={props.headlineTwo} statData={props.dataTwo}/>
         </InfoBoxStatContainer>
         <BenefitsContainer moduleType={modifiedCategory} category={modifiedCategory} />
         {/* {isOpening ? <OpeningImage/> : null} */}

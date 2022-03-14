@@ -103,7 +103,8 @@ def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db)):
 def get_opening_completions(user_id: str, moves: str, db_openings: Session = Depends(get_local_opening_db), db: Session = Depends(get_db)):
     moves_length = len(moves)
     # query local db for opening ids
-    openings = db_openings.query(models.Openings).filter((func.length(models.Openings.uci) <= (moves_length)) & (models.Openings.uci.contains(moves))).all()
+    #(func.length(models.Openings.uci) <= (moves_length)) & 
+    openings = db_openings.query(models.Openings).filter((models.Openings.uci.contains(moves))).all()
     opening_ids = []
     for opening in openings:
         opening_ids.append(opening.id)

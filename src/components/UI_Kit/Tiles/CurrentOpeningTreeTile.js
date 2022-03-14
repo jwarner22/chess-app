@@ -5,17 +5,18 @@ import { TileWrapper, TileHeader, TileHeadline, TileSubheadline, CurrentHeadline
 import Button from "../Button/Button"
 
 const CurrentOpeningTreeTile = (props) => {
-    return (
+
+  return (
       <>
       <CurrentOpeningContainer>
     <OpeningTreeTileWrapper current>
         <CurrentHeadlineWrapper>
         <TileHeadline current>{props.currentOpening.name}</TileHeadline>
-        <TileSubheadline >Popularity: {props.currentOpening.popularity}% Mastery: {props.completions}</TileSubheadline>
+        <TileSubheadline >Popularity: {props.popularity}% Mastery: {props.completions}</TileSubheadline>
         </CurrentHeadlineWrapper>
         <TileHeader current>
-                <TileSubheadline current>Move Sequence: {props.currentOpening.moves}</TileSubheadline>
-                <Link to={{pathname: `/pre-opening-test/${props.currentOpening.moves}`, state: props}}>
+                <TileSubheadline current>Move Sequence: {props.currentOpening.pgn}</TileSubheadline>
+                <Link to={{pathname: `/pre-opening-test/${props.currentOpening.uci}`, state: props}}>
                 <OpeningButton>Start</OpeningButton>
                 </Link>
         </TileHeader>

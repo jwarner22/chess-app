@@ -1,4 +1,5 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 import useLocalStorage from "../../../hooks/useLocalStorage.js";
 import DemoMoves from "./DemoMoves.jsx";
 //import Opening from "./Opening/Opening.jsx";
@@ -24,6 +25,11 @@ import BackButton from "../../BackButton.js";
 import {useWindowSize} from '../../../hooks/UseWindowSize';
 import OpeningModalContent from "./OpeningModalContent.js";
 
+import useFetch from "../../../api/useFetch.js";
+import { baseURL } from "../../../api/apiConfig.js";
+
+import { UserContext } from "../../../providers/GlobalState.js";
+
 export default function OpeningModule(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [demoIsFinished, setDemoIsFinished] = useState(false);
@@ -31,7 +37,7 @@ export default function OpeningModule(props) {
   const [moveIndex, setMoveIndex] = useState(0);
   const [progress,setProgress] = useState(0);
   const [count,setCount] = useState(0);
-  const [moves,setMoves] = useState();
+  const [correctMoves,setCorrectMoves] = useState();
   const [continueDisabled, setContinueDisabled] = useState(true);
   const [retryDisabled, setRetryDisabled] = useState(true);
   const [showDisabled, setShowDisabled] = useState(true);
@@ -43,7 +49,11 @@ export default function OpeningModule(props) {
   const [isOpen, setIsOpen] = useState(true)
   const [disableModal, setDisableModal] = useLocalStorage('disable_modal', 'false')
 
+  const {moves, color} = useParams();
+  const {put, post} = useFetch(baseURL);
+  const {userId} = useContext(UserContext);
 
+  //console.log(props)
   //if the instructions modal is disabled in localstorage, don't show modal
   useLayoutEffect(() => {
     if(disableModal === true) {
@@ -69,7 +79,7 @@ export default function OpeningModule(props) {
   const [width, setWidth] = useState(windowSizeWidth);
   const isMobile = windowSizeWidth <= 640;
 
-  const orientation = props.orientation;
+  const orientation = color;
 
   
   useEffect(() => {
@@ -78,7 +88,7 @@ export default function OpeningModule(props) {
 
   useEffect(() => {
     if (count === 3) {
-      setTimeout(props.toggleFinished(score), 3000);
+      setTimeout(finished(score), 3000);
     }
   },[count])
 
@@ -93,11 +103,31 @@ export default function OpeningModule(props) {
       }
     }, [windowSizeWidth])
 
+
+  const finished = async (score) => {
+    // update opening in db
+    let openingId = props.location.state.currentOpening.id;
+    let url = `/opening-completions/${userId}/${openingId}`;
+    let response = await put(url);
+    if (response.detail === 'Opening not found') {
+      // post new opening for user
+      let url = `/openings/${userId}`;
+      url = `/openings-data/${userId}/${openingId}`;
+      let response = await post(url);
+    }
+    //push to post opening page
+    props.history.push({'pathname': `/post-opening/${moves}/${orientation}`, 'state': {'score': score, 'currentOpening': props.location.state.currentOpening,isDaily: false, }});
+  }
+
   const getMoves = async () => {
-    let moves = props.openingData.moves;
+    // let moves = props.openingData.moves;
+    // const openingMoves = getOpeningMoves(moves);
+    // setMoves(openingMoves)
+    // setFen(openingMoves[0].fen);
+
     const openingMoves = getOpeningMoves(moves);
-    setMoves(openingMoves)
-    setFen(openingMoves[0].fen);
+    setCorrectMoves(openingMoves);
+    setFen('');
     setMoveIndex(0);
     setProgress(0);
     setCount(0);
@@ -128,7 +158,7 @@ export default function OpeningModule(props) {
     await playSound('correct');
     setProgress(prevProgress => prevProgress + ((1/3)*100.01));
     setContinueDisabled(false);
-    setScore(prev => prev + 100*(Math.floor(moves.length/2)));
+    setScore(prev => prev + 100*(Math.floor(correctMoves.length/2)));
     setOutcome(() => true);
   }
 
@@ -173,7 +203,7 @@ export default function OpeningModule(props) {
               <BackButton />
             </BackButtonWrapper>
             <MobileHeaderContainer>
-              <Header>{props.openingData.headline}</Header> 
+              <Header>{props.location.state.currentOpening.headline}</Header> 
             </MobileHeaderContainer>
            
             <PuzzleBoardWrapper>
@@ -183,7 +213,7 @@ export default function OpeningModule(props) {
                     {isLoaded === true && demoIsFinished === false && (
                       <DemoMoves
                       key={boardKey}
-                        moves={moves}
+                        moves={correctMoves}
                         demoFinished={demoFinished}
                         fen={fen}
                         moveIndex={moveIndex}
@@ -192,7 +222,7 @@ export default function OpeningModule(props) {
                       />
                     )}
                     {isLoaded === true && demoIsFinished === true && (
-                      <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext}  count={count} correctMoves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} />
+                      <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext}  count={count} correctMoves={correctMoves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} />
                     )}
 
                   {/* </div>
@@ -220,7 +250,7 @@ export default function OpeningModule(props) {
             {isLoaded === true && demoIsFinished === false && (
               <DemoMoves
               key={boardKey}
-                moves={moves}
+                moves={correctMoves}
                 demoFinished={demoFinished}
                 fen={fen}
                 moveIndex={moveIndex}
@@ -229,7 +259,7 @@ export default function OpeningModule(props) {
               />
             )}
             {isLoaded === true && demoIsFinished === true && (
-              <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext} count={count} correctMoves={moves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} boardWidth={width} />
+              <Opening key={boardKey} orientation={orientation} triggerNext={triggerNext} count={count} correctMoves={correctMoves} incorrectCallback={incorrectCallback} finishedCallback={finishedCallback} boardWidth={width} />
             )}
           {/* </div>
           </div> */}
@@ -238,7 +268,7 @@ export default function OpeningModule(props) {
         </PuzzleBoardContainer>
         <RightPuzzlePanelContainer>
           <HeaderContainer>
-          <Header>{props.openingData.headline}</Header>
+          <Header>{props.location.state.currentOpening.headline}</Header>
         </HeaderContainer>
         <div style={progressContainer}>
         <Progress category={"opening"} returnPercent={returnPercent} outcome={outcome} percent={progress} count={count} />

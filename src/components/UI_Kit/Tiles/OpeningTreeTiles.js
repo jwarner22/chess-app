@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { PageContainer } from "../Page"
 
 const OpeningTreeTiles = (props) => {
-
+  
   return (
-    <OpeningTreeTileWrapper>
+    <OpeningTreeTileWrapper {...props}>
         <TileHeader>
          <TileHeadline>{props.name}</TileHeadline>
         <TileSubheadline>{props.moves}</TileSubheadline>
@@ -18,8 +18,19 @@ const OpeningTreeTiles = (props) => {
 export default OpeningTreeTiles
 
 export const OpeningTreeTileWrapper = styled(TileWrapper)`
-    background: ${props => props.current ? '#fff' : '#F85c37'};
+    background: ${props => {
+      if (props.locked) {
+        return "#808080"
+      } else if (props.current) {
+        return "#fff"
+      } else {
+        return "#F85c37"
+      }
+    }};
+    opacity: ${props => props.locked ? 0.5 : 1};
     width: ${props => props.current ? '640px' : null};
     justify-content: center;
     display: flex;
 `
+
+//props.current ? '#fff' : '#F85c37'};

@@ -9,11 +9,13 @@ import FeatureSuggestion from '../components/PostLogin/Views/FeatureSuggestion/F
 import OpeningsDashboardTest from '../components/PostLogin/Views/Openings/OpeningsDashboardTest.js'; 
 import Module from "../components/Module/Module";
 import TestModule from '../testing/TestModule';
+import PreOpeningTest from '../components/PostLogin/Views/Openings/PreOpeningTest';
 
 const PrePuzzlePage = React.lazy(() => import('../components/PrePuzzle/PrePuzzle'));
-const Opening = React.lazy(() => import('../components/Module/Opening/OpeningManager'));
+//const Opening = React.lazy(() => import('../components/Module/Opening/OpeningManager'));
+const Opening = React.lazy(() => import('../components/Module/Opening/OpeningPage'));
 const Home = React.lazy(() => import('../components/PostLogin/Views/Home'));
-
+const PostOpening = React.lazy(() => import('../components/PostLogin/Views/Openings/PostOpeningPage'));
 
 const protectedRoutes = [
 	{
@@ -48,8 +50,8 @@ const protectedRoutes = [
 	},
 	{
 		name: "Opening Module",
-		path: "/opening",
-		exact: true,
+		path: "/opening/:moves/:color",
+		exact: false,
 		main: props => <Opening {...props} />
 	},{
 		name: "BrandPage",
@@ -93,13 +95,19 @@ const protectedRoutes = [
 		path: "/module-test",
 		exact: true,
 		main: () => <TestModule />
+	},
+	{
+		name: "PreOpeningTest",
+		path: "/pre-opening-test/:moves",
+		exact: false,
+		main: (props) => <PreOpeningTest {...props} />
+	},
+	{
+		name: "PostOpeningPage",
+		path: "/post-opening/:moves/:color",
+		exact: false,
+		main: (props) => <PostOpening {...props} />
 	}
-	// {
-	// 	name: "PreOpeningTest",
-	// 	path: "/pre-opening-test/:moves",
-	// 	exact: false,
-	// 	main: (props) => <PreOpeningTest {...props} />
-	// }
 ];
 
 export default protectedRoutes;
