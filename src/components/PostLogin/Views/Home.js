@@ -14,12 +14,14 @@ import {useWindowSize} from '../../../hooks/UseWindowSize';
 import {UserContext} from '../../../providers/GlobalState';
 import Loader from '../../Loader';
 import DiscordModal from "../../DiscordModal/DiscordModal";
+import NavbarDropdown from "../NavbarDropdown/NavbarDropdown";
 
 const Home = () => {
      //hamburger sidebar menu
     const [isOpen, setIsOpen] = useState(false)
     const [isVisible, setIsVisible] = useState(localStorage.getItem('discord-modal') === 'true')
     const {contextLoading} = useContext(UserContext);
+    const [openDropdown, setOpenDropdown] = useState(false)
     const windowDimension = useWindowSize();
     const isMobile = windowDimension[0] <= 640;
 
@@ -35,6 +37,10 @@ const Home = () => {
         setIsOpen(!isOpen)
       }
 
+      const dropdownToggle = () => {
+        setOpenDropdown(!openDropdown)
+      }
+
 
     if (contextLoading) {
       return(<Loader />)
@@ -47,7 +53,7 @@ const Home = () => {
       ) : (
         <>
         <DashSidebar isOpen={isOpen} toggle={toggle} />
-        <DashNavbar toggle={toggle}/>
+        <DashNavbar toggle={toggle} openDropdown={openDropdown} dropdownToggle={dropdownToggle}/>
         <DiscordModal isVisible={isVisible} toggle={discordToggle}/>
         </>
       )}

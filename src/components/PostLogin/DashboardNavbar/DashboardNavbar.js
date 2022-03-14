@@ -17,10 +17,11 @@ import Button from "../../UI_Kit/Button/Button"
 import {animateScroll as scroll} from 'react-scroll'
 import logo from "../../../Images/Elo-elevation-blue.png"
 import firebase from 'firebase/compat/app'
+import NavbarDropdown from '../NavbarDropdown/NavbarDropdown';
 require('firebase/auth')
 
 
-const DashNavbar = ({ toggle }) => {
+const DashNavbar = ({ toggle, openDropdown, dropdownToggle }) => {
     
 
     
@@ -108,13 +109,7 @@ const DashNavbar = ({ toggle }) => {
                                 </NavLinks>
                             </NavItem>
                         </NavMenu>
-                        <NavBtn>
-                        <NavBtnLink to='/login' onClick={() => handleLogout()}>
-                        <Button primary>
-                                Sign Out
-                        </Button>
-                        </NavBtnLink>
-                        </NavBtn>
+                        <NavbarDropdown handleLogout={handleLogout} openDropdown={openDropdown} dropdownToggle={dropdownToggle}/>
                     </NavbarContainer>
                 </Nav>
                 </div>

@@ -84,5 +84,5 @@ const ProfilePageContainer = styled.div`
     right: 0;
     top: 0;
     background: #EEF0FF;
-    min-width: 100vw;
+    min-width: 100%;
 `
