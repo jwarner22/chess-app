@@ -14,18 +14,9 @@ const NavbarDropdown = (props) => {
   return (<>
       <NavbarDropdownContainer>
             <NavbarDropdownHeader src={placeholder} onClick={dropdownToggle} />
-            {openDropdown &&
-            <NavbarListDropdownContainer>
+            
+            <NavbarListDropdownContainer openDropdown={openDropdown}>
                 <NavbarDropdownList >
-                    <NavbarDropdownListItem>
-                        List Item
-                    </NavbarDropdownListItem>
-                    <NavbarDropdownListItem>
-                        List Item
-                    </NavbarDropdownListItem>
-                    <NavbarDropdownListItem>
-                        List Item
-                    </NavbarDropdownListItem>
                     <DropdownLink onClick={handleLogout} to='/login'>
                     <NavbarDropdownListItem >
                         Logout
@@ -33,7 +24,6 @@ const NavbarDropdown = (props) => {
                     </DropdownLink>
                 </NavbarDropdownList>
             </NavbarListDropdownContainer>
-        }   
     </NavbarDropdownContainer>
     </>
   )
