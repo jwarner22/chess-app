@@ -1,8 +1,9 @@
-import {HeroContainer, HeroBg, HeroContent, HeroP, HeroH1, HeroBtnWrapper, ArrowForward, ArrowRight} from './HeroElements';
+import {HeroContainer, HeroBg, HeroContent, HeroP, HeroH1, HeroBtnWrapper, ArrowForward, ArrowRight, HeroCopy, HeroImg} from './HeroElements';
 import React, { useState, useEffect } from "react";//import { AuthContext } from "../Auth";
 import styled from 'styled-components'
 import Button from '../../UI_Kit/Button/Button';
 import {NavBtnLink2} from "../NavBar/NavbarElements"
+import heroImg from '../../../Images/chess-board.svg'
 
 const HeroSection = () => {
     // const { currentUser } = useContext(AuthContext);
@@ -34,8 +35,9 @@ const HeroSection = () => {
             <HeroBg>
             </HeroBg>
             <HeroContent>
+                <HeroCopy>
                 <HeroH1>
-                    Learning Chess               
+                    Chess Pattern Recognition               
                 </HeroH1>
                 <HeroP>
                     Made Simple.               
@@ -51,6 +53,8 @@ const HeroSection = () => {
                     </HeroButton>
                     </NavBtnLink2>
                 </HeroBtnWrapper>
+                </HeroCopy>
+                <HeroImg src={heroImg} />
                 {isMobile ? (
                         <NavBtnLink2 to="/login">Login</NavBtnLink2> ) : (
                         null
@@ -66,4 +70,6 @@ const HeroButton = styled(Button)`
     display: flex;
     align-items: center;
     font-weight: 600;
+    background: #fff;
+    color: #243862;
 `

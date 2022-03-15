@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import styled from 'styled-components'
 import {
      Nav, 
      NavbarContainer, 
@@ -85,14 +86,11 @@ const Navbar = ({ toggle }) => {
                         </NavMenu>
                         <NavBtn>
                             <NavBtnLink to="/login">
-                                <Button>
+                                <NavbarLoginButton>
                                     Login
-                                </Button>
+                                </NavbarLoginButton>
                             </NavBtnLink>
                             <NavBtnLink primary to="/signup">
-                                <Button primary>
-                                    Sign Up
-                                </Button>
                             </NavBtnLink>
                         </NavBtn>
                     </NavbarContainer>
@@ -102,3 +100,11 @@ const Navbar = ({ toggle }) => {
 };
 
 export default Navbar
+
+const NavbarLoginButton = styled(Button)`
+    color: #fff;
+    font-weight: 600;
+    opacity: 1;
+    outline: 2px solid #fff;
+    background: rgba(255,255,255, 0);
+`

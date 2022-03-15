@@ -4,8 +4,8 @@ import React, {  useState } from "react";
 import HeroSection from "./HeroSection/Hero";
 import Navbar from "./NavBar/NavBar"
 import Sidebar from './Sidebar/Sidebar'
-// import InfoSection from './InfoSection/InfoSection'
-// import { homeObjOne, homeObjTwo, homeObjThree } from "./InfoSection/Data";
+import InfoSection from './InfoSection/InfoSection'
+import { homeObjOne, homeObjTwo} from "./InfoSection/Data";
 // import Services  from '../Services/Index'
 import Footer from './Footer/Footer'
 import ErrorBoundary from '../UI_Kit/ErrorBoundary.js';
@@ -23,10 +23,10 @@ const Home = () => {
       <Navbar toggle={toggle}/>
       <Sidebar isOpen={isOpen} toggle={toggle}/>
       <HeroSection />
-      {/*<InfoSection {...homeObjOne}/>
+      <InfoSection {...homeObjOne}/>
       <InfoSection {...homeObjTwo}/>
-      <Services />
-      <InfoSection {...homeObjThree}/>*/}
+      {/* <Services />
+      <InfoSection {...homeObjThree}/> */}
         {/* <h1>Home</h1>
         {currentUser ? (
           <p>

@@ -3,7 +3,7 @@ import {MdKeyboardArrowRight} from '@react-icons/all-files/md/MdKeyboardArrowRig
 import {MdArrowForward} from '@react-icons/all-files/md/MdArrowForward'
 
 export const HeroContainer =styled.div`
-    background: #f6f9fc;;
+    background: linear-gradient(220.55deg, #3793FF 0%, #0017E4 100%);
 // same gradient as login page
     /* background: linear-gradient(
     108deg,
@@ -57,14 +57,24 @@ export const HeroContent = styled.div`
     max-width: 1200px;
     position: absolute;
     padding: 8px 24px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     flex-direction: column;
     align-items: center;
 `
+
+export const HeroCopy = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+`
+export const HeroImg = styled.img`
+    
+`
+
 export const HeroH1 = styled.h1`
-    color: #54606c;
+    color: #fff;
     font-size: 48px;
-    text-align: center; 
     
     @media screen and (max-width: 768px) {
         font-size: 40px;
@@ -77,7 +87,7 @@ export const HeroH1 = styled.h1`
 
 export const HeroP = styled.p`
     margin-top: 24px;
-    color: #54606c;
+    color: #fff;
     font-size: 24px;
     text-align: center;
     max-width: 600px;
