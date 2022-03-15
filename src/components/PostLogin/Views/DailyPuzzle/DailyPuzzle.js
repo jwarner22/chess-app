@@ -9,6 +9,7 @@ import { DailyPuzzleContainer,
   SelectionContainer,
   GeneratingTrainingContainer,
 ProgressBarContainer} from "./DailyPuzzleElements";
+import Subtitle from "../../../UI_Kit/CategoryTitle/Subtitle";
 import headerImg from "./../../../../Images/DailyPuzzleIcon.svg"
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
 import {Modules} from "../../../../data/ModuleData"
@@ -128,6 +129,7 @@ export default function DailyPuzzzle(props) {
        <Container>
    <DailyPuzzleWrapper>
       <DailyPuzzleContainer>
+      <Subtitle>Recommended Workout</Subtitle>
         </DailyPuzzleContainer>
         <SelectionContainer>
         <PuzzleWrapper>
