@@ -11,14 +11,14 @@ from database import Base, LocalBase, LocalBaseOpenings
 class Puzzles(LocalBase):
     __tablename__ = "labels_raw"
     puzzle_id = Column(String, primary_key=True, index=True)
-    fen = Column(String, unique=False, index=True)
-    moves = Column(String, unique=False, index=True)
+    fen = Column(String, unique=False, index=False)
+    moves = Column(String, unique=False, index=False)
     rating = Column(Integer, unique=False, index=True)
-    rating_dev = Column(Integer, unique=False, index=True)
-    rating_dev2 = Column(Integer, unique=False, index=True)
-    nb_plays = Column(Integer, unique=False, index=True)
+    rating_dev = Column(Integer, unique=False, index=False)
+    rating_dev2 = Column(Integer, unique=False, index=False)
+    nb_plays = Column(Integer, unique=False, index=False)
     themes = Column(String, unique=False, index=True)
-    game_url = Column(String, unique=False, index=True)
+    game_url = Column(String, unique=False, index=False)
     class Congif:
         orm_mode = True
 
@@ -108,8 +108,14 @@ class OpeningCompletions(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     opening_id = Column(Integer, unique = False, index=True)
-    completions = Column(Integer, unique=False, index=True)
-
+    completions = Column(Integer, unique=False, index=False)
+    history_1 = Column(Integer, unique=False, index=False)
+    history_2 = Column(Integer, unique=False, index=False)
+    history_3 = Column(Integer, unique=False, index=False)
+    history_4 = Column(Integer, unique=False, index=False)
+    history_5 = Column(Integer, unique=False, index=False)
+    history_6 = Column(Integer, unique=False, index=False)
+    history_7 = Column(Integer, unique=False, index=False)
     owner_id = Column(String, ForeignKey("user.user_id"))
 
 # class ThemeRating(Base):
@@ -148,11 +154,11 @@ class Openings(LocalBaseOpenings):
     __tablename__ = "openings"
 
     id = Column(Integer, primary_key=True, index=True)
-    eco = Column(String, unique=False, index=True)
-    name = Column(String, unique=False, index=True)
-    pgn = Column(String, unique=False, index=True)
+    eco = Column(String, unique=False, index=False)
+    name = Column(String, unique=False, index=False)
+    pgn = Column(String, unique=False, index=False)
     uci = Column(String, unique=False, index=True)
-    epd = Column(String, unique=False, index=True)
+    epd = Column(String, unique=False, index=False)
     np_lichess = Column(Integer, unique=False, index=True)
     np_master = Column(Integer, unique=False, index=True)
 

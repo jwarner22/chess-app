@@ -27,6 +27,7 @@ const OpeningsDashboardTest = () => {
     const [currentOpening, SetCurrentOpening] = useState({});
     const {moves} = useParams();
     const [loading, setLoading] = useState(true);
+    const [mastery, setMastery] = useState(0);
     const [completions, setCompletions] = useState(0);
     const [depth, setDepth] = useState(0);
 
@@ -53,7 +54,8 @@ const OpeningsDashboardTest = () => {
         
         // get number of completions for main module
         let mainData = await getCompletions(main);
-        setCompletions(mainData.completions)
+        setMastery(mainData.mastery)
+        setCompletions(mainData.completions);
         setDepth(mainData.depth)
 
         // check if nb plays exists for mainline
@@ -119,6 +121,7 @@ const OpeningsDashboardTest = () => {
         // check global state for opening stats
         if (openingStats.some(item => item.id === opening.id)) {
             let item = openingStats.filter(item => item.id === opening.id)[0];
+            console.log(item)
             return item;
         }
 
@@ -136,7 +139,7 @@ const OpeningsDashboardTest = () => {
         <PreviousSelection />
         {loading ? (  <Loader/>) : (
             <>
-        <CurrentOpeningTreeTile currentOpening={currentOpening} completions={completions} popularity={round(((currentOpening.np_lichess/TOTAL_LICHESS_NP)*100),2)}/>
+        <CurrentOpeningTreeTile currentOpening={currentOpening} mastery={mastery} popularity={round(((currentOpening.np_lichess/TOTAL_LICHESS_NP)*100),2)}/>
         {(openingModules.length > 0) && 
 
         <PuzzleTileGrid opening category={"Variations"}>

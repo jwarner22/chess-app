@@ -105,21 +105,38 @@ export default function OpeningModule(props) {
 
 
   const finished = async (score) => {
+    const openingId = props.location.state.currentOpening.id;
+    // get opening from global state
+    const this_opening = openingStats.find(opening => opening.id === openingId);
+    console.log({this_opening: this_opening})
+    const mastery = this_opening.mastery;
     // update opening in db
-    let openingId = props.location.state.currentOpening.id;
-    let url = `/opening-completions/${userId}/${openingId}`;
+    let url = `/opening-completions/${userId}/${openingId}/${mastery}`;
     let response = await put(url);
     if (response.detail === 'Opening not found') {
       // post new opening for user
-      let url = `/openings/${userId}`;
       url = `/openings-data/${userId}/${openingId}`;
-      let response = await post(url);
+      response = await post(url);
     }
-    const this_opening = openingStats.find(opening => opening.id === openingId);
-    console.log({this_opening: this_opening})
-    updateOpeningStats({id: openingId, completions: this_opening.completions+1 });
+
+    console.log({response: response})
+    const newOpeningStats = {
+      ...this_opening,
+      completions: this_opening.completions + 1,
+      mastery: response.history_7,
+      history_1: response.history_1,
+      history_2: response.history_2,
+      history_3: response.history_3,
+      history_4: response.history_4,
+      history_5: response.history_5,
+      history_6: response.history_6,
+      history_7: response.history_7
+    }
+    
+
+    updateOpeningStats(newOpeningStats); // update global state
     //push to post opening page
-    props.history.push({'pathname': `/post-opening/${moves}/${orientation}`, 'state': {'score': score, 'currentOpening': props.location.state.currentOpening,isDaily: false, }});
+    props.history.push({'pathname': `/post-opening/${moves}/${orientation}`, 'state': {'score': score, 'currentOpening': props.location.state.currentOpening, isDaily: false, stats: newOpeningStats }});
   }
 
   const getMoves = async () => {

@@ -85,11 +85,18 @@ def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
 
 # add opening data for user
 @app_v2.post('/openings-data/{user_id}/{opening_id}', tags=["Openings"]) # add opening data
-def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db)):
-    opening = models.OpeningCompletions(owner_id=user_id, opening_id=opening_id, completions=1)
+def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
+    this_opening = db_openings.query(models.Openings).filter(models.Openings.opening_id == opening_id).first()
+
+    if this_opening is None:
+        raise HTTPException(status_code=404, detail="Opening not found")
+    
+    mastery = 3*round((len(this_opening.uci)+1)/10)
+    opening = models.OpeningCompletions(owner_id=user_id, opening_id=opening_id, completions=1, history_7=mastery)
+
     db.add(opening)
     db.commit()
-    return 'opening successfully added'
+    return opening
 
 # get opening completions
 @app_v2.get('/opening-completions/{user_id}/{moves}', tags=["Openings"]) # get opening data
@@ -120,7 +127,7 @@ def get_opening_completions(user_id: str, moves: str, db_openings: Session = Dep
         for user_opening in user_openings:
             if opening.id == user_opening.opening_id:
                 opening_ucis.append(opening.uci)
-                opening_mastery += user_opening.completions*round((len(opening.uci)+1)/10) # calculate score as number completed * deth of opening
+                opening_mastery += user_opening.completions*3*round((len(opening.uci)+1)/10) # calculate mastery as number completed * deth of opening
 
     max_depth = 0
     for uci in opening_ucis:
@@ -132,16 +139,30 @@ def get_opening_completions(user_id: str, moves: str, db_openings: Session = Dep
     return {"id": this_opening.id, "completions": opening_completions, "max_depth": max_depth, "mastery": opening_mastery}
 
 # update opening completions
-@app_v2.put('/opening-completions/{user_id}/{opening_id}', tags=["Openings"]) # update opening data for user
-def update_opening_data(user_id: str, opening_id: int, db: Session = Depends(get_db)):
-    opening = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id == opening_id).first()
+@app_v2.put('/opening-completions/{user_id}/{opening_id}/{mastery}', tags=["Openings"]) # update opening data for user
+def update_opening_data(user_id: str, opening_id: int, mastery: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
+    user_opening = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id == opening_id).first()
     
-    if opening is None:
+    if user_opening is None:
         raise HTTPException(status_code=404, detail="Opening not found")
     
-    setattr(opening, 'completions', opening.completions + 1)
+    opening = db_openings.query(models.Openings).filter(models.Openings.id == opening_id).first()
+    mastery = mastery + 3*round((len(opening.uci)+1)/10) # calculate mastery as number completed * deth of opening
+
+    setattr(user_opening, 'completions', user_opening.completions + 1) # increment completion count
+
+    setattr(user_opening, 'history_1', user_opening.history_2) # shift history
+    setattr(user_opening, 'history_2', user_opening.history_3)
+    setattr(user_opening, 'history_3', user_opening.history_4)
+    setattr(user_opening, 'history_4', user_opening.history_5)
+    setattr(user_opening, 'history_5', user_opening.history_6)
+    setattr(user_opening, 'history_6', user_opening.history_7)
+    setattr(user_opening, 'history_7', mastery) # update history
+
+
     db.commit()
-    return opening
+    db.refresh(user_opening)
+    return user_opening
 
 
 @app_v2.get('/openings-data/lichess-explorer/', tags=["Openings"]) # request lichess explorer data for moves
