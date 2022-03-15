@@ -28,8 +28,9 @@ const OpeningsDashboardTest = () => {
     const {moves} = useParams();
     const [loading, setLoading] = useState(true);
     const [completions, setCompletions] = useState(0);
+    const [depth, setDepth] = useState(0);
 
-    const {userId} = useContext(UserContext);
+    const {userId, openingStats, updateOpeningStats} = useContext(UserContext);
 
     useLayoutEffect(() => {
         fetchOpenings()
@@ -40,19 +41,20 @@ const OpeningsDashboardTest = () => {
         let endpoint = '/openings-data/'
         let queryParams = `?moves=${moves}`
         let openings = await get(endpoint+queryParams);
-        console.log({response: openings})
+        //console.log({response: openings})
         if (openings.length === 1) {
             SetCurrentOpening(openings[0]); // if no variatins, set current opening to the opening
             setOpeningModules([]); // set the opening modules to the variations
             return;
         }
         let main = openings.filter(opening => opening.uci === moves)[0];
-        console.log({main: main})
+        //console.log({main: main})
         SetCurrentOpening(main);
-
+        
         // get number of completions for main module
-        let mainCompletions = await getCompletions(main);
-        setCompletions(mainCompletions.completions)
+        let mainData = await getCompletions(main);
+        setCompletions(mainData.completions)
+        setDepth(mainData.depth)
 
         // check if nb plays exists for mainline
         if (main != null) {
@@ -110,13 +112,22 @@ const OpeningsDashboardTest = () => {
         })
         openings = openings.slice(0,8) //choose a max of 8 openings
         setOpeningModules(openings);
+        setLoading(false);
     }
 
     const getCompletions = async (opening) => {
+        // check global state for opening stats
+        if (openingStats.some(item => item.id === opening.id)) {
+            let item = openingStats.filter(item => item.id === opening.id)[0];
+            return item;
+        }
+
+        // fetch opening stats from api
         const url = `/opening-completions/${userId}/${opening.uci}`
-        const mainCompletions = await get(url);
-        setLoading(false);
-        return mainCompletions;
+        const response = await get(url);
+        updateOpeningStats(response); // update the opening stats in global state
+
+        return response;
     }
 
     return(

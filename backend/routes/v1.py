@@ -101,20 +101,40 @@ def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db)):
 # get opening completions
 @app_v1.get('/opening-completions/{user_id}/{moves}', tags=["Openings"]) # get opening data
 def get_opening_completions(user_id: str, moves: str, db_openings: Session = Depends(get_local_opening_db), db: Session = Depends(get_db)):
-    moves_length = len(moves)
+    #moves_length = len(moves)
     # query local db for opening ids
-    #(func.length(models.Openings.uci) <= (moves_length)) & 
     openings = db_openings.query(models.Openings).filter((models.Openings.uci.contains(moves))).all()
+    this_opening = db_openings.query(models.Openings).filter(models.Openings.uci == moves).first()
+
     opening_ids = []
+
     for opening in openings:
+
         opening_ids.append(opening.id)
 
     # query remote db for opening ids
-    openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(opening_ids)).all()
+    user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(opening_ids)).all()
     opening_completions = 0
-    for opening in openings:
+    
+    
+    for opening in user_openings:
         opening_completions += opening.completions
-    return {"completions": opening_completions}
+
+    # extract ucis from matching openings and user_openings
+    opening_ucis=[]
+    for opening in openings:
+        for user_opening in user_openings:
+            if opening.id == user_opening.opening_id:
+                opening_ucis.append(opening.uci)
+
+    max_depth = 0
+    for uci in opening_ucis:
+        if len(uci) > max_depth: 
+            max_depth = len(uci)
+
+    max_depth = round((max_depth+1)/10) # conver to move depth (add 1 to allow for even division)
+
+    return {"id": this_opening.id, "completions": opening_completions, "max_depth": max_depth}
 
 # update opening completions
 @app_v1.put('/opening-completions/{user_id}/{opening_id}', tags=["Openings"]) # update opening data for user

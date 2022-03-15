@@ -51,7 +51,7 @@ export default function OpeningModule(props) {
 
   const {moves, color} = useParams();
   const {put, post} = useFetch(baseURL);
-  const {userId} = useContext(UserContext);
+  const {userId, updateOpeningStats, openingStats} = useContext(UserContext);
 
   //console.log(props)
   //if the instructions modal is disabled in localstorage, don't show modal
@@ -115,6 +115,9 @@ export default function OpeningModule(props) {
       url = `/openings-data/${userId}/${openingId}`;
       let response = await post(url);
     }
+    const this_opening = openingStats.find(opening => opening.id === openingId);
+    console.log({this_opening: this_opening})
+    updateOpeningStats({id: openingId, completions: this_opening.completions+1 });
     //push to post opening page
     props.history.push({'pathname': `/post-opening/${moves}/${orientation}`, 'state': {'score': score, 'currentOpening': props.location.state.currentOpening,isDaily: false, }});
   }
