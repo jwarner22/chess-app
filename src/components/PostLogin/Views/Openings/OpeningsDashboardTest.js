@@ -139,7 +139,7 @@ const OpeningsDashboardTest = () => {
         <PreviousSelection />
         {loading ? (  <Loader/>) : (
             <>
-        <CurrentOpeningTreeTile currentOpening={currentOpening} mastery={mastery} popularity={round(((currentOpening.np_lichess/TOTAL_LICHESS_NP)*100),2)}/>
+        <CurrentOpeningTreeTile currentOpening={currentOpening} mastery={mastery} popularity={round(((currentOpening.np_lichess/TOTAL_LICHESS_NP)*100), 2)}/>
         {(openingModules.length > 0) && 
 
         <PuzzleTileGrid opening category={"Variations"}>
