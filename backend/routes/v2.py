@@ -11,7 +11,7 @@ import uvicorn
 from typing import Optional, List, Dict
 import requests
 from sqlalchemy.orm import Session
-from sqlalchemy import null, update, insert, delete
+from sqlalchemy import Integer, cast, null, update, insert, delete
 
 import models
 from database import engine_local,engine_remote, engine_local_openings, SessionLocal, SessionRemote, SessionLocalOpenings
@@ -24,7 +24,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from random import randint, choices
 
-app_v1 = APIRouter()
+app_v2 = APIRouter()
 
 # CORS middelware to allow http requests NEED TO MODIFY FOR PRODUCTION
 origins = [
@@ -62,12 +62,12 @@ def get_local_opening_db():
 ## TESTING
 
 # # testing
-# @app_v1.get('/', tags=["Testing"])
+# @app_v2.get('/', tags=["Testing"])
 # def read_root():
 #         return {'Hello': 'world'}
 
 # get users
-@app_v1.get('/users', tags=["Testing"])
+@app_v2.get('/users', tags=["Testing"])
 def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=skip, limit=limit)
     return users
@@ -76,56 +76,101 @@ def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
 ## OPENING DATA
 
 # get opening for ui
-@app_v1.get('/openings-data/', response_model=List[schemas.Openings], tags=["Openings"]) # get opening data
+@app_v2.get('/openings-data/', response_model=List[schemas.Openings], tags=["Openings"]) # get opening data
 def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
     moves_length = len(moves)
     # limit to two moves ahead
-    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 10)) & (models.Openings.uci.contains(moves))).all()
+    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
     return openings
 
+# add opening data for user
+@app_v2.post('/openings-data/{user_id}/{opening_id}', tags=["Openings"]) # add opening data
+def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db)):
+    opening = models.OpeningCompletions(owner_id=user_id, opening_id=opening_id, completions=1)
+    db.add(opening)
+    db.commit()
+    return 'opening successfully added'
 
-@app_v1.get('/openings-data/lichess-explorer/', tags=["Openings"]) # request lichess explorer data for moves
+# get opening completions
+@app_v2.get('/opening-completions/{user_id}/{moves}', tags=["Openings"]) # get opening data
+def get_opening_completions(user_id: str, moves: str, db_openings: Session = Depends(get_local_opening_db), db: Session = Depends(get_db)):
+    #moves_length = len(moves)
+    # query local db for opening ids
+    openings = db_openings.query(models.Openings).filter((models.Openings.uci.contains(moves))).all()
+    this_opening = db_openings.query(models.Openings).filter(models.Openings.uci == moves).first()
+
+    opening_ids = []
+
+    for opening in openings:
+
+        opening_ids.append(opening.id)
+
+    # query remote db for opening ids
+    user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(opening_ids)).all()
+    opening_completions = 0
+    
+    
+    for opening in user_openings:
+        opening_completions += opening.completions
+
+    # extract ucis from matching openings and user_openings
+    opening_ucis=[]
+    opening_mastery=0
+    for opening in openings:
+        for user_opening in user_openings:
+            if opening.id == user_opening.opening_id:
+                opening_ucis.append(opening.uci)
+                opening_mastery += user_opening.completions*round((len(opening.uci)+1)/10) # calculate score as number completed * deth of opening
+
+    max_depth = 0
+    for uci in opening_ucis:
+        if len(uci) > max_depth: 
+            max_depth = len(uci)
+
+    max_depth = round((max_depth+1)/10) # conver to move depth (add 1 to allow for even division)
+
+    return {"id": this_opening.id, "completions": opening_completions, "max_depth": max_depth, "mastery": opening_mastery}
+
+# update opening completions
+@app_v2.put('/opening-completions/{user_id}/{opening_id}', tags=["Openings"]) # update opening data for user
+def update_opening_data(user_id: str, opening_id: int, db: Session = Depends(get_db)):
+    opening = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id == opening_id).first()
+    
+    if opening is None:
+        raise HTTPException(status_code=404, detail="Opening not found")
+    
+    setattr(opening, 'completions', opening.completions + 1)
+    db.commit()
+    return opening
+
+
+@app_v2.get('/openings-data/lichess-explorer/', tags=["Openings"]) # request lichess explorer data for moves
 async def get_lichess_explorer_data(moves: str, db: Session = Depends(get_local_opening_db)):
     moves_length = len(moves)
-    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 10)) & (models.Openings.uci.contains(moves))).all()
-
-    # concatenate moves from spaces to commas
-    moves_comma = ','.join(moves.split(' '))
-
-    r = requests.get('https://explorer.lichess.ovh/lichess?play=' + moves_comma)
-    r = r.json()
+    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
 
     for opening in openings:
-        if opening.uci == moves:
+        if opening.np_lichess is None:
+            moves_comma = ','.join(opening.uci.split(' '))
+            r = requests.get('https://explorer.lichess.ovh/lichess?play=' + moves_comma + '&variant=standard'+ '&topGames=0' + '&recentGames=0')  #+'&moves=0'
+            r = r.json()
+            print('request')
             np_lichess = r['white'] + r['draws'] + r['black']
-            stmt = update(models.Openings).where(models.Openings.uci == moves).values(np_lichess=np_lichess)
-            db.execute(stmt)
-            db.commit()
-    
-    next_moves = []
-    next_moves_plays = []
-    for move in r['moves']:
-        next_move = moves + ' ' + move['uci']
-        next_moves.append(next_move)
-        next_moves_plays.append(move['white'] + move['draws'] + move['black'])
-    
-    for opening in openings:
-        if (opening.uci in next_moves) and (opening.np_lichess is None):
-            print('updated np plays for ' + opening.uci)
-            index = next_moves.index(opening.uci)
-            np_lichess = next_moves_plays[index]
             stmt = update(models.Openings).where(models.Openings.uci == opening.uci).values(np_lichess=np_lichess)
             db.execute(stmt)
             db.commit()
-
-    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 10)) & (models.Openings.uci.contains(moves))).all()
+            time.sleep(0.05)
+    
+    # query updated openings and return
+    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
+    
     return openings
 
 
 ## PUZZLES
 
 # get module puzzles
-@app_v1.get('/puzzles/', tags=["Puzzles"])
+@app_v2.get('/puzzles/', tags=["Puzzles"])
 def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
    puzzle = get_puzzles(db,rating, theme)
 
@@ -133,11 +178,36 @@ def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
        raise HTTPException(status_code=404, detail='puzzle not found')
    return puzzle
 
+# get single puzzle 
+@app_v2.get('/puzzle/{theme}/{rating}', tags=["Puzzles"])
+def read_puzzle(rating: int, theme: str, limit: int = 5, db: Session = Depends(get_local_db)):
+    upperBound = rating + 50
+    lowerBound = rating - 50
+    
+    puzzle = []
+    i=1
+    while (len(puzzle) == 0) and (upperBound < 3000 or lowerBound > 0):
+        # puzzle = db.query(models.Puzzles).filter(models.Puzzles.themes.contains(theme)).filter(models.Puzzles.rating >= lowerBound).filter(models.Puzzles.rating <= upperBound).limit(3).all()
+        print(lowerBound)
+        print(puzzle)
+        if theme == "mix":
+            puzzle = db.query(models.Puzzles).filter(cast(models.Puzzles.rating, Integer) >= lowerBound).filter(cast(models.Puzzles.rating, Integer) <= upperBound).limit(limit).all()
+        else:
+            puzzle = db.query(models.Puzzles).filter(models.Puzzles.themes.contains(theme)).filter(cast(models.Puzzles.rating, Integer) >= lowerBound).filter(cast(models.Puzzles.rating, Integer) <= upperBound).limit(limit).all()
+
+        upperBound += 100
+        lowerBound -= 100
+        if lowerBound < 0:
+            lowerBound = 0
+
+        i+=1
+        
+    return puzzle
 
 ## USER
 
 # create user
-@app_v1.post('/users', tags=["User"])
+@app_v2.post('/users', tags=["User"])
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(db, user_id=user.user_id)
     if db_user:
@@ -146,7 +216,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return {'user created'}
 
 # get user profile
-@app_v1.get('/users/{user_id}', response_model=schemas.UserProfile, tags=["User"])
+@app_v2.get('/users/{user_id}', response_model=schemas.UserProfile, tags=["User"])
 async def read_user(user_id: str, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(db, user_id=user_id)
     if db_user is None:
@@ -154,7 +224,7 @@ async def read_user(user_id: str, db: Session = Depends(get_db)):
     return db_user
 
 # get all user data
-@app_v1.get('/users/{user_id}/all', response_model=schemas.User, tags=["User"])
+@app_v2.get('/users/{user_id}/all', response_model=schemas.User, tags=["User"])
 async def read_user_all(user_id: str, db: Session=Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
     print(db_user)
@@ -164,7 +234,7 @@ async def read_user_all(user_id: str, db: Session=Depends(get_db)):
     return db_user
 
 # update user
-@app_v1.put('/users/{user_id}', response_model=schemas.UserProfile, tags=["User"])
+@app_v2.put('/users/{user_id}', response_model=schemas.UserProfile, tags=["User"])
 async def update_user(user_id: str, user: schemas.UserProfile, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(db, user_id=user_id)
     if db_user is None:
@@ -178,7 +248,7 @@ async def update_user(user_id: str, user: schemas.UserProfile, db: Session = Dep
     return db_user
 
 # get user initial rating
-@app_v1.get('/users/{user_id}/initial-rating')
+@app_v2.get('/users/{user_id}/initial-rating')
 async def get_user_initial_rating(user_id: str, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(db, user_id=user_id)
     return {db_user.initial_rating}
@@ -186,7 +256,7 @@ async def get_user_initial_rating(user_id: str, db: Session = Depends(get_db)):
 ## THEMES
 
 # get theme
-@app_v1.get('/users/{user_id}/themes/{theme_title}', response_model=schemas.Theme, tags=["Themes"])
+@app_v2.get('/users/{user_id}/themes/{theme_title}', response_model=schemas.Theme, tags=["Themes"])
 async def return_theme_rating(user_id: str, theme_title: str, db: Session = Depends(get_db)):
     theme_response = db.query(models.Theme).filter(models.Theme.title == theme_title, models.Theme.owner_id==user_id).one_or_none()
     if theme_response is None:
@@ -195,7 +265,7 @@ async def return_theme_rating(user_id: str, theme_title: str, db: Session = Depe
     return theme_response
 
 # get themes
-@app_v1.get('/users/{user_id}/themes', response_model=List[schemas.Theme], tags=["Themes"])
+@app_v2.get('/users/{user_id}/themes', response_model=List[schemas.Theme], tags=["Themes"])
 async def return_all_themes(user_id: str, db: Session = Depends(get_db)):
     themes = db.query(models.Theme).filter(models.Theme.owner_id == user_id).all()
     if themes is None:
@@ -203,13 +273,13 @@ async def return_all_themes(user_id: str, db: Session = Depends(get_db)):
     return themes
 
 # initialize theme
-@app_v1.post('/users/{user_id}/themes', response_model=schemas.Theme, tags=["Themes"])
+@app_v2.post('/users/{user_id}/themes', response_model=schemas.Theme, tags=["Themes"])
 async def define_theme_ratings(user_id: str, theme: schemas.CreateTheme, db: Session = Depends(get_db)):
     theme_ratings = crud.add_theme(db, theme = theme, user_id = user_id)#title = theme.title, category = theme.category)
     return theme_ratings
 
 # update theme
-@app_v1.put("/users/{user_id}/themes", response_model = schemas.Theme, tags=["Themes"])
+@app_v2.put("/users/{user_id}/themes", response_model = schemas.Theme, tags=["Themes"])
 async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = Depends(get_db)):
 
     db_theme = db.query(models.Theme).filter(models.Theme.title == theme.title, models.Theme.owner_id==user_id).one_or_none()
@@ -225,7 +295,7 @@ async def update_theme_rating(user_id: str, theme: schemas.Theme, db: Session = 
     return returned_theme
 
 ## RATINGS
-@app_v1.post("/users/{user_id}/themes/ratings/{rating}", tags=["Ratings"])
+@app_v2.post("/users/{user_id}/themes/ratings/{rating}", tags=["Ratings"])
 async def user_module_rating(user_id: str, theme_rating: schemas.ThemeRating, db: Session=Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
@@ -239,7 +309,7 @@ async def user_module_rating(user_id: str, theme_rating: schemas.ThemeRating, db
 
     return {"rating posted"}
 
-@app_v1.post("/users/{user_id}/openings/ratings/{rating}", tags=["Ratings"])
+@app_v2.post("/users/{user_id}/openings/ratings/{rating}", tags=["Ratings"])
 async def user_module_rating(user_id: str, opening_rating: schemas.OpeningRating, db: Session=Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
@@ -256,7 +326,7 @@ async def user_module_rating(user_id: str, opening_rating: schemas.OpeningRating
 ## DAILY PUZZLES
 
 # generate user's daily puzzles
-@app_v1.put('/users/{user_id}/daily_puzzles/picks', response_model=schemas.DailyPicks, tags=["Daily"])
+@app_v2.put('/users/{user_id}/daily_puzzles/picks', response_model=schemas.DailyPicks, tags=["Daily"])
 async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: str, db: Session = Depends(get_db)):
 
     # generate daily puzzle module picks
@@ -315,7 +385,7 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
     return picks_response
 
 # get user's daily puzzles
-@app_v1.get('/users/{user_id}/daily_puzzles', tags=["Daily"])
+@app_v2.get('/users/{user_id}/daily_puzzles', tags=["Daily"])
 async def get_daily_puzzles(user_id: str, db: Session = Depends(get_db)):
     daily_puzzles = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).all()
     if daily_puzzles is None:
@@ -326,7 +396,7 @@ async def get_daily_puzzles(user_id: str, db: Session = Depends(get_db)):
     return daily_puzzles
 
 # testing...
-@app_v1.get('/users/{user_id}/daily_modules', tags=["Daily"])
+@app_v2.get('/users/{user_id}/daily_modules', tags=["Daily"])
 async def get_daily_modules(user_id: str, db: Session = Depends(get_db)):
     
     daily_puzzles = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).all()
@@ -342,7 +412,7 @@ async def get_daily_modules(user_id: str, db: Session = Depends(get_db)):
     return daily_puzzles
 
 # create new user daily puzzles
-@app_v1.post('/users/{user_id}/daily_puzzles', tags=["Daily"])
+@app_v2.post('/users/{user_id}/daily_puzzles', tags=["Daily"])
 async def create_daily_puzzles( user_id: str, puzzles: List[schemas.CreateDailyPuzzle], db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
@@ -359,7 +429,7 @@ async def create_daily_puzzles( user_id: str, puzzles: List[schemas.CreateDailyP
     return db_daily
 
 # update user daily puzzles
-@app_v1.put("/users/{user_id}/daily_puzzles", tags=["Daily"])
+@app_v2.put("/users/{user_id}/daily_puzzles", tags=["Daily"])
 async def update_daily_puzzles(user_id: str, puzzles: List[schemas.CreateDailyPuzzle], db: Session = Depends(get_db)):
 
     db_daily = db.query(models.DailyPuzzle).filter(models.DailyPuzzle.owner_id == user_id).first()
@@ -378,7 +448,7 @@ async def update_daily_puzzles(user_id: str, puzzles: List[schemas.CreateDailyPu
     return db_daily
 
 # remove daily puzzle
-@app_v1.delete('/users/{user_id}/daily_puzzles', tags=["Daily"])
+@app_v2.delete('/users/{user_id}/daily_puzzles', tags=["Daily"])
 async def delete_theme(user_id: str, theme_id: int, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
@@ -395,7 +465,7 @@ async def delete_theme(user_id: str, theme_id: int, db: Session = Depends(get_db
 ### ACHIEVEMENTS
 
 # create new user achievment
-@app_v1.post('/achievements/{user_id}', tags=["Achievements"])
+@app_v2.post('/achievements/{user_id}', tags=["Achievements"])
 async def add_achievement(user_id: str, achievement: schemas.AchievementCreate, db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
@@ -409,14 +479,14 @@ async def add_achievement(user_id: str, achievement: schemas.AchievementCreate, 
     return db_achievement
 
 # get all user achievements
-@app_v1.get('/achievements/{user_id}', response_model=List[schemas.Achievement], tags=["Achievements"])
+@app_v2.get('/achievements/{user_id}', response_model=List[schemas.Achievement], tags=["Achievements"])
 async def get_achievements(user_id: str, db: Session = Depends(get_db), limit: int = 20):
     achievements = db.query(models.Achievement).filter(models.Achievement.owner_id == user_id).order_by(models.Achievement.id.desc()).limit(limit).all()
     
     return achievements
 
 # get user daily achievements
-@app_v1.get('/achievements/{user_id}/daily', response_model=List[schemas.Achievement], tags=["Achievements"])
+@app_v2.get('/achievements/{user_id}/daily', response_model=List[schemas.Achievement], tags=["Achievements"])
 async def get_achievements(user_id: str, db: Session = Depends(get_db)):
     achievements = db.query(models.Achievement).filter(models.Achievement.owner_id == user_id).filter(models.Achievement.inserted_at > ((time.time()*1000)-(3600*24*1000))).all() # daily: .filter(models.Achievement.inserted_at >= time.time() (but for today))
     if achievements is None:
@@ -430,7 +500,7 @@ async def get_achievements(user_id: str, db: Session = Depends(get_db)):
 ## OPENINGS
 
 # get user opening data
-@app_v1.get('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
+@app_v2.get('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
 async def get_opening(user_id: str, opening_id: int, db: Session = Depends(get_db)):
     opening = db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
     if opening is None:
@@ -439,7 +509,7 @@ async def get_opening(user_id: str, opening_id: int, db: Session = Depends(get_d
         return opening
 
 # create user opening 
-@app_v1.post('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
+@app_v2.post('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
 async def add_opening(user_id: str, opening_id: int, opening: schemas.OpeningCreate, db: Session = Depends(get_db)):
     # db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
@@ -455,7 +525,7 @@ async def add_opening(user_id: str, opening_id: int, opening: schemas.OpeningCre
     return opening
 
 # update user opening data
-@app_v1.put('/openings/{user_id}/{opening_id}', tags=["Openings"])
+@app_v2.put('/openings/{user_id}/{opening_id}', tags=["Openings"])
 async def update_opening(user_id: str, opening_id: int, opening: schemas.Opening, db: Session = Depends(get_db)):
 
     db_opening= db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
@@ -473,7 +543,7 @@ async def update_opening(user_id: str, opening_id: int, opening: schemas.Opening
 ## LEADERBOARD
 
 # get user leaderboard data
-@app_v1.get('/leaderboard/{leaderboard_id}', tags=["Leaderboard"])
+@app_v2.get('/leaderboard/{leaderboard_id}', tags=["Leaderboard"])
 async def get_leaderboard(leaderboard_id: str, limit: int = 100, skip: int = 0, db: Session = Depends(get_db)):
     #users = db.query(models.User).offset(skip).limit(limit).all()
     users = db.query(models.User).order_by(models.User.total_score.desc()).limit(limit).all() # select * from users order by score desc limit 100
@@ -497,7 +567,7 @@ async def get_leaderboard(leaderboard_id: str, limit: int = 100, skip: int = 0, 
 ## Username
 
 #check if username exists
-@app_v1.get('/users/username/{user_name}',tags=["Login"])
+@app_v2.get('/users/username/{user_name}',tags=["Login"])
 async def check_username(user_name: str, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.user_name == user_name).one_or_none()
     if user is None:
@@ -505,7 +575,7 @@ async def check_username(user_name: str, db: Session = Depends(get_db)):
     else: 
         return  'username already exists'
 
-@app_v1.post('/users/username/{user_id}/{user_name}',tags=["Login"])
+@app_v2.post('/users/username/{user_id}/{user_name}',tags=["Login"])
 async def add_username(user_name: str, user_id: str, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.user_name == user_name).one_or_none()
     if user is None:
