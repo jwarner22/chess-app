@@ -14,7 +14,7 @@ const ForgotPassword = () => {
     e.preventDefault()
     await firebase.auth().sendPasswordResetEmail(email)
         .then(() => {
-            alert('Check your Mail!')
+            alert('Thanks! Please check your email.')
         })
         .catch((err) => {
             alert(err.message)

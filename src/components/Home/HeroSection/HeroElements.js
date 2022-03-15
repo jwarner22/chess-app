@@ -74,7 +74,8 @@ export const HeroImg = styled.img`
 `
 
 export const HeroH1 = styled.h1`
-    color: #fff;
+    text-align: left;
+    color: ${({color}) => color};
     font-size: 48px;
     
     @media screen and (max-width: 768px) {
@@ -90,7 +91,7 @@ export const HeroP = styled.p`
     margin-top: 24px;
     color: #fff;
     font-size: 24px;
-    text-align: center;
+    text-align: left;
     max-width: 600px;
 
     @media screen and (max-width: 768px) {
