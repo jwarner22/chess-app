@@ -69,7 +69,8 @@ export const HeroCopy = styled.div`
     align-items: flex-start;
 `
 export const HeroImg = styled.img`
-    
+    width: 90%;
+    max-height: 120%;
 `
 
 export const HeroH1 = styled.h1`
