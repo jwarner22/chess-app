@@ -11,7 +11,11 @@ export const NavbarDropdownHeader = styled.img`
     width: 80%;
     margin: 0px auto;
     margin-bottom: 0.8em;
-    padding: 0.4em 2em 0.4em 1em;
+    padding: 1em 1.5em 1em 1.5em;
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
   `
 
 export const NavbarListDropdownContainer = styled.div`
