@@ -44,10 +44,13 @@ const OpeningButton = styled(Button)`
 const StarRating = (props) => {
   const {mastery,isMobile} = props;
   const size = isMobile ? 16 : 20;
-  const max_mastery = 1000;
-  // let rating = getRating(mastery, max_mastery);
-  // console.log({rating: rating})
-  const rating = (mastery/max_mastery)*100;
+
+  // generalized logarithmic function for non-linear mastery rating
+  // equation: x/(a+x), where x is mastery value and a is a constant defined as the growth rate of the rating as a function of mastery
+  const alpha = 1000; // growth rate (how rapidly the rating increases)
+  let rating = (mastery/(alpha+mastery))*100; // rating calc
+  if (rating > 95) rating = 100; // max rating for mastery (for alpha = 1000, mastery is ~20000)
+
   return(
     <Rating ratingValue={rating} size={size} readonly={true} fillcolor="#1161d4"/>
   )
