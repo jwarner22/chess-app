@@ -126,7 +126,6 @@ const OpeningsDashboardTest = () => {
         const url = `/opening-completions/${userId}/${opening.uci}`
         const response = await get(url);
         updateOpeningStats(response); // update the opening stats in global state
-
         return response;
     }
 

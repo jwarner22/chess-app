@@ -122,19 +122,23 @@ def get_opening_completions(user_id: str, moves: str, db_openings: Session = Dep
 
     # extract ucis from matching openings and user_openings
     opening_ucis=[]
+    opening_mastery=0
     for opening in openings:
         for user_opening in user_openings:
             if opening.id == user_opening.opening_id:
                 opening_ucis.append(opening.uci)
+                opening_mastery += user_opening.completions*round((len(opening.uci)+1)/10) # calculate score as number completed * deth of opening
 
     max_depth = 0
     for uci in opening_ucis:
         if len(uci) > max_depth: 
             max_depth = len(uci)
 
+    
+
     max_depth = round((max_depth+1)/10) # conver to move depth (add 1 to allow for even division)
 
-    return {"id": this_opening.id, "completions": opening_completions, "max_depth": max_depth}
+    return {"id": this_opening.id, "completions": opening_completions, "max_depth": max_depth, "mastery": opening_mastery}
 
 # update opening completions
 @app_v1.put('/opening-completions/{user_id}/{opening_id}', tags=["Openings"]) # update opening data for user
