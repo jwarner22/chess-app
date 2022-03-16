@@ -12,6 +12,7 @@ import CurrentOpeningTreeTile from '../../../UI_Kit/Tiles/CurrentOpeningTreeTile
 import Loader from '../../../Loader';
 
 import {UserContext} from '../../../../providers/GlobalState';
+import GrayTileInfoModal from './GrayTileInfoModal';
 
 const TOTAL_LICHESS_NP = 447000000;
 
@@ -30,6 +31,11 @@ const OpeningsDashboardTest = () => {
     const [loading, setLoading] = useState(true);
     const [mastery, setMastery] = useState(0);
     const [completions, setCompletions] = useState(0);
+    const [openModal, setOpenModal] = useState(false)
+
+    const handleOpenModal = () => {
+        setOpenModal(!openModal)
+    }
     const [depth, setDepth] = useState(0);
 
     const {userId, openingStats, updateOpeningStats} = useContext(UserContext);
@@ -137,6 +143,8 @@ const OpeningsDashboardTest = () => {
         <>
         <PageContainer>
         <CategoryTitle>Opening Mastery Tree</CategoryTitle>
+        <GrayTileModalLink onClick={handleOpenModal} >Why do I see gray tiles?</GrayTileModalLink>
+        <GrayTileInfoModal isOpen={openModal} toggle={handleOpenModal} />
         <PreviousSelection />
         {loading ? (  <Loader/>) : (
             <>
@@ -167,4 +175,11 @@ export default OpeningsDashboardTest;
 //removes link underline
 const OpeningLink = styled(Link)`
     text-decoration: none;
+`
+
+const GrayTileModalLink = styled.div`
+    text-align: center;
+    padding-bottom: 12px;
+    text-decoration: underline;
+    cursor: pointer;
 `

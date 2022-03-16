@@ -27,6 +27,8 @@ import {baseURL} from "../../../api/apiConfig";
 import useFetch from '../../../api/useFetch';
 import { puzzlePageReducer } from "./puzzlePageReducer";
 import { PuzzlePageContainer, Header, TimerAndLivesContainer, IndicatorWrapper, PuzzlePageWrapper, PuzzlePageGrid, PuzzleBoardContainer, PuzzleBoardWrapper, RightPuzzlePanelContainer, HeaderContainer, progressContainer, PercentCompleted } from "./PuzzlePageElements";
+import { UserContext } from "../../../providers/GlobalState.js";
+import { ScoreContainer } from "./ScoreAnimation.js";
 // import useDebugInformation from "../../Hooks/useDebugInformation";
 // import useRenderCount from "../../Hooks/useRenderCount";
 
@@ -453,11 +455,12 @@ export default function PuzzlePage(props) {
                     <Timer toggleTimer={state.toggleTimer} count={state.count}/>
                     <Lives lives={state.lives} isMobile={isMobile} />
                   </TimerAndLivesContainer>
-                  
+                  <ScoreContainer>
+                    Time Bonus:
                   {state.correct && <Score currentBonus={state.currentBonus}>
                     {state.currentBonus}
                   </Score>}
-                  
+                  </ScoreContainer>
               </RightPuzzlePanelContainer>
           </PuzzlePageGrid>
           <PuzzleNav disabled={!state.waiting} retryDisable={state.retryDisable} onRetryClick={handleRetryClick} onContinueClick={handleContinueClick} isDaily={props.isDaily} />

@@ -6,7 +6,7 @@ import Button from "../Button/Button"
 import {Rating} from 'react-simple-star-rating'
 import { calcLogRating } from '../../Module/Utilities/Scoring';
 
-import {useWindowSize} from '../../../hooks/UseWindowSize';
+import {useWindowSize} from '../../../hooks/UseWindowSize'; 
 
 
 const CurrentOpeningTreeTile = (props) => {

@@ -4,19 +4,14 @@ export default function Score(props) {
     console.log('child rendedered')
     return (
         <>
-        
-            <ScoreContainer>
-                Time Bonus: 
             {props.currentBonus !=0 ? (<ScoreValue className="Score--bounce">
             {props.children}
             </ScoreValue>) : (null)} 
-            </ScoreContainer>
-      
     </>
     )
 }
 
-const ScoreContainer = styled.div`
+export const ScoreContainer = styled.div`
     display: flex;
     height: 36px;
     color: #fff;
