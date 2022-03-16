@@ -8,8 +8,8 @@ const OpeningTreeTiles = (props) => {
     <OpeningTreeTileWrapper {...props}>
         <TileHeader>
          <TileHeadline>{props.name}</TileHeadline>
-        <TileSubheadline>{props.moves}</TileSubheadline>
-        <TileSubheadline>{props.popularity}%</TileSubheadline>
+        <TileSubheadline>Next move: {props.moves}</TileSubheadline>
+        <TileSubheadline>Popularity: {props.popularity}%</TileSubheadline>
         </TileHeader>
     </OpeningTreeTileWrapper>
   )
