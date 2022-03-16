@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Button from '../../UI_Kit/Button/Button';
 import {NavBtnLink2} from "../NavBar/NavbarElements"
 import heroImg from '../../../Images/chess-board.svg'
+import { NavbarLoginButton } from '../NavBar/NavBar';
 
 const HeroSection = () => {
     // const { currentUser } = useContext(AuthContext);
@@ -36,14 +37,11 @@ const HeroSection = () => {
             </HeroBg>
             <HeroContent>
                 <HeroCopy>
-                <HeroH1 color={'#a9a9a9'}>
-                    Stop Playing              
-                </HeroH1>
-                <HeroH1 color={'#fff'}>
-                    Start Winning            
+                <HeroH1 color={"#fff"}>
+                    Chess Pattern Training            
                 </HeroH1>
                 <HeroP>
-                    Elevate your elo by improving your pattern recognition.               
+                    Bitesized daily trainings personlized to you.                
                 </HeroP>
                 <HeroBtnWrapper>
                     <NavBtnLink2 to="/signUp" >
@@ -59,7 +57,7 @@ const HeroSection = () => {
                 </HeroCopy>
                 <HeroImg src={heroImg} />
                 {isMobile ? (
-                        <NavBtnLink2 to="/login">Login</NavBtnLink2> ) : (
+                        <NavbarLoginButton to="/login">Login</NavbarLoginButton> ) : (
                         null
                     )}
             </HeroContent>

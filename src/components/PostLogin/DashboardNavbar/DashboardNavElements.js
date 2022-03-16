@@ -60,7 +60,7 @@ export const MobileIcons = styled.div `
 `;
 
 export const BlueBars = styled(FaBars)`
-    color: #247cf1 !important;
+    color: #fff !important;
 `
 
 export const NavMenu = styled.ul`

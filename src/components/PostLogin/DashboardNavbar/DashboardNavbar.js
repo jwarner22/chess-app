@@ -7,8 +7,6 @@ import {
      Img, 
      MobileIcons, 
      NavMenu,  
-     NavBtn, 
-     NavBtnLink, 
      BlueBars,
      NavItem,
      NavLinks

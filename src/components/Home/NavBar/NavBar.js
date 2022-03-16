@@ -101,10 +101,11 @@ const Navbar = ({ toggle }) => {
 
 export default Navbar
 
-const NavbarLoginButton = styled(Button)`
+export const NavbarLoginButton = styled(Button)`
     color: #fff;
     font-weight: 600;
     opacity: 1;
     outline: 2px solid #fff;
     background: rgba(255,255,255, 0);
+    max-width: 175px;
 `

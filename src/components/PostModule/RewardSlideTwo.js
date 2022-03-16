@@ -13,7 +13,7 @@ const EloRewards = (props) => {
         </EloHeadline>
         <EloContainer>
         <FastCounter 
-        delay={1}
+        delay={400}
         startNumber={props.initialRating}
         to={props.newRating}
         style={{color:'#54606c', fontWeight: '400', fontSize: '48px', textAlign: 'center'}}

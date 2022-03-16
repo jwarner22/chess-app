@@ -51,7 +51,7 @@ export const Img = styled.img`
 export const MobileIcons = styled.div `
     display: none;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 640px) {
         display: block;
         position: absolute;
         top: 0;
@@ -102,7 +102,7 @@ export const NavBtn = styled.nav `
     display: flex;
     align-items: center;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 640px) {
         display: none;
     }
 `;
@@ -128,6 +128,7 @@ export const NavBtnLink = styled(LinkR)`
 `;
 
 export const NavBtnLink2 = styled(LinkR)`
+    text-decoration: none;
     /* border-radius: 50px;
     background: transparent;
     white-space: nowrap;

@@ -61,16 +61,29 @@ export const HeroContent = styled.div`
     grid-template-columns: 1fr 1fr;
     flex-direction: column;
     align-items: center;
+    
+    @media screen and (max-width: 640px){
+        display: flex;
+    }
 `
 
 export const HeroCopy = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
+    @media screen and (max-width: 640px){
+        align-items: center;
+        max-width: 400px;
+    }
 `
 export const HeroImg = styled.img`
     width: 90%;
     max-height: 120%;
+
+    @media screen and (max-width: 640px){
+        display: none;
+    }
 `
 
 export const HeroH1 = styled.h1`
@@ -78,8 +91,9 @@ export const HeroH1 = styled.h1`
     color: ${({color}) => color};
     font-size: 48px;
     
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 640px) {
         font-size: 40px;
+        text-align: center;
     }
 
     @media screen and (max-width: 480px) {
@@ -94,8 +108,9 @@ export const HeroP = styled.p`
     text-align: left;
     max-width: 600px;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 640px) {
         font-size: 24px;
+        text-align: center;
     }
 
     @media screen and (max-width: 480px) {
