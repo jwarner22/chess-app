@@ -21,6 +21,8 @@ export const NavbarDropdownHeader = styled.img`
 export const NavbarListDropdownContainer = styled.div`
     transition: 0.3s ease-in-out;
     opacity: ${props => props.openDropdown ? '1' : '0'};
+    z-index: 999;
+    position: relative;
 `
 
 export const NavbarDropdownList = styled.ul`

@@ -3,7 +3,7 @@ import { Link as LinkS } from "react-scroll"
 
 export const MenuWrapper = styled.nav`
     display: flex;
-    width: 100%;
+    width: min-content;
     /* padding: 0 24px; */
     overflow: hidden;
     padding-top: 12px;
@@ -11,6 +11,7 @@ export const MenuWrapper = styled.nav`
     position: sticky;
     z-index: 10;
     top: 80px; 
+    margin: 0 auto;
     
     @media screen and (max-width: 640px) {
         top: 24px;
@@ -33,7 +34,6 @@ export const MenuTiles = styled(LinkS)`
     height: 70px;
     box-shadow: ${(props) => props.shadow};
     border-radius: 25px;
-    list-style-type: none;
     cursor: pointer;
     background: #EEF0FF;
     transition: all 0.2s ease-in-out;

@@ -13,8 +13,7 @@ const NavbarDropdown = (props) => {
     const {openDropdown, dropdownToggle, handleLogout} = props
   return (<>
       <NavbarDropdownContainer>
-            <NavbarDropdownHeader src={placeholder} onClick={dropdownToggle} />
-            
+            <NavbarDropdownHeader src={placeholder} onClick={dropdownToggle} />  
             <NavbarListDropdownContainer openDropdown={openDropdown}>
                 <NavbarDropdownList >
                     <DropdownLink onClick={handleLogout} to='/login'>
