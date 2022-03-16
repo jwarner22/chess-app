@@ -65,3 +65,20 @@ export const calcEloRating = (outcomes, puzzles, playerRating, completed) => {
     const bonus = currentTime < 5 ? 100 : currentTime < 10 ? 75 : currentTime < 20 ? 50 : currentTime < 30 ? 25 : currentTime < 45 ? 10 : 0;
     return bonus;
   }
+
+  export function calcLogRating(mastery) {
+     // generalized logarithmic function for non-linear mastery rating
+    // equation: x/(a+x), where x is mastery value and a is a constant defined as the growth rate of the rating as a function of mastery
+    const alpha = 1000; // growth rate (how rapidly the rating increases)
+    let rating = (mastery / (alpha + mastery)) * 100; // rating calc
+    if (rating > 95)
+      rating = 100; // max rating for mastery (for alpha = 1000, mastery is ~20000)
+    return rating;
+  }
+
+  export function calcNextRank(mastery) {
+    const values = [250, 667, 0]
+    if (mastery < 250) {
+      return {name: "Beginner", value: 250};
+    }
+  }

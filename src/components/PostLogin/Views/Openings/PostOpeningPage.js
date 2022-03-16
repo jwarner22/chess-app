@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from '../../../PostModule/PostModuleElements'
 import {Modules} from '../../../../data/ModuleData';
 import Chart from '../../../PostModule/ScoreChart';
+import { calcLogRating } from '../../../Module/Utilities/Scoring';
 
 const PostOpeningPage = (props) => {
     const [linkUrl, setLinkUrl] = useState('');
@@ -18,6 +19,9 @@ const PostOpeningPage = (props) => {
           }
         )
       });
+
+    //const nextRank = calcNextRank(stats.historyData.pop());
+
     const mastery = props.location.state.stats.mastery;
 
     useEffect(() =>{
