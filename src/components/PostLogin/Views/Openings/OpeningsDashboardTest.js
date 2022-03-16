@@ -10,6 +10,7 @@ import PreviousSelection from '../../../UI_Kit/PreviousSelection';
 import CategoryTitle from '../../../UI_Kit/CategoryTitle/CategoryTitle';
 import CurrentOpeningTreeTile from '../../../UI_Kit/Tiles/CurrentOpeningTreeTile';
 import Loader from '../../../Loader';
+
 import {UserContext} from '../../../../providers/GlobalState';
 import GrayTileInfoModal from './GrayTileInfoModal';
 
