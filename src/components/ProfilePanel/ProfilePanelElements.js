@@ -47,11 +47,12 @@ export const ProfilePanelWrapper = styled.div`
     padding: 16px;
     border-radius: 10px;
     //opacity @ 20% looks really nice
-    background: linear-gradient(to right bottom, #247cf1, #1464e4, #164bd5, #232fc3, #2f00af);
+    background: linear-gradient(220.55deg, #3793FF 0%, #0017E4 100%);
     justify-content: space-between;
     align-items: flex-start;
     max-width: 704px;
     width: 90%;
+    box-shadow: 0px 5px 8px rgba(1, 14, 255, 0.25);
 `
 export const ProfilePanelContent = styled.div`
     display: flex;
