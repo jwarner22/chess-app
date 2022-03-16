@@ -36,17 +36,20 @@ const HeroSection = () => {
             </HeroBg>
             <HeroContent>
                 <HeroCopy>
-                <HeroH1>
-                    Chess Pattern Recognition               
+                <HeroH1 color={'#a9a9a9'}>
+                    Stop Playing              
+                </HeroH1>
+                <HeroH1 color={'#fff'}>
+                    Start Winning            
                 </HeroH1>
                 <HeroP>
-                    Made Simple.               
+                    Elevate your elo by improving your pattern recognition.               
                 </HeroP>
                 <HeroBtnWrapper>
                     <NavBtnLink2 to="/signUp" >
                     <HeroButton 
                     onMouseEnter={onHover} 
-                    onMouseLeave={onHover}
+                onMouseLeave={onHover}
                     primary='true'
                     dark='true'>
                         Get Started {hover ? <ArrowForward/> : <ArrowRight/> }

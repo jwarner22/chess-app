@@ -38,15 +38,10 @@ import { ScoreContainer } from "./ScoreAnimation.js";
 
 const calcSingleElo = (outcome, puzzleData, playerRating, np) => {
 
-    let k = Math.max(800/np,40); // calibration factor. 40 because first time completing module
+    let k = Math.max(600/np,40); // calibration factor.
     let maxDiff = 400; // max rating diff
     let puzzleRating = parseInt(puzzleData.rating);
-    // calculates rating difference capped at 400
-      //const ratingDifference = (puzzleRating, playerRating) => Math.max((puzzleRating-playerRating),-maxDiff); 
-      
-      // expected outcome, formula: E = 1/1 + 10^((PR-PlayerRating)/400)
-      //const expected = (playerRating, puzzleRating) => 1/(1+Math.pow(10, (ratingDifference(puzzleRating,playerRating))/maxDiff));
-
+    
     const Qa = Math.pow(10, playerRating/400);     //calculate QA of elo
     const Qb = Math.pow(10, (puzzleRating/400)); //calculate QB of puzzle rating
     const Ea = Qa/(Qa+Qb);  //calculate expected outcome
@@ -57,12 +52,6 @@ const calcSingleElo = (outcome, puzzleData, playerRating, np) => {
     
     const newRating = parseInt(playerRating + ratingDiff); //calculate new rating
 
-
-      // let playerExpected = expected(elo, data.rating);
-      // let actual = outcome ? 1 : -1;
-      // let ratingChange = parseInt(k * (actual - playerExpected), 10);
-      // console.log(actual, ratingChange, playerExpected, elo, data.rating)
-      // let newRating = elo + ratingChange; // apply changes
       console.log({newRating: newRating, outcome: outcome, puzzleData: puzzleData, playerRating: playerRating, ratingDiff: ratingDiff})
       return newRating
 }
@@ -128,19 +117,13 @@ export default function PuzzlePage(props) {
   // const [boardKey, setBoardKey] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
-  const {themesData, updateThemesData} = useContext(UserContext);
-
+  const {get} = useFetch(baseURL);   // fetch Hook
+  const boardRef = useRef();
 
   const windowDimensions = useWindowSize();
   const isMobile = windowDimensions[0] < 640;
 
-  const title = getModuleTitle(props.theme)
-  
-    // fetch Hook
-    const {get} = useFetch(baseURL);
-
-  const boardRef = useRef();
-
+  const title = getModuleTitle(props.theme);
 
   // set instances and cleanup to avoid memory leaks
   useEffect(() => {
@@ -181,7 +164,6 @@ export default function PuzzlePage(props) {
   const initializePuzzle = async () => {
 
     let initialPuzzle = await getSinglePuzzle();
-    console.log(initialPuzzle)
     setPuzzle(initialPuzzle);
     dispatch({type: "INITIALIZE", payload: initialPuzzle});
     // dispatch({type: "SET_MOVES", payload: initialPuzzle.moves});

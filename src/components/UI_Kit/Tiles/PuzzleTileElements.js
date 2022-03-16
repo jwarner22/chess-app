@@ -70,6 +70,44 @@ export const TileHeadline = styled.h3`
          }
  `
 
+ export const OpeningTileHeadline = styled.h3`
+    font-size: 1.25rem;
+    line-height: 1.1;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    /* margin-bottom: 2px;
+    margin-left: 10px;
+    margin-right: 2px; */
+    padding: 8px;
+    margin-top: 8px;
+    text-decoration: none;
+    /* margin-top: 5px; */
+    @media screen and (max-width: 768px) {
+        margin-top: 24px;
+        margin-bottom: 16px;
+        font-size: 12px;
+        padding: 0 8px;
+         }
+ `
+
+ export const OpeningTileSubheadline = styled.p`
+ font-size: 1rem;
+ font-weight: 400;
+ line-height: 1.14;
+ color: ${props => props.current ? '#243862' : '#fff'};
+ text-align: center;
+ margin-bottom: 8px;
+
+ @media screen and (max-width: 768px) {
+     /* display: none; */
+     /* margin-bottom: 24px; */
+     /* padding: 12px 8px; */
+     /*padding-top: 8px; */
+     font-size: 12px;
+ }
+`
+
 export const TileSubheadline = styled.p`
     font-size: 1rem;
     font-weight: 400;

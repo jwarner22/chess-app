@@ -19,6 +19,7 @@ const UserProvider = ({ children }) => {
     const [isMounted, setIsMounted] = useState(false);
     const [openings, setOpenings] = useState([]);
     const [generating, setGenerating] = useState(false);
+    const [openingStats, setOpeningStats] = useState([]);
     const {get, put, post} = useFetch(baseURL);
 
     const auth = useContext(AuthContext);
@@ -288,8 +289,29 @@ const UserProvider = ({ children }) => {
         setLoading(() => false);
     }
 
+    const updateOpeningStats = async (data) => {
+        console.log({data:data})
+        let openingStatsCopy = [...openingStats];
+        if (!openingStatsCopy.some(opening => opening.id === data.id)) {
+            openingStatsCopy.push(data);
+            //openingStatsCopy = [...openingStatsCopy, data];
+            console.log({newOpeningStats: openingStatsCopy});
+            setOpeningStats(openingStatsCopy);
+            return;
+        }
+        
+        openingStatsCopy = openingStatsCopy.map(opening => {
+            if (data.id === opening.id) {
+                return {...opening, ...data}
+            }
+            return opening;
+        })
+        console.log({newOpeningStats: openingStatsCopy});
+        setOpeningStats(openingStatsCopy);
+    }
+
     return (
-      <UserContext.Provider value={{generating, updateGenerating, updateGlobalState, userId, contextLoading: loading, userData, updateUserData, achievements, updateAchievements, openings, updateOpenings, themesData, updateThemesData, dailyModules, updateDailyModules}}>
+      <UserContext.Provider value={{openingStats, updateOpeningStats, generating, updateGenerating, updateGlobalState, userId, contextLoading: loading, userData, updateUserData, achievements, updateAchievements, openings, updateOpenings, themesData, updateThemesData, dailyModules, updateDailyModules}}>
         {children}
       </UserContext.Provider>
     );
