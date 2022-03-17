@@ -3,6 +3,8 @@ import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from '../../../PostModule/PostModuleElements'
 import {Modules} from '../../../../data/ModuleData';
 import Chart from '../../../PostModule/ScoreChart';
+import {MultiChart} from '../../../PostModule/ScoreChart';
+
 import { calcMastery } from '../../../Module/Utilities/Scoring';
 
 import { UserContext } from "../../../../providers/GlobalState.js";
@@ -62,7 +64,8 @@ const PostOpeningPage = (props) => {
                         {(!props.failure && !props.perfect) && 'you passed'}
                         {(props.failure) && 'module failed'}
                     </RewardH2> */}
-                    <Chart data={historyData}/>
+                    <Chart data={historyData} reference={{value: thisOpeningRank.nextRank.value, label: thisOpeningRank.nextRank.name}}/>
+
                     <ModuleExperience>
                         {`Mastery: ${opening.history_7}`}
                     </ModuleExperience>
@@ -71,6 +74,9 @@ const PostOpeningPage = (props) => {
                         Return to {props.location.state.isDaily ? 'Daily Puzzles' : 'Openings'}
                     </FinishButton>
                     </Link>
+
+                    {/* <MultiChart /> */}
+
             </PostPuzzleGrid>
         </PostPuzzleWrapper>
         </>
