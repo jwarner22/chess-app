@@ -38,18 +38,13 @@ const OpeningsDashboardTest = () => {
     }, [moves])
 
     const fetchOpenings = async () => {
-
         const opening = openingStats.find(o => o.uci === moves);
-        console.log(opening)
         if (opening != null) {
             SetCurrentOpening(opening);
             setMastery(opening.history_7);
             setCompletions(opening.completions);
-            console.log(opening)
             let childOpenings = await fetchChildIds(opening, post);
-            console.log(childOpenings)
             childOpenings = await mutateChildOpenings(childOpenings, opening)
-            console.log(childOpenings)
             setOpeningModules(childOpenings);
         } else {
             // this is BROKEN
@@ -64,7 +59,6 @@ const OpeningsDashboardTest = () => {
             }
 
             let childOpenings = await mutateChildOpenings(openingsData.childOpenings, openingsData.main)
-            console.log(childOpenings)
             SetCurrentOpening(openingsData.main);
             let mainData = await getCompletions(openingsData.main);        // get number of completions for main module
             setMastery(mainData.mastery)

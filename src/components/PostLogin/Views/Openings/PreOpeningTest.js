@@ -10,9 +10,9 @@ const img =  require('../../../../Images/Books.svg').default
 
 const PreOpeningPage = (props) => {
     const currentOpening = props.location.state.currentOpening;
+    const mastery = props.location.state.mastery;
     const [loaded, setLoaded] = useState(false);
     //const [usercurrentOpening, setUsercurrentOpening] = useState({});
-    console.log(props)
     const {openings, contextLoading, userData} = useContext(UserContext);
 
     function handleStartButtonClick(color) {
@@ -53,8 +53,8 @@ const PreOpeningPage = (props) => {
                 headlineOne={"Opening Mastery"}
                 headlineTwo={"Repetitions"}
                 userData={userData}
-                dataOne={props.location.state.completions}
-                dataTwo={props.location.state.completions*3}
+                dataOne={currentOpening.history_7}
+                dataTwo={currentOpening.completions*3}
                 onStartClick={handleStartButtonClick}
                 buttonOneTitle={"Play as White"}
                 buttonTwoTitle={"Play as Black"}/> 

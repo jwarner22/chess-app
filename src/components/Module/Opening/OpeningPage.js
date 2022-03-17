@@ -105,16 +105,18 @@ export default function OpeningModule(props) {
 
 
   const finished = async (score) => {
-    const openingId = props.location.state.currentOpening.id;
-    
-    let openingStatsCopy=[...openingStats];
+
+    const openingId = props.location.state.currentOpening.opening_id;
+    //console.log(openingId)
+    //console.log(props)
+    //let openingStatsCopy=[...openingStats];
     let oldOpeningStats = [...openingStats];
     // get opening from global state
-    const this_opening = openingStatsCopy.find(opening => opening.id === openingId);
-    console.log({this_opening: this_opening})
-    const mastery = this_opening.mastery;
+    //const this_opening = openingStatsCopy.find(opening => opening.opening_id === openingId);
+    //console.log({this_opening: this_opening})
+    //const mastery = this_opening.history_7;
     // update opening in db
-    let url = `/opening-completions/${userId}/${openingId}/${mastery}`;
+    let url = `/opening-completions/${userId}/${openingId}`;
     let response = await put(url);
     if (response.detail === 'Opening not found') {
       // post new opening for user
@@ -122,25 +124,30 @@ export default function OpeningModule(props) {
       response = await post(url);
     }
 
-    console.log({response: response})
+    //console.log({response: response})
+    const concatResponse = [...response.parent_openings, response.this_opening]
     //update opening stats in global state
-    let newOpeningStats = {
-      ...this_opening,
-      completions: this_opening.completions + 1,
-      mastery: response.history_7,
-      history_1: response.history_1,
-      history_2: response.history_2,
-      history_3: response.history_3,
-      history_4: response.history_4,
-      history_5: response.history_5,
-      history_6: response.history_6,
-      history_7: response.history_7
-    }
+    // let newOpeningStats = {
+    //   ...this_opening,
+    //   completions: this_opening.completions + 1,
+    //   mastery: response.history_7,
+    //   history_1: response.history_1,
+    //   history_2: response.history_2,
+    //   history_3: response.history_3,
+    //   history_4: response.history_4,
+    //   history_5: response.history_5,
+    //   history_6: response.history_6,
+    //   history_7: response.history_7
+    // }
 
-    updateOpeningStats(newOpeningStats); // update global state
+    //console.log({concatResponse: concatResponse})
 
-    const openingMasteryRank = newOpeningStats.map(newOpening => {
-      let oldOpening = oldOpeningStats.find(newOpening => newOpening.id === oldOpening.id);
+    let updatedOpeningStats = await updateOpeningStats(concatResponse); // update global state
+
+    //console.log({updatedOpeningStats: updatedOpeningStats})
+
+    const openingMasteryRank = updatedOpeningStats.map(newOpening => {
+      let oldOpening = oldOpeningStats.find(opening => newOpening.id === opening.id);
       
       let oldMastery = 0;
       let oldRank = '';
@@ -148,22 +155,22 @@ export default function OpeningModule(props) {
       if (oldOpening == null) {  
         oldRank = 'Newbie';
       } else {
-        oldMastery = oldOpening.mastery;
-        oldRank = getRank(oldOpening.mastery);
+        oldMastery = oldOpening.history_7;
+        oldRank = getRank(oldMastery);
       }
-
-      let masteryDiff = newOpening.mastery - oldMastery;
-      let newRank = getRank(newOpening.mastery);
+      let newMastery = newOpening.history_7;
+      let masteryDiff = newMastery - oldMastery;
+      let newRank = getRank(newMastery);
       let nextRank = getNextRank(newRank);
 
-      return {id: newOpening.id, oldRank: oldRank, newRank: newRank, nextRank: nextRank, diff: masteryDiff};
+      return {opening_id: newOpening.opening_id, oldRank: oldRank, newRank: newRank, nextRank: nextRank, diff: masteryDiff};
     })
-
-    const thisOpeningRank = openingMasteryRank.find(opening => opening.id === openingId);
+    //console.log({openingMasteryRank: openingMasteryRank})
+    const thisOpeningRank = openingMasteryRank.find(opening => opening.opening_id === openingId);
     const newOpeningRank = openingMasteryRank.filter(rank => rank.newRank !== rank.oldRank);
-
+    //console.log({thisOpeningRank: thisOpeningRank})
     //push to post opening page
-    props.history.push({'pathname': `/post-opening/${moves}/${orientation}`, 'state': {'score': score, 'currentOpening': props.location.state.currentOpening, isDaily: false, stats: newOpeningStats, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank}});
+    props.history.push({pathname: `/post-opening/${moves}/${orientation}`, state: {score: score, openingId: openingId, isDaily: false, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank}});
   }
 
   const getNextRank = nextRank()

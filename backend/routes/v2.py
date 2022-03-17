@@ -199,7 +199,7 @@ async def get_opening_data(moves: str, db: Session = Depends(get_local_opening_d
 # add opening data for user
 @app_v2.post('/openings-data/{user_id}/{opening_id}', tags=["Openings"]) # add opening data
 async def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
-    this_opening = db_openings.query(models.Openings).filter(models.Openings.opening_id == opening_id).first()
+    this_opening = db_openings.query(models.Openings).filter(models.Openings.id == opening_id).first()
 
     if this_opening is None:
         raise HTTPException(status_code=404, detail="Opening not found")
@@ -209,7 +209,26 @@ async def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_d
 
     db.add(opening)
     db.commit()
-    return opening
+
+    parent_ids = this_opening.parent_ids.split(',')
+
+    # query all user_openings in db that match child_ids
+    user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(parent_ids)).all()
+    for _opening in user_openings:
+        mastery = opening.history_7 + mastery_diff
+        setattr(user_opening, 'completions', user_opening.completions + 1) # increment completion count
+        setattr(user_opening, 'history_1', user_opening.history_2) # shift history
+        setattr(user_opening, 'history_2', user_opening.history_3)
+        setattr(user_opening, 'history_3', user_opening.history_4)
+        setattr(user_opening, 'history_4', user_opening.history_5)
+        setattr(user_opening, 'history_5', user_opening.history_6)
+        setattr(user_opening, 'history_6', user_opening.history_7)
+        setattr(user_opening, 'history_7', mastery) # update history
+        db.commit()
+        db.refresh(_opening)
+    
+    
+    return {"this_opening": opening, "parent_openings": user_openings}
 
 #  get child ids for opening
 @app_v2.get('/openings-data/{opening_id}/children', tags=["Openings"]) # get child ids for opening
@@ -279,52 +298,52 @@ async def get_opening_completions(user_id: str, pgn: str, db_openings: Session =
     return {"id": this_opening.id, "completions": opening_completions, "max_depth": max_depth, "mastery": opening_mastery}
 
 # update opening completions
-@app_v2.put('/opening-completions/{user_id}/{opening_id}/{mastery}', tags=["Openings"]) # update opening data for user
-async def update_opening_data(user_id: str, opening_id: int, mastery: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
+@app_v2.put('/opening-completions/{user_id}/{opening_id}', tags=["Openings"]) # update opening data for user
+async def update_opening_data(user_id: str, opening_id: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
     user_opening = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id == opening_id).first()
     
-
     if user_opening is None:
         raise HTTPException(status_code=404, detail="Opening not found")
     
-    opening = db_openings.query(models.Openings).filter(models.Openings.id == opening_id).first()
+    this_opening = db_openings.query(models.Openings).filter(models.Openings.id == opening_id).first()
     
-    mastery_diff = 3*round((len(opening.uci)+1)/10) 
-    mastery = mastery + mastery_diff # calculate mastery as number completed * deth of opening
-
+    mastery_diff = 3*round((len(this_opening.uci)+1)/10) 
+    #mastery = user_opening.history_7 + mastery_diff # calculate mastery as number completed * deth of opening
     setattr(user_opening, 'completions', user_opening.completions + 1) # increment completion count
-
     setattr(user_opening, 'history_1', user_opening.history_2) # shift history
     setattr(user_opening, 'history_2', user_opening.history_3)
     setattr(user_opening, 'history_3', user_opening.history_4)
     setattr(user_opening, 'history_4', user_opening.history_5)
     setattr(user_opening, 'history_5', user_opening.history_6)
     setattr(user_opening, 'history_6', user_opening.history_7)
-    setattr(user_opening, 'history_7', mastery) # update history
+    setattr(user_opening, 'history_7', user_opening.history_7 + mastery_diff) # update history
 
     db.commit()
     db.refresh(user_opening)
 
-    child_ids = opening.child_ids.split(',')
+    parent_ids = this_opening.parent_ids.split(',')
 
-    # query all user_openings in db that match child_ids
-    user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(child_ids)).all()
+    # query all user_openings in db that match parent_ids and update completions and history
+    user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(parent_ids)).all()
     for opening in user_openings:
-        mastery = opening.history_7 + mastery_diff
-        setattr(user_opening, 'completions', user_opening.completions + 1) # increment completion count
-        setattr(user_opening, 'history_1', user_opening.history_2) # shift history
-        setattr(user_opening, 'history_2', user_opening.history_3)
-        setattr(user_opening, 'history_3', user_opening.history_4)
-        setattr(user_opening, 'history_4', user_opening.history_5)
-        setattr(user_opening, 'history_5', user_opening.history_6)
-        setattr(user_opening, 'history_6', user_opening.history_7)
-        setattr(user_opening, 'history_7', mastery) # update history
+        # mastery = opening.history_7 + mastery_diff
+        setattr(opening, 'completions', opening.completions + 1) # increment completion count
+        setattr(opening, 'history_1', opening.history_2) # shift history
+        setattr(opening, 'history_2', opening.history_3)
+        setattr(opening, 'history_3', opening.history_4)
+        setattr(opening, 'history_4', opening.history_5)
+        setattr(opening, 'history_5', opening.history_6)
+        setattr(opening, 'history_6', opening.history_7)
+        setattr(opening, 'history_7', opening.history_7 + mastery_diff) # update history
         db.commit()
         db.refresh(opening)
     
-    
+    # fetch fresh data from db
+    user_opening = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id == opening_id).first()
+    user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(parent_ids)).all()
 
-    return {user_opening, user_openings}
+
+    return {"this_opening": user_opening, "parent_openings": user_openings}
 
 
 @app_v2.get('/openings-data/lichess-explorer/{pgn}', tags=["Openings"]) # request lichess explorer data for moves

@@ -299,36 +299,47 @@ const UserProvider = ({ children }) => {
     const updateOpeningStats = async (data) => {
         console.log({data:data})
         let openingStatsCopy = [...openingStats];
-        let masteryDiff = 0;
+        
+        let updatedOpeningStats = openingStatsCopy.map(opening => {
+            let updatedOpening = data.find(entry => entry.opening_id === opening.opening_id);
+            console.log({updatedOpening:updatedOpening})
+            if (updatedOpening != null) {
+                console.log('updated opening', updatedOpening.name);
+                return {...opening, ...updatedOpening};
+            }
+            return opening;
+        })
+        //let masteryDiff = 0;
 
-        // update mastery
-        if (!openingStatsCopy.some(opening => opening.id === data.id)) {
-            openingStatsCopy.push(data);
-        } else {
-            openingStatsCopy = openingStatsCopy.map(opening => {
-                if (data.id === opening.id) {
-                    masteryDiff = data.mastery - opening.mastery;
-                    return {...opening, mastery: opening.mastery + masteryDiff};
-                }
-                return opening;
-            })
-        }
+        // // update mastery
+        // if (!openingStatsCopy.some(opening => opening.id === data.id)) {
+        //     openingStatsCopy.push(data);
+        // } else {
+        //     openingStatsCopy = openingStatsCopy.map(opening => {
+        //         if (data.id === opening.id) {
+        //             masteryDiff = data.mastery - opening.mastery;
+        //             return {...opening, mastery: opening.mastery + masteryDiff};
+        //         }
+        //         return opening;
+        //     })
+        // }
         
-        // update parent mastery
-        if (masteryDiff !== 0) {;
+        // // update parent mastery
+        // if (masteryDiff !== 0) {;
             
-            let parentOpeningIds = data.parent_ids.split(',');
-            openingStatsCopy = openingStatsCopy.map(opening => {
-                let parent = parentOpeningIds.includes(opening.id);
-                if (parent) {
-                    return {...opening, mastery: opening.mastery + masteryDiff}
-                }
-                return opening;
-            });
-        }
+        //     let parentOpeningIds = data.parent_ids.split(',');
+        //     openingStatsCopy = openingStatsCopy.map(opening => {
+        //         let parent = parentOpeningIds.includes(opening.id);
+        //         if (parent) {
+        //             return {...opening, mastery: opening.mastery + masteryDiff}
+        //         }
+        //         return opening;
+        //     });
+        // }
         
-        console.log({newOpeningStats: openingStatsCopy});
-        setOpeningStats(openingStatsCopy);
+        console.log({newOpeningStats: updatedOpeningStats});
+        setOpeningStats(updatedOpeningStats);
+        return updatedOpeningStats;
     }
 
     return (

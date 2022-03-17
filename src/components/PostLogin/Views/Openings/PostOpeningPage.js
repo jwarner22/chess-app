@@ -1,23 +1,27 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {Link} from "react-router-dom"
 import { IconWrap,PostPuzzleWrapper, PostPuzzleGrid, PostPuzzleHeaderImg, RewardH1, RewardH2, ModuleExperience, FinishButton } from '../../../PostModule/PostModuleElements'
 import {Modules} from '../../../../data/ModuleData';
 import Chart from '../../../PostModule/ScoreChart';
-import { calcLogRating } from '../../../Module/Utilities/Scoring';
+import { calcMastery } from '../../../Module/Utilities/Scoring';
+
+import { UserContext } from "../../../../providers/GlobalState.js";
+
 
 const PostOpeningPage = (props) => {
     const [linkUrl, setLinkUrl] = useState('');
     const img = Modules[3].img;
-    const stats = props.location.state.stats;
     const openingMasteryRank = props.location.state.openingMasteryRank;
     const thisOpeningRank = props.location.state.thisOpeningRank;
     const newOpeningRank = props.location.state.newOpeningRank;
 
-    console.log(openingMasteryRank)
-    console.log(thisOpeningRank)
-    console.log(newOpeningRank)
+    const {openingStats} = useContext(UserContext);
+
+    const opening = openingStats.find(opening => opening.opening_id === props.location.state.openingId);
+
+    console.log({openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank})
     
-    let historyData = [stats.history_1, stats.history_2, stats.history_3, stats.history_4, stats.history_5, stats.history_6, stats.history_7];
+    let historyData = [opening.history_1, opening.history_2, opening.history_3, opening.history_4, opening.history_5, opening.history_6, opening.history_7];
     //historyData = historyData.toString(); // convert to single string for copatibility
     historyData = historyData.map((value, index) => {
         return(
@@ -28,14 +32,12 @@ const PostOpeningPage = (props) => {
         )
       });
 
-    //const nextRank = calcNextRank(stats.historyData.pop());
-
-    const mastery = props.location.state.stats.mastery;
+    //const nextRank = calcNextRank(opening.historyData.pop());
 
     useEffect(() =>{
         if (props.completedTraining) setLinkUrl('completed-training');
         else if (props.isDaily) setLinkUrl('/home/daily');
-        else setLinkUrl('/home/openings');
+        else setLinkUrl(`/openings-dashboard-test/${opening.uci}`);
     }, [])
 
     if (!props.savingResults) {
@@ -47,7 +49,7 @@ const PostOpeningPage = (props) => {
                     <PostPuzzleHeaderImg src={img}/>
                 </IconWrap>
                     <ModuleExperience>
-                        {props.location.state.currentOpening.name}
+                        {opening.name}
                     </ModuleExperience>
                     <RewardH1>
                         {/* {props.perfect && 'Congrats!'}
@@ -62,7 +64,7 @@ const PostOpeningPage = (props) => {
                     </RewardH2> */}
                     <Chart data={historyData}/>
                     <ModuleExperience>
-                        {`Mastery: ${mastery}`}
+                        {`Mastery: ${opening.history_7}`}
                     </ModuleExperience>
                     <Link to={linkUrl}>
                     <FinishButton>
