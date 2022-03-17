@@ -9,6 +9,14 @@ const PostOpeningPage = (props) => {
     const [linkUrl, setLinkUrl] = useState('');
     const img = Modules[3].img;
     const stats = props.location.state.stats;
+    const openingMasteryRank = props.location.state.openingMasteryRank;
+    const thisOpeningRank = props.location.state.thisOpeningRank;
+    const newOpeningRank = props.location.state.newOpeningRank;
+
+    console.log(openingMasteryRank)
+    console.log(thisOpeningRank)
+    console.log(newOpeningRank)
+    
     let historyData = [stats.history_1, stats.history_2, stats.history_3, stats.history_4, stats.history_5, stats.history_6, stats.history_7];
     //historyData = historyData.toString(); // convert to single string for copatibility
     historyData = historyData.map((value, index) => {

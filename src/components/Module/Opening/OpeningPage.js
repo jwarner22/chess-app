@@ -106,8 +106,11 @@ export default function OpeningModule(props) {
 
   const finished = async (score) => {
     const openingId = props.location.state.currentOpening.id;
+    
+    let openingStatsCopy=[...openingStats];
+    let oldOpeningStats = [...openingStats];
     // get opening from global state
-    const this_opening = openingStats.find(opening => opening.id === openingId);
+    const this_opening = openingStatsCopy.find(opening => opening.id === openingId);
     console.log({this_opening: this_opening})
     const mastery = this_opening.mastery;
     // update opening in db
@@ -120,7 +123,8 @@ export default function OpeningModule(props) {
     }
 
     console.log({response: response})
-    const newOpeningStats = {
+    //update opening stats in global state
+    let newOpeningStats = {
       ...this_opening,
       completions: this_opening.completions + 1,
       mastery: response.history_7,
@@ -132,19 +136,41 @@ export default function OpeningModule(props) {
       history_6: response.history_6,
       history_7: response.history_7
     }
-    
 
     updateOpeningStats(newOpeningStats); // update global state
+
+    const openingMasteryRank = newOpeningStats.map(newOpening => {
+      let oldOpening = oldOpeningStats.find(newOpening => newOpening.id === oldOpening.id);
+      
+      let oldMastery = 0;
+      let oldRank = '';
+      
+      if (oldOpening == null) {  
+        oldRank = 'Newbie';
+      } else {
+        oldMastery = oldOpening.mastery;
+        oldRank = getRank(oldOpening.mastery);
+      }
+
+      let masteryDiff = newOpening.mastery - oldMastery;
+      let newRank = getRank(newOpening.mastery);
+      let nextRank = getNextRank(newRank);
+
+      return {id: newOpening.id, oldRank: oldRank, newRank: newRank, nextRank: nextRank, diff: masteryDiff};
+    })
+
+    const thisOpeningRank = openingMasteryRank.find(opening => opening.id === openingId);
+    const newOpeningRank = openingMasteryRank.filter(rank => rank.newRank !== rank.oldRank);
+
     //push to post opening page
-    props.history.push({'pathname': `/post-opening/${moves}/${orientation}`, 'state': {'score': score, 'currentOpening': props.location.state.currentOpening, isDaily: false, stats: newOpeningStats }});
+    props.history.push({'pathname': `/post-opening/${moves}/${orientation}`, 'state': {'score': score, 'currentOpening': props.location.state.currentOpening, isDaily: false, stats: newOpeningStats, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank}});
   }
 
-  const getMoves = async () => {
-    // let moves = props.openingData.moves;
-    // const openingMoves = getOpeningMoves(moves);
-    // setMoves(openingMoves)
-    // setFen(openingMoves[0].fen);
+  const getNextRank = nextRank()
+  const getRank = rank()
 
+  
+  const getMoves = async () => {
     const openingMoves = getOpeningMoves(moves);
     setCorrectMoves(openingMoves);
     setFen('');
@@ -338,3 +364,49 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   padding: 16px;
 `
+function rank() {
+  return (mastery) => {
+    //set mastery equation = to precentile (20, 40, etc.) and solve for x (mastery)
+    if (mastery === 0) {
+      return 'Newbie';
+    } else if (mastery < 250) {
+      return 'Beginner';
+    } else if (mastery === 667) {
+      return 'Intermediate';
+    } else if (mastery === 1500) {
+      return 'Advanced';
+    } else if (mastery === 4000) {
+      return 'Expert';
+    } else if (mastery === 20000) {
+      return 'Master';
+    } else if (mastery === 30000) {
+      return 'Grandmaster';
+    } else if (mastery === 50000) {
+      return 'Legendary';
+    }
+  };
+}
+
+function nextRank() {
+  return (rank) => {
+    switch (rank) {
+      case 'Newbie':
+        return { name: 'Beginner', value: 250 };
+      case 'Beginner':
+        return { name: 'Intermediate', value: 667 };
+      case 'Intermediate':
+        return { name: 'Advanced', value: 1500 };
+      case 'Advanced':
+        return { name: 'Expert', value: 4000 };
+      case 'Expert':
+        return { name: 'Master', value: 20000 };
+      case 'Master':
+        return { name: 'BegGrandmaster', value: 30000 };
+      case 'Grandmaster':
+        return { name: 'Legendary', value: 50000 };
+      default:
+        return { name: 'Beginner', value: 250 };
+    }
+  };
+}
+
