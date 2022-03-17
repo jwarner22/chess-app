@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrandPageContainer, BrandPageLogo, BrandPageLogoWrapper } from './BrandPageElements'
 import logo from "../../Images/eloElevationWhite.png"
+import {useTransition, animated} from 'react-spring'
 
 const BrandPage = () => {
     return (

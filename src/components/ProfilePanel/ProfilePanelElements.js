@@ -46,7 +46,6 @@ export const ProfilePanelWrapper = styled.div`
     margin: 16px;
     padding: 16px;
     border-radius: 10px;
-    //opacity @ 20% looks really nice
     background: linear-gradient(220.55deg, #3793FF 0%, #0017E4 100%);
     justify-content: space-between;
     align-items: flex-start;
