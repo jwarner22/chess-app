@@ -1,17 +1,31 @@
-import React from 'react'
+import {useRef} from 'react'
 import { BrandPageContainer, BrandPageLogo, BrandPageLogoWrapper } from './BrandPageElements'
 import logo from "../../Images/eloElevationWhite.png"
-import {useTransition, animated} from 'react-spring'
+import {useTransition, useSpring, animated} from 'react-spring'
+import useRouter from '../../hooks/useRouter'
 
 const BrandPage = () => {
+    const containerRef = useRef();
+
+    const containerStyle = useSpring({
+        from: {
+            opacity: 0
+        },
+        to: {
+            opacity: 1
+        }
+    });
+
+    const {location} = useRouter;
+    
     return (
-        <div>
-            <BrandPageContainer>
+        <>
+            <BrandPageContainer style={containerStyle}>
                 <BrandPageLogoWrapper>
                     <BrandPageLogo src={logo}/>
                 </BrandPageLogoWrapper>
             </BrandPageContainer>
-        </div>
+        </>
     )
 }
 

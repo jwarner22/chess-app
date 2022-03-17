@@ -10,6 +10,7 @@ import OpeningsDashboardTest from '../components/PostLogin/Views/Openings/Openin
 import Module from "../components/Module/Module";
 import TestModule from '../testing/TestModule';
 import PreOpeningTest from '../components/PostLogin/Views/Openings/PreOpeningTest';
+import TestingPage from '../Pages/TestingPage';
 
 const PrePuzzlePage = React.lazy(() => import('../components/PrePuzzle/PrePuzzle'));
 //const Opening = React.lazy(() => import('../components/Module/Opening/OpeningManager'));
@@ -107,6 +108,12 @@ const protectedRoutes = [
 		path: "/post-opening/:moves/:color",
 		exact: false,
 		main: (props) => <PostOpening {...props} />
+	},
+	{
+		name: 'TestingPage',
+		path: '/testing',
+		exact: true,
+		main: () => <TestingPage />
 	}
 ];
 
