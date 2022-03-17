@@ -105,46 +105,22 @@ export default function OpeningModule(props) {
 
 
   const finished = async (score) => {
-    const openingId = props.location.state.currentOpening.id;
-    // get opening from global state
-    const this_opening = openingStats.find(opening => opening.id === openingId);
-    console.log({this_opening: this_opening})
-    const mastery = this_opening.mastery;
+    const openingId = props.location.state.currentOpening.opening_id;
+    let oldOpeningStats = [...openingStats];
+
     // update opening in db
-    let url = `/opening-completions/${userId}/${openingId}/${mastery}`;
-    let response = await put(url);
-    if (response.detail === 'Opening not found') {
-      // post new opening for user
-      url = `/openings-data/${userId}/${openingId}`;
-      response = await post(url);
-    }
+    const { openingMasteryRank, thisOpeningRank, newOpeningRank } = await saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank);
 
-    console.log({response: response})
-    const newOpeningStats = {
-      ...this_opening,
-      completions: this_opening.completions + 1,
-      mastery: response.history_7,
-      history_1: response.history_1,
-      history_2: response.history_2,
-      history_3: response.history_3,
-      history_4: response.history_4,
-      history_5: response.history_5,
-      history_6: response.history_6,
-      history_7: response.history_7
-    }
-    
-
-    updateOpeningStats(newOpeningStats); // update global state
     //push to post opening page
-    props.history.push({'pathname': `/post-opening/${moves}/${orientation}`, 'state': {'score': score, 'currentOpening': props.location.state.currentOpening, isDaily: false, stats: newOpeningStats }});
+    props.history.push({pathname: `/post-opening/${moves}/${orientation}`, state: {score: score, openingId: openingId, isDaily: false, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank}});
   }
 
-  const getMoves = async () => {
-    // let moves = props.openingData.moves;
-    // const openingMoves = getOpeningMoves(moves);
-    // setMoves(openingMoves)
-    // setFen(openingMoves[0].fen);
+  // helper functions for saveModuleData
+  const getNextRank = nextRank()
+  const getRank = rank()
 
+  
+  const getMoves = async () => {
     const openingMoves = getOpeningMoves(moves);
     setCorrectMoves(openingMoves);
     setFen('');
@@ -338,3 +314,88 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   padding: 16px;
 `
+async function saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank) {
+  let url = `/opening-completions/${userId}/${openingId}`;
+  let response = await put(url);
+  if (response.detail === 'Opening not found') {
+    // post new opening for user
+    url = `/openings-data/${userId}/${openingId}`;
+    response = await post(url);
+  }
+
+  const concatResponse = [...response.parent_openings, response.this_opening];
+
+  //update opening stats in global state
+  let updatedOpeningStats = await updateOpeningStats(concatResponse); // update global state
+
+  const openingMasteryRank = updatedOpeningStats.map(newOpening => {
+    let oldOpening = oldOpeningStats.find(opening => newOpening.id === opening.id);
+
+    let oldMastery = 0;
+    let oldRank = '';
+
+    if (oldOpening == null) {
+      oldRank = 'Newbie';
+    } else {
+      oldMastery = oldOpening.history_7;
+      oldRank = getRank(oldMastery);
+    }
+    let newMastery = newOpening.history_7;
+    let masteryDiff = newMastery - oldMastery;
+    let newRank = getRank(newMastery);
+    let nextRank = getNextRank(newRank);
+
+    return { opening_id: newOpening.opening_id, oldRank: oldRank, newRank: newRank, nextRank: nextRank, diff: masteryDiff };
+  });
+
+  const thisOpeningRank = openingMasteryRank.find(opening => opening.opening_id === openingId);
+  const newOpeningRank = openingMasteryRank.filter(rank => rank.newRank !== rank.oldRank);
+  return { openingMasteryRank, thisOpeningRank, newOpeningRank };
+}
+
+function rank() {
+  return (mastery) => {
+    //set mastery equation = to precentile (20, 40, etc.) and solve for x (mastery)
+    if (mastery === 0) {
+      return 'Newbie';
+    } else if (mastery < 250) {
+      return 'Beginner';
+    } else if (mastery === 667) {
+      return 'Intermediate';
+    } else if (mastery === 1500) {
+      return 'Advanced';
+    } else if (mastery === 4000) {
+      return 'Expert';
+    } else if (mastery === 20000) {
+      return 'Master';
+    } else if (mastery === 30000) {
+      return 'Grandmaster';
+    } else if (mastery === 50000) {
+      return 'Legendary';
+    }
+  };
+}
+
+function nextRank() {
+  return (rank) => {
+    switch (rank) {
+      case 'Newbie':
+        return { name: 'Beginner', value: 250 };
+      case 'Beginner':
+        return { name: 'Intermediate', value: 667 };
+      case 'Intermediate':
+        return { name: 'Advanced', value: 1500 };
+      case 'Advanced':
+        return { name: 'Expert', value: 4000 };
+      case 'Expert':
+        return { name: 'Master', value: 20000 };
+      case 'Master':
+        return { name: 'BegGrandmaster', value: 30000 };
+      case 'Grandmaster':
+        return { name: 'Legendary', value: 50000 };
+      default:
+        return { name: 'Beginner', value: 250 };
+    }
+  };
+}
+

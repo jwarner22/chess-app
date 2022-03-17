@@ -1,5 +1,6 @@
 from datetime import datetime
 from pickle import FALSE
+from re import L, S
 from this import d
 from sqlalchemy.sql.sqltypes import Boolean
 from sqlalchemy.sql.expression import func
@@ -68,25 +69,137 @@ def get_local_opening_db():
 
 # get users
 @app_v2.get('/users', tags=["Testing"])
-def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
+async def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=skip, limit=limit)
     return users
 
 
+## ADMIN
+@app_v2.get('/alakazam', tags=["Admin"])
+async def update_lots_o_stuff(db: Session = Depends(get_local_opening_db)):
+    
+    openings = db.query(models.Openings).all()
+    
+    for opening in openings:
+
+        # get np_lichess
+        uci = ','.join(opening.uci.split(' '))
+        query_params = '?play=' + uci + '&variant=standard'+ '&topGames=0' + '&recentGames=0'
+        endpoint = 'https://explorer.lichess.ovh/lichess'
+        url = endpoint + query_params
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            r = response.json()
+            print('request')
+            np_lichess = r['white'] + r['draws'] + r['black']
+            stmt = update(models.Openings).where(models.Openings.id == opening.id).values(np_lichess=np_lichess)
+                
+            db.execute(stmt)
+            db.commit()
+            print('opening np_lichess updated:' + ' ' + str(opening.id))
+            time.sleep(0.05)
+
+    #     # get np_master
+    #     query_params = '?play=' + uci + '&variant=standard'+ '&topGames=0' + '&recentGames=0'
+    #     endpoint = 'https://explorer.lichess.ovh/masters'
+    #     url = endpoint + query_params
+    #     response = requests.get(url)
+
+    #     if response.status_code == 200:
+    #         r = response.json()
+    #         print('request')
+    #         np_master = r['white'] + r['draws'] + r['black']
+    #         stmt = update(models.Openings).where(models.Openings.id == opening.id).values(np_master=np_master)
+            
+    #         db.execute(stmt)
+    #         db.commit()
+    #         print('opening np_master updated:' + ' ' + str(opening.id))
+    #         time.sleep(0.05)
+
+    #     # get child ids
+    #     moves = opening.pgn
+    #     openings = db.query(models.Openings).filter((models.Openings.pgn.contains(moves))).all()
+        
+    #     child_ids = []
+    #     for entry in openings:
+    #         if (entry.id != opening.id):
+    #             child_ids.append(entry.id)
+
+    #     child_ids = ','.join(str(e) for e in child_ids)
+    #     opening.child_ids = child_ids
+        
+    #     stmt = update(models.Openings).where(models.Openings.id == opening.id).values(child_ids=child_ids)
+    #     db.execute(stmt)
+    #     db.commit()
+
+    #     print('opening child ids updated:' + ' ' + str(opening.id))
+
+    # openings = db.query(models.Openings).all() # get fresh openings
+
+    # # get parent ids
+    # for opening in openings:
+    #     # get parent ids
+    #     parent_ids=[]
+    #     for _opening in openings:
+    #         if (_opening.child_ids is None or _opening.child_ids == ''):
+    #             continue
+    #         #split string and convert to int
+    #         _opening_child_ids = [int(x) for x in _opening.child_ids.split(',')]
+    #         if (_opening.child_ids is None):
+    #             continue
+    #         if (opening.id in _opening_child_ids):
+    #             parent_ids.append(_opening.id)
+        
+    #     parent_ids = ','.join(str(e) for e in parent_ids)
+    #     stmt = update(models.Openings).where(models.Openings.id == opening.id).values(parent_ids=parent_ids)
+        
+    #     db.execute(stmt)
+    #     db.commit()
+    #     print('opening parent ids updated:' + ' ' + str(opening.id))
+
+    return "successful"
 ## OPENING DATA
+
+# get opening stats for user
+@app_v2.get('/opening-stats/{user_id}', tags=["Openings"])
+async def get_opening_stats(user_id: str, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
+    user_openings = db.query(models.OpeningCompletions).filter_by(owner_id=user_id).all()
+    # opening_ids = []
+    # for opening in user_openings:
+    #     opening_ids.append(opening.opening_id)
+    openings_data = db_openings.query(models.Openings).filter(models.Openings.id.in_([opening.opening_id for opening in user_openings])).all()
+    
+    response = []
+    for opening in user_openings:
+        data = next(filter(lambda x: x.id == opening.opening_id, openings_data))
+        merged = dict()
+        merged.update(data.__dict__)
+        merged.update(opening.__dict__)
+
+        response.append(merged)
+
+    return response
+
 
 # get opening for ui
 @app_v2.get('/openings-data/', response_model=List[schemas.Openings], tags=["Openings"]) # get opening data
-def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
+async def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
     moves_length = len(moves)
     # limit to two moves ahead
     openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
     return openings
 
+# get single opening for ui
+@app_v2.get('/opening-data/', response_model=schemas.OpeningData, tags=["Openings"]) # get opening data
+async def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
+    opening = db.query(models.Openings).filter(models.Openings.uci==moves).first()
+    return opening
+
 # add opening data for user
 @app_v2.post('/openings-data/{user_id}/{opening_id}', tags=["Openings"]) # add opening data
-def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
-    this_opening = db_openings.query(models.Openings).filter(models.Openings.opening_id == opening_id).first()
+async def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
+    this_opening = db_openings.query(models.Openings).filter(models.Openings.id == opening_id).first()
 
     if this_opening is None:
         raise HTTPException(status_code=404, detail="Opening not found")
@@ -96,20 +209,66 @@ def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db), db
 
     db.add(opening)
     db.commit()
-    return opening
+
+    parent_ids = this_opening.parent_ids.split(',')
+
+    # query all user_openings in db that match child_ids
+    user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(parent_ids)).all()
+    for _opening in user_openings:
+        mastery = opening.history_7 + mastery_diff
+        setattr(user_opening, 'completions', user_opening.completions + 1) # increment completion count
+        setattr(user_opening, 'history_1', user_opening.history_2) # shift history
+        setattr(user_opening, 'history_2', user_opening.history_3)
+        setattr(user_opening, 'history_3', user_opening.history_4)
+        setattr(user_opening, 'history_4', user_opening.history_5)
+        setattr(user_opening, 'history_5', user_opening.history_6)
+        setattr(user_opening, 'history_6', user_opening.history_7)
+        setattr(user_opening, 'history_7', mastery) # update history
+        db.commit()
+        db.refresh(_opening)
+    
+    
+    return {"this_opening": opening, "parent_openings": user_openings}
+
+#  get child ids for opening
+@app_v2.get('/openings-data/{opening_id}/children', tags=["Openings"]) # get child ids for opening
+async def get_child_ids(opening_id: int, db: Session = Depends(get_local_opening_db)):
+    opening = db.query(models.Openings).filter(models.Openings.id == opening_id).first()
+    if opening is None:
+        raise HTTPException(status_code=404, detail="Opening not found")
+    if opening.child_ids is None:
+        moves = opening.pgn
+        openings = db.query(models.Openings).filter((models.Openings.pgn.contains(moves))).all()
+        
+        child_ids = []
+        for entry in openings:
+            if (entry.id != opening_id):
+                child_ids.append(entry.id)
+                print(entry.id)
+
+        child_ids = ','.join(str(e) for e in child_ids)
+        opening.child_ids = child_ids
+        db.commit()
+        db.refresh(opening)
+    return {"id" : opening_id, "child_ids" : opening.child_ids}
+
+# get child openings
+@app_v2.post('/openings-data/children', response_model=List[schemas.OpeningData], tags=["Openings"]) # get child openings
+async def get_child_openings(body: schemas.ChildOpeningsRequest, db: Session = Depends(get_local_opening_db)):
+    opening_ids = body.opening_ids.split(',')
+    openings = db.query(models.Openings).filter(models.Openings.id.in_(opening_ids)).all()
+    return openings
 
 # get opening completions
-@app_v2.get('/opening-completions/{user_id}/{moves}', tags=["Openings"]) # get opening data
-def get_opening_completions(user_id: str, moves: str, db_openings: Session = Depends(get_local_opening_db), db: Session = Depends(get_db)):
+@app_v2.get('/opening-completions/{user_id}/{pgn}', tags=["Openings"]) # get opening data
+async def get_opening_completions(user_id: str, pgn: str, db_openings: Session = Depends(get_local_opening_db), db: Session = Depends(get_db)):
     #moves_length = len(moves)
     # query local db for opening ids
-    openings = db_openings.query(models.Openings).filter((models.Openings.uci.contains(moves))).all()
-    this_opening = db_openings.query(models.Openings).filter(models.Openings.uci == moves).first()
+    openings = db_openings.query(models.Openings).filter((models.Openings.pgn.contains(pgn))).all()
+    this_opening = db_openings.query(models.Openings).filter(models.Openings.pgn == pgn).first()
 
     opening_ids = []
-
     for opening in openings:
-
         opening_ids.append(opening.id)
 
     # query remote db for opening ids
@@ -139,52 +298,83 @@ def get_opening_completions(user_id: str, moves: str, db_openings: Session = Dep
     return {"id": this_opening.id, "completions": opening_completions, "max_depth": max_depth, "mastery": opening_mastery}
 
 # update opening completions
-@app_v2.put('/opening-completions/{user_id}/{opening_id}/{mastery}', tags=["Openings"]) # update opening data for user
-def update_opening_data(user_id: str, opening_id: int, mastery: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
+@app_v2.put('/opening-completions/{user_id}/{opening_id}', tags=["Openings"]) # update opening data for user
+async def update_opening_data(user_id: str, opening_id: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
     user_opening = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id == opening_id).first()
     
     if user_opening is None:
         raise HTTPException(status_code=404, detail="Opening not found")
     
-    opening = db_openings.query(models.Openings).filter(models.Openings.id == opening_id).first()
-    mastery = mastery + 3*round((len(opening.uci)+1)/10) # calculate mastery as number completed * deth of opening
-
+    this_opening = db_openings.query(models.Openings).filter(models.Openings.id == opening_id).first()
+    
+    mastery_diff = 3*round((len(this_opening.uci)+1)/10) 
+    #mastery = user_opening.history_7 + mastery_diff # calculate mastery as number completed * deth of opening
     setattr(user_opening, 'completions', user_opening.completions + 1) # increment completion count
-
     setattr(user_opening, 'history_1', user_opening.history_2) # shift history
     setattr(user_opening, 'history_2', user_opening.history_3)
     setattr(user_opening, 'history_3', user_opening.history_4)
     setattr(user_opening, 'history_4', user_opening.history_5)
     setattr(user_opening, 'history_5', user_opening.history_6)
     setattr(user_opening, 'history_6', user_opening.history_7)
-    setattr(user_opening, 'history_7', mastery) # update history
-
+    setattr(user_opening, 'history_7', user_opening.history_7 + mastery_diff) # update history
 
     db.commit()
     db.refresh(user_opening)
-    return user_opening
+
+    parent_ids = this_opening.parent_ids.split(',')
+
+    # query all user_openings in db that match parent_ids and update completions and history
+    user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(parent_ids)).all()
+    for opening in user_openings:
+        # mastery = opening.history_7 + mastery_diff
+        setattr(opening, 'completions', opening.completions + 1) # increment completion count
+        setattr(opening, 'history_1', opening.history_2) # shift history
+        setattr(opening, 'history_2', opening.history_3)
+        setattr(opening, 'history_3', opening.history_4)
+        setattr(opening, 'history_4', opening.history_5)
+        setattr(opening, 'history_5', opening.history_6)
+        setattr(opening, 'history_6', opening.history_7)
+        setattr(opening, 'history_7', opening.history_7 + mastery_diff) # update history
+        db.commit()
+        db.refresh(opening)
+    
+    # fetch fresh data from db
+    user_opening = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id == opening_id).first()
+    user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(parent_ids)).all()
 
 
-@app_v2.get('/openings-data/lichess-explorer/', tags=["Openings"]) # request lichess explorer data for moves
-async def get_lichess_explorer_data(moves: str, db: Session = Depends(get_local_opening_db)):
-    moves_length = len(moves)
-    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
+    return {"this_opening": user_opening, "parent_openings": user_openings}
+
+
+@app_v2.get('/openings-data/lichess-explorer/{pgn}', tags=["Openings"]) # request lichess explorer data for moves
+async def get_lichess_explorer_data(pgn: str, db: Session = Depends(get_local_opening_db)):
+    #moves_length = len(moves)
+    #openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
+    openings = db.query(models.Openings).filter(models.Openings.pgn.contains(pgn)).all()
 
     for opening in openings:
         if opening.np_lichess is None:
             moves_comma = ','.join(opening.uci.split(' '))
             r = requests.get('https://explorer.lichess.ovh/lichess?play=' + moves_comma + '&variant=standard'+ '&topGames=0' + '&recentGames=0')  #+'&moves=0'
+            if r.status_code != 200:
+                print(r.text)
+                continue
             r = r.json()
             print('request')
             np_lichess = r['white'] + r['draws'] + r['black']
-            stmt = update(models.Openings).where(models.Openings.uci == opening.uci).values(np_lichess=np_lichess)
+            stmt = update(models.Openings).where(models.Openings.id == opening.id).values(np_lichess=np_lichess)
             db.execute(stmt)
             db.commit()
             time.sleep(0.05)
-    
+
+    opening_ids = []
+    for opening in openings:
+        opening_ids.append(opening.id)
+
     # query updated openings and return
-    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
-    
+    openings = db.query(models.Openings).filter(models.Openings.id.in_(opening_ids)).all()
+    if openings is None:
+        raise HTTPException(status_code=404, detail="No openings")
     return openings
 
 
@@ -192,7 +382,7 @@ async def get_lichess_explorer_data(moves: str, db: Session = Depends(get_local_
 
 # get module puzzles
 @app_v2.get('/puzzles/', tags=["Puzzles"])
-def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
+async def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
    puzzle = get_puzzles(db,rating, theme)
 
    if puzzle is None:
@@ -201,7 +391,7 @@ def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
 
 # get single puzzle 
 @app_v2.get('/puzzle/{theme}/{rating}', tags=["Puzzles"])
-def read_puzzle(rating: int, theme: str, limit: int = 5, db: Session = Depends(get_local_db)):
+async def read_puzzle(rating: int, theme: str, limit: int = 5, db: Session = Depends(get_local_db)):
     upperBound = rating + 50
     lowerBound = rating - 50
     
@@ -229,7 +419,7 @@ def read_puzzle(rating: int, theme: str, limit: int = 5, db: Session = Depends(g
 
 # create user
 @app_v2.post('/users', tags=["User"])
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_id(db, user_id=user.user_id)
     if db_user:
         raise HTTPException(status_code=400, detail="User already registered")

@@ -220,3 +220,24 @@ class Openings(BaseModel):
 
     class Config:
         orm_mode=True
+
+class ChildOpeningsRequest(BaseModel):
+    opening_ids: str
+
+class OpeningData(BaseModel):
+    id: int
+    eco: str
+    name: str
+    pgn: str
+    uci: str
+    epd: str
+    np_lichess: Optional[int] = None
+    np_master: Optional[int] = None
+    child_ids: Optional[str] = None
+    class Config:
+        orm_mode=True
+        
+# class ChildOpenings(BaseModel):
+#     openings: List[OpeningData]
+#     class Config:
+#         orm_mode=True

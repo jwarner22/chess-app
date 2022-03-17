@@ -2,7 +2,7 @@ from enum import unique
 from typing import Sequence
 import uuid
 from pydantic.types import UUID1
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float, false
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import column
 from sqlalchemy.sql.sqltypes import TIMESTAMP
@@ -27,12 +27,12 @@ class Theme(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, unique = False, index=True)
-    category = Column(String, index=True)
-    completed = Column(Integer, index=True)
-    rating = Column(Integer, index=True)
-    high_score = Column(Integer, index=True)
-    high_rating = Column(Integer, index=True)
-    score_history = Column(String, index=True)
+    category = Column(String, index=False)
+    completed = Column(Integer, index=False)
+    rating = Column(Integer, index=False)
+    high_score = Column(Integer, index=False)
+    high_rating = Column(Integer, index=False)
+    score_history = Column(String, index=False)
     owner_id = Column(String, ForeignKey("user.user_id"))
     
     #owner = relationship("User", back_populates="themes")
@@ -41,15 +41,15 @@ class DailyPuzzle(Base):
     __tablename__ = 'daily_puzzles'
     
     id = Column(Integer, primary_key=True, index=True)
-    location = Column(Integer, unique=False, index=True)
-    inserted_at = Column(String, unique=False, index=True)
-    theme_id = Column(Integer, unique = False, index=True)
-    title = Column(String, unique=False,index=True)
-    completed = Column(Boolean, unique=False,index=True)
-    locked = Column(Boolean, unique=False, index=True)
-    expiration = Column(String, unique=False, index=True)
-    alt_id = Column(Integer, unique=False, index=True)
-    alt_title = Column(String, unique=False, index=True)
+    location = Column(Integer, unique=False, index=False)
+    inserted_at = Column(String, unique=False, index=False)
+    theme_id = Column(Integer, unique = False, index=False)
+    title = Column(String, unique=False,index=False)
+    completed = Column(Boolean, unique=False,index=False)
+    locked = Column(Boolean, unique=False, index=False)
+    expiration = Column(String, unique=False, index=False)
+    alt_id = Column(Integer, unique=False, index=False)
+    alt_title = Column(String, unique=False, index=False)
     owner_id = Column(String, ForeignKey("user.user_id"))
     
 
@@ -57,11 +57,11 @@ class Achievement(Base):
     __tablename__ = "achievements"
 
     id = Column(Integer, primary_key=True, index=True)
-    inserted_at = Column(Float, unique=False, index=True)
-    category = Column(String, unique=False, index=True)
-    value = Column(Integer, unique=False, index=True)
-    theme = Column(String, unique=False, index=True)
-    diff = Column(Integer, unique=False, index=True)
+    inserted_at = Column(Float, unique=False, index=False)
+    category = Column(String, unique=False, index=False)
+    value = Column(Integer, unique=False, index=False)
+    theme = Column(String, unique=False, index=False)
+    diff = Column(Integer, unique=False, index=False)
     owner_id = Column(String, ForeignKey("user.user_id"))
 
 
@@ -70,15 +70,15 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(String,unique=True, index=True)
-    overall_rating = Column(Integer,unique=False, index=True)
-    inserted_at = Column(String, unique=False, index=True)
+    overall_rating = Column(Integer,unique=False, index=False)
+    inserted_at = Column(String, unique=False, index=False)
     total_score = Column(Integer, unique=False, index=True)
-    puzzles_completed = Column(Integer, unique=False, index=True)
-    puzzles_correct = Column(Integer, unique=False, index=True)
+    puzzles_completed = Column(Integer, unique=False, index=False)
+    puzzles_correct = Column(Integer, unique=False, index=False)
     initial_rating = Column(Integer, unique=False, index=False)
-    user_name = Column(String, unique=False, index=True)
-    daily_streak = Column(Integer, unique=False, index=True)
-    last_daily = Column(Integer, unique=False, index=True)
+    user_name = Column(String, unique=False, index=False)
+    daily_streak = Column(Integer, unique=False, index=False)
+    last_daily = Column(Integer, unique=False, index=False)
 
     themes =  relationship("Theme", backref="user")
     daily_puzzles = relationship("DailyPuzzle", backref="user")
@@ -94,10 +94,10 @@ class Opening(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     opening_id = Column(Integer, unique = False, index=True)
-    opening_name = Column(String, unique=False, index=True)
-    completed = Column(Integer, index=True)
-    high_score = Column(Integer, index=True)
-    score_history = Column(String, index=True)
+    opening_name = Column(String, unique=False, index=False)
+    completed = Column(Integer, index=False)
+    high_score = Column(Integer, index=False)
+    score_history = Column(String, index=False)
     owner_id = Column(String, ForeignKey("user.user_id"))
 
     class Congif:
@@ -161,6 +161,8 @@ class Openings(LocalBaseOpenings):
     epd = Column(String, unique=False, index=False)
     np_lichess = Column(Integer, unique=False, index=True)
     np_master = Column(Integer, unique=False, index=True)
+    child_ids = Column(String, unique=False, index=False)
+    parent_ids = Column(String, unique=False, index=False)
 
 # class OpeningQueryRecord(LocalBaseOpenings):
 #     __tablename__ = "opening_query_record"

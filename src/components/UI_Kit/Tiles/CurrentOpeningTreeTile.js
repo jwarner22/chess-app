@@ -4,7 +4,7 @@ import { OpeningTreeTileWrapper } from './OpeningTreeTiles';
 import { TileWrapper, TileHeader, OpeningTileHeadline, OpeningTileSubheadline, CurrentHeadlineWrapper, TileContent, CurrentOpeningContainer } from "./PuzzleTileElements";
 import Button from "../Button/Button"
 import {Rating} from 'react-simple-star-rating'
-import { calcLogRating } from '../../Module/Utilities/Scoring';
+import { calcMastery } from '../../Module/Utilities/Scoring';
 
 import {useWindowSize} from '../../../hooks/UseWindowSize'; 
 
@@ -46,7 +46,7 @@ const StarRating = (props) => {
   const {mastery,isMobile} = props;
   const size = isMobile ? 16 : 20;
   
-  let rating = calcLogRating(mastery); // max rating for mastery (for alpha = 1000, mastery is ~20000)
+  let rating = calcMastery(mastery); // max rating for mastery (for alpha = 1000, mastery is ~20000)
 
   return(
     <Rating ratingValue={rating} size={size} readonly={true} fillcolor="#1161d4"/>
