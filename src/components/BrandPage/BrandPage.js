@@ -1,7 +1,7 @@
 import {useRef, useEffect, useState} from 'react'
 import { BrandPageContainer, BrandPageLogo, BrandPageLogoWrapper } from './BrandPageElements'
 import logo from "../../Images/eloElevationWhite.png"
-import {useTransition, useSpring, animated, useChain} from 'react-spring'
+import {useTransition} from 'react-spring'
 import useRouter from '../../hooks/useRouter'
 
 const BrandPage = (props) => {
