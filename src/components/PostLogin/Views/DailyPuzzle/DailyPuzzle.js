@@ -21,6 +21,7 @@ import {wait} from '../../../Module/Utilities/helpers'
 
 // context
 import {UserContext} from '../../../../providers/GlobalState'
+import BrandPage from "../../../BrandPage/BrandPage";
 
 export default function DailyPuzzzle(props) {
   // state variables
@@ -32,9 +33,24 @@ export default function DailyPuzzzle(props) {
   const [completedModules, setCompletedModules] = useState([])
   const [percent, setPercent] = useState(0)
   const [screenTimer, setScreenTimer] = useState(true);
+  const [openSplash, setOpenSplash] = useState(true)
   
   const {dailyModules, generating, updateGenerating} = useContext(UserContext);
   const {isMobile, windowDimension} = props;
+
+//Splash screen transition
+  useEffect(() => {
+    handleSplash()
+}, [])
+
+function handleSplash(){
+    setTimeout(toggleSplash, 3000)
+}
+
+const toggleSplash = () => {
+    setOpenSplash(!openSplash)
+}
+
 
   useEffect(() => {
     if (windowDimension[0] === 0) return;
@@ -109,6 +125,10 @@ export default function DailyPuzzzle(props) {
   
   if (!loaded | dailyPicks.length === 0) {
     return <Loader />
+  }
+
+  if(!openSplash && !screenTimer) {
+    return <BrandPage openSplash={openSplash}/>
   }
 
   if (!screenTimer) {

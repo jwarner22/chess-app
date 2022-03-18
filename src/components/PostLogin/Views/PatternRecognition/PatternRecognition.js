@@ -87,6 +87,11 @@ const Dashboard = () => {
       openings test
     </FeatureSuggestionButton>
     </Link>
+    <Link to='/testing'>
+    <FeatureSuggestionButton primary>
+      Testing Page
+    </FeatureSuggestionButton>
+    </Link>
     <DashboardWrapper>
         <MotifMenu 
         toggle={toggle}
@@ -104,7 +109,6 @@ export default Dashboard;
 
 export const FeatureSuggestionButton = styled(Button)`
   font-size: 14px;
-  position: absolute;
   cursor: pointer;
   z-index: 9999;
 `

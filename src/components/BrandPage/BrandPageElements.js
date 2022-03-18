@@ -1,6 +1,7 @@
 import styled from "styled-components"
+import {animated} from 'react-spring'
 
-export const BrandPageContainer = styled.div`
+export const BrandPageContainer = styled(animated.div)`
     top: 0;
     left: 0;
     bottom: 0;
