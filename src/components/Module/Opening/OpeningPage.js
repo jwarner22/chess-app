@@ -51,7 +51,7 @@ export default function OpeningModule(props) {
 
   const {moves, color} = useParams();
   const {put, post} = useFetch(baseURL);
-  const {userId, updateOpeningStats, openingStats} = useContext(UserContext);
+  const {userId, updateOpeningStats, openingStats, createOpeningStats} = useContext(UserContext);
 
   //console.log(props)
   //if the instructions modal is disabled in localstorage, don't show modal
@@ -109,7 +109,7 @@ export default function OpeningModule(props) {
     let oldOpeningStats = [...openingStats];
 
     // update opening in db
-    const { openingMasteryRank, thisOpeningRank, newOpeningRank } = await saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank);
+    const { openingMasteryRank, thisOpeningRank, newOpeningRank } = await saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank, createOpeningStats);
 
     //push to post opening page
     props.history.push({pathname: `/post-opening/${moves}/${orientation}`, state: {score: score, openingId: openingId, isDaily: false, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank}});
@@ -314,13 +314,12 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   padding: 16px;
 `
-async function saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank) {
+async function saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank, createOpeningStats) {
   let url = `/opening-completions/${userId}/${openingId}`;
   let response = await put(url);
   if (response.detail === 'Opening not found') {
     // post new opening for user
-    url = `/openings-data/${userId}/${openingId}`;
-    response = await post(url);
+    response = await createOpeningStats(openingId);
   }
 
   const concatResponse = [...response.parent_openings, response.this_opening];

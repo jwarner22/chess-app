@@ -296,10 +296,34 @@ const UserProvider = ({ children }) => {
         setOpeningStats(response);
     }
 
+    const createOpeningStats = async (openingId, data) => {
+        //add opening to database  
+        const url = `/openings-data/new/${userId}/${openingId}`
+        const response = await post(url)
+        console.log({response: response})
+        let main = { ...response.user_opening, ...response.opening}; // concatenate response to main
+        console.log({main: main})
+        setOpeningStats(current => [...current, main]);
+        return main;
+    }
+
     const updateOpeningStats = async (data) => {
         console.log({data:data})
         let openingStatsCopy = [...openingStats];
         
+        
+        // // check if new opening
+        // if (!openingStatsCopy.some(opening => opening.opening_id === data.opening_id)) {
+        //     //add opening to database  
+        //     const url = `/openings-data/new/${userId}/${data.pgn}`
+        //     const response = await post(url)
+        //     console.log({response: response})
+        //     let main = { ...response.user_opening, ...response.opening, ...data}; // concatenate response to main
+        //     console.log({main: main})
+        //     setOpeningStats(current => [...current, main]);
+        //     return main;
+        // } else {
+
         let updatedOpeningStats = openingStatsCopy.map(opening => {
             let updatedOpening = data.find(entry => entry.opening_id === opening.opening_id);
             console.log({updatedOpening:updatedOpening})
@@ -309,6 +333,9 @@ const UserProvider = ({ children }) => {
             }
             return opening;
         })
+        setOpeningStats(updatedOpeningStats);
+        return updatedOpeningStats;
+    //}
         //let masteryDiff = 0;
 
         // // update mastery
@@ -337,13 +364,13 @@ const UserProvider = ({ children }) => {
         //     });
         // }
         
-        console.log({newOpeningStats: updatedOpeningStats});
-        setOpeningStats(updatedOpeningStats);
-        return updatedOpeningStats;
+        // console.log({newOpeningStats: updatedOpeningStats});
+        // setOpeningStats(updatedOpeningStats);
+        // return updatedOpeningStats;
     }
 
     return (
-      <UserContext.Provider value={{openingStats, updateOpeningStats, generating, updateGenerating, updateGlobalState, userId, contextLoading: loading, userData, updateUserData, achievements, updateAchievements, openings, updateOpenings, themesData, updateThemesData, dailyModules, updateDailyModules}}>
+      <UserContext.Provider value={{openingStats, createOpeningStats, updateOpeningStats, generating, updateGenerating, updateGlobalState, userId, contextLoading: loading, userData, updateUserData, achievements, updateAchievements, openings, updateOpenings, themesData, updateThemesData, dailyModules, updateDailyModules}}>
         {children}
       </UserContext.Provider>
     );

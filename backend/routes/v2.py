@@ -196,6 +196,38 @@ async def get_opening_data(moves: str, db: Session = Depends(get_local_opening_d
     opening = db.query(models.Openings).filter(models.Openings.uci==moves).first()
     return opening
 
+# add new opening data for user
+@app_v2.post('/openings-data/new/{user_id}/{opening_id}', tags=["Openings"]) # add new opening data')
+async def add_new_opening_data(user_id: str, opening_id: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
+    # get opening id
+    opening = db_openings.query(models.Openings).filter(models.Openings.id==opening_id).first()
+    if (opening is None):
+        return 'opening not found'
+
+    # check if user already has opening
+    user_opening = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id==user_id).filter(models.OpeningCompletions.opening_id==opening_id).first()
+    if (user_opening is not None):
+        return 'user already has opening'
+
+    # add opening to user
+    user_opening = models.OpeningCompletions(
+        owner_id=user_id,
+        opening_id=opening.id,
+        completions=0,
+        history_1=0,
+        history_2=0,
+        history_3=0,
+        history_4=0,
+        history_5=0,
+        history_6=0,
+        history_7=0
+    )
+    db.add(user_opening)
+    db.commit()
+    db.refresh(user_opening)
+
+    return {"user_opening": user_opening, "opening": opening}
+
 # add opening data for user
 @app_v2.post('/openings-data/{user_id}/{opening_id}', tags=["Openings"]) # add opening data
 async def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
@@ -212,7 +244,7 @@ async def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_d
 
     parent_ids = this_opening.parent_ids.split(',')
 
-    # query all user_openings in db that match child_ids
+    # query all user_openings in db that match parent_ids
     user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(parent_ids)).all()
     for _opening in user_openings:
         mastery = opening.history_7 + mastery_diff

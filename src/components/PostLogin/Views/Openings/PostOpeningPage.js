@@ -34,12 +34,28 @@ const PostOpeningPage = (props) => {
         )
       });
 
+    
+    const parentIds = opening.parent_ids.split(',').map(item => parseInt(item));
+    const parents = openingStats.filter(item => parentIds.some(id => id === item.opening_id));
+    let parentHistory = [{},{},{},{},{},{},{}];
+    let parentHistoryData = parentHistory.map((parent, index) => {
+        let historyPoint = {}
+        historyPoint.name = index.toString();
+        let historyNum = `history_${index+1}`;
+        parents.forEach((parentItem, index) => {
+                let parentId = parentItem.opening_id;
+                historyPoint[parentId] = parentItem[historyNum];
+        });
+        return(historyPoint)
+    })
+    console.log({parentHistoryData: parentHistoryData})
+
     //const nextRank = calcNextRank(opening.historyData.pop());
 
     useEffect(() =>{
         if (props.completedTraining) setLinkUrl('completed-training');
         else if (props.isDaily) setLinkUrl('/home/daily');
-        else setLinkUrl(`/openings-dashboard-test/${opening.uci}`);
+        else setLinkUrl(`/home/openings`);
     }, [])
 
     if (!props.savingResults) {
@@ -55,27 +71,31 @@ const PostOpeningPage = (props) => {
                     </ModuleExperience>
                     <RewardH1>
                         {/* {props.perfect && 'Congrats!'}
-                        {(!props.failure && !props.perfect) && 'Nice Job!'} */}
-                        Nice Job!
+                        {(!props.failure && !props.perfect) && 'Nice Job!'} 
+                        Nice Job!*/}
+                                                    
                     </RewardH1>
-                    {/* <RewardH2 props={props}>
+                    <RewardH2 props={props}>
 
-                        {props.perfect && 'perfect run!'}
+                        {/* {props.perfect && 'perfect run!'}
                         {(!props.failure && !props.perfect) && 'you passed'}
-                        {(props.failure) && 'module failed'}
-                    </RewardH2> */}
+                        {(props.failure) && 'module failed'} */}
+                        Mastery
+                    </RewardH2>
+                    {/* <ModuleExperience>
+                        {/* {`Mastery: ${opening.history_7} (+${opening.history_7 - opening.history_6})`} 
+                        Mastery
+                    </ModuleExperience> */}
                     <Chart data={historyData} reference={{value: thisOpeningRank.nextRank.value, label: thisOpeningRank.nextRank.name}}/>
 
-                    <ModuleExperience>
-                        {`Mastery: ${opening.history_7}`}
-                    </ModuleExperience>
+
                     <Link to={linkUrl}>
                     <FinishButton>
                         Return to {props.location.state.isDaily ? 'Daily Puzzles' : 'Openings'}
                     </FinishButton>
                     </Link>
 
-                    {/* <MultiChart /> */}
+                    <MultiChart data={parentHistoryData} lineData={parents}/>
 
             </PostPuzzleGrid>
         </PostPuzzleWrapper>

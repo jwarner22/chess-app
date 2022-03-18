@@ -31,7 +31,7 @@ const OpeningsDashboardTest = () => {
         setOpenModal(!openModal)
     }
 
-    const {userId, openingStats, updateOpeningStats} = useContext(UserContext);
+    const {userId, openingStats, createOpeningStats, updateOpeningStats} = useContext(UserContext);
 
     useLayoutEffect(() => {
         fetchOpenings()
@@ -49,38 +49,48 @@ const OpeningsDashboardTest = () => {
         } else {
             // this is BROKEN
             // get main and child openings data
-            let openingsData = await newFetchOpenings(moves, get, post);
-            console.log(openingsData)
-            if (openingsData.childOpenings.length === 0) {
-                SetCurrentOpening(openingsData.main); // if no variatins, set current opening to the opening
-                setOpeningModules(openingsData.childOpenings); // set the opening modules to the variations
-                setLoading(false);
-                return;
+            let {main, childOpenings} = await newFetchOpenings(moves, get, post);
+            console.log({main: main, childOpenings: childOpenings})
+            
+            //add opening to database  
+            // const url = `/openings-data/new/${userId}/${main.pgn}`
+            // const response = await post(url)
+            // console.log({response: response})
+            // main = {...main, ...response.user_opening, ...response.opening}; // concatenate response to main
+            // console.log({main: main})
+            let openingId = main.id;
+            main = await createOpeningStats(openingId, main);
+
+            // mutate child openings with db data (if any exist)
+            if (childOpenings.length > 0) {
+                childOpenings = await mutateChildOpenings(childOpenings, main)
             }
 
-            let childOpenings = await mutateChildOpenings(openingsData.childOpenings, openingsData.main)
-            SetCurrentOpening(openingsData.main);
-            let mainData = await getCompletions(openingsData.main);        // get number of completions for main module
-            setMastery(mainData.mastery)
-            setCompletions(mainData.completions);
+            //let mainData = await getCompletions(openingsData.main);        // get number of completions for main module
+
+            SetCurrentOpening(main);
+            setMastery(0)
+            setCompletions(0);
             setOpeningModules(childOpenings);
         }
         setLoading(false);
     }
 
-    const getCompletions = async (main) => {
+    // const getCompletions = async (main) => {
 
-        // check global state for opening stats
-        // if (openingStats.some(item => item.id === main.id)) {
-        //     let item = openingStats.filter(item => item.id === main.id)[0];
-        //     return item;
-        // }
-        // fetch opening stats from api
-        const url = `/opening-completions/${userId}/${main.pgn}`
-        const response = await get(url);
-        updateOpeningStats({...response, child_ids: main.child_ids}); // update the opening stats in global state
-        return response;
-    }
+    //     // check global state for opening stats
+    //     // if (openingStats.some(item => item.id === main.id)) {
+    //     //     let item = openingStats.filter(item => item.id === main.id)[0];
+    //     //     return item;
+    //     // }
+    //     // fetch opening stats from api
+    //     const url = `/opening-data/new/${userId}/${main.pgn}`
+    //     //const response = await get(url);
+    //     app_v2.post('openings-data/new/{user_id}/{pgn}
+    //     updateOpeningStats({...response, child_ids: main.child_ids}); // update the opening stats in global state
+    //     console.log({response: response})
+    //     return response;
+    // }
 
     return(
         <>
