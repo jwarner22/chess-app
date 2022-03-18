@@ -12,7 +12,7 @@ const BrandPage = (props) => {
         enter: {opacity: 1},
         leave: {opacity: 0},
     });
-    
+     
     return (<>
             {splashTransition((style, item) => 
             item ? <BrandPageContainer style={style} >
