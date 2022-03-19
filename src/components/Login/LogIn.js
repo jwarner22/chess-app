@@ -1,6 +1,6 @@
 
 import React, {useState, useContext, useEffect, useRef } from "react";
-import {Link, withRouter, useHistory} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 //import { AuthContext } from "../../index";
 //import firebaseConfig from "../../config.js";
 import styled from 'styled-components'
@@ -47,7 +47,6 @@ const Login = ({history}) => {
 
   const emailRef = useRef();
 
-  const history = useHistory()
   
   //const Auth = useContext(AuthContext);
 

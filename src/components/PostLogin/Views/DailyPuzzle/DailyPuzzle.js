@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from "react";
+import {useState, useEffect, useContext, useLayoutEffect} from "react";
 import {Link, useLocation} from 'react-router-dom'
 import { DailyPuzzleContainer, 
   DailyPuzzleTitle, 
@@ -31,15 +31,16 @@ export default function DailyPuzzzle(props) {
   const [isMounted, setIsMounted] = useState(false);
   const [completedModules, setCompletedModules] = useState([])
   const [percent, setPercent] = useState(0)
-  const [screenTimer, setScreenTimer] = useState(true);
+  const [screenTimer, setScreenTimer] = useState(false);
   const [openSplash, setOpenSplash] = useState(false)
   
   const {dailyModules, generating, updateGenerating} = useContext(UserContext);
   const {isMobile, windowDimension} = props;
-  // const {state} = useLocation()
-  const fromLogin = props.location.state.fromLogin
+  const {state} = useLocation()
+  const fromLogin = (state == null) ? false : state.fromLogin
 
-  useEffect(() => {
+  console.log(openSplash)
+  useLayoutEffect(() => {
     if(fromLogin) {
       transitionScreens()
     }
@@ -52,6 +53,7 @@ export default function DailyPuzzzle(props) {
     if(!generating) return
     setScreenTimer(true)
     await wait(3000)
+    setScreenTimer(false)
     updateGenerating(false)
   }
 //Splash screen transition
@@ -139,17 +141,18 @@ export default function DailyPuzzzle(props) {
   //     await wait(2000)
   //     setScreenTimer(prev => !prev)
   //     updateGenerating(false)
-  // }
-  
+  // 
+
+
   if (!loaded | dailyPicks.length === 0) {
     return <Loader />
   }
 
-  // if(!openSplash && !screenTimer) {
-  //   return <BrandPage openSplash={openSplash}/>
-  // }
+  if(openSplash) {
+    return <BrandPage openSplash={openSplash}/>
+  }
 
-  if (!screenTimer) {
+  if (screenTimer) {
     return (
       <>
         <GeneratingTrainingContainer>
