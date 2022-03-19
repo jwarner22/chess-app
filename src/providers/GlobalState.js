@@ -301,9 +301,7 @@ const UserProvider = ({ children }) => {
         //add opening to database  
         const url = `/openings-data/new/${userId}/${openingId}`
         const response = await post(url)
-        console.log({response: response})
         let main = { ...response.user_opening, ...response.opening}; // concatenate response to main
-        console.log({main: main})
         setOpeningStats(current => [...current, main]);
         return main;
     }
@@ -311,19 +309,6 @@ const UserProvider = ({ children }) => {
     const updateOpeningStats = async (data) => {
         console.log({data:data})
         let openingStatsCopy = [...openingStats];
-        
-        
-        // // check if new opening
-        // if (!openingStatsCopy.some(opening => opening.opening_id === data.opening_id)) {
-        //     //add opening to database  
-        //     const url = `/openings-data/new/${userId}/${data.pgn}`
-        //     const response = await post(url)
-        //     console.log({response: response})
-        //     let main = { ...response.user_opening, ...response.opening, ...data}; // concatenate response to main
-        //     console.log({main: main})
-        //     setOpeningStats(current => [...current, main]);
-        //     return main;
-        // } else {
 
         let updatedOpeningStats = openingStatsCopy.map(opening => {
             let updatedOpening = data.find(entry => entry.opening_id === opening.opening_id);
@@ -336,38 +321,6 @@ const UserProvider = ({ children }) => {
         })
         setOpeningStats(updatedOpeningStats);
         return updatedOpeningStats;
-    //}
-        //let masteryDiff = 0;
-
-        // // update mastery
-        // if (!openingStatsCopy.some(opening => opening.id === data.id)) {
-        //     openingStatsCopy.push(data);
-        // } else {
-        //     openingStatsCopy = openingStatsCopy.map(opening => {
-        //         if (data.id === opening.id) {
-        //             masteryDiff = data.mastery - opening.mastery;
-        //             return {...opening, mastery: opening.mastery + masteryDiff};
-        //         }
-        //         return opening;
-        //     })
-        // }
-        
-        // // update parent mastery
-        // if (masteryDiff !== 0) {;
-            
-        //     let parentOpeningIds = data.parent_ids.split(',');
-        //     openingStatsCopy = openingStatsCopy.map(opening => {
-        //         let parent = parentOpeningIds.includes(opening.id);
-        //         if (parent) {
-        //             return {...opening, mastery: opening.mastery + masteryDiff}
-        //         }
-        //         return opening;
-        //     });
-        // }
-        
-        // console.log({newOpeningStats: updatedOpeningStats});
-        // setOpeningStats(updatedOpeningStats);
-        // return updatedOpeningStats;
     }
 
     return (

@@ -31,7 +31,7 @@ const OpeningsDashboardTest = () => {
         setOpenModal(!openModal)
     }
 
-    const {userId, openingStats, createOpeningStats, updateOpeningStats} = useContext(UserContext);
+    const {openingStats, createOpeningStats} = useContext(UserContext);
 
     useLayoutEffect(() => {
         fetchOpenings()
@@ -43,21 +43,16 @@ const OpeningsDashboardTest = () => {
             SetCurrentOpening(opening);
             setMastery(opening.history_7);
             setCompletions(opening.completions);
+            
             let childOpenings = await fetchChildIds(opening, post);
             childOpenings = await mutateChildOpenings(childOpenings, opening)
+            
             setOpeningModules(childOpenings);
         } else {
-            // this is BROKEN
             // get main and child openings data
             let {main, childOpenings} = await newFetchOpenings(moves, get, post);
-            console.log({main: main, childOpenings: childOpenings})
+            //console.log({main: main, childOpenings: childOpenings})
             
-            //add opening to database  
-            // const url = `/openings-data/new/${userId}/${main.pgn}`
-            // const response = await post(url)
-            // console.log({response: response})
-            // main = {...main, ...response.user_opening, ...response.opening}; // concatenate response to main
-            // console.log({main: main})
             let openingId = main.id;
             main = await createOpeningStats(openingId, main);
 
@@ -66,8 +61,6 @@ const OpeningsDashboardTest = () => {
                 childOpenings = await mutateChildOpenings(childOpenings, main)
             }
 
-            //let mainData = await getCompletions(openingsData.main);        // get number of completions for main module
-
             SetCurrentOpening(main);
             setMastery(0)
             setCompletions(0);
@@ -75,22 +68,6 @@ const OpeningsDashboardTest = () => {
         }
         setLoading(false);
     }
-
-    // const getCompletions = async (main) => {
-
-    //     // check global state for opening stats
-    //     // if (openingStats.some(item => item.id === main.id)) {
-    //     //     let item = openingStats.filter(item => item.id === main.id)[0];
-    //     //     return item;
-    //     // }
-    //     // fetch opening stats from api
-    //     const url = `/opening-data/new/${userId}/${main.pgn}`
-    //     //const response = await get(url);
-    //     app_v2.post('openings-data/new/{user_id}/{pgn}
-    //     updateOpeningStats({...response, child_ids: main.child_ids}); // update the opening stats in global state
-    //     console.log({response: response})
-    //     return response;
-    // }
 
     return(
         <>
@@ -137,40 +114,11 @@ const GrayTileModalLink = styled.div`
     cursor: pointer;
 `
 
-// async function getNbPlays(openingsData, get) {
-//     if (openingsData.main == null) throw new Error('Main opening is null')
-//         // if anay null np_lichess values exist, fetch them
-//         if (openingsData.main.np_lichess == null || openingsData.childOpenings.some(opening => opening.np_lichess == null)) {
-//           console.log('no nb plays');
-
-//           let endpoint = `/openings-data/lichess-explorer/${openingsData.main.pgn}`;
-//           let openings_response = await get(endpoint);
-
-//           let opening_np = openings_response.find(opening => opening.id === openingsData.main.id);
-//           openingsData.main.np_lichess = opening_np.np_lichess; // map the np_lichess value to the main opening
-
-//           // map the np_lichess values to the child openings
-//           openingsData.childOpenings.forEach(opening => {
-//             let opening_np = openings_response.find(response_opening => opening.id === response_opening.id);
-//             opening.np_lichess = opening_np.np_lichess;
-//             return opening;
-//           })
-//         }
-//     return openingsData;
-// }
 
 async function newFetchOpenings(moves, get, post) {
     let endpoint = '/opening-data/';
     let queryParams = `?moves=${moves}`;
     let opening = await get(endpoint + queryParams);
-
-    // if (opening.child_ids == null) {
-    //     // get child ids
-    //     let openingId = opening.id;
-    //     endpoint = `/openings-data/${openingId}/children`;
-    //     let response = await get(endpoint);
-    //     opening.child_ids = response.child_ids;
-    // }
 
     // get openings from child ids
     endpoint = '/openings-data/children'
