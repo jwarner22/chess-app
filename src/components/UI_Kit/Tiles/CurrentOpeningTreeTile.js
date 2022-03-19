@@ -7,6 +7,7 @@ import {Rating} from 'react-simple-star-rating'
 import { calcMastery } from '../../Module/Utilities/Scoring';
 
 import {useWindowSize} from '../../../hooks/UseWindowSize'; 
+import Favorite from '../../Favorite';
 
 
 const CurrentOpeningTreeTile = (props) => {
@@ -28,6 +29,7 @@ const CurrentOpeningTreeTile = (props) => {
                 <Link to={{pathname: `/pre-opening-test/${props.currentOpening.uci}`, state: props}}>
                 <OpeningButton>Start</OpeningButton>
                 </Link>
+                <Favorite  locked={props.locked} />
         </TileHeader>
     </OpeningTreeTileWrapper>
     </CurrentOpeningContainer>

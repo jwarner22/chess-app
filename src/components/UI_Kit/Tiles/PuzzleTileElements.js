@@ -29,6 +29,7 @@ export const TileWrapper = styled.li`
 export const TileHeader = styled.div`
     padding: 2px;
     display: flex;
+    position: relative;
     flex-direction: column;
     width: 100%;
     color: ${props => props.current ? '#243862' : '#fff'};

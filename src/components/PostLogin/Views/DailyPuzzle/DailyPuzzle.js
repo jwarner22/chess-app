@@ -1,5 +1,5 @@
 import {useState, useEffect, useContext} from "react";
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import { DailyPuzzleContainer, 
   DailyPuzzleTitle, 
   DailyPuzzleWrapper, 
@@ -37,8 +37,11 @@ export default function DailyPuzzzle(props) {
   
   const {dailyModules, generating, updateGenerating} = useContext(UserContext);
   const {isMobile, windowDimension} = props;
+  const {state} = useLocation()
 
 //Splash screen transition
+ console.log(state)
+
   useEffect(() => {
     handleSplash()
 }, [])
