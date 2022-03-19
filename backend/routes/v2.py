@@ -430,6 +430,16 @@ async def update_opening_data(user_id: str, opening_id: int, db: Session = Depen
     db.refresh(user_opening)
 
     parent_ids = this_opening.parent_ids.split(',')
+    # get parent openings from local db
+    parent_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(parent_ids)).all()
+    #filter parent openings with no np_lichess
+    parent_openings = list(filter(lambda x: x.np_lichess is not None, parent_openings))
+    #filter child openings where uci length is even (only full moves b&w)
+    parent_openings = list(filter(lambda x: len(x.uci) % 2 != 0, parent_openings))
+    
+    parent_ids = []
+    for opening in parent_openings:
+        parent_ids.append(opening.id)
 
     # query all user_openings in db that match parent_ids and update completions and history
     user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(parent_ids)).all()
