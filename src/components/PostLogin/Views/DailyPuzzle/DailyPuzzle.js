@@ -10,14 +10,14 @@ import { DailyPuzzleContainer,
   GeneratingTrainingContainer,
 ProgressBarContainer} from "./DailyPuzzleElements";
 import Subtitle from "../../../UI_Kit/CategoryTitle/Subtitle";
-import headerImg from "./../../../../Images/DailyPuzzleIcon.svg"
-import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer"
-import {Modules} from "../../../../data/ModuleData"
+import headerImg from "./../../../../Images/DailyPuzzleIcon.svg";
+import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer";
+import {Modules} from "../../../../data/ModuleData";
 import Loader from '../../../Loader';
 import {ProgressBar, Step} from 'react-step-progress-bar';
 
 // utilities
-import {wait} from '../../../Module/Utilities/helpers'
+import {wait} from '../../../Module/Utilities/helpers';
 
 // context
 import {UserContext} from '../../../../providers/GlobalState'
@@ -28,31 +28,46 @@ export default function DailyPuzzzle(props) {
   const [loaded,setLoaded] = useState(false);
   const [dailyPicks, setDailyPicks] = useState([]);
   const [schemaPicks, setSchemaPicks] = useState([]);
-  // const [reversed, setReversed] = useState(false);
-  // const [isMounted, setIsMounted] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
   const [completedModules, setCompletedModules] = useState([])
   const [percent, setPercent] = useState(0)
   const [screenTimer, setScreenTimer] = useState(true);
-  const [openSplash, setOpenSplash] = useState(true)
+  const [openSplash, setOpenSplash] = useState(false)
   
   const {dailyModules, generating, updateGenerating} = useContext(UserContext);
   const {isMobile, windowDimension} = props;
-  const {state} = useLocation()
-
-//Splash screen transition
- console.log(state)
+  // const {state} = useLocation()
+  const fromLogin = props.location.state.fromLogin
 
   useEffect(() => {
-    handleSplash()
-}, [])
+    if(fromLogin) {
+      transitionScreens()
+    }
+  }, [])
 
-function handleSplash(){
-    setTimeout(toggleSplash, 3000)
-}
+  const transitionScreens = async () => {
+    setOpenSplash(true)
+    await wait(3000)
+    setOpenSplash(false)
+    if(!generating) return
+    setScreenTimer(true)
+    await wait(3000)
+    updateGenerating(false)
+  }
+//Splash screen transition
+//  console.log(state)
 
-const toggleSplash = () => {
-    setOpenSplash(!openSplash)
-}
+//   useEffect(() => {
+//     handleSplash()
+// }, [])
+
+// function handleSplash(){
+//     setTimeout(toggleSplash, 3000)
+// }
+
+// const toggleSplash = () => {
+//     setOpenSplash(!openSplash)
+// }
 
 
   useEffect(() => {
@@ -72,11 +87,11 @@ const toggleSplash = () => {
     }
   },[dailyModules])
 
-  useEffect(() => {
-    if (generating) {
-      setTimer();
-    }
-  },[generating])
+  // useEffect(() => {
+  //   if (generating) {
+  //     setTimer();
+  //   }
+  // },[generating])
 
   const transformDaily = async () => {
     let modules = [...Modules]; // copy of Modules
@@ -117,22 +132,22 @@ const toggleSplash = () => {
   },[completedModules])
 
   // displays "generating daily training" message and hides it after timer
-  const setTimer = async () => {
-    console.log('daily render')
-    // update generating state
-      setScreenTimer(prev => !prev)
-      await wait(2000)
-      setScreenTimer(prev => !prev)
-      updateGenerating(false)
-  }
+  // const setTimer = async () => {
+  //   console.log('daily render')
+  //   // update generating state
+  //     setScreenTimer(prev => !prev)
+  //     await wait(2000)
+  //     setScreenTimer(prev => !prev)
+  //     updateGenerating(false)
+  // }
   
   if (!loaded | dailyPicks.length === 0) {
     return <Loader />
   }
 
-  if(!openSplash && !screenTimer) {
-    return <BrandPage openSplash={openSplash}/>
-  }
+  // if(!openSplash && !screenTimer) {
+  //   return <BrandPage openSplash={openSplash}/>
+  // }
 
   if (!screenTimer) {
     return (

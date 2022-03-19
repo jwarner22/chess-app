@@ -1,6 +1,6 @@
 
 import React, {useState, useContext, useEffect, useRef } from "react";
-import {Link, withRouter, useLocation } from 'react-router-dom'
+import {Link, withRouter, useHistory} from 'react-router-dom'
 //import { AuthContext } from "../../index";
 //import firebaseConfig from "../../config.js";
 import styled from 'styled-components'
@@ -45,16 +45,16 @@ const Login = ({history}) => {
   const _isMounted = useRef(true)
   const analytics = getAnalytics();
 
-
   const emailRef = useRef();
-  const {pathname} = useLocation()
+
+  const history = useHistory()
   
   //const Auth = useContext(AuthContext);
 
   useEffect(() => {
     if (currentUser && isLoggedIn && isSaved) {
       logEvent(analytics, "login", {'user': currentUser.uid});
-      history.push('/home/daily', {state: {previousPath: pathname}})
+      history.push({pathname: 'home/daily', state: {fromLogin: true}})
     }
   }, [currentUser, isLoggedIn, isSaved])
 
