@@ -9,7 +9,7 @@ import protectedRoutes from './routes/protectedRoutes'
 import ProtectedRouteHoc from './routes/protectedRoutesHoc'
 import {AuthProvider} from './providers/Auth.js';
 import {UserProvider} from './providers/GlobalState.js';
-import Loader from "./components/Loader.js";
+import ChessboardLoader from './components/ChessBoardLoader/ChessboardLoader'
 import ErrorBoundary from './components/UI_Kit/ErrorBoundary.js';
 require("firebase/auth");
 
@@ -31,7 +31,7 @@ function App() {
       <UserProvider>
       {/*Is logged in? {JSON.stringify(isLoggedIn)}*/}
       {/*console.log({isloggedin: JSON.stringify(isLoggedIn)})*/}
-      <React.Suspense fallback={<span><Loader/></span>}>
+      <React.Suspense fallback={<span><ChessboardLoader/></span>}>
         <Router>
           <Route render={({location}) => (
             // <TransitionGroup>

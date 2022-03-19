@@ -7,7 +7,7 @@ import {Modules} from '../../../../data/ModuleData';
 import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
 import CourseTile from './CourseTiles/CourseTiles';
 import {Link} from 'react-router-dom'
-import Loader from '../../../Loader';
+import ChessboardLoader from '../../../ChessBoardLoader/ChessboardLoader';
 
 
 const Dashboard = () => {
@@ -96,7 +96,7 @@ const Dashboard = () => {
         <MotifMenu 
         toggle={toggle}
         />
-        {isLoading ? (<Loader />) : (
+        {isLoading ? (<ChessboardLoader />) : (
           <TileList />
         )}
  

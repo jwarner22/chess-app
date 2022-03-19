@@ -13,15 +13,16 @@ import Subtitle from "../../../UI_Kit/CategoryTitle/Subtitle";
 import headerImg from "./../../../../Images/DailyPuzzleIcon.svg";
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer";
 import {Modules} from "../../../../data/ModuleData";
-import Loader from '../../../Loader';
+import ChessboardLoader from "../../../ChessBoardLoader/ChessboardLoader";
 import {ProgressBar, Step} from 'react-step-progress-bar';
-
+import {useTransition, animated} from 'react-spring'
 // utilities
 import {wait} from '../../../Module/Utilities/helpers';
 
 // context
 import {UserContext} from '../../../../providers/GlobalState'
 import BrandPage from "../../../BrandPage/BrandPage";
+
 
 export default function DailyPuzzzle(props) {
   // state variables
@@ -39,6 +40,16 @@ export default function DailyPuzzzle(props) {
   const {state} = useLocation()
   const fromLogin = (state == null) ? false : state.fromLogin
 
+  const splashTransition = useTransition( openSplash, {
+    from: {opacity: 0},
+    enter: {opacity: 1},
+    leave: {opacity: 0},
+    config: {
+        duration: 1500
+    }
+});
+  
+  
   console.log(openSplash)
   useLayoutEffect(() => {
     if(fromLogin) {
@@ -145,12 +156,16 @@ export default function DailyPuzzzle(props) {
 
 
   if (!loaded | dailyPicks.length === 0) {
-    return <Loader />
+    return <ChessboardLoader />
   }
 
-  if(openSplash) {
-    return <BrandPage openSplash={openSplash}/>
-  }
+  // if(openSplash) {
+  //   return <> 
+  //   {splashTransition((styles,item) => item && <animated.div style={styles}>
+  //     <BrandPage />
+  //   </animated.div>)}
+  // </>
+  // }
 
   if (screenTimer) {
     return (

@@ -8,9 +8,9 @@ import useFetch from '../../api/useFetch.js';
 import {baseURL} from '../../api/apiConfig';
 
 // components
-import Loader from '../Loader.js';
 import ModuleManager from './ModuleManager.js';
 import PrePuzzle from '../PrePuzzle/PrePuzzle.js';
+import ChessboardLoader from '../ChessBoardLoader/ChessboardLoader.js';
 
 // context
 import {UserContext} from '../../providers/GlobalState';
@@ -126,7 +126,7 @@ export default function Module(props) {
     }
 
     if (loading ) {
-        return <Loader />
+        return <ChessboardLoader />
     }  
     
     if (prePuzzleToggle) {

@@ -5,9 +5,8 @@ import LeaderboardLeagues from "./LeaderboardLeagues";
 import LeaderboardSection from './LeaderboardSection';
 import {baseURL} from "../../../../api/apiConfig";
 import useFetch from '../../../../api/useFetch';
-import Loader from "../../../Loader";
-
 import {UserContext} from '../../../../providers/GlobalState'
+import ChessboardLoader from '../../../ChessBoardLoader/ChessboardLoader';
 
 const LeaderboardsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -90,7 +89,7 @@ const LeaderboardsPage = () => {
             </LeaderboardHeaderContainer>
             <LeaderboardContainer>
                 <LeaderboardSectionContainer>
-                {isLoading ? ( <Loader /> ) : (
+                {isLoading ? ( <ChessboardLoader /> ) : (
                     <LeaderboardSection userPlacement={userPlacement} leaderboard={leaderboard} userID={userId} isLoading={isLoading}/>
                 )}     
                 </LeaderboardSectionContainer>

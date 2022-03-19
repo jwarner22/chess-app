@@ -6,12 +6,13 @@ import {baseURL} from "../../api/apiConfig";
 import {calcScore, calcEloRating} from './Utilities/Scoring';
 import PostPuzzle from '../PostModule/PostModule';
 import useFetch from '../../api/useFetch';
-import Loader from '../Loader';
 import {getAnalytics, logEvent} from "firebase/analytics";
+import ChessboardLoader from "../ChessBoardLoader/ChessboardLoader";
 
 // Global context
 import {UserContext} from '../../providers/GlobalState'
 import { EightK } from "styled-icons/material";
+
 
 
 export default function ModuleManager(props) {
@@ -192,7 +193,7 @@ export default function ModuleManager(props) {
 // render if saving to API
  if (savingResults | loading) {
    return(
-    <Loader />
+    <ChessboardLoader />
    )
  }
  

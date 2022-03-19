@@ -12,9 +12,9 @@ import Profile from "./ProfilePage/ProfilePage";
 import Leaderboards from "./Leaderboards/Leaderboards";
 import {useWindowSize} from '../../../hooks/UseWindowSize';
 import {UserContext} from '../../../providers/GlobalState';
-import Loader from '../../Loader';
 import DiscordModal from "../../DiscordModal/DiscordModal";
 import NavbarDropdown from "../NavbarDropdown/NavbarDropdown";
+import ChessboardLoader from "../../ChessBoardLoader/ChessboardLoader";
 
 const Home = () => {
      //hamburger sidebar menu
@@ -24,6 +24,7 @@ const Home = () => {
     const [openDropdown, setOpenDropdown] = useState(false)
     const windowDimension = useWindowSize();
     const isMobile = windowDimension[0] <= 640;
+
 
   useEffect(() => {
     localStorage.setItem('discord-modal', isVisible);
@@ -43,7 +44,7 @@ const Home = () => {
 
 
     if (contextLoading) {
-      return(<Loader />)
+      return(<ChessboardLoader />)
     }
 
     return (<> {isMobile ? (

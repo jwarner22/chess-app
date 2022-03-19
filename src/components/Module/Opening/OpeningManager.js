@@ -7,13 +7,14 @@ import PostOpeningPage from '../../PostLogin/Views/Openings/PostOpeningPage';
 import PreOpeningPage from '../../PostLogin/Views/Openings/PreOpeningPage';
 import OpeningPage from './OpeningPage.js'
 // import useFetch from '../../api/useFetch';
-import Loader from '../../Loader.js';
+import ChessboardLoader from '../../ChessBoardLoader/ChessboardLoader.js';
 
 // import {baseURL} from '../../api/apiConfig';
 import {getAnalytics, logEvent} from "firebase/analytics";
 
 // Global context
 import {UserContext} from '../../../providers/GlobalState';
+
 
 // need to add to opening route and clean up props for child components and this componen
 export default function OpeningManager(props) {
@@ -151,7 +152,7 @@ export default function OpeningManager(props) {
     }
 
     if (contextLoading) {
-        return <Loader />
+        return <ChessboardLoader />
     }
   
 

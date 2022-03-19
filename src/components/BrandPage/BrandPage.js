@@ -4,22 +4,23 @@ import logo from "../../Images/eloElevationWhite.png"
 import {useTransition} from 'react-spring'
 import useRouter from '../../hooks/useRouter'
 
-const BrandPage = (props) => {
-    const {openSplash} = props
+const BrandPage = () => {
     
-    const splashTransition = useTransition( openSplash, {
-        from: {opacity: 0},
-        enter: {opacity: 1},
-        leave: {opacity: 0},
-    });
+    // const splashTransition = useTransition( openSplash, {
+    //     from: {opacity: 0},
+    //     enter: {opacity: 1},
+    //     leave: {opacity: 0},
+    //     config: {
+    //         duration: 3000
+    //     }
+    // });
      
     return (<>
-            {splashTransition((style, item) => 
-            item ? <BrandPageContainer style={style} >
+           <BrandPageContainer>
             <BrandPageLogoWrapper>
                 <BrandPageLogo src={logo}  />
             </BrandPageLogoWrapper>
-        </BrandPageContainer> : null )}
+        </BrandPageContainer>
         </>
     )
 }

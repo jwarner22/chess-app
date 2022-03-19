@@ -1,8 +1,8 @@
 import React, { useEffect, useState, createContext } from "react";
 import firebase from 'firebase/compat/app';
 import {firebaseApp} from "../config.js"
-import Loader from '../components/Loader.js';
 import {getAuth} from 'firebase/auth';
+import ChessboardLoader from "../components/ChessBoardLoader/ChessboardLoader.js";
 
 const AuthContext = createContext();
 const auth = getAuth(firebaseApp);
@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
    if (loading) {
-     return <Loader />
+     return <ChessboardLoader />
    }
   return (
     <AuthContext.Provider value={{signup, login, logout, resetPassword, currentUser, userId }}>

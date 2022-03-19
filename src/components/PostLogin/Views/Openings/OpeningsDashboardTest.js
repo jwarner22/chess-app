@@ -9,10 +9,9 @@ import { PageContainer } from '../../../UI_Kit/Page';
 import PreviousSelection from '../../../UI_Kit/PreviousSelection';
 import CategoryTitle from '../../../UI_Kit/CategoryTitle/CategoryTitle';
 import CurrentOpeningTreeTile from '../../../UI_Kit/Tiles/CurrentOpeningTreeTile';
-import Loader from '../../../Loader';
-
 import {UserContext} from '../../../../providers/GlobalState';
 import GrayTileInfoModal from './GrayTileInfoModal';
+import ChessboardLoader from '../../../ChessBoardLoader/ChessboardLoader';
 
 const TOTAL_LICHESS_NP = 447000000;
 
@@ -80,7 +79,7 @@ const OpeningsDashboardTest = () => {
 
         <GrayTileInfoModal isOpen={openModal} toggle={handleOpenModal} />
         <PreviousSelection />
-        {loading ? (  <Loader/>) : (
+        {loading ? (  <ChessboardLoader/>) : (
             <>
         <CurrentOpeningTreeTile currentOpening={currentOpening} mastery={mastery} popularity={round(((currentOpening.np_lichess/TOTAL_LICHESS_NP)*100), 2)}/>
         {(openingModules.length > 0) && <>
