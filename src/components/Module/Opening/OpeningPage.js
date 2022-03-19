@@ -110,6 +110,11 @@ export default function OpeningModule(props) {
 
     // update opening in db
     const { openingMasteryRank, thisOpeningRank, newOpeningRank } = await saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank, createOpeningStats);
+    
+    newOpeningRank.forEach(newRank => {
+      updateAchievments("next_rank", 0, 0,  newRank.name, newRank.nextRank.name)
+    })
+    category, value, diff, theme
 
     //push to post opening page
     props.history.push({pathname: `/post-opening/${moves}/${orientation}`, state: {score: score, openingId: openingId, isDaily: false, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank}});

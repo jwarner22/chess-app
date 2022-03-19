@@ -67,7 +67,7 @@ export default function ModuleManager(props) {
     // score change
     if (outcomes.every(result => result === true)) {
       setPerfect(true);
-      updateAchievements('perfect', 0, 0, theme);
+      updateAchievements('perfect', 0, 0, theme, "");
     };
 
     // filter relevant theme from user themes data
@@ -85,7 +85,7 @@ export default function ModuleManager(props) {
     if (elo > themeData.high_rating) {
       let diff = elo - themeData.high_rating; // change from previous high rating
       themeData.high_rating = elo;     // new high rating
-      updateAchievements("high_rating", elo, diff, theme);
+      updateAchievements("high_rating", elo, diff, theme, "");
     }
 
     themeData.rating = elo // update theme rating
@@ -97,7 +97,7 @@ export default function ModuleManager(props) {
     if (themeData.high_score < score) {
       let diff = score - themeData.high_score; // change from previous high score
       themeData.high_score = score; // new high score!
-      updateAchievements("high_score", score, diff, theme) // update achievements
+      updateAchievements("high_score", score, diff, theme, "") // update achievements
     }
 
     setScore(score) // set score state

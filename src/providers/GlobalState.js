@@ -251,7 +251,7 @@ const UserProvider = ({ children }) => {
         setAchievements(response);
     }
 
-    const updateAchievements = async (category, value, diff, theme) => { 
+    const updateAchievements = async (category, value, diff, theme, rank) => { 
         setLoading(() => true);
         let now = Date.now();
         let payload = {
@@ -259,7 +259,8 @@ const UserProvider = ({ children }) => {
             category: category,
             diff: diff,
             value: value,
-            theme: theme
+            theme: theme,
+            rank: rank
         }
 
         // need to post new achievement and update achievement list
