@@ -181,6 +181,73 @@ async def get_opening_stats(user_id: str, db: Session = Depends(get_db), db_open
 
     return response
 
+# get top 3 child openings and create user data
+@app_v2.post('/openings-data/top-3/{user_id}/{opening_id}', tags=["Openings"])
+async def get_top3_openings_data(user_id: str, opening_id: str, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
+    # get opening from local db
+    opening = db_openings.query(models.Openings).filter(models.Openings.id == opening_id).all()
+    child_ids = opening[0].child_ids
+    if (child_ids is None or child_ids == ''):
+        return {"message": "no child openings"}
+
+    # get child openings from local db
+    child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_([int(x) for x in child_ids.split(',')])).all()
+    # filter child openings where np_lichess is not null
+    child_openings = list(filter(lambda x: x.np_lichess is not None, child_openings))
+    #filter child openings where uci length is even
+    child_openings = list(filter(lambda x: len(x.uci) % 2 != 0, child_openings))
+    # sort child openings by np_lichess and return top 3
+    child_openings = sorted(child_openings, key=lambda x: x.np_lichess, reverse=True)
+    child_openings = child_openings[:3]
+
+    # create user openingCompletions data from child openings
+    user_openings = []
+    for child_opening in child_openings:
+        user_opening = models.OpeningCompletions(
+            opening_id=child_opening.id,
+            owner_id=user_id,
+            completions=0,
+            history_1=0,
+            history_2=0,
+            history_3=0,
+            history_4=0,
+            history_5=0,
+            history_6=0,
+            history_7=0
+        )
+
+        # check if user opening exists
+        user_opening_exists = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.opening_id == child_opening.id, models.OpeningCompletions.owner_id == user_id).all()
+        if (len(user_opening_exists) == 0):
+            db.add(user_opening)
+            db.commit()
+            print('user opening created:' + ' ' + str(user_opening.opening_id))
+
+        obj = {
+            "id": user_opening.id,
+            "opening_id": user_opening.opening_id,
+            "owner_id": user_opening.owner_id,
+            "completions": user_opening.completions,
+            "history_1": user_opening.history_1,
+            "history_2": user_opening.history_2,
+            "history_3": user_opening.history_3,
+            "history_4": user_opening.history_4,
+            "history_5": user_opening.history_5,
+            "history_6": user_opening.history_6,
+            "history_7": user_opening.history_7,
+            "np_lichess": child_opening.np_lichess,
+            "np_master": child_opening.np_master,
+            "pgn": child_opening.pgn,
+            "eco": child_opening.eco,
+            "epd": child_opening.epd,
+            "child_ids": child_opening.child_ids,
+            "parent_ids": child_opening.parent_ids,
+            "name": child_opening.name
+        }
+        user_openings.append(obj) 
+
+    return user_openings
+
 
 # get opening for ui
 @app_v2.get('/openings-data/', response_model=List[schemas.Openings], tags=["Openings"]) # get opening data
@@ -288,8 +355,17 @@ async def get_child_ids(opening_id: int, db: Session = Depends(get_local_opening
 @app_v2.post('/openings-data/children', response_model=List[schemas.OpeningData], tags=["Openings"]) # get child openings
 async def get_child_openings(body: schemas.ChildOpeningsRequest, db: Session = Depends(get_local_opening_db)):
     opening_ids = body.opening_ids.split(',')
-    openings = db.query(models.Openings).filter(models.Openings.id.in_(opening_ids)).all()
-    return openings
+    child_openings = db.query(models.Openings).filter(models.Openings.id.in_(opening_ids)).all()
+    
+    child_openings = list(filter(lambda x: x.np_lichess is not None, child_openings))
+    #filter child openings where uci length is even
+    child_openings = list(filter(lambda x: len(x.uci) % 2 != 0, child_openings))
+    # sort child openings by np_lichess and return top 3
+    child_openings = sorted(child_openings, key=lambda x: x.np_lichess, reverse=True)
+    # return top 24
+    child_openings = child_openings[:16]
+
+    return child_openings
 
 # get opening completions
 @app_v2.get('/opening-completions/{user_id}/{pgn}', tags=["Openings"]) # get opening data

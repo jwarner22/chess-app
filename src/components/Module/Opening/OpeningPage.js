@@ -51,7 +51,7 @@ export default function OpeningModule(props) {
 
   const {moves, color} = useParams();
   const {put, post} = useFetch(baseURL);
-  const {userId, updateOpeningStats, openingStats, createOpeningStats} = useContext(UserContext);
+  const {userId, updateOpeningStats, openingStats, createOpeningStats, updateAchievements} = useContext(UserContext);
 
   //console.log(props)
   //if the instructions modal is disabled in localstorage, don't show modal
@@ -112,9 +112,8 @@ export default function OpeningModule(props) {
     const { openingMasteryRank, thisOpeningRank, newOpeningRank } = await saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank, createOpeningStats);
     
     newOpeningRank.forEach(newRank => {
-      updateAchievments("next_rank", 0, 0,  newRank.name, newRank.nextRank.name)
+      updateAchievements("next_rank", 0, 0,  newRank.name, newRank.nextRank.name)
     })
-    category, value, diff, theme
 
     //push to post opening page
     props.history.push({pathname: `/post-opening/${moves}/${orientation}`, state: {score: score, openingId: openingId, isDaily: false, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank}});

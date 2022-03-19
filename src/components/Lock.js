@@ -1,9 +1,8 @@
 import {useState} from 'react'
 import styled from 'styled-components'
-import {MdFavorite} from '@react-icons/all-files/md/MdFavorite'
-//import {useSpring, animated} from 'react-spring'
+import {AiFillLock} from '@react-icons/all-files/ai/AiFillLock'
 
-const Favorite = (props) => {
+const Lock = (props) => {
     const [favorites, setFavorites] = useState(false)
     const {locked} = props;
 
@@ -16,7 +15,7 @@ const Favorite = (props) => {
   )
 }
 
-export default Favorite
+export default Lock
 
 const FavoriteContainer = styled.div`
     position: absolute;
@@ -26,11 +25,9 @@ const FavoriteContainer = styled.div`
     height: 40px;
     cursor: pointer;
   `
-const FavoriteIcon = styled(MdFavorite)`
+const FavoriteIcon = styled(AiFillLock)`
     width: 100%;
     height: 100%;
-    color: ${props => props.favorites ? 'red' : 'transparent'};
-    stroke: ${props => props.locked ? '#fff' : '#243862'};
     stroke-width: 1px;
     transition: 0.3s ease-in-out;
 `

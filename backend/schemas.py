@@ -92,7 +92,7 @@ class Achievement(BaseModel):
     diff: Optional[int]
     value: int
     theme: str
-    rank: str
+    rank: Optional[str]
 
     class Config:
         orm_mode = True

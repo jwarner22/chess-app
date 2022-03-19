@@ -39,7 +39,10 @@ const OpeningsDashboardTest = () => {
 
     const fetchOpenings = async () => {
         const opening = openingStats.find(o => o.uci === moves);
+        console.log(opening)
         if (opening != null) {
+            console.log('opening found')
+            console.log(opening)
             SetCurrentOpening(opening);
             setMastery(opening.history_7);
             setCompletions(opening.completions);
@@ -51,7 +54,7 @@ const OpeningsDashboardTest = () => {
         } else {
             // get main and child openings data
             let {main, childOpenings} = await newFetchOpenings(moves, get, post);
-            //console.log({main: main, childOpenings: childOpenings})
+            console.log({main: main, childOpenings: childOpenings})
             
             let openingId = main.id;
             main = await createOpeningStats(openingId, main);
@@ -72,16 +75,17 @@ const OpeningsDashboardTest = () => {
     return(
         <>
         <PageContainer>
-        <CategoryTitle>Opening Mastery Tree</CategoryTitle>
-        <GrayTileModalLink onClick={handleOpenModal} >Why do I see gray tiles?</GrayTileModalLink>
+        <CategoryTitle>Opening Tree</CategoryTitle>
+        {(!loading && completions === 0) && <GrayTileModalLink onClick={handleOpenModal} >Why do I see gray tiles?</GrayTileModalLink>}
+
         <GrayTileInfoModal isOpen={openModal} toggle={handleOpenModal} />
         <PreviousSelection />
         {loading ? (  <Loader/>) : (
             <>
         <CurrentOpeningTreeTile currentOpening={currentOpening} mastery={mastery} popularity={round(((currentOpening.np_lichess/TOTAL_LICHESS_NP)*100), 2)}/>
-        {(openingModules.length > 0) && 
-
+        {(openingModules.length > 0) && <>
         <PuzzleTileGrid opening category={"Variations"}>
+
          {openingModules.map((opening, index) => {
             const linkUrl = `/openings-dashboard-test/${opening.uci}`
             let popularity = round(((opening.np_lichess/currentOpening.np_lichess)*100),0);
@@ -92,7 +96,8 @@ const OpeningsDashboardTest = () => {
                 <OpeningTreeTiles locked={locked} moves={opening.variationPgn} name={opening.name} popularity={popularity} />
                 </OpeningLink>
             )})}
-        </PuzzleTileGrid>     
+        </PuzzleTileGrid>   
+        </>  
          }
         </>
         )}
@@ -121,9 +126,7 @@ async function newFetchOpenings(moves, get, post) {
     let opening = await get(endpoint + queryParams);
 
     // get openings from child ids
-    endpoint = '/openings-data/children'
-    let body = {opening_ids: opening.child_ids};
-    let childOpenings = await post(endpoint, body);
+    let childOpenings = await fetchChildIds(opening, post);
 
     return {main: opening, childOpenings: childOpenings};
 }
@@ -145,18 +148,19 @@ const round = (num, precision) => {
 };
 
 async function mutateChildOpenings(childOpenings, main) {
-    childOpenings = childOpenings.sort((a,b) => b.np_lichess - a.np_lichess) // sort by nb plays
+    //childOpenings = childOpenings.sort((a,b) => b.np_lichess - a.np_lichess) // sort by nb plays
         
         // openings.shift(); // remove the main opening
-        // filter openings with move that already exists in more popular variations
+        // // filter openings with move that already exists in more popular variations
         let opening_array = []
+
         childOpenings = childOpenings.filter(opening => {
             let mainUci = main.uci;
 
             let variationUci = opening.uci;
             variationUci = variationUci.replace(mainUci, '').substring(1, variationUci.length-1);
 
-            if (opening_array.length === 0) {
+             if (opening_array.length === 0) {
                 opening_array.push(variationUci);
                 return true;
             };

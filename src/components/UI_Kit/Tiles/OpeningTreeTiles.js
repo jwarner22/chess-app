@@ -1,7 +1,8 @@
 import { TileWrapper, TileHeader, TileHeadline, TileSubheadline } from "./PuzzleTileElements"
 import styled from 'styled-components'
 import { PageContainer } from "../Page"
-import  Favorite from "../../Favorite"
+//import  Favorite from "../../Favorite"
+import Lock from "../../Lock"
 
 const OpeningTreeTiles = (props) => {
   
@@ -9,10 +10,10 @@ const OpeningTreeTiles = (props) => {
     <OpeningTreeTileWrapper {...props}>
         <TileHeader>
          <TileHeadline>{props.name}</TileHeadline>
-        <TileSubheadline>Next move: {props.moves}</TileSubheadline>
+        <TileSubheadline>{props.moves}</TileSubheadline>
         <TileSubheadline>Popularity: {props.popularity}%</TileSubheadline>
         </TileHeader>
-        <Favorite locked={props.locked} />
+        {props.locked && <Lock />}
     </OpeningTreeTileWrapper>
   )
 }

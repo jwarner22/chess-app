@@ -38,7 +38,7 @@ export default function Chart({data}) {
     let mastery = data.map(item => item.score);
 
     return(
-        <ResponsiveContainer width='100%' height='100%' aspect={3}>
+        <ResponsiveContainer width='100%' height='50%' aspect={3}>
         <LineChart width={300} height={200} data={data} margin={{top: 5, right: 20, left: 20, bottom: 15}}>
             <Line type="monotone" dataKey="score" stroke="#247cf1" strokeWidth={2}>
             <LabelList dataKey="name" content={<CustomizedLabel color="#247cf1" mastery={mastery} diff={diff}/>} />
@@ -73,8 +73,8 @@ export function MultiChart({data, lineData}) {
     })
 
     return (
-        <ResponsiveContainer width='100%' height='100%' aspect={3}>
-        <LineChart width={300} height={200} data={data} margin={{top: 24, right: 24, left: 20, bottom: 15}}>
+        <ResponsiveContainer width='100%' height='50%' aspect={3}>
+        <LineChart width={300} height={200} data={data} margin={{top: 24, right: 24, left: 20, bottom: 128}}>
             <Legend verticalAlign="bottom" height={36}/>
             {lineData.map((line, index) => {
                 // let mastery = data[6][line.name];

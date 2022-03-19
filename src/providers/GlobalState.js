@@ -5,6 +5,7 @@ import {AuthContext} from '../providers/Auth';
 
 import {Modules} from '../data/ModuleData';
 import { ChromeDimensions } from "@styled-icons/boxicons-logos/Chrome";
+import { DataSaverOff } from "styled-icons/material";
 
 const UserContext = createContext();
 
@@ -220,6 +221,7 @@ const UserProvider = ({ children }) => {
         expiration_date.setHours(24,0,0,0);
         expiration_date.toString();
 
+
         let schemaPicks = selections.map((pick, index) => {
             return {
             location: index,
@@ -308,6 +310,7 @@ const UserProvider = ({ children }) => {
 
     const updateOpeningStats = async (data) => {
         console.log({data:data})
+
         let openingStatsCopy = [...openingStats];
 
         let updatedOpeningStats = openingStatsCopy.map(opening => {
@@ -319,6 +322,28 @@ const UserProvider = ({ children }) => {
             }
             return opening;
         })
+
+        // check if first completion
+        //get top 3 child ids (in terms of popularity) and add to user data
+        // 1. fetch top 3 openings from db (send child ids, return top 3 openings)
+        // 2. add top 3 openings to user data (create openings stats)
+        
+        if (data.some(entry => entry.completions === 1)) {
+            let this_opening = data.find(entry => entry.completions === 1);
+            let openingId = this_opening.opening_id;
+            let endpoint = `/openings-data/top-3/${userId}/${openingId}`;
+            let response = await post(endpoint);
+            
+            if (!response.message === "no child openings") {
+                console.log('top 3 openings', response);
+                // filter existing opening_id from response
+                response = response.filter(entry => updatedOpeningStats.some(item => item.opening_id === entry.opening_id));
+                console.log('filtered response', response);
+                // update opening stats with new openings
+                updatedOpeningStats = [...updatedOpeningStats, ...response];
+            }
+        }
+
         setOpeningStats(updatedOpeningStats);
         return updatedOpeningStats;
     }
