@@ -12,6 +12,7 @@ import { UserContext } from "../../../../providers/GlobalState.js";
 
 const PostOpeningPage = (props) => {
     const [linkUrl, setLinkUrl] = useState('');
+    const [multi, setMulti] = useState(false);
     const img = Modules[3].img;
     const openingMasteryRank = props.location.state.openingMasteryRank;
     const thisOpeningRank = props.location.state.thisOpeningRank;
@@ -58,6 +59,10 @@ const PostOpeningPage = (props) => {
         else setLinkUrl(`/home/openings`);
     }, [])
 
+    const handleNextClick = () => {
+        setMulti(true)
+    }
+
     if (!props.savingResults) {
     return (
         <>
@@ -86,16 +91,16 @@ const PostOpeningPage = (props) => {
                         {/* {`Mastery: ${opening.history_7} (+${opening.history_7 - opening.history_6})`} 
                         Mastery
                     </ModuleExperience> */}
-                    <Chart data={historyData} reference={{value: thisOpeningRank.nextRank.value, label: thisOpeningRank.nextRank.name}}/>
-
-
+                    {multi && <Chart data={historyData} reference={{value: thisOpeningRank.nextRank.value, label: thisOpeningRank.nextRank.name}}/>}
+                    {!multi && <MultiChart data={parentHistoryData} lineData={parents}/>}
+                    {multi && <FinishButton onClick={handleNextClick}>Next</FinishButton>}
+                    {!multi &&
                     <Link to={linkUrl}>
                     <FinishButton>
                         Return to {props.location.state.isDaily ? 'Daily Puzzles' : 'Openings'}
                     </FinishButton>
                     </Link>
-
-                    <MultiChart data={parentHistoryData} lineData={parents}/>
+                    }
 
             </PostPuzzleGrid>
         </PostPuzzleWrapper>

@@ -82,6 +82,7 @@ class AchievementCreate(BaseModel):
     value: int
     diff: Optional[int] = 0
     theme: str
+    rank: str
 
 class Achievement(BaseModel):
     id: int
@@ -91,6 +92,8 @@ class Achievement(BaseModel):
     diff: Optional[int]
     value: int
     theme: str
+    rank: str
+
     class Config:
         orm_mode = True
 # User schemas
