@@ -75,9 +75,10 @@ const OpeningsDashboardTest = () => {
         <>
         <PageContainer>
         <CategoryTitle>Opening Tree</CategoryTitle>
+        <OpenModalLinkContainer>
         {(!loading && completions === 0) && <GrayTileModalLink onClick={handleOpenModal} >Why do I see gray tiles?</GrayTileModalLink>}
-
-        <GrayTileInfoModal isOpen={openModal} toggle={handleOpenModal} />
+        </OpenModalLinkContainer>
+         <GrayTileInfoModal isOpen={openModal} toggle={handleOpenModal} />
         <PreviousSelection />
         {loading ? (  <ChessboardLoader/>) : (
             <>
@@ -111,11 +112,18 @@ const OpeningLink = styled(Link)`
     text-decoration: none;
 `
 
-const GrayTileModalLink = styled.div`
+const OpenModalLinkContainer = styled.div`
     text-align: center;
+    width: 100%;
+    margin-bottom: 12px;
+`
+
+const GrayTileModalLink = styled.span`
     padding-bottom: 12px;
     text-decoration: underline;
     cursor: pointer;
+    margin: 0 auto;
+
 `
 
 

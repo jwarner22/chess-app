@@ -50,8 +50,6 @@ const modifiedCategory = `${props.category}s`
 export default InfoBox;
 
 const InfoBoxButton = styled(Button)`
-    position: relative;
-    top: 20px;
     padding: 12px 24px;
-    margin: 12px;
+    margin: 24px 12px;
 `

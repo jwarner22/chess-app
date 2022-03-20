@@ -11,6 +11,7 @@
     "confetti-js": "0.0.18",
     "firebase": "^9.6.1",
     "firebase-admin": "^9.9.0",
+    "framer-motion": "^4.1.17",
     "howler": "^2.2.3",
     "html-react-parser": "^1.2.6",
     "material-design-icons": "^3.0.1",
