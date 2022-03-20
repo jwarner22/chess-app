@@ -37,11 +37,14 @@ const HeroSection = () => {
             </HeroBg>
             <HeroContent>
                 <HeroCopy>
+                <HeroH1 color={"#243862"}>
+                    Stop Playing.           
+                </HeroH1>
                 <HeroH1 color={"#fff"}>
-                    Chess Pattern Training            
+                    Start Winning.            
                 </HeroH1>
                 <HeroP>
-                    Bitesized daily trainings personlized to you.                
+                    Bite-sized chess training personalized for you.                
                 </HeroP>
                 <HeroBtnWrapper>
                     <NavBtnLink2 to="/signUp" >

@@ -116,7 +116,9 @@ class OpeningCompletions(Base):
     history_5 = Column(Integer, unique=False, index=False)
     history_6 = Column(Integer, unique=False, index=False)
     history_7 = Column(Integer, unique=False, index=False)
+    favorite = Column(Boolean, unique=False, index=False)
     owner_id = Column(String, ForeignKey("user.user_id"))
+
 
 # class ThemeRating(Base):
 #     __tablename__ = "theme_ratings"

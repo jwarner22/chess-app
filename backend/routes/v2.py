@@ -213,7 +213,8 @@ async def get_top3_openings_data(user_id: str, opening_id: str, db: Session = De
             history_4=0,
             history_5=0,
             history_6=0,
-            history_7=0
+            history_7=0,
+            favorite=False
         )
 
         # check if user opening exists
@@ -237,6 +238,7 @@ async def get_top3_openings_data(user_id: str, opening_id: str, db: Session = De
             "history_7": user_opening.history_7,
             "np_lichess": child_opening.np_lichess,
             "np_master": child_opening.np_master,
+            "favorite": user_opening.favorite,
             "pgn": child_opening.pgn,
             "eco": child_opening.eco,
             "epd": child_opening.epd,
@@ -287,7 +289,8 @@ async def add_new_opening_data(user_id: str, opening_id: int, db: Session = Depe
         history_4=0,
         history_5=0,
         history_6=0,
-        history_7=0
+        history_7=0,
+        favorite=False
     )
     db.add(user_opening)
     db.commit()
@@ -687,19 +690,53 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
     # generate opening picks    
     excluded_ids = [0, 48, 49, 50, 64] # exclude these modules
 
-    module_options = []
-    for module in embedding:
-        if module.id > 38:
-            module_options.append(module.id)
-    module_options = [x for x in module_options if x not in excluded_ids]
+    # get user openings, filter by favorites
+    user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.favorite == True).all()
+    if user_openings is None:
+        #query user openings and sort by least completions, select all zero or one completions
+        user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).order_by(models.OpeningCompletions.completions.asc()).all()
+        if user_openings is None:
+            # add new opening to database (default italian game)
+            user_initial_opening = models.OpeningCompletions(owner_id = user_id, opening_id = 2226, completions = 0, favorite = False, history_1=0, history_2=0, history_3=0, history_4=0, history_5=0, history_6=0, history_7=0)
+            db.add(user_initial_opening)
+            db.commit()
+            db.refresh(user_initial_opening)
+            user_openings = [user_initial_opening]
+        #select all user openings with zero or one completions
+        user_openings = [x for x in user_openings if x.completions <= 1]
+        # extract ids from user openings
+        user_openings_ids = [x.opening_id for x in user_openings]
+    else:
+        # extract child ids from favorites
+        child_ids = [x.child_id for x in user_openings]
+        # get openings for child ids
+        user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(child_ids)).all()
+        # sort user_openings by least completions
+        user_openings = sorted(user_openings, key=lambda x: x.completions)
+        # select top three openings
+        user_openings = user_openings[:5] # may cause bug if len(user_openings) < 3??
+        # extract ids from user openings
+        user_openings_ids = [x.opening_id for x in user_openings]
+        
 
-    module_weights = []
-    for module in embedding:
-        if module.id in module_options:
-            module_weights.append(module.prob)
+    # module_options = []
+    # for module in embedding:
+    #     if module.id > 38:
+    #         module_options.append(module.id)
+    # module_options = [x for x in module_options if x not in excluded_ids]
+
+    # module_weights = []
+    # for module in embedding:
+    #     if module.id in module_options:
+    #         module_weights.append(module.prob)
+
+    #randomly select opening id from user openings_ids
+    opening_id = choice(user_openings_ids)
+    # extract opening from user_openings based on opening_id
+    opening_pick = [x for x in user_openings if x.opening_id == opening_id]
 
     #while (opening_pick in excluded_ids): # ensures exluded ids are not picked
-    opening_pick = choices(module_options, weights=module_weights,k=1) # picks random opening module
+    #opening_pick = choices(module_options, weights=module_weights,k=1) # picks random opening module
     
     picks.append(opening_pick[0]) # adds opening to picks
     

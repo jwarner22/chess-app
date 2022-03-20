@@ -49,7 +49,7 @@ const PostOpeningPage = (props) => {
         });
         return(historyPoint)
     })
-    console.log({parentHistoryData: parentHistoryData})
+    // console.log({parentHistoryData: parentHistoryData})
 
     //const nextRank = calcNextRank(opening.historyData.pop());
 
@@ -91,16 +91,16 @@ const PostOpeningPage = (props) => {
                         {/* {`Mastery: ${opening.history_7} (+${opening.history_7 - opening.history_6})`} 
                         Mastery
                     </ModuleExperience> */}
-                    {!multi && <Chart data={historyData} reference={{value: thisOpeningRank.nextRank.value, label: thisOpeningRank.nextRank.name}}/>}
-                    {multi && <MultiChart data={parentHistoryData} lineData={parents}/>}
-                    {!multi && <FinishButton onClick={handleNextClick}>Next</FinishButton>}
-                    {multi &&
+                    <Chart data={historyData} reference={{value: thisOpeningRank.nextRank.value, label: thisOpeningRank.nextRank.name}}/>
+                    {/* {multi && <MultiChart data={parentHistoryData} lineData={parents}/>}
+                    {!multi && <FinishButton onClick={handleNextClick}>Next</FinishButton>} */}
+
                     <Link to={linkUrl}>
                     <FinishButton>
                         Return to {props.location.state.isDaily ? 'Daily Puzzles' : 'Openings'}
                     </FinishButton>
                     </Link>
-                    }
+            
 
             </PostPuzzleGrid>
         </PostPuzzleWrapper>

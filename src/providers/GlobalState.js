@@ -162,7 +162,7 @@ const UserProvider = ({ children }) => {
         if (response.length === 0) { // no daily modules
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`;
             let {picks, alts} = await put(endpoint, embedding); // get picks
-            let schemaPicks = mutatePicks(picks, alts); // map picks to modules and save
+            let schemaPicks = await mutatePicks(picks, alts); // map picks to modules and save
             await post(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // post daily modules to db
             setDailyModules(schemaPicks); // set daily modules
             updateGenerating(true);
@@ -170,7 +170,7 @@ const UserProvider = ({ children }) => {
         } else if (response.detail === "daily puzzles expired") { // daily modules expired
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`; // get new picks
             let {picks, alts} = await put(endpoint, embedding); // get picks
-            let schemaPicks = mutatePicks(picks, alts); // map picks to modules and save
+            let schemaPicks = await mutatePicks(picks, alts); // map picks to modules and save
             await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
             setDailyModules(schemaPicks);
             updateGenerating(true);
@@ -178,7 +178,7 @@ const UserProvider = ({ children }) => {
         } else if ((new Date(response[0].expiration)) < now) {
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`; // get new picks
             let {picks, alts} = await put(endpoint, embedding);
-            let schemaPicks = mutatePicks(picks, alts); // map picks to modules and save
+            let schemaPicks = await mutatePicks(picks, alts); // map picks to modules and save
             await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
             setDailyModules(schemaPicks);
             updateGenerating(true);
@@ -196,7 +196,7 @@ const UserProvider = ({ children }) => {
     }
 
  
-    const mutatePicks = (picks, alts) => { 
+    const mutatePicks = async (picks, alts) => { 
         let now = new Date();
 
         let selections = Modules.filter(element => {
@@ -234,6 +234,24 @@ const UserProvider = ({ children }) => {
             alt_id: pick.alt_id,
             alt_title: pick.alt_title
         }})
+
+        await fetchOpeningStats();
+        // add opening pick to schemaPicks
+        let openingPick = picks.pop();
+        openingPick = openingStats.find(element => element.opening_id === openingPick);
+        let openingSchema = {
+            location: 3,
+            theme_id: openingPick.opening_id,
+            title: openingPick.name,
+            completed: false,
+            locked: true,
+            inserted_at: now.toString(),
+            expiration: expiration_date,
+            alt_id: null,
+            alt_title: null
+        }
+        schemaPicks = [openingSchema, ...schemaPicks];
+
         return schemaPicks;
     }
 
