@@ -9,6 +9,7 @@ export const puzzlePageReducer = (state, action) => {
       let moves = getMoves(action.payload.moves);
       return { 
         ...state,
+        toggleTimer: true,
         correctMoves: moves,
         fen: action.payload.fen,
         ratings: [action.payload.rating]
@@ -39,26 +40,36 @@ export const puzzlePageReducer = (state, action) => {
         ...state,
         startTime: action.payload
       };
+    
+    case "RESET_TIMER":
+      return {
+        ...state,
+      };
 
     case "FAIL": {
       let newLives = state.lives;
       if (!state.retry) {
         newLives = state.lives - 1;
       }
-
       if (newLives < 0) newLives = 0;
 
+      let newTimes = [...state.times, action.payload - state.startTime];
+      
       return {
         ...state,
         retryDisable: false,
+        retry: false,
         continueDisable: false,
         correct: false,
         lives: newLives,
         outcome: false,
+        toggleTimer: false,
         outcomes: [...state.outcomes, false],
+        times: newTimes,
         waiting: true
       };
     }
+
     case "SUCCESS": {
 
       let newTimes = [...state.times, action.payload - state.startTime];
@@ -68,6 +79,7 @@ export const puzzlePageReducer = (state, action) => {
         ...state,
         retryDisable: true,
         continueDisable: false,
+        toggleTimer: false,
         correct: true,
         outcome: true,
         outcomes: [...state.outcomes, true],
@@ -81,8 +93,8 @@ export const puzzlePageReducer = (state, action) => {
       return {
         ...state,
         retryDisable: true,
-        continueDisable: true,
-      };
+        continueDisable: true
+        };
 
     case "NEXT":
       // puzzleData[count+1] should be action.payload
@@ -93,12 +105,13 @@ export const puzzlePageReducer = (state, action) => {
         retry: false,
         waiting: false,
         retryDisable: true,
-        toggleTimer: !state.toggleTimer,
+        toggleTimer: true,
         boardKey: state.boardKey + 1,
         fen: action.payload.fen,
         ratings: [...state.ratings, action.payload.rating],
         correctMoves: correctMoves,
-        currentBonus: 0
+        currentBonus: 0,
+        resetTimer: true
       };
 
     case "RETRY":
@@ -111,8 +124,9 @@ export const puzzlePageReducer = (state, action) => {
         retryDisable: true,
         continueDisable: true,
         ratings: [...state.ratings, action.payload.rating],
-        toggleTimer: !state.toggleTimer,
-        currentBonus: 0
+        toggleTimer: true,
+        currentBonus: 0,
+        resetTimer: true
       };
 
     case "RESET_BONUS":

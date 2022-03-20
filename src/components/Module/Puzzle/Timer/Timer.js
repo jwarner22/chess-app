@@ -4,13 +4,18 @@ import { TimerSpan, TimerSpanBuffer, TimerWrapper } from './TimerElements'
 const Timer = (props) => {
     const [counter, setCounter] = useState(0);
 
-    const {toggleTimer, count} = props;
+    const {toggleTimer, count, resetCounter} = props;
 
     //resets counter if the puzzle count changes
     useEffect(() => {
       setCounter(0)
     }, [count])
 
+    useEffect(() => {
+      if (toggleTimer) {
+        setCounter(0)
+      }
+    }, [toggleTimer])
     //starts and stops timer based on the toggleTimer state
     useEffect(() => {
         if(toggleTimer){
@@ -20,7 +25,9 @@ const Timer = (props) => {
           return () => {
             clearInterval(timeout);
           };
-        }}, [counter, toggleTimer, count])
+        }
+
+      }, [counter, toggleTimer, count])
 
   return <TimerWrapper>
           <TimerSpanBuffer>
