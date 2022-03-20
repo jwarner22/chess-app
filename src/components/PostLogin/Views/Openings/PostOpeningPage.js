@@ -54,8 +54,8 @@ const PostOpeningPage = (props) => {
     //const nextRank = calcNextRank(opening.historyData.pop());
 
     useEffect(() =>{
-        if (props.completedTraining) setLinkUrl('completed-training');
-        else if (props.isDaily) setLinkUrl('/home/daily');
+        //if (props.completedTraining) setLinkUrl('completed-training');
+        if (props.isDaily) setLinkUrl('completed-training');
         else setLinkUrl(`/home/openings`);
     }, [])
 

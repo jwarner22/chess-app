@@ -19,7 +19,7 @@ const PreOpeningPage = (props) => {
         //togglePrePuzzleCallback(color)
         console.log('start button clicked', color)
         // add link instead of callback
-        props.history.push({'pathname':`/opening/${currentOpening.uci}/${color}`, 'state': {'currentOpening': currentOpening}});
+        props.history.push({'pathname':`/opening/${currentOpening.uci}/${color}`, 'state': {'currentOpening': currentOpening, 'isDaily': props.location.stats.isDaily}});
     }
 
     useEffect(() => {

@@ -35,7 +35,7 @@ export default function DailyPuzzzle(props) {
   const [screenTimer, setScreenTimer] = useState(false);
   const [openSplash, setOpenSplash] = useState(false)
   
-  const {dailyModules, generating, updateGenerating} = useContext(UserContext);
+  const {dailyModules, generating, updateGenerating, openingStats} = useContext(UserContext);
   const {isMobile, windowDimension} = props;
   const {state} = useLocation()
   const fromLogin = (state == null) ? false : state.fromLogin
@@ -50,7 +50,6 @@ export default function DailyPuzzzle(props) {
 });
   
   
-  console.log(openSplash)
   useLayoutEffect(() => {
     if(fromLogin) {
       transitionScreens()
@@ -198,9 +197,11 @@ export default function DailyPuzzzle(props) {
           </ProgressBar>
           </ProgressBarContainer>
          {dailyPicks.map((module, index) => {
-           if (module.category === 'opening') {
+           if (index===3) { // if module is an opening module
+             //{pathname: `/pre-opening-test/${props.currentOpening.uci}`
+             let uci = openingStats.find(entry => entry.opening_id === module.theme_id).uci
              return(
-              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: '/opening', state: {module: module, schemaPicks:schemaPicks, isDaily: true, location: module.location}}}>
+              <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: `/pre-opening-test/${uci}`, state: {module: module, isDaily: true, location: module.location}}}>
               <DailyPuzzleModuleContainer key={index} {...module} />
             </Link>
              )

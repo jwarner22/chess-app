@@ -235,10 +235,13 @@ const UserProvider = ({ children }) => {
             alt_title: pick.alt_title
         }})
 
-        await fetchOpeningStats();
+        let response = await fetchOpeningStats();
         // add opening pick to schemaPicks
-        let openingPick = picks.pop();
-        openingPick = openingStats.find(element => element.opening_id === openingPick);
+
+        const pickId = picks.pop();
+        console.log(response, pickId);
+        const openingPick = response.find(element => element.opening_id === pickId);
+        console.log(openingPick);
         let openingSchema = {
             location: 3,
             theme_id: openingPick.opening_id,
@@ -315,6 +318,7 @@ const UserProvider = ({ children }) => {
         let endpoint = `/opening-stats/${auth.userId}`;
         let response = await get(endpoint);
         setOpeningStats(response);
+        return response
     }
 
     const createOpeningStats = async (openingId, data) => {

@@ -659,7 +659,7 @@ async def user_module_rating(user_id: str, opening_rating: schemas.OpeningRating
 
 # generate user's daily puzzles
 @app_v2.put('/users/{user_id}/daily_puzzles/picks', response_model=schemas.DailyPicks, tags=["Daily"])
-async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: str, db: Session = Depends(get_db)):
+async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: str, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
 
     # generate daily puzzle module picks
     daily_puzzles = []
@@ -691,8 +691,10 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
     excluded_ids = [0, 48, 49, 50, 64] # exclude these modules
 
     # get user openings, filter by favorites
+    user_openings_ids = []
     user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.favorite == True).all()
-    if user_openings is None:
+    if (len(user_openings) == 0):
+        print('none')
         #query user openings and sort by least completions, select all zero or one completions
         user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).order_by(models.OpeningCompletions.completions.asc()).all()
         if user_openings is None:
@@ -706,9 +708,33 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
         user_openings = [x for x in user_openings if x.completions <= 1]
         # extract ids from user openings
         user_openings_ids = [x.opening_id for x in user_openings]
+
     else:
+        print('favorite')
+        print(user_openings)
+        # extract ids from user openings
+        user_openings_ids = [x.opening_id for x in user_openings]
+        print(user_openings_ids)
+        # get openigns from local openings db
+        openings = db_openings.query(models.Opening).filter(models.Opening.id.in_(user_openings_ids)).all()
         # extract child ids from favorites
-        child_ids = [x.child_id for x in user_openings]
+        child_ids = [x.child_ids for x in openings]
+        print(child_ids)
+        # convert child_ids strings to arrays
+        child_ids = [ast.literal_eval(x) for x in child_ids]
+        print(child_ids)
+        child_ids = [x.split(',') for x in child_ids]
+        print(child_ids)
+        # flatten child_ids
+        child_ids = [item for sublist in child_ids for item in sublist]
+        print(child_ids)
+        # convert child_ids to integers
+        child_ids = [int(x) for x in child_ids]
+        print(child_ids)
+        # remove duplicates
+        child_ids = list(dict.fromkeys(child_ids))
+        print(child_ids)
+
         # get openings for child ids
         user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(child_ids)).all()
         # sort user_openings by least completions
@@ -731,14 +757,8 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
     #         module_weights.append(module.prob)
 
     #randomly select opening id from user openings_ids
-    opening_id = choice(user_openings_ids)
-    # extract opening from user_openings based on opening_id
-    opening_pick = [x for x in user_openings if x.opening_id == opening_id]
-
-    #while (opening_pick in excluded_ids): # ensures exluded ids are not picked
-    #opening_pick = choices(module_options, weights=module_weights,k=1) # picks random opening module
-    
-    picks.append(opening_pick[0]) # adds opening to picks
+    pick_opening_id = choices(user_openings_ids)
+    picks.append(pick_opening_id[0]) # adds opening to picks
     
     print(picks)
     print(alts)

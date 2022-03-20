@@ -116,7 +116,7 @@ export default function OpeningModule(props) {
     })
 
     //push to post opening page
-    props.history.push({pathname: `/post-opening/${moves}/${orientation}`, state: {score: score, openingId: openingId, isDaily: false, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank}});
+    props.history.push({pathname: `/post-opening/${moves}/${orientation}`, state: {score: score, openingId: openingId, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank, isDaily: props.location.data.isDaily}});
   }
 
   // helper functions for saveModuleData
