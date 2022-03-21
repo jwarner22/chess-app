@@ -30,7 +30,7 @@ const OpeningsDashboardTest = () => {
         setOpenModal(!openModal)
     }
 
-    const {openingStats, createOpeningStats} = useContext(UserContext);
+    const {openingStats, createOpeningStats, userId} = useContext(UserContext);
 
     useLayoutEffect(() => {
         fetchOpenings()
@@ -38,10 +38,10 @@ const OpeningsDashboardTest = () => {
 
     const fetchOpenings = async () => {
         const opening = openingStats.find(o => o.uci === moves);
-        console.log(opening)
+        //console.log(opening)
         if (opening != null) {
             console.log('opening found')
-            console.log(opening)
+            //console.log(opening)
             SetCurrentOpening(opening);
             setMastery(opening.history_7);
             setCompletions(opening.completions);
@@ -53,7 +53,7 @@ const OpeningsDashboardTest = () => {
         } else {
             // get main and child openings data
             let {main, childOpenings} = await newFetchOpenings(moves, get, post);
-            console.log({main: main, childOpenings: childOpenings})
+            //console.log({main: main, childOpenings: childOpenings})
             
             let openingId = main.id;
             main = await createOpeningStats(openingId, main);
@@ -82,7 +82,7 @@ const OpeningsDashboardTest = () => {
         <PreviousSelection />
         {loading ? (  <ChessboardLoader/>) : (
             <>
-        <CurrentOpeningTreeTile currentOpening={currentOpening} mastery={mastery} popularity={round(((currentOpening.np_lichess/TOTAL_LICHESS_NP)*100), 2)}/>
+        <CurrentOpeningTreeTile userId={userId} currentOpening={currentOpening} mastery={mastery} popularity={round(((currentOpening.np_lichess/TOTAL_LICHESS_NP)*100), 2)}/>
         {(openingModules.length > 0) && <>
         <PuzzleTileGrid opening category={"Variations"}>
 

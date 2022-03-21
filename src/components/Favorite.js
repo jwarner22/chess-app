@@ -2,15 +2,29 @@ import {useState} from 'react'
 import styled from 'styled-components'
 import {MdFavorite} from '@react-icons/all-files/md/MdFavorite'
 //import {useSpring, animated} from 'react-spring'
+import useFetch from '../api/useFetch'
+import { baseURL } from '../api/apiConfig'
+
 
 const Favorite = (props) => {
-    const [favorites, setFavorites] = useState(false)
-    const {locked} = props;
+  const [favorites, setFavorites] = useState(false)
+  const {locked, openingId} = props;
+  
+  const {put} = useFetch(baseURL);
+
+  const handleFavorite = () => {
+    // put to update favorite opening in db
+    let endpoint = `/user/${props.userId}/opening/${openingId}/favorites`
+    let queryParam = `?favorite=${!favorites}`;
+    put(endpoint+queryParam);
+    setFavorites(!favorites);
+    console.log('favorite')
+  }
 
   return (
       <>
     <FavoriteContainer >
-        <FavoriteIcon onClick={() => {setFavorites(!favorites)}} favorites={favorites} locked={locked} />
+        <FavoriteIcon onClick={handleFavorite} favorites={favorites} locked={locked} />
     </FavoriteContainer>
     </>
   )
