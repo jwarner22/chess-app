@@ -10,7 +10,7 @@ const RewardSlideOne = (props) => {
                 {(!props.failure && !props.perfect) && 'Nice Job!'}
             </RewardH1>
             <RewardH2 props={props}>
-                {props.perfect && 'perfect run!'}
+                {props.perfect && 'perfect run'}
                 {(!props.failure && !props.perfect) && 'you passed'}
                 {(props.failure) && 'module failed'}
             </RewardH2>

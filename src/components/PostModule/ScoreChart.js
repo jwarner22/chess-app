@@ -4,9 +4,10 @@ const CustomizedLabel = ({x, y,  value, mastery, diff, color}) => {
     if (value === "6") {
         let index = parseInt(value)
         mastery = mastery[index]
+        let text = diff > 0 ? `+${diff}` : diff.toString();
     return (
         <text x={x} y={y} dy={-16} dx={-8} fill={color} fontSize={16} textAnchor="middle">
-            {mastery} (+{diff})
+            {mastery} ({text})
         </text>
     );
 } else {
@@ -23,13 +24,13 @@ const CustomizedLabel = ({x, y,  value, mastery, diff, color}) => {
 }
 
 export default function Chart({data}) {
-
+    console.log(data)
     let diff = data[6].score - data[5].score;
     let mastery = data.map(item => item.score);
 
     return(
-        <ResponsiveContainer width='100%' height='50%' aspect={3}>
-        <LineChart width={300} height={200} data={data} margin={{top: 5, right: 20, left: 20, bottom: 15}}>
+        <ResponsiveContainer width='100%' height='100%' aspect={3}>
+        <LineChart width={300} height={200} data={data} margin={{top: 15, right: 36, left: 24, bottom: 15}}>
             <Line type="monotone" dataKey="score" stroke="#247cf1" strokeWidth={2}>
             <LabelList dataKey="name" content={<CustomizedLabel color="#247cf1" mastery={mastery} diff={diff}/>} />
             </Line>
