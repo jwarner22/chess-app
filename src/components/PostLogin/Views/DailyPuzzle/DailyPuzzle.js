@@ -200,6 +200,7 @@ export default function DailyPuzzzle(props) {
            if (index===3) { // if module is an opening module
              //{pathname: `/pre-opening-test/${props.currentOpening.uci}`
              let uci = openingStats.find(entry => entry.opening_id === module.theme_id).uci
+             module = {...module, headline: module.title, subheading: 'Opening', img: require('../../../../Images/Books.svg').default };
              return(
               <Link key={index} style={{textDecoration: 'none'}} to={module.locked ? '#' : {pathname: `/pre-opening-test/${uci}`, state: {module: module, isDaily: true, location: module.location}}}>
               <DailyPuzzleModuleContainer key={index} {...module} />
