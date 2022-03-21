@@ -250,10 +250,20 @@ async def get_top3_openings_data(user_id: str, opening_id: str, db: Session = De
 
     return user_openings
 
+# get opening favorite
+@app_v2.get('/user/{user_id}/opening/{opening_id}/favorites', tags=["Openings"])
+async def get_opening_favorite(user_id: str, opening_id: str, db: Session = Depends(get_db)):
+    # get opening from db
+    opening = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.opening_id == opening_id, models.OpeningCompletions.owner_id == user_id).all()
+    if (len(opening) == 0):
+        return {"message": "no opening found"}
+    favorite = opening[0].favorite
+    return {"favorite": favorite}
+
 #update opening favorite
 #`/user/${props.userId}/opening/${openingId}/favorites`, {favorite: !favorites}
 @app_v2.put('/user/{user_id}/opening/{opening_id}/favorites', tags=["Openings"])
-async def update_opening_favorite(user_id: str, opening_id: int, favorite: bool, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
+async def update_opening_favorite(user_id: str, opening_id: int, favorite: bool, db: Session = Depends(get_db)):
     # get user opening
     user_opening = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.opening_id == opening_id, models.OpeningCompletions.owner_id == user_id).first()
     if (user_opening is None):

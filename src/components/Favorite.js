@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {MdFavorite} from '@react-icons/all-files/md/MdFavorite'
 //import {useSpring, animated} from 'react-spring'
@@ -10,7 +10,21 @@ const Favorite = (props) => {
   const [favorites, setFavorites] = useState(false)
   const {locked, openingId} = props;
   
-  const {put} = useFetch(baseURL);
+  const {put,get} = useFetch(baseURL);
+
+  useEffect(() =>{
+    if(!locked){
+      fetchFavorites();
+    }
+  },[props.openingId])
+
+  const fetchFavorites = async () => {
+    let endpoint = `/user/${props.userId}/opening/${openingId}/favorites`
+    const response = await get(endpoint)
+    if (response.message !== "no opening found") {
+      setFavorites(response.favorite);
+    }
+  }
 
   const handleFavorite = () => {
     // put to update favorite opening in db
@@ -18,7 +32,6 @@ const Favorite = (props) => {
     let queryParam = `?favorite=${!favorites}`;
     put(endpoint+queryParam);
     setFavorites(!favorites);
-    console.log('favorite')
   }
 
   return (
