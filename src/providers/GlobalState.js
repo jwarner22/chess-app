@@ -275,6 +275,7 @@ const UserProvider = ({ children }) => {
     }
 
     const updateAchievements = async (category, value, diff, theme, rank) => { 
+
         setLoading(() => true);
         let now = Date.now();
         let payload = {
@@ -285,6 +286,7 @@ const UserProvider = ({ children }) => {
             theme: theme,
             rank: rank
         }
+        console.log({payload: payload});
 
         // need to post new achievement and update achievement list
         let endpoint = `/achievements/${auth.userId}`; 
@@ -337,9 +339,8 @@ const UserProvider = ({ children }) => {
 
         let updatedOpeningStats = openingStatsCopy.map(opening => {
             let updatedOpening = data.find(entry => entry.opening_id === opening.opening_id);
-            console.log({updatedOpening:updatedOpening})
+            //console.log({updatedOpening:updatedOpening})
             if (updatedOpening != null) {
-                console.log('updated opening', updatedOpening.name);
                 return {...opening, ...updatedOpening};
             }
             return opening;

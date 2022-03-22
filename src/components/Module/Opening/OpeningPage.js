@@ -48,12 +48,11 @@ export default function OpeningModule(props) {
   const [boardKey, setBoardKey] = useState(0);
   const [isOpen, setIsOpen] = useState(true)
   const [disableModal, setDisableModal] = useLocalStorage('disable_modal', 'false')
-
+  console.log(props)
   const {moves, color} = useParams();
   const {put, post} = useFetch(baseURL);
   const {userId, updateOpeningStats, openingStats, createOpeningStats, updateAchievements} = useContext(UserContext);
 
-  //console.log(props)
   //if the instructions modal is disabled in localstorage, don't show modal
   useLayoutEffect(() => {
     if(disableModal === true) {
@@ -107,16 +106,17 @@ export default function OpeningModule(props) {
   const finished = async (score) => {
     const openingId = props.location.state.currentOpening.opening_id;
     let oldOpeningStats = [...openingStats];
-
+    debugger;
     // update opening in db
     const { openingMasteryRank, thisOpeningRank, newOpeningRank } = await saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank, createOpeningStats);
     
     newOpeningRank.forEach(newRank => {
+      console.log(newRank)
       updateAchievements("next_rank", 0, 0,  newRank.name, newRank.nextRank.name)
     })
 
     //push to post opening page
-    props.history.push({pathname: `/post-opening/${moves}/${orientation}`, state: {score: score, openingId: openingId, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank, isDaily: props.location.data.isDaily}});
+    props.history.push({pathname: `/post-opening/${moves}/${orientation}`, state: {score: score, openingId: openingId, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank, isDaily: props.location.state.isDaily}});
   }
 
   // helper functions for saveModuleData
@@ -203,7 +203,7 @@ export default function OpeningModule(props) {
               <BackButton />
             </BackButtonWrapper>
             <MobileHeaderContainer>
-              <Header>{props.location.state.currentOpening.headline}</Header> 
+              <Header>{props.location.state.currentOpening.name}</Header> 
             </MobileHeaderContainer>
            
             <PuzzleBoardWrapper>
@@ -268,7 +268,7 @@ export default function OpeningModule(props) {
         </PuzzleBoardContainer>
         <RightPuzzlePanelContainer>
           <HeaderContainer>
-          <Header>{props.location.state.currentOpening.headline}</Header>
+          <Header>{props.location.state.currentOpening.name}</Header>
         </HeaderContainer>
         <div style={progressContainer}>
         <Progress category={"opening"} returnPercent={returnPercent} outcome={outcome} percent={progress} count={count} />
@@ -348,7 +348,7 @@ async function saveModuleData(userId, openingId, put, post, updateOpeningStats, 
     let newRank = getRank(newMastery);
     let nextRank = getNextRank(newRank);
 
-    return { opening_id: newOpening.opening_id, oldRank: oldRank, newRank: newRank, nextRank: nextRank, diff: masteryDiff };
+    return { name: oldOpening.name, opening_id: newOpening.opening_id, oldRank: oldRank, newRank: newRank, nextRank: nextRank, diff: masteryDiff };
   });
 
   const thisOpeningRank = openingMasteryRank.find(opening => opening.opening_id === openingId);

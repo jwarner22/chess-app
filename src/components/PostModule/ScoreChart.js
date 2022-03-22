@@ -24,13 +24,13 @@ const CustomizedLabel = ({x, y,  value, mastery, diff, color}) => {
 }
 
 export default function Chart({data}) {
-    console.log(data)
+
     let diff = data[6].score - data[5].score;
     let mastery = data.map(item => item.score);
 
     return(
         <ResponsiveContainer width='100%' height='100%' aspect={3}>
-        <LineChart width={300} height={200} data={data} margin={{top: 15, right: 36, left: 24, bottom: 15}}>
+        <LineChart width={300} height={300} data={data} margin={{top: 24, right: 36, left: 24, bottom: 24}}>
             <Line type="monotone" dataKey="score" stroke="#247cf1" strokeWidth={2}>
             <LabelList dataKey="name" content={<CustomizedLabel color="#247cf1" mastery={mastery} diff={diff}/>} />
             </Line>
@@ -65,7 +65,7 @@ export function MultiChart({data, lineData}) {
 
     return (
         <ResponsiveContainer width='100%' height='100%' aspect={3}>
-        <LineChart width={300} height={200} data={data} margin={{top: 24, right: 24, left: 8, bottom: 18}}>
+        <LineChart width={300} height={200} data={data} margin={{top: 16, right: 24, left: 8, bottom: 18}}>
             <Legend verticalAlign="bottom" height={0}/>
             {lineData.map((line, index) => {
                 // let mastery = data[6][line.name];
