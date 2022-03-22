@@ -13,7 +13,7 @@ from typing import Optional, List, Dict
 import requests
 from sqlalchemy.orm import Session
 from sqlalchemy import Integer, cast, null, update, insert, delete
-
+import ast 
 import models
 from database import engine_local,engine_remote, engine_local_openings, SessionLocal, SessionRemote, SessionLocalOpenings
 from read_puzzles import get_puzzles
@@ -740,14 +740,14 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
         user_openings_ids = [x.opening_id for x in user_openings]
         print(user_openings_ids)
         # get openigns from local openings db
-        openings = db_openings.query(models.Opening).filter(models.Opening.id.in_(user_openings_ids)).all()
+        openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(user_openings_ids)).all()
         # extract child ids from favorites
         child_ids = [x.child_ids for x in openings]
         print(child_ids)
         # convert child_ids strings to arrays
         child_ids = [ast.literal_eval(x) for x in child_ids]
         print(child_ids)
-        child_ids = [x.split(',') for x in child_ids]
+        #child_ids = [x.split(',') for x in child_ids]
         print(child_ids)
         # flatten child_ids
         child_ids = [item for sublist in child_ids for item in sublist]
