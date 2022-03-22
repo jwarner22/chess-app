@@ -50,14 +50,12 @@ export default function PuzzleManager(props) {
       prevHistory.push(newMove);
       let lastOpposingMove = movesCopy.shift();
       prevHistory.push(lastOpposingMove);
-      // console.log({ history: history });
       return prevHistory;
     });
 
     setMoves((prevMoves) => {
       prevMoves.shift();
       prevMoves.shift();
-      // console.log({ moves: moves });
       return prevMoves;
     });
 

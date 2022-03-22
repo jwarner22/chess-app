@@ -11,17 +11,11 @@ const img =  require('../../../../Images/Books.svg').default
 
 const PreOpeningPage = (props) => {
     const currentOpening = props.location.state.currentOpening;
-    const mastery = props.location.state.mastery;
     const [loaded, setLoaded] = useState(false);
-    //const [usercurrentOpening, setUsercurrentOpening] = useState({});
     const {openings, contextLoading, userData} = useContext(UserContext);
-    console.log(props.location.state)
 
     function handleStartButtonClick(color) {
-        //togglePrePuzzleCallback(color)
-        console.log('start button clicked', color)
         // add link instead of callback
-        console.log(currentOpening)
         props.history.push({pathname:`/opening/${currentOpening.uci}/${color}`, state: {currentOpening: currentOpening, isDaily: props.location.state.isDaily}});
     }
 

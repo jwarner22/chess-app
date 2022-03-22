@@ -99,7 +99,6 @@ const UserName = ({history}) => {
                 alert(err)
             }
         } else {
-            console.log('username taken')
             swal({
                 title: "Username is taken"})
         }

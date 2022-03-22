@@ -59,7 +59,7 @@ export default function Module(props) {
     useEffect(() => {
         if (prevModuleData == null) return;
         if (prevModuleData.theme !== moduleData.theme) {
-            console.log('get module in module.js: this should not be happening rn')
+            console.log('get module in module.js')
             getModule();
         }
     },[moduleData.theme])
@@ -78,12 +78,10 @@ export default function Module(props) {
             setHighScore(theme.high_score);
 
             setLoading(false);
-            console.log(userData.initial_rating)
             return;
         }
 
         if (userId === '') return;
-        console.log('actually fetched')
         get(`/users/${userId}/themes/${moduleData.theme}`)
         .then(data => {
             if (data.detail === "Theme not found") {

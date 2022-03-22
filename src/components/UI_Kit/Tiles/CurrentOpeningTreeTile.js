@@ -13,7 +13,6 @@ import Favorite from '../../Favorite';
 const CurrentOpeningTreeTile = (props) => {
   const windowSizeWidth = useWindowSize()[0];
   const isMobile = windowSizeWidth <= 640;
-  console.log(props)
   
   return (
       <>
@@ -56,33 +55,3 @@ const StarRating = (props) => {
   )
 }
 
-
-// function calcLogRating(mastery) {
-//   const alpha = 1000; // growth rate (how rapidly the rating increases)
-//   let rating = (mastery / (alpha + mastery)) * 100; // rating calc
-//   if (rating > 95)
-//     rating = 100; // max rating for mastery (for alpha = 1000, mastery is ~20000)
-//   return rating;
-// }
-// function getRating(mastery, max_mastery) {
-//   console.log({mastery: mastery, max_mastery: max_mastery})
-//     if (mastery > max_mastery) {
-//         return 5;
-//     } 
-//     if (mastery > max_mastery*0.8) {
-//         return 4;
-//     }
-//     if (mastery > max_mastery*0.6) {
-//         return 3;
-//     }
-//     if (mastery > max_mastery*0.4) {
-//         return 2;
-//     }
-//     if (mastery > max_mastery*0.2) {
-//         return 1;
-//     }
-//     if (mastery > 0) {
-//         return 1;
-//     }
-//         return 0;
-// }

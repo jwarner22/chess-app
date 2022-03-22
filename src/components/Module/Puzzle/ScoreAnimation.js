@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export default function Score(props) {
-    console.log('child rendedered')
     return (
         <>
             {props.currentBonus !=0 ? (<ScoreValue className="Score--bounce">

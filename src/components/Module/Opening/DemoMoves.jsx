@@ -36,7 +36,6 @@ export default function DemoMoves(props) {
     useEffect(() => {
       if (windowSizeWidth < 640){
         setWidth(windowSizeWidth)
-        console.log('set width')
       } else if (windowSizeWidth > 640 && windowSizeWidth < 1300){
           setWidth(window.innerWidth / 2)
       } else if (windowSizeWidth >= 1300) {

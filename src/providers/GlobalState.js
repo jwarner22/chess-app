@@ -104,7 +104,7 @@ const UserProvider = ({ children }) => {
         let yesterday = new Date((new Date().valueOf() - (24 * 60 * 60 * 1000))).getDate();
         let today = new Date().getDate();
         let lastDaily = new Date(user.last_daily);
-        // console.log({lastDaily: lastDaily.getDate(), today: today, yesterday: yesterday});
+
         if (lastDaily.getDate() !== (yesterday) && lastDaily.getDate() !== today) {
             user.daily_streak = 0;
 
@@ -136,7 +136,6 @@ const UserProvider = ({ children }) => {
     
     // THEME DATA
     const updateThemesData = async (data) => { 
-        console.log('should update themes')
         setLoading(() => true);
         let endpoint = `/users/${auth.userId}/themes`; 
         let response = await put(endpoint, data);
@@ -150,7 +149,6 @@ const UserProvider = ({ children }) => {
         } else {
             newThemes = [...newThemes, response]; // if theme doesn't exist, add it
         }
-        console.log(newThemes, response, data)
         setThemesData(newThemes);
         setLoading(() => false);
     }
@@ -239,9 +237,8 @@ const UserProvider = ({ children }) => {
         // add opening pick to schemaPicks
 
         const pickId = picks.pop();
-        //console.log(response, pickId);
         const openingPick = response.find(element => element.opening_id === pickId);
-        //console.log(openingPick);
+
         let openingSchema = {
             location: 3,
             theme_id: openingPick.opening_id,
@@ -286,7 +283,6 @@ const UserProvider = ({ children }) => {
             theme: theme,
             rank: rank
         }
-        console.log({payload: payload});
 
         // need to post new achievement and update achievement list
         let endpoint = `/achievements/${auth.userId}`; 
@@ -339,7 +335,7 @@ const UserProvider = ({ children }) => {
 
         let updatedOpeningStats = openingStatsCopy.map(opening => {
             let updatedOpening = data.find(entry => entry.opening_id === opening.opening_id);
-            //console.log({updatedOpening:updatedOpening})
+
             if (updatedOpening != null) {
                 return {...opening, ...updatedOpening};
             }

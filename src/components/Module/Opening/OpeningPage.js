@@ -110,7 +110,6 @@ export default function OpeningModule(props) {
     const { openingMasteryRank, thisOpeningRank, newOpeningRank } = await saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank, createOpeningStats);
     
     newOpeningRank.forEach(newRank => {
-      console.log(newRank)
       updateAchievements("next_rank", 0, 0,  newRank.name, newRank.nextRank.name)
     })
 

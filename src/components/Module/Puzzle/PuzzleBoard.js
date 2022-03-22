@@ -56,7 +56,6 @@ export default function PuzzleBoard(props) {
     function handleResize() {
       const display = document.getElementsByClassName('container')[0];
       setChessboardSize(display.offsetWidth - 20);
-      console.log('board dimemensions set')
     }
 
     window.addEventListener('resize', handleResize);
@@ -112,8 +111,6 @@ export default function PuzzleBoard(props) {
   },[promotion]);
 
   useLayoutEffect(() => {
-      // console.log({propsinitial: props.initialFen})
-      // console.log({prevInitial: prevInitial});
       if (prevInitial == null) {
         setTimeout(makeInitialMove, 1000);
         return;
@@ -145,7 +142,7 @@ export default function PuzzleBoard(props) {
     }
 
     safeGameMutate((game) => {
-      console.log({from: from, to: to, promotion: promotion})
+      //console.log({from: from, to: to, promotion: promotion})
       let m = game.move({ from: from, to: to, promotion: promotion});
       if (m == null) return;
       if (m.flags === "c") { 
@@ -266,7 +263,7 @@ export default function PuzzleBoard(props) {
     // console.log({correctMove:correctMove, sourceSquare:sourceSquare, targetSquare:targetSquare})
     // console.log({prevCorrect: prevCorrect})
     let correct ="";
-    console.log({move: move, finished: props.finished})
+    //console.log({move: move, finished: props.finished})
     if (props.finished) return;
 
     if (correctMove.length === 5) {
@@ -274,11 +271,9 @@ export default function PuzzleBoard(props) {
     } else if ((prevCorrect != null) && prevCorrect.length === 5) { // && props.promotion !== "x") {
       correct = prevCorrect.substring(0, 4);
     } 
-    console.debug({correct: correct, move: move, correctMove: correctMove})
 
     // first check for checkmate
     if (game.in_checkmate()) {
-      console.debug("checkmate");
       outcomeCallback(true, true); //outcome=true, checkmate=true
       return;
     }
@@ -288,16 +283,13 @@ export default function PuzzleBoard(props) {
       setTimeout(makeOpposingMove, 400); //
     } else if (move === correctMove || move === correct) {
       outcomeCallback(true, false); //outcome=true, checkmate=false
-      console.debug('premove')
     } else {
       outcomeCallback(false, false); //outcome=false, checkmate=false
-      console.debug('incorrect')
     }
     return;
   }
 
   function onPieceClick(selectedPiece) {
-    //console.log(selectedPiece)
     setPiece(selectedPiece);
   }
 
@@ -309,7 +301,6 @@ export default function PuzzleBoard(props) {
   // OPPOSING MOVE
 
   function makeOpposingMove() {
-    // console.log({ opposingMove: opposingMove });
     if (opposingMove == null) return;
 
     let from = opposingMove.substring(0, 2);
@@ -317,15 +308,12 @@ export default function PuzzleBoard(props) {
     let promotion = opposingMove.substring(4);
 
     outcomeCallback(true);
-    // console.log({ from: from, to: to });
     safeGameMutate((game) => {
       let move = game.move({ from: from, to: to, promotion: promotion });
       if (move == null) return;
       if (move.flags === "c") { 
-        //captureSound.play();
         sound.capture.play();
       } else {
-        //moveSound.play();
         sound.move.play();
       }
       return move;
@@ -390,11 +378,9 @@ export default function PuzzleBoard(props) {
   useEffect(() => {
     if (game == null) return; // game not loaded yet
     if (game.in_check()) {
-      //console.log('in check')
       let square = getInCheckSquare();
       const newSquares = {};
       newSquares[square] = { background: "radial-gradient(circle, rgba(255,0,0,.8) 45%, transparent)" };
-      
       setInCheckSquare(newSquares);
     } else if (!game.in_check() && inCheckSquare !== {}) {
       setInCheckSquare({}); // reset in check square
@@ -423,7 +409,6 @@ export default function PuzzleBoard(props) {
   }
 
   function getMoveOptions(square) {
-    console.log(square)
     const moves = game.moves({
       square,
       verbose: true

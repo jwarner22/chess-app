@@ -34,11 +34,8 @@ export default function PuzzleManager(props) {
 
   const handleOutcome = (outcome, checkmate) => {
 
-    console.log({puzzleOutcome: outcome})
     if (outcome === false) {
-      // do failed logic (callback?)
       props.displayOutcome(false);
-      //props.unlockNext();
       return;
     }
 
@@ -48,7 +45,6 @@ export default function PuzzleManager(props) {
       prevHistory.push(newMove);
       let lastOpposingMove = movesCopy.shift();
       prevHistory.push(lastOpposingMove);
-      // console.log({ history: history });
       return prevHistory;
     });
 
@@ -61,7 +57,6 @@ export default function PuzzleManager(props) {
     if (moves.length === 0 || checkmate) {
       setTimeout(() => props.displayOutcome(true),  600);
       setFinished(true);
-      //props.unlockNext();
     }
 
     setCorrectMove(moves[0]);
