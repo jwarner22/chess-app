@@ -22,6 +22,7 @@ import {wait} from '../../../Module/Utilities/helpers';
 // context
 import {UserContext} from '../../../../providers/GlobalState'
 import BrandPage from "../../../BrandPage/BrandPage";
+import { Semanticuireact } from "styled-icons/simple-icons";
 
 
 export default function DailyPuzzzle(props) {
@@ -35,7 +36,7 @@ export default function DailyPuzzzle(props) {
   const [screenTimer, setScreenTimer] = useState(false);
   const [openSplash, setOpenSplash] = useState(false)
   
-  const {dailyModules, generating, updateGenerating, openingStats} = useContext(UserContext);
+  const {dailyModules, generating, updateGenerating, openingStats, contextLoading} = useContext(UserContext);
   const {isMobile, windowDimension} = props;
   const {state} = useLocation()
   const fromLogin = (state == null) ? false : state.fromLogin
@@ -143,6 +144,8 @@ export default function DailyPuzzzle(props) {
     setPercent(completedPercentage)
   },[completedModules])
 
+
+
   // displays "generating daily training" message and hides it after timer
   // const setTimer = async () => {
   //   console.log('daily render')
@@ -153,8 +156,8 @@ export default function DailyPuzzzle(props) {
   //     updateGenerating(false)
   // 
 
-
-  if (!loaded | dailyPicks.length === 0) {
+  
+  if (!loaded | dailyPicks.length === 0 | contextLoading | openingStats === undefined) {
     return <ChessboardLoader />
   }
 
@@ -197,9 +200,11 @@ export default function DailyPuzzzle(props) {
           </ProgressBar>
           </ProgressBarContainer>
          {dailyPicks.map((module, index) => {
+          
            if (index===3) { // if module is an opening module
-             //{pathname: `/pre-opening-test/${props.currentOpening.uci}`
-             let uci = openingStats.find(entry => entry.opening_id === module.theme_id).uci
+            //{pathname: `/pre-opening-test/${props.currentOpening.uci}`
+             
+            let uci = openingStats.find(entry => entry.opening_id === module.theme_id).uci
              //let uci = ''
              //console.log(module)
              module = {...module, headline: module.title, subheading: 'Opening', img: require('../../../../Images/Books.svg').default };
