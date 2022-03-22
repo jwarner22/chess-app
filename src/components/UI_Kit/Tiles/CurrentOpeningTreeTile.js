@@ -13,7 +13,7 @@ import Favorite from '../../Favorite';
 const CurrentOpeningTreeTile = (props) => {
   const windowSizeWidth = useWindowSize()[0];
   const isMobile = windowSizeWidth <= 640;
-
+  console.log(props)
   
   return (
       <>
@@ -27,7 +27,7 @@ const CurrentOpeningTreeTile = (props) => {
         </CurrentHeadlineWrapper>
         <TileHeader current>
                 <OpeningTileSubheadline current>Move Sequence: {props.currentOpening.pgn}</OpeningTileSubheadline>
-                <Link to={{pathname: `/pre-opening-test/${props.currentOpening.uci}`, state: {props, 'isDaily': false}}}>
+                <Link to={{pathname: `/pre-opening-test/${props.currentOpening.uci}`, state: {...props, 'isDaily': false}}}>
                 <OpeningButton>Start</OpeningButton>
                 </Link>
                 <Favorite userId={props.userId} openingId={props.currentOpening.opening_id} locked={props.locked} />

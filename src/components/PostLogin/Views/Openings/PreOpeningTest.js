@@ -14,7 +14,7 @@ const PreOpeningPage = (props) => {
     const [loaded, setLoaded] = useState(false);
     //const [usercurrentOpening, setUsercurrentOpening] = useState({});
     const {openings, contextLoading, userData} = useContext(UserContext);
-
+    console.log(props.location.state)
     function handleStartButtonClick(color) {
         //togglePrePuzzleCallback(color)
         console.log('start button clicked', color)
@@ -23,10 +23,11 @@ const PreOpeningPage = (props) => {
     }
 
     useEffect(() => {
-        let opening = openings.find(opening => opening.opening_id === currentOpening.id);
+        if (currentOpening == null) return;
+        let opening = openings.find(opening => opening.opening_id === currentOpening.opening_id);
         if (opening == null) {
             opening = {
-                opening_id: currentOpening.id,
+                opening_id: currentOpening.opening_id,
                 completed: 0,
                 high_score: 0,
                 opening_name: currentOpening.headline,
@@ -35,7 +36,7 @@ const PreOpeningPage = (props) => {
     }
         //setUsercurrentOpening(opening);
         setLoaded(true);
-    },[])
+    },[currentOpening])
 
 
 

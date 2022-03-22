@@ -89,10 +89,10 @@ class Achievement(BaseModel):
     owner_id: str
     inserted_at: float
     category: str
-    diff: Optional[int]
+    diff: Optional[int] = 0
     value: int
     theme: str
-    rank: Optional[str]
+    rank: Optional[str] = None
 
     class Config:
         orm_mode = True

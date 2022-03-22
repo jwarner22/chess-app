@@ -239,9 +239,9 @@ const UserProvider = ({ children }) => {
         // add opening pick to schemaPicks
 
         const pickId = picks.pop();
-        console.log(response, pickId);
+        //console.log(response, pickId);
         const openingPick = response.find(element => element.opening_id === pickId);
-        console.log(openingPick);
+        //console.log(openingPick);
         let openingSchema = {
             location: 3,
             theme_id: openingPick.opening_id,
