@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react'
+import { withRouter } from 'react-router-dom';
 import InfoBox from "../../../UI_Kit/InfoBox/InfoBox";
 import {PageContainer} from "../../../UI_Kit/Page";
 
@@ -15,11 +16,13 @@ const PreOpeningPage = (props) => {
     //const [usercurrentOpening, setUsercurrentOpening] = useState({});
     const {openings, contextLoading, userData} = useContext(UserContext);
     console.log(props.location.state)
+    console.log(props)
     function handleStartButtonClick(color) {
         //togglePrePuzzleCallback(color)
         console.log('start button clicked', color)
         // add link instead of callback
-        props.history.push({'pathname':`/opening/${currentOpening.uci}/${color}`, 'state': {'currentOpening': currentOpening, 'isDaily': props.location.stats.isDaily}});
+        console.log(currentOpening, color, props.location.state.isDaily)
+        props.history.push({pathname:`/opening/${currentOpening.uci}/${color}`, state: {currentOpening: currentOpening, isDaily: props.location.state.isDaily}});
     }
 
     useEffect(() => {
@@ -66,4 +69,4 @@ const PreOpeningPage = (props) => {
     }
 }
 
-export default PreOpeningPage
+export default withRouter(PreOpeningPage);
