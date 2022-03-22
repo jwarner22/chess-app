@@ -48,7 +48,6 @@ export default function OpeningModule(props) {
   const [boardKey, setBoardKey] = useState(0);
   const [isOpen, setIsOpen] = useState(true)
   const [disableModal, setDisableModal] = useLocalStorage('disable_modal', 'false')
-  console.log(props)
   const {moves, color} = useParams();
   const {put, post} = useFetch(baseURL);
   const {userId, updateOpeningStats, openingStats, createOpeningStats, updateAchievements} = useContext(UserContext);
@@ -332,7 +331,7 @@ async function saveModuleData(userId, openingId, put, post, updateOpeningStats, 
   let updatedOpeningStats = await updateOpeningStats(concatResponse); // update global state
 
   const openingMasteryRank = updatedOpeningStats.map(newOpening => {
-    let oldOpening = oldOpeningStats.find(opening => newOpening.id === opening.id);
+    let oldOpening = oldOpeningStats.find(opening => newOpening.opening_id === opening.opening_id);
 
     let oldMastery = 0;
     let oldRank = '';
@@ -348,7 +347,7 @@ async function saveModuleData(userId, openingId, put, post, updateOpeningStats, 
     let newRank = getRank(newMastery);
     let nextRank = getNextRank(newRank);
 
-    return { name: oldOpening.name, opening_id: newOpening.opening_id, oldRank: oldRank, newRank: newRank, nextRank: nextRank, diff: masteryDiff };
+    return { name: newOpening.name, opening_id: newOpening.opening_id, oldRank: oldRank, newRank: newRank, nextRank: nextRank, diff: masteryDiff };
   });
 
   const thisOpeningRank = openingMasteryRank.find(opening => opening.opening_id === openingId);
