@@ -348,9 +348,9 @@ const UserProvider = ({ children }) => {
         // 2. add top 3 openings to user data (create openings stats)
         
         if (data.some(entry => entry.completions === 1)) {
-            let this_opening = data.find(entry => entry.completions === 1);
-            let openingId = this_opening.opening_id;
-            let endpoint = `/openings-data/top-3/${userId}/${openingId}`;
+            const this_opening = data.find(entry => entry.completions === 1);
+            const openingId = this_opening.opening_id;
+            const endpoint = `/openings-data/top-3/${userId}/${openingId}`;
             let response = await post(endpoint);
             
             if (!response.message === "no child openings") {

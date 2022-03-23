@@ -29,7 +29,6 @@ const LeaderboardsPage = () => {
           if (expiration == null) expiration = now; // if no expiration date, set to now
           
           if (now < expiration) { // if leaderboard is still valid
-                console.log('pull from local storage')
                 let leaderboard = JSON.parse(localStorage.getItem('leaderboard'));
                 let userIndex = 0;
                 if (!leaderboard.some(user => user.id === userId)) { // if user is not in the leaderboard   
