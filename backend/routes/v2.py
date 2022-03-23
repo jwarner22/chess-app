@@ -716,6 +716,7 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
 
     # get user openings, filter by favorites
     user_openings_ids = []
+    pick_opening_id = 0
     user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.favorite == True).all()
     if (len(user_openings) == 0):
         print('none')
@@ -729,41 +730,155 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
             db.refresh(user_initial_opening)
             user_openings = [user_initial_opening]
         #select all user openings with zero or one completions
-        user_openings = [x for x in user_openings if x.completions <= 1]
+        user_openings_trunc = [x for x in user_openings if x.completions <= 1]
+        if (len(user_openings_trunc) != 0):
+            user_openings = user_openings_trunc
+
         # extract ids from user openings
         user_openings_ids = [x.opening_id for x in user_openings]
+        pick_opening_id = choices(user_openings_ids)[0]
 
     else:
         print('favorite')
         print(user_openings)
+        # select random favorite opening
+        user_opening = choices(user_openings)[0]
         # extract ids from user openings
-        user_openings_ids = [x.opening_id for x in user_openings]
-        print(user_openings_ids)
-        # get openings from local openings db
-        openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(user_openings_ids)).all()
-        # extract child ids from favorites
-        child_ids = [x.child_ids for x in openings]
-        print(child_ids)
-        # convert child_ids strings to arrays
-        child_ids = [ast.literal_eval(x) for x in child_ids]
-        print(child_ids)
-        #child_ids = [x.split(',') for x in child_ids]
-        print(child_ids)
-        # flatten child_ids
-        child_ids = [item for sublist in child_ids for item in sublist]
-        print(child_ids)
-        # convert child_ids to integers
-        child_ids = [int(x) for x in child_ids]
-        print(child_ids)
-        # remove duplicates
-        child_ids = list(dict.fromkeys(child_ids))
-        print(child_ids)
+        #user_openings_ids = [x.opening_id for x in user_openings]
+        print(user_opening)
+        print(user_opening.opening_id)
+        opening_id = int(user_opening.opening_id)
 
-        # get openings for child ids
-        user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(child_ids)).all()
+        # get opening from local opening db by user_opening.opening_id
+        opening = db_openings.query(models.Openings).filter(models.Openings.id == opening_id).one_or_none()
+        # get openings from local openings db
+
+        child_ids = opening.child_ids.split(',')
+        child_ids = [int(x) for x in child_ids]
+
+
+        first_depth = 5
+        #child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).filter(models.Openings.completions == 0).order_by(models.Openings.uci_length.asc()).all()
+        truncated_child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).all()
+        # extract ids from child openings
+        truncated_child_ids = [x.id for x in truncated_child_openings]
         
-        # depth for first level of mastery
-        #depth = 5
+        # query user openings db for child openings with depth < first_depth and completed = 0
+        user_child_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(truncated_child_ids)).filter(models.OpeningCompletions.completions == 0).all()
+        
+        if user_child_openings is None:
+            #query all child openings with completions = 0 and sort by uci length 
+            user_child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).filter(models.Openings.completions == 0).all()
+            # if all child openings have been completed, select all child openings and pick random opening
+            if user_child_openings is None:
+
+                user_child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).all()
+                user_child_openings_ids = [x.opening_id for x in user_child_openings]
+                associated_openings = [x for x in child_openings if x.id in user_child_openings]
+                
+                associated_openings_trunc = [x for x in associated_openings if round(len(x.uci)/10) > first_depth]
+                if len(associated_openings_trunc) != 0:
+                    associated_openings = associated_openings_trunc # if there are openings with depth > first_depth, use those openings
+                
+                associated_openings_depth_ids = [x.id for x in associated_openings]
+                # pick random opening from child_openings
+                pick_opening_id = choices(associated_openings)[0]
+            
+            # sort user_child_openings by length descending
+            user_child_openings = sorted(user_child_openings, key=lambda x: len(x.uci), reverse=True)
+            
+            max_length = round(len(child_openings[0].uci))
+            user_child_openings_ids = [x.opening_id for x in user_child_openings]
+            associated_openings = [x for x in child_openings if x.id in user_child_openings_ids]
+
+            for i in range(first_depth, 0, -1):
+                # filter associated_openings by depth
+                associated_openings_depth = [x for x in associated_openings if round(len(x.uci)/10) == i]
+                # sort by np_lichess descending
+                associated_openings_depth = sorted(associated_openings_depth, key=lambda x: x.np_lichess, reverse=True)
+                # extract ids from associated_openings_depth while preserving order
+                associated_openings_depth_ids = [x.id for x in associated_openings_depth]
+                # get user_child_openings from user_child_openings where opening_id is in associated_openings_depth_ids
+                user_child_openings_depth = [x for x in user_child_openings if x.opening_id in associated_openings_depth_ids]
+
+                if len(user_child_openings_depth) > 0:
+                    pick_opening_id = user_child_openings_depth[0].opening_id
+                    break
+        
+        
+        # sort user_child_openings by length descending
+        print(0, truncated_child_openings)
+        user_child_openings_ids = [x.opening_id for x in user_child_openings]
+        associated_openings = [x for x in truncated_child_openings if x.id in user_child_openings_ids]
+        print(1,associated_openings)
+        for i in range(first_depth, 0, -1):
+            # filter associated_openings by depth
+            associated_openings_depth = [x for x in associated_openings if round(len(x.uci)/10) == i]
+            print(2,associated_openings_depth)
+            # sort by np_lichess descending
+            associated_openings_depth = sorted(associated_openings_depth, key=lambda x: x.np_lichess, reverse=True)
+            print(3,associated_openings_depth)
+            # extract ids from associated_openings_depth while preserving order
+            associated_openings_depth_ids = [x.id for x in associated_openings_depth]
+            print(4,associated_openings_depth_ids)
+            # get user_child_openings from user_child_openings where opening_id is in associated_openings_depth_ids
+            user_child_openings_depth = [x for x in user_child_openings if x.opening_id in associated_openings_depth_ids]
+            print(5,user_child_openings_depth)
+
+            print(i)
+            if len(user_child_openings_depth) > 0:
+                print(user_child_openings_depth)
+                print('id found')
+                pick_opening_id = user_child_openings_depth[0].opening_id
+                break
+        
+
+    #     # loop from 1 to first_depth
+    #     for i in range(1, first_depth):
+    #         # get user openings at this depth and sort by np_lichess from child_openings order
+    #         depth_openings_user = [x for x in user_child_openings if round(len(x.uci)/10) == i]
+    #         # get depth openings from child openings (preserve sort order)
+    #         depth_openings_child = [x for x in child_openings if round(len(x.uci)/10) == i]
+    #         for child in depth_openings_child:
+    #             # check if child is in user openings at this depth
+    #             if child in depth_openings_user:
+    #                 # check if opening has completions
+    #                 if depth_openings_user[depth_openings_user.index(child)].completions > 0:
+    # ``                    
+            
+            # sort depth_openings_user by np_lichess
+        # for child in child_openings:
+        #     user_child_opening = user_child_openings.filter(models.OpeningCompletions.opening_id == child.id).one_or_none()
+        #     if user_child_opening is None:
+        #         # pesimtic check here
+        #     if user_child_opening.completions == 0:
+        #         pick_opening_id = child.id
+        
+        # # extract child ids from favorites
+        # child_ids = [x.child_ids for x in openings]
+        # print(child_ids)
+
+        # # convert child_ids strings to arrays
+        # child_ids = [ast.literal_eval(x) for x in child_ids]
+        # print(child_ids)
+        # #child_ids = [x.split(',') for x in child_ids]
+        # print(child_ids)
+        # # flatten child_ids
+        # child_ids = [item for sublist in child_ids for item in sublist]
+        # print(child_ids)
+        # # convert child_ids to integers
+        # child_ids = [int(x) for x in child_ids]
+        # print(child_ids)
+        # # remove duplicates
+        # child_ids = list(dict.fromkeys(child_ids))
+        # print(child_ids)
+
+        # # get openings for child ids
+        # user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(child_ids)).all()
+        
+
+    
+
         #filter(models.OpeningCompletions.completions < 1).filter((round(func.length(models.Openings.uci)/10)) <= depth).filter(len(models..uci) % 2 != 0)
         # filter child ids by depth where opening.child_ids in openings = child_id in child_ids
         #first_pass = [x for x in openings where len(x.uci) % 2 != 0 and (round(func.length(x.uci)/10)) <= depth and x.child_ids in child_ids]        
@@ -771,11 +886,11 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
         #print(first_pass_ids)
 
         # sort user_openings by least completions
-        user_openings = sorted(user_openings, key=lambda x: x.completions)
-        # select top three openings
-        user_openings = user_openings[:5] # may cause bug if len(user_openings) < 3??
+        # user_openings = sorted(user_openings, key=lambda x: x.completions)
+        # # select top three openings
+        # user_openings = user_openings[:5] # may cause bug if len(user_openings) < 3??
         # extract ids from user openings
-        user_openings_ids = [x.opening_id for x in user_openings]
+        # user_openings_ids = [x.opening_id for x in user_openings]
         
 
     # module_options = []
@@ -790,8 +905,9 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
     #         module_weights.append(module.prob)
 
     #randomly select opening id from user openings_ids
-    pick_opening_id = choices(user_openings_ids)
-    picks.append(pick_opening_id[0]) # adds opening to picks
+    #pick_opening_id = choices(user_openings_ids)
+    print(pick_opening_id)
+    picks.append(pick_opening_id) # adds opening to picks
     
     print(picks)
     print(alts)

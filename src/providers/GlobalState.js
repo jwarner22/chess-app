@@ -155,7 +155,7 @@ const UserProvider = ({ children }) => {
 
     // DAILY MODULES
     const handleDailyModules = async (response, embedding) => {
-
+        console.log({embedding: embedding})
         let now = new Date();
         if (response.length === 0) { // no daily modules
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`;
