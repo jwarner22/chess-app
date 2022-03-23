@@ -25,10 +25,6 @@ import BackButton from "../../BackButton.js";
 import {useWindowSize} from '../../../hooks/UseWindowSize';
 import OpeningModalContent from "./OpeningModalContent.js";
 
-import useFetch from "../../../api/useFetch.js";
-import { baseURL } from "../../../api/apiConfig.js";
-
-import { UserContext } from "../../../providers/GlobalState.js";
 
 export default function OpeningModule(props) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -49,8 +45,6 @@ export default function OpeningModule(props) {
   const [isOpen, setIsOpen] = useState(true)
   const [disableModal, setDisableModal] = useLocalStorage('disable_modal', 'false')
   const {moves, color} = useParams();
-  const {put, post} = useFetch(baseURL);
-  const {userId, updateOpeningStats, openingStats, createOpeningStats, updateAchievements} = useContext(UserContext);
 
   //if the instructions modal is disabled in localstorage, don't show modal
   useLayoutEffect(() => {
@@ -82,6 +76,8 @@ export default function OpeningModule(props) {
   
   useEffect(() => {
     getMoves();
+    console.log({props: props})
+    console.log(props.location.state.isDaily)
   }, []);
 
   useEffect(() => {
@@ -103,24 +99,9 @@ export default function OpeningModule(props) {
 
 
   const finished = async (score) => {
-    const openingId = props.location.state.currentOpening.opening_id;
-    let oldOpeningStats = [...openingStats];
-    debugger;
-    // update opening in db
-    const { openingMasteryRank, thisOpeningRank, newOpeningRank } = await saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank, createOpeningStats);
-    
-    newOpeningRank.forEach(newRank => {
-      updateAchievements("next_rank", 0, 0,  newRank.name, newRank.nextRank.name)
-    })
 
-    //push to post opening page
-    props.history.push({pathname: `/post-opening/${moves}/${orientation}`, state: {score: score, openingId: openingId, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank, isDaily: props.location.state.isDaily}});
-  }
-
-  // helper functions for saveModuleData
-  const getNextRank = nextRank()
-  const getRank = rank()
-
+  props.history.push({pathname: `/post-opening/${moves}/${orientation}`, state: {score: score, openingId: props.location.state.currentOpening.opening_id, isDaily: props.location.state.isDaily}});
+}
   
   const getMoves = async () => {
     const openingMoves = getOpeningMoves(moves);
@@ -316,87 +297,6 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   padding: 16px;
 `
-async function saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank, createOpeningStats) {
-  let url = `/opening-completions/${userId}/${openingId}`;
-  let response = await put(url);
-  if (response.detail === 'Opening not found') {
-    // post new opening for user
-    response = await createOpeningStats(openingId);
-  }
 
-  const concatResponse = [...response.parent_openings, response.this_opening];
 
-  //update opening stats in global state
-  let updatedOpeningStats = await updateOpeningStats(concatResponse); // update global state
-
-  const openingMasteryRank = updatedOpeningStats.map(newOpening => {
-    let oldOpening = oldOpeningStats.find(opening => newOpening.opening_id === opening.opening_id);
-
-    let oldMastery = 0;
-    let oldRank = '';
-
-    if (oldOpening == null) {
-      oldRank = 'Newbie';
-    } else {
-      oldMastery = oldOpening.history_7;
-      oldRank = getRank(oldMastery);
-    }
-    let newMastery = newOpening.history_7;
-    let masteryDiff = newMastery - oldMastery;
-    let newRank = getRank(newMastery);
-    let nextRank = getNextRank(newRank);
-
-    return { name: newOpening.name, opening_id: newOpening.opening_id, oldRank: oldRank, newRank: newRank, nextRank: nextRank, diff: masteryDiff };
-  });
-
-  const thisOpeningRank = openingMasteryRank.find(opening => opening.opening_id === openingId);
-  const newOpeningRank = openingMasteryRank.filter(rank => rank.newRank !== rank.oldRank);
-  return { openingMasteryRank, thisOpeningRank, newOpeningRank };
-}
-
-function rank() {
-  return (mastery) => {
-    //set mastery equation = to precentile (20, 40, etc.) and solve for x (mastery)
-    if (mastery === 0) {
-      return 'Newbie';
-    } else if (mastery < 250) {
-      return 'Beginner';
-    } else if (mastery === 667) {
-      return 'Intermediate';
-    } else if (mastery === 1500) {
-      return 'Advanced';
-    } else if (mastery === 4000) {
-      return 'Expert';
-    } else if (mastery === 20000) {
-      return 'Master';
-    } else if (mastery === 30000) {
-      return 'Grandmaster';
-    } else if (mastery === 50000) {
-      return 'Legendary';
-    }
-  };
-}
-
-function nextRank() {
-  return (rank) => {
-    switch (rank) {
-      case 'Newbie':
-        return { name: 'Beginner', value: 250 };
-      case 'Beginner':
-        return { name: 'Intermediate', value: 667 };
-      case 'Intermediate':
-        return { name: 'Advanced', value: 1500 };
-      case 'Advanced':
-        return { name: 'Expert', value: 4000 };
-      case 'Expert':
-        return { name: 'Master', value: 20000 };
-      case 'Master':
-        return { name: 'BegGrandmaster', value: 30000 };
-      case 'Grandmaster':
-        return { name: 'Legendary', value: 50000 };
-      default:
-        return { name: 'Beginner', value: 250 };
-    }
-  };
-}
 

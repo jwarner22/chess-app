@@ -11,12 +11,14 @@ import Module from "../components/Module/Module";
 import TestModule from '../testing/TestModule';
 import PreOpeningTest from '../components/PostLogin/Views/Openings/PreOpeningTest';
 import TestingPage from '../Pages/TestingPage';
+import { PostOpening } from '../components/Module/Opening/PostOpening';
 
 const PrePuzzlePage = React.lazy(() => import('../components/PrePuzzle/PrePuzzle'));
 //const Opening = React.lazy(() => import('../components/Module/Opening/OpeningManager'));
 const Opening = React.lazy(() => import('../components/Module/Opening/OpeningPage'));
 const Home = React.lazy(() => import('../components/PostLogin/Views/Home'));
-const PostOpening = React.lazy(() => import('../components/PostLogin/Views/Openings/PostOpeningPage'));
+const PostOpeningPage = React.lazy(() => import('../components/PostLogin/Views/Openings/PostOpeningPage'));
+
 
 const protectedRoutes = [
 	{
@@ -107,13 +109,19 @@ const protectedRoutes = [
 		name: "PostOpeningPage",
 		path: "/post-opening/:moves/:color",
 		exact: false,
-		main: (props) => <PostOpening {...props} />
+		main: (props) => <PostOpeningPage {...props} />
 	},
 	{
 		name: 'TestingPage',
 		path: '/testing',
 		exact: true,
 		main: () => <TestingPage />
+	},
+	{
+		name: 'PostOpening',
+		path: '/post-opening/:moves/:orientation',
+		exact: false,
+		main: (props) => <PostOpening {...props} />
 	}
 ];
 

@@ -12,7 +12,7 @@ const PreOpeningPage = (props) => {
     const [userOpeningData, setUserOpeningData] = useState({});
 
     const {openings, updateOpenings, contextLoading} = useContext(UserContext);
-
+    console.log(props)
     function handleStartButtonClick(color) {
         togglePrePuzzleCallback(color)
     }
