@@ -12,4 +12,5 @@ const Title = styled.h1`
     color: #243862;
     padding: 24px 0px;
     text-align: center;
+    
 `

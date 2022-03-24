@@ -17,6 +17,7 @@ import {useWindowSize} from '../../../../../hooks/UseWindowSize';
 
 import { useContext } from "react";
 import { UserContext } from "../../../../../providers/GlobalState";
+import { motion } from "framer-motion";
 
 const INITIAL_RATING = 600;
 
@@ -28,6 +29,7 @@ function CourseTile (props){
     const linkUrl = (props.category === 'opening') ? `/opening` : `/dashboard/module`;
     const {themesData, contextLoading, userData} = useContext(UserContext);
     const [rating, setRating] = useState(0);
+    const {variants} = props
 
     useEffect(() => {
         if (!contextLoading) {
@@ -71,8 +73,12 @@ function CourseTile (props){
 
     return (
         <>
-        <TileWrapper type={props.type}>
-            <TileHeader>
+        <TileWrapper 
+            as={motion.li}
+            variants={variants}
+            type={props.type}
+            >
+            <TileHeader >
                 {isMobile ? (<Link style={{textDecoration: 'none'}} to={{pathname: linkUrl, state: {module: props}, isDaily: false}}>
 <TileContent /></Link>) : (<TileContent />)}
                 {isMobile ? ( null ) : (

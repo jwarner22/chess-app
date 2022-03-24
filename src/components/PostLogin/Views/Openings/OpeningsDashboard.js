@@ -1,14 +1,15 @@
 import React from 'react';
-
-
-
 import {Modules} from '../../../../data/ModuleData';
 import {DashboardWrapper} from "../PatternRecognition/PatternRecognition"
-
-import OpeningMenu from './OpeningMenu';
 import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
 import CourseTile from '../PatternRecognition/CourseTiles/CourseTiles';
 import FooterBuffer from '../../../UI_Kit/FooterBuffer';
+import CategoryTitle from '../../../UI_Kit/CategoryTitle/CategoryTitle';
+import { CurrentOpeningContainer } from '../../../UI_Kit/Tiles/PuzzleTileElements';
+import { OpeningTreeTileWrapper } from '../../../UI_Kit/Tiles/OpeningTreeTiles';
+import Tile from '../../../UI_Kit/Tiles/Tile';
+import LargeConatiner from '../../../UI_Kit/Boxes/Containers/LargeConatiner';
+import OpeningMastery from '../../../../Pages/Openings/OpeningMastery';
 
 
 const Openings = () => {
@@ -19,7 +20,7 @@ const Openings = () => {
     return (
         <>
         <DashboardWrapper>
-        <OpeningMenu />
+        <OpeningMastery />
         <PuzzleTileGrid className="e4Tiles" id={"e4"} category={'E4 Openings'}>
         {e4Openings.map((module, index) => {
                           return(

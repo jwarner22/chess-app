@@ -5,7 +5,7 @@ import ChessboardLoader from "../components/ChessBoardLoader/ChessboardLoader"
 const TestingPage = () => {
   return (
     <>
-      <ChessboardLoader />
+      Test yo stuff here
     </>
   )
 }

@@ -8,7 +8,7 @@ import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
 import CourseTile from './CourseTiles/CourseTiles';
 import {Link} from 'react-router-dom'
 import ChessboardLoader from '../../../ChessBoardLoader/ChessboardLoader';
-
+import {motion} from 'framer-motion'
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -19,6 +19,33 @@ const Dashboard = () => {
   const tacticModules = Modules.filter(module => module.type === "midgame")
   const checkmateModules = Modules.filter(module => module.type === "checkmate")
 
+  const container = {
+    show: {
+        transition: {
+            staggerChildren: 0.35
+        }
+    }
+}
+
+const item = {
+  hidden: {
+      opactiy: 0, 
+      y: 200,
+  },
+  show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+          ease: [0.6, 0.01, -0.05, 0.95],
+          duration: 1.6,
+      }
+  },
+  exit: {
+      opacity: 0,
+      y: -200
+  }
+};
+
   useEffect(() => {
     setIsLoading(true)
     setTimeout(() => {
@@ -28,14 +55,29 @@ const Dashboard = () => {
 
   const TileList = () => {
     return (<>
-                       <PuzzleTileGrid className="endgameTiles" id={"endgames"} category={"Endgames"}>
+            <motion.div>
+                       <PuzzleTileGrid 
+                            className="endgameTiles" 
+                            id={"endgames"} 
+                            category={"Endgames"}
+                            as={motion.div}
+                            variants={container}
+                            initial='hidden'
+                            animate='show'
+                            exit='exit'
+                        >
                {endgameModules.map((module, index) => {
                                  return(
                                  // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
-                                 <CourseTile key={index} {...module} />
+                                 <CourseTile 
+                                    as={motion.div}
+                                    variants={item}
+                                    key={index} 
+                                    {...module} />
                                  // </ModalLink>
                              )})}
              </PuzzleTileGrid>
+             </motion.div>
              {!isLoading && <>
                <PuzzleTileGrid className="tacticTiles" id={"tactics"} category={"Tactics"}>
                {tacticModules.map((module, index) => {
