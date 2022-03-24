@@ -5,12 +5,12 @@ import OpeningMasteryProgressBar from './OpeningMasteryProgressBar'
 import { useContext } from 'react';
 import { UserContext } from '../../providers/GlobalState';
 
-const MasteryTilesContent = () => {
+const MasteryTilesContent = (props) => {
 
   return ( <>
   <TileHeader>
-    <H3>Closed Spanish</H3>
-    <OpeningMasteryProgressBar />
+    <H3>{props.headline}</H3>
+    {/* <OpeningMasteryProgressBar /> */}
     </TileHeader>
     <TileFooter>
         <MasteryTileButton>
@@ -19,18 +19,10 @@ const MasteryTilesContent = () => {
         <FooterStatsContainer>
             <StatWrapper>
                 <StatHeadline>
-                    Completed Lines
+                    Opening Type:
                 </StatHeadline>
                 <StatContent>
-                    45
-                </StatContent>
-            </StatWrapper>
-            <StatWrapper>
-                <StatHeadline>
-                    Opening Popularity
-                </StatHeadline>
-                <StatContent>
-                    4th
+                    {props.pawn}
                 </StatContent>
             </StatWrapper>
         </FooterStatsContainer>
@@ -43,6 +35,7 @@ export default MasteryTilesContent
 
 const TileHeader = styled.div`
     padding: 24px;
+    text-align: center;
 `
 
 const TileFooter = styled.div`
@@ -50,7 +43,7 @@ const TileFooter = styled.div`
     width: 100%;
     justify-content: space-between;
     background: #EEF0FF;
-    height: 30%;
+    height: auto;
     padding: 24px;
     flex-wrap: wrap;
 `

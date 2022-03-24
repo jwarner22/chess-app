@@ -5,7 +5,7 @@ import MasteryTilesContent from './MasteryTilesContent'
 const MasteryTiles = (props) => {
   return (
     <Tile>
-        <MasteryTilesContent>
+        <MasteryTilesContent {...props}>
             {props.children}
         </MasteryTilesContent>
     </Tile>

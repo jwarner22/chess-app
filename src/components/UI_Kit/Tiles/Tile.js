@@ -7,7 +7,7 @@ const Tile = (props) => {
 }
 export default Tile
 
-const TileContainer = styled.div`
+const TileContainer = styled.li`
     border-radius: 35px;
     background-color: #fff;
     color: #243862;
@@ -15,5 +15,7 @@ const TileContainer = styled.div`
     max-width: 1080px;
     width: 100%;
     overflow: hidden;
+    list-style: none;
+    margin: 12px 0px;
 `
 
