@@ -2,8 +2,11 @@ import styled from 'styled-components'
 import {H3} from "../../components/UI_Kit/Text/H3"
 import Button from "../../components/UI_Kit/Button/Button"
 import OpeningMasteryProgressBar from './OpeningMasteryProgressBar'
+import { useContext } from 'react';
+import { UserContext } from '../../providers/GlobalState';
 
 const MasteryTilesContent = () => {
+
   return ( <>
   <TileHeader>
     <H3>Closed Spanish</H3>

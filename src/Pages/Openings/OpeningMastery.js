@@ -8,7 +8,7 @@ import { UserContext } from '../../providers/GlobalState';
 
 const OpeningMastery = () => {
 
-const [openingStats] = useContext(UserContext);
+const {openingStats} = useContext(UserContext);
 
 console.log(openingStats)
 
