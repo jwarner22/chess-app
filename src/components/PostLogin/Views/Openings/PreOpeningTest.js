@@ -13,7 +13,7 @@ const PreOpeningPage = (props) => {
     const currentOpening = props.location.state.currentOpening;
     const [loaded, setLoaded] = useState(false);
     const {openings, contextLoading, userData} = useContext(UserContext);
-
+    console.log(props)
     function handleStartButtonClick(color) {
         // add link instead of callback
         props.history.push({pathname:`/opening/${currentOpening.uci}/${color}`, state: {currentOpening: currentOpening, isDaily: props.location.state.isDaily}});
@@ -34,8 +34,6 @@ const PreOpeningPage = (props) => {
         //setUsercurrentOpening(opening);
         setLoaded(true);
     },[currentOpening])
-
-
 
     if (loaded && !contextLoading) {
     return (

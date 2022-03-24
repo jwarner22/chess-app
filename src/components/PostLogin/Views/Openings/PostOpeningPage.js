@@ -49,14 +49,19 @@ const PostOpeningPage = (props) => {
         });
         return(historyPoint)
     })
+    console.log({props: props})
+    console.log({historyData: historyData})
     // console.log({parentHistoryData: parentHistoryData})
 
     //const nextRank = calcNextRank(opening.historyData.pop());
 
     useEffect(() =>{
         //if (props.completedTraining) setLinkUrl('completed-training');
-        if (props.isDaily) setLinkUrl('completed-training');
-        else setLinkUrl(`/home/openings`);
+        if (props.location.state.isDaily) {
+            setLinkUrl('/completed-training');
+        } else {
+            setLinkUrl(`/home/openings`);
+        }
     }, [])
 
     const handleNextClick = () => {
@@ -91,13 +96,13 @@ const PostOpeningPage = (props) => {
                         {/* {`Mastery: ${opening.history_7} (+${opening.history_7 - opening.history_6})`} 
                         Mastery
                     </ModuleExperience> */}
-                    <Chart data={historyData} reference={{value: thisOpeningRank.nextRank.value, label: thisOpeningRank.nextRank.name}}/>
+                    <Chart data={historyData} />
                     {/* {multi && <MultiChart data={parentHistoryData} lineData={parents}/>}
                     {!multi && <FinishButton onClick={handleNextClick}>Next</FinishButton>} */}
 
                     <Link to={linkUrl}>
                     <FinishButton>
-                        Return to {props.location.state.isDaily ? 'Daily Puzzles' : 'Openings'}
+                        Return to {props.location.state.isDaily ? 'Daily Training' : 'Openings'}
                     </FinishButton>
                     </Link>
             

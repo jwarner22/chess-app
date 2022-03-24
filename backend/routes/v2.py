@@ -67,11 +67,11 @@ def get_local_opening_db():
 # def read_root():
 #         return {'Hello': 'world'}
 
-# get users
-@app_v2.get('/users', tags=["Testing"])
-async def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
-    users = crud.get_users(db, skip=skip, limit=limit)
-    return users
+# # get users
+# @app_v2.get('/users', tags=["Testing"])
+# async def get_users(skip: int = 0, limit: int = 0, db: Session = Depends(get_db)):
+#     users = crud.get_users(db, skip=skip, limit=limit)
+#     return users
 
 
 ## ADMIN
@@ -159,6 +159,7 @@ async def update_lots_o_stuff(db: Session = Depends(get_local_opening_db)):
     #     print('opening parent ids updated:' + ' ' + str(opening.id))
 
     return "successful"
+
 ## OPENING DATA
 
 # get opening stats for user
@@ -261,7 +262,6 @@ async def get_opening_favorite(user_id: str, opening_id: str, db: Session = Depe
     return {"favorite": favorite}
 
 #update opening favorite
-#`/user/${props.userId}/opening/${openingId}/favorites`, {favorite: !favorites}
 @app_v2.put('/user/{user_id}/opening/{opening_id}/favorites', tags=["Openings"])
 async def update_opening_favorite(user_id: str, opening_id: int, favorite: bool, db: Session = Depends(get_db)):
     # get user opening
@@ -275,19 +275,19 @@ async def update_opening_favorite(user_id: str, opening_id: int, favorite: bool,
 
     return {"message": "successful"}
 
-# get opening for ui
-@app_v2.get('/openings-data/', response_model=List[schemas.Openings], tags=["Openings"]) # get opening data
-async def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
-    moves_length = len(moves)
-    # limit to two moves ahead
-    openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
-    return openings
+# # get opening for ui
+# @app_v2.get('/openings-data/', response_model=List[schemas.Openings], tags=["Openings"]) # get opening data
+# async def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
+#     moves_length = len(moves)
+#     # limit to two moves ahead
+#     openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
+#     return openings
 
-# get single opening for ui
-@app_v2.get('/opening-data/', response_model=schemas.OpeningData, tags=["Openings"]) # get opening data
-async def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
-    opening = db.query(models.Openings).filter(models.Openings.uci==moves).first()
-    return opening
+# # get single opening for ui
+# @app_v2.get('/opening-data/', response_model=schemas.OpeningData, tags=["Openings"]) # get opening data
+# async def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
+#     opening = db.query(models.Openings).filter(models.Openings.uci==moves).first()
+#     return opening
 
 # add new opening data for user
 @app_v2.post('/openings-data/new/{user_id}/{opening_id}', tags=["Openings"]) # add new opening data')
@@ -322,61 +322,61 @@ async def add_new_opening_data(user_id: str, opening_id: int, db: Session = Depe
 
     return {"user_opening": user_opening, "opening": opening}
 
-# add opening data for user
-@app_v2.post('/openings-data/{user_id}/{opening_id}', tags=["Openings"]) # add opening data
-async def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
-    this_opening = db_openings.query(models.Openings).filter(models.Openings.id == opening_id).first()
+# # add opening data for user
+# @app_v2.post('/openings-data/{user_id}/{opening_id}', tags=["Openings"]) # add opening data
+# async def add_opening(user_id: str, opening_id: int, db: Session = Depends(get_db), db_openings: Session = Depends(get_local_opening_db)):
+#     this_opening = db_openings.query(models.Openings).filter(models.Openings.id == opening_id).first()
 
-    if this_opening is None:
-        raise HTTPException(status_code=404, detail="Opening not found")
+#     if this_opening is None:
+#         raise HTTPException(status_code=404, detail="Opening not found")
     
-    mastery = 3*round((len(this_opening.uci)+1)/10)
-    opening = models.OpeningCompletions(owner_id=user_id, opening_id=opening_id, completions=1, history_7=mastery)
+#     mastery = 3*round((len(this_opening.uci)+1)/10)
+#     opening = models.OpeningCompletions(owner_id=user_id, opening_id=opening_id, completions=1, history_7=mastery)
 
-    db.add(opening)
-    db.commit()
+#     db.add(opening)
+#     db.commit()
 
-    parent_ids = this_opening.parent_ids.split(',')
+#     parent_ids = this_opening.parent_ids.split(',')
 
-    # query all user_openings in db that match parent_ids
-    user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(parent_ids)).all()
-    for _opening in user_openings:
-        mastery = opening.history_7 + mastery_diff
-        setattr(user_opening, 'completions', user_opening.completions + 1) # increment completion count
-        setattr(user_opening, 'history_1', user_opening.history_2) # shift history
-        setattr(user_opening, 'history_2', user_opening.history_3)
-        setattr(user_opening, 'history_3', user_opening.history_4)
-        setattr(user_opening, 'history_4', user_opening.history_5)
-        setattr(user_opening, 'history_5', user_opening.history_6)
-        setattr(user_opening, 'history_6', user_opening.history_7)
-        setattr(user_opening, 'history_7', mastery) # update history
-        db.commit()
-        db.refresh(_opening)
+#     # query all user_openings in db that match parent_ids
+#     user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(parent_ids)).all()
+#     for _opening in user_openings:
+#         mastery = opening.history_7 + mastery_diff
+#         setattr(user_opening, 'completions', user_opening.completions + 1) # increment completion count
+#         setattr(user_opening, 'history_1', user_opening.history_2) # shift history
+#         setattr(user_opening, 'history_2', user_opening.history_3)
+#         setattr(user_opening, 'history_3', user_opening.history_4)
+#         setattr(user_opening, 'history_4', user_opening.history_5)
+#         setattr(user_opening, 'history_5', user_opening.history_6)
+#         setattr(user_opening, 'history_6', user_opening.history_7)
+#         setattr(user_opening, 'history_7', mastery) # update history
+#         db.commit()
+#         db.refresh(_opening)
     
     
-    return {"this_opening": opening, "parent_openings": user_openings}
+#     return {"this_opening": opening, "parent_openings": user_openings}
 
-#  get child ids for opening
-@app_v2.get('/openings-data/{opening_id}/children', tags=["Openings"]) # get child ids for opening
-async def get_child_ids(opening_id: int, db: Session = Depends(get_local_opening_db)):
-    opening = db.query(models.Openings).filter(models.Openings.id == opening_id).first()
-    if opening is None:
-        raise HTTPException(status_code=404, detail="Opening not found")
-    if opening.child_ids is None:
-        moves = opening.pgn
-        openings = db.query(models.Openings).filter((models.Openings.pgn.contains(moves))).all()
+# #  get child ids for opening
+# @app_v2.get('/openings-data/{opening_id}/children', tags=["Openings"]) # get child ids for opening
+# async def get_child_ids(opening_id: int, db: Session = Depends(get_local_opening_db)):
+#     opening = db.query(models.Openings).filter(models.Openings.id == opening_id).first()
+#     if opening is None:
+#         raise HTTPException(status_code=404, detail="Opening not found")
+#     if opening.child_ids is None:
+#         moves = opening.pgn
+#         openings = db.query(models.Openings).filter((models.Openings.pgn.contains(moves))).all()
         
-        child_ids = []
-        for entry in openings:
-            if (entry.id != opening_id):
-                child_ids.append(entry.id)
-                print(entry.id)
+#         child_ids = []
+#         for entry in openings:
+#             if (entry.id != opening_id):
+#                 child_ids.append(entry.id)
+#                 print(entry.id)
 
-        child_ids = ','.join(str(e) for e in child_ids)
-        opening.child_ids = child_ids
-        db.commit()
-        db.refresh(opening)
-    return {"id" : opening_id, "child_ids" : opening.child_ids}
+#         child_ids = ','.join(str(e) for e in child_ids)
+#         opening.child_ids = child_ids
+#         db.commit()
+#         db.refresh(opening)
+#     return {"id" : opening_id, "child_ids" : opening.child_ids}
 
 # get child openings
 @app_v2.post('/openings-data/children', response_model=List[schemas.OpeningData], tags=["Openings"]) # get child openings
@@ -395,42 +395,42 @@ async def get_child_openings(body: schemas.ChildOpeningsRequest, db: Session = D
     return child_openings
 
 # get opening completions
-@app_v2.get('/opening-completions/{user_id}/{pgn}', tags=["Openings"]) # get opening data
-async def get_opening_completions(user_id: str, pgn: str, db_openings: Session = Depends(get_local_opening_db), db: Session = Depends(get_db)):
-    #moves_length = len(moves)
-    # query local db for opening ids
-    openings = db_openings.query(models.Openings).filter((models.Openings.pgn.contains(pgn))).all()
-    this_opening = db_openings.query(models.Openings).filter(models.Openings.pgn == pgn).first()
+# @app_v2.get('/opening-completions/{user_id}/{pgn}', tags=["Openings"]) # get opening data
+# async def get_opening_completions(user_id: str, pgn: str, db_openings: Session = Depends(get_local_opening_db), db: Session = Depends(get_db)):
+#     #moves_length = len(moves)
+#     # query local db for opening ids
+#     openings = db_openings.query(models.Openings).filter((models.Openings.pgn.contains(pgn))).all()
+#     this_opening = db_openings.query(models.Openings).filter(models.Openings.pgn == pgn).first()
 
-    opening_ids = []
-    for opening in openings:
-        opening_ids.append(opening.id)
+#     opening_ids = []
+#     for opening in openings:
+#         opening_ids.append(opening.id)
 
-    # query remote db for opening ids
-    user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(opening_ids)).all()
-    opening_completions = 0
+#     # query remote db for opening ids
+#     user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(opening_ids)).all()
+#     opening_completions = 0
     
     
-    for opening in user_openings:
-        opening_completions += opening.completions
+#     for opening in user_openings:
+#         opening_completions += opening.completions
 
-    # extract ucis from matching openings and user_openings
-    opening_ucis=[]
-    opening_mastery=0
-    for opening in openings:
-        for user_opening in user_openings:
-            if opening.id == user_opening.opening_id:
-                opening_ucis.append(opening.uci)
-                opening_mastery += user_opening.completions*3*round((len(opening.uci)+1)/10) # calculate mastery as number completed * deth of opening
+#     # extract ucis from matching openings and user_openings
+#     opening_ucis=[]
+#     opening_mastery=0
+#     for opening in openings:
+#         for user_opening in user_openings:
+#             if opening.id == user_opening.opening_id:
+#                 opening_ucis.append(opening.uci)
+#                 opening_mastery += user_opening.completions*3*round((len(opening.uci)+1)/10) # calculate mastery as number completed * deth of opening
 
-    max_depth = 0
-    for uci in opening_ucis:
-        if len(uci) > max_depth: 
-            max_depth = len(uci)
+#     max_depth = 0
+#     for uci in opening_ucis:
+#         if len(uci) > max_depth: 
+#             max_depth = len(uci)
 
-    max_depth = round((max_depth+1)/10) # conver to move depth (add 1 to allow for even division)
+#     max_depth = round((max_depth+1)/10) # conver to move depth (add 1 to allow for even division)
 
-    return {"id": this_opening.id, "completions": opening_completions, "max_depth": max_depth, "mastery": opening_mastery}
+#     return {"id": this_opening.id, "completions": opening_completions, "max_depth": max_depth, "mastery": opening_mastery}
 
 # update opening completions
 @app_v2.put('/opening-completions/{user_id}/{opening_id}', tags=["Openings"]) # update opening data for user
@@ -491,48 +491,48 @@ async def update_opening_data(user_id: str, opening_id: int, db: Session = Depen
     return {"this_opening": user_opening, "parent_openings": user_openings}
 
 
-@app_v2.get('/openings-data/lichess-explorer/{pgn}', tags=["Openings"]) # request lichess explorer data for moves
-async def get_lichess_explorer_data(pgn: str, db: Session = Depends(get_local_opening_db)):
-    #moves_length = len(moves)
-    #openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
-    openings = db.query(models.Openings).filter(models.Openings.pgn.contains(pgn)).all()
+# @app_v2.get('/openings-data/lichess-explorer/{pgn}', tags=["Openings"]) # request lichess explorer data for moves
+# async def get_lichess_explorer_data(pgn: str, db: Session = Depends(get_local_opening_db)):
+#     #moves_length = len(moves)
+#     #openings = db.query(models.Openings).filter((func.length(models.Openings.uci) < (moves_length + 20)) & (models.Openings.uci.contains(moves))).all()
+#     openings = db.query(models.Openings).filter(models.Openings.pgn.contains(pgn)).all()
 
-    for opening in openings:
-        if opening.np_lichess is None:
-            moves_comma = ','.join(opening.uci.split(' '))
-            r = requests.get('https://explorer.lichess.ovh/lichess?play=' + moves_comma + '&variant=standard'+ '&topGames=0' + '&recentGames=0')  #+'&moves=0'
-            if r.status_code != 200:
-                print(r.text)
-                continue
-            r = r.json()
-            print('request')
-            np_lichess = r['white'] + r['draws'] + r['black']
-            stmt = update(models.Openings).where(models.Openings.id == opening.id).values(np_lichess=np_lichess)
-            db.execute(stmt)
-            db.commit()
-            time.sleep(0.05)
+#     for opening in openings:
+#         if opening.np_lichess is None:
+#             moves_comma = ','.join(opening.uci.split(' '))
+#             r = requests.get('https://explorer.lichess.ovh/lichess?play=' + moves_comma + '&variant=standard'+ '&topGames=0' + '&recentGames=0')  #+'&moves=0'
+#             if r.status_code != 200:
+#                 print(r.text)
+#                 continue
+#             r = r.json()
+#             print('request')
+#             np_lichess = r['white'] + r['draws'] + r['black']
+#             stmt = update(models.Openings).where(models.Openings.id == opening.id).values(np_lichess=np_lichess)
+#             db.execute(stmt)
+#             db.commit()
+#             time.sleep(0.05)
 
-    opening_ids = []
-    for opening in openings:
-        opening_ids.append(opening.id)
+#     opening_ids = []
+#     for opening in openings:
+#         opening_ids.append(opening.id)
 
-    # query updated openings and return
-    openings = db.query(models.Openings).filter(models.Openings.id.in_(opening_ids)).all()
-    if openings is None:
-        raise HTTPException(status_code=404, detail="No openings")
-    return openings
+#     # query updated openings and return
+#     openings = db.query(models.Openings).filter(models.Openings.id.in_(opening_ids)).all()
+#     if openings is None:
+#         raise HTTPException(status_code=404, detail="No openings")
+#     return openings
 
 
 ## PUZZLES
 
-# get module puzzles
-@app_v2.get('/puzzles/', tags=["Puzzles"])
-async def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
-   puzzle = get_puzzles(db,rating, theme)
+# # get module puzzles
+# @app_v2.get('/puzzles/', tags=["Puzzles"])
+# async def read_puzzles(rating: int, theme: str, db: Session = Depends(get_local_db)):
+#    puzzle = get_puzzles(db,rating, theme)
 
-   if puzzle is None:
-       raise HTTPException(status_code=404, detail='puzzle not found')
-   return puzzle
+#    if puzzle is None:
+#        raise HTTPException(status_code=404, detail='puzzle not found')
+#    return puzzle
 
 # get single puzzle 
 @app_v2.get('/puzzle/{theme}/{rating}', tags=["Puzzles"])
@@ -716,6 +716,7 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
 
     # get user openings, filter by favorites
     user_openings_ids = []
+    pick_opening_id = 0
     user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.favorite == True).all()
     if (len(user_openings) == 0):
         print('none')
@@ -729,44 +730,167 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
             db.refresh(user_initial_opening)
             user_openings = [user_initial_opening]
         #select all user openings with zero or one completions
-        user_openings = [x for x in user_openings if x.completions <= 1]
+        user_openings_trunc = [x for x in user_openings if x.completions <= 1]
+        if (len(user_openings_trunc) != 0):
+            user_openings = user_openings_trunc
+
         # extract ids from user openings
         user_openings_ids = [x.opening_id for x in user_openings]
+        pick_opening_id = choices(user_openings_ids)[0]
 
     else:
         print('favorite')
         print(user_openings)
+        # select random favorite opening
+        user_opening = choices(user_openings)[0]
         # extract ids from user openings
-        user_openings_ids = [x.opening_id for x in user_openings]
-        print(user_openings_ids)
-        # get openigns from local openings db
-        openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(user_openings_ids)).all()
-        # extract child ids from favorites
-        child_ids = [x.child_ids for x in openings]
-        print(child_ids)
-        # convert child_ids strings to arrays
-        child_ids = [ast.literal_eval(x) for x in child_ids]
-        print(child_ids)
-        #child_ids = [x.split(',') for x in child_ids]
-        print(child_ids)
-        # flatten child_ids
-        child_ids = [item for sublist in child_ids for item in sublist]
-        print(child_ids)
-        # convert child_ids to integers
-        child_ids = [int(x) for x in child_ids]
-        print(child_ids)
-        # remove duplicates
-        child_ids = list(dict.fromkeys(child_ids))
-        print(child_ids)
+        #user_openings_ids = [x.opening_id for x in user_openings]
+        print(user_opening)
+        print(user_opening.opening_id)
+        opening_id = int(user_opening.opening_id)
 
-        # get openings for child ids
-        user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(child_ids)).all()
+        # get opening from local opening db by user_opening.opening_id
+        opening = db_openings.query(models.Openings).filter(models.Openings.id == opening_id).one_or_none()
+        # get openings from local openings db
+
+        child_ids = opening.child_ids.split(',')
+        child_ids = [int(x) for x in child_ids]
+
+
+        first_depth = 5
+        #child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).filter(models.Openings.completions == 0).order_by(models.Openings.uci_length.asc()).all()
+        truncated_child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).all()
+        # extract ids from child openings
+        truncated_child_ids = [x.id for x in truncated_child_openings]
+        
+        # query user openings db for child openings with depth < first_depth and completed = 0
+        user_child_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(truncated_child_ids)).filter(models.OpeningCompletions.completions == 0).all()
+        
+        if user_child_openings is None:
+            #query all child openings with completions = 0 and sort by uci length 
+            user_child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).filter(models.Openings.completions == 0).all()
+            # if all child openings have been completed, select all child openings and pick random opening
+            if user_child_openings is None:
+
+                user_child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).all()
+                user_child_openings_ids = [x.opening_id for x in user_child_openings]
+                associated_openings = [x for x in child_openings if x.id in user_child_openings]
+                
+                associated_openings_trunc = [x for x in associated_openings if round(len(x.uci)/10) > first_depth]
+                if len(associated_openings_trunc) != 0:
+                    associated_openings = associated_openings_trunc # if there are openings with depth > first_depth, use those openings
+                
+                associated_openings_depth_ids = [x.id for x in associated_openings]
+                # pick random opening from child_openings
+                pick_opening_id = choices(associated_openings)[0]
+            
+            # sort user_child_openings by length descending
+            user_child_openings = sorted(user_child_openings, key=lambda x: len(x.uci), reverse=True)
+            
+            max_length = round(len(child_openings[0].uci))
+            user_child_openings_ids = [x.opening_id for x in user_child_openings]
+            associated_openings = [x for x in child_openings if x.id in user_child_openings_ids]
+
+            for i in range(first_depth, 0, -1):
+                # filter associated_openings by depth
+                associated_openings_depth = [x for x in associated_openings if round(len(x.uci)/10) == i]
+                # sort by np_lichess descending
+                associated_openings_depth = sorted(associated_openings_depth, key=lambda x: x.np_lichess, reverse=True)
+                # extract ids from associated_openings_depth while preserving order
+                associated_openings_depth_ids = [x.id for x in associated_openings_depth]
+                # get user_child_openings from user_child_openings where opening_id is in associated_openings_depth_ids
+                user_child_openings_depth = [x for x in user_child_openings if x.opening_id in associated_openings_depth_ids]
+
+                if len(user_child_openings_depth) > 0:
+                    pick_opening_id = user_child_openings_depth[0].opening_id
+                    break
+        
+        
+        # sort user_child_openings by length descending
+        print(0, truncated_child_openings)
+        user_child_openings_ids = [x.opening_id for x in user_child_openings]
+        associated_openings = [x for x in truncated_child_openings if x.id in user_child_openings_ids]
+        print(1,associated_openings)
+        for i in range(first_depth, 0, -1):
+            # filter associated_openings by depth
+            associated_openings_depth = [x for x in associated_openings if round(len(x.uci)/10) == i]
+            print(2,associated_openings_depth)
+            # sort by np_lichess descending
+            associated_openings_depth = sorted(associated_openings_depth, key=lambda x: x.np_lichess, reverse=True)
+            print(3,associated_openings_depth)
+            # extract ids from associated_openings_depth while preserving order
+            associated_openings_depth_ids = [x.id for x in associated_openings_depth]
+            print(4,associated_openings_depth_ids)
+            # get user_child_openings from user_child_openings where opening_id is in associated_openings_depth_ids
+            user_child_openings_depth = [x for x in user_child_openings if x.opening_id in associated_openings_depth_ids]
+            print(5,user_child_openings_depth)
+
+            print(i)
+            if len(user_child_openings_depth) > 0:
+                print(user_child_openings_depth)
+                print('id found')
+                pick_opening_id = user_child_openings_depth[0].opening_id
+                break
+        
+
+    #     # loop from 1 to first_depth
+    #     for i in range(1, first_depth):
+    #         # get user openings at this depth and sort by np_lichess from child_openings order
+    #         depth_openings_user = [x for x in user_child_openings if round(len(x.uci)/10) == i]
+    #         # get depth openings from child openings (preserve sort order)
+    #         depth_openings_child = [x for x in child_openings if round(len(x.uci)/10) == i]
+    #         for child in depth_openings_child:
+    #             # check if child is in user openings at this depth
+    #             if child in depth_openings_user:
+    #                 # check if opening has completions
+    #                 if depth_openings_user[depth_openings_user.index(child)].completions > 0:
+    # ``                    
+            
+            # sort depth_openings_user by np_lichess
+        # for child in child_openings:
+        #     user_child_opening = user_child_openings.filter(models.OpeningCompletions.opening_id == child.id).one_or_none()
+        #     if user_child_opening is None:
+        #         # pesimtic check here
+        #     if user_child_opening.completions == 0:
+        #         pick_opening_id = child.id
+        
+        # # extract child ids from favorites
+        # child_ids = [x.child_ids for x in openings]
+        # print(child_ids)
+
+        # # convert child_ids strings to arrays
+        # child_ids = [ast.literal_eval(x) for x in child_ids]
+        # print(child_ids)
+        # #child_ids = [x.split(',') for x in child_ids]
+        # print(child_ids)
+        # # flatten child_ids
+        # child_ids = [item for sublist in child_ids for item in sublist]
+        # print(child_ids)
+        # # convert child_ids to integers
+        # child_ids = [int(x) for x in child_ids]
+        # print(child_ids)
+        # # remove duplicates
+        # child_ids = list(dict.fromkeys(child_ids))
+        # print(child_ids)
+
+        # # get openings for child ids
+        # user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(child_ids)).all()
+        
+
+    
+
+        #filter(models.OpeningCompletions.completions < 1).filter((round(func.length(models.Openings.uci)/10)) <= depth).filter(len(models..uci) % 2 != 0)
+        # filter child ids by depth where opening.child_ids in openings = child_id in child_ids
+        #first_pass = [x for x in openings where len(x.uci) % 2 != 0 and (round(func.length(x.uci)/10)) <= depth and x.child_ids in child_ids]        
+        #first_pass_ids = [x.opening_id for x in first_pass]
+        #print(first_pass_ids)
+
         # sort user_openings by least completions
-        user_openings = sorted(user_openings, key=lambda x: x.completions)
-        # select top three openings
-        user_openings = user_openings[:5] # may cause bug if len(user_openings) < 3??
+        # user_openings = sorted(user_openings, key=lambda x: x.completions)
+        # # select top three openings
+        # user_openings = user_openings[:5] # may cause bug if len(user_openings) < 3??
         # extract ids from user openings
-        user_openings_ids = [x.opening_id for x in user_openings]
+        # user_openings_ids = [x.opening_id for x in user_openings]
         
 
     # module_options = []
@@ -781,8 +905,9 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
     #         module_weights.append(module.prob)
 
     #randomly select opening id from user openings_ids
-    pick_opening_id = choices(user_openings_ids)
-    picks.append(pick_opening_id[0]) # adds opening to picks
+    #pick_opening_id = choices(user_openings_ids)
+    print(pick_opening_id)
+    picks.append(pick_opening_id) # adds opening to picks
     
     print(picks)
     print(alts)
@@ -910,44 +1035,44 @@ async def get_achievements(user_id: str, db: Session = Depends(get_db)):
 ## OPENINGS
 
 # get user opening data
-@app_v2.get('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
-async def get_opening(user_id: str, opening_id: int, db: Session = Depends(get_db)):
-    opening = db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
-    if opening is None:
-        raise HTTPException(status_code=404, detail="opening not found")
-    else: 
-        return opening
+# @app_v2.get('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
+# async def get_opening(user_id: str, opening_id: int, db: Session = Depends(get_db)):
+#     opening = db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
+#     if opening is None:
+#         raise HTTPException(status_code=404, detail="opening not found")
+#     else: 
+#         return opening
 
-# create user opening 
-@app_v2.post('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
-async def add_opening(user_id: str, opening_id: int, opening: schemas.OpeningCreate, db: Session = Depends(get_db)):
-    # db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
+# # create user opening 
+# @app_v2.post('/openings/{user_id}/{opening_id}', response_model=schemas.Opening, tags=["Openings"])
+# async def add_opening(user_id: str, opening_id: int, opening: schemas.OpeningCreate, db: Session = Depends(get_db)):
+#     # db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
 
-    # if db_user is None:
-    #      return None
+#     # if db_user is None:
+#     #      return None
     
-    db_opening= models.Opening(**opening.dict(), owner_id = user_id)
-    db.add(db_opening)
-    db.commit()
-    db.refresh(db_opening)
-    opening = db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
+#     db_opening= models.Opening(**opening.dict(), owner_id = user_id)
+#     db.add(db_opening)
+#     db.commit()
+#     db.refresh(db_opening)
+#     opening = db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
 
-    return opening
+#     return opening
 
-# update user opening data
-@app_v2.put('/openings/{user_id}/{opening_id}', tags=["Openings"])
-async def update_opening(user_id: str, opening_id: int, opening: schemas.Opening, db: Session = Depends(get_db)):
+# # update user opening data
+# @app_v2.put('/openings/{user_id}/{opening_id}', tags=["Openings"])
+# async def update_opening(user_id: str, opening_id: int, opening: schemas.Opening, db: Session = Depends(get_db)):
 
-    db_opening= db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
+#     db_opening= db.query(models.Opening).filter(models.Opening.owner_id == user_id).filter(models.Opening.opening_id == opening_id).one_or_none()
     
-    if db_opening is None:
-        return None
+#     if db_opening is None:
+#         return None
     
-    stmt = (update(models.Opening).where(models.Opening.owner_id == user_id).where(models.Opening.opening_id == opening.opening_id).values(**opening.dict()))
-    db.execute(stmt)
-    db.commit()
-    db.refresh(db_opening)
-    return db_opening
+#     stmt = (update(models.Opening).where(models.Opening.owner_id == user_id).where(models.Opening.opening_id == opening.opening_id).values(**opening.dict()))
+#     db.execute(stmt)
+#     db.commit()
+#     db.refresh(db_opening)
+#     return db_opening
 
 
 ## LEADERBOARD
