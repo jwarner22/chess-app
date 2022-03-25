@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import {BsQuestionCircle} from "@react-icons/all-files/bs/BsQuestionCircle"
+import {motion} from 'framer-motion';
 
 export const QuestionIcon = styled(BsQuestionCircle)`
     max-width: 90px;

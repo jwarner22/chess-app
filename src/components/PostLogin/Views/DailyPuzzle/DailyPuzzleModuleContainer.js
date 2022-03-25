@@ -19,6 +19,7 @@ const DailyPuzzleModuleContainer = (props) => {
     return (
         <>
             <DailyPuzzleModuleStyle 
+
             locked={props.locked}
             type={props.type}
             >

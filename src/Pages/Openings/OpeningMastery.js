@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import LargeConatiner from '../../components/UI_Kit/Boxes/Containers/LargeConatiner';
 import CategoryTitle from '../../components/UI_Kit/CategoryTitle/CategoryTitle';
 import MasteryTiles from './MasteryTiles';
@@ -8,6 +8,7 @@ import { OpeningData } from '../../components/PostLogin/Views/Openings/OpeningDa
 import { UserContext } from '../../providers/GlobalState';
 
 const OpeningMastery = () => {
+
 
   function sortByMoves(a,b) {
     if(a.moves.length > b.moves.length)
@@ -19,8 +20,6 @@ const OpeningMastery = () => {
   
   const sortedOpenings = OpeningData.sort(sortByMoves).slice(0, 9);
 
-
-const {openingStats} = useContext(UserContext);
 
 console.log(sortedOpenings)
 
