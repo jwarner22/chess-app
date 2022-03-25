@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 
 
-function getSessionStorageOrDefault(key, value) {
+function getSessionStorageOrDefault(key, defaultValue) {
     const stored = sessionStorage.getItem(key);
     if (!stored) {
         return defaultValue

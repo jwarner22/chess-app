@@ -23,6 +23,7 @@ import {wait} from '../../../Module/Utilities/helpers';
 import {UserContext} from '../../../../providers/GlobalState'
 import BrandPage from "../../../BrandPage/BrandPage";
 import { Semanticuireact } from "styled-icons/simple-icons";
+import { useSessionStorage } from "../../../../hooks/useSessionStorage";
 
 
 export default function DailyPuzzzle(props) {
@@ -35,7 +36,7 @@ export default function DailyPuzzzle(props) {
   const [percent, setPercent] = useState(0)
   const [screenTimer, setScreenTimer] = useState(false);
   const [openSplash, setOpenSplash] = useState(false)
-  
+  const [animate, setAnimate] = useState(true);
   const {dailyModules, generating, updateGenerating, openingStats, contextLoading} = useContext(UserContext);
   const {isMobile, windowDimension} = props;
   const {state} = useLocation()
@@ -49,7 +50,16 @@ export default function DailyPuzzzle(props) {
         duration: 1500
     }
 });
-  
+
+//Checks to see if this page has been visited during this session. Controls animations so they only occur the first time a page is rendered during a session.
+  useEffect(() => {
+    if (window.sessionStorage.getItem("firstPageVisit") === null) {
+      setAnimate(true)
+      window.sessionStorage.setItem("firstPageVisit", 1)
+    } else {
+      setAnimate(false)
+    }
+  }, [])
   
   useLayoutEffect(() => {
     if(fromLogin) {
