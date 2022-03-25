@@ -1,15 +1,14 @@
 import {useEffect, useState} from 'react'
 import styled from 'styled-components'
 
-const ProgressBar = () => {
+const ProgressBar = (props) => {
     const [style, setStyle] = useState({})
     const max = 100;
-    const done = 70;
 
     setTimeout(() => {
 		const newValue = {
 			opacity: 1,
-			width: `${done}%`
+			width: `${props.done}%`
 		}
 		
 		setStyle(newValue);
@@ -19,7 +18,6 @@ const ProgressBar = () => {
         <ProgressLine >
             <ProgressFill style={style}>
                 <ProgressPercent>
-                    {done}%
                 </ProgressPercent>
             </ProgressFill>
         </ProgressLine>
