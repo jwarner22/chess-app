@@ -15,15 +15,16 @@ import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer";
 import {Modules} from "../../../../data/ModuleData";
 import ChessboardLoader from "../../../ChessBoardLoader/ChessboardLoader";
 // import {ProgressBar, Step} from 'react-step-progress-bar';
-import {useTransition, animated} from 'react-spring'
+import {useTransition} from 'react-spring'
 // utilities
 import {wait} from '../../../Module/Utilities/helpers';
 import ProgressBar from "../../../UI_Kit/Progress/ProgressBar";
+import {useLocalStorage} from '../../../../hooks/useLocalStorage'
 // context
 import {UserContext} from '../../../../providers/GlobalState'
-import BrandPage from "../../../BrandPage/BrandPage";
-import { Semanticuireact } from "styled-icons/simple-icons";
-import { useSessionStorage } from "../../../../hooks/useSessionStorage";
+//import BrandPage from "../../../BrandPage/BrandPage";
+//import { Semanticuireact } from "styled-icons/simple-icons";
+//import { useSessionStorage } from "../../../../hooks/useSessionStorage";
 
 
 export default function DailyPuzzzle(props) {
@@ -32,8 +33,9 @@ export default function DailyPuzzzle(props) {
   const [dailyPicks, setDailyPicks] = useState([]);
   const [schemaPicks, setSchemaPicks] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
-  const [completedModules, setCompletedModules] = useState([])
-  const [percent, setPercent] = useState(0)
+  //const [completedModules, setCompletedModules] = useState([])
+  const [percent, setPercent] = useLocalStorage("dailyCompletedPercentage", '0');
+  const [previousPercent, setPreviousPercent] = useState(0);
   const [screenTimer, setScreenTimer] = useState(false);
   const [openSplash, setOpenSplash] = useState(false)
   const [animate, setAnimate] = useState(true);
@@ -50,6 +52,23 @@ export default function DailyPuzzzle(props) {
         duration: 1500
     }
 });
+
+useLayoutEffect(() => {
+  if (dailyPicks.length > 0) {
+    let completedPercentage = dailyPicks.filter(pick => pick.completed).length/4*100;
+    setPercent(completedPercentage)
+    window.localStorage.setItem('dailyCompletedPercentage', completedPercentage)
+  }
+},[dailyPicks])
+
+useLayoutEffect(() => {
+  if(percent > 0){
+    setPreviousPercent(percent - 25)
+  }
+}, [percent]);
+
+
+
 
 //Checks to see if this page has been visited during this session. Controls animations so they only occur the first time a page is rendered during a session.
   useEffect(() => {
@@ -136,25 +155,26 @@ export default function DailyPuzzzle(props) {
   }
  
   //initial module completion check. Creates state for completedModules
-  useEffect(() => {
-    let completedArr = dailyPicks.map(pick  => {
-      if (pick.completed) {
-        return "Completed"
-      }
-    return "Incomplete"
-  })
-    setCompletedModules(completedArr)
+//   useEffect(() => {
+//     console.log(dailyPicks)
+//     let completedArr = dailyPicks.map(pick  => {
+//       if (pick.completed) {
+//         return "Completed"
+//       }
+//     return "Incomplete"
+//   })
+//     setCompletedModules(completedArr)
 
-  }, [dailyPicks])
+//   }, [dailyPicks])
 
-//returns the completion percentage of modules to 
-  useEffect(() => {
-    let completedPercentage = completedModules.filter(item => item === "Completed").length / 3 * 100;
-    setPercent(completedPercentage)
-  },[completedModules])
+// //returns the completion percentage of modules to 
+//   useEffect(() => {
+//     let completedPercentage = completedModules.filter(item => item === "Completed").length / 3 * 100;
 
+//     setPercent(completedPercentage)
+//   },[completedModules])
 
-
+  
   // displays "generating daily training" message and hides it after timer
   // const setTimer = async () => {
   //   console.log('daily render')
@@ -201,7 +221,7 @@ export default function DailyPuzzzle(props) {
         <SelectionContainer>
         <PuzzleWrapper>
         <ProgressBarContainer>
-          <ProgressBar done={percent}/>
+          <ProgressBar done={percent} initialWidth={previousPercent}/>
           {/* <ProgressBar width={'100%'} height={15} percent={percent} filledBackground='linear-gradient(to right, #fefb72, #f0bb31'>
           <Step transition="scale">{({accomplished})=> (<img alt='' style={{display:'none', filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30"/>)}</Step>
               <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="25"/>)}</Step>

@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import useLocalStorage from "../../../hooks/useLocalStorage.js";
+import {useLocalStorage} from "../../../hooks/useLocalStorage.js";
 import DemoMoves from "./DemoMoves.jsx";
 //import Opening from "./Opening/Opening.jsx";
 import Opening from "./OpeningPuzzleManager";
