@@ -6,8 +6,8 @@ import OpeningMasteryProgressBar from './OpeningMasteryProgressBar'
 
 
 const MasteryTilesContent = (props) => {
-    console.log({props: props})
-  return ( <>
+
+return ( <>
   <TileHeader>
     <H3>{props.headline}</H3>
     {/* <OpeningMasteryProgressBar /> */}

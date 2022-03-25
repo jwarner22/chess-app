@@ -11,17 +11,21 @@ const OpeningMastery = () => {
 
 
   function sortByMoves(a,b) {
-    if(a.moves.length > b.moves.length)
-    return 1
-    if(a.moves.length === b.moves.length)
-    return 0
+    // if(a.moves.length > b.moves.length)
+    // return 1
+    // if(a.moves.length === b.moves.length)
+    // return 0
+    // return -1
+    if (a.pawn[0] < b.pawn[0]) {
+      return 1
+    } else if (a.pawn[0] === b.pawn[0]) {
+      return 0
+    }
     return -1
   }
   
-  const sortedOpenings = OpeningData.sort(sortByMoves).slice(0, 9);
-
-
-console.log(sortedOpenings)
+  const sortedOpenings = OpeningData.sort(sortByMoves)
+  
 
   return (<>
         <CategoryTitle>Openings</CategoryTitle>
