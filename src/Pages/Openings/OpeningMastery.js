@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { useContext, useEffect, useState } from 'react';
+//import { useContext, useEffect, useState } from 'react';
 import LargeConatiner from '../../components/UI_Kit/Boxes/Containers/LargeConatiner';
 import CategoryTitle from '../../components/UI_Kit/CategoryTitle/CategoryTitle';
 import MasteryTiles from './MasteryTiles';
 import { OpeningData } from '../../components/PostLogin/Views/Openings/OpeningData';
 
-import { UserContext } from '../../providers/GlobalState';
+//import { UserContext } from '../../providers/GlobalState';
 
 const OpeningMastery = () => {
 
@@ -24,7 +24,7 @@ const OpeningMastery = () => {
 console.log(sortedOpenings)
 
   return (<>
-        <CategoryTitle>Opening Mastery</CategoryTitle>
+        <CategoryTitle>Openings</CategoryTitle>
           <LargeConatiner>   
               {sortedOpenings.map((module, id) => {
                 return(
