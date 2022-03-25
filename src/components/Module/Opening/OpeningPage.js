@@ -76,8 +76,6 @@ export default function OpeningModule(props) {
   
   useEffect(() => {
     getMoves();
-    console.log({props: props})
-    console.log(props.location.state.isDaily)
   }, []);
 
   useEffect(() => {

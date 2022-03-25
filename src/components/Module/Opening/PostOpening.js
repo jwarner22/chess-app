@@ -1,37 +1,50 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ChessboardLoader from "../../ChessBoardLoader/ChessboardLoader";
 import useFetch from "../../../api/useFetch.js";
 import { baseURL } from "../../../api/apiConfig.js";
 
 import { UserContext } from "../../../providers/GlobalState.js";
 
+import {getAnalytics, logEvent} from "firebase/analytics";
+
 export const PostOpening = (props) => {
     const {put, post} = useFetch(baseURL);
     const {userId, updateOpeningStats, openingStats, createOpeningStats, updateAchievements, dailyModules, updateDailyModules} = useContext(UserContext);
     const {moves, isDaily, orientation} = props.location.state;
 
+    const analytics = getAnalytics();
+
+    useEffect(() => {
+      finished();
+    },[])
+
+    console.log({props: props})
 
     const finished = async () => {
-        const openingId = props.location.state.currentOpening.opening_id;
+        const openingId = props.location.state.openingId;
         let oldOpeningStats = [...openingStats];
+        console.log('finish ran')
         // update opening in db
         const { openingMasteryRank, thisOpeningRank, newOpeningRank } = await saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank, createOpeningStats);
-      
+        console.log({openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank})
         newOpeningRank.forEach(newRank => {
           updateAchievements("next_rank", 0, 0,  newRank.name, newRank.nextRank.name)
         }) 
-    
-        if (props.location.state.isDaily) updateDaily(dailyModules, updateDailyModules);
-    
+        
+        // log event to firebase and update daily modules if all not already completed
+        if (props.location.state.isDaily && !dailyModules.every(module => module.completed)) {
+          updateDaily(dailyModules, updateDailyModules);
+          logEvent(analytics, 'daily_training_completed', {'user': userId});
+        }
+        
         //push to post opening page
-        props.history.push({pathname: `/post-opening/${moves}/${orientation}`, state: {openingId: openingId, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank, isDaily: isDaily}});
+        props.history.push({pathname: `/post-opening-page/${moves}/${orientation}`, state: {openingId: openingId, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank, isDaily: isDaily}});
     }
     
     // helper functions for saveModuleData
     const getNextRank = nextRank()
     const getRank = rank()
 
-    finished();
     return(
         <ChessboardLoader />
     )
@@ -84,6 +97,7 @@ function rank() {
   }
   const updateDaily = async (dailyModules, updateDailyModules) => {
     let updatedDailyModules = await mutateDailyModules(dailyModules);
+    console.log({updatedDailyModules: updatedDailyModules})
     await saveDailyModules(updatedDailyModules, updateDailyModules);
   }
 

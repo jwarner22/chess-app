@@ -38,6 +38,8 @@ const OpeningsDashboardTest = () => {
 
     const fetchOpenings = async () => {
         const opening = openingStats.find(o => o.uci === moves);
+        console.log(opening)
+        setLoading(true);
         if (opening != null) {
             SetCurrentOpening(opening);
             setMastery(opening.history_7);
@@ -48,9 +50,10 @@ const OpeningsDashboardTest = () => {
             
             setOpeningModules(childOpenings);
         } else {
+            console.log('else')
             // get main and child openings data
             let {main, childOpenings} = await newFetchOpenings(moves, get, post);
-            
+            console.log(main, childOpenings)
             let openingId = main.id;
             main = await createOpeningStats(openingId, main);
 
@@ -66,6 +69,7 @@ const OpeningsDashboardTest = () => {
         }
         setLoading(false);
     }
+
 
     return(
         <>

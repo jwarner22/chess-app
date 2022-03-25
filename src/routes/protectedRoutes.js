@@ -107,7 +107,7 @@ const protectedRoutes = [
 	},
 	{
 		name: "PostOpeningPage",
-		path: "/post-opening/:moves/:color",
+		path: "/post-opening-page/:moves/:color",
 		exact: false,
 		main: (props) => <PostOpeningPage {...props} />
 	},
