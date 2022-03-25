@@ -167,7 +167,7 @@ export default function DailyPuzzzle(props) {
   // 
 
   
-  if (!loaded | dailyPicks.length === 0 | contextLoading | openingStats === undefined) {
+  if (!loaded | dailyPicks.length === 0 | contextLoading | openingStats === undefined | openingStats.length === 0) {
     return <ChessboardLoader />
   }
 

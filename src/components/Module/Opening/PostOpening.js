@@ -10,6 +10,7 @@ export const PostOpening = (props) => {
     const {userId, updateOpeningStats, openingStats, createOpeningStats, updateAchievements, dailyModules, updateDailyModules} = useContext(UserContext);
     const {moves, isDaily, orientation} = props.location.state;
 
+    console.log({props: props})
 
     const finished = async () => {
         const openingId = props.location.state.currentOpening.opening_id;
@@ -20,7 +21,7 @@ export const PostOpening = (props) => {
         newOpeningRank.forEach(newRank => {
           updateAchievements("next_rank", 0, 0,  newRank.name, newRank.nextRank.name)
         }) 
-    
+        //debugger
         if (props.location.state.isDaily) updateDaily(dailyModules, updateDailyModules);
     
         //push to post opening page

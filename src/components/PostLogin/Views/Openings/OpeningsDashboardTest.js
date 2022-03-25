@@ -38,6 +38,7 @@ const OpeningsDashboardTest = () => {
 
     const fetchOpenings = async () => {
         const opening = openingStats.find(o => o.uci === moves);
+        setLoading(true);
         if (opening != null) {
             SetCurrentOpening(opening);
             setMastery(opening.history_7);
@@ -66,6 +67,7 @@ const OpeningsDashboardTest = () => {
         }
         setLoading(false);
     }
+
 
     return(
         <>
