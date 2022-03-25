@@ -15,15 +15,15 @@ import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer";
 import {Modules} from "../../../../data/ModuleData";
 import ChessboardLoader from "../../../ChessBoardLoader/ChessboardLoader";
 // import {ProgressBar, Step} from 'react-step-progress-bar';
-import {useTransition, animated} from 'react-spring'
+import {useTransition} from 'react-spring'
 // utilities
 import {wait} from '../../../Module/Utilities/helpers';
 import ProgressBar from "../../../UI_Kit/Progress/ProgressBar";
 // context
 import {UserContext} from '../../../../providers/GlobalState'
-import BrandPage from "../../../BrandPage/BrandPage";
-import { Semanticuireact } from "styled-icons/simple-icons";
-import { useSessionStorage } from "../../../../hooks/useSessionStorage";
+//import BrandPage from "../../../BrandPage/BrandPage";
+//import { Semanticuireact } from "styled-icons/simple-icons";
+//import { useSessionStorage } from "../../../../hooks/useSessionStorage";
 
 
 export default function DailyPuzzzle(props) {
@@ -32,7 +32,7 @@ export default function DailyPuzzzle(props) {
   const [dailyPicks, setDailyPicks] = useState([]);
   const [schemaPicks, setSchemaPicks] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
-  const [completedModules, setCompletedModules] = useState([])
+  //const [completedModules, setCompletedModules] = useState([])
   const [percent, setPercent] = useState(0)
   const [screenTimer, setScreenTimer] = useState(false);
   const [openSplash, setOpenSplash] = useState(false)
@@ -136,24 +136,31 @@ export default function DailyPuzzzle(props) {
   }
  
   //initial module completion check. Creates state for completedModules
+//   useEffect(() => {
+//     console.log(dailyPicks)
+//     let completedArr = dailyPicks.map(pick  => {
+//       if (pick.completed) {
+//         return "Completed"
+//       }
+//     return "Incomplete"
+//   })
+//     setCompletedModules(completedArr)
+
+//   }, [dailyPicks])
+
+// //returns the completion percentage of modules to 
+//   useEffect(() => {
+//     let completedPercentage = completedModules.filter(item => item === "Completed").length / 3 * 100;
+
+//     setPercent(completedPercentage)
+//   },[completedModules])
+
   useEffect(() => {
-    let completedArr = dailyPicks.map(pick  => {
-      if (pick.completed) {
-        return "Completed"
-      }
-    return "Incomplete"
-  })
-    setCompletedModules(completedArr)
-
-  }, [dailyPicks])
-
-//returns the completion percentage of modules to 
-  useEffect(() => {
-    let completedPercentage = completedModules.filter(item => item === "Completed").length / 3 * 100;
-
-    setPercent(completedPercentage)
-  },[completedModules])
-
+    if (dailyPicks.length > 0) {
+      let completedPercentage = dailyPicks.filter(pick => pick.completed).length/4*100;
+      setPercent(completedPercentage)
+    }
+  },[dailyPicks])
 
 
   // displays "generating daily training" message and hides it after timer
