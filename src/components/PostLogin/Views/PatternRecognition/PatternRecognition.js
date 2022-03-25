@@ -124,7 +124,7 @@ const item = {
     </FeatureSuggestionButton>
     </Link>
     */}
-    <Link to='/openings-dashboard-test/e2e4 e7e5'>
+    {/* <Link to='/openings-dashboard-test/e2e4 e7e5'>
     <FeatureSuggestionButton primary>
       openings test
     </FeatureSuggestionButton>
@@ -133,7 +133,7 @@ const item = {
     <FeatureSuggestionButton primary>
       Testing Page
     </FeatureSuggestionButton>
-    </Link>
+    </Link> */}
     <DashboardWrapper>
         <MotifMenu 
         toggle={toggle}
