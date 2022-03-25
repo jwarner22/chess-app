@@ -150,7 +150,6 @@ export default function DailyPuzzzle(props) {
 //returns the completion percentage of modules to 
   useEffect(() => {
     let completedPercentage = completedModules.filter(item => item === "Completed").length / 3 * 100;
-
     setPercent(completedPercentage)
   },[completedModules])
 
