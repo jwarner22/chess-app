@@ -257,8 +257,10 @@ const UserProvider = ({ children }) => {
 
     const updateDailyModules = async (data) => { 
         setLoading(() => true);
+        console.log({data: data})
         let endpoint = `/users/${auth.userId}/daily_puzzles`; 
         let response = await put(endpoint, data);
+        console.log({response: response})
         setDailyModules(response);
         setLoading(() => false);
     }
