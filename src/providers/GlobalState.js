@@ -42,8 +42,10 @@ const UserProvider = ({ children }) => {
 
     const getUserPreferrenceEmbedding = (themes, openings) => {
         // create embedding vector from nb_plays entry of each theme
+        let modulesCopy = [...Modules];
+        modulesCopy = modulesCopy.filter(m => m.category === 'puzzle');
 
-        let embedding = Modules.map(module => {
+        let embedding = modulesCopy.map(module => {
             let output = {}
             if (module.category === 'opening') {
                 output = openings.find(theme => theme.opening_id === module.id);
@@ -55,17 +57,32 @@ const UserProvider = ({ children }) => {
         })
 
         let preference_embedding = embedding.map((item, index) => {
-            
             return item.completed;
         })
         
         let total_plays = preference_embedding.reduce((prev, curr) => prev + curr);
+        
         if (total_plays === 0) { // if no plays, set all to default prob
             let default_prob = 1/preference_embedding.length
             return embedding.map((module) => {
                 return {id: module.id, prob: default_prob};
             });
         }
+
+        //set particular odds for shuffle/mix modules (want to force them to be suggested 1/6 times cumulatively)
+        preference_embedding = embedding.map((item, index) => {
+            if (item.id === 1 || item.id === 2 || item.id === 13) {
+                let ratio = item.completed / total_plays;
+                if (ratio < 1/18) {
+                    return item.completed*3;
+                }
+                return Math.round(item.completed/2);
+            }
+            return item.completed;
+        })
+        // re-calc after adjustment
+        total_plays = preference_embedding.reduce((prev, curr) => prev + curr);
+
 
         let baseline_prob = 1/preference_embedding.length;
         preference_embedding = preference_embedding.map(item => (item/total_plays));
@@ -77,7 +94,7 @@ const UserProvider = ({ children }) => {
         embedding = embedding.map((item, index) => {
             return {id: item.id, prob: preference_embedding[index]}
         })
-
+        console.log(embedding)
         return embedding;
     }
 

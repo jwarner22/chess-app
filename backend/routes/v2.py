@@ -690,9 +690,8 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
     excluded_ids = [] # exclude these moduless
 
     module_options = []
-    for module in embedding:
-        if module.id < 39:
-            module_options.append(module.id)
+    for module in embedding:   
+        module_options.append(module.id)
     module_options = [x for x in module_options if x not in excluded_ids]
 
     module_weights = []
@@ -719,10 +718,11 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
     pick_opening_id = 0
     user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.favorite == True).all()
     if (len(user_openings) == 0):
-        print('none')
+        print('no favorites')
         #query user openings and sort by least completions, select all zero or one completions
         user_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).order_by(models.OpeningCompletions.completions.asc()).all()
-        if user_openings is None:
+        if len(user_openings) == 0:
+            print('no openings')
             # add new opening to database (default italian game)
             user_initial_opening = models.OpeningCompletions(owner_id = user_id, opening_id = 2226, completions = 0, favorite = False, history_1=0, history_2=0, history_3=0, history_4=0, history_5=0, history_6=0, history_7=0)
             db.add(user_initial_opening)
@@ -739,7 +739,7 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
         pick_opening_id = choices(user_openings_ids)[0]
 
     else:
-        print('favorite')
+        print('favorites')
         print(user_openings)
         # select random favorite opening
         user_opening = choices(user_openings)[0]
