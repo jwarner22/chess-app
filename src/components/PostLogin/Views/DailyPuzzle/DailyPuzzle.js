@@ -14,11 +14,11 @@ import headerImg from "./../../../../Images/DailyPuzzleIcon.svg";
 import DailyPuzzleModuleContainer from "./DailyPuzzleModuleContainer";
 import {Modules} from "../../../../data/ModuleData";
 import ChessboardLoader from "../../../ChessBoardLoader/ChessboardLoader";
-import {ProgressBar, Step} from 'react-step-progress-bar';
+// import {ProgressBar, Step} from 'react-step-progress-bar';
 import {useTransition, animated} from 'react-spring'
 // utilities
 import {wait} from '../../../Module/Utilities/helpers';
-
+import ProgressBar from "../../../UI_Kit/Progress/ProgressBar";
 // context
 import {UserContext} from '../../../../providers/GlobalState'
 import BrandPage from "../../../BrandPage/BrandPage";
@@ -202,12 +202,13 @@ export default function DailyPuzzzle(props) {
         <SelectionContainer>
         <PuzzleWrapper>
         <ProgressBarContainer>
-          <ProgressBar width={'100%'} height={15} percent={percent} filledBackground='linear-gradient(to right, #fefb72, #f0bb31'>
+          <ProgressBar done={percent}/>
+          {/* <ProgressBar width={'100%'} height={15} percent={percent} filledBackground='linear-gradient(to right, #fefb72, #f0bb31'>
           <Step transition="scale">{({accomplished})=> (<img alt='' style={{display:'none', filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30"/>)}</Step>
               <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="25"/>)}</Step>
               <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="25"/>)}</Step>
               <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="25"/>)}</Step>
-          </ProgressBar>
+          </ProgressBar> */}
           </ProgressBarContainer>
          {dailyPicks.map((module, index) => {
           
