@@ -5,10 +5,14 @@ import { baseURL } from "../../../api/apiConfig.js";
 
 import { UserContext } from "../../../providers/GlobalState.js";
 
+import {getAnalytics, logEvent} from "firebase/analytics";
+
 export const PostOpening = (props) => {
     const {put, post} = useFetch(baseURL);
     const {userId, updateOpeningStats, openingStats, createOpeningStats, updateAchievements, dailyModules, updateDailyModules} = useContext(UserContext);
     const {moves, isDaily, orientation} = props.location.state;
+
+    const analytics = getAnalytics();
 
     useEffect(() => {
       finished();
@@ -27,8 +31,12 @@ export const PostOpening = (props) => {
           updateAchievements("next_rank", 0, 0,  newRank.name, newRank.nextRank.name)
         }) 
         
-        if (props.location.state.isDaily) updateDaily(dailyModules, updateDailyModules);
-    
+        // log event to firebase and update daily modules if all not already completed
+        if (props.location.state.isDaily && !dailyModules.every(module => module.completed)) {
+          updateDaily(dailyModules, updateDailyModules);
+          logEvent(analytics, 'daily_training_completed', {'user': userId});
+        }
+        
         //push to post opening page
         props.history.push({pathname: `/post-opening-page/${moves}/${orientation}`, state: {openingId: openingId, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank, isDaily: isDaily}});
     }

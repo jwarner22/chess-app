@@ -1,21 +1,23 @@
 import styled from 'styled-components'
 import {H3} from "../../components/UI_Kit/Text/H3"
+import { Link } from 'react-router-dom'
 import Button from "../../components/UI_Kit/Button/Button"
 import OpeningMasteryProgressBar from './OpeningMasteryProgressBar'
-import { useContext } from 'react';
-import { UserContext } from '../../providers/GlobalState';
+
 
 const MasteryTilesContent = (props) => {
-
+    console.log({props: props})
   return ( <>
   <TileHeader>
     <H3>{props.headline}</H3>
     {/* <OpeningMasteryProgressBar /> */}
     </TileHeader>
     <TileFooter>
+        <Link to={`/openings-dashboard-test/${props.moves}`}>
         <MasteryTileButton>
             Continue
         </MasteryTileButton>
+        </Link>
         <FooterStatsContainer>
             <StatWrapper>
                 <StatHeadline>

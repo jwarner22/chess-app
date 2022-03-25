@@ -284,10 +284,10 @@ async def update_opening_favorite(user_id: str, opening_id: int, favorite: bool,
 #     return openings
 
 # # get single opening for ui
-# @app_v2.get('/opening-data/', response_model=schemas.OpeningData, tags=["Openings"]) # get opening data
-# async def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
-#     opening = db.query(models.Openings).filter(models.Openings.uci==moves).first()
-#     return opening
+@app_v2.get('/opening-data/', response_model=schemas.OpeningData, tags=["Openings"]) # get opening data
+async def get_opening_data(moves: str, db: Session = Depends(get_local_opening_db)):
+    opening = db.query(models.Openings).filter(models.Openings.uci==moves).first()
+    return opening
 
 # add new opening data for user
 @app_v2.post('/openings-data/new/{user_id}/{opening_id}', tags=["Openings"]) # add new opening data')
