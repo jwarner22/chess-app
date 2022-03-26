@@ -35,7 +35,7 @@ const PostOpeningPage = (props) => {
         )
       });
 
-    
+    sessionStorage.removeItem("dailyPageVisit")
     const parentIds = opening.parent_ids.split(',').map(item => parseInt(item));
     const parents = openingStats.filter(item => parentIds.some(id => id === item.opening_id));
     let parentHistory = [{},{},{},{},{},{},{}];

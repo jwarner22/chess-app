@@ -72,9 +72,10 @@ useLayoutEffect(() => {
 
 //Checks to see if this page has been visited during this session. Controls animations so they only occur the first time a page is rendered during a session.
   useEffect(() => {
-    if (window.sessionStorage.getItem("firstPageVisit") === null) {
+    console.log(typeof(window.sessionStorage.getItem("dailyPageVisit")))
+    if (JSON.parse(sessionStorage.getItem("dailyPageVisit")) == null) {
       setAnimate(true)
-      window.sessionStorage.setItem("firstPageVisit", 1)
+      sessionStorage.setItem("dailyPageVisit", 1)
     } else {
       setAnimate(false)
     }
@@ -221,7 +222,7 @@ useLayoutEffect(() => {
         <SelectionContainer>
         <PuzzleWrapper>
         <ProgressBarContainer>
-          <ProgressBar done={percent} initialWidth={previousPercent}/>
+          <ProgressBar done={percent} initialWidth={previousPercent} animate={animate}/>
           {/* <ProgressBar width={'100%'} height={15} percent={percent} filledBackground='linear-gradient(to right, #fefb72, #f0bb31'>
           <Step transition="scale">{({accomplished})=> (<img alt='' style={{display:'none', filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30"/>)}</Step>
               <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="25"/>)}</Step>

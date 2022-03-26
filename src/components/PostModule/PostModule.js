@@ -17,11 +17,13 @@ const PostPuzzleMockup = (props) => {
     const {perfect, failure, scoreData, score, isDaily, initialRating, newRating} = props
 
     useEffect(() =>{
+        sessionStorage.removeItem("dailyPageVisit")
         if (props.completedTraining) setLinkUrl('completed-training');
         else if (props.isDaily) setLinkUrl('/home/daily');
-        else setLinkUrl('/home/practice');
+        else setLinkUrl('/home/practice') 
     }, [])
 
+    
     const handleSlide = () => {
         setRewardsSlide(prev => prev + 1)
     }
