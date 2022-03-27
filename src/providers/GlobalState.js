@@ -332,6 +332,7 @@ const UserProvider = ({ children }) => {
     const fetchOpeningStats = async () => {
         let endpoint = `/opening-stats/${auth.userId}`;
         let response = await get(endpoint);
+
         setOpeningStats(response);
         return response
     }
@@ -340,6 +341,10 @@ const UserProvider = ({ children }) => {
         //add opening to database  
         const url = `/openings-data/new/${userId}/${openingId}`
         const response = await post(url)
+        if (response.detail === "user already has opening") {
+            let fresh_openings = fetchOpeningStats();
+            return fresh_openings;
+        }
         let main = { ...response.user_opening, ...response.opening}; // concatenate response to main
         setOpeningStats(current => [...current, main]);
         return main;
