@@ -178,13 +178,7 @@ export default function PuzzleBoard(props) {
       let promote = checkPromotion(pieceSquare,targetSquare)
       if (promote) return false;
     }
-    // attempt to make move
-    // const gameCopy = { ...game };
-    // const move = gameCopy.move({
-    //   from: pieceSquare,
-    //   to: targetSquare,
-    //   //promotion: "q" // always promote to a queen for example simplicity
-    // });
+
     let move = null;
     safeGameMutate((game) => {
       move = game.move({
@@ -197,6 +191,16 @@ export default function PuzzleBoard(props) {
     if (targetSquare !== moveHighlightSquare) {
       getMoveOptions(targetSquare);
     }
+
+    validateMove(pieceSquare, targetSquare);
+
+    // attempt to make move
+    const gameCopy = { ...game };
+    move = gameCopy.move({
+      from: pieceSquare,
+      to: targetSquare,
+      promotion: "q" // always promote to a queen for example simplicity
+    });
     
     if (move == null) {
       return false;
@@ -210,9 +214,6 @@ export default function PuzzleBoard(props) {
       sound.move.play();
     };
     //setGame(gameCopy);
-
-    
-    validateMove(pieceSquare, targetSquare);
     setMoveSquares({
       [pieceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
       [targetSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" }
