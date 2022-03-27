@@ -71,7 +71,7 @@ const ProgressBar = (props) => {
 		}
 		setStyle(newValue);
 	}
-	console.log(style)
+	//console.log(style)
 
   return (<>
         <ProgressLine >

@@ -182,6 +182,8 @@ export default function PuzzleBoard(props) {
       if (promote) return false;
     }
 
+ 
+
     const gameCopy = { ...game };
        // attempt to make move
     let move = gameCopy.move({
@@ -191,6 +193,11 @@ export default function PuzzleBoard(props) {
     });
       
     if (move == null) {
+      console.log({targetSquare: targetSquare, moveHighlightSquare: moveHighlightSquare});
+      // if invalid, setMoveFrom and getMoveOptions
+      if (targetSquare !== moveHighlightSquare) {
+        getMoveOptions(targetSquare);
+      }
       return false;
     }
 
@@ -202,13 +209,8 @@ export default function PuzzleBoard(props) {
         promotion: "q" // always promote to a queen for example simplicity
       });
     })
-    // if invalid, setMoveFrom and getMoveOptions
-    if (targetSquare !== moveHighlightSquare) {
-      getMoveOptions(targetSquare);
-    }
 
     validateMove(pieceSquare, targetSquare);
-
  
     if (move.flags === "c") {
       //captureSound.play();
@@ -425,7 +427,7 @@ export default function PuzzleBoard(props) {
     }
   }
 
-  function getMoveOptions(square) {
+  async function getMoveOptions(square) {
     const moves = game.moves({
       square,
       verbose: true
