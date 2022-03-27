@@ -34,7 +34,6 @@ const OpeningMastery = () => {
                 return(
                 <MasteryTiles key={id} {...module}/>
               )})}
-
         </LargeConatiner>
     </>
   )

@@ -38,7 +38,7 @@ export default function DailyPuzzzle(props) {
   const [previousPercent, setPreviousPercent] = useState(0);
   const [screenTimer, setScreenTimer] = useState(false);
   const [openSplash, setOpenSplash] = useState(false)
-  const [animate, setAnimate] = useState(true);
+  const [animate, setAnimate] = useState(false);
   const {dailyModules, generating, updateGenerating, openingStats, contextLoading} = useContext(UserContext);
   const {isMobile, windowDimension} = props;
   const {state} = useLocation()
@@ -53,7 +53,7 @@ export default function DailyPuzzzle(props) {
     }
 });
 //console.log(percent)
-useLayoutEffect(() => {
+useEffect(() => {
   if (dailyPicks.length > 0) {
     let completedPercentage = dailyPicks.filter(pick => pick.completed).length/3*100;
     completedPercentage = Math.round(completedPercentage);
@@ -69,6 +69,7 @@ useLayoutEffect(() => {
     } 
     setPercent(completedPercentage)
     sessionStorage.setItem('dailyCompletedPercentage', completedPercentage)
+    setAnimate(false)
   }
 },[dailyPicks])
 
