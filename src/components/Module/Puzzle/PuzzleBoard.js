@@ -44,11 +44,9 @@ export default function PuzzleBoard(props) {
   const prevCorrect = usePrevious(props.correctMove);
   const prevInitial = usePrevious(props.initialFen);
   
+  const chessboardRef = useRef();
 
   const { correctMove, opposingMove, outcomeCallback, boardWidth} = props;
-
-
-  const boardRef = useRef();
 
 
   useEffect(() => {
@@ -63,18 +61,19 @@ export default function PuzzleBoard(props) {
     return () => window.removeEventListener('resize', handleResize);
   }},[loaded]);
 
-  // useEffect(() => {
-  //   if (chessboardSize != 0 && loaded === true){
-  //     setSendWidth(chessboardSize)
-  //   }
-  //   else {
-  //     return null
-  //   }
-  //   console.log(sendWidth)
-  // },)
 
-  // manage board resize
-  // EFFECTS
+  useEffect(() => {
+    if (game == null) return; // game not loaded yet
+    if (game.in_check()) {
+      let square = getInCheckSquare();
+      const newSquares = {};
+      newSquares[square] = { background: "radial-gradient(circle, rgba(255,0,0,.8) 45%, transparent)" };
+      setInCheckSquare(newSquares);
+    } else if (!game.in_check() && inCheckSquare !== {}) {
+      setInCheckSquare({}); // reset in check square
+    }
+  },[game])
+
 
   // play initial move after all is rendered and timed delay for animation
   useLayoutEffect(() => {
@@ -92,8 +91,6 @@ export default function PuzzleBoard(props) {
   useEffect(() => {
 
     return () => {
-      // if (captureSound !== null) captureSound.unload();
-      // if(moveSound !== null) moveSound.unload(); 
       if (sound.move.playing()) sound.move.unload();
       if (sound.capture.playing()) sound.capture.unload();
     }
@@ -141,19 +138,19 @@ export default function PuzzleBoard(props) {
       promotion = props.initialMove.substring(4); 
     }
 
-    safeGameMutate((game) => {
+    let m = safeGameMutate((game) => {
       //console.log({from: from, to: to, promotion: promotion})
       let m = game.move({ from: from, to: to, promotion: promotion});
-      if (m == null) return;
-      if (m.flags === "c") { 
-        // captureSound.play();
-        sound.capture.play();
-      } else {
-        //moveSound.play();
-        sound.move.play();
-      }
       return m;
     });
+    if (m == null) return;
+    if (m.flags === "c") { 
+      // captureSound.play();
+      sound.capture.play();
+    } else {
+      //moveSound.play();
+      sound.move.play();
+    }
   }
 
   // // returns color of current turn
@@ -182,12 +179,20 @@ export default function PuzzleBoard(props) {
       if (promote) return false;
     }
     // attempt to make move
-    const gameCopy = { ...game };
-    const move = gameCopy.move({
-      from: pieceSquare,
-      to: targetSquare,
-      //promotion: "q" // always promote to a queen for example simplicity
-    });
+    // const gameCopy = { ...game };
+    // const move = gameCopy.move({
+    //   from: pieceSquare,
+    //   to: targetSquare,
+    //   //promotion: "q" // always promote to a queen for example simplicity
+    // });
+    let move = null;
+    safeGameMutate((game) => {
+      move = game.move({
+        from: pieceSquare,
+        to: targetSquare,
+        promotion: "q" // always promote to a queen for example simplicity
+      });
+    })
     // if invalid, setMoveFrom and getMoveOptions
     if (targetSquare !== moveHighlightSquare) {
       getMoveOptions(targetSquare);
@@ -204,7 +209,7 @@ export default function PuzzleBoard(props) {
       //moveSound.play();
       sound.move.play();
     };
-    setGame(gameCopy);
+    //setGame(gameCopy);
 
     
     validateMove(pieceSquare, targetSquare);
@@ -224,13 +229,25 @@ export default function PuzzleBoard(props) {
       if (promote) return false;
     }
 
+
+
     let move = null;
-    const gameCopy = { ...game }; // copy game
-    move = gameCopy.move({ // attempt to make move
-      from: sourceSquare,
-      to: targetSquare,
-      promotion: "q" // always promote to a queen for example simplicity
-    });
+
+    safeGameMutate((game) => {
+      move = game.move({
+        from: sourceSquare,
+        to: targetSquare,
+        promotion: "q" // always promote to a queen for example simplicity
+      });
+    })
+
+    // const gameCopy = { ...game }; // copy game
+    // move = gameCopy.move({ // attempt to make move
+    //   from: sourceSquare,
+    //   to: targetSquare,
+    //   promotion: "q" // always promote to a queen for example simplicity
+    // });
+
     // if invalid, setMoveFrom and getMoveOptions
     if (move == null) {
       return false;
@@ -244,7 +261,7 @@ export default function PuzzleBoard(props) {
       sound.move.play();
     };
 
-    setGame(gameCopy);
+    //setGame(gameCopy);
 
     if (move == null) return false; // illegal move
     validateMove(sourceSquare, targetSquare);
@@ -308,16 +325,16 @@ export default function PuzzleBoard(props) {
     let promotion = opposingMove.substring(4);
 
     outcomeCallback(true);
-    safeGameMutate((game) => {
+    let m = safeGameMutate((game) => {
       let move = game.move({ from: from, to: to, promotion: promotion });
-      if (move == null) return;
-      if (move.flags === "c") { 
-        sound.capture.play();
-      } else {
-        sound.move.play();
-      }
       return move;
     });
+    if (m == null) return;
+    if (m.flags === "c") { 
+      sound.capture.play();
+    } else {
+      sound.move.play();
+    }
   }
 
   // PROMOTION
@@ -374,18 +391,6 @@ export default function PuzzleBoard(props) {
           : { backgroundColor: colour }
     });
   }
-
-  useEffect(() => {
-    if (game == null) return; // game not loaded yet
-    if (game.in_check()) {
-      let square = getInCheckSquare();
-      const newSquares = {};
-      newSquares[square] = { background: "radial-gradient(circle, rgba(255,0,0,.8) 45%, transparent)" };
-      setInCheckSquare(newSquares);
-    } else if (!game.in_check() && inCheckSquare !== {}) {
-      setInCheckSquare({}); // reset in check square
-    }
-  },[game])
 
 
   function getInCheckSquare() {
@@ -463,6 +468,7 @@ export default function PuzzleBoard(props) {
       }}
       boardWidth={chessboardSize}
       animationDuration={200}
+      ref = {chessboardRef}
     />
     </div>
     </>
