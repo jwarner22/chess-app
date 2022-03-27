@@ -224,6 +224,9 @@ export default function PuzzleBoard(props) {
       [pieceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
       [targetSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" }
     });
+    
+    //reset move highlight squares
+    setOptionSquares({});
 
     return true;
   }
@@ -276,6 +279,10 @@ export default function PuzzleBoard(props) {
       [sourceSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
       [targetSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" }
     });
+
+    //reset move highlight squares
+    setOptionSquares({});
+    //setMoveHighlightSquare("");
 
     return true;
   }
@@ -455,6 +462,7 @@ export default function PuzzleBoard(props) {
     setMoveHighlightSquare(square);
   }
 
+  
 
 
 
