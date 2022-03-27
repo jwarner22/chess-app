@@ -295,6 +295,13 @@ export default function PuzzleBoard(props) {
       return;
     }
 
+    if (typeof opposingMove === "undefined") {
+      //throw new Error("opposingMove is undefined");
+      console.error("opposingMove is undefined");
+      console.error(props)
+      console.error({move: move, correctMove: correctMove, prevCorrect: prevCorrect})
+    }
+
     // check move
     if ((move === correctMove || move === correct) && (opposingMove != null)) {
       setTimeout(makeOpposingMove, 400); //

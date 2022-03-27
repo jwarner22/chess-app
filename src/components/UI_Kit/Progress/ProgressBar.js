@@ -64,13 +64,14 @@ const ProgressBar = (props) => {
 	}, []);
 
 	const updateStyle = () => {
+		console.log('updateStyle ran')
 		const newValue = {
 			opacity: 1,
 			width: `${props.done}%`
 		}
 		setStyle(newValue);
 	}
-
+	console.log(style)
 
   return (<>
         <ProgressLine >
