@@ -55,7 +55,9 @@ export default function DailyPuzzzle(props) {
 //console.log(percent)
 useLayoutEffect(() => {
   if (dailyPicks.length > 0) {
-    let completedPercentage = dailyPicks.filter(pick => pick.completed).length/4*100;
+    let completedPercentage = dailyPicks.filter(pick => pick.completed).length/3*100;
+    completedPercentage = Math.round(completedPercentage);
+    completedPercentage = completedPercentage > 100 ? 100 : completedPercentage;
     let prevStoredPercent = sessionStorage.getItem("dailyCompletedPercentage")
     
     if (prevStoredPercent != null) { // if there is a previous stored percentage

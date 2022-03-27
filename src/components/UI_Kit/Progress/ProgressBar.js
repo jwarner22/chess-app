@@ -61,7 +61,7 @@ const ProgressBar = (props) => {
 	useEffect(() => {
 		console.log('effect ran')
 		setTimeout(updateStyle, 200);
-	}, []);
+	}, [props.done]);
 
 	const updateStyle = () => {
 		console.log('updateStyle ran')
