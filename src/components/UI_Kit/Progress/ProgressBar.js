@@ -52,8 +52,8 @@ const ProgressPercent = styled.div`
 
 const ProgressBar = (props) => {
     const [style, setStyle] = useState({})
-    const max = 100;
-
+    //const max = 100;
+	
 	const updatePreviousWidth = () => {
 		window.localStorage.setItem('previousPercentage', props.done)
 	}
@@ -69,10 +69,6 @@ const ProgressBar = (props) => {
 			console.log('new value set')
 		}, 200)
 	}, []);
-
-	console.log(props.initialWidth)
-	console.log(props.animate)
-	console.log(props.done)
 
   return (<>
         <ProgressLine >

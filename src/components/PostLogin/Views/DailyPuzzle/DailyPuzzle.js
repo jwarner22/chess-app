@@ -52,12 +52,17 @@ export default function DailyPuzzzle(props) {
         duration: 1500
     }
 });
-
+//console.log(percent)
 useLayoutEffect(() => {
   if (dailyPicks.length > 0) {
     let completedPercentage = dailyPicks.filter(pick => pick.completed).length/4*100;
+    console.log(completedPercentage)
     setPercent(completedPercentage)
+    let testPrev = parseInt(window.localStorage.getItem("dailyCompletedPercentage"))
+    console.log(testPrev)
     window.localStorage.setItem('dailyCompletedPercentage', completedPercentage)
+    let test = parseInt(window.localStorage.getItem('dailyCompletedPercentage'))
+    console.log(test)
   }
 },[dailyPicks])
 
@@ -66,8 +71,6 @@ useLayoutEffect(() => {
     setPreviousPercent(percent - 25)
   }
 }, [percent]);
-
-
 
 
 //Checks to see if this page has been visited during this session. Controls animations so they only occur the first time a page is rendered during a session.
@@ -88,9 +91,9 @@ useLayoutEffect(() => {
   }, [])
 
   const transitionScreens = async () => {
-    setOpenSplash(true)
-    await wait(3000)
-    setOpenSplash(false)
+    // setOpenSplash(true)
+    // await wait(3000)
+    // setOpenSplash(false)
     if(!generating) return
     setScreenTimer(true)
     await wait(3000)
@@ -147,12 +150,7 @@ useLayoutEffect(() => {
       return {...item, ...locatedModule}
     })
 
-    setDailyPicks(() => {
-      if (isMobile) {
-        return [...daily]
-      };
-      return [...daily];  
-    }); // set data for display and module consumption
+    setDailyPicks(() => [...daily]); // set data for display and module consumption
   }
  
   //initial module completion check. Creates state for completedModules
@@ -222,7 +220,7 @@ useLayoutEffect(() => {
         <SelectionContainer>
         <PuzzleWrapper>
         <ProgressBarContainer>
-          <ProgressBar done={percent} initialWidth={previousPercent} animate={animate}/>
+          <ProgressBar done={parseInt(percent)} initialWidth={previousPercent} animate={animate}/>
           {/* <ProgressBar width={'100%'} height={15} percent={percent} filledBackground='linear-gradient(to right, #fefb72, #f0bb31'>
           <Step transition="scale">{({accomplished})=> (<img alt='' style={{display:'none', filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="30"/>)}</Step>
               <Step transition="scale">{({accomplished})=> (<img alt='' style={{filter: `grayscale(${accomplished ? 0 : 80}%)`}} width="25"/>)}</Step>
