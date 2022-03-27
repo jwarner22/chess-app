@@ -14,10 +14,10 @@ const PostOpeningPage = (props) => {
     const [linkUrl, setLinkUrl] = useState('');
     const [multi, setMulti] = useState(false);
     const img = Modules[3].img;
-    const openingMasteryRank = props.location.state.openingMasteryRank;
-    const thisOpeningRank = props.location.state.thisOpeningRank;
-    const newOpeningRank = props.location.state.newOpeningRank;
-
+    // const openingMasteryRank = props.location.state.openingMasteryRank;
+    // const thisOpeningRank = props.location.state.thisOpeningRank;
+    // const newOpeningRank = props.location.state.newOpeningRank;
+    const {openingMasteryRank, thisOpeningRank, newOpeningRank, completedDaily} = props.location.state;
     const {openingStats} = useContext(UserContext);
 
     const opening = openingStats.find(opening => opening.opening_id === props.location.state.openingId);
@@ -50,15 +50,13 @@ const PostOpeningPage = (props) => {
         return(historyPoint)
     })
     console.log({props: props})
-    console.log({historyData: historyData})
-    // console.log({parentHistoryData: parentHistoryData})
-
-    //const nextRank = calcNextRank(opening.historyData.pop());
 
     useEffect(() =>{
         //if (props.completedTraining) setLinkUrl('completed-training');
-        if (props.location.state.isDaily) {
+        if (props.location.state.isDaily && props.location.state.completedDaily) {
             setLinkUrl('/completed-training');
+        } else if (props.location.state.isDaily) {
+            setLinkUrl('/home/daily');
         } else {
             setLinkUrl(`/home/openings`);
         }
