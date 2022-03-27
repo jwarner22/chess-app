@@ -58,11 +58,7 @@ useLayoutEffect(() => {
     let completedPercentage = dailyPicks.filter(pick => pick.completed).length/4*100;
     console.log(completedPercentage)
     setPercent(completedPercentage)
-    let testPrev = parseInt(window.localStorage.getItem("dailyCompletedPercentage"))
-    console.log(testPrev)
     window.localStorage.setItem('dailyCompletedPercentage', completedPercentage)
-    let test = parseInt(window.localStorage.getItem('dailyCompletedPercentage'))
-    console.log(test)
   }
 },[dailyPicks])
 

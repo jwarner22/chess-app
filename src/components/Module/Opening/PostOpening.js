@@ -31,14 +31,16 @@ export const PostOpening = (props) => {
           updateAchievements("next_rank", 0, 0,  newRank.name, newRank.nextRank.name)
         }) 
         
+        let completedDaily = false
         // log event to firebase and update daily modules if all not already completed
         if (props.location.state.isDaily && !dailyModules.every(module => module.completed)) {
           updateDaily(dailyModules, updateDailyModules);
           logEvent(analytics, 'daily_training_completed', {'user': userId});
+          completedDaily = true;
         }
         
         //push to post opening page
-        props.history.push({pathname: `/post-opening-page/${moves}/${orientation}`, state: {openingId: openingId, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank, isDaily: isDaily}});
+        props.history.push({pathname: `/post-opening-page/${moves}/${orientation}`, state: {openingId: openingId, openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank, isDaily: isDaily, completedDaily: completedDaily}});
     }
     
     // helper functions for saveModuleData
