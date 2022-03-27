@@ -172,7 +172,7 @@ const UserProvider = ({ children }) => {
 
     // DAILY MODULES
     const handleDailyModules = async (response, embedding) => {
-        console.log({embedding: embedding, response: response});
+        //console.log({embedding: embedding, response: response});
         let now = new Date();
         if (response.length === 0) { // no daily modules
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`;
@@ -272,10 +272,10 @@ const UserProvider = ({ children }) => {
 
     const updateDailyModules = async (data) => { 
         setLoading(() => true);
-        console.log({data: data})
+        //console.log({data: data})
         let endpoint = `/users/${auth.userId}/daily_puzzles`; 
         let response = await put(endpoint, data);
-        console.log({response: response})
+        //console.log({response: response})
         setDailyModules(response);
         setLoading(() => false);
     }
@@ -352,7 +352,7 @@ const UserProvider = ({ children }) => {
     }
 
     const updateOpeningStats = async (data) => {
-        console.log({data:data})
+        //console.log({data:data})
 
         let openingStatsCopy = [...openingStats];
 
@@ -377,10 +377,10 @@ const UserProvider = ({ children }) => {
             let response = await post(endpoint);
             
             if (!response.message === "no child openings") {
-                console.log('top 3 openings', response);
+                //console.log('top 3 openings', response);
                 // filter existing opening_id from response
                 response = response.filter(entry => updatedOpeningStats.some(item => item.opening_id === entry.opening_id));
-                console.log('filtered response', response);
+                //console.log('filtered response', response);
                 // update opening stats with new openings
                 updatedOpeningStats = [...updatedOpeningStats, ...response];
             }

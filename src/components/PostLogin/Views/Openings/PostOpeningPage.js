@@ -12,17 +12,14 @@ import { UserContext } from "../../../../providers/GlobalState.js";
 
 const PostOpeningPage = (props) => {
     const [linkUrl, setLinkUrl] = useState('');
-    const [multi, setMulti] = useState(false);
+    //const [multi, setMulti] = useState(false);
     const img = Modules[3].img;
-    // const openingMasteryRank = props.location.state.openingMasteryRank;
-    // const thisOpeningRank = props.location.state.thisOpeningRank;
-    // const newOpeningRank = props.location.state.newOpeningRank;
     const {openingMasteryRank, thisOpeningRank, newOpeningRank, completedDaily} = props.location.state;
     const {openingStats} = useContext(UserContext);
 
     const opening = openingStats.find(opening => opening.opening_id === props.location.state.openingId);
 
-    console.log({openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank})
+    //console.log({openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank})
     
     let historyData = [opening.history_1, opening.history_2, opening.history_3, opening.history_4, opening.history_5, opening.history_6, opening.history_7];
     //historyData = historyData.toString(); // convert to single string for copatibility
@@ -35,21 +32,19 @@ const PostOpeningPage = (props) => {
         )
       });
 
-    sessionStorage.removeItem("dailyPageVisit")
-    const parentIds = opening.parent_ids.split(',').map(item => parseInt(item));
-    const parents = openingStats.filter(item => parentIds.some(id => id === item.opening_id));
-    let parentHistory = [{},{},{},{},{},{},{}];
-    let parentHistoryData = parentHistory.map((parent, index) => {
-        let historyPoint = {}
-        historyPoint.name = index.toString();
-        let historyNum = `history_${index+1}`;
-        parents.forEach((parentItem, index) => {
-                let parentId = parentItem.opening_id;
-                historyPoint[parentId] = parentItem[historyNum];
-        });
-        return(historyPoint)
-    })
-    console.log({props: props})
+    // const parentIds = opening.parent_ids.split(',').map(item => parseInt(item));
+    // const parents = openingStats.filter(item => parentIds.some(id => id === item.opening_id));
+    // let parentHistory = [{},{},{},{},{},{},{}];
+    // let parentHistoryData = parentHistory.map((parent, index) => {
+    //     let historyPoint = {}
+    //     historyPoint.name = index.toString();
+    //     let historyNum = `history_${index+1}`;
+    //     parents.forEach((parentItem, index) => {
+    //             let parentId = parentItem.opening_id;
+    //             historyPoint[parentId] = parentItem[historyNum];
+    //     });
+    //     return(historyPoint)
+    // })
 
     useEffect(() =>{
         //if (props.completedTraining) setLinkUrl('completed-training');
@@ -62,9 +57,9 @@ const PostOpeningPage = (props) => {
         }
     }, [])
 
-    const handleNextClick = () => {
-        setMulti(true)
-    }
+    // const handleNextClick = () => {
+    //     setMulti(true)
+    // }
 
     if (!props.savingResults) {
     return (

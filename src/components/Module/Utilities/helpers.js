@@ -10,7 +10,7 @@ export const wait = (milliseconds) => {
 };
 
 export const getMoves = (moves) => {
-  console.log(moves)
+  //console.log(moves)
   let moveCouples = moves.split(" ");
   // let moveArray = [];
   // let move1;

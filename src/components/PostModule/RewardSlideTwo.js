@@ -7,7 +7,7 @@ import {FastCounter} from 'react-smooth-counter'
 
 const EloRewards = (props) => {
     const [show, setShow] = useState(false)
-    console.log(props)
+    //console.log(props)
     const diff = props.newRating - props.initialRating;
     const color = diff > 0 ? '#29CC7D' : '#FD5348';
     useEffect(() => {

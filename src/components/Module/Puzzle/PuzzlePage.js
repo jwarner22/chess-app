@@ -27,7 +27,7 @@ import {baseURL} from "../../../api/apiConfig";
 import useFetch from '../../../api/useFetch';
 import { puzzlePageReducer } from "./puzzlePageReducer";
 import { PuzzlePageContainer, Header, TimerAndLivesContainer, IndicatorWrapper, PuzzlePageWrapper, PuzzlePageGrid, PuzzleBoardContainer, PuzzleBoardWrapper, RightPuzzlePanelContainer, HeaderContainer, progressContainer, PercentCompleted } from "./PuzzlePageElements";
-import { UserContext } from "../../../providers/GlobalState.js";
+//import { UserContext } from "../../../providers/GlobalState.js";
 import { ScoreContainer } from "./ScoreAnimation.js";
 // import useDebugInformation from "../../Hooks/useDebugInformation";
 // import useRenderCount from "../../Hooks/useRenderCount";
@@ -52,7 +52,7 @@ const calcSingleElo = (outcome, puzzleData, playerRating, np) => {
     
     const newRating = parseInt(playerRating + ratingDiff); //calculate new rating
 
-      console.log({newRating: newRating, outcome: outcome, puzzleData: puzzleData, playerRating: playerRating, ratingDiff: ratingDiff})
+      //console.log({newRating: newRating, outcome: outcome, puzzleData: puzzleData, playerRating: playerRating, ratingDiff: ratingDiff})
       return newRating
 }
 
@@ -144,10 +144,10 @@ export default function PuzzlePage(props) {
   const getSinglePuzzle = async () => {
     const delta = parseInt(eloDev)
     const fetchElo = parseInt(elo + delta); // add 20% to elo to allow for progression
-    console.log({elo: elo, fetchElo: fetchElo, delta: delta})
+    //console.log({elo: elo, fetchElo: fetchElo, delta: delta})
 
     const puzzles = await get(`/puzzle/${props.theme}/${fetchElo}`)
-    console.log({singlePuzzle: puzzles});
+    //console.log({singlePuzzle: puzzles});
 
     let puzzle = puzzles.find(p => !idHistory.some(id => id === p.puzzle_id)) // check if puzzle has already been played
     if (puzzle == null) return puzzles[0]; // if all puzzles have been played, return first puzzle (backup plan)
@@ -218,7 +218,7 @@ export default function PuzzlePage(props) {
   async function handleContinueClick() {
 
     let newPuzzleData = await getSinglePuzzle(elo);
-    console.log({puzzle: newPuzzleData})
+    //console.log({puzzle: newPuzzleData})
 
     setPuzzle(newPuzzleData)
     dispatch({ type: "NEXT", payload: newPuzzleData});

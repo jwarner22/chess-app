@@ -193,7 +193,7 @@ export default function PuzzleBoard(props) {
     });
       
     if (move == null) {
-      console.log({targetSquare: targetSquare, moveHighlightSquare: moveHighlightSquare});
+      //console.log({targetSquare: targetSquare, moveHighlightSquare: moveHighlightSquare});
       // if invalid, setMoveFrom and getMoveOptions
       if (targetSquare !== moveHighlightSquare) {
         getMoveOptions(targetSquare);
