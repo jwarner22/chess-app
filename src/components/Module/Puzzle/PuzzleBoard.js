@@ -179,7 +179,19 @@ export default function PuzzleBoard(props) {
       if (promote) return false;
     }
 
-    let move = null;
+    const gameCopy = { ...game };
+       // attempt to make move
+    let move = gameCopy.move({
+      from: pieceSquare,
+      to: targetSquare,
+      promotion: "q" // always promote to a queen for example simplicity
+    });
+      
+    if (move == null) {
+      return false;
+    }
+
+    //let move = null;
     safeGameMutate((game) => {
       move = game.move({
         from: pieceSquare,
@@ -194,18 +206,7 @@ export default function PuzzleBoard(props) {
 
     validateMove(pieceSquare, targetSquare);
 
-    // attempt to make move
-    const gameCopy = { ...game };
-    move = gameCopy.move({
-      from: pieceSquare,
-      to: targetSquare,
-      promotion: "q" // always promote to a queen for example simplicity
-    });
-    
-    if (move == null) {
-      return false;
-    }
-
+ 
     if (move.flags === "c") {
       //captureSound.play();
       sound.capture.play();
