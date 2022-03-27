@@ -8,7 +8,7 @@ import PuzzleTileGrid from '../../../UI_Kit/Boxes/Grids/PuzzleTileGrid';
 import CourseTile from './CourseTiles/CourseTiles';
 import {Link} from 'react-router-dom'
 import ChessboardLoader from '../../../ChessBoardLoader/ChessboardLoader';
-import {motion} from 'framer-motion'
+
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -55,29 +55,20 @@ const item = {
 
   const TileList = () => {
     return (<>
-            <motion.div>
                        <PuzzleTileGrid 
                             className="endgameTiles" 
                             id={"endgames"} 
                             category={"Endgames"}
-                            as={motion.div}
-                            variants={container}
-                            initial='hidden'
-                            animate='show'
-                            exit='exit'
                         >
                {endgameModules.map((module, index) => {
                                  return(
                                  // <ModalLink key={index} style={{textDecoration: 'none'}} to={{pathname: '/dashboard/module', state: {module: module}}}>
                                  <CourseTile 
-                                    as={motion.div}
-                                    variants={item}
                                     key={index} 
                                     {...module} />
                                  // </ModalLink>
                              )})}
              </PuzzleTileGrid>
-             </motion.div>
              {!isLoading && <>
                <PuzzleTileGrid className="tacticTiles" id={"tactics"} category={"Tactics"}>
                {tacticModules.map((module, index) => {
