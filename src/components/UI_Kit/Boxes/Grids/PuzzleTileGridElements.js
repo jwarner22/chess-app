@@ -10,7 +10,7 @@ export const CoursesWrapper = styled.div`
 
 export const ModuleGrid = styled.ul`
 display: grid;
-grid-template-columns: repeat(auto-fit, minmax(100px, 240px)minmax(100px, 240px));
+grid-template-columns: repeat(auto-fit, minmax(100px, 240px) minmax(100px, 240px));
 grid-gap: 18px;
 justify-content: space-around;
 align-items: stretch;

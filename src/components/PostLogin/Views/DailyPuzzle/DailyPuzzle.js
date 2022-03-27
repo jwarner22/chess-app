@@ -20,6 +20,7 @@ import {useTransition} from 'react-spring'
 import {wait} from '../../../Module/Utilities/helpers';
 import ProgressBar from "../../../UI_Kit/Progress/ProgressBar";
 import {useLocalStorage} from '../../../../hooks/useLocalStorage'
+import {useSessionStorage} from '../../../../hooks/useSessionStorage'
 // context
 import {UserContext} from '../../../../providers/GlobalState'
 //import BrandPage from "../../../BrandPage/BrandPage";

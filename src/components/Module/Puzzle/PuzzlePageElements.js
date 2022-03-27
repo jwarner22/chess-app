@@ -19,6 +19,7 @@ export const PercentCompleted = styled.div`
 `;
 export const Header = styled.h2`
   color: rgba(255,255,255,0.8);
+  text-align: center;
 `;
 export const HeaderContainer = styled.div`
   display: flex;
