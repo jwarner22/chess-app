@@ -46,8 +46,9 @@ const OpeningsDashboardTest = () => {
             setCompletions(opening.completions);
             
             let childOpenings = await fetchChildIds(opening, post);
+            console.log(childOpenings)
             childOpenings = await mutateChildOpenings(childOpenings, opening)
-            
+            console.log(childOpenings)
             setOpeningModules(childOpenings);
         } else {
             console.log('else')
@@ -70,7 +71,7 @@ const OpeningsDashboardTest = () => {
         setLoading(false);
     }
 
-
+    //console.log(currentOpening, openingModules)
     return(
         <>
         <PageContainer>
@@ -89,7 +90,7 @@ const OpeningsDashboardTest = () => {
          {openingModules.map((opening, index) => {
             const linkUrl = `/openings-dashboard-test/${opening.uci}`
             let popularity = round(((opening.np_lichess/currentOpening.np_lichess)*100),0);
-            if (popularity < 1) return null;
+            if (popularity < 1) popularity = 1;
             const locked = (completions === 0) ? true : false;
             return(
                 <OpeningLink key={index} to={locked ? '#' : linkUrl}>

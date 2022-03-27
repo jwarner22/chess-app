@@ -342,6 +342,7 @@ const UserProvider = ({ children }) => {
         const url = `/openings-data/new/${userId}/${openingId}`
         const response = await post(url)
         if (response.detail === "user already has opening") {
+            console.log('extra post + fetch - root cause needs to be patched')
             let fresh_openings = fetchOpeningStats();
             return fresh_openings;
         }
