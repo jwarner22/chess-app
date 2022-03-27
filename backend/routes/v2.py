@@ -544,8 +544,7 @@ async def read_puzzle(rating: int, theme: str, limit: int = 5, db: Session = Dep
     i=1
     while (len(puzzle) == 0) and (upperBound < 3000 or lowerBound > 0):
         # puzzle = db.query(models.Puzzles).filter(models.Puzzles.themes.contains(theme)).filter(models.Puzzles.rating >= lowerBound).filter(models.Puzzles.rating <= upperBound).limit(3).all()
-        print(lowerBound)
-        print(puzzle)
+
         if theme == "mix":
             puzzle = db.query(models.Puzzles).filter(cast(models.Puzzles.rating, Integer) >= lowerBound).filter(cast(models.Puzzles.rating, Integer) <= upperBound).limit(limit).all()
         else:
@@ -583,7 +582,7 @@ async def read_user(user_id: str, db: Session = Depends(get_db)):
 @app_v2.get('/users/{user_id}/all', response_model=schemas.User, tags=["User"])
 async def read_user_all(user_id: str, db: Session=Depends(get_db)):
     db_user = db.query(models.User).filter(models.User.user_id == user_id).one_or_none()
-    print(db_user)
+    #print(db_user)
     
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -740,13 +739,13 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
 
     else:
         print('favorites')
-        print(user_openings)
+        #print(user_openings)
         # select random favorite opening
         user_opening = choices(user_openings)[0]
         # extract ids from user openings
         #user_openings_ids = [x.opening_id for x in user_openings]
-        print(user_opening)
-        print(user_opening.opening_id)
+        #print(user_opening)
+        #print(user_opening.opening_id)
         opening_id = int(user_opening.opening_id)
 
         # get opening from local opening db by user_opening.opening_id

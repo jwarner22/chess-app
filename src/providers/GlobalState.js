@@ -172,7 +172,7 @@ const UserProvider = ({ children }) => {
 
     // DAILY MODULES
     const handleDailyModules = async (response, embedding) => {
-        console.log({embedding: embedding})
+        console.log({embedding: embedding, response: response});
         let now = new Date();
         if (response.length === 0) { // no daily modules
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`;
@@ -201,9 +201,7 @@ const UserProvider = ({ children }) => {
         } else {
             setDailyModules(response);
             updateGenerating(false);
-
         }
-
     }
 
     const updateGenerating = (bool) => { 

@@ -296,7 +296,7 @@ export default function PuzzleBoard(props) {
     }
 
     // check move
-    if ((move === correctMove || move === correct) & (opposingMove != null)) {
+    if ((move === correctMove || move === correct) && (opposingMove != null)) {
       setTimeout(makeOpposingMove, 400); //
     } else if (move === correctMove || move === correct) {
       outcomeCallback(true, false); //outcome=true, checkmate=false
@@ -318,7 +318,7 @@ export default function PuzzleBoard(props) {
   // OPPOSING MOVE
 
   function makeOpposingMove() {
-    if (opposingMove == null) return;
+    //if (opposingMove == null) return;
 
     let from = opposingMove.substring(0, 2);
     let to = opposingMove.substring(2, 4);

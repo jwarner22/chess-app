@@ -53,22 +53,24 @@ const ProgressPercent = styled.div`
 const ProgressBar = (props) => {
     const [style, setStyle] = useState({})
     //const max = 100;
-	
-	const updatePreviousWidth = () => {
-		window.localStorage.setItem('previousPercentage', props.done)
-	}
+
+	// const updatePreviousWidth = () => {
+	// 	window.localStorage.setItem('previousPercentage', props.done)
+	// }
 
 	useEffect(() => {
-		setTimeout(() => {
-			const newValue = {
-				opacity: 1,
-				width: `${props.done}%`,
-			}
-			setStyle(newValue);
-			updatePreviousWidth();
-			console.log('new value set')
-		}, 200)
+		console.log('effect ran')
+		setTimeout(updateStyle, 200);
 	}, []);
+
+	const updateStyle = () => {
+		const newValue = {
+			opacity: 1,
+			width: `${props.done}%`
+		}
+		setStyle(newValue);
+	}
+
 
   return (<>
         <ProgressLine >

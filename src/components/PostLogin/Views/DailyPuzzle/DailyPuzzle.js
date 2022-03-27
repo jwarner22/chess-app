@@ -56,29 +56,37 @@ export default function DailyPuzzzle(props) {
 useLayoutEffect(() => {
   if (dailyPicks.length > 0) {
     let completedPercentage = dailyPicks.filter(pick => pick.completed).length/4*100;
-    console.log(completedPercentage)
+    let prevStoredPercent = sessionStorage.getItem("dailyCompletedPercentage")
+    
+    if (prevStoredPercent != null) { // if there is a previous stored percentage
+      prevStoredPercent = parseInt(prevStoredPercent) // convert to int
+      setPreviousPercent(parseInt(prevStoredPercent)) 
+      if (completedPercentage > prevStoredPercent) { // if the new percentage is greater than the previous stored percentage
+        setAnimate(true) // set the animation to true
+      }
+    } 
     setPercent(completedPercentage)
-    window.localStorage.setItem('dailyCompletedPercentage', completedPercentage)
+    sessionStorage.setItem('dailyCompletedPercentage', completedPercentage)
   }
 },[dailyPicks])
 
-useLayoutEffect(() => {
-  if(percent > 0){
-    setPreviousPercent(percent - 25)
-  }
-}, [percent]);
+// useLayoutEffect(() => {
+//   if(percent > 0){
+//     setPreviousPercent(percent - 25)
+//   }
+// }, [percent]);
 
 
 //Checks to see if this page has been visited during this session. Controls animations so they only occur the first time a page is rendered during a session.
-  useEffect(() => {
-    console.log(typeof(window.sessionStorage.getItem("dailyPageVisit")))
-    if (JSON.parse(sessionStorage.getItem("dailyPageVisit")) == null) {
-      setAnimate(true)
-      sessionStorage.setItem("dailyPageVisit", 1)
-    } else {
-      setAnimate(false)
-    }
-  }, [])
+  // useEffect(() => {
+  //   console.log(typeof(window.sessionStorage.getItem("dailyPageVisit")))
+  //   if (JSON.parse(sessionStorage.getItem("dailyPageVisit")) == null) {
+  //     setAnimate(true)
+  //     sessionStorage.setItem("dailyPageVisit", 1)
+  //   } else {
+  //     setAnimate(false)
+  //   }
+  // }, [])
   
   useLayoutEffect(() => {
     if(fromLogin) {
