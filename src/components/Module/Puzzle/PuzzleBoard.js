@@ -137,14 +137,8 @@ export default function PuzzleBoard(props) {
       to = props.initialMove.substring(2,4);
       promotion = props.initialMove.substring(4); 
     }
-    const gameCopy = { ...game };
-    // attempt to make move
-    let move = gameCopy.move({
-      from: from,
-      to: to,
-      promotion: "q" // always promote to a queen for example simplicity
-    });
 
+    let move = null;
     safeGameMutate((game) => {
       move = game.move({ from: from, to: to, promotion: promotion});
     });
