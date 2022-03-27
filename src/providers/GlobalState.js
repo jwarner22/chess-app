@@ -232,7 +232,7 @@ const UserProvider = ({ children }) => {
         // expiration date is tomorrow at 12:00:00
         let expiration_date = new Date();
         expiration_date.setHours(24,0,0,0);
-        expiration_date.toString();
+        expiration_date = expiration_date.toString();
 
 
         let schemaPicks = selections.map((pick, index) => {
