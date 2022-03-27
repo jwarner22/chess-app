@@ -194,6 +194,7 @@ export const PuzzleWrapper = styled.div`
 export const SelectionContainer = styled.div`
     display: flex;
     padding-bottom: 40px;
+    max-width: 450px;
 
     @media screen and (max-width: 425px) {
         padding-bottom: 80px;

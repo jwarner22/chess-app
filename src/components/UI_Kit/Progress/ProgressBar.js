@@ -65,9 +65,10 @@ const ProgressBar = (props) => {
 				width: `${props.done}%`,
 			}
 			setStyle(newValue);
-			updatePreviousWidth()
+			updatePreviousWidth();
+			console.log('new value set')
 		}, 200)
-	}, [])
+	}, []);
 
 	console.log(props.initialWidth)
 	console.log(props.animate)
