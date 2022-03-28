@@ -181,7 +181,7 @@ const UserProvider = ({ children }) => {
             await post(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // post daily modules to db
             setDailyModules(schemaPicks); // set daily modules
             updateGenerating(true);
-
+            localStorage.removeItem("dailyCompletedPercentage");
         } else if (response.detail === "daily puzzles expired") { // daily modules expired
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`; // get new picks
             let {picks, alts} = await put(endpoint, embedding); // get picks
@@ -189,7 +189,7 @@ const UserProvider = ({ children }) => {
             await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
             setDailyModules(schemaPicks);
             updateGenerating(true);
-
+            localStorage.removeItem("dailyCompletedPercentage");
         } else if ((new Date(response[0].expiration)) < now) {
             let endpoint = `/users/${auth.userId}/daily_puzzles/picks`; // get new picks
             let {picks, alts} = await put(endpoint, embedding);
@@ -197,7 +197,7 @@ const UserProvider = ({ children }) => {
             await put(`/users/${auth.userId}/daily_puzzles`, schemaPicks); // update daily modules in db
             setDailyModules(schemaPicks);
             updateGenerating(true);
-
+            localStorage.removeItem("dailyCompletedPercentage");
         } else {
             setDailyModules(response);
             updateGenerating(false);

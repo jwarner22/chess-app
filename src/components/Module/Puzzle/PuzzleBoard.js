@@ -346,12 +346,13 @@ export default function PuzzleBoard(props) {
     let promotion = opposingMove.substring(4);
 
     outcomeCallback(true);
-    let m = safeGameMutate((game) => {
-      let move = game.move({ from: from, to: to, promotion: promotion });
-      return move;
+    let move = null;
+    safeGameMutate((game) => {
+      move = game.move({ from: from, to: to, promotion: promotion });
     });
-    if (m == null) return;
-    if (m.flags === "c") { 
+    console.log(move)
+    if (move == null) return;
+    if (move.flags === "c") { 
       sound.capture.play();
     } else {
       sound.move.play();
