@@ -18,7 +18,6 @@ export const PostOpening = (props) => {
       finished();
     },[])
 
-    console.log({props: props})
 
     const finished = async () => {
         const openingId = props.location.state.openingId;
@@ -26,7 +25,7 @@ export const PostOpening = (props) => {
         console.log('finish ran')
         // update opening in db
         const { openingMasteryRank, thisOpeningRank, newOpeningRank } = await saveModuleData(userId, openingId, put, post, updateOpeningStats, oldOpeningStats, getRank, getNextRank, createOpeningStats);
-        console.log({openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank})
+        //console.log({openingMasteryRank: openingMasteryRank, thisOpeningRank: thisOpeningRank, newOpeningRank: newOpeningRank})
         newOpeningRank.forEach(newRank => {
           updateAchievements("next_rank", 0, 0,  newRank.name, newRank.nextRank.name)
         }) 
