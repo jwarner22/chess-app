@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react'
 import { PageContainer } from "../UI_Kit/Page";
 import { RewardContentContainer, RewardH2 } from "./PostModuleElements";
 import styled from 'styled-components';
-import CountUp from 'react-countup'
 import {FastCounter} from 'react-smooth-counter'
 
 const EloRewards = (props) => {
@@ -10,6 +9,7 @@ const EloRewards = (props) => {
     console.log(props)
     const diff = props.newRating - props.initialRating;
     const color = diff > 0 ? '#29CC7D' : '#FD5348';
+    console.log(diff)
     useEffect(() => {
         let showTimeout = setTimeout(() => setShow(true), 1000)
         return () => clearTimeout(showTimeout)
