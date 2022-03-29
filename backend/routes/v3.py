@@ -120,7 +120,7 @@ async def get_top3_openings_data(user_id: str, opening_id: str, db: Session = De
         if (len(user_opening_exists) == 0):
             db.add(user_opening)
             db.commit()
-            print('user opening created:' + ' ' + str(user_opening.opening_id))
+            #print('user opening created:' + ' ' + str(user_opening.opening_id))
 
         obj = {
             "id": user_opening.id,
@@ -504,20 +504,24 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
 
         first_depth = 5
         #child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).filter(models.Openings.completions == 0).order_by(models.Openings.uci_length.asc()).all()
-        truncated_child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).all()
+        child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).all()
+        child_ids = [x.id for x in child_openings]
+
+        truncated_child_openings = [x for x in child_openings if round(len(x.uci)/10) <= first_depth]
         # extract ids from child openings
         truncated_child_ids = [x.id for x in truncated_child_openings]
         
         # query user openings db for child openings with depth < first_depth and completed = 0
         user_child_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(truncated_child_ids)).filter(models.OpeningCompletions.completions == 0).all()
         
-        if user_child_openings is None:
+        if len(user_child_openings) == 0:
+            #print('no child openings < first_depth')
             #query all child openings with completions = 0 and sort by uci length 
-            user_child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).filter(models.Openings.completions == 0).all()
+            user_child_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(child_ids)).filter(models.OpeningCompletions.completions == 0).all()
             # if all child openings have been completed, select all child openings and pick random opening
-            if user_child_openings is None:
-
-                user_child_openings = db_openings.query(models.Openings).filter(models.Openings.id.in_(child_ids)).all()
+            if len(user_child_openings) == 0:
+                #print('no child openings without completions')
+                user_child_openings = db.query(models.OpeningCompletions).filter(models.OpeningCompletions.owner_id == user_id).filter(models.OpeningCompletions.opening_id.in_(child_ids)).all()
                 user_child_openings_ids = [x.opening_id for x in user_child_openings]
                 associated_openings = [x for x in child_openings if x.id in user_child_openings]
                 
@@ -530,13 +534,13 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
                 pick_opening_id = choices(associated_openings)[0]
             
             # sort user_child_openings by length descending
-            user_child_openings = sorted(user_child_openings, key=lambda x: len(x.uci), reverse=True)
+            #user_child_openings = sorted(user_child_openings, key=lambda x: len(x.uci), reverse=True)
             
-            max_length = round(len(child_openings[0].uci))
+            #max_length = round(len(child_openings[0].uci))
             user_child_openings_ids = [x.opening_id for x in user_child_openings]
             associated_openings = [x for x in child_openings if x.id in user_child_openings_ids]
 
-            for i in range(first_depth, 0, -1):
+            for i in range(first_depth, 20):
                 # filter associated_openings by depth
                 associated_openings_depth = [x for x in associated_openings if round(len(x.uci)/10) == i]
                 # sort by np_lichess descending
@@ -549,29 +553,35 @@ async def get_daily_puzzle_picks(embedding: List[schemas.Embedding], user_id: st
                 if len(user_child_openings_depth) > 0:
                     pick_opening_id = user_child_openings_depth[0].opening_id
                     break
-        
+            if (pick_opening_id == 0): # if no openings with depth > first_depth, pick random opening
+                pick_opening_id = choices(user_child_openings_ids)[0]
         # sort user_child_openings by length descending
         user_child_openings_ids = [x.opening_id for x in user_child_openings]
         associated_openings = [x for x in truncated_child_openings if x.id in user_child_openings_ids]
+        #print('associated_openings', associated_openings)
         for i in range(first_depth, 0, -1):
+            #print(i)
             # filter associated_openings by depth
             associated_openings_depth = [x for x in associated_openings if round(len(x.uci)/10) == i]
+            #print('associated_openings_depth', associated_openings_depth)
             # sort by np_lichess descending
             associated_openings_depth = sorted(associated_openings_depth, key=lambda x: x.np_lichess, reverse=True)
+            #print('associated_openings_depth', associated_openings_depth)
             # extract ids from associated_openings_depth while preserving order
             associated_openings_depth_ids = [x.id for x in associated_openings_depth]
+            #print(associated_openings_depth_ids)
             # get user_child_openings from user_child_openings where opening_id is in associated_openings_depth_ids
             user_child_openings_depth = [x for x in user_child_openings if x.opening_id in associated_openings_depth_ids]
 
-            print(i)
             if len(user_child_openings_depth) > 0:
                 #print('id found')
                 pick_opening_id = user_child_openings_depth[0].opening_id
                 break
-        
+    
+
     #print(pick_opening_id)
     picks.append(pick_opening_id) # adds opening to picks
-
+    #print(picks)
     picks_response = {
         "picks": picks,
         "alts": alts
