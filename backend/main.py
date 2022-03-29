@@ -14,7 +14,7 @@ from utlities.security import get_user
 
 app = FastAPI(title="Elo Elevation API Documenation", description="API to manage public user data and track user progress", version="2.0.0")
 
-app.include_router(app_v4, prefix="/v3", dependencies=[Depends(get_user)])
+app.include_router(app_v4, prefix="/v4", dependencies=[Depends(get_user)])
 app.include_router(app_v3, prefix="/v3", dependencies=[Depends(get_user)])
 app.include_router(app_v2, prefix="/v2", dependencies=[Depends(get_user)])
 app.include_router(app_v1, prefix="/v1", dependencies=[Depends(get_user)])
