@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react'
-import { PageContainer } from "../UI_Kit/Page";
+//import { PageContainer } from "../UI_Kit/Page";
 import { RewardContentContainer, RewardH2 } from "./PostModuleElements";
 import styled from 'styled-components';
-import CountUp from 'react-countup'
+//import CountUp from 'react-countup'
 import {FastCounter} from 'react-smooth-counter'
 
 const EloRewards = (props) => {
