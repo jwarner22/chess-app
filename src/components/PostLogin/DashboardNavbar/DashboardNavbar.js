@@ -68,7 +68,7 @@ const DashNavbar = ({ toggle, openDropdown, dropdownToggle }) => {
                             <Img src={logo}></Img> 
                         </NavLogo>
                         <MobileIcons onClick={toggle}>
-                            <BlueBars />
+                            <NewBlueBar />
                         </MobileIcons>
                         <NavMenu>
                             <NavItem>
@@ -125,4 +125,8 @@ const NavBarButton = styled(Button)`
     font-weight: 200;
     margin: 12px 24px;
     max-width: 120px;
+`
+
+const NewBlueBar = styled(BlueBars)`
+color: #247cf1 !important;
 `
