@@ -22,12 +22,12 @@ export default function ModuleManager(props) {
   const [savingResults, setSavingResults] = useState(false);
   const [failure, setFailure] = useState(false);
   const [perfect, setPerfect] = useState(false);
-  const [initialRating, setInitialRating] = useState('')
+  const [initialRating, setInitialRating] = useState(0)
   const [userThemeData, setUserThemeData] = useState({});
   const [score, setScore] = useState(0);
   const [scoreData, setScoreData] = useState([])
   const [completedTraining, setCompletedTraining] = useState(false);
-  const [updatedRating, setUpdatedRating] = useState({})
+  const [updatedRating, setUpdatedRating] = useState(0)
 
   // fetch Hook
   const {get} = useFetch(baseURL);
@@ -68,6 +68,7 @@ export default function ModuleManager(props) {
     // score change
     if (outcomes.every(result => result === true)) {
       setPerfect(true);
+
       updateAchievements('perfect', 0, 0, theme, "");
     };
 

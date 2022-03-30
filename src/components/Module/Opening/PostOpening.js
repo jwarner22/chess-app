@@ -9,7 +9,7 @@ import {getAnalytics, logEvent} from "firebase/analytics";
 
 export const PostOpening = (props) => {
     const {put, post} = useFetch(baseURL);
-    const {userId, updateOpeningStats, openingStats, createOpeningStats, updateAchievements, dailyModules, updateDailyModules} = useContext(UserContext);
+    const {userId, userData, updateUserData, updateOpeningStats, openingStats, createOpeningStats, updateAchievements, dailyModules, updateDailyModules} = useContext(UserContext);
     const {moves, isDaily, orientation} = props.location.state;
 
     const analytics = getAnalytics();
@@ -34,7 +34,33 @@ export const PostOpening = (props) => {
         // log event to firebase and update daily modules if all not already completed
         if (props.location.state.isDaily && !dailyModules.every(module => module.completed)) {
           updateDaily(dailyModules, updateDailyModules);
+          
           logEvent(analytics, 'daily_training_completed', {'user': userId});
+
+          let userProfileData = {
+            ...userData
+          };
+          let now = new Date();
+          // if new user, set daily streak to 1
+          if (userProfileData.last_daily == null) {
+            updateUserData({
+              ...userProfileData,
+              daily_streak: 1,
+              last_daily: Date.now()
+            })
+
+          }
+
+          let lastDaily = new Date(userProfileData.last_daily);
+          // update user daily streak info
+          if (lastDaily.getDate() !== now.getDate()) { // ensure no same day streak increase
+            updateUserData({
+              ...userProfileData,
+              daily_streak: userProfileData.daily_streak + 1,
+              last_daily: Date.now()
+            })
+            console.log('streak increased')
+          }
           completedDaily = true;
         }
         

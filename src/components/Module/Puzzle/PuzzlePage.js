@@ -148,8 +148,9 @@ export default function PuzzlePage(props) {
 
     const puzzles = await get(`/puzzle/${props.theme}/${fetchElo}`)
     //console.log({singlePuzzle: puzzles});
-
+    
     let puzzle = puzzles.find(p => !idHistory.some(id => id === p.puzzle_id)) // check if puzzle has already been played
+    
     if (puzzle == null) return puzzles[0]; // if all puzzles have been played, return first puzzle (backup plan)
     setIdHistory(prev => [...prev, puzzle.puzzle_id]) // add puzzle id to history
 

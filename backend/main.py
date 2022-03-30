@@ -4,6 +4,8 @@ from fastapi import FastAPI, Depends, HTTPException
 from utlities.security import check_token
 from routes.v1 import app_v1
 from routes.v2 import app_v2
+from routes.v3 import app_v3
+from routes.v4 import app_v4
 from starlette.responses import Response
 from starlette.requests import Request
 from starlette.status import HTTP_401_UNAUTHORIZED
@@ -12,6 +14,8 @@ from utlities.security import get_user
 
 app = FastAPI(title="Elo Elevation API Documenation", description="API to manage public user data and track user progress", version="2.0.0")
 
+app.include_router(app_v4, prefix="/v4", dependencies=[Depends(get_user)])
+app.include_router(app_v3, prefix="/v3", dependencies=[Depends(get_user)])
 app.include_router(app_v2, prefix="/v2", dependencies=[Depends(get_user)])
 app.include_router(app_v1, prefix="/v1", dependencies=[Depends(get_user)])
 #app.mount('/v1', app_v1)

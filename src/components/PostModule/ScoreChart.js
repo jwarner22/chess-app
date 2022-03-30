@@ -1,4 +1,4 @@
-import {LineChart, Line, ResponsiveContainer, ReferenceLine, Legend, LabelList} from 'recharts';
+import {LineChart, Line, ResponsiveContainer, Legend, LabelList} from 'recharts';
 
 const CustomizedLabel = ({x, y,  value, mastery, diff, color}) => {
     if (value === "6") {
