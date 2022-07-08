@@ -60,7 +60,7 @@ const HeroSection = () => {
                 </HeroCopy>
                 <HeroImg src={heroImg} />
                 {isMobile ? (
-                        <NavbarLoginButton to="/login">Login</NavbarLoginButton> ) : (
+                        <NavBtnLink2 to='/login'><NavbarLoginButton>Login</NavbarLoginButton></NavBtnLink2> ) : (
                         null
                     )}
             </HeroContent>

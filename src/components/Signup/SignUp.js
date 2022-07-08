@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 //import { AuthContext } from "../../index";
-import logo from '../../Images/eloElevationWhite.png'
+import logo from '../../Images/ChessReps Logo Vertical.png'
 import headerImg from "../../Images/realChessHeader.jpg"
 import { Link } from "react-router-dom";
 import {  

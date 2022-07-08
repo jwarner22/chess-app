@@ -1,6 +1,6 @@
 import {useRef, useEffect, useState} from 'react'
 import { BrandPageContainer, BrandPageLogo, BrandPageLogoWrapper } from './BrandPageElements'
-import logo from "../../Images/eloElevationWhite.png"
+import logo from "../../Images/ChessReps Logo Vertical.png"
 import {useTransition} from 'react-spring'
 import useRouter from '../../hooks/useRouter'
 

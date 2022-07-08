@@ -49,9 +49,9 @@ const Footer = () => {
                 <SocialMedia>
                     <SocialMediaWrap>
                         <SocialLogo to= '/' onClick={toggleHome}>
-                            Elo Elevation
+                            ChessReps
                         </SocialLogo>
-                        <WebsiteRights>Elo Elevation © {new Date().getFullYear()} All Rights Reserved</WebsiteRights>
+                        <WebsiteRights>ChessReps © {new Date().getFullYear()} All Rights Reserved</WebsiteRights>
                         {/* <SocialIcons>
                             <SocialIconLink href='/' target='_blank' aria-label='Facebook'>
                                 <FaFacebook />

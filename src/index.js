@@ -22,7 +22,7 @@ require("firebase/auth");
 function App() {
 
   useEffect(() => {
-    document.title = "Elo Elevation";
+    document.title = "ChessReps";
   },[])
   return(
     <>
