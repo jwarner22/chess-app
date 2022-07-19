@@ -4,7 +4,7 @@ import {Link, withRouter} from 'react-router-dom'
 //import { AuthContext } from "../../index";
 //import firebaseConfig from "../../config.js";
 import styled from 'styled-components'
-import logo from '../../Images/ChessReps Logo Vertical.png'
+import logo from '../../Images/ChessReps_Logo_White.png'
 import headerImg from "../../Images/realChessHeader.jpg"
 import {  
   Container, 

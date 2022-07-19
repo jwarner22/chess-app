@@ -44,9 +44,12 @@ export const LoginHeaderLogoWrapper = styled.div`
 `
 
 export const LoginHeaderLogo = styled.img`
-  width: 193px;
-  height: 127px;
+  max-width: 400px;
+  max-height: 100%;
+  min-width: 200px;
   z-index: 999;
+  padding:  60px 18px 30px 18px;
+
 `
 
 export const FormWrap = styled.div`

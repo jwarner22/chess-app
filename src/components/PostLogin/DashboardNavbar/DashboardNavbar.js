@@ -13,7 +13,7 @@ import {
     } from './DashboardNavElements';
 import Button from "../../UI_Kit/Button/Button"
 import {animateScroll as scroll} from 'react-scroll'
-import logo from "../../../Images/Elo-elevation-blue.png"
+import logo from "../../../Images/ChessReps Logo Horizontal.png"
 import firebase from 'firebase/compat/app'
 import NavbarDropdown from '../NavbarDropdown/NavbarDropdown';
 require('firebase/auth')

@@ -14,7 +14,7 @@ import {
      Img
     } from './NavbarElements'
 import {animateScroll as scroll} from 'react-scroll'
-import logo from "../../../Images/ChessReps Logo Horizontal.png"
+import logo from "../../../Images/ChessReps_Logo_White.png"
 import {BlueBars} from "../../PostLogin/DashboardNavbar/DashboardNavElements"
 import Button from '../../UI_Kit/Button/Button'
 
