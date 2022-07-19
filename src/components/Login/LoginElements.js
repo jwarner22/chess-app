@@ -40,11 +40,12 @@ export const LoginHeaderLogoWrapper = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+  padding: 12px;
 `
 
 export const LoginHeaderLogo = styled.img`
   width: 193px;
-  height: 193px;
+  height: 127px;
   z-index: 999;
 `
 

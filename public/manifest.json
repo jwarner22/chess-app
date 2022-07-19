@@ -1,12 +1,11 @@
 {
-    "name": "Elo Elevation",
-    "short_name": "Elo Elevation",
-    "theme_color": "#247cf1",
-    "background_color": "#ffffff",
-    "display": "standalone",
-    "orientation": "portrait",
-    "scope": "/",
-    "start_url": "/",
+  "name": "ChessReps",
+  "short_name": "ChessReps",
+  "theme_color": "#247cf1",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "maskable.png", 
