@@ -1,4 +1,4 @@
-import {HeroContainer, HeroBg, HeroContent, HeroP, HeroH1, HeroBtnWrapper, ArrowForward, ArrowRight, HeroCopy, HeroImg} from './HeroElements';
+import {HeroContainer, HeroBg, HeroContent, HeroP, HeroH1, HeroBtnWrapper, ArrowForward, ArrowRight, HeroCopy, HeroImg, AppInstallContainer} from './HeroElements';
 import React, { useState, useEffect } from "react";//import { AuthContext } from "../Auth";
 import styled from 'styled-components'
 import Button from '../../UI_Kit/Button/Button';
@@ -64,6 +64,11 @@ const HeroSection = () => {
                         null
                     )}
             </HeroContent>
+            <div style={{marginTop: "40px", cursor: "pointer", position: "relative", zIndex: "8999"}}>
+            <a href='https://play.google.com/store/apps/details?id=io.chessreps.twa&hl=en_US&gl=US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+                <AppInstallContainer  alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/>
+            </a>
+            </div>
         </HeroContainer>
     )
 }

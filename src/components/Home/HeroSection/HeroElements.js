@@ -17,6 +17,7 @@ export const HeroContainer =styled.div`
     height: 800px;
     position: relative;
     z-index: 1;
+    flex-direction: column;
 
     :before {
         content: '';
@@ -55,12 +56,12 @@ export const VideoBg = styled.video `
 export const HeroContent = styled.div`
     z-index: 3;
     max-width: 1200px;
-    position: absolute;
     padding: 8px 24px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     flex-direction: column;
     align-items: center;
+    padding: 120px 24px 0 24px;
     
     @media screen and (max-width: 640px){
         display: flex;
@@ -134,4 +135,8 @@ export const ArrowForward = styled(MdArrowForward)`
 export const ArrowRight = styled(MdKeyboardArrowRight)`
     margin-left: 8px;
     font-size: 20px;
+`
+export const AppInstallContainer = styled.img`
+    max-width: 200px;
+    cursor: pointer;
 `
