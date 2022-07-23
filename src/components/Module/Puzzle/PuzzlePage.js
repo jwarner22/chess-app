@@ -267,11 +267,12 @@ export default function PuzzlePage(props) {
                   <Lives lives={state.lives} isMobile={isMobile} />
                   </TimerAndLivesContainer>
                   <MobileContent>
-                    
+                    <ScoreContainer>
+                      Time Bonus:
                  {state.correct && <Score currentBonus={state.currentBonus}>
                     {state.currentBonus}
                   </Score>}
-                
+                  </ScoreContainer>
                   <IndicatorWrapper>
                     {(moveColor === "white") ? (
                       <WhiteIndicator /> ) : (

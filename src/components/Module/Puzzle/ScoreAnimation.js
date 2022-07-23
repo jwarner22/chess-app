@@ -3,9 +3,9 @@ import styled from 'styled-components'
 export default function Score(props) {
     return (
         <>
-            {props.currentBonus !=0 ? (<ScoreValue className="Score--bounce">
-            {props.children}
-            </ScoreValue>) : (null)} 
+            <ScoreValue className="Score--bounce" currentBonus={props.currentBonus}>
+                {props.children}
+            </ScoreValue>
     </>
     )
 }
@@ -39,5 +39,6 @@ const ScoreValue = styled.span`
     border-radius: 10px;
     margin: auto 4px;
     justify-self: flex-end;
-    box-shadow: rgba(255, 255, 255, 0.08) 0px 5px 10px, rgba(255, 255, 255, 0.15) 0px 3px 3px;;
+    box-shadow: rgba(255, 255, 255, 0.08) 0px 5px 10px, rgba(255, 255, 255, 0.15) 0px 3px 3px;
+    visibility: ${props => props.currentBonus !=0 ? 'visible' : 'hidden'};
 `
