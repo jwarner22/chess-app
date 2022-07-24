@@ -9,7 +9,7 @@ const Sidebar = ({ isOpen, toggle}) => {
                     <CloseIcon />
                 </Icon>
                 <SidebarWapper>
-                    <SidebarMenu>
+                    {/* <SidebarMenu>
                         <SidebarLink to='/about' onClick={toggle}>
                             About
                         </SidebarLink>
@@ -19,9 +19,9 @@ const Sidebar = ({ isOpen, toggle}) => {
                         <SidebarLink to='/services' onClick={toggle}>
                             Services
                         </SidebarLink>
-                    </SidebarMenu>
+                    </SidebarMenu> */}
                     <SideBtnWrap>
-                        <SidebarRoute to='/login'>Log In</SidebarRoute>
+                        <SidebarRoute to='/login'>Login</SidebarRoute>
                         <SidebarRoute to='/signup'>Sign Up</SidebarRoute>
                     </SideBtnWrap>
                 </SidebarWapper>

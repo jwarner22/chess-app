@@ -11,10 +11,10 @@ export const HeroContainer =styled.div`
     rgba(36, 124, 241, 1) 100%
   ); */
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 0 30px;
-    height: 800px;
+    padding: 100px 30px;
+    height: 100%;
     position: relative;
     z-index: 1;
     flex-direction: column;
@@ -33,16 +33,15 @@ export const HeroContainer =styled.div`
     }
 `
 
-export const HeroBg = styled.div `
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+export const HeroBg = styled.img `
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-
+    min-width: 1024px;
+    min-height: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
 `
 
 export const VideoBg = styled.video `
@@ -54,18 +53,30 @@ export const VideoBg = styled.video `
 `
 
 export const HeroContent = styled.div`
-    z-index: 3;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 30rem;
+    height: 30rem;
     padding: 8px 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     flex-direction: column;
     align-items: center;
-    padding: 120px 24px 0 24px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    z-index: 9999;
+    background: #fff;
     
     @media screen and (max-width: 640px){
         display: flex;
     }
+`
+
+export const HeroBox = styled.div`
+    background: #fff;
+    width: 30rem;
+    height: 30rem;
+    border-radius: 15px;
+    opacity: 0.9;
+    z-index: -1;
 `
 
 export const HeroCopy = styled.div`
@@ -79,12 +90,8 @@ export const HeroCopy = styled.div`
     }
 `
 export const HeroImg = styled.img`
-    width: 90%;
+    width: 65%;
     max-height: 120%;
-
-    @media screen and (max-width: 640px){
-        display: none;
-    }
 `
 
 export const HeroH1 = styled.h1`
@@ -104,10 +111,12 @@ export const HeroH1 = styled.h1`
 
 export const HeroP = styled.p`
     margin-top: 24px;
-    color: #fff;
+    color: #54606c;
     font-size: 24px;
     text-align: left;
     max-width: 600px;
+    text-align: center;
+    font-weight: 600;
 
     @media screen and (max-width: 640px) {
         font-size: 24px;
@@ -127,6 +136,17 @@ export const HeroBtnWrapper = styled.div`
     margin-bottom: 18px;
 `
 
+export const ScrollContainer = styled.div`
+    background: #1161d4;
+    width: 60px;
+    border-radius: 50%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+`
+
 export const ArrowForward = styled(MdArrowForward)`
     margin-left: 8px;
     font-size: 20px;
@@ -139,4 +159,22 @@ export const ArrowRight = styled(MdKeyboardArrowRight)`
 export const AppInstallContainer = styled.img`
     max-width: 200px;
     cursor: pointer;
+`
+export const Divider = styled.hr`
+    border: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 150px;
+
+    ::before {
+        content: '';
+        display: inline-block;
+        max-width: 100%;
+        vertical-align: middle;
+        border-left: dotted 7px #ffffff;
+        width: 7px;
+    }
 `

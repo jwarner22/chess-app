@@ -42,9 +42,9 @@ const Navbar = ({ toggle }) => {
         <>
                 <Nav scrollNav={scrollNav}>
                     <NavbarContainer>
-                        <NavLogo onClick={toggleHome} to='/'>
+                        {/* <NavLogo onClick={toggleHome} to='/'>
                             <Img src={logo}></Img> 
-                        </NavLogo>
+                        </NavLogo> */}
                         <MobileIcons onClick={toggle}>
                             <BlueBars />
                         </MobileIcons>
@@ -89,7 +89,12 @@ const Navbar = ({ toggle }) => {
                                 <NavbarLoginButton>
                                     Login
                                 </NavbarLoginButton>
-                            </NavBtnLink>
+                                </NavBtnLink>
+                                <NavBtnLink to="/signup">
+                                <NavbarSignupButton>
+                                    Sign Up
+                                </NavbarSignupButton>
+                                </NavBtnLink>
                             <NavBtnLink primary to="/signup">
                             </NavBtnLink>
                         </NavBtn>
@@ -108,4 +113,14 @@ export const NavbarLoginButton = styled(Button)`
     outline: 2px solid #fff;
     background: rgba(255,255,255, 0);
     max-width: 175px;
+    margin: 0 12px;
+`
+
+export const NavbarSignupButton = styled(Button)`
+    color: #1161d4;
+    font-weight: 600;
+    opacity: 1;
+    background: rgba(255,255,255);
+    max-width: 175px;
+    margin: 0 12px;
 `

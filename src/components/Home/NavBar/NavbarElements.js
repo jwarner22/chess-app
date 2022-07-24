@@ -14,7 +14,6 @@ export const Nav = styled.nav`
     top: 0;
     z-index: 10;
     transition: all 0.3s ease-in-out;
-    box-shadow: rgba(36, 124, 241, 0.2) 0px 3px 8px;
 
     @media screen and (max-width: 960px) {
         transition: 0.8s all ease;

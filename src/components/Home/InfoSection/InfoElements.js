@@ -2,19 +2,18 @@ import styled from 'styled-components'
 
 export const InfoContainer = styled.div`
     color: #fff;
-    background: ${({lightBg}) => (lightBg ? '#f6f9fc' : '#fff')}
+    background: ${({lightBg}) => (lightBg ? '#fff' : '#fff')};
+    border-radius: 15px;
     ;
 
     @media screen and (max-width: 768px) {
-        padding: 100px 0;
-
+        padding: 40px 0;
     }
 `
 
 export const InfoWrapper = styled.div`
     display: grid;
     z-index: 1;
-    height: 860px;
     width: 100%;
     max-width: 1100px;
     margin-right: auto;
@@ -36,14 +35,14 @@ export const InfoRow = styled.div`
 `
 
 export const Column1 = styled.div`
-    margin-bottom: 15px;
+    margin: 24px 0px;
     padding: 0 15px;
     grid-area: col1;
 
 `
 
 export const Column2 = styled.div`
-    margin-bottom: 15px;
+    margin: 24px 0px;
     padding: 0 15px;
     grid-area: col2;
     
@@ -51,8 +50,6 @@ export const Column2 = styled.div`
 
 export const TextWrapper = styled.div`
     max-width: 540px;
-    padding-top: 0;
-    padding-bottom: 60px;
 
 `
 
@@ -71,7 +68,7 @@ export const Heading = styled.h1`
     font-size: 48px;
     line-height: 1.1;
     font-weight: 600;
-    color: ${({lightText}) => (lightText ? '#54606c' : '#010606')};
+    color: ${({lightText}) => (lightText ? '#54606c' : '#54606c')};
 
     @media screen and (max-width: 480px) {
         font-size: 32px;
@@ -83,7 +80,7 @@ export const Subtitle = styled.p`
     margin-bottom: 35px;
     font-size: 18px;
     line-height: 24px;
-    color: ${({darkText}) => (darkText ? '#010606' : '#54606c')};
+    color: ${({darkText}) => (darkText ? '#54606c' : '#54606c')};
 `
 
 export const BtnWrap = styled.div`
@@ -100,4 +97,11 @@ export const Img = styled.img`
     width: 100%;
     margin: 0 0 10px 0;
     padding-right: 0;
+`
+
+export const DownloadContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `

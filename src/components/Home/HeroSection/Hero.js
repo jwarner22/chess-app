@@ -1,10 +1,16 @@
-import {HeroContainer, HeroBg, HeroContent, HeroP, HeroH1, HeroBtnWrapper, ArrowForward, ArrowRight, HeroCopy, HeroImg, AppInstallContainer} from './HeroElements';
+import {HeroContainer, HeroBg, HeroContent, HeroP, HeroH1, HeroBtnWrapper, ArrowForward, ArrowRight, HeroCopy, HeroImg, AppInstallContainer, ScrollContainer, HeroBox} from './HeroElements';
 import React, { useState, useEffect } from "react";//import { AuthContext } from "../Auth";
 import styled from 'styled-components'
 import Button from '../../UI_Kit/Button/Button';
 import {NavBtnLink2} from "../NavBar/NavbarElements"
 import heroImg from '../../../Images/chess-board.svg'
 import { NavbarLoginButton } from '../NavBar/NavBar';
+import checkerBackground from '../../../Images/checkerBackground.svg';
+import chessRepsVertical from '../../../Images/ChessReps Logo Vertical BB2.png'
+import downArrow from "../../../Images/downArrow.png";
+import { Divider } from "./HeroElements";
+import InfoSection from '../InfoSection/InfoSection';
+import { homeObjOne, homeObjThree, homeObjTwo } from '../InfoSection/Data';
 
 const HeroSection = () => {
     // const { currentUser } = useContext(AuthContext);
@@ -33,10 +39,19 @@ const HeroSection = () => {
 
     return (
         <HeroContainer id='home'>
-            <HeroBg>
-            </HeroBg>
+            <HeroBg src={checkerBackground}/>
             <HeroContent>
+                <HeroImg src={chessRepsVertical}/>
                 <HeroCopy>
+                    <HeroP>
+                        Get better at chess in less than 5 minutes a day
+                    </HeroP>
+                </HeroCopy>
+                <ScrollContainer>
+                    <img src={downArrow} alt='down arrow' style={{width: "60%"}}/>
+                </ScrollContainer>
+
+                {/* <HeroCopy>
                 <HeroH1 color={"#243862"}>
                     Stop Playing.           
                 </HeroH1>
@@ -62,13 +77,15 @@ const HeroSection = () => {
                 {isMobile ? (
                         <NavBtnLink2 to='/login'><NavbarLoginButton>Login</NavbarLoginButton></NavBtnLink2> ) : (
                         null
-                    )}
+                    )} */}
             </HeroContent>
-            <div style={{marginTop: "40px", cursor: "pointer", position: "relative", zIndex: "8999"}}>
-            <a href='https://play.google.com/store/apps/details?id=io.chessreps.twa&hl=en_US&gl=US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-                <AppInstallContainer  alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/>
-            </a>
-            </div>
+            <Divider />
+
+                    <InfoSection {...homeObjOne} />
+            <Divider />
+                    <InfoSection {...homeObjTwo} />
+            <Divider />
+                    <InfoSection {...homeObjThree} />
         </HeroContainer>
     )
 }
@@ -81,4 +98,21 @@ const HeroButton = styled(Button)`
     font-weight: 600;
     background: #fff;
     color: #243862;
+`
+
+const HeroContentWide = styled(HeroContent)`
+    width: 80%;
+    max-width: 1200px;
+    justify-content: center;
+    align-items: center;
+
+`
+
+const HeroBoxWide = styled(HeroBox)`
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    justify-content: center;
+    align-items: center;
+    height: auto;
 `
