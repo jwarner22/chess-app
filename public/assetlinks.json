@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "io.chessreps.twa",
+                     "sha256_cert_fingerprints": ["D4:2E:85:E3:A6:3C:6D:91:FC:C4:50:11:47:77:02:72:72:F8:7D:C1:B0:B9:F2:D8:B0:D2:2C:F6:51:6A:3E:A0"] }
+      }
+]
