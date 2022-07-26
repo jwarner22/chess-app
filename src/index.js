@@ -11,6 +11,7 @@ import {AuthProvider} from './providers/Auth.js';
 import {UserProvider} from './providers/GlobalState.js';
 import ChessboardLoader from './components/ChessBoardLoader/ChessboardLoader'
 import ErrorBoundary from './components/UI_Kit/ErrorBoundary.js';
+import LogRocket from 'logrocket';
 require("firebase/auth");
 
 // If you want to start measuring performance in your app, pass a function
@@ -20,7 +21,8 @@ require("firebase/auth");
 
 
 function App() {
-
+  LogRocket.init('7pdbsz/chessreps');
+  
   useEffect(() => {
     document.title = "ChessReps";
   },[])
