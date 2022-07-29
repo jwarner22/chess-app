@@ -21,6 +21,7 @@ require("firebase/auth");
 
 
 function App() {
+  //logrocket tracking code
   LogRocket.init('7pdbsz/chessreps');
   
   useEffect(() => {
