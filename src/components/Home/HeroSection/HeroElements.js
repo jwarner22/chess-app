@@ -3,7 +3,7 @@ import {MdKeyboardArrowRight} from '@react-icons/all-files/md/MdKeyboardArrowRig
 import {MdArrowForward} from '@react-icons/all-files/md/MdArrowForward'
 
 export const HeroContainer =styled.div`
-    background: linear-gradient(220.55deg, #3793FF 0%, #0017E4 100%);
+        background: linear-gradient(220.55deg, #3793FF 0%, #0017E4 100%);
 // same gradient as login page
     /* background: linear-gradient(
     108deg,
@@ -11,13 +11,12 @@ export const HeroContainer =styled.div`
     rgba(36, 124, 241, 1) 100%
   ); */
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    padding: 100px 30px;
-    height: 100%;
+    padding: 0 30px;
+    height: 800px;
     position: relative;
     z-index: 1;
-    flex-direction: column;
 
     :before {
         content: '';
@@ -34,14 +33,14 @@ export const HeroContainer =styled.div`
 `
 
 export const HeroBg = styled.img `
-    width: 100%;
-    min-width: 1024px;
-    min-height: 100%;
-    height: auto;
-    position: fixed;
+    position: absolute;
     top: 0;
+    right: 0;
+    bottom: 0;
     left: 0;
-    z-index: -1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 `
 
 export const VideoBg = styled.video `
@@ -53,17 +52,14 @@ export const VideoBg = styled.video `
 `
 
 export const HeroContent = styled.div`
-    width: 100%;
-    max-width: 30rem;
-    height: 30rem;
+    z-index: 3;
+    max-width: 1200px;
+    position: absolute;
     padding: 8px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     flex-direction: column;
     align-items: center;
-    border-radius: 15px;
-    display: flex;
-    justify-content: space-evenly;
-    z-index: 9999;
-    background: #fff;
     
     @media screen and (max-width: 640px){
         display: flex;
@@ -83,6 +79,7 @@ export const HeroCopy = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding: 0 15px;
 
     @media screen and (max-width: 640px){
         align-items: center;
@@ -90,14 +87,16 @@ export const HeroCopy = styled.div`
     }
 `
 export const HeroImg = styled.img`
-    width: 65%;
+    width: 100%;
     max-height: 120%;
+    margin: 0 auto;
 `
 
 export const HeroH1 = styled.h1`
     text-align: left;
     color: ${({color}) => color};
     font-size: 48px;
+    opacity: 0.95;
     
     @media screen and (max-width: 640px) {
         font-size: 40px;
@@ -111,12 +110,13 @@ export const HeroH1 = styled.h1`
 
 export const HeroP = styled.p`
     margin-top: 24px;
-    color: #54606c;
+    color: #fff;
     font-size: 24px;
     text-align: left;
     max-width: 600px;
-    text-align: center;
-    font-weight: 600;
+    text-align: left;
+    font-weight: 400;
+    opacity: 0.95;
 
     @media screen and (max-width: 640px) {
         font-size: 24px;
@@ -174,7 +174,7 @@ export const Divider = styled.hr`
         display: inline-block;
         max-width: 100%;
         vertical-align: middle;
-        border-left: dotted 7px #ffffff;
+        border-left: dotted 7px #1161d4;
         width: 7px;
     }
 `

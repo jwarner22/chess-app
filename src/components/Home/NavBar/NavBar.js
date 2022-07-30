@@ -14,7 +14,7 @@ import {
      Img
     } from './NavbarElements'
 import {animateScroll as scroll} from 'react-scroll'
-import logo from "../../../Images/ChessReps_Logo_White.png"
+import logo from '../../../Images/ChessReps Logo Horizontal White.png'
 import {BlueBars} from "../../PostLogin/DashboardNavbar/DashboardNavElements"
 import Button from '../../UI_Kit/Button/Button'
 
@@ -42,14 +42,14 @@ const Navbar = ({ toggle }) => {
         <>
                 <Nav scrollNav={scrollNav}>
                     <NavbarContainer>
-                        {/* <NavLogo onClick={toggleHome} to='/'>
+                        <NavLogo onClick={toggleHome} to='/'>
                             <Img src={logo}></Img> 
-                        </NavLogo> */}
+                        </NavLogo>
                         <MobileIcons onClick={toggle}>
                             <BlueBars />
                         </MobileIcons>
                         <NavMenu>
-                            {/* <NavItem>
+                            <NavItem>
                                 <NavLinks 
                                 to='about' 
                                 smooth={true}
@@ -69,9 +69,10 @@ const Navbar = ({ toggle }) => {
                                 spy={true}
                                 exact='true'
                                 offset={-80}>
-                                    Discover
+                                    Pattern Recognition
                                 </NavLinks>
                             </NavItem>
+                            {/* 
                             <NavItem>
                                 <NavLinks 
                                 to='services'

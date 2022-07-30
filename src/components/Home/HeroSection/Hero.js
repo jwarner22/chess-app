@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";//import { AuthContext } from
 import styled from 'styled-components'
 import Button from '../../UI_Kit/Button/Button';
 import {NavBtnLink2} from "../NavBar/NavbarElements"
-import heroImg from '../../../Images/chess-board.svg'
+import heroImg from '../../../Images/ChessRepsiPhone_1.png'
 import { NavbarLoginButton } from '../NavBar/NavBar';
 import checkerBackground from '../../../Images/checkerBackground.svg';
 import chessRepsVertical from '../../../Images/ChessReps Logo Vertical BB2.png'
@@ -39,9 +39,9 @@ const HeroSection = () => {
 
     return (
         <HeroContainer id='home'>
-            <HeroBg src={checkerBackground}/>
+            <HeroBg/>
             <HeroContent>
-                <HeroImg src={chessRepsVertical}/>
+                {/* <HeroImg src={chessRepsVertical}/>
                 <HeroCopy>
                     <HeroP>
                         Get better at chess in less than 5 minutes a day
@@ -49,17 +49,14 @@ const HeroSection = () => {
                 </HeroCopy>
                 <ScrollContainer>
                     <img src={downArrow} alt='down arrow' style={{width: "60%"}}/>
-                </ScrollContainer>
+                </ScrollContainer> */}
 
-                {/* <HeroCopy>
-                <HeroH1 color={"#243862"}>
-                    Stop Playing.           
-                </HeroH1>
+                <HeroCopy>
                 <HeroH1 color={"#fff"}>
-                    Start Winning.            
+                    Improve your chess skills in under 5 minutes a day           
                 </HeroH1>
-                <HeroP>
-                    Bite-sized chess training personalized for you.                
+                <HeroP color={"#fff"}>
+                    Daily chess workouts that are personlized to your playstyle and skill level               
                 </HeroP>
                 <HeroBtnWrapper>
                     <NavBtnLink2 to="/signUp" >
@@ -77,15 +74,8 @@ const HeroSection = () => {
                 {isMobile ? (
                         <NavBtnLink2 to='/login'><NavbarLoginButton>Login</NavbarLoginButton></NavBtnLink2> ) : (
                         null
-                    )} */}
+                    )}
             </HeroContent>
-            <Divider />
-
-                    <InfoSection {...homeObjOne} />
-            <Divider />
-                    <InfoSection {...homeObjTwo} />
-            <Divider />
-                    <InfoSection {...homeObjThree} />
         </HeroContainer>
     )
 }

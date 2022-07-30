@@ -5,10 +5,12 @@ import HeroSection from "./HeroSection/Hero";
 import Navbar from "./NavBar/NavBar"
 import Sidebar from './Sidebar/Sidebar'
 import InfoSection from './InfoSection/InfoSection'
-import { homeObjOne, homeObjTwo} from "./InfoSection/Data";
+import { homeObjOne, homeObjTwo, homeObjThree} from "./InfoSection/Data";
 // import Services  from '../Services/Index'
 import Footer from './Footer/Footer'
 import ErrorBoundary from '../UI_Kit/ErrorBoundary.js';
+import { Divider } from "./HeroSection/HeroElements";
+
 
 
 const Home = () => {
@@ -23,8 +25,9 @@ const Home = () => {
       <Navbar toggle={toggle}/>
       <Sidebar isOpen={isOpen} toggle={toggle}/>
       <HeroSection />
-      {/* <InfoSection {...homeObjOne}/>
-      <InfoSection {...homeObjTwo}/> */}
+      <InfoSection {...homeObjOne}/>
+      <InfoSection {...homeObjTwo}/>
+      <InfoSection {...homeObjThree}/>
       {/* <Services />
       <InfoSection {...homeObjThree}/> */}
         {/* <h1>Home</h1>
