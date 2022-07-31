@@ -12,7 +12,7 @@ const Contact = () => {
   return (
     <Container className='page'>
       <ContactWrapper>
-          <GridColumn>
+          <GridColumn1>
         <TextWrapper>
           <TopLine>
             Contact Us
@@ -24,8 +24,8 @@ const Contact = () => {
             Fill out the form or drop us an email.
           </Subtitle>
         </TextWrapper>
-        </GridColumn >
-        <GridColumn>
+        </GridColumn1 >
+        <GridColumn2>
         <FormWrap>
           <ContactFormContent>
             {/* <ContactForm>
@@ -42,7 +42,7 @@ const Contact = () => {
             <ContactUs/>
           </ContactFormContent>
         </FormWrap>
-        </GridColumn>
+        </GridColumn2>
         <MailToLink href='mailto:staffordchessco@gmail.com'>
         <EmailContactWrapper>
           <EmailIcon src={email} />
@@ -70,11 +70,19 @@ justify-content: center;
 padding-top: 100px;
 `
 
-export const GridColumn = styled.div`
+export const GridColumn1 = styled.div`
     margin: 15px 0px;
     padding: 0 15px;
     width: 100%;
     text-align: center;
+    display: flex;
+    justify-content: center;
+`
+
+export const GridColumn2 = styled.div`
+    margin: 15px 0px;
+    padding: 0 15px;
+    width: 100%;
 `
 
 export const ContactFormContent = styled(FormContent)`

@@ -55,7 +55,7 @@ export const HeroContent = styled.div`
     z-index: 3;
     max-width: 1200px;
     position: absolute;
-    padding: 8px 24px;
+    padding: 120px 24px 0 24px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     flex-direction: column;
@@ -90,6 +90,10 @@ export const HeroImg = styled.img`
     width: 100%;
     max-height: 120%;
     margin: 0 auto;
+
+    @media screen and (max-width: 640px){
+        display: none;
+    }
 `
 
 export const HeroH1 = styled.h1`
