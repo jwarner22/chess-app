@@ -15,7 +15,7 @@ const routes = [
   { name: "LogIn", path: "/login", exact: true, main: () => <LogIn /> },
   { name: "LoadingTest", path: "/test", exact: true, main: () => <Loader /> },
   {	name: "ForgotPassword", path: "/forgotpassword", exact: true, main: () => <ForgotPassword />},
-  { name: "Contact Us", path: "/contact", exact: true, main: () => <Contact />}
+  { name: "Contact Us", path: "/support", exact: true, main: () => <Contact />}
 ];
 
 export default routes;

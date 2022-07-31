@@ -86,8 +86,8 @@ const Navbar = ({ toggle }) => {
                             </NavItem>
                             <NavItem>
                                 <NavDirectLink
-                                    to="contact">
-                                    Contact
+                                    to="support">
+                                    Support
                                 </NavDirectLink>
                             </NavItem>
                         </NavMenu>

@@ -12,6 +12,7 @@ import {UserProvider} from './providers/GlobalState.js';
 import ChessboardLoader from './components/ChessBoardLoader/ChessboardLoader'
 import ErrorBoundary from './components/UI_Kit/ErrorBoundary.js';
 import LogRocket from 'logrocket';
+import 'semantic-ui-css/semantic.min.css';
 require("firebase/auth");
 
 // If you want to start measuring performance in your app, pass a function
