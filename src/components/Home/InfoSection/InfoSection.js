@@ -67,7 +67,6 @@ const InfoSection = ({lightBg,
                     </InfoRow>
                 </InfoWrapper>
             </InfoContainer>
-            
         </>
     )
 }

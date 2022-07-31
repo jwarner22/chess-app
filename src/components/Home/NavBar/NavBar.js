@@ -11,7 +11,8 @@ import {
      NavBtn, 
      NavBtnLink, 
      NavBtnLink2,
-     Img
+     Img,
+     NavDirectLink
     } from './NavbarElements'
 import {animateScroll as scroll} from 'react-scroll'
 import logo from '../../../Images/ChessReps Logo Horizontal White.png'
@@ -72,7 +73,6 @@ const Navbar = ({ toggle }) => {
                                     Pattern Recognition
                                 </NavLinks>
                             </NavItem>
-                            {/* 
                             <NavItem>
                                 <NavLinks 
                                 to='services'
@@ -81,9 +81,15 @@ const Navbar = ({ toggle }) => {
                                 spy={true}
                                 exact='true'
                                 offset={-80}>
-                                    Services
+                                    Daily Workouts
                                 </NavLinks>
-                            </NavItem> */}
+                            </NavItem>
+                            <NavItem>
+                                <NavDirectLink
+                                    to="contact">
+                                    Contact
+                                </NavDirectLink>
+                            </NavItem>
                         </NavMenu>
                         <NavBtn>
                             <NavBtnLink to="/login">

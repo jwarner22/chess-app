@@ -97,6 +97,16 @@ export const NavLinks = styled(LinkS)`
     }
 `;
 
+export const NavDirectLink = styled(LinkR)`
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0 1rem;
+    height: 100%;
+    cursor: pointer;
+`
+
 export const NavBtn = styled.nav `
     display: flex;
     align-items: center;
