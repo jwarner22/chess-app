@@ -26,7 +26,7 @@ import {AuthContext} from '../../providers/Auth.js';
 import Button from "../UI_Kit/Button/Button";
 import useFetch from "../../api/useFetch";
 import {baseURL} from '../../api/apiConfig';
-
+import { getAuth, OAuthProvider, signInWithPopup } from "firebase/auth";
 import {getAnalytics, logEvent} from "firebase/analytics";
 
 require("firebase/auth");
@@ -46,6 +46,7 @@ const Login = ({history}) => {
   const analytics = getAnalytics();
 
   const emailRef = useRef();
+
 
   
   //const Auth = useContext(AuthContext);
@@ -111,6 +112,44 @@ const Login = ({history}) => {
     })
   };
 
+  //sign in with Apple
+  const signInWithApple = () => {
+    const provider = new firebase.auth.OAuthProvider("apple.com");
+    firebase
+    .auth()
+    .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    .then(() => { 
+      firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+    //Apple credential
+    const credential = OAuthProvider.credentialFromResult(result);
+    if (credential) {
+      // You can also get the Apple OAuth Access and ID Tokens.
+      const accessToken = credential.accessToken;
+      const idToken = credential.idToken;
+    }
+    if (result.user) {
+      setUserData(result, result.user.uid);
+      setIsLoggedIn(true)
+  }
+    // The signed-in user info.
+  })
+  
+  .catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    //The credential that was used to sign-in.
+    const credential = OAuthProvider.credentialFromError(error);
+  })
+  })};
+
+
+
   // fetches backend and persists user data across app
   const setUserData = async (response, userId) => {
     if (response.additionalUserInfo.isNewUser) {
@@ -171,6 +210,9 @@ const Login = ({history}) => {
           Login With Google
           </GoogleButtonText>
         </GoogleButton>
+        <Button onClick={() => signInWithApple()} className="appleBtn" type="button">
+          Sign in with Apple
+        </Button>
         <Button primary type="submit">Login</Button>
         <FormText>Don't have an account?<br/>
         Sign up <Link to='/signup'>here</Link>
