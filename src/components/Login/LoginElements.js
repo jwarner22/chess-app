@@ -160,9 +160,6 @@ export const GoogleButton = styled.button`
   height: 42px;
   cursor: pointer;
   border: none;
-  margin-bottom: 10px;
-
-
 `
 export const GoogleIconWrapper = styled.div`
 
@@ -229,3 +226,9 @@ export const FormText = styled.span`
   font-size: 14px;
 
 `;
+
+export const LoginButtonsGrid = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 18px;
+`

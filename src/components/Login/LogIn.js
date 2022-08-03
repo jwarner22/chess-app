@@ -19,7 +19,8 @@ import {
   LoginHeaderImg,
   ImgOverlay,
   LoginHeaderLogoWrapper,
-  LoginHeaderLogo
+  LoginHeaderLogo,
+  LoginButtonsGrid
 } from './LoginElements';
 import firebase from "firebase/compat/app";
 import {AuthContext} from '../../providers/Auth.js';
@@ -28,6 +29,9 @@ import useFetch from "../../api/useFetch";
 import {baseURL} from '../../api/apiConfig';
 import { getAuth, OAuthProvider, signInWithPopup } from "firebase/auth";
 import {getAnalytics, logEvent} from "firebase/analytics";
+import { AppleLoginButton } from "../UI_Kit/Button/AppleButtons";
+import AppleSignIn from "../../Images/Sign in with Apple - Black 1.png";
+
 
 require("firebase/auth");
 
@@ -200,6 +204,7 @@ const Login = ({history}) => {
           type="password"
           placeholder="password"
         />
+        <LoginButtonsGrid>
         <GoogleButton onClick={() => signInWithGoogle()} className="googleBtn" type="button">
 
           <img
@@ -207,13 +212,12 @@ const Login = ({history}) => {
             alt="logo"
           />
           <GoogleButtonText>
-          Login With Google
+          Sign in with Google
           </GoogleButtonText>
         </GoogleButton>
-        <Button onClick={() => signInWithApple()} className="appleBtn" type="button">
-          Sign in with Apple
-        </Button>
-        <Button primary type="submit">Login</Button>
+        <AppleLoginButton src={AppleSignIn} onClick={() => signInWithApple()} className="appleBtn" type="button" />
+        <Button primary type="submit">Sign in</Button>
+        </LoginButtonsGrid>
         <FormText>Don't have an account?<br/>
         Sign up <Link to='/signup'>here</Link>
         </FormText>

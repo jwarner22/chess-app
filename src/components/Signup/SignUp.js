@@ -17,12 +17,15 @@ import {Container,
   LoginHeaderImg,
   ImgOverlay,
   LoginHeaderLogoWrapper,
-  LoginHeaderLogo  
+  LoginHeaderLogo,  
+  LoginButtonsGrid
 } from "../Login/LoginElements"
 import "./Signup.css"
 import { withRouter } from 'react-router-dom';
 import firebase from "firebase/compat/app";
 import Button from "../UI_Kit/Button/Button";
+import AppleSignUp from "../../Images/Sign up with Apple - Black 1.png";
+import { AppleLoginButton } from "../UI_Kit/Button/AppleButtons";
 require("firebase/auth");
 
 
@@ -115,17 +118,19 @@ const SignUp = ({history}) => {
           type="password"
           placeholder="re-enter password"
         />
+        <LoginButtonsGrid>
         <GoogleButton onClick={() => handleGoogleLogin()} className="googleBtn" type="button">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
             alt="logo"
           />
           <GoogleButtonText>
-          Join With Google
+          Sign up with Google
           </GoogleButtonText>
           </GoogleButton>
-        
-        <Button primary type="submit">Join</Button>
+          <AppleLoginButton src={AppleSignUp} />
+        <Button primary type="submit">Sign up</Button>
+        </LoginButtonsGrid>
         <FormText>Already have an account?<br/>
         Login <Link to='/login'>here</Link>
         </FormText>
