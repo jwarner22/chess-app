@@ -24,7 +24,7 @@ import "./Signup.css"
 import { withRouter } from 'react-router-dom';
 import firebase from "firebase/compat/app";
 import Button from "../UI_Kit/Button/Button";
-import AppleSignUp from "../../Images/Sign up with Apple - Black 1.png";
+import AppleSignUp from "../../Images/Sign up with Apple - Black 3.png";
 import { AppleLoginButton } from "../UI_Kit/Button/AppleButtons";
 require("firebase/auth");
 

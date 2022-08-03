@@ -30,7 +30,7 @@ import {baseURL} from '../../api/apiConfig';
 import { getAuth, OAuthProvider, signInWithPopup } from "firebase/auth";
 import {getAnalytics, logEvent} from "firebase/analytics";
 import { AppleLoginButton } from "../UI_Kit/Button/AppleButtons";
-import AppleSignIn from "../../Images/Sign in with Apple - Black 1.png";
+import AppleSignIn from "../../Images/Sign in with Apple - Black 3.png";
 
 
 require("firebase/auth");
